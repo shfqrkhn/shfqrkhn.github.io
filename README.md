@@ -1,6 +1,6 @@
 # Hobby Projects Landing Page
 
-This repository contains the source code for my personal GitHub Pages landing page, hosted at `https://shfqrkhn.github.io/`.
+This repository contains the source code for my personal GitHub Pages landing page, hosted at https://shfqrkhn.github.io/.
 
 The page serves as a simple portfolio showcasing a selection of projects I've worked on as a hobby, spanning data analysis, software development, and web applications.
 
