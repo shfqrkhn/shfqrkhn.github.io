@@ -128,8 +128,12 @@
         // Fetch user profile and repositories from GitHub API
         const fetchGitHubData = async () => {
             try {
-                // Fetch user profile data
-                const userRes = await fetch(`https://api.github.com/users/${USERNAME}`);
+                // Initiate both fetches in parallel
+                const userPromise = fetch(`https://api.github.com/users/${USERNAME}`);
+                const reposPromise = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=30`);
+
+                // Process user profile
+                const userRes = await userPromise;
                 if (!userRes.ok) throw new Error(`Could not fetch user profile (Status: ${userRes.status})`);
                 const user = await userRes.json();
 
@@ -146,8 +150,8 @@
                 `;
                 profileElement.classList.remove('opacity-0');
 
-                // Fetch repositories data
-                const reposRes = await fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=30`);
+                // Process repositories
+                const reposRes = await reposPromise;
                  if (!reposRes.ok) throw new Error(`Could not fetch repositories (Status: ${reposRes.status})`);
                 const repos = await reposRes.json();
 
@@ -188,8 +192,8 @@
             }
         };
 
-        // Run the fetch function on page load
-        window.onload = fetchGitHubData;
+        // Run the fetch function as soon as the DOM is ready
+        document.addEventListener('DOMContentLoaded', fetchGitHubData);
     </script>
 
 </body>
