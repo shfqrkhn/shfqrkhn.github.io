@@ -85,13 +85,18 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-500">
-        <p>This page was generated based on public data from GitHub.</p>
+        <p>
+            This page was generated based on public data from GitHub.
+            <span class="mx-1">|</span>
+            <span id="app-version"></span>
+        </p>
     </footer>
 
     <script>
         // GitHub username
         const USERNAME = 'shfqrkhn';
         const CACHE_DURATION = 1000 * 60 * 10; // 10 minutes
+        const APP_VERSION = 'v1.1.0';
 
         // Helper to prevent XSS
         const escapeHTML = (str) => {
@@ -111,6 +116,7 @@
         const reposGrid = document.getElementById('repos-grid');
         const loader = document.getElementById('loader');
         const errorMessage = document.getElementById('error-message');
+        const versionElement = document.getElementById('app-version');
 
         // Function to get a color based on the programming language
         const getLanguageColor = (language) => {
@@ -128,7 +134,13 @@
 
         // Cache helpers
         const getCache = (key) => {
-            const cached = localStorage.getItem(key);
+            let cached;
+            try {
+                cached = localStorage.getItem(key);
+            } catch (e) {
+                return null;
+            }
+
             if (!cached) return null;
 
             try {
@@ -244,7 +256,10 @@
         };
 
         // Run the fetch function as soon as the DOM is ready
-        document.addEventListener('DOMContentLoaded', fetchGitHubData);
+        document.addEventListener('DOMContentLoaded', () => {
+            versionElement.textContent = APP_VERSION;
+            fetchGitHubData();
+        });
     </script>
 
 </body>
