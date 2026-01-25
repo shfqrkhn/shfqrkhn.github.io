@@ -1,6 +1,6 @@
 # My Portfolio
 
-![Version](https://img.shields.io/badge/version-v1.1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-v1.1.1-blue.svg)
 
 Welcome! This repository contains the source code for my personal portfolio page, which is designed to be a live, dynamic showcase of all my public GitHub projects.
 

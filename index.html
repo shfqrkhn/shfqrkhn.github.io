@@ -96,7 +96,7 @@
         // GitHub username
         const USERNAME = 'shfqrkhn';
         const CACHE_DURATION = 1000 * 60 * 10; // 10 minutes
-        const APP_VERSION = 'v1.1.0';
+        const APP_VERSION = 'v1.1.1';
 
         // Helper to prevent XSS
         const escapeHTML = (str) => {
@@ -109,6 +109,17 @@
                     "'": '&#39;',
                     '"': '&quot;'
                 }[tag]));
+        };
+
+        // Helper to sanitize URLs (Sentinel Mode)
+        const safeURL = (url) => {
+            if (!url) return '#';
+            try {
+                const parsed = new URL(url);
+                return ['http:', 'https:'].includes(parsed.protocol) ? url : '#';
+            } catch (e) {
+                return '#';
+            }
         };
 
         // Elements
@@ -207,11 +218,11 @@
 
                 // Populate profile section
                 profileElement.innerHTML = `
-                    <img src="${user.avatar_url}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
+                    <img src="${safeURL(user.avatar_url)}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
                     <h1 class="text-4xl font-bold text-white">${escapeHTML(user.name || user.login)}</h1>
                     <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
                     <div class="mt-4">
-                        <a href="${user.html_url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors">
+                        <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors">
                             View GitHub Profile
                         </a>
                     </div>
@@ -224,7 +235,7 @@
                 // Populate repositories grid
                 if (sortedRepos.length > 0) {
                     reposGrid.innerHTML = sortedRepos.map(repo => `
-                        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" aria-label="View ${escapeHTML(repo.name)} repository on GitHub" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50">
+                        <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" aria-label="View ${escapeHTML(repo.name)} repository on GitHub" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50">
                             <h3 class="text-xl font-bold text-white">${escapeHTML(repo.name)}</h3>
                             <p class="mt-2 text-sm text-slate-400 h-10 overflow-hidden">${escapeHTML(repo.description || 'No description provided.')}</p>
                             <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
