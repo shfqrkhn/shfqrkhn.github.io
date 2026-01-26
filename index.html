@@ -107,13 +107,8 @@
 
         // Helper to validate URLs (Sentinel Mode)
         const safeURL = (str) => {
-            try {
-                const url = new URL(str);
-                if (['http:', 'https:'].includes(url.protocol)) {
-                    return url.href;
-                }
-            } catch (e) {
-                // Invalid URL
+            if (str && /^https?:\/\//i.test(str)) {
+                return str;
             }
             return '#';
         };
