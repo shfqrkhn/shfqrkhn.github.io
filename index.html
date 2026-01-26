@@ -138,9 +138,78 @@
             return colors[language] || colors['default'];
         };
 
+        // Render user profile to the DOM
+        const renderProfile = (user) => {
+            // Optimize avatar image size: Request 256px (2x for Retina) to save bandwidth
+            const optimizedAvatarUrl = new URL(user.avatar_url);
+            optimizedAvatarUrl.searchParams.set('s', '256');
+
+            profileElement.innerHTML = `
+                <img src="${optimizedAvatarUrl.toString()}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" width="128" height="128" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
+                <h1 class="text-4xl font-bold text-white">${escapeHTML(user.name || user.login)}</h1>
+                <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
+                <div class="mt-4">
+                    <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors">
+                        View GitHub Profile
+                    </a>
+                </div>
+            `;
+            profileElement.classList.remove('opacity-0');
+        };
+
+        // Render repositories to the DOM
+        const renderRepos = (repos) => {
+            // Filter out forks and sort by stars
+            const sortedRepos = repos.filter(repo => !repo.fork).sort((a, b) => b.stargazers_count - a.stargazers_count);
+
+            if (sortedRepos.length > 0) {
+                reposGrid.innerHTML = sortedRepos.map(repo => `
+                    <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50">
+                        <h3 class="text-xl font-bold text-white">${escapeHTML(repo.name)}</h3>
+                        <p class="mt-2 text-sm text-slate-400 h-10 overflow-hidden">${escapeHTML(repo.description || 'No description provided.')}</p>
+                        <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+                            <div class="flex items-center gap-2">
+                                ${repo.language ? `<span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full ${getLanguageColor(repo.language)}"></span>
+                                    ${escapeHTML(repo.language)}
+                                </span>` : ''}
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span><span aria-label="Stars">⭐</span> ${repo.stargazers_count}</span>
+                            </div>
+                        </div>
+                    </a>
+                `).join('');
+            } else {
+                 reposGrid.innerHTML = '<p class="text-center col-span-full">No public repositories found.</p>';
+            }
+        };
+
         // Fetch user profile and repositories from GitHub API
         const fetchGitHubData = async () => {
+            const CACHE_KEY = `githubData_${USERNAME}`;
+            const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+
             try {
+                // Check localStorage for cached data
+                try {
+                    const cachedData = localStorage.getItem(CACHE_KEY);
+                    if (cachedData) {
+                        const { user, repos, timestamp } = JSON.parse(cachedData);
+                        const now = new Date().getTime();
+
+                        // If cache is valid (less than 24 hours old), use it
+                        if (now - timestamp < CACHE_EXPIRATION_MS) {
+                            renderProfile(user);
+                            renderRepos(repos);
+                            loader.style.display = 'none';
+                            return;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Error reading from localStorage:', e);
+                }
+
                 // Initiate both fetches in parallel
                 const userPromise = fetch(`https://api.github.com/users/${USERNAME}`);
                 const reposPromise = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=30`);
@@ -150,52 +219,24 @@
                 if (!userRes.ok) throw new Error(`Could not fetch user profile (Status: ${userRes.status})`);
                 const user = await userRes.json();
 
-                // Optimize avatar image size: Request 256px (2x for Retina) to save bandwidth
-                const optimizedAvatarUrl = new URL(user.avatar_url);
-                optimizedAvatarUrl.searchParams.set('s', '256');
-
-                // Populate profile section
-                profileElement.innerHTML = `
-                    <img src="${optimizedAvatarUrl.toString()}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" width="128" height="128" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
-                    <h1 class="text-4xl font-bold text-white">${escapeHTML(user.name || user.login)}</h1>
-                    <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
-                    <div class="mt-4">
-                        <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors">
-                            View GitHub Profile
-                        </a>
-                    </div>
-                `;
-                profileElement.classList.remove('opacity-0');
+                renderProfile(user);
 
                 // Process repositories
                 const reposRes = await reposPromise;
                  if (!reposRes.ok) throw new Error(`Could not fetch repositories (Status: ${reposRes.status})`);
                 const repos = await reposRes.json();
 
-                // Filter out forks and sort by stars
-                const sortedRepos = repos.filter(repo => !repo.fork).sort((a, b) => b.stargazers_count - a.stargazers_count);
+                renderRepos(repos);
 
-                // Populate repositories grid
-                if (sortedRepos.length > 0) {
-                    reposGrid.innerHTML = sortedRepos.map(repo => `
-                        <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50">
-                            <h3 class="text-xl font-bold text-white">${escapeHTML(repo.name)}</h3>
-                            <p class="mt-2 text-sm text-slate-400 h-10 overflow-hidden">${escapeHTML(repo.description || 'No description provided.')}</p>
-                            <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
-                                <div class="flex items-center gap-2">
-                                    ${repo.language ? `<span class="flex items-center gap-1.5">
-                                        <span class="w-2 h-2 rounded-full ${getLanguageColor(repo.language)}"></span>
-                                        ${escapeHTML(repo.language)}
-                                    </span>` : ''}
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <span><span aria-label="Stars">⭐</span> ${repo.stargazers_count}</span>
-                                </div>
-                            </div>
-                        </a>
-                    `).join('');
-                } else {
-                     reposGrid.innerHTML = '<p class="text-center col-span-full">No public repositories found.</p>';
+                // Store in localStorage
+                try {
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({
+                        user,
+                        repos,
+                        timestamp: new Date().getTime()
+                    }));
+                } catch (e) {
+                     console.warn('Error writing to localStorage:', e);
                 }
 
             } catch (error) {
