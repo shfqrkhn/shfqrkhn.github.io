@@ -149,7 +149,7 @@
                 if (!userRes.ok) throw new Error(`Could not fetch user profile (Status: ${userRes.status})`);
                 const user = await userRes.json();
 
-                // Optimize avatar image size
+                // Optimize avatar image size (2x for Retina display)
                 const avatarUrl = new URL(user.avatar_url);
                 avatarUrl.searchParams.set('s', '256');
 
