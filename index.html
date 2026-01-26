@@ -202,8 +202,7 @@
                         if (now - timestamp < CACHE_EXPIRATION_MS) {
                             renderProfile(user);
                             renderRepos(repos);
-                            loader.style.display = 'none';
-                            return;
+                            return; // Loader is hidden in finally block
                         }
                     }
                 } catch (e) {
