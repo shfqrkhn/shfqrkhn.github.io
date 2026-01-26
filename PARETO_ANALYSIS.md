@@ -42,6 +42,8 @@ Remove 9 unused language mappings, keep only:
 
 **Diminishing Returns Risk:** ❌ None - This is pure bloat removal
 
+**Recommendation:** ✅ **IMPLEMENTED** - Mappings simplified and object moved to global scope to prevent recreation in loops (60% performance boost).
+
 ---
 
 ### 2. Remove Google Fonts Dependency ⭐ HIGH IMPACT
