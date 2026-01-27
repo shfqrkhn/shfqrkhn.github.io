@@ -23,6 +23,7 @@
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://api.github.com">
+    <link rel="preconnect" href="https://avatars.githubusercontent.com">
 
     <!-- Tailwind CSS (Static Build) -->
     <!-- Optimized: Replaced Play CDN with static build for performance -->
@@ -85,7 +86,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-500">
-        <p>This page was generated based on public data from GitHub.</p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.0</span></p>
     </footer>
 
     <script>
@@ -125,6 +126,7 @@
         const errorMessage = document.getElementById('error-message');
 
         // Language color mapping
+        // Optimized: Reduced to common languages to save bytes (Via Negativa)
         const LANGUAGE_COLORS = new Map([
             ['JavaScript', 'bg-yellow-400'],
             ['Python', 'bg-blue-400'],
@@ -147,7 +149,7 @@
             optimizedAvatarUrl.searchParams.set('s', '256');
 
             profileElement.innerHTML = `
-                <img src="${optimizedAvatarUrl.toString()}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" width="128" height="128" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
+                <img src="${optimizedAvatarUrl.toString()}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" width="128" height="128" fetchpriority="high" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
                 <h1 class="text-4xl font-bold text-white">${escapeHTML(user.name || user.login)}</h1>
                 <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
                 <div class="mt-4">
@@ -190,6 +192,7 @@
         // Fetch user profile and repositories from GitHub API
         const fetchGitHubData = async () => {
             const CACHE_KEY = `githubData_${USERNAME}`;
+            const CACHE_VERSION = 'v1'; // Increment when data structure changes
             const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
             try {
@@ -197,11 +200,11 @@
                 try {
                     const cachedData = localStorage.getItem(CACHE_KEY);
                     if (cachedData) {
-                        const { user, repos, timestamp } = JSON.parse(cachedData);
+                        const { user, repos, timestamp, version } = JSON.parse(cachedData);
                         const now = new Date().getTime();
 
-                        // If cache is valid (less than 24 hours old), use it
-                        if (now - timestamp < CACHE_EXPIRATION_MS) {
+                        // If cache is valid (less than 24 hours old AND version matches), use it
+                        if (version === CACHE_VERSION && now - timestamp < CACHE_EXPIRATION_MS) {
                             renderProfile(user);
                             renderRepos(repos);
                             return; // Loader is hidden in finally block
@@ -213,7 +216,7 @@
 
                 // Initiate both fetches in parallel
                 const userPromise = fetch(`https://api.github.com/users/${USERNAME}`);
-                const reposPromise = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=30`);
+                const reposPromise = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100`);
 
                 // Process user profile
                 const userRes = await userPromise;
@@ -234,7 +237,8 @@
                     localStorage.setItem(CACHE_KEY, JSON.stringify({
                         user,
                         repos,
-                        timestamp: new Date().getTime()
+                        timestamp: new Date().getTime(),
+                        version: CACHE_VERSION
                     }));
                 } catch (e) {
                      console.warn('Error writing to localStorage:', e);
