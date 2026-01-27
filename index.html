@@ -92,17 +92,19 @@
         // GitHub username
         const USERNAME = 'shfqrkhn';
 
+        // HTML Character Escapes
+        const HTML_ESCAPES = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        };
+
         // Helper to prevent XSS
         const escapeHTML = (str) => {
             if (!str) return '';
-            return str.replace(/[&<>'"]/g,
-                tag => ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    "'": '&#39;',
-                    '"': '&quot;'
-                }[tag]));
+            return str.replace(/[&<>'"]/g, tag => HTML_ESCAPES[tag]);
         };
 
         // Helper to validate URLs (Sentinel Mode)
