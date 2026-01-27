@@ -108,6 +108,7 @@
         };
 
         // Helper to validate URLs (Sentinel Mode)
+        // Performance: Uses Regex check instead of new URL() to avoid expensive object creation
         const safeURL = (str) => {
             if (str && /^https?:\/\//i.test(str)) {
                 return str;
