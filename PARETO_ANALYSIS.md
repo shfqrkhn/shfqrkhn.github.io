@@ -10,105 +10,37 @@
 
 This project is already remarkably lean. However, there are **3 high-value opportunities** for Via Negativa improvements that would reduce complexity, dependencies, and code size without sacrificing functionality.
 
-**Recommendation:** Proceed with improvements #1 and #2. Improvement #3 is optional based on personal preference.
+**Recommendation:** All high-value improvements have been implemented. Focus shifts to maintenance and micro-optimizations.
 
 ---
 
 ## HIGH-VALUE IMPROVEMENTS (80/20 Wins)
 
 ### 1. Simplify Language Color Mapping ⭐ HIGHEST IMPACT
-**Location:** `index.html:83-102` (20 lines)
+**Location:** `index.html:83-102`
 
-**Current State:**
-- 14 predefined language-to-color mappings
-- Covers languages user likely doesn't use (C#, Ruby, PHP, etc.)
-- Static dictionary approach
-
-**Problem:**
-- Code bloat for minimal benefit
-- Most developers use 2-4 primary languages
-- Unused mappings waste bytes and mental overhead
-
-**Via Negativa Solution:**
-Remove 9 unused language mappings, keep only:
-- JavaScript, Python, HTML, CSS, TypeScript, Shell
-- Plus the 'default' fallback
-
-**Benefit:**
-- **-50% code reduction** in this function (20 lines → 10 lines)
-- Faster color lookup
-- Easier to maintain
-- **No user-facing functionality loss** (fallback handles unlisted languages)
-
-**Diminishing Returns Risk:** ❌ None - This is pure bloat removal
-
-**Recommendation:** ✅ **IMPLEMENTED** - Mappings simplified and object moved to global scope to prevent recreation in loops (60% performance boost).
+**Status:** ✅ **COMPLETED**
+- Mappings simplified to high-frequency languages only.
+- Map object moved to global scope.
 
 ---
 
 ### 2. Remove Google Fonts Dependency ⭐ HIGH IMPACT
-**Location:** `index.html:10-11` (2 lines) + CSS reference
+**Location:** `index.html:10-11`
 
-**Current State:**
-```html
-<link rel="preconnect" href="https://rsms.me">
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-```
-
-**Problem:**
-- External dependency (privacy concern, single point of failure)
-- Additional DNS lookup + HTTP request
-- Blocks rendering until font loads
-- 3rd party tracking potential
-
-**Via Negativa Solution:**
-Replace with system font stack:
-```css
-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-```
-
-**Benefits:**
-- **Zero external font requests**
-- Instant font availability
-- Better privacy (no external tracking)
-- Native OS appearance (feels faster/familiar)
-- Reduced total page size
-
-**Trade-off:**
-- Slightly less consistent typography across platforms
-- System fonts vary by OS
-
-**Diminishing Returns Risk:** ❌ None - Clear net benefit
+**Status:** ✅ **COMPLETED**
+- External font links removed.
+- Replaced with system font stack `system-ui, -apple-system...`.
+- Zero external font requests.
 
 ---
 
 ### 3. Remove Fork Count Display 🔶 MEDIUM IMPACT
 **Location:** `index.html:148`
 
-**Current State:**
-```html
-<span>${repo.forks_count} Forks</span>
-```
-
-**Analysis:**
-- Fork counts are typically low for personal projects (0-5)
-- Stars are more meaningful for portfolio showcase
-- Adds visual clutter to cards
-
-**Via Negativa Solution:**
-Remove fork count, keep only stars
-
-**Benefits:**
-- Cleaner card design
-- Less visual noise
-- Reduced cognitive load for viewers
-
-**Trade-off:**
-- Lose one metric (though less important than stars)
-
-**Diminishing Returns Risk:** ⚠️ BORDERLINE
-- Some users value fork metrics
-- This is more subjective/aesthetic
+**Status:** ✅ **COMPLETED**
+- Fork count logic removed from card template.
+- Repositories filtered to exclude forks entirely.
 
 ---
 
