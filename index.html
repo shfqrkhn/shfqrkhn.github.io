@@ -101,10 +101,12 @@
             '"': '&quot;'
         };
 
+        const ESCAPE_REGEX = /[&<>'"]/g;
+
         // Helper to prevent XSS
         const escapeHTML = (str) => {
             if (!str) return '';
-            return str.replace(/[&<>'"]/g, tag => HTML_ESCAPES[tag]);
+            return str.replace(ESCAPE_REGEX, tag => HTML_ESCAPES[tag]);
         };
 
         // Helper to validate URLs (Sentinel Mode)
