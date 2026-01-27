@@ -122,19 +122,19 @@
         const errorMessage = document.getElementById('error-message');
 
         // Language color mapping
-        const LANGUAGE_COLORS = {
-            'JavaScript': 'bg-yellow-400',
-            'Python': 'bg-blue-400',
-            'HTML': 'bg-orange-500',
-            'CSS': 'bg-blue-500',
-            'TypeScript': 'bg-blue-400',
-            'Shell': 'bg-green-300',
-            'default': 'bg-slate-500',
-        };
+        const LANGUAGE_COLORS = new Map([
+            ['JavaScript', 'bg-yellow-400'],
+            ['Python', 'bg-blue-400'],
+            ['HTML', 'bg-orange-500'],
+            ['CSS', 'bg-blue-500'],
+            ['TypeScript', 'bg-blue-400'],
+            ['Shell', 'bg-green-300'],
+            ['default', 'bg-slate-500'],
+        ]);
 
         // Function to get a color based on the programming language
         const getLanguageColor = (language) => {
-            return LANGUAGE_COLORS[language] || LANGUAGE_COLORS['default'];
+            return LANGUAGE_COLORS.get(language) || LANGUAGE_COLORS.get('default');
         };
 
         // Render user profile to the DOM
