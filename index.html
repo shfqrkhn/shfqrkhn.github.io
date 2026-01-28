@@ -86,7 +86,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-500">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.5</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.6</span></p>
     </footer>
 
     <script>
@@ -197,7 +197,7 @@
         // Fetch user profile and repositories from GitHub API
         const fetchGitHubData = async () => {
             const CACHE_KEY = `githubData_${USERNAME}`;
-            const CACHE_VERSION = 'v1'; // Increment when data structure changes
+            const CACHE_VERSION = 'v2'; // Increment when data structure changes
             const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
             // Helper to retrieve and parse cache
