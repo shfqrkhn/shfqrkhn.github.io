@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Welcome! This repository contains the source code for my personal portfolio page, which is designed to be a live, dynamic showcase of all my public GitHub projects.",
   "main": "index.js",
   "scripts": {
