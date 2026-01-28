@@ -136,3 +136,19 @@ These changes follow the 80/20 principle: **~20% effort yields ~80% of possible 
 Going beyond these improvements would enter diminishing returns territory, where you'd sacrifice functionality, UX, or simplicity for marginal gains.
 
 **The project is already remarkably efficient.** These improvements would make it even leaner without compromising its core value proposition.
+
+---
+
+## 2026 OPTIMIZATION LEDGER (Implemented)
+
+### 🛡️ Sentinel Mode
+- **Log Sanitization:** Suppressed stack traces in console logs (`v1.2.2`).
+
+### 🎨 Palette Mode
+- **Contrast Enhancement:** Upgraded text contrast to `slate-400` for WCAG AA compliance (`v1.2.3`).
+- **ARIA Support:** Added `role="status"` to loading indicators (`v1.2.3`).
+
+### ⚡ Bolt Mode
+- **CORS Optimization:** Added `crossorigin` to `api.github.com` preconnect tag (`v1.2.4`).
+- **Cache Minification:** Reduced `localStorage` footprint by extracting only essential fields (`v1.2.5`).
+- **Cache Invalidation:** Enforced schema update via version bumping (`v1.2.6`).
