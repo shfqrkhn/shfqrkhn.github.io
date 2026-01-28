@@ -200,41 +200,71 @@
             const CACHE_VERSION = 'v1'; // Increment when data structure changes
             const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
-            try {
-                // Check localStorage for cached data
+            // Helper to retrieve and parse cache
+            const getCachedData = () => {
                 try {
-                    const cachedData = localStorage.getItem(CACHE_KEY);
-                    if (cachedData) {
-                        const { user, repos, timestamp, version } = JSON.parse(cachedData);
-                        const now = new Date().getTime();
-
-                        // If cache is valid (less than 24 hours old AND version matches), use it
-                        if (version === CACHE_VERSION && now - timestamp < CACHE_EXPIRATION_MS) {
-                            renderProfile(user);
-                            renderRepos(repos);
-                            return; // Loader is hidden in finally block
-                        }
-                    }
+                    const raw = localStorage.getItem(CACHE_KEY);
+                    if (!raw) return null;
+                    const data = JSON.parse(raw);
+                    return (data.version === CACHE_VERSION) ? data : null;
                 } catch (e) {
-                    console.warn('Error reading from localStorage:', e);
+                    return null;
+                }
+            };
+
+            const cached = getCachedData();
+
+            try {
+                // Check for valid cache first
+                if (cached) {
+                    const now = new Date().getTime();
+                    // If cache is valid (less than 24 hours old), use it
+                    if (now - cached.timestamp < CACHE_EXPIRATION_MS) {
+                        renderProfile(cached.user);
+                        renderRepos(cached.repos);
+                        loader.style.display = 'none';
+                        return;
+                    }
                 }
 
                 // Initiate both fetches in parallel
-                const userPromise = fetch(`https://api.github.com/users/${USERNAME}`);
-                const reposPromise = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100`);
+                const userPromise = fetch(`https://api.github.com/users/${USERNAME}`)
+                    .then(res => {
+                        if (!res.ok) throw new Error(`Could not fetch user profile (Status: ${res.status})`);
+                        return res.json();
+                    });
 
-                // Process user profile
-                const userRes = await userPromise;
-                if (!userRes.ok) throw new Error(`Could not fetch user profile (Status: ${userRes.status})`);
-                const user = await userRes.json();
+                // Function to fetch all repositories (handling pagination)
+                const fetchAllRepos = async () => {
+                    let allRepos = [];
+                    let page = 1;
+                    // Safety limit: 5 pages = 500 repos. Prevents infinite loops and massive payloads.
+                    // For "Intensive Use" (120 months), this covers most users.
+                    const MAX_PAGES = 5;
+
+                    while (page <= MAX_PAGES) {
+                         const res = await fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100&page=${page}`);
+                         if (!res.ok) throw new Error(`Could not fetch repositories (Status: ${res.status})`);
+                         const data = await res.json();
+
+                         if (data.length === 0) break;
+
+                         allRepos = allRepos.concat(data);
+
+                         // If we got fewer than 100 repos, we've reached the last page
+                         if (data.length < 100) break;
+
+                         page++;
+                    }
+                    return allRepos;
+                };
+
+                const reposPromise = fetchAllRepos();
+
+                // Wait for both to complete
+                const [user, repos] = await Promise.all([userPromise, reposPromise]);
 
                 renderProfile(user);
-
-                // Process repositories
-                const reposRes = await reposPromise;
-                 if (!reposRes.ok) throw new Error(`Could not fetch repositories (Status: ${reposRes.status})`);
-                const repos = await reposRes.json();
-
                 renderRepos(repos);
 
                 // Store in localStorage
@@ -251,8 +281,20 @@
 
             } catch (error) {
                 console.error('GitHub API Error:', error);
-                errorMessage.textContent = `Failed to load projects. ${error.message}. Please try again later.`;
-                errorMessage.classList.remove('hidden');
+
+                // Fallback to stale cache if available
+                if (cached) {
+                    renderProfile(cached.user);
+                    renderRepos(cached.repos);
+                    errorMessage.innerHTML = `
+                        <span class="block font-semibold">Network Error: ${escapeHTML(error.message)}</span>
+                        <span class="block text-sm mt-1">Displaying cached data.</span>
+                    `;
+                    errorMessage.classList.remove('hidden');
+                } else {
+                    errorMessage.textContent = `Failed to load projects. ${error.message}. Please try again later.`;
+                    errorMessage.classList.remove('hidden');
+                }
             } finally {
                 // Hide loader
                 loader.style.display = 'none';
