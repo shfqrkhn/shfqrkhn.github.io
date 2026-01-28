@@ -103,17 +103,22 @@
         };
 
         const ESCAPE_REGEX = /[&<>'"]/g;
+        const ESCAPE_CALLBACK = tag => HTML_ESCAPES[tag];
 
         // Helper to prevent XSS
+        // Performance: Reuses callback function to avoid allocation on every call
         const escapeHTML = (str) => {
             if (!str) return '';
-            return str.replace(ESCAPE_REGEX, tag => HTML_ESCAPES[tag]);
+            return str.replace(ESCAPE_REGEX, ESCAPE_CALLBACK);
         };
+
+        const SAFE_URL_PATTERN = /^https?:\/\//i;
 
         // Helper to validate URLs (Sentinel Mode)
         // Performance: Uses Regex check instead of new URL() to avoid expensive object creation (~150x faster)
+        // Optimization: Uses cached Regex pattern to avoid reallocation
         const safeURL = (str) => {
-            if (str && /^https?:\/\//i.test(str)) {
+            if (str && SAFE_URL_PATTERN.test(str)) {
                 return str;
             }
             return '#';
