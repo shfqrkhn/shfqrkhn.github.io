@@ -261,10 +261,11 @@
 
                 const reposPromise = fetchAllRepos();
 
-                // Wait for both to complete
-                const [user, repos] = await Promise.all([userPromise, reposPromise]);
-
+                // Optimization: Render profile immediately, don't wait for repos
+                const user = await userPromise;
                 renderProfile(user);
+
+                const repos = await reposPromise;
                 renderRepos(repos);
 
                 // Store in localStorage
