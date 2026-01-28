@@ -86,7 +86,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-500">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.4</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.5</span></p>
     </footer>
 
     <script>
@@ -262,10 +262,25 @@
                 const reposPromise = fetchAllRepos();
 
                 // Optimization: Render profile immediately, don't wait for repos
-                const user = await userPromise;
+                const userData = await userPromise;
+                const user = {
+                    login: userData.login,
+                    name: userData.name,
+                    bio: userData.bio,
+                    avatar_url: userData.avatar_url,
+                    html_url: userData.html_url
+                };
                 renderProfile(user);
 
-                const repos = await reposPromise;
+                const reposData = await reposPromise;
+                const repos = reposData.map(repo => ({
+                    name: repo.name,
+                    html_url: repo.html_url,
+                    description: repo.description,
+                    language: repo.language,
+                    stargazers_count: repo.stargazers_count,
+                    fork: repo.fork
+                }));
                 renderRepos(repos);
 
                 // Store in localStorage
