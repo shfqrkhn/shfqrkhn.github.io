@@ -86,7 +86,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-500">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.1</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.2</span></p>
     </footer>
 
     <script>
@@ -277,11 +277,11 @@
                         version: CACHE_VERSION
                     }));
                 } catch (e) {
-                     console.warn('Error writing to localStorage:', e);
+                     console.warn('Error writing to localStorage:', e.message);
                 }
 
             } catch (error) {
-                console.error('GitHub API Error:', error);
+                console.error('GitHub API Error:', error.message);
 
                 // Fallback to stale cache if available
                 if (cached) {
