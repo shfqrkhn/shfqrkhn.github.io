@@ -152,3 +152,4 @@ Going beyond these improvements would enter diminishing returns territory, where
 - **CORS Optimization:** Added `crossorigin` to `api.github.com` preconnect tag (`v1.2.4`).
 - **Cache Minification:** Reduced `localStorage` footprint by extracting only essential fields (`v1.2.5`).
 - **Cache Invalidation:** Enforced schema update via version bumping (`v1.2.6`).
+- **Efficient Array Construction:** Replaced potentially O(n^2) concat pattern with O(n) push pattern (`v1.2.8`).
