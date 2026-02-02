@@ -143,6 +143,7 @@ Going beyond these improvements would enter diminishing returns territory, where
 
 ### 🛡️ Sentinel Mode
 - **Log Sanitization:** Suppressed stack traces in console logs (`v1.2.2`).
+- **CSP:** Added strict Content-Security-Policy to mitigate XSS exfiltration and lock down resource sources (`v1.2.11`).
 
 ### 🎨 Palette Mode
 - **Contrast Enhancement:** Upgraded text contrast to `slate-400` for WCAG AA compliance (`v1.2.3`).
