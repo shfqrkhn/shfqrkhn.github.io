@@ -86,7 +86,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-500">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.7</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.8</span></p>
     </footer>
 
     <script>
@@ -236,7 +236,7 @@
 
                 // Function to fetch all repositories (handling pagination)
                 const fetchAllRepos = async () => {
-                    let allRepos = [];
+                    const allRepos = [];
                     let page = 1;
                     // Safety limit: 5 pages = 500 repos. Prevents infinite loops and massive payloads.
                     // For "Intensive Use" (120 months), this covers most users.
@@ -249,6 +249,7 @@
 
                          if (data.length === 0) break;
 
+                         // Optimization: Use push to avoid creating intermediate arrays
                          allRepos.push(...data);
 
                          // If we got fewer than 100 repos, we've reached the last page
