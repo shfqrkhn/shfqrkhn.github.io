@@ -249,7 +249,7 @@
 
                          if (data.length === 0) break;
 
-                         allRepos = allRepos.concat(data);
+                         allRepos.push(...data);
 
                          // If we got fewer than 100 repos, we've reached the last page
                          if (data.length < 100) break;
