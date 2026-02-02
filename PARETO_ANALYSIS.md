@@ -153,3 +153,4 @@ Going beyond these improvements would enter diminishing returns territory, where
 - **Cache Minification:** Reduced `localStorage` footprint by extracting only essential fields (`v1.2.5`).
 - **Cache Invalidation:** Enforced schema update via version bumping (`v1.2.6`).
 - **Efficient Array Construction:** Replaced potentially O(n^2) concat pattern with O(n) push pattern (`v1.2.8`).
+- **Pre-Cache Processing:** Moved data sorting and filtering to the fetch stage to prevent redundant processing on every page load (`v1.2.10`).

@@ -14,20 +14,21 @@ def verify_repos_load(page):
     ))
 
     # Mock Repos Page 1
+    # repo-1: 10 stars, clean
+    # repo-fork: 20 stars, FORK (should be hidden)
     page.route("**/users/shfqrkhn/repos?sort=pushed&per_page=100&page=1", lambda route: route.fulfill(
         status=200,
         content_type="application/json",
-        body='[{"name": "repo-1", "html_url": "http://example.com", "stargazers_count": 10}, {"name": "repo-2", "html_url": "http://example.com", "stargazers_count": 5}]'
+        body='[{"name": "repo-1", "html_url": "http://example.com", "stargazers_count": 10, "fork": false}, {"name": "repo-fork", "html_url": "http://example.com", "stargazers_count": 20, "fork": true}]'
     ))
 
     # Mock Repos Page 2
+    # repo-2: 5 stars, clean
     page.route("**/users/shfqrkhn/repos?sort=pushed&per_page=100&page=2", lambda route: route.fulfill(
         status=200,
         content_type="application/json",
-        body='[{"name": "repo-3", "html_url": "http://example.com", "stargazers_count": 1}]'
+        body='[{"name": "repo-2", "html_url": "http://example.com", "stargazers_count": 5, "fork": false}]'
     ))
-
-    # Page 3 should not be called if logic is correct (150 repos = 2 pages)
 
     page.goto("http://localhost:8000")
 
@@ -35,14 +36,19 @@ def verify_repos_load(page):
     expect(page.locator("#user-profile h1")).to_have_text("Shafiqur Khan")
 
     # Wait for repos to load
-    # We expect 3 repos total (2 from page 1, 1 from page 2)
-    # The real app sorts by stars.
-
-    expect(page.locator("#repos-grid .project-card")).to_have_count(3)
+    # We expect 2 repos total (repo-1, repo-2). repo-fork should be hidden.
+    expect(page.locator("#repos-grid .project-card")).to_have_count(2)
 
     # Check content
     expect(page.locator("#repos-grid")).to_contain_text("repo-1")
-    expect(page.locator("#repos-grid")).to_contain_text("repo-3")
+    expect(page.locator("#repos-grid")).to_contain_text("repo-2")
+    expect(page.locator("#repos-grid")).not_to_contain_text("repo-fork")
+
+    # Check Sorting (Stars Descending)
+    # repo-1 (10 stars) should be first, repo-2 (5 stars) second.
+    cards = page.locator("#repos-grid .project-card h3")
+    expect(cards.nth(0)).to_have_text("repo-1")
+    expect(cards.nth(1)).to_have_text("repo-2")
 
     page.screenshot(path=f"{OUTPUT_DIR}/verification.png")
     print("Verification screenshot saved.")
@@ -55,5 +61,6 @@ if __name__ == "__main__":
             verify_repos_load(page)
         except Exception as e:
             print(f"Error: {e}")
+            exit(1)
         finally:
             browser.close()
