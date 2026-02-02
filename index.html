@@ -59,6 +59,11 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        @media (prefers-reduced-motion: reduce) {
+            .loader {
+                animation: none;
+            }
+        }
     </style>
 </head>
 <body class="text-slate-300">
@@ -91,7 +96,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-400">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.11</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.12</span></p>
     </footer>
 
     <script>

@@ -148,6 +148,7 @@ Going beyond these improvements would enter diminishing returns territory, where
 ### 🎨 Palette Mode
 - **Contrast Enhancement:** Upgraded text contrast to `slate-400` for WCAG AA compliance (`v1.2.3`).
 - **ARIA Support:** Added `role="status"` to loading indicators (`v1.2.3`).
+- **Reduced Motion:** Respects user preference for reduced motion by disabling loader animation (`v1.2.12`).
 
 ### ⚡ Bolt Mode
 - **CORS Optimization:** Added `crossorigin` to `api.github.com` preconnect tag (`v1.2.4`).
