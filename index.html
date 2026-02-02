@@ -197,7 +197,7 @@
         // Fetch user profile and repositories from GitHub API
         const fetchGitHubData = async () => {
             const CACHE_KEY = `githubData_${USERNAME}`;
-            const CACHE_VERSION = 'v2'; // Increment when data structure changes
+            const CACHE_VERSION = 'v3'; // Increment when data structure changes
             const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
             // Helper to retrieve and parse cache
@@ -235,32 +235,50 @@
                     });
 
                 // Function to fetch all repositories (handling pagination)
-                const fetchAllRepos = async () => {
+                const fetchAllRepos = async (userPromise) => {
                     const allRepos = [];
-                    let page = 1;
+                    // Start fetching page 1 immediately
+                    const page1Promise = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100&page=1`)
+                        .then(res => {
+                            if (!res.ok) throw new Error(`Could not fetch repositories (Status: ${res.status})`);
+                            return res.json();
+                        });
+
+                    // Wait for user profile to know total count
+                    const userData = await userPromise;
+                    const publicRepos = userData.public_repos || 0;
+
                     // Safety limit: 5 pages = 500 repos. Prevents infinite loops and massive payloads.
                     // For "Intensive Use" (120 months), this covers most users.
                     const MAX_PAGES = 5;
+                    const totalPages = Math.min(Math.ceil(publicRepos / 100), MAX_PAGES);
 
-                    while (page <= MAX_PAGES) {
-                         const res = await fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100&page=${page}`);
-                         if (!res.ok) throw new Error(`Could not fetch repositories (Status: ${res.status})`);
-                         const data = await res.json();
-
-                         if (data.length === 0) break;
-
-                         // Optimization: Use push to avoid creating intermediate arrays
-                         allRepos.push(...data);
-
-                         // If we got fewer than 100 repos, we've reached the last page
-                         if (data.length < 100) break;
-
-                         page++;
+                    // Fetch remaining pages in parallel
+                    const remainingPromises = [];
+                    for (let page = 2; page <= totalPages; page++) {
+                        remainingPromises.push(
+                            fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100&page=${page}`)
+                                .then(res => {
+                                    if (!res.ok) throw new Error(`Could not fetch repositories (Status: ${res.status})`);
+                                    return res.json();
+                                })
+                        );
                     }
+
+                    // Await all data
+                    const page1Data = await page1Promise;
+                    // Optimization: Use push to avoid creating intermediate arrays
+                    allRepos.push(...page1Data);
+
+                    if (remainingPromises.length > 0) {
+                        const remainingData = await Promise.all(remainingPromises);
+                        remainingData.forEach(data => allRepos.push(...data));
+                    }
+
                     return allRepos;
                 };
 
-                const reposPromise = fetchAllRepos();
+                const reposPromise = fetchAllRepos(userPromise);
 
                 // Optimization: Render profile immediately, don't wait for repos
                 const userData = await userPromise;
