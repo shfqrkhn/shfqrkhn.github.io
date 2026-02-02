@@ -143,13 +143,16 @@ Going beyond these improvements would enter diminishing returns territory, where
 
 ### 🛡️ Sentinel Mode
 - **Log Sanitization:** Suppressed stack traces in console logs (`v1.2.2`).
+- **CSP:** Added strict Content-Security-Policy to mitigate XSS exfiltration and lock down resource sources (`v1.2.11`).
 
 ### 🎨 Palette Mode
 - **Contrast Enhancement:** Upgraded text contrast to `slate-400` for WCAG AA compliance (`v1.2.3`).
 - **ARIA Support:** Added `role="status"` to loading indicators (`v1.2.3`).
+- **Reduced Motion:** Respects user preference for reduced motion by disabling loader animation (`v1.2.12`).
 
 ### ⚡ Bolt Mode
 - **CORS Optimization:** Added `crossorigin` to `api.github.com` preconnect tag (`v1.2.4`).
 - **Cache Minification:** Reduced `localStorage` footprint by extracting only essential fields (`v1.2.5`).
 - **Cache Invalidation:** Enforced schema update via version bumping (`v1.2.6`).
 - **Efficient Array Construction:** Replaced potentially O(n^2) concat pattern with O(n) push pattern (`v1.2.8`).
+- **Pre-Cache Processing:** Moved data sorting and filtering to the fetch stage to prevent redundant processing on every page load (`v1.2.10`).
