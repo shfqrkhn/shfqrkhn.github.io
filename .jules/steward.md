@@ -12,3 +12,6 @@
 
 ## 2026-02-02 - [Palette] - [Social Metadata]
 **Protocol:** All public-facing pages must include `og:image` and `twitter:image` meta tags to ensure correct social media previews.
+
+## 2026-02-02 - [Palette] - [Focus States]
+**Protocol:** Interactive elements on dark backgrounds must use custom high-contrast focus rings (e.g., `ring-sky-400`) instead of browser defaults.

@@ -96,7 +96,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-400">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.12</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.13</span></p>
     </footer>
 
     <script>
@@ -168,7 +168,7 @@
                 <h1 class="text-4xl font-bold text-white">${escapeHTML(user.name || user.login)}</h1>
                 <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
                 <div class="mt-4">
-                    <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors">
+                    <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm">
                         View GitHub Profile
                     </a>
                 </div>
@@ -180,7 +180,7 @@
         const renderRepos = (repos) => {
             if (repos.length > 0) {
                 reposGrid.innerHTML = repos.map(repo => `
-                    <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50">
+                    <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
                         <h3 class="text-xl font-bold text-white">${escapeHTML(repo.name)}</h3>
                         <p class="mt-2 text-sm text-slate-400 h-10 line-clamp-2 overflow-hidden">${escapeHTML(repo.description || 'No description provided.')}</p>
                         <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
@@ -206,7 +206,7 @@
         const processRepositories = (rawRepos) => {
             return rawRepos
                 .filter(repo => !repo.fork) // Filter out forks (Via Negativa)
-                .sort((a, b) => b.stargazers_count - a.stargazers_count) // Sort by stars
+                .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)) // Sort by stars
                 .map(repo => ({ // Minify schema
                     name: repo.name,
                     html_url: repo.html_url,
