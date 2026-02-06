@@ -96,7 +96,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-400">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.13</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.14</span></p>
     </footer>
 
     <script>
@@ -250,6 +250,10 @@
                     }
                 }
 
+                // Reset UI State for Retry (fetch mode)
+                loader.style.display = 'flex';
+                errorMessage.classList.add('hidden');
+
                 // Initiate both fetches in parallel
                 const userPromise = fetch(`https://api.github.com/users/${USERNAME}`)
                     .then(res => {
@@ -344,7 +348,13 @@
                     `;
                     errorMessage.classList.remove('hidden');
                 } else {
-                    errorMessage.textContent = `Failed to load projects. ${error.message}. Please try again later.`;
+                    errorMessage.innerHTML = `
+                        <span class="block text-lg font-semibold mb-2">Failed to load projects</span>
+                        <span class="block text-sm mb-4">${escapeHTML(error.message)}</span>
+                        <button onclick="fetchGitHubData()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                            Retry Connection
+                        </button>
+                    `;
                     errorMessage.classList.remove('hidden');
                 }
             } finally {
