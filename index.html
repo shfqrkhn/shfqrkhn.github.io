@@ -80,7 +80,7 @@
         <section>
             <h2 class="text-3xl font-bold text-white text-center mb-8">My Projects</h2>
             <!-- Loading Spinner -->
-            <div id="loader" role="status" class="flex flex-col justify-center items-center h-32 gap-4">
+            <div id="loader" role="status" tabindex="-1" class="outline-none flex flex-col justify-center items-center h-32 gap-4">
                 <div class="loader"></div>
                 <p class="text-slate-400 text-sm">Loading projects...</p>
             </div>
@@ -96,7 +96,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-400">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.14</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.15</span></p>
     </footer>
 
     <script>
@@ -218,7 +218,7 @@
         };
 
         // Fetch user profile and repositories from GitHub API
-        const fetchGitHubData = async () => {
+        const fetchGitHubData = async (isRetry = false) => {
             const CACHE_KEY = `githubData_${USERNAME}`;
             const CACHE_VERSION = 'v4'; // Increment when data structure changes
             const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
@@ -252,6 +252,9 @@
 
                 // Reset UI State for Retry (fetch mode)
                 loader.style.display = 'flex';
+                if (isRetry) {
+                    loader.focus();
+                }
                 errorMessage.classList.add('hidden');
 
                 // Initiate both fetches in parallel
@@ -351,7 +354,7 @@
                     errorMessage.innerHTML = `
                         <span class="block text-lg font-semibold mb-2">Failed to load projects</span>
                         <span class="block text-sm mb-4">${escapeHTML(error.message)}</span>
-                        <button onclick="fetchGitHubData()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                        <button data-action="retry" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
                             Retry Connection
                         </button>
                     `;
@@ -363,8 +366,15 @@
             }
         };
 
+        // Event Delegation for Retry Button
+        errorMessage.addEventListener('click', (e) => {
+            if (e.target.closest('[data-action="retry"]')) {
+                fetchGitHubData(true);
+            }
+        });
+
         // Run the fetch function as soon as the DOM is ready
-        document.addEventListener('DOMContentLoaded', fetchGitHubData);
+        document.addEventListener('DOMContentLoaded', () => fetchGitHubData());
     </script>
 
 </body>
