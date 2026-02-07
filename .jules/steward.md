@@ -15,3 +15,9 @@
 
 ## 2026-02-02 - [Palette] - [Focus States]
 **Protocol:** Interactive elements on dark backgrounds must use custom high-contrast focus rings (e.g., `ring-sky-400`) instead of browser defaults.
+
+## 2026-02-02 - [Palette] - [Focus Management]
+**Protocol:** When replacing UI elements dynamically (e.g., error -> loader), programmatic focus must be managed using `tabindex="-1"` and `.focus()` to prevent loss of context for screen reader users.
+
+## 2026-02-02 - [Sentinel] - [CSP Compliance]
+**Protocol:** Avoid inline event handlers (e.g., `onclick="..."`) in favor of `addEventListener` and event delegation to support strict Content Security Policy (CSP).
