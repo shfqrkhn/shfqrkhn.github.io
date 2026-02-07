@@ -96,7 +96,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-400">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.14</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.15</span></p>
     </footer>
 
     <script>
@@ -240,7 +240,7 @@
             try {
                 // Check for valid cache first
                 if (cached) {
-                    const now = new Date().getTime();
+                    const now = Date.now();
                     // If cache is valid (less than 24 hours old), use it
                     if (now - cached.timestamp < CACHE_EXPIRATION_MS) {
                         renderProfile(cached.user);
@@ -328,7 +328,7 @@
                     localStorage.setItem(CACHE_KEY, JSON.stringify({
                         user,
                         repos,
-                        timestamp: new Date().getTime(),
+                        timestamp: Date.now(),
                         version: CACHE_VERSION
                     }));
                 } catch (e) {
