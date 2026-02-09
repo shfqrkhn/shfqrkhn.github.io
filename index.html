@@ -96,7 +96,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-400">
-        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.16</span></p>
+        <p>This page was generated based on public data from GitHub. <span class="opacity-50">v1.2.17</span></p>
     </footer>
 
     <script>
@@ -159,12 +159,21 @@
 
         // Render user profile to the DOM
         const renderProfile = (user) => {
-            // Optimize avatar image size: Request 256px (2x for Retina) to save bandwidth
-            const optimizedAvatarUrl = new URL(user.avatar_url);
-            optimizedAvatarUrl.searchParams.set('s', '256');
+            // Sentinel: Validate avatar URL before processing
+            let avatarSrc = '#'; // Secure fallback
+            try {
+                if (user.avatar_url && SAFE_URL_PATTERN.test(user.avatar_url)) {
+                    // Optimize avatar image size: Request 256px (2x for Retina) to save bandwidth
+                    const url = new URL(user.avatar_url);
+                    url.searchParams.set('s', '256');
+                    avatarSrc = url.toString();
+                }
+            } catch (e) {
+                console.warn('Invalid avatar URL:', e.message);
+            }
 
             profileElement.innerHTML = `
-                <img src="${optimizedAvatarUrl.toString()}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" width="128" height="128" fetchpriority="high" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
+                <img src="${avatarSrc}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" width="128" height="128" fetchpriority="high" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
                 <h1 class="text-4xl font-bold text-white">${escapeHTML(user.name || user.login)}</h1>
                 <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
                 <div class="mt-4">
