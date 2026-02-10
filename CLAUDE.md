@@ -5,7 +5,7 @@ This document provides comprehensive guidance for AI assistants working with thi
 ## Project Overview
 
 **Name:** Personal Portfolio Website
-**Version:** v1.2.17
+**Version:** v1.2.18
 **Type:** Static single-page application
 **Hosting:** GitHub Pages at https://shfqrkhn.github.io/
 
