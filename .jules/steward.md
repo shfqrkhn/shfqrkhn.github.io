@@ -21,3 +21,6 @@
 
 ## 2026-02-02 - [Sentinel] - [CSP Compliance]
 **Protocol:** Avoid inline event handlers (e.g., `onclick="..."`) in favor of `addEventListener` and event delegation to support strict Content Security Policy (CSP).
+
+## 2026-02-02 - [Sentinel] - [Strict CSP]
+**Protocol:** Inline scripts are strictly forbidden. Application logic must be externalized to `script.js`, and runtime configuration (e.g., username) must be injected via `<meta>` tags.
