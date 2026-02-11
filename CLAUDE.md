@@ -5,7 +5,7 @@ This document provides comprehensive guidance for AI assistants working with thi
 ## Project Overview
 
 **Name:** Personal Portfolio Website
-**Version:** v1.2.18
+**Version:** v1.2.19
 **Type:** Static single-page application
 **Hosting:** GitHub Pages at https://shfqrkhn.github.io/
 
@@ -15,7 +15,8 @@ This is a dynamic portfolio website that automatically displays GitHub repositor
 
 ```
 shfqrkhn.github.io/
-├── index.html          # Main application (HTML + JavaScript)
+├── index.html          # Main application (HTML)
+├── script.js           # Application logic
 ├── styles.css          # Compiled Tailwind CSS (production build)
 ├── src/
 │   └── input.css       # Tailwind source CSS
@@ -62,8 +63,9 @@ Push to `main` branch - GitHub Pages automatically deploys.
 ## Key Conventions
 
 ### Security Practices (Sentinel Mode)
-- **XSS Prevention:** All dynamic content uses `escapeHTML()` function (index.html:110-113)
-- **URL Validation:** External URLs validated with `safeURL()` (index.html:120-125)
+- **CSP Compliance:** No inline scripts; logic moved to `script.js` with `defer`
+- **XSS Prevention:** All dynamic content uses `escapeHTML()` function (script.js)
+- **URL Validation:** External URLs validated with `safeURL()` (script.js)
 - **Log Sanitization:** Error logs output `error.message` only, not full stack traces
 - **CORS:** Preconnect to `api.github.com` includes `crossorigin` attribute
 
@@ -87,7 +89,7 @@ Push to `main` branch - GitHub Pages automatically deploys.
 
 ## Architecture Patterns
 
-### Caching System (index.html:198-228)
+### Caching System (script.js)
 ```javascript
 const CACHE_KEY = `githubData_${USERNAME}`;
 const CACHE_VERSION = 'v4';  // Increment on schema changes
@@ -97,7 +99,7 @@ const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000;  // 24 hours
 - Falls back to stale cache on network errors
 - Stores minified data with version tag
 
-### Language Color Mapping (index.html:135-148)
+### Language Color Mapping (script.js)
 Uses a `Map` for O(1) lookup of language colors:
 ```javascript
 const LANGUAGE_COLORS = new Map([
@@ -107,7 +109,7 @@ const LANGUAGE_COLORS = new Map([
 ]);
 ```
 
-### Repository Filtering (index.html:172)
+### Repository Filtering (script.js)
 - Excludes forked repositories
 - Sorts by star count (descending)
 
@@ -153,7 +155,7 @@ GitHub API (unauthenticated):
 | Task | Command/Location |
 |------|------------------|
 | Build CSS | `npm run build` |
-| Main app code | `index.html` |
+| Main app code | `index.html` / `script.js` |
 | Tailwind source | `src/input.css` |
-| Cache version | `index.html:200` |
-| GitHub username | `index.html:94` |
+| Cache version | `script.js` |
+| GitHub username | `index.html` (meta tag) |

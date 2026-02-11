@@ -1,6 +1,6 @@
 # My Portfolio
 
-**Version:** v1.2.18
+**Version:** v1.2.19
 
 Welcome! This repository contains the source code for my personal portfolio page, which is designed to be a live, dynamic showcase of all my public GitHub projects.
 
@@ -14,7 +14,7 @@ Welcome! This repository contains the source code for my personal portfolio page
 
 Instead of a static site that requires manual updates, this portfolio automatically links to and highlights all of my other repositories.
 
-The `index.html` file uses the GitHub API to:
+The application uses the GitHub API to:
 
 * **Fetch All Repos**: It dynamically pulls in all of my public projects.
 * **Stay Current**: Whenever I create or update a public repository on GitHub, it automatically appears here. There's no need for me to edit this page manually.
