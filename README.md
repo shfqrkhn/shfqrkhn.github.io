@@ -1,6 +1,6 @@
 # My Portfolio
 
-**Version:** v1.2.19
+**Version:** v1.2.20
 
 Welcome! This repository contains the source code for my personal portfolio page, which is designed to be a live, dynamic showcase of all my public GitHub projects.
 

@@ -87,7 +87,7 @@ const renderProfile = (user) => {
 const renderRepos = (repos) => {
     if (repos.length > 0) {
         reposGrid.innerHTML = repos.map(repo => `
-            <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+            <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
                 <h3 class="text-xl font-bold text-white">${escapeHTML(repo.name)}</h3>
                 <p class="mt-2 text-sm text-slate-400 h-10 line-clamp-2 overflow-hidden">${escapeHTML(repo.description || 'No description provided.')}</p>
                 <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
