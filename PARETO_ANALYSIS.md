@@ -148,9 +148,10 @@ Going beyond these improvements would enter diminishing returns territory, where
 ### 🎨 Palette Mode
 - **Contrast Enhancement:** Upgraded text contrast to `slate-400` for WCAG AA compliance (`v1.2.3`).
 - **ARIA Support:** Added `role="status"` to loading indicators (`v1.2.3`).
-- **Reduced Motion:** Respects user preference for reduced motion by disabling loader animation (`v1.2.12`).
+- **Reduced Motion:** Respects user preference for reduced motion by disabling loader animation (`v1.2.12`) and card hover transforms (`v1.2.20`).
 
 ### ⚡ Bolt Mode
+- **Via Negativa:** Refactored custom CSS to Tailwind utilities, eliminating the `<style>` block (`v1.2.20`).
 - **CORS Optimization:** Added `crossorigin` to `api.github.com` preconnect tag (`v1.2.4`).
 - **Cache Minification:** Reduced `localStorage` footprint by extracting only essential fields (`v1.2.5`).
 - **Cache Invalidation:** Enforced schema update via version bumping (`v1.2.6`).
