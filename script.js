@@ -286,8 +286,10 @@ const backToTopButton = document.getElementById('back-to-top');
 const toggleBackToTop = () => {
     if (window.scrollY > 300) {
         backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+        backToTopButton.setAttribute('tabindex', '0');
     } else {
         backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+        backToTopButton.setAttribute('tabindex', '-1');
     }
 };
 
