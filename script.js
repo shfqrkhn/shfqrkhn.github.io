@@ -99,6 +99,7 @@ const renderRepos = (repos) => {
                     </div>
                     <div class="flex items-center gap-4">
                         <span><span aria-label="Stars">⭐</span> ${repo.stargazers_count}</span>
+                        <span>${new Date(repo.pushed_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                     </div>
                 </div>
             </a>
@@ -119,7 +120,8 @@ const processRepositories = (rawRepos) => {
             html_url: repo.html_url,
             description: repo.description,
             language: repo.language,
-            stargazers_count: repo.stargazers_count
+            stargazers_count: repo.stargazers_count,
+            pushed_at: repo.pushed_at
             // fork property removed as we only store non-forks
         }));
 };
@@ -127,7 +129,7 @@ const processRepositories = (rawRepos) => {
 // Fetch user profile and repositories from GitHub API
 const fetchGitHubData = async (isRetry = false) => {
     const CACHE_KEY = `githubData_${USERNAME}`;
-    const CACHE_VERSION = 'v4'; // Increment when data structure changes
+    const CACHE_VERSION = 'v5'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     // Helper to retrieve and parse cache
