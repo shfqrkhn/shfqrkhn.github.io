@@ -24,3 +24,6 @@
 
 ## 2026-02-02 - [Sentinel] - [Strict CSP]
 **Protocol:** Inline scripts are strictly forbidden. Application logic must be externalized to `script.js`, and runtime configuration (e.g., username) must be injected via `<meta>` tags.
+
+## 2026-02-03 - [Palette] - [Reduced Motion]
+**Protocol:** All animated or transitioned elements (including fade-ins) must support `motion-reduce:transition-none` or `motion-reduce:animate-none` to respect user accessibility preferences.
