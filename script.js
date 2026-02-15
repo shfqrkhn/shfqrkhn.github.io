@@ -75,7 +75,7 @@ const renderProfile = (user) => {
         <h1 class="text-4xl font-bold text-white">${escapeHTML(user.name || user.login)}</h1>
         <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
         <div class="mt-4">
-            <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm">
+            <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm">
                 View GitHub Profile
             </a>
         </div>
@@ -263,7 +263,7 @@ const fetchGitHubData = async (isRetry = false) => {
             errorMessage.innerHTML = `
                 <span class="block text-lg font-semibold mb-2">Failed to load projects</span>
                 <span class="block text-sm mb-4">${escapeHTML(error.message)}</span>
-                <button data-action="retry" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                <button data-action="retry" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
                     Retry Connection
                 </button>
             `;

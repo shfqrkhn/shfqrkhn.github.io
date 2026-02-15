@@ -5,7 +5,7 @@ This document provides comprehensive guidance for AI assistants working with thi
 ## Project Overview
 
 **Name:** Personal Portfolio Website
-**Version:** v1.2.22
+**Version:** v1.2.23
 **Type:** Static single-page application
 **Hosting:** GitHub Pages at https://shfqrkhn.github.io/
 
@@ -71,7 +71,7 @@ Push to `main` branch - GitHub Pages automatically deploys.
 
 ### Performance Optimizations (Bolt Mode)
 - **Cache-First Strategy:** API responses cached in localStorage for 24 hours
-- **Cache Versioning:** Increment `CACHE_VERSION` when data structure changes (currently `v4`)
+- **Cache Versioning:** Increment `CACHE_VERSION` when data structure changes (currently `v5`)
 - **Parallel Fetching:** Profile and repositories fetched simultaneously
 - **Minified Caching:** Only essential fields stored to reduce localStorage footprint
 - **Avatar Optimization:** Request 256px images for Retina displays
@@ -92,7 +92,7 @@ Push to `main` branch - GitHub Pages automatically deploys.
 ### Caching System (script.js)
 ```javascript
 const CACHE_KEY = `githubData_${USERNAME}`;
-const CACHE_VERSION = 'v4';  // Increment on schema changes
+const CACHE_VERSION = 'v5';  // Increment on schema changes
 const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000;  // 24 hours
 ```
 - Checks cache validity before API calls
