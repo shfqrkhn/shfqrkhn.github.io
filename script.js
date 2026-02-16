@@ -70,9 +70,12 @@ const renderProfile = (user) => {
         console.warn('Invalid avatar URL:', e.message);
     }
 
+    const name = user.name || user.login;
+    document.title = `${name} | GitHub Projects`;
+
     profileElement.innerHTML = `
-        <img src="${avatarSrc}" alt="${escapeHTML(user.name || user.login)}'s GitHub profile photo" width="128" height="128" fetchpriority="high" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
-        <h1 class="text-4xl font-bold text-white">${escapeHTML(user.name || user.login)}</h1>
+        <img src="${avatarSrc}" alt="${escapeHTML(name)}'s GitHub profile photo" width="128" height="128" fetchpriority="high" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
+        <h1 class="text-4xl font-bold text-white">${escapeHTML(name)}</h1>
         <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
         <div class="mt-4">
             <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm">
@@ -93,7 +96,7 @@ const renderRepos = (repos) => {
                 <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
                     <div class="flex items-center gap-2">
                         ${repo.language ? `<span class="flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full ${getLanguageColor(repo.language)}"></span>
+                            <span class="w-2 h-2 rounded-full ${getLanguageColor(repo.language)}" aria-hidden="true"></span>
                             ${escapeHTML(repo.language)}
                         </span>` : ''}
                     </div>
@@ -154,13 +157,13 @@ const fetchGitHubData = async (isRetry = false) => {
             if (now - cached.timestamp < CACHE_EXPIRATION_MS) {
                 renderProfile(cached.user);
                 renderRepos(cached.repos);
-                loader.style.display = 'none';
+                loader.classList.add('hidden');
                 return;
             }
         }
 
         // Reset UI State for Retry (fetch mode)
-        loader.style.display = 'flex';
+        loader.classList.remove('hidden');
         if (isRetry) {
             loader.focus();
         }
@@ -271,7 +274,7 @@ const fetchGitHubData = async (isRetry = false) => {
         }
     } finally {
         // Hide loader
-        loader.style.display = 'none';
+        loader.classList.add('hidden');
     }
 };
 
