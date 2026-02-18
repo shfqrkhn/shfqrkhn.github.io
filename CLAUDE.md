@@ -5,7 +5,7 @@ This document provides comprehensive guidance for AI assistants working with thi
 ## Project Overview
 
 **Name:** Personal Portfolio Website
-**Version:** v1.2.25
+**Version:** v1.2.26
 **Type:** Static single-page application
 **Hosting:** GitHub Pages at https://shfqrkhn.github.io/
 
@@ -136,7 +136,7 @@ const LANGUAGE_COLORS = new Map([
 When releasing a new version, update:
 1. `package.json` line 3: `"version": "x.x.x"`
 2. `README.md` line 3: `**Version:** vx.x.x`
-3. `index.html` line 89: `<span class="opacity-50">vx.x.x</span>`
+3. `index.html` line 89: `<span>vx.x.x</span>`
 
 ## Referenced Documentation
 
