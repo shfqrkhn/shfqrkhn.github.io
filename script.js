@@ -115,6 +115,9 @@ const renderRepos = (repos) => {
 // Helper to process repositories (Filter, Sort, Map)
 // Optimization: Process data ONCE before caching/rendering to save CPU cycles on subsequent loads
 const processRepositories = (rawRepos) => {
+    // Optimization: Instantiate formatter once to avoid object creation for every repo
+    const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
     return rawRepos
         .filter(repo => !repo.fork) // Filter out forks (Via Negativa)
         .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)) // Sort by stars
@@ -125,7 +128,7 @@ const processRepositories = (rawRepos) => {
             language: repo.language,
             stargazers_count: repo.stargazers_count,
             // Optimization: Format date once to save parsing on every render
-            pushed_at: new Date(repo.pushed_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+            pushed_at: dateFormatter.format(new Date(repo.pushed_at))
         }));
 };
 
@@ -287,9 +290,16 @@ errorMessage.addEventListener('click', (e) => {
 
 // Back to Top Button Logic
 const backToTopButton = document.getElementById('back-to-top');
+let isBackToTopVisible = false;
 
 const toggleBackToTop = () => {
-    if (window.scrollY > 300) {
+    const shouldBeVisible = window.scrollY > 300;
+
+    // Optimization: Only touch DOM if state changes (Bolt Mode)
+    if (shouldBeVisible === isBackToTopVisible) return;
+    isBackToTopVisible = shouldBeVisible;
+
+    if (shouldBeVisible) {
         backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
         backToTopButton.setAttribute('tabindex', '0');
     } else {
