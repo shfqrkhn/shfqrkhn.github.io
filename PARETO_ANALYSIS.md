@@ -158,3 +158,4 @@ Going beyond these improvements would enter diminishing returns territory, where
 - **Efficient Array Construction:** Replaced potentially O(n^2) concat pattern with O(n) push pattern (`v1.2.8`).
 - **Pre-Cache Processing:** Moved data sorting and filtering to the fetch stage to prevent redundant processing on every page load (`v1.2.10`).
 - **Micro-Optimization:** Replaced `new Date().getTime()` with `Date.now()` to avoid unnecessary object allocation (`v1.2.15`).
+- **Pre-Calculation:** Moved language color lookup from render loop to fetch/process phase (`v1.2.28`).

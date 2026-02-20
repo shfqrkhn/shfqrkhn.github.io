@@ -96,7 +96,7 @@ const renderRepos = (repos) => {
                 <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
                     <div class="flex items-center gap-2">
                         ${repo.language ? `<span class="flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full ${getLanguageColor(repo.language)}" aria-hidden="true"></span>
+                            <span class="w-2 h-2 rounded-full ${repo.languageColor}" aria-hidden="true"></span>
                             ${escapeHTML(repo.language)}
                         </span>` : ''}
                     </div>
@@ -126,6 +126,7 @@ const processRepositories = (rawRepos) => {
             html_url: repo.html_url,
             description: repo.description,
             language: repo.language,
+            languageColor: getLanguageColor(repo.language), // Pre-calculate color (Bolt Mode)
             stargazers_count: repo.stargazers_count,
             // Optimization: Format date once to save parsing on every render
             pushed_at: dateFormatter.format(new Date(repo.pushed_at))
@@ -135,7 +136,7 @@ const processRepositories = (rawRepos) => {
 // Fetch user profile and repositories from GitHub API
 const fetchGitHubData = async (isRetry = false) => {
     const CACHE_KEY = `githubData_${USERNAME}`;
-    const CACHE_VERSION = 'v6'; // Increment when data structure changes
+    const CACHE_VERSION = 'v7'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     // Helper to retrieve and parse cache
