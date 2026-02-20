@@ -1,6 +1,6 @@
 # My Portfolio
 
-**Version:** v1.2.27
+**Version:** v1.2.28
 
 Welcome! This repository contains the source code for my personal portfolio page, which is designed to be a live, dynamic showcase of all my public GitHub projects.
 
@@ -40,6 +40,6 @@ The page is built with simple and modern web technologies, requiring no backend 
 To ensure a fast user experience and respect GitHub's API rate limits, this application employs a **Cache-First** strategy:
 
 * **LocalStorage Caching**: API responses are cached in the browser's `localStorage` for 24 hours.
-* **Smart Invalidation**: The cache includes a version tag (`v5`). If the application structure changes, the version is incremented to automatically invalidate old data and fetch fresh content.
+* **Smart Invalidation**: The cache includes a version tag (`v7`). If the application structure changes, the version is incremented to automatically invalidate old data and fetch fresh content.
 * **Parallel Fetching**: User profile and repository data are fetched simultaneously to minimize load times.
 * **Preconnection**: Critical domains (`api.github.com`, `avatars.githubusercontent.com`) are preconnected to reduce latency.
