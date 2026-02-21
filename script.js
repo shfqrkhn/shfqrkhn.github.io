@@ -90,13 +90,13 @@ const renderProfile = (user) => {
 const renderRepos = (repos) => {
     if (repos.length > 0) {
         reposGrid.innerHTML = repos.map(repo => `
-            <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
-                <h3 class="text-xl font-bold text-white">${escapeHTML(repo.name)}</h3>
-                <p class="mt-2 text-sm text-slate-400 h-10 line-clamp-2 overflow-hidden">${escapeHTML(repo.description || 'No description provided.')}</p>
-                <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+            <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 print:!bg-white print:!border-gray-300 print:!shadow-none">
+                <h3 class="text-xl font-bold text-white print:!text-black">${escapeHTML(repo.name)}</h3>
+                <p class="mt-2 text-sm text-slate-400 h-10 line-clamp-2 overflow-hidden print:!text-gray-700">${escapeHTML(repo.description || 'No description provided.')}</p>
+                <div class="mt-4 flex items-center justify-between text-xs text-slate-400 print:!text-gray-500">
                     <div class="flex items-center gap-2">
                         ${repo.language ? `<span class="flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full ${repo.languageColor}" aria-hidden="true"></span>
+                            <span class="w-2 h-2 rounded-full ${repo.languageColor} print:!ring-1 print:!ring-gray-300" aria-hidden="true"></span>
                             ${escapeHTML(repo.language)}
                         </span>` : ''}
                     </div>
@@ -314,6 +314,8 @@ const scrollToTop = () => {
         top: 0,
         behavior: 'smooth'
     });
+    // Move focus to profile for keyboard users
+    document.getElementById('user-profile').focus({ preventScroll: true });
 };
 
 window.addEventListener('scroll', toggleBackToTop);
