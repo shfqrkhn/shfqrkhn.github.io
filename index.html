@@ -34,10 +34,10 @@
 
     <!-- Tailwind CSS (Static Build) -->
     <!-- Optimized: Replaced Play CDN with static build for performance -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.2.30">
 
     <!-- Sentinel: External script with 'defer' to support strict CSP -->
-    <script src="script.js" defer></script>
+    <script src="script.js?v=1.2.30" defer></script>
 </head>
 <body class="bg-slate-900 font-sans text-slate-300 print:!bg-white print:!text-black">
 
@@ -51,7 +51,7 @@
 
         <!-- Projects Section -->
         <section>
-            <h2 class="text-3xl font-bold text-white text-center mb-8">My Projects</h2>
+            <h2 class="text-3xl font-bold text-white text-center mb-8 print:!text-black">My Projects</h2>
             <!-- Loading Spinner -->
             <div id="loader" role="status" tabindex="-1" class="outline-none flex flex-col justify-center items-center h-32 gap-4">
                 <div class="animate-spin rounded-full border-4 border-slate-700 border-t-sky-400 h-10 w-10 motion-reduce:animate-none"></div>
@@ -68,8 +68,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="text-center p-4 mt-8 text-xs text-slate-400">
-        <p>This page was generated based on public data from GitHub. <span>v1.2.29</span></p>
+    <footer class="text-center p-4 mt-8 text-xs text-slate-400 print:!text-black">
+        <p>This page was generated based on public data from GitHub. <span>v1.2.30</span></p>
     </footer>
 
     <!-- Back to Top Button -->
