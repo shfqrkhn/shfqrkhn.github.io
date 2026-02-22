@@ -40,19 +40,19 @@ const errorMessage = document.getElementById('error-message');
 
 // Language color mapping
 // Optimized: Reduced to common languages to save bytes (Via Negativa)
-const LANGUAGE_COLORS = new Map([
-    ['JavaScript', 'bg-yellow-400'],
-    ['Python', 'bg-blue-400'],
-    ['HTML', 'bg-orange-500'],
-    ['CSS', 'bg-blue-500'],
-    ['TypeScript', 'bg-blue-400'],
-    ['Shell', 'bg-green-300'],
-    ['default', 'bg-slate-500'],
-]);
+const LANGUAGE_COLORS = {
+    'JavaScript': 'bg-yellow-400',
+    'Python': 'bg-blue-400',
+    'HTML': 'bg-orange-500',
+    'CSS': 'bg-blue-500',
+    'TypeScript': 'bg-blue-400',
+    'Shell': 'bg-green-300',
+    'default': 'bg-slate-500',
+};
 
 // Function to get a color based on the programming language
 const getLanguageColor = (language) => {
-    return LANGUAGE_COLORS.get(language) || LANGUAGE_COLORS.get('default');
+    return LANGUAGE_COLORS[language] || LANGUAGE_COLORS.default;
 };
 
 // Render user profile to the DOM
@@ -75,10 +75,10 @@ const renderProfile = (user) => {
 
     profileElement.innerHTML = `
         <img src="${avatarSrc}" alt="${escapeHTML(name)}'s GitHub profile photo" width="128" height="128" fetchpriority="high" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
-        <h1 class="text-4xl font-bold text-white">${escapeHTML(name)}</h1>
-        <p class="mt-2 max-w-md text-slate-400">${escapeHTML(user.bio || '')}</p>
+        <h1 class="text-4xl font-bold text-white print:!text-black">${escapeHTML(name)}</h1>
+        <p class="mt-2 max-w-md text-slate-400 print:!text-black">${escapeHTML(user.bio || '')}</p>
         <div class="mt-4">
-            <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm">
+            <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">
                 View GitHub Profile
             </a>
         </div>

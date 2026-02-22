@@ -159,3 +159,5 @@ Going beyond these improvements would enter diminishing returns territory, where
 - **Pre-Cache Processing:** Moved data sorting and filtering to the fetch stage to prevent redundant processing on every page load (`v1.2.10`).
 - **Micro-Optimization:** Replaced `new Date().getTime()` with `Date.now()` to avoid unnecessary object allocation (`v1.2.15`).
 - **Pre-Calculation:** Moved language color lookup from render loop to fetch/process phase (`v1.2.28`).
+- **Structure Simplification:** Converted `LANGUAGE_COLORS` Map to object literal to reduce abstraction and initialization overhead (`v1.2.30`).
+- **Print Optimization:** Added print-specific utility classes to ensure legibility of text and headings on white paper (`v1.2.30`).
