@@ -217,8 +217,14 @@ const fetchGitHubData = async (isRetry = false) => {
             allRepos.push(...page1Data);
 
             if (remainingPromises.length > 0) {
-                const remainingData = await Promise.all(remainingPromises);
-                remainingData.forEach(data => allRepos.push(...data));
+                const results = await Promise.allSettled(remainingPromises);
+                results.forEach(result => {
+                    if (result.status === 'fulfilled') {
+                        allRepos.push(...result.value);
+                    } else {
+                        console.warn('Failed to fetch a page of repositories:', result.reason);
+                    }
+                });
             }
 
             return allRepos;
