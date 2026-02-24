@@ -78,7 +78,7 @@ const renderProfile = (user) => {
         <h1 class="text-4xl font-bold text-white print:!text-black">${escapeHTML(name)}</h1>
         <p class="mt-2 max-w-md text-slate-400 print:!text-black">${escapeHTML(user.bio || '')}</p>
         <div class="mt-4">
-            <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">
+            <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">
                 View GitHub Profile
             </a>
         </div>
@@ -90,7 +90,7 @@ const renderProfile = (user) => {
 const renderRepos = (repos) => {
     if (repos.length > 0) {
         reposGrid.innerHTML = repos.map(repo => `
-            <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 print:!bg-white print:!border-gray-300 print:!shadow-none">
+            <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 print:!bg-white print:!border-gray-300 print:!shadow-none">
                 <h3 class="text-xl font-bold text-white print:!text-black">${escapeHTML(repo.name)}</h3>
                 <p class="mt-2 text-sm text-slate-400 h-10 line-clamp-2 overflow-hidden print:!text-gray-700">${escapeHTML(repo.description || 'No description provided.')}</p>
                 <div class="mt-4 flex items-center justify-between text-xs text-slate-400 print:!text-gray-500">
@@ -276,7 +276,7 @@ const fetchGitHubData = async (isRetry = false) => {
             errorMessage.innerHTML = `
                 <span class="block text-lg font-semibold mb-2">Failed to load projects</span>
                 <span class="block text-sm mb-4">${escapeHTML(error.message)}</span>
-                <button data-action="retry" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                <button data-action="retry" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
                     Retry Connection
                 </button>
             `;
