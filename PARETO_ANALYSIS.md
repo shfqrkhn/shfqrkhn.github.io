@@ -161,3 +161,4 @@ Going beyond these improvements would enter diminishing returns territory, where
 - **Pre-Calculation:** Moved language color lookup from render loop to fetch/process phase (`v1.2.28`).
 - **Structure Simplification:** Converted `LANGUAGE_COLORS` Map to object literal to reduce abstraction and initialization overhead (`v1.2.30`).
 - **Print Optimization:** Added print-specific utility classes to ensure legibility of text and headings on white paper (`v1.2.30`).
+- **Mobile Responsiveness:** Applied `touch-action: manipulation` to interactive elements to eliminate 300ms tap delay on mobile devices (`v1.2.32`).
