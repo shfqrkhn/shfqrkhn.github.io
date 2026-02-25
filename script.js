@@ -129,7 +129,7 @@ const processRepositories = (rawRepos) => {
             languageColor: getLanguageColor(repo.language), // Pre-calculate color (Bolt Mode)
             stargazers_count: repo.stargazers_count,
             // Optimization: Format date once to save parsing on every render
-            pushed_at: dateFormatter.format(new Date(repo.pushed_at))
+            pushed_at: dateFormatter.format(Date.parse(repo.pushed_at))
         }));
 };
 
