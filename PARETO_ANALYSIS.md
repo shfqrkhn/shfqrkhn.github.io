@@ -162,3 +162,4 @@ Going beyond these improvements would enter diminishing returns territory, where
 - **Structure Simplification:** Converted `LANGUAGE_COLORS` Map to object literal to reduce abstraction and initialization overhead (`v1.2.30`).
 - **Print Optimization:** Added print-specific utility classes to ensure legibility of text and headings on white paper (`v1.2.30`).
 - **Mobile Responsiveness:** Applied `touch-action: manipulation` to interactive elements to eliminate 300ms tap delay on mobile devices (`v1.2.32`).
+- **Allocation Optimization:** Replaced `new Date(string)` with `Date.parse(string)` to avoid object allocation in loop (`v1.2.33`).
