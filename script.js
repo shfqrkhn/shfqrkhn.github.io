@@ -127,7 +127,7 @@ const processRepositories = (rawRepos) => {
             description: repo.description,
             language: repo.language,
             languageColor: getLanguageColor(repo.language), // Pre-calculate color (Bolt Mode)
-            stargazers_count: repo.stargazers_count,
+            stargazers_count: Number(repo.stargazers_count) || 0,
             // Optimization: Format date once to save parsing on every render
             pushed_at: dateFormatter.format(Date.parse(repo.pushed_at))
         }));
@@ -136,7 +136,7 @@ const processRepositories = (rawRepos) => {
 // Fetch user profile and repositories from GitHub API
 const fetchGitHubData = async (isRetry = false) => {
     const CACHE_KEY = `githubData_${USERNAME}`;
-    const CACHE_VERSION = 'v7'; // Increment when data structure changes
+    const CACHE_VERSION = 'v8'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     // Helper to retrieve and parse cache
@@ -222,7 +222,7 @@ const fetchGitHubData = async (isRetry = false) => {
                     if (result.status === 'fulfilled') {
                         allRepos.push(...result.value);
                     } else {
-                        console.warn('Failed to fetch a page of repositories:', result.reason);
+                        console.warn('Failed to fetch a page of repositories:', result.reason.message || result.reason);
                     }
                 });
             }
