@@ -27,3 +27,6 @@
 
 ## 2026-02-03 - [Palette] - [Reduced Motion]
 **Protocol:** All animated or transitioned elements (including fade-ins) must support `motion-reduce:transition-none` or `motion-reduce:animate-none` to respect user accessibility preferences.
+
+## 2026-02-03 - [Sentinel] - [Safe Data Parsing]
+**Protocol:** API response data used in constructors (like `Date.parse`, `new URL`) must be validated (`!isNaN`, `try/catch`) before use to prevent runtime crashes from malformed external data.
