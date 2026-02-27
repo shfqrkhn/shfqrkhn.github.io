@@ -121,16 +121,22 @@ const processRepositories = (rawRepos) => {
     return rawRepos
         .filter(repo => !repo.fork) // Filter out forks (Via Negativa)
         .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)) // Sort by stars
-        .map(repo => ({ // Minify schema
-            name: repo.name,
-            html_url: repo.html_url,
-            description: repo.description,
-            language: repo.language,
-            languageColor: getLanguageColor(repo.language), // Pre-calculate color (Bolt Mode)
-            stargazers_count: Number(repo.stargazers_count) || 0,
-            // Optimization: Format date once to save parsing on every render
-            pushed_at: dateFormatter.format(Date.parse(repo.pushed_at))
-        }));
+        .map(repo => {
+            // Sentinel: Guard against invalid dates to prevent Intl.DateTimeFormat crash
+            const timestamp = Date.parse(repo.pushed_at);
+            const formattedDate = !isNaN(timestamp) ? dateFormatter.format(timestamp) : 'Unknown';
+
+            return { // Minify schema
+                name: repo.name,
+                html_url: repo.html_url,
+                description: repo.description,
+                language: repo.language,
+                languageColor: getLanguageColor(repo.language), // Pre-calculate color (Bolt Mode)
+                stargazers_count: Number(repo.stargazers_count) || 0,
+                // Optimization: Format date once to save parsing on every render
+                pushed_at: formattedDate
+            };
+        });
 };
 
 // Fetch user profile and repositories from GitHub API
