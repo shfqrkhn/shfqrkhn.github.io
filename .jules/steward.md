@@ -30,3 +30,6 @@
 
 ## 2026-02-03 - [Sentinel] - [Safe Data Parsing]
 **Protocol:** API response data used in constructors (like `Date.parse`, `new URL`) must be validated (`!isNaN`, `try/catch`) before use to prevent runtime crashes from malformed external data.
+
+## 2026-02-14 - [Sentinel] - [Unhandled Promise Rejection]
+**Protocol:** Early-starting Promises (like parallel fetch requests) that might reject before being explicitly awaited must have dummy `.catch(() => {})` handlers attached immediately upon creation to prevent Node.js/browser `UnhandledPromiseRejection` crashes.
