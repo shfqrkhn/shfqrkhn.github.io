@@ -196,6 +196,9 @@ const fetchGitHubData = async (isRetry = false) => {
                     return res.json();
                 });
 
+            // Sentinel: Prevent unhandled promise rejection if page1 fails before it's awaited
+            page1Promise.catch(() => {});
+
             // Wait for user profile to know total count
             const userData = await userPromise;
             const publicRepos = userData.public_repos || 0;
@@ -237,6 +240,9 @@ const fetchGitHubData = async (isRetry = false) => {
         };
 
         const reposPromise = fetchAllRepos(userPromise);
+
+        // Sentinel: Prevent unhandled promise rejection if repos fail before user profile loads
+        reposPromise.catch(() => {});
 
         // Optimization: Render profile immediately, don't wait for repos
         const userData = await userPromise;

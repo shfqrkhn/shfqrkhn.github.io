@@ -163,3 +163,4 @@ Going beyond these improvements would enter diminishing returns territory, where
 - **Print Optimization:** Added print-specific utility classes to ensure legibility of text and headings on white paper (`v1.2.30`).
 - **Mobile Responsiveness:** Applied `touch-action: manipulation` to interactive elements to eliminate 300ms tap delay on mobile devices (`v1.2.32`).
 - **Allocation Optimization:** Replaced `new Date(string)` with `Date.parse(string)` to avoid object allocation in loop (`v1.2.33`).
+- **Sentinel Mode:** Added dummy `.catch(() => {})` handlers to early-starting Promises (`page1Promise`, `reposPromise`) to prevent `UnhandledPromiseRejection` crashes when they reject before being explicitly awaited (`v1.2.36`).
