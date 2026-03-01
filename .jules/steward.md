@@ -33,3 +33,6 @@
 
 ## 2026-02-14 - [Sentinel] - [Unhandled Promise Rejection]
 **Protocol:** Early-starting Promises (like parallel fetch requests) that might reject before being explicitly awaited must have dummy `.catch(() => {})` handlers attached immediately upon creation to prevent Node.js/browser `UnhandledPromiseRejection` crashes.
+
+## 2026-02-14 - [Sentinel] - [Loop Unhandled Promise Rejection]
+**Protocol:** Early-starting Promises created in loops (like pagination fetches) must have dummy `.catch(() => {})` handlers attached immediately if there is any preceding `await` operation before they are passed to `Promise.allSettled`, to prevent `UnhandledPromiseRejection` crashes.
