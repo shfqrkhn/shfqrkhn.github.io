@@ -186,6 +186,9 @@ const fetchGitHubData = async (isRetry = false) => {
                 return res.json();
             });
 
+        // Sentinel: Prevent unhandled promise rejection if user fetch fails before awaited
+        userPromise.catch(() => {});
+
         // Function to fetch all repositories (handling pagination)
         const fetchAllRepos = async (userPromise) => {
             const allRepos = [];
@@ -211,13 +214,16 @@ const fetchGitHubData = async (isRetry = false) => {
             // Fetch remaining pages in parallel
             const remainingPromises = [];
             for (let page = 2; page <= totalPages; page++) {
-                remainingPromises.push(
-                    fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100&page=${page}`)
-                        .then(res => {
-                            if (!res.ok) throw new Error(`Could not fetch repositories (Status: ${res.status})`);
-                            return res.json();
-                        })
-                );
+                const p = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100&page=${page}`)
+                    .then(res => {
+                        if (!res.ok) throw new Error(`Could not fetch repositories (Status: ${res.status})`);
+                        return res.json();
+                    });
+
+                // Sentinel: Prevent unhandled promise rejection if a page fails while page1 is still being awaited
+                p.catch(() => {});
+
+                remainingPromises.push(p);
             }
 
             // Await all data
