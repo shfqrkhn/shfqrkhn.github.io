@@ -168,6 +168,9 @@ const fetchGitHubData = async (isRetry = false) => {
                 renderProfile(cached.user);
                 renderRepos(cached.repos);
                 loader.classList.add('hidden');
+                if (isRetry) {
+                    profileElement.focus({ preventScroll: true });
+                }
                 return;
             }
         }
@@ -278,6 +281,10 @@ const fetchGitHubData = async (isRetry = false) => {
                 console.warn('Error writing to localStorage:', e.message);
         }
 
+        if (isRetry) {
+            profileElement.focus({ preventScroll: true });
+        }
+
     } catch (error) {
         console.error('GitHub API Error:', error.message);
 
@@ -290,6 +297,7 @@ const fetchGitHubData = async (isRetry = false) => {
                 <span class="block text-sm mt-1">Displaying cached data.</span>
             `;
             errorMessage.classList.remove('hidden');
+            errorMessage.focus();
         } else {
             errorMessage.innerHTML = `
                 <span class="block text-lg font-semibold mb-2">Failed to load projects</span>
@@ -299,6 +307,7 @@ const fetchGitHubData = async (isRetry = false) => {
                 </button>
             `;
             errorMessage.classList.remove('hidden');
+            errorMessage.focus();
         }
     } finally {
         // Hide loader
