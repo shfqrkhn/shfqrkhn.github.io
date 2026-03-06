@@ -142,8 +142,22 @@ const processRepositories = (rawRepos) => {
 // Fetch user profile and repositories from GitHub API
 const fetchGitHubData = async (isRetry = false) => {
     const CACHE_KEY = `githubData_${USERNAME}`;
-    const CACHE_VERSION = 'v8'; // Increment when data structure changes
+    const CACHE_VERSION = 'v9'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+    // Bolt Mode: Entropy elimination - purge any stale githubData caches from other usernames
+    try {
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('githubData_') && key !== CACHE_KEY) {
+                keysToRemove.push(key);
+            }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+    } catch (e) {
+        // Ignore localStorage access errors
+    }
 
     // Helper to retrieve and parse cache
     const getCachedData = () => {
@@ -151,8 +165,15 @@ const fetchGitHubData = async (isRetry = false) => {
             const raw = localStorage.getItem(CACHE_KEY);
             if (!raw) return null;
             const data = JSON.parse(raw);
-            return (data.version === CACHE_VERSION) ? data : null;
+
+            // Bolt Mode: Clean up invalid/stale cache to prevent local storage bloat over time
+            if (data.version !== CACHE_VERSION) {
+                localStorage.removeItem(CACHE_KEY);
+                return null;
+            }
+            return data;
         } catch (e) {
+            localStorage.removeItem(CACHE_KEY);
             return null;
         }
     };
@@ -351,7 +372,7 @@ const scrollToTop = () => {
     document.getElementById('user-profile').focus({ preventScroll: true });
 };
 
-window.addEventListener('scroll', toggleBackToTop);
+window.addEventListener('scroll', toggleBackToTop, { passive: true });
 backToTopButton.addEventListener('click', scrollToTop);
 
 // Run the fetch function as soon as the DOM is ready
