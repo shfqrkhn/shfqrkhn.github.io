@@ -36,3 +36,9 @@
 
 ## 2026-02-14 - [Sentinel] - [Loop Unhandled Promise Rejection]
 **Protocol:** Early-starting Promises created in loops (like pagination fetches) must have dummy `.catch(() => {})` handlers attached immediately if there is any preceding `await` operation before they are passed to `Promise.allSettled`, to prevent `UnhandledPromiseRejection` crashes.
+
+## 2026-02-14 - [Bolt] - [Cache Bloat Prevention]
+**Protocol:** When using `localStorage` for caching data across sessions, actively purge invalid/stale cache entries and unrelated keys (e.g., from old usernames) to prevent storage exhaustion over time (Chronos-Simulation t+2 years).
+
+## 2026-02-14 - [Bolt] - [Passive Event Listeners]
+**Protocol:** High-frequency event listeners (specifically `scroll`, `touchmove`) must use `{ passive: true }` to inform the browser that `preventDefault()` will not be called, optimizing scroll performance.
