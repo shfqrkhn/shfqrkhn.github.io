@@ -10,7 +10,7 @@
     <meta name="github-username" content="shfqrkhn">
 
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; connect-src https://api.github.com; font-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' https://avatars.githubusercontent.com data:; connect-src https://api.github.com https://api.openai.com wss://* https://*; font-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none';">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -79,5 +79,16 @@
         </svg>
     </button>
 
+    <!--
+      Third-Party: Page Agent
+      This script adds an autonomous, on-page AI agent to the portfolio.
+
+      MAINTENANCE NOTE:
+      If this script fails to load, causes errors, or the CDN goes offline,
+      you can safely delete this <script> block and revert the CSP in the <head>
+      (remove 'unsafe-eval' from script-src and specific domains from connect-src)
+      to restore the site to its default state.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/page-agent@1.5.2/dist/iife/page-agent.demo.js"></script>
 </body>
 </html>
