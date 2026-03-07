@@ -10,7 +10,7 @@
     <meta name="github-username" content="shfqrkhn">
 
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; connect-src https://api.github.com; font-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' https://avatars.githubusercontent.com data:; connect-src https://api.github.com https://api.openai.com wss://* https://*; font-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none';">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -34,10 +34,10 @@
 
     <!-- Tailwind CSS (Static Build) -->
     <!-- Optimized: Replaced Play CDN with static build for performance -->
-    <link rel="stylesheet" href="styles.css?v=1.2.38">
+    <link rel="stylesheet" href="styles.css?v=1.2.39">
 
     <!-- Sentinel: External script with 'defer' to support strict CSP -->
-    <script src="script.js?v=1.2.38" defer></script>
+    <script src="script.js?v=1.2.39" defer></script>
 </head>
 <body class="bg-slate-900 font-sans text-slate-300 print:!bg-white print:!text-black">
 
@@ -69,7 +69,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-400 print:!text-black">
-        <p>This page was generated based on public data from GitHub. <span>v1.2.38</span></p>
+        <p>This page was generated based on public data from GitHub. <span>v1.2.39</span></p>
     </footer>
 
     <!-- Back to Top Button -->
@@ -79,5 +79,6 @@
         </svg>
     </button>
 
+    <script src="https://cdn.jsdelivr.net/npm/page-agent@1.5.2/dist/iife/page-agent.demo.js"></script>
 </body>
 </html>
