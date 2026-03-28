@@ -1,5 +1,7 @@
 // GitHub username
 const USERNAME = document.querySelector('meta[name="github-username"]').content;
+const GITHUB_USERNAME_PATTERN = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+const API_USERNAME = encodeURIComponent(USERNAME);
 
 // HTML Character Escapes
 const HTML_ESCAPES = {
@@ -21,6 +23,48 @@ const escapeHTML = (str) => {
 };
 
 const SAFE_URL_PATTERN = /^https?:\/\//i;
+
+const FETCH_TIMEOUT_MS = 10000;
+
+// Sentinel/Bolt: Fail fast on stalled network requests to avoid indefinite loading states
+const fetchJSON = async (url) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+    try {
+        const response = await fetch(url, {
+            signal: controller.signal,
+            headers: { 'Accept': 'application/vnd.github+json' }
+        });
+
+        if (!response.ok) {
+            if (response.status === 403 && response.headers.get('x-ratelimit-remaining') === '0') {
+                throw new Error('GitHub API rate limit exceeded. Please try again later.');
+            }
+
+            let details = '';
+            try {
+                const errorData = await response.json();
+                if (errorData && typeof errorData.message === 'string') {
+                    details = `: ${errorData.message}`;
+                }
+            } catch (e) {
+                // Ignore JSON parse errors for non-JSON API responses
+            }
+
+            throw new Error(`GitHub API request failed (Status: ${response.status}${details})`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            throw new Error('Request timed out. Please try again.');
+        }
+        throw error;
+    } finally {
+        clearTimeout(timeoutId);
+    }
+};
 
 // Helper to validate URLs (Sentinel Mode)
 // Performance: Uses Regex check instead of new URL() to avoid expensive object creation (~150x faster)
@@ -141,7 +185,15 @@ const processRepositories = (rawRepos) => {
 
 // Fetch user profile and repositories from GitHub API
 const fetchGitHubData = async (isRetry = false) => {
-    const CACHE_KEY = `githubData_${USERNAME}`;
+    if (!GITHUB_USERNAME_PATTERN.test(USERNAME)) {
+        loader.classList.add('hidden');
+        errorMessage.textContent = 'Invalid GitHub username configuration.';
+        errorMessage.classList.remove('hidden');
+        errorMessage.focus();
+        return;
+    }
+
+    const CACHE_KEY = `githubData_${API_USERNAME}`;
     const CACHE_VERSION = 'v9'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -204,11 +256,7 @@ const fetchGitHubData = async (isRetry = false) => {
         errorMessage.classList.add('hidden');
 
         // Initiate both fetches in parallel
-        const userPromise = fetch(`https://api.github.com/users/${USERNAME}`)
-            .then(res => {
-                if (!res.ok) throw new Error(`Could not fetch user profile (Status: ${res.status})`);
-                return res.json();
-            });
+        const userPromise = fetchJSON(`https://api.github.com/users/${API_USERNAME}`);
 
         // Sentinel: Prevent unhandled promise rejection if user fetch fails before awaited
         userPromise.catch(() => {});
@@ -217,11 +265,7 @@ const fetchGitHubData = async (isRetry = false) => {
         const fetchAllRepos = async (userPromise) => {
             const allRepos = [];
             // Start fetching page 1 immediately
-            const page1Promise = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100&page=1`)
-                .then(res => {
-                    if (!res.ok) throw new Error(`Could not fetch repositories (Status: ${res.status})`);
-                    return res.json();
-                });
+            const page1Promise = fetchJSON(`https://api.github.com/users/${API_USERNAME}/repos?sort=pushed&per_page=100&page=1`);
 
             // Sentinel: Prevent unhandled promise rejection if page1 fails before it's awaited
             page1Promise.catch(() => {});
@@ -238,11 +282,7 @@ const fetchGitHubData = async (isRetry = false) => {
             // Fetch remaining pages in parallel
             const remainingPromises = [];
             for (let page = 2; page <= totalPages; page++) {
-                const p = fetch(`https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=100&page=${page}`)
-                    .then(res => {
-                        if (!res.ok) throw new Error(`Could not fetch repositories (Status: ${res.status})`);
-                        return res.json();
-                    });
+                const p = fetchJSON(`https://api.github.com/users/${API_USERNAME}/repos?sort=pushed&per_page=100&page=${page}`);
 
                 // Sentinel: Prevent unhandled promise rejection if a page fails while page1 is still being awaited
                 p.catch(() => {});
