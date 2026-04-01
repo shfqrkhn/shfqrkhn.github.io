@@ -42,3 +42,9 @@
 
 ## 2026-02-14 - [Bolt] - [Passive Event Listeners]
 **Protocol:** High-frequency event listeners (specifically `scroll`, `touchmove`) must use `{ passive: true }` to inform the browser that `preventDefault()` will not be called, optimizing scroll performance.
+
+## 2026-02-24 - [Sentinel] - [Prototype Pollution Prevention]
+**Protocol:** Dictionary objects mapping external string keys must be created with `Object.assign(Object.create(null), {...})` to eliminate the prototype chain, preventing prototype pollution (e.g. `'constructor'` resolving to a function).
+
+## 2026-02-24 - [Sentinel] - [Strict Type Casting]
+**Protocol:** String-processing utilities like `escapeHTML` must explicitly cast inputs using `String(val)` and check for `val == null` instead of relying on falsy checks `!val` which drop `0` and cause crashes on non-string inputs calling `.replace()`.

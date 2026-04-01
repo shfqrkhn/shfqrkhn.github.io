@@ -17,9 +17,10 @@ const ESCAPE_CALLBACK = tag => HTML_ESCAPES[tag];
 
 // Helper to prevent XSS
 // Performance: Reuses callback function to avoid allocation on every call
+// Sentinel: Explicitly cast to string to prevent object injection or Number/Boolean bugs
 const escapeHTML = (str) => {
-    if (!str) return '';
-    return str.replace(ESCAPE_REGEX, ESCAPE_CALLBACK);
+    if (str == null) return '';
+    return String(str).replace(ESCAPE_REGEX, ESCAPE_CALLBACK);
 };
 
 const SAFE_URL_PATTERN = /^https?:\/\//i;
@@ -84,7 +85,8 @@ const errorMessage = document.getElementById('error-message');
 
 // Language color mapping
 // Optimized: Reduced to common languages to save bytes (Via Negativa)
-const LANGUAGE_COLORS = {
+// Sentinel: Create with null prototype to prevent prototype pollution via Object keys
+const LANGUAGE_COLORS = Object.assign(Object.create(null), {
     'JavaScript': 'bg-yellow-400',
     'Python': 'bg-blue-400',
     'HTML': 'bg-orange-500',
@@ -92,7 +94,7 @@ const LANGUAGE_COLORS = {
     'TypeScript': 'bg-blue-400',
     'Shell': 'bg-green-300',
     'default': 'bg-slate-500',
-};
+});
 
 // Function to get a color based on the programming language
 const getLanguageColor = (language) => {
