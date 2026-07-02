@@ -1,45 +1,86 @@
-# My Portfolio
+# Shafiqur Khan Portfolio
 
-**Version:** v1.2.44
+Curated GitHub Pages launchpad for a focused public project portfolio.
 
-Welcome! This repository contains the source code for my personal portfolio page, which is designed to be a live, dynamic showcase of all my public GitHub projects.
+- **Status:** Active portfolio hub
+- **Live Demo:** [shfqrkhn.github.io](https://shfqrkhn.github.io/)
+- **Portfolio Role:** Discovery surface for the flagship projects.
 
-### [**➡️ View My Live Portfolio Here**](https://shfqrkhn.github.io/)
+This site presents the public GitHub portfolio with a clear hierarchy: active flagships first, stable companion utilities second, and maintenance apps last.
 
-*(Note: You might need to adjust this link to the final URL where you host the page, for example, if you use a custom domain or a different repository name for GitHub Pages.)*
+## Screenshot
 
----
+![Portfolio project grid](./screenshot.png)
 
-## ✨ About This Portfolio
+## Why This Exists
 
-Instead of a static site that requires manual updates, this portfolio automatically links to and highlights all of my other repositories.
+A portfolio should reduce noise, not amplify repo sprawl. This site keeps the most valuable projects visible while still allowing visitors to discover stable utilities and older apps.
 
-The application uses the GitHub API to:
+## Featured Project Strategy
 
-* **Fetch All Repos**: It dynamically pulls in all of my public projects.
-* **Stay Current**: Whenever I create or update a public repository on GitHub, it automatically appears here. There's no need for me to edit this page manually.
-* **Highlight Key Projects**: My projects are automatically sorted to feature my most-starred work first.
+Active flagships:
 
-The goal of this repository is to provide a clean, simple, and always up-to-date hub for anyone interested in my work.
+- `ModelTab`: BYOK AI chat PWA.
+- `FIFA-WC-Sim`: sports analytics and simulation.
+- `nFIRE`: financial independence and solvency planning.
+- `LedgerSuite`: managerial judgment and operational analysis.
 
----
+Stable companions:
 
-## 🛠️ How It's Built
+- `AI-Studio-Cleaner`
+- `CommonGround`
+- `TS-Dash`
 
-The page is built with simple and modern web technologies, requiring no backend or databases:
+Maintenance apps:
 
-* **HTML**: For the basic structure.
-* **Tailwind CSS**: For all styling and creating a responsive layout.
-* **Vanilla JavaScript**: To communicate with the GitHub API and dynamically generate the project list.
-* **GitHub API**: Serves as the live data source for all content.
+- `PMQuiz`
+- `Noodle-Nudge`
+- `Flexx-Files`
 
----
+## What It Does
 
-## ⚡ Performance & Caching
+- Fetches public GitHub profile and repository data.
+- Filters out forks.
+- Renders project cards with description, language, stars, and update date.
+- Prioritizes curated flagships ahead of general sorting.
+- Caches GitHub API responses locally to reduce rate-limit pressure.
 
-To ensure a fast user experience and respect GitHub's API rate limits, this application employs a **Cache-First** strategy:
+## Quick Start
 
-* **LocalStorage Caching**: API responses are cached in the browser's `localStorage` for 24 hours.
-* **Smart Invalidation**: The cache includes a version tag (`v7`). If the application structure changes, the version is incremented to automatically invalidate old data and fetch fresh content.
-* **Parallel Fetching**: User profile and repository data are fetched simultaneously to minimize load times.
-* **Preconnection**: Critical domains (`api.github.com`, `avatars.githubusercontent.com`) are preconnected to reduce latency.
+1. Open the live portfolio.
+2. Start with the featured projects.
+3. Use stable companions and maintenance apps when relevant.
+4. Visit individual repositories for live demos and details.
+
+## Privacy And Data Model
+
+- Uses public GitHub API data only.
+- Caches fetched public data in localStorage.
+- No backend or analytics service is required.
+
+## Relationship To Other Projects
+
+This repo is the front door. It should not compete with the product repos; it should route attention to the strongest projects.
+
+## Repository Layout
+
+```text
+.
+├── index.html
+├── script.js
+├── styles.css
+├── src/
+└── package.json
+```
+
+## Deployment
+
+This is the account-level GitHub Pages site served from the repository root.
+
+## Maintenance
+
+Keep project ranking intentional. Do not showcase every repo equally when the goal is focus, adoption, and clear user pathways.
+
+## License
+
+See `LICENSE`.

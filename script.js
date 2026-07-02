@@ -101,6 +101,27 @@ const getLanguageColor = (language) => {
     return LANGUAGE_COLORS[language] || LANGUAGE_COLORS.default;
 };
 
+// Curated portfolio order: focus attention on the projects worth compounding.
+const PROJECT_POSITIONS = Object.assign(Object.create(null), {
+    'ModelTab': { rank: 0, label: 'Active flagship', focus: 'BYOK AI chat PWA' },
+    'FIFA-WC-Sim': { rank: 1, label: 'Active flagship', focus: 'Sports analytics' },
+    'nFIRE': { rank: 2, label: 'Active flagship', focus: 'Personal finance' },
+    'LedgerSuite': { rank: 3, label: 'Active flagship', focus: 'Decision workspace' },
+    'AI-Studio-Cleaner': { rank: 10, label: 'Stable companion', focus: 'AI utility' },
+    'CommonGround': { rank: 11, label: 'Stable companion', focus: 'Facilitation' },
+    'TS-Dash': { rank: 12, label: 'Stable companion', focus: 'Data utility' },
+    'PMQuiz': { rank: 20, label: 'Maintenance app', focus: 'Education' },
+    'Noodle-Nudge': { rank: 21, label: 'Maintenance app', focus: 'Reflection' },
+    'Flexx-Files': { rank: 22, label: 'Maintenance app', focus: 'Fitness' },
+    'shfqrkhn.github.io': { rank: 30, label: 'Portfolio hub', focus: 'Project showcase' }
+});
+
+const getProjectPosition = (name) => PROJECT_POSITIONS[name] || {
+    rank: 99,
+    label: 'Additional project',
+    focus: 'GitHub project'
+};
+
 // Render user profile to the DOM
 const renderProfile = (user) => {
     // Sentinel: Validate avatar URL before processing
@@ -138,6 +159,7 @@ const renderRepos = (repos) => {
         reposGrid.innerHTML = repos.map(repo => `
             <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 print:!bg-white print:!border-gray-300 print:!shadow-none">
                 <h3 class="text-xl font-bold text-white print:!text-black">${escapeHTML(repo.name)}</h3>
+                <p class="mt-1 text-xs text-sky-400 font-semibold print:!text-blue-700">${escapeHTML(repo.statusLabel)} · ${escapeHTML(repo.focus)}</p>
                 <p class="mt-2 text-sm text-slate-400 h-10 line-clamp-2 overflow-hidden print:!text-gray-700">${escapeHTML(repo.description || 'No description provided.')}</p>
                 <div class="mt-4 flex items-center justify-between text-xs text-slate-400 print:!text-gray-500">
                     <div class="flex items-center gap-2">
@@ -166,16 +188,23 @@ const processRepositories = (rawRepos) => {
 
     return rawRepos
         .filter(repo => !repo.fork) // Filter out forks (Via Negativa)
-        .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)) // Sort by stars
+        .sort((a, b) => {
+            const rankDelta = getProjectPosition(a.name).rank - getProjectPosition(b.name).rank;
+            if (rankDelta !== 0) return rankDelta;
+            return (b.stargazers_count || 0) - (a.stargazers_count || 0);
+        })
         .map(repo => {
             // Sentinel: Guard against invalid dates to prevent Intl.DateTimeFormat crash
             const timestamp = Date.parse(repo.pushed_at);
             const formattedDate = !isNaN(timestamp) ? dateFormatter.format(timestamp) : 'Unknown';
+            const position = getProjectPosition(repo.name);
 
             return { // Minify schema
                 name: repo.name,
                 html_url: repo.html_url,
                 description: repo.description,
+                statusLabel: position.label,
+                focus: position.focus,
                 language: repo.language,
                 languageColor: getLanguageColor(repo.language), // Pre-calculate color (Bolt Mode)
                 stargazers_count: Number(repo.stargazers_count) || 0,
@@ -196,7 +225,7 @@ const fetchGitHubData = async (isRetry = false) => {
     }
 
     const CACHE_KEY = `githubData_${API_USERNAME}`;
-    const CACHE_VERSION = 'v9'; // Increment when data structure changes
+    const CACHE_VERSION = 'v10'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     // Bolt Mode: Entropy elimination - purge any stale githubData caches from other usernames
