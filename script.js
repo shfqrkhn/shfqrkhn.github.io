@@ -163,7 +163,7 @@ const renderProfile = (user) => {
 const renderRepos = (repos) => {
     if (repos.length > 0) {
         reposGrid.innerHTML = repos.map(repo => `
-            <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 print:!bg-white print:!border-gray-300 print:!shadow-none">
+            <article class="project-card block p-6 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none touch-manipulation print:!bg-white print:!border-gray-300 print:!shadow-none">
                 <h3 class="text-xl font-bold text-white print:!text-black">${escapeHTML(repo.name)}</h3>
                 <p class="mt-1 text-xs text-sky-400 font-semibold print:!text-blue-700">${escapeHTML(repo.statusLabel)} · ${escapeHTML(repo.focus)}</p>
                 <p class="mt-2 text-sm text-slate-400 h-10 line-clamp-2 overflow-hidden print:!text-gray-700">${escapeHTML(repo.description || 'No description provided.')}</p>
@@ -179,7 +179,11 @@ const renderRepos = (repos) => {
                         <span>${repo.pushed_at}</span>
                     </div>
                 </div>
-            </a>
+                <div class="mt-4 flex items-center gap-4 text-sm">
+                    ${repo.homepage ? `<a href="${safeURL(repo.homepage)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">Open app</a>` : ''}
+                    <a href="${safeURL(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">View repo</a>
+                </div>
+            </article>
         `).join('');
     } else {
             reposGrid.innerHTML = '<p class="text-center col-span-full">No public repositories found.</p>';
@@ -208,6 +212,7 @@ const processRepositories = (rawRepos) => {
             return { // Minify schema
                 name: repo.name,
                 html_url: repo.html_url,
+                homepage: repo.homepage,
                 description: repo.description,
                 statusLabel: position.label,
                 focus: position.focus,
@@ -231,7 +236,7 @@ const fetchGitHubData = async (isRetry = false) => {
     }
 
     const CACHE_KEY = `githubData_${API_USERNAME}`;
-    const CACHE_VERSION = 'v11'; // Increment when data structure changes
+    const CACHE_VERSION = 'v12'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     // Bolt Mode: Entropy elimination - purge any stale githubData caches from other usernames
