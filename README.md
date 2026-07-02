@@ -1,5 +1,7 @@
 # Shafiqur Khan Portfolio
 
+<p><a href="https://github.com/sponsors/shfqrkhn?o=esb"><strong>Sponsor this project</strong></a></p>
+
 Curated GitHub Pages launchpad for a focused public project portfolio.
 
 - **Status:** Active portfolio hub

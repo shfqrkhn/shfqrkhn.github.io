@@ -147,9 +147,12 @@ const renderProfile = (user) => {
         <img src="${avatarSrc}" alt="${escapeHTML(name)}'s GitHub profile photo" width="128" height="128" fetchpriority="high" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
         <h1 class="text-4xl font-bold text-white print:!text-black">${escapeHTML(name)}</h1>
         <p class="mt-2 max-w-md text-slate-400 print:!text-black">${escapeHTML(user.bio || '')}</p>
-        <div class="mt-4">
+        <div class="mt-4 flex items-center justify-center gap-4">
             <a href="${safeURL(user.html_url)}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">
                 View GitHub Profile
+            </a>
+            <a href="https://github.com/sponsors/shfqrkhn?o=esb" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">
+                Sponsor
             </a>
         </div>
     `;
