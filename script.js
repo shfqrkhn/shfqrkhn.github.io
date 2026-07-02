@@ -101,13 +101,16 @@ const getLanguageColor = (language) => {
     return LANGUAGE_COLORS[language] || LANGUAGE_COLORS.default;
 };
 
+const HIDDEN_REPOSITORIES = Object.assign(Object.create(null), {
+    'AI-Studio-Cleaner': true
+});
+
 // Curated portfolio order: focus attention on the projects worth compounding.
 const PROJECT_POSITIONS = Object.assign(Object.create(null), {
     'ModelTab': { rank: 0, label: 'Active flagship', focus: 'BYOK AI chat PWA' },
     'FIFA-WC-Sim': { rank: 1, label: 'Active flagship', focus: 'Sports analytics' },
     'nFIRE': { rank: 2, label: 'Active flagship', focus: 'Personal finance' },
     'LedgerSuite': { rank: 3, label: 'Active flagship', focus: 'Decision workspace' },
-    'AI-Studio-Cleaner': { rank: 10, label: 'Stable companion', focus: 'AI utility' },
     'CommonGround': { rank: 11, label: 'Stable companion', focus: 'Facilitation' },
     'TS-Dash': { rank: 12, label: 'Stable companion', focus: 'Data utility' },
     'PMQuiz': { rank: 20, label: 'Maintenance app', focus: 'Education' },
@@ -187,7 +190,7 @@ const processRepositories = (rawRepos) => {
     const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
     return rawRepos
-        .filter(repo => !repo.fork) // Filter out forks (Via Negativa)
+        .filter(repo => !repo.fork && !HIDDEN_REPOSITORIES[repo.name]) // Filter out forks and consolidated repos (Via Negativa)
         .sort((a, b) => {
             const rankDelta = getProjectPosition(a.name).rank - getProjectPosition(b.name).rank;
             if (rankDelta !== 0) return rankDelta;
@@ -225,7 +228,7 @@ const fetchGitHubData = async (isRetry = false) => {
     }
 
     const CACHE_KEY = `githubData_${API_USERNAME}`;
-    const CACHE_VERSION = 'v10'; // Increment when data structure changes
+    const CACHE_VERSION = 'v11'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     // Bolt Mode: Entropy elimination - purge any stale githubData caches from other usernames

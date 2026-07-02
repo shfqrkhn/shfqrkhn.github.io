@@ -27,7 +27,6 @@ Active flagships:
 
 Stable companions:
 
-- `AI-Studio-Cleaner`
 - `CommonGround`
 - `TS-Dash`
 
@@ -40,7 +39,7 @@ Maintenance apps:
 ## What It Does
 
 - Fetches public GitHub profile and repository data.
-- Filters out forks.
+- Filters out forks and consolidated redirect repos.
 - Renders project cards with description, language, stars, and update date.
 - Prioritizes curated flagships ahead of general sorting.
 - Caches GitHub API responses locally to reduce rate-limit pressure.
