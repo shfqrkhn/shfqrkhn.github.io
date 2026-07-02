@@ -1,0 +1,70 @@
+import fs from "node:fs";
+import path from "node:path";
+
+const root = process.cwd();
+const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
+const exists = (file) => fs.existsSync(path.join(root, file));
+const fail = (message) => {
+  throw new Error(message);
+};
+const assert = (condition, message) => {
+  if (!condition) fail(message);
+};
+
+const index = read("index.html");
+const script = read("script.js");
+const readme = read("README.md");
+const sitemap = read("sitemap.xml");
+const robots = read("robots.txt");
+const pkg = JSON.parse(read("package.json"));
+
+assert(pkg.name === "shfqrkhn-portfolio", "package name must identify the portfolio repo.");
+assert(pkg.private === true, "portfolio package must stay private.");
+assert(pkg.license === "MIT", "package license must match LICENSE.");
+assert(pkg.scripts?.test === "node tests/portfolio-static-regression.mjs", "npm test must run the static regression gate.");
+
+const version = pkg.version;
+assert(index.includes(`styles.css?v=${version}`), "index stylesheet version must match package version.");
+assert(index.includes(`script.js?v=${version}`), "index script version must match package version.");
+assert(index.includes(`v${version}`), "footer version must match package version.");
+assert(readme.includes(`**Version:** v${version}`), "README version must match package version.");
+
+assert(index.includes("https://github.com/sponsors/shfqrkhn?o=esb"), "Sponsor link must be present.");
+assert(index.includes("https://shfqrkhn.github.io/ModelTab/"), "ModelTab live link must be present.");
+assert(index.includes("https://github.com/shfqrkhn/ModelTab"), "ModelTab repo link must be present.");
+assert(index.includes("media/modeltab.png"), "ModelTab screenshot must be present.");
+assert(index.includes('alt="ModelTab browser AI chat workspace"'), "ModelTab screenshot must have useful alt text.");
+assert(index.includes("https://shfqrkhn.github.io/nFIRE/"), "nFIRE live link must be present.");
+assert(index.includes("https://github.com/shfqrkhn/nFIRE"), "nFIRE repo link must be present.");
+assert(index.includes("media/nfire.png"), "nFIRE screenshot must be present.");
+assert(index.includes('alt="nFIRE financial independence dashboard"'), "nFIRE screenshot must have useful alt text.");
+assert(index.includes("Primary Apps"), "primary app section must be visible without GitHub API data.");
+assert(index.includes('aria-labelledby="primary-apps-title"'), "primary section must be labelled.");
+assert(index.includes('aria-labelledby="supporting-projects-title"'), "supporting section must be labelled.");
+
+assert(!/<meta[^>]+http-equiv="Content-Security-Policy"[^>]+frame-ancestors/.test(index), "frame-ancestors must not be placed in meta CSP.");
+assert(index.includes("connect-src https://api.github.com"), "CSP must allow only the GitHub API for fetches.");
+assert(index.includes("img-src 'self' https://avatars.githubusercontent.com data:"), "CSP must allow self-hosted screenshots and GitHub avatars.");
+
+for (const name of ["ModelTab", "nFIRE"]) {
+  assert(script.includes(`'${name}': true`), `${name} must be declared as a primary repository.`);
+}
+for (const name of ["FIFA-WC-Sim", "LedgerSuite", "CommonGround", "TS-Dash"]) {
+  assert(script.includes(`'${name}': true`), `${name} must remain in the focused supporting set.`);
+  assert(sitemap.includes(`https://shfqrkhn.github.io/${name}/`), `${name} must remain in sitemap.`);
+}
+for (const noisy of ["PMQuiz", "Noodle-Nudge", "Flexx-Files"]) {
+  assert(!script.includes(noisy), `${noisy} must not be in the runtime showcase list.`);
+  assert(!sitemap.includes(noisy), `${noisy} must not be in sitemap.`);
+  assert(!readme.includes(noisy), `${noisy} must not be in README focus set.`);
+}
+
+assert(robots.includes("Sitemap: https://shfqrkhn.github.io/sitemap.xml"), "robots.txt must point to sitemap.");
+assert(sitemap.includes("https://shfqrkhn.github.io/ModelTab/"), "sitemap must include ModelTab.");
+assert(sitemap.includes("https://shfqrkhn.github.io/nFIRE/"), "sitemap must include nFIRE.");
+assert(exists("screenshot.png"), "portfolio screenshot must exist.");
+assert(exists("media/modeltab.png"), "local ModelTab media must exist.");
+assert(exists("media/nfire.png"), "local nFIRE media must exist.");
+assert(exists(".nojekyll"), "GitHub Pages must stay in plain static mode.");
+
+console.log(`OK: portfolio static regression checks passed for v${version}.`);

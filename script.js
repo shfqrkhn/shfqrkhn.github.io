@@ -105,18 +105,24 @@ const HIDDEN_REPOSITORIES = Object.assign(Object.create(null), {
     'AI-Studio-Cleaner': true
 });
 
-// Curated portfolio order: focus attention on the projects worth compounding.
+const PRIMARY_REPOSITORIES = Object.assign(Object.create(null), {
+    'ModelTab': true,
+    'nFIRE': true
+});
+
+const SHOWCASED_REPOSITORIES = Object.assign(Object.create(null), {
+    'FIFA-WC-Sim': true,
+    'LedgerSuite': true,
+    'CommonGround': true,
+    'TS-Dash': true
+});
+
+// Curated supporting order: keep the dynamic grid focused instead of showing every repo.
 const PROJECT_POSITIONS = Object.assign(Object.create(null), {
-    'ModelTab': { rank: 0, label: 'Active flagship', focus: 'BYOK AI chat PWA' },
-    'FIFA-WC-Sim': { rank: 1, label: 'Active flagship', focus: 'Sports analytics' },
-    'nFIRE': { rank: 2, label: 'Active flagship', focus: 'Personal finance' },
-    'LedgerSuite': { rank: 3, label: 'Active flagship', focus: 'Decision workspace' },
-    'CommonGround': { rank: 11, label: 'Stable companion', focus: 'Facilitation' },
-    'TS-Dash': { rank: 12, label: 'Stable companion', focus: 'Data utility' },
-    'PMQuiz': { rank: 20, label: 'Maintenance app', focus: 'Education' },
-    'Noodle-Nudge': { rank: 21, label: 'Maintenance app', focus: 'Reflection' },
-    'Flexx-Files': { rank: 22, label: 'Maintenance app', focus: 'Fitness' },
-    'shfqrkhn.github.io': { rank: 30, label: 'Portfolio hub', focus: 'Project showcase' }
+    'FIFA-WC-Sim': { rank: 10, label: 'Focused project', focus: 'Sports analytics' },
+    'LedgerSuite': { rank: 11, label: 'Focused project', focus: 'Decision workspace' },
+    'CommonGround': { rank: 20, label: 'Stable companion', focus: 'Facilitation' },
+    'TS-Dash': { rank: 21, label: 'Stable companion', focus: 'Data utility' }
 });
 
 const getProjectPosition = (name) => PROJECT_POSITIONS[name] || {
@@ -141,7 +147,7 @@ const renderProfile = (user) => {
     }
 
     const name = user.name || user.login;
-    document.title = `${name} | GitHub Projects`;
+    document.title = `${name} | Focused App Portfolio`;
 
     profileElement.innerHTML = `
         <img src="${avatarSrc}" alt="${escapeHTML(name)}'s GitHub profile photo" width="128" height="128" fetchpriority="high" class="w-32 h-32 rounded-full mb-4 border-4 border-slate-700 shadow-lg">
@@ -197,7 +203,7 @@ const processRepositories = (rawRepos) => {
     const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
     return rawRepos
-        .filter(repo => !repo.fork && !HIDDEN_REPOSITORIES[repo.name]) // Filter out forks and consolidated repos (Via Negativa)
+        .filter(repo => !repo.fork && !HIDDEN_REPOSITORIES[repo.name] && !PRIMARY_REPOSITORIES[repo.name] && SHOWCASED_REPOSITORIES[repo.name])
         .sort((a, b) => {
             const rankDelta = getProjectPosition(a.name).rank - getProjectPosition(b.name).rank;
             if (rankDelta !== 0) return rankDelta;
@@ -236,7 +242,7 @@ const fetchGitHubData = async (isRetry = false) => {
     }
 
     const CACHE_KEY = `githubData_${API_USERNAME}`;
-    const CACHE_VERSION = 'v12'; // Increment when data structure changes
+    const CACHE_VERSION = 'v13'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     // Bolt Mode: Entropy elimination - purge any stale githubData caches from other usernames

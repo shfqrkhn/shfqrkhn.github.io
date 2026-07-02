@@ -5,10 +5,11 @@
 Curated GitHub Pages launchpad for a focused public project portfolio.
 
 - **Status:** Active portfolio hub
+- **Version:** v1.2.46
 - **Live Demo:** [shfqrkhn.github.io](https://shfqrkhn.github.io/)
 - **Portfolio Role:** Discovery surface for the flagship projects.
 
-This site presents the public GitHub portfolio with a clear hierarchy: active flagships first, stable companion utilities second, and maintenance apps last.
+This site routes attention to the strongest public projects first instead of giving every repository equal weight.
 
 ## Screenshot
 
@@ -16,34 +17,29 @@ This site presents the public GitHub portfolio with a clear hierarchy: active fl
 
 ## Why This Exists
 
-A portfolio should reduce noise, not amplify repo sprawl. This site keeps the most valuable projects visible while still allowing visitors to discover stable utilities and older apps.
+A portfolio should reduce noise, not amplify repo sprawl. This site keeps the primary products visible even before GitHub API data loads, then uses public repository data for a small supporting set.
 
 ## Featured Project Strategy
 
-Active flagships:
+Primary flagships:
 
-- `ModelTab`: BYOK AI chat PWA.
-- `FIFA-WC-Sim`: sports analytics and simulation.
+- `ModelTab`: no-install BYOK AI chat PWA.
 - `nFIRE`: financial independence and solvency planning.
-- `LedgerSuite`: managerial judgment and operational analysis.
 
-Stable companions:
+Supporting projects:
 
+- `FIFA-WC-Sim`
+- `LedgerSuite`
 - `CommonGround`
 - `TS-Dash`
 
-Maintenance apps:
-
-- `PMQuiz`
-- `Noodle-Nudge`
-- `Flexx-Files`
-
 ## What It Does
 
+- Presents ModelTab and nFIRE as static primary cards with screenshots and direct app/repo links.
 - Fetches public GitHub profile and repository data.
-- Filters out forks and consolidated redirect repos.
+- Filters out forks, consolidated redirect repos, primary-card duplicates, and non-focused repos.
 - Renders project cards with description, language, stars, and update date.
-- Prioritizes curated flagships ahead of general sorting.
+- Prioritizes the curated supporting set ahead of general sorting.
 - Caches GitHub API responses locally to reduce rate-limit pressure.
 
 ## Quick Start
@@ -70,13 +66,21 @@ This repo is the front door. It should not compete with the product repos; it sh
 ├── index.html
 ├── script.js
 ├── styles.css
+├── media/
 ├── src/
+├── tests/
 └── package.json
 ```
 
 ## Deployment
 
 This is the account-level GitHub Pages site served from the repository root.
+
+## Quality Gates
+
+```bash
+npm test
+```
 
 ## Maintenance
 

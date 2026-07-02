@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shafiqur Khan - Software Developer | Focused GitHub Portfolio</title>
-    <meta name="description" content="A focused portfolio of Shafiqur Khan's flagship apps, stable tools, and maintained experiments.">
+    <title>Shafiqur Khan - Focused App Portfolio</title>
+    <meta name="description" content="A focused launchpad for ModelTab, nFIRE, and a small set of supporting public projects.">
     <meta name="theme-color" content="#0f172a">
     <link rel="canonical" href="https://shfqrkhn.github.io/">
     <!-- Sentinel: Configuration for script.js -->
     <meta name="github-username" content="shfqrkhn">
 
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; connect-src https://api.github.com; font-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; connect-src https://api.github.com; font-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://shfqrkhn.github.io/">
-    <meta property="og:title" content="Shafiqur Khan | Focused Projects">
-    <meta property="og:description" content="Flagship apps, stable tools, and maintained experiments in a curated GitHub portfolio.">
+    <meta property="og:title" content="Shafiqur Khan | Focused App Portfolio">
+    <meta property="og:description" content="ModelTab, nFIRE, and a small set of supporting public projects.">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Shafiqur Khan | Focused Projects">
-    <meta name="twitter:description" content="Flagship apps, stable tools, and maintained experiments in a curated GitHub portfolio.">
+    <meta name="twitter:title" content="Shafiqur Khan | Focused App Portfolio">
+    <meta name="twitter:description" content="ModelTab, nFIRE, and a small set of supporting public projects.">
     <meta name="twitter:image" content="https://shfqrkhn.github.io/screenshot.png">
     <meta property="og:image" content="https://shfqrkhn.github.io/screenshot.png">
 
@@ -35,10 +35,10 @@
 
     <!-- Tailwind CSS (Static Build) -->
     <!-- Optimized: Replaced Play CDN with static build for performance -->
-    <link rel="stylesheet" href="styles.css?v=1.2.45">
+    <link rel="stylesheet" href="styles.css?v=1.2.46">
 
     <!-- Sentinel: External script with 'defer' to support strict CSP -->
-    <script src="script.js?v=1.2.45" defer></script>
+    <script src="script.js?v=1.2.46" defer></script>
 </head>
 <body class="bg-slate-900 font-sans text-slate-300 print:!bg-white print:!text-black">
 
@@ -50,10 +50,42 @@
             <!-- Profile content will be injected here by JavaScript -->
         </header>
 
-        <!-- Projects Section -->
-        <section>
-            <h2 class="text-3xl font-bold text-white text-center mb-8 print:!text-black">Focused Projects</h2>
-            <p class="text-center text-slate-400 mb-8 print:!text-black">A curated view of active flagships, stable companion tools, and smaller maintained apps.</p>
+        <!-- Primary Apps Section -->
+        <section aria-labelledby="primary-apps-title" class="mb-12">
+            <h2 id="primary-apps-title" class="text-3xl font-bold text-white text-center mb-4 print:!text-black">Primary Apps</h2>
+            <p class="text-center text-slate-400 mb-8 print:!text-black">The two projects worth routing most visitor attention to first.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <article class="project-card block bg-slate-800 rounded-lg border border-slate-700 overflow-hidden hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none touch-manipulation print:!bg-white print:!border-gray-300 print:!shadow-none">
+                    <img src="media/modeltab.png" alt="ModelTab browser AI chat workspace" width="1280" height="720" loading="eager" class="w-full h-48 object-cover border-slate-700">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white print:!text-black">ModelTab</h3>
+                        <p class="mt-1 text-xs text-sky-400 font-semibold print:!text-blue-700">Primary flagship · BYOK AI chat PWA</p>
+                        <p class="mt-2 text-sm text-slate-400 print:!text-gray-700">No-install AI chat for OpenAI-compatible endpoints, native Gemini keys, local LLM endpoints, prompt workflows, backups, and explicit browser-only operation.</p>
+                        <div class="mt-4 flex items-center gap-4 text-sm">
+                            <a href="https://shfqrkhn.github.io/ModelTab/" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">Open app</a>
+                            <a href="https://github.com/shfqrkhn/ModelTab" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">View repo</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="project-card block bg-slate-800 rounded-lg border border-slate-700 overflow-hidden hover:bg-slate-700/50 transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:transform-none touch-manipulation print:!bg-white print:!border-gray-300 print:!shadow-none">
+                    <img src="media/nfire.png" alt="nFIRE financial independence dashboard" width="1280" height="720" loading="lazy" class="w-full h-48 object-cover border-slate-700">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white print:!text-black">nFIRE</h3>
+                        <p class="mt-1 text-xs text-sky-400 font-semibold print:!text-blue-700">Primary flagship · Financial independence planning</p>
+                        <p class="mt-2 text-sm text-slate-400 print:!text-gray-700">Deterministic local-first solvency planning with visible year-by-year assumptions, tax/pension modeling, and clear non-advice boundaries.</p>
+                        <div class="mt-4 flex items-center gap-4 text-sm">
+                            <a href="https://shfqrkhn.github.io/nFIRE/" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">Open app</a>
+                            <a href="https://github.com/shfqrkhn/nFIRE" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">View repo</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Supporting Projects Section -->
+        <section aria-labelledby="supporting-projects-title">
+            <h2 id="supporting-projects-title" class="text-3xl font-bold text-white text-center mb-4 print:!text-black">Supporting Projects</h2>
+            <p class="text-center text-slate-400 mb-8 print:!text-black">A deliberately small supporting set. Public GitHub data fills these cards when available.</p>
             <!-- Loading Spinner -->
             <div id="loader" role="status" tabindex="-1" class="outline-none flex flex-col justify-center items-center h-32 gap-4">
                 <div class="animate-spin rounded-full border-4 border-slate-700 border-t-sky-400 h-10 w-10 motion-reduce:animate-none"></div>
@@ -71,7 +103,7 @@
 
     <!-- Footer -->
     <footer class="text-center p-4 mt-8 text-xs text-slate-400 print:!text-black">
-        <p>This page was generated based on public data from GitHub. <a href="https://github.com/sponsors/shfqrkhn?o=esb" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">Sponsor</a>. <span>v1.2.45</span></p>
+        <p>This page uses public GitHub data for supporting cards. <a href="https://github.com/sponsors/shfqrkhn?o=esb" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 transition-colors motion-reduce:transition-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-sm print:!text-blue-700">Sponsor</a>. <span>v1.2.46</span></p>
     </footer>
 
     <!-- Back to Top Button -->
