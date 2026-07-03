@@ -36,10 +36,10 @@ Supporting projects:
 
 - Presents ModelTab, nFIRE, and FIFA-WC-Sim as static primary cards with screenshots and direct app/repo links.
 - Fetches public GitHub profile and repository data.
-- Filters out forks, consolidated redirect repos, primary-card duplicates, and non-focused repos.
+- Filters out forks, absorbed standalone app names, primary-card duplicates, and non-focused repos.
 - Renders project cards with description, language, stars, and update date.
 - Prioritizes the curated supporting set ahead of general sorting.
-- Routes consolidated utility apps through LocalFirstApps instead of former standalone repos.
+- Routes consolidated utility apps through LocalFirstApps instead of former standalone apps.
 - Caches GitHub API responses locally to reduce rate-limit pressure.
 
 ## Quick Start

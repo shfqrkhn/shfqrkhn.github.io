@@ -14,8 +14,8 @@ Maintain the public portfolio as a focused discovery surface. It should route at
 - Static GitHub Pages site from the repository root.
 - Primary cards are curated and visible without GitHub API data.
 - Supporting cards use public GitHub API data and local cache.
-- Sponsor CTA, screenshots, live links, repo links, metadata, sitemap, and redirects must stay accurate.
-- Retired/deleted repo links should not reappear except intentional compatibility redirects.
+- Sponsor CTA, screenshots, live links, repo links, metadata, and sitemap must stay accurate.
+- Retired/deleted standalone app links and redirect folders should not reappear.
 - Private planning drafts and future-project names should not appear on the public portfolio until the user explicitly approves launch positioning.
 
 ## Current Portfolio Strategy
@@ -47,7 +47,7 @@ npm test
 git diff --check
 ```
 
-After pushing, verify GitHub Pages and the live URLs for screenshots, primary cards, and compatibility redirects.
+After pushing, verify GitHub Pages and the live URLs for screenshots, primary cards, and routed app links.
 
 ## Continuation Notes
 

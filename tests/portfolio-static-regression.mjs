@@ -58,28 +58,14 @@ assert(script.includes("'LocalFirstApps': true"), "LocalFirstApps must remain in
 for (const name of ["FIFA-WC-Sim", "LocalFirstApps"]) {
   assert(sitemap.includes(`https://shfqrkhn.github.io/${name}/`), `${name} must remain in sitemap.`);
 }
-assert(script.includes("!repo.archived"), "archived redirect repos must be filtered out.");
-assert(readme.includes("former standalone repos"), "README must describe deleted standalone app repos accurately.");
+assert(script.includes("!repo.archived"), "archived repos must be filtered out.");
+assert(readme.includes("former standalone apps"), "README must describe absorbed standalone apps accurately.");
 assert(!readme.includes("separate archived repos"), "README must not imply deleted standalone app repos still exist as archives.");
-assert(!script.includes("AI-Studio-Cleaner"), "deleted AI Studio Cleaner repo must not remain in runtime portfolio code.");
-const retiredRedirects = {
-  "AI-Studio-Cleaner": "https://shfqrkhn.github.io/ModelTab/tools/ai-studio-cleaner/",
-  "TS-Dash": "https://shfqrkhn.github.io/LocalFirstApps/apps/ts-dash/",
-  "PMQuiz": "https://shfqrkhn.github.io/LocalFirstApps/apps/pmquiz/",
-  "Noodle-Nudge": "https://shfqrkhn.github.io/LocalFirstApps/apps/noodle-nudge/",
-  "LedgerSuite": "https://shfqrkhn.github.io/LocalFirstApps/apps/ledgersuite/",
-  "Flexx-Files": "https://shfqrkhn.github.io/LocalFirstApps/apps/flexx-files/",
-  "CommonGround": "https://shfqrkhn.github.io/LocalFirstApps/apps/commonground/",
-  "C3Pedal": "https://shfqrkhn.github.io/"
-};
-for (const [repo, target] of Object.entries(retiredRedirects)) {
-  const redirectFile = `${repo}/index.html`;
-  assert(exists(redirectFile), `${repo} compatibility redirect must exist.`);
-  const redirect = read(redirectFile);
-  assert(redirect.includes('content="noindex,follow"'), `${repo} redirect must stay out of search results.`);
-  assert(redirect.includes(`href="${target}"`), `${repo} redirect canonical target must be current.`);
-  assert(redirect.includes(`url=${target}`), `${repo} redirect refresh target must be current.`);
-  assert(!sitemap.includes(`https://shfqrkhn.github.io/${repo}/`), `${repo} redirect must not re-enter the sitemap.`);
+assert(!script.includes("AI-Studio-Cleaner"), "absorbed AI Studio Cleaner name must not remain in runtime portfolio code.");
+const removedStandalonePaths = ["AI-Studio-Cleaner", "TS-Dash", "PMQuiz", "Noodle-Nudge", "LedgerSuite", "Flexx-Files", "CommonGround", "C3Pedal"];
+for (const repo of removedStandalonePaths) {
+  assert(!exists(repo), `${repo} standalone redirect folder must stay removed.`);
+  assert(!sitemap.includes(`https://shfqrkhn.github.io/${repo}/`), `${repo} standalone URL must not be in sitemap.`);
 }
 for (const appPath of ["ts-dash", "pmquiz", "noodle-nudge", "ledgersuite", "flexx-files", "commonground"]) {
   assert(sitemap.includes(`https://shfqrkhn.github.io/LocalFirstApps/apps/${appPath}/`), `${appPath} must be represented through LocalFirstApps.`);
