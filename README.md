@@ -5,7 +5,7 @@
 Curated GitHub Pages launchpad for a focused public project portfolio.
 
 - **Status:** Active portfolio hub
-- **Version:** v1.2.48
+- **Version:** v1.2.49
 - **Live Demo:** [shfqrkhn.github.io](https://shfqrkhn.github.io/)
 - **Portfolio Role:** Discovery surface for the flagship projects.
 
@@ -25,15 +25,15 @@ Primary flagships:
 
 - `ModelTab`: no-install BYOK AI chat PWA.
 - `nFIRE`: financial independence and solvency planning.
+- `FIFA-WC-Sim`: transparent World Cup simulation and prediction-audit workflow.
 
 Supporting projects:
 
-- `FIFA-WC-Sim`
 - `LocalFirstApps`
 
 ## What It Does
 
-- Presents ModelTab and nFIRE as static primary cards with screenshots and direct app/repo links.
+- Presents ModelTab, nFIRE, and FIFA-WC-Sim as static primary cards with screenshots and direct app/repo links.
 - Fetches public GitHub profile and repository data.
 - Filters out forks, consolidated redirect repos, primary-card duplicates, and non-focused repos.
 - Renders project cards with description, language, stars, and update date.

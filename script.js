@@ -103,17 +103,16 @@ const getLanguageColor = (language) => {
 
 const PRIMARY_REPOSITORIES = Object.assign(Object.create(null), {
     'ModelTab': true,
-    'nFIRE': true
+    'nFIRE': true,
+    'FIFA-WC-Sim': true
 });
 
 const SHOWCASED_REPOSITORIES = Object.assign(Object.create(null), {
-    'FIFA-WC-Sim': true,
     'LocalFirstApps': true
 });
 
 // Curated supporting order: keep the dynamic grid focused instead of showing every repo.
 const PROJECT_POSITIONS = Object.assign(Object.create(null), {
-    'FIFA-WC-Sim': { rank: 10, label: 'Focused project', focus: 'Sports analytics' },
     'LocalFirstApps': { rank: 20, label: 'Consolidated suite', focus: 'Local-first utilities' }
 });
 
@@ -234,7 +233,7 @@ const fetchGitHubData = async (isRetry = false) => {
     }
 
     const CACHE_KEY = `githubData_${API_USERNAME}`;
-    const CACHE_VERSION = 'v13'; // Increment when data structure changes
+    const CACHE_VERSION = 'v14'; // Increment when data structure changes
     const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     // Bolt Mode: Entropy elimination - purge any stale githubData caches from other usernames

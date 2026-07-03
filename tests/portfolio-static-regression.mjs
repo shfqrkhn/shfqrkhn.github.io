@@ -38,6 +38,10 @@ assert(index.includes("https://shfqrkhn.github.io/nFIRE/"), "nFIRE live link mus
 assert(index.includes("https://github.com/shfqrkhn/nFIRE"), "nFIRE repo link must be present.");
 assert(index.includes("media/nfire.png"), "nFIRE screenshot must be present.");
 assert(index.includes('alt="nFIRE financial independence dashboard"'), "nFIRE screenshot must have useful alt text.");
+assert(index.includes("https://shfqrkhn.github.io/FIFA-WC-Sim/"), "FIFA-WC-Sim live link must be present.");
+assert(index.includes("https://github.com/shfqrkhn/FIFA-WC-Sim"), "FIFA-WC-Sim repo link must be present.");
+assert(index.includes("media/fifa-wc-sim.png"), "FIFA-WC-Sim screenshot must be present.");
+assert(index.includes('alt="FIFA-WC-Sim tournament simulator dashboard"'), "FIFA-WC-Sim screenshot must have useful alt text.");
 assert(index.includes("Primary Apps"), "primary app section must be visible without GitHub API data.");
 assert(index.includes('aria-labelledby="primary-apps-title"'), "primary section must be labelled.");
 assert(index.includes('aria-labelledby="supporting-projects-title"'), "supporting section must be labelled.");
@@ -46,11 +50,12 @@ assert(!/<meta[^>]+http-equiv="Content-Security-Policy"[^>]+frame-ancestors/.tes
 assert(index.includes("connect-src https://api.github.com"), "CSP must allow only the GitHub API for fetches.");
 assert(index.includes("img-src 'self' https://avatars.githubusercontent.com data:"), "CSP must allow self-hosted screenshots and GitHub avatars.");
 
-for (const name of ["ModelTab", "nFIRE"]) {
+for (const name of ["ModelTab", "nFIRE", "FIFA-WC-Sim"]) {
   assert(script.includes(`'${name}': true`), `${name} must be declared as a primary repository.`);
 }
+assert(!script.includes("'FIFA-WC-Sim': { rank:"), "FIFA-WC-Sim must not regress to a dynamic supporting card.");
+assert(script.includes("'LocalFirstApps': true"), "LocalFirstApps must remain in the focused supporting set.");
 for (const name of ["FIFA-WC-Sim", "LocalFirstApps"]) {
-  assert(script.includes(`'${name}': true`), `${name} must remain in the focused supporting set.`);
   assert(sitemap.includes(`https://shfqrkhn.github.io/${name}/`), `${name} must remain in sitemap.`);
 }
 assert(script.includes("!repo.archived"), "archived redirect repos must be filtered out.");
@@ -93,6 +98,7 @@ assert(sitemap.includes("https://shfqrkhn.github.io/nFIRE/"), "sitemap must incl
 assert(exists("screenshot.png"), "portfolio screenshot must exist.");
 assert(exists("media/modeltab.png"), "local ModelTab media must exist.");
 assert(exists("media/nfire.png"), "local nFIRE media must exist.");
+assert(exists("media/fifa-wc-sim.png"), "local FIFA-WC-Sim media must exist.");
 assert(exists(".nojekyll"), "GitHub Pages must stay in plain static mode.");
 
 console.log(`OK: portfolio static regression checks passed for v${version}.`);
