@@ -8,6 +8,7 @@ Curated GitHub Pages launchpad for a focused public project portfolio.
 - **Version:** v1.2.49
 - **Live Demo:** [shfqrkhn.github.io](https://shfqrkhn.github.io/)
 - **Portfolio Role:** Discovery surface for the flagship projects.
+- **Maintainer handoff:** [`docs/AI_MAINTAINER_HANDOFF.md`](./docs/AI_MAINTAINER_HANDOFF.md)
 
 This site routes attention to the strongest public projects first instead of giving every repository equal weight.
 
