@@ -5,7 +5,7 @@
 Curated GitHub Pages launchpad for a focused public project portfolio.
 
 - **Status:** Active portfolio hub
-- **Version:** v1.2.47
+- **Version:** v1.2.48
 - **Live Demo:** [shfqrkhn.github.io](https://shfqrkhn.github.io/)
 - **Portfolio Role:** Discovery surface for the flagship projects.
 
@@ -38,7 +38,7 @@ Supporting projects:
 - Filters out forks, consolidated redirect repos, primary-card duplicates, and non-focused repos.
 - Renders project cards with description, language, stars, and update date.
 - Prioritizes the curated supporting set ahead of general sorting.
-- Routes consolidated utility apps through LocalFirstApps instead of separate archived repos.
+- Routes consolidated utility apps through LocalFirstApps instead of former standalone repos.
 - Caches GitHub API responses locally to reduce rate-limit pressure.
 
 ## Quick Start

@@ -101,10 +101,6 @@ const getLanguageColor = (language) => {
     return LANGUAGE_COLORS[language] || LANGUAGE_COLORS.default;
 };
 
-const HIDDEN_REPOSITORIES = Object.assign(Object.create(null), {
-    'AI-Studio-Cleaner': true
-});
-
 const PRIMARY_REPOSITORIES = Object.assign(Object.create(null), {
     'ModelTab': true,
     'nFIRE': true
@@ -199,7 +195,7 @@ const processRepositories = (rawRepos) => {
     const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
     return rawRepos
-        .filter(repo => !repo.fork && !repo.archived && !HIDDEN_REPOSITORIES[repo.name] && !PRIMARY_REPOSITORIES[repo.name] && SHOWCASED_REPOSITORIES[repo.name])
+        .filter(repo => !repo.fork && !repo.archived && !PRIMARY_REPOSITORIES[repo.name] && SHOWCASED_REPOSITORIES[repo.name])
         .sort((a, b) => {
             const rankDelta = getProjectPosition(a.name).rank - getProjectPosition(b.name).rank;
             if (rankDelta !== 0) return rankDelta;

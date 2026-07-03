@@ -1,6 +1,6 @@
 {
   "name": "shfqrkhn-portfolio",
-  "version": "1.2.47",
+  "version": "1.2.48",
   "description": "Focused GitHub Pages launchpad for ModelTab, nFIRE, and a small set of supporting public projects.",
   "private": true,
   "main": "script.js",
