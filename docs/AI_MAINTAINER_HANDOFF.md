@@ -16,6 +16,7 @@ Maintain the public portfolio as a focused discovery surface. It should route at
 - Supporting cards use public GitHub API data and local cache.
 - Sponsor CTA, screenshots, live links, repo links, metadata, sitemap, and redirects must stay accurate.
 - Retired/deleted repo links should not reappear except intentional compatibility redirects.
+- Private planning drafts and future-project names should not appear on the public portfolio until the user explicitly approves launch positioning.
 
 ## Current Portfolio Strategy
 
@@ -53,4 +54,3 @@ After pushing, verify GitHub Pages and the live URLs for screenshots, primary ca
 - Do not add every repo back to the homepage.
 - Keep ModelTab, nFIRE, and FIFA-WC-Sim as the main public routing targets unless the user changes strategy.
 - LocalFirstApps should represent consolidated utility apps rather than old standalone repos.
-
