@@ -5,7 +5,7 @@
 Curated GitHub Pages launchpad for a focused public project portfolio.
 
 - **Status:** Active portfolio hub
-- **Version:** v1.2.46
+- **Version:** v1.2.47
 - **Live Demo:** [shfqrkhn.github.io](https://shfqrkhn.github.io/)
 - **Portfolio Role:** Discovery surface for the flagship projects.
 
@@ -29,9 +29,7 @@ Primary flagships:
 Supporting projects:
 
 - `FIFA-WC-Sim`
-- `LedgerSuite`
-- `CommonGround`
-- `TS-Dash`
+- `LocalFirstApps`
 
 ## What It Does
 
@@ -40,6 +38,7 @@ Supporting projects:
 - Filters out forks, consolidated redirect repos, primary-card duplicates, and non-focused repos.
 - Renders project cards with description, language, stars, and update date.
 - Prioritizes the curated supporting set ahead of general sorting.
+- Routes consolidated utility apps through LocalFirstApps instead of separate archived repos.
 - Caches GitHub API responses locally to reduce rate-limit pressure.
 
 ## Quick Start

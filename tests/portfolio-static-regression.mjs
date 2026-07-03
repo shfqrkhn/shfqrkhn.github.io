@@ -49,14 +49,20 @@ assert(index.includes("img-src 'self' https://avatars.githubusercontent.com data
 for (const name of ["ModelTab", "nFIRE"]) {
   assert(script.includes(`'${name}': true`), `${name} must be declared as a primary repository.`);
 }
-for (const name of ["FIFA-WC-Sim", "LedgerSuite", "CommonGround", "TS-Dash"]) {
+for (const name of ["FIFA-WC-Sim", "LocalFirstApps"]) {
   assert(script.includes(`'${name}': true`), `${name} must remain in the focused supporting set.`);
   assert(sitemap.includes(`https://shfqrkhn.github.io/${name}/`), `${name} must remain in sitemap.`);
 }
+assert(script.includes("!repo.archived"), "archived redirect repos must be filtered out.");
+for (const appPath of ["ts-dash", "pmquiz", "noodle-nudge", "ledgersuite", "flexx-files", "commonground"]) {
+  assert(sitemap.includes(`https://shfqrkhn.github.io/LocalFirstApps/apps/${appPath}/`), `${appPath} must be represented through LocalFirstApps.`);
+}
+for (const archivedRepo of ["TS-Dash", "PMQuiz", "Noodle-Nudge", "LedgerSuite", "Flexx-Files", "CommonGround"]) {
+  assert(!script.includes(`'${archivedRepo}': true`), `${archivedRepo} must not be in the runtime showcase list.`);
+  assert(!sitemap.includes(`https://shfqrkhn.github.io/${archivedRepo}/`), `${archivedRepo} standalone URL must not be in sitemap.`);
+}
 for (const noisy of ["PMQuiz", "Noodle-Nudge", "Flexx-Files"]) {
   assert(!script.includes(noisy), `${noisy} must not be in the runtime showcase list.`);
-  assert(!sitemap.includes(noisy), `${noisy} must not be in sitemap.`);
-  assert(!readme.includes(noisy), `${noisy} must not be in README focus set.`);
 }
 
 assert(robots.includes("Sitemap: https://shfqrkhn.github.io/sitemap.xml"), "robots.txt must point to sitemap.");

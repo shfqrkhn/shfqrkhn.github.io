@@ -112,17 +112,13 @@ const PRIMARY_REPOSITORIES = Object.assign(Object.create(null), {
 
 const SHOWCASED_REPOSITORIES = Object.assign(Object.create(null), {
     'FIFA-WC-Sim': true,
-    'LedgerSuite': true,
-    'CommonGround': true,
-    'TS-Dash': true
+    'LocalFirstApps': true
 });
 
 // Curated supporting order: keep the dynamic grid focused instead of showing every repo.
 const PROJECT_POSITIONS = Object.assign(Object.create(null), {
     'FIFA-WC-Sim': { rank: 10, label: 'Focused project', focus: 'Sports analytics' },
-    'LedgerSuite': { rank: 11, label: 'Focused project', focus: 'Decision workspace' },
-    'CommonGround': { rank: 20, label: 'Stable companion', focus: 'Facilitation' },
-    'TS-Dash': { rank: 21, label: 'Stable companion', focus: 'Data utility' }
+    'LocalFirstApps': { rank: 20, label: 'Consolidated suite', focus: 'Local-first utilities' }
 });
 
 const getProjectPosition = (name) => PROJECT_POSITIONS[name] || {
@@ -203,7 +199,7 @@ const processRepositories = (rawRepos) => {
     const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
     return rawRepos
-        .filter(repo => !repo.fork && !HIDDEN_REPOSITORIES[repo.name] && !PRIMARY_REPOSITORIES[repo.name] && SHOWCASED_REPOSITORIES[repo.name])
+        .filter(repo => !repo.fork && !repo.archived && !HIDDEN_REPOSITORIES[repo.name] && !PRIMARY_REPOSITORIES[repo.name] && SHOWCASED_REPOSITORIES[repo.name])
         .sort((a, b) => {
             const rankDelta = getProjectPosition(a.name).rank - getProjectPosition(b.name).rank;
             if (rankDelta !== 0) return rankDelta;
