@@ -14,6 +14,7 @@ const assert = (condition, message) => {
 const index = read("index.html");
 const script = read("script.js");
 const readme = read("README.md");
+const publicSurfacePolicy = read("docs/PUBLIC_SURFACE_POLICY.md");
 const sitemap = read("sitemap.xml");
 const robots = read("robots.txt");
 const pkg = JSON.parse(read("package.json"));
@@ -28,6 +29,9 @@ assert(index.includes(`styles.css?v=${version}`), "index stylesheet version must
 assert(index.includes(`script.js?v=${version}`), "index script version must match package version.");
 assert(index.includes(`v${version}`), "footer version must match package version.");
 assert(readme.includes(`**Version:** v${version}`), "README version must match package version.");
+assert(publicSurfacePolicy.includes("Primary routing to ModelTab, nFIRE, and FIFA-WC-Sim"), "Public surface policy must define flagship routing.");
+assert(publicSurfacePolicy.includes("Standalone folders or sitemap URLs"), "Public surface policy must block retired standalone surfaces.");
+assert(publicSurfacePolicy.includes("ModelTab, nFIRE, FIFA-WC-Sim, then LocalFirstApps"), "Public surface policy must preserve route priority.");
 
 assert(index.includes("https://github.com/sponsors/shfqrkhn?o=esb"), "Sponsor link must be present.");
 assert(index.includes("https://shfqrkhn.github.io/ModelTab/"), "ModelTab live link must be present.");
