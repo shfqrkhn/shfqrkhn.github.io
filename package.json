@@ -5,7 +5,7 @@
   "private": true,
   "main": "script.js",
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./styles.css --minify",
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./styles.css --minify",
     "test": "node tests/portfolio-static-regression.mjs"
   },
   "repository": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://shfqrkhn.github.io/",
   "devDependencies": {
+    "@tailwindcss/cli": "^4.3.2",
     "tailwindcss": "^4.3.2"
   }
 }
