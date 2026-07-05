@@ -32,8 +32,9 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 ## Legacy Pages API Residue Evidence
 
 - This portfolio uses branch-based GitHub Pages from `main` rather than an explicit deploy workflow.
-- The Pages API `.status` field can temporarily report `building` even when current-head static/CodeQL checks are green and `https://shfqrkhn.github.io/` returns HTTP 200.
-- Treat that as API residue with `PASS_WITH_LIMITATIONS` when the latest pushed change is docs/tests or other non-runtime evidence, the live URL is healthy, and source-controlled runtime routes/screenshots/sitemap are covered by static tests.
+- The Pages API `.status` field can temporarily report `building` or `errored` even when current-head static/CodeQL checks are green and `https://shfqrkhn.github.io/` returns HTTP 200.
+- Treat that as API residue with `PASS_WITH_LIMITATIONS` when the latest pushed change is docs/tests or other non-runtime evidence, the live URL is healthy, and the legacy Pages log shows build/upload succeeded before a GitHub-side deploy failure such as `Deployment failed, try again later.`
+- Source-controlled runtime routes/screenshots/sitemap must still be covered by static tests before calling the residue no app risk.
 - Treat it as a real blocker only when runtime payload files changed and the live URL, legacy Pages build, or source-controlled public-surface checks fail.
 
 ## Input Accessibility Evidence
@@ -56,7 +57,7 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 | Retired standalone folders absent | `PASS` | static tests and filesystem checks | Do not restore AI-Studio-Cleaner, C3Pedal, CommonGround, Flexx-Files, LedgerSuite, Noodle-Nudge, PMQuiz, or TS-Dash. |
 | Public-safe portfolio content | `PASS_WITH_LIMITATIONS` | public surface policy and tests | Recheck no private planning docs, future-project names, PII, keys, exports, or backups appear. |
 | Live/static behavior | `PASS_WITH_LIMITATIONS` | `npm test`, Pages/live check, GitHub API metadata evidence | GitHub API data can fail; primary static cards must still render and remain authoritative. |
-| Legacy Pages API summary | `PASS_WITH_LIMITATIONS` | current-head static/CodeQL checks, live HTTP 200, static runtime-route checks | Branch-based Pages `.status` can lag after docs/test-only pushes; report residue separately. |
+| Legacy Pages API summary | `PASS_WITH_LIMITATIONS` | current-head static/CodeQL checks, live HTTP 200, static runtime-route checks, legacy Pages build/deploy log | Branch-based Pages `.status` can lag or report deploy residue after docs/test-only pushes; report residue separately. |
 | Input accessibility | `PASS_WITH_LIMITATIONS` | static labels/ARIA checks, responsive review, live check | Does not certify screen-reader behavior or every assistive technology/browser pairing. |
 
 ## Required Before Public-Facing Change

@@ -63,7 +63,7 @@ git diff --check
 
 After pushing, verify GitHub Pages and the live URLs for screenshots, primary cards, and routed app links.
 
-If the legacy Pages API reports `building` after a docs/test-only push, compare current-head Static Check/CodeQL, live HTTP 200, and source-controlled route/sitemap tests before editing source; treat a contradictory API summary as stale residue with limitations.
+If the legacy Pages API reports `building` or `errored` after a docs/test-only push, compare current-head Static Check/CodeQL, live HTTP 200, source-controlled route/sitemap tests, and the legacy Pages log before editing source; treat a contradictory API summary as stale residue with limitations. Treat a GitHub-side deploy failure after successful build/upload as residue, not as proof of an app payload failure.
 
 ## Continuation Notes
 

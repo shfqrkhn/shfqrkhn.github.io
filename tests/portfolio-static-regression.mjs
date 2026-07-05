@@ -78,13 +78,14 @@ for (const phrase of ["Input Accessibility Evidence", "keyboard-only", "mouse/po
 for (const phrase of ["GitHub API Metadata Evidence", "localStorage cache data", "supporting repo cards only", "not proof that a project is flagship", "source-controlled in this repo", "rate-limited, unavailable, or contradicted"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing GitHub API metadata term: ${phrase}`);
 }
-for (const phrase of ["Legacy Pages API Residue Evidence", "branch-based GitHub Pages", "HTTP 200", "PASS_WITH_LIMITATIONS", "docs/tests", "real blocker"]) {
+for (const phrase of ["Legacy Pages API Residue Evidence", "branch-based GitHub Pages", "building", "errored", "HTTP 200", "Deployment failed, try again later.", "PASS_WITH_LIMITATIONS", "docs/tests", "real blocker"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing legacy Pages residue term: ${phrase}`);
 }
 for (const phrase of ["OmniOS Transfer Contract", "Product truth", "Execution truth", "Evidence truth", "Operations truth", "Transfer truth", "GitHub Releases stay absent"]) {
   assert(handoff.includes(phrase), `Handoff missing OmniOS transfer contract term: ${phrase}`);
 }
 assert(handoff.includes("treat a contradictory API summary as stale residue"), "Handoff must preserve legacy Pages API residue handling.");
+assert(handoff.includes("GitHub-side deploy failure after successful build/upload"), "Handoff must distinguish source failures from GitHub-side deploy residue.");
 for (const phrase of ["Doctrine Delta Decision", "promote", "reject", "quarantine", "keep_local", "source-backed, reusable, non-secret", "explicitly approves publication"]) {
   assert(handoff.includes(phrase), `Handoff missing doctrine delta term: ${phrase}`);
 }
