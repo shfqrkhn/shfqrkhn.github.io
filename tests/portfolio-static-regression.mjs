@@ -46,6 +46,9 @@ for (const phrase of ["Currentness Watchdog", "stale, missing, inaccessible", "d
 for (const phrase of ["OmniOS Transfer Contract", "Product truth", "Execution truth", "Evidence truth", "Operations truth", "Transfer truth", "GitHub Releases stay absent"]) {
   assert(handoff.includes(phrase), `Handoff missing OmniOS transfer contract term: ${phrase}`);
 }
+for (const phrase of ["Doctrine Delta Decision", "promote", "reject", "quarantine", "keep_local", "source-backed, reusable, non-secret", "explicitly approves publication"]) {
+  assert(handoff.includes(phrase), `Handoff missing doctrine delta term: ${phrase}`);
+}
 
 assert(index.includes("https://github.com/sponsors/shfqrkhn?o=esb"), "Sponsor link must be present.");
 assert(index.includes("https://shfqrkhn.github.io/ModelTab/"), "ModelTab live link must be present.");

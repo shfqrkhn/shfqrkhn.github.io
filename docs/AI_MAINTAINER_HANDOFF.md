@@ -26,6 +26,12 @@ Maintain the public portfolio as a focused discovery surface. It should route at
 - Operations truth: live Pages or current main repository ZIP are the only distribution paths; GitHub Releases stay absent.
 - Transfer truth: update this handoff and the evidence receipt when routing, screenshots, sitemap entries, retired-project handling, or public-surface guarantees change.
 
+## Doctrine Delta Decision
+
+- After incidents, rescue runs, maturity passes, or repeated failures, classify reusable lessons as `promote`, `reject`, `quarantine`, or `keep_local`.
+- Promote only source-backed, reusable, non-secret lessons that strengthen a gate, checklist, source rule, or failure guard without weakening portfolio focus.
+- Keep private, project-specific, speculative, or unverified lessons out of public repos unless the user explicitly approves publication.
+
 ## Current Portfolio Strategy
 
 Primary projects:
