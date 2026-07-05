@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -20,12 +21,19 @@ const handoff = read("docs/AI_MAINTAINER_HANDOFF.md");
 const sitemap = read("sitemap.xml");
 const robots = read("robots.txt");
 const pkg = JSON.parse(read("package.json"));
+const forbiddenTrackedPathPattern = /(^|\/)(node_modules|offline|linkedin-post-package|test-results|playwright-report|\.codex-remote-attachments)(\/|$)|^data\/(manual-overrides\.json|latest-simulation\.json|scoreboards)(\/|$)|(^|\/).*\.((env)|(pem)|(key)|(p12)|(pfx))$|(^|\/)(exports?|backups?|logs?|scratch)(\/|$)/i;
+const trackedFiles = execFileSync("git", ["ls-files"], { cwd: root, encoding: "utf8" })
+  .split(/\r?\n/)
+  .filter(Boolean)
+  .map((file) => file.replace(/\\/g, "/"));
+const forbiddenTrackedFiles = trackedFiles.filter((file) => forbiddenTrackedPathPattern.test(file));
 
 assert(pkg.name === "shfqrkhn-portfolio", "package name must identify the portfolio repo.");
 assert(pkg.private === true, "portfolio package must stay private.");
 assert(pkg.license === "MIT", "package license must match LICENSE.");
 assert(pkg.scripts?.test === "node tests/portfolio-static-regression.mjs", "npm test must run the static regression gate.");
 assert(pkg.scripts?.qa === "npm run build && npm test", "npm run qa must run build and static regression.");
+assert(forbiddenTrackedFiles.length === 0, `Forbidden tracked paths: ${forbiddenTrackedFiles.join(", ")}`);
 assert(readme.includes("npm run qa"), "README must document the full QA gate.");
 assert(publicSurfacePolicy.includes("npm run qa"), "Public surface policy must include the full QA gate.");
 assert(evidenceReceipt.includes("npm run qa"), "Evidence receipt must include the full QA gate.");
