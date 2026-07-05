@@ -16,6 +16,12 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 - Public claims may not exceed `PASS` or `PASS_WITH_LIMITATIONS`; `NOT_RUN`, `BLOCKED`, and `NO_GO` items must stay unpublished or be labeled as unavailable.
 - Volatile routing, GitHub API, Pages, sitemap, project-status, and GitHub settings must be rechecked from current repo state before reliance.
 
+## Currentness Watchdog
+
+- Recheck claim evidence before public-facing changes, not on a fixed calendar.
+- If current evidence is stale, missing, inaccessible, or contradicted by portfolio/repo/GitHub state, downgrade the affected claim to `NOT_RUN`, `BLOCKED`, or `NO_GO`.
+- Do not preserve old status snapshots as proof after routing, screenshots, sitemap entries, retired-project handling, workflows, or public portfolio wording changes.
+
 ## Claim Boundaries
 
 | Area | Class | Evidence | Limit |
