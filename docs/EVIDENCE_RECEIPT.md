@@ -28,6 +28,12 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 - If any proof is missing, stale, or contradicted by GitHub/repo/portfolio state, record the repo as `PASS_WITH_LIMITATIONS`, `NOT_RUN`, `BLOCKED`, or `NO_GO` instead of safe.
 - The final status table must name remaining risks rather than implying safety from silence.
 
+## Input Accessibility Evidence
+
+- Critical portfolio navigation must remain usable by keyboard-only, mouse/pointer-only, and touch-only users.
+- Accessibility claims require current evidence from static labels/ARIA checks, responsive review, live checks, and tap-target/no-overflow checks where applicable.
+- If a route or card lacks direct input-mode coverage, label it `PASS_WITH_LIMITATIONS` or `NOT_RUN`; do not claim full accessibility from link presence alone.
+
 ## Claim Boundaries
 
 | Area | Class | Evidence | Limit |
@@ -36,6 +42,7 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 | Retired standalone folders absent | `PASS` | static tests and filesystem checks | Do not restore AI-Studio-Cleaner, C3Pedal, CommonGround, Flexx-Files, LedgerSuite, Noodle-Nudge, PMQuiz, or TS-Dash. |
 | Public-safe portfolio content | `PASS_WITH_LIMITATIONS` | public surface policy and tests | Recheck no private planning docs, future-project names, PII, keys, exports, or backups appear. |
 | Live/static behavior | `PASS_WITH_LIMITATIONS` | `npm test`, Pages/live check | GitHub API data can fail; primary static cards must still render. |
+| Input accessibility | `PASS_WITH_LIMITATIONS` | static labels/ARIA checks, responsive review, live check | Does not certify screen-reader behavior or every assistive technology/browser pairing. |
 
 ## Required Before Public-Facing Change
 
