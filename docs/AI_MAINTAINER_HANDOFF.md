@@ -57,7 +57,7 @@ Supporting project:
 ## Required Checks
 
 ```bash
-npm test
+npm run qa
 git diff --check
 ```
 

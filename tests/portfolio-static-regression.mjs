@@ -25,6 +25,11 @@ assert(pkg.name === "shfqrkhn-portfolio", "package name must identify the portfo
 assert(pkg.private === true, "portfolio package must stay private.");
 assert(pkg.license === "MIT", "package license must match LICENSE.");
 assert(pkg.scripts?.test === "node tests/portfolio-static-regression.mjs", "npm test must run the static regression gate.");
+assert(pkg.scripts?.qa === "npm run build && npm test", "npm run qa must run build and static regression.");
+assert(readme.includes("npm run qa"), "README must document the full QA gate.");
+assert(publicSurfacePolicy.includes("npm run qa"), "Public surface policy must include the full QA gate.");
+assert(evidenceReceipt.includes("npm run qa"), "Evidence receipt must include the full QA gate.");
+assert(handoff.includes("npm run qa"), "Maintainer handoff must include the full QA gate.");
 
 const version = pkg.version;
 assert(index.includes(`styles.css?v=${version}`), "index stylesheet version must match package version.");

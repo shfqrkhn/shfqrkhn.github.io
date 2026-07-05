@@ -6,7 +6,8 @@
   "main": "script.js",
   "scripts": {
     "build": "npx @tailwindcss/cli -i ./src/input.css -o ./styles.css --minify",
-    "test": "node tests/portfolio-static-regression.mjs"
+    "test": "node tests/portfolio-static-regression.mjs",
+    "qa": "npm run build && npm test"
   },
   "repository": {
     "type": "git",

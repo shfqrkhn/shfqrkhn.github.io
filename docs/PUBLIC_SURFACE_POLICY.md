@@ -19,7 +19,7 @@ This repository is the public GitHub Pages launchpad. It should route visitors t
 Before publishing changes, run:
 
 ```bash
-npm test
+npm run qa
 git diff --check
 ```
 

@@ -80,7 +80,7 @@ This is the account-level GitHub Pages site served from the repository root.
 ## Quality Gates
 
 ```bash
-npm test
+npm run qa
 ```
 
 ## Maintenance

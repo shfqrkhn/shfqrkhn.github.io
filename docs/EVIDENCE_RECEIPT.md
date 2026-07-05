@@ -54,8 +54,7 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 
 - `git status --short --ignored`
 - `git rev-list --left-right --count HEAD..."@{u}"`
-- `npm test`
-- `npm run build` when Tailwind or CSS source changes
+- `npm run qa`
 - `git diff --check`
 - protected-path and retired-folder scan
 - live Pages check after runtime or public-surface changes
