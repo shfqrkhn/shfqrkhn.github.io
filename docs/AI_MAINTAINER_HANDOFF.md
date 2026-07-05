@@ -18,6 +18,14 @@ Maintain the public portfolio as a focused discovery surface. It should route at
 - Retired/deleted standalone app links and redirect folders should not reappear.
 - Private planning drafts and future-project names should not appear on the public portfolio until the user explicitly approves launch positioning.
 
+## OmniOS Transfer Contract
+
+- Product truth: focused public portfolio hub, not a full archive or private roadmap surface.
+- Execution truth: preserve route order, retired-folder absence, sitemap, screenshot, static-build, and public-surface gates before publishing.
+- Evidence truth: use `docs/EVIDENCE_RECEIPT.md`, `docs/PUBLIC_SURFACE_POLICY.md`, static tests, and live checks; public claims must stay within `PASS` or `PASS_WITH_LIMITATIONS`.
+- Operations truth: live Pages or current main repository ZIP are the only distribution paths; GitHub Releases stay absent.
+- Transfer truth: update this handoff and the evidence receipt when routing, screenshots, sitemap entries, retired-project handling, or public-surface guarantees change.
+
 ## Current Portfolio Strategy
 
 Primary projects:

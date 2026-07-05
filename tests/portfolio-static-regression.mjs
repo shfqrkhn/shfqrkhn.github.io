@@ -16,6 +16,7 @@ const script = read("script.js");
 const readme = read("README.md");
 const publicSurfacePolicy = read("docs/PUBLIC_SURFACE_POLICY.md");
 const evidenceReceipt = read("docs/EVIDENCE_RECEIPT.md");
+const handoff = read("docs/AI_MAINTAINER_HANDOFF.md");
 const sitemap = read("sitemap.xml");
 const robots = read("robots.txt");
 const pkg = JSON.parse(read("package.json"));
@@ -36,6 +37,9 @@ assert(publicSurfacePolicy.includes("ModelTab, nFIRE, FIFA-WC-Sim, then LocalFir
 assert(evidenceReceipt.includes("PASS_WITH_LIMITATIONS"), "Evidence receipt must define limited claims.");
 assert(evidenceReceipt.includes("Flagship routing"), "Evidence receipt must cover flagship routing.");
 assert(evidenceReceipt.includes("Retired standalone folders absent"), "Evidence receipt must cover retired folder absence.");
+for (const phrase of ["OmniOS Transfer Contract", "Product truth", "Execution truth", "Evidence truth", "Operations truth", "Transfer truth", "GitHub Releases stay absent"]) {
+  assert(handoff.includes(phrase), `Handoff missing OmniOS transfer contract term: ${phrase}`);
+}
 
 assert(index.includes("https://github.com/sponsors/shfqrkhn?o=esb"), "Sponsor link must be present.");
 assert(index.includes("https://shfqrkhn.github.io/ModelTab/"), "ModelTab live link must be present.");
