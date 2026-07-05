@@ -49,6 +49,9 @@ for (const phrase of ["Safe-To-Publish Receipt", "clean synced tree", "no GitHub
 for (const phrase of ["Input Accessibility Evidence", "keyboard-only", "mouse/pointer-only", "touch-only", "static labels/ARIA checks", "tap-target/no-overflow", "Input accessibility"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing input accessibility term: ${phrase}`);
 }
+for (const phrase of ["GitHub API Metadata Evidence", "localStorage cache data", "supporting repo cards only", "not proof that a project is flagship", "source-controlled in this repo", "rate-limited, unavailable, or contradicted"]) {
+  assert(evidenceReceipt.includes(phrase), `Evidence receipt missing GitHub API metadata term: ${phrase}`);
+}
 for (const phrase of ["OmniOS Transfer Contract", "Product truth", "Execution truth", "Evidence truth", "Operations truth", "Transfer truth", "GitHub Releases stay absent"]) {
   assert(handoff.includes(phrase), `Handoff missing OmniOS transfer contract term: ${phrase}`);
 }

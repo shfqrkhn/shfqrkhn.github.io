@@ -34,6 +34,12 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 - Accessibility claims require current evidence from static labels/ARIA checks, responsive review, live checks, and tap-target/no-overflow checks where applicable.
 - If a route or card lacks direct input-mode coverage, label it `PASS_WITH_LIMITATIONS` or `NOT_RUN`; do not claim full accessibility from link presence alone.
 
+## GitHub API Metadata Evidence
+
+- GitHub API and localStorage cache data may enrich supporting repo cards only; it is not proof that a project is flagship, current, active, retired, safe to publish, or privately approved.
+- Primary routing, retired-folder absence, sitemap entries, and public-safe project claims must remain source-controlled in this repo and verified by static tests before publication.
+- If GitHub API data is stale, rate-limited, unavailable, or contradicted by source-controlled policy, the portfolio must degrade to the static primary cards and downgrade dynamic metadata claims to `PASS_WITH_LIMITATIONS` or `NOT_RUN`.
+
 ## Claim Boundaries
 
 | Area | Class | Evidence | Limit |
@@ -41,7 +47,7 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 | Flagship routing | `PASS` | static tests, README, sitemap | Route order must stay ModelTab, nFIRE, FIFA-WC-Sim, then LocalFirstApps. |
 | Retired standalone folders absent | `PASS` | static tests and filesystem checks | Do not restore AI-Studio-Cleaner, C3Pedal, CommonGround, Flexx-Files, LedgerSuite, Noodle-Nudge, PMQuiz, or TS-Dash. |
 | Public-safe portfolio content | `PASS_WITH_LIMITATIONS` | public surface policy and tests | Recheck no private planning docs, future-project names, PII, keys, exports, or backups appear. |
-| Live/static behavior | `PASS_WITH_LIMITATIONS` | `npm test`, Pages/live check | GitHub API data can fail; primary static cards must still render. |
+| Live/static behavior | `PASS_WITH_LIMITATIONS` | `npm test`, Pages/live check, GitHub API metadata evidence | GitHub API data can fail; primary static cards must still render and remain authoritative. |
 | Input accessibility | `PASS_WITH_LIMITATIONS` | static labels/ARIA checks, responsive review, live check | Does not certify screen-reader behavior or every assistive technology/browser pairing. |
 
 ## Required Before Public-Facing Change
