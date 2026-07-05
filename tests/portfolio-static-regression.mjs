@@ -29,6 +29,49 @@ const trackedFiles = execFileSync("git", ["ls-files"], { cwd: root, encoding: "u
   .filter(Boolean)
   .map((file) => file.replace(/\\/g, "/"));
 const forbiddenTrackedFiles = trackedFiles.filter((file) => forbiddenTrackedPathPattern.test(file));
+const removedStandalonePaths = ["AI-Studio-Cleaner", "TS-Dash", "PMQuiz", "Noodle-Nudge", "LedgerSuite", "Flexx-Files", "CommonGround", "C3Pedal"];
+
+function gitArchiveEntries() {
+  const archive = execFileSync("git", ["archive", "--format=tar", "HEAD"], {
+    cwd: root,
+    maxBuffer: 128 * 1024 * 1024,
+  });
+  const entries = [];
+  for (let offset = 0; offset + 512 <= archive.length;) {
+    const header = archive.subarray(offset, offset + 512);
+    if (header.every((byte) => byte === 0)) break;
+    const name = header.toString("utf8", 0, 100).replace(/\0.*$/, "");
+    const prefix = header.toString("utf8", 345, 500).replace(/\0.*$/, "");
+    const sizeRaw = header.toString("utf8", 124, 136).replace(/\0.*$/, "").trim();
+    const size = sizeRaw ? parseInt(sizeRaw, 8) : 0;
+    const fullName = [prefix, name].filter(Boolean).join("/");
+    if (fullName) entries.push(fullName.replace(/\\/g, "/"));
+    offset += 512 + Math.ceil(size / 512) * 512;
+  }
+  return entries;
+}
+
+const archiveEntries = gitArchiveEntries();
+const forbiddenArchiveEntries = archiveEntries.filter((file) => forbiddenTrackedPathPattern.test(file));
+const requiredArchiveEntries = [
+  "index.html",
+  "styles.css",
+  "script.js",
+  "README.md",
+  "docs/PUBLIC_SURFACE_POLICY.md",
+  "docs/EVIDENCE_RECEIPT.md",
+  "sitemap.xml",
+  "robots.txt",
+  ".nojekyll",
+  "screenshot.png",
+  "media/modeltab.png",
+  "media/nfire.png",
+  "media/fifa-wc-sim.png",
+  "tests/portfolio-static-regression.mjs",
+];
+const retiredArchiveEntries = archiveEntries.filter((entry) =>
+  removedStandalonePaths.some((name) => entry === name || entry.startsWith(`${name}/`))
+);
 
 assert(pkg.name === "shfqrkhn-portfolio", "package name must identify the portfolio repo.");
 assert(pkg.private === true, "portfolio package must stay private.");
@@ -36,9 +79,16 @@ assert(pkg.license === "MIT", "package license must match LICENSE.");
 assert(pkg.scripts?.test === "node tests/portfolio-static-regression.mjs", "npm test must run the static regression gate.");
 assert(pkg.scripts?.qa === "npm run build && npm test", "npm run qa must run build and static regression.");
 assert(forbiddenTrackedFiles.length === 0, `Forbidden tracked paths: ${forbiddenTrackedFiles.join(", ")}`);
+assert(forbiddenArchiveEntries.length === 0, `Forbidden generated archive paths: ${forbiddenArchiveEntries.join(", ")}`);
+assert(retiredArchiveEntries.length === 0, `Retired standalone folders in generated archive: ${retiredArchiveEntries.join(", ")}`);
+for (const file of requiredArchiveEntries) {
+  assert(archiveEntries.includes(file), `Generated portfolio archive must include public path: ${file}`);
+}
 assert(readme.includes("npm run qa"), "README must document the full QA gate.");
 assert(publicSurfacePolicy.includes("npm run qa"), "Public surface policy must include the full QA gate.");
+assert(publicSurfacePolicy.includes("git archive"), "Public surface policy must tie archive safety to generated archive evidence.");
 assert(evidenceReceipt.includes("npm run qa"), "Evidence receipt must include the full QA gate.");
+assert(evidenceReceipt.includes("git archive"), "Evidence receipt must tie portfolio archive safety to generated archive evidence.");
 assert(handoff.includes("npm run qa"), "Maintainer handoff must include the full QA gate.");
 
 const version = pkg.version;
@@ -123,7 +173,6 @@ assert(script.includes("!repo.archived"), "archived repos must be filtered out."
 assert(readme.includes("former standalone apps"), "README must describe absorbed standalone apps accurately.");
 assert(!readme.includes("separate archived repos"), "README must not imply deleted standalone app repos still exist as archives.");
 assert(!script.includes("AI-Studio-Cleaner"), "absorbed AI Studio Cleaner name must not remain in runtime portfolio code.");
-const removedStandalonePaths = ["AI-Studio-Cleaner", "TS-Dash", "PMQuiz", "Noodle-Nudge", "LedgerSuite", "Flexx-Files", "CommonGround", "C3Pedal"];
 for (const repo of removedStandalonePaths) {
   assert(!exists(repo), `${repo} standalone redirect folder must stay removed.`);
   assert(!sitemap.includes(`https://shfqrkhn.github.io/${repo}/`), `${repo} standalone URL must not be in sitemap.`);

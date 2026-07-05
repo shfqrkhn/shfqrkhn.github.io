@@ -23,4 +23,4 @@ npm run qa
 git diff --check
 ```
 
-The portfolio must keep the first public route order focused on ModelTab, nFIRE, FIFA-WC-Sim, then LocalFirstApps.
+The portfolio must keep the first public route order focused on ModelTab, nFIRE, FIFA-WC-Sim, then LocalFirstApps. Use `git archive --format=tar HEAD` as the local generated-archive proxy when checking that public files are present and retired standalone folders or private artifacts are absent.

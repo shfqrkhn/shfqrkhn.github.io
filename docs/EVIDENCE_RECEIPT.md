@@ -54,7 +54,7 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 | Area | Class | Evidence | Limit |
 | --- | --- | --- | --- |
 | Flagship routing | `PASS` | static tests, README, sitemap | Route order must stay ModelTab, nFIRE, FIFA-WC-Sim, then LocalFirstApps. |
-| Retired standalone folders absent | `PASS` | static tests and filesystem checks | Do not restore AI-Studio-Cleaner, C3Pedal, CommonGround, Flexx-Files, LedgerSuite, Noodle-Nudge, PMQuiz, or TS-Dash. |
+| Retired standalone folders absent | `PASS` | static tests, filesystem checks, `git archive` | Do not restore AI-Studio-Cleaner, C3Pedal, CommonGround, Flexx-Files, LedgerSuite, Noodle-Nudge, PMQuiz, or TS-Dash. |
 | Public-safe portfolio content | `PASS_WITH_LIMITATIONS` | public surface policy and tests | Recheck no private planning docs, future-project names, PII, keys, exports, or backups appear. |
 | Live/static behavior | `PASS_WITH_LIMITATIONS` | `npm test`, Pages/live check, GitHub API metadata evidence | GitHub API data can fail; primary static cards must still render and remain authoritative. |
 | Legacy Pages API summary | `PASS_WITH_LIMITATIONS` | current-head static/CodeQL checks, live HTTP 200, static runtime-route checks, legacy Pages build/deploy log | Branch-based Pages `.status` can lag or report deploy residue after docs/test-only pushes; report residue separately. |
