@@ -15,6 +15,7 @@ const index = read("index.html");
 const script = read("script.js");
 const readme = read("README.md");
 const publicSurfacePolicy = read("docs/PUBLIC_SURFACE_POLICY.md");
+const evidenceReceipt = read("docs/EVIDENCE_RECEIPT.md");
 const sitemap = read("sitemap.xml");
 const robots = read("robots.txt");
 const pkg = JSON.parse(read("package.json"));
@@ -32,6 +33,9 @@ assert(readme.includes(`**Version:** v${version}`), "README version must match p
 assert(publicSurfacePolicy.includes("Primary routing to ModelTab, nFIRE, and FIFA-WC-Sim"), "Public surface policy must define flagship routing.");
 assert(publicSurfacePolicy.includes("Standalone folders or sitemap URLs"), "Public surface policy must block retired standalone surfaces.");
 assert(publicSurfacePolicy.includes("ModelTab, nFIRE, FIFA-WC-Sim, then LocalFirstApps"), "Public surface policy must preserve route priority.");
+assert(evidenceReceipt.includes("PASS_WITH_LIMITATIONS"), "Evidence receipt must define limited claims.");
+assert(evidenceReceipt.includes("Flagship routing"), "Evidence receipt must cover flagship routing.");
+assert(evidenceReceipt.includes("Retired standalone folders absent"), "Evidence receipt must cover retired folder absence.");
 
 assert(index.includes("https://github.com/sponsors/shfqrkhn?o=esb"), "Sponsor link must be present.");
 assert(index.includes("https://shfqrkhn.github.io/ModelTab/"), "ModelTab live link must be present.");
