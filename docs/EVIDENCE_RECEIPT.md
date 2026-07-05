@@ -10,6 +10,12 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 - `BLOCKED`: cannot be checked until an external condition changes.
 - `NO_GO`: failed or unsafe; do not publish until fixed.
 
+## Claim Firewall Invariant
+
+- Every public technical, security, privacy, routing, download, project-status, sitemap, live, or portfolio claim must map to a `Claim Boundaries` row or be added with evidence before publication.
+- Public claims may not exceed `PASS` or `PASS_WITH_LIMITATIONS`; `NOT_RUN`, `BLOCKED`, and `NO_GO` items must stay unpublished or be labeled as unavailable.
+- Volatile routing, GitHub API, Pages, sitemap, project-status, and GitHub settings must be rechecked from current repo state before reliance.
+
 ## Claim Boundaries
 
 | Area | Class | Evidence | Limit |
