@@ -18,6 +18,7 @@ const readme = read("README.md");
 const publicSurfacePolicy = read("docs/PUBLIC_SURFACE_POLICY.md");
 const evidenceReceipt = read("docs/EVIDENCE_RECEIPT.md");
 const handoff = read("docs/AI_MAINTAINER_HANDOFF.md");
+const codeqlWorkflow = read(".github/workflows/codeql.yml");
 const sitemap = read("sitemap.xml");
 const robots = read("robots.txt");
 const pkg = JSON.parse(read("package.json"));
@@ -58,6 +59,12 @@ for (const phrase of ["Currentness Watchdog", "stale, missing, inaccessible", "d
 }
 for (const phrase of ["Safe-To-Publish Receipt", "clean synced tree", "no GitHub Releases", "no protected tracked paths", "no open secret/dependabot/code-scanning alerts", "code-scanning not-applicable/no-analysis state", "remaining risks"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing safe-to-publish term: ${phrase}`);
+}
+for (const phrase of ["Runtime portfolio code scanning", ".github/workflows/codeql.yml", "CodeQL JavaScript analysis", "PASS_WITH_LIMITATIONS"]) {
+  assert(evidenceReceipt.includes(phrase), `Evidence receipt missing code scanning term: ${phrase}`);
+}
+for (const phrase of ["github/codeql-action/init@v4", "github/codeql-action/analyze@v4", "languages: javascript-typescript", "security-events: write"]) {
+  assert(codeqlWorkflow.includes(phrase), `CodeQL workflow missing: ${phrase}`);
 }
 for (const phrase of ["Input Accessibility Evidence", "keyboard-only", "mouse/pointer-only", "touch-only", "static labels/ARIA checks", "tap-target/no-overflow", "Input accessibility"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing input accessibility term: ${phrase}`);
