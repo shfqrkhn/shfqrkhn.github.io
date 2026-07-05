@@ -29,6 +29,13 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 - If any proof is missing, stale, or contradicted by GitHub/repo/portfolio state, record the repo as `PASS_WITH_LIMITATIONS`, `NOT_RUN`, `BLOCKED`, or `NO_GO` instead of safe.
 - The final status table must name remaining risks rather than implying safety from silence.
 
+## Legacy Pages API Residue Evidence
+
+- This portfolio uses branch-based GitHub Pages from `main` rather than an explicit deploy workflow.
+- The Pages API `.status` field can temporarily report `building` even when current-head static/CodeQL checks are green and `https://shfqrkhn.github.io/` returns HTTP 200.
+- Treat that as API residue with `PASS_WITH_LIMITATIONS` when the latest pushed change is docs/tests or other non-runtime evidence, the live URL is healthy, and source-controlled runtime routes/screenshots/sitemap are covered by static tests.
+- Treat it as a real blocker only when runtime payload files changed and the live URL, legacy Pages build, or source-controlled public-surface checks fail.
+
 ## Input Accessibility Evidence
 
 - Critical portfolio navigation must remain usable by keyboard-only, mouse/pointer-only, and touch-only users.
@@ -49,6 +56,7 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 | Retired standalone folders absent | `PASS` | static tests and filesystem checks | Do not restore AI-Studio-Cleaner, C3Pedal, CommonGround, Flexx-Files, LedgerSuite, Noodle-Nudge, PMQuiz, or TS-Dash. |
 | Public-safe portfolio content | `PASS_WITH_LIMITATIONS` | public surface policy and tests | Recheck no private planning docs, future-project names, PII, keys, exports, or backups appear. |
 | Live/static behavior | `PASS_WITH_LIMITATIONS` | `npm test`, Pages/live check, GitHub API metadata evidence | GitHub API data can fail; primary static cards must still render and remain authoritative. |
+| Legacy Pages API summary | `PASS_WITH_LIMITATIONS` | current-head static/CodeQL checks, live HTTP 200, static runtime-route checks | Branch-based Pages `.status` can lag after docs/test-only pushes; report residue separately. |
 | Input accessibility | `PASS_WITH_LIMITATIONS` | static labels/ARIA checks, responsive review, live check | Does not certify screen-reader behavior or every assistive technology/browser pairing. |
 
 ## Required Before Public-Facing Change

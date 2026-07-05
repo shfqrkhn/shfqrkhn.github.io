@@ -63,6 +63,8 @@ git diff --check
 
 After pushing, verify GitHub Pages and the live URLs for screenshots, primary cards, and routed app links.
 
+If the legacy Pages API reports `building` after a docs/test-only push, compare current-head Static Check/CodeQL, live HTTP 200, and source-controlled route/sitemap tests before editing source; treat a contradictory API summary as stale residue with limitations.
+
 ## Continuation Notes
 
 - Do not add every repo back to the homepage.
