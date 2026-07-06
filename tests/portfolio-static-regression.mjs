@@ -125,7 +125,7 @@ for (const phrase of ["paths-ignore:", "tests/**", "node_modules/**", "test-resu
 for (const phrase of ["Input Accessibility Evidence", "keyboard only", "mouse/pointer only", "touch only", "platform-limited input only", "No critical workflow may require", "platform text-entry support", "Single input operation"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing input accessibility term: ${phrase}`);
 }
-for (const phrase of ["Design Language Evidence", "modern minimalist", "Uiverse", "Open Props", "Design language/UI safety", "browser JS popups", "component overlap"]) {
+for (const phrase of ["Design Language Evidence", "Signature Ecosystem Evidence", "shared `shfqrkhn` ecosystem", "Signature ecosystem fit", "modern minimalist", "Uiverse", "Open Props", "Design language/UI safety", "browser JS popups", "component overlap"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing design language term: ${phrase}`);
 }
 for (const phrase of ["GitHub API Metadata Evidence", "localStorage cache data", "supporting repo cards only", "not proof that a project is flagship", "source-controlled in this repo", "rate-limited, unavailable, or contradicted"]) {
@@ -143,7 +143,7 @@ for (const phrase of ["OmniOS Transfer Contract", "Product truth", "Execution tr
 for (const phrase of ["Reliability truth", "self-checking", "crash-recoverable", "state-explicit", "TDD/SDD-backed", "remove complexity"]) {
   assert(handoff.includes(phrase), `Handoff missing reliability truth term: ${phrase}`);
 }
-for (const phrase of ["Design truth", "Single input truth", "modern minimalist", "MIT UI libraries/resources", "browser JS popups", "arbitrary component copy-paste", "combined input-mode path"]) {
+for (const phrase of ["Ecosystem truth", "shared signature design system", "Design truth", "Single input truth", "modern minimalist", "MIT UI libraries/resources", "browser JS popups", "arbitrary component copy-paste", "combined input-mode path"]) {
   assert(handoff.includes(phrase), `Handoff missing design truth term: ${phrase}`);
 }
 assert(handoff.includes("treat a contradictory API summary as stale residue"), "Handoff must preserve legacy Pages API residue handling.");

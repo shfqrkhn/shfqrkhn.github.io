@@ -47,6 +47,7 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 ## Design Language Evidence
 
 - UI changes must preserve a modern minimalist, utilitarian, professional, joyful, responsive, portfolio-contextual design language with local CSS/Tailwind tokens, semantic native controls, visible focus, reduced-motion-safe transitions, no horizontal overflow, and no component overlap.
+- Signature Ecosystem Evidence: the portfolio must look and feel like the flagship discovery surface for the shared `shfqrkhn` ecosystem while keeping ModelTab, nFIRE, FIFA-WC-Sim, and LocalFirstApps routing clear.
 - MIT UI libraries/resources such as Uiverse, Open Props, Primer, Radix Colors, Pico CSS, Heroicons, Bootstrap Icons, Floating UI, or A11y Dialog are inspiration sources only unless a source-backed, license-checked, tested need justifies a dependency.
 - Reject browser JS popups, blocking overlays, arbitrary component copy-paste, mixed visual systems, unbounded animation, external CDNs, or styling that distracts from flagship routing.
 
@@ -75,6 +76,7 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 | Input accessibility | `PASS_WITH_LIMITATIONS` | static labels/ARIA checks, responsive review, live check | Does not certify screen-reader behavior or every assistive technology/browser pairing. |
 | Single input operation | `PASS_WITH_LIMITATIONS` | input accessibility evidence, static labels/ARIA checks, no browser popup policy | Does not certify every OS assistive technology or unusual HID/browser pairing. |
 | Design language/UI safety | `PASS_WITH_LIMITATIONS` | handoff/evidence docs, static tests, Tailwind build, live/visual checks where run | Does not certify every viewport or assistive technology; portfolio surfaces may be more visual than utility apps. |
+| Signature ecosystem fit | `PASS_WITH_LIMITATIONS` | shared signature design system reference, design evidence, Tailwind build/static tests | Does not require identical UI components; portfolio discovery can be more visual than utility apps. |
 | Mission-critical reliability | `PASS_WITH_LIMITATIONS` | mission-critical reliability evidence, build/static/live checks | Does not certify linked app runtime behavior; app repos own their own recovery evidence. |
 
 ## Required Before Public-Facing Change
