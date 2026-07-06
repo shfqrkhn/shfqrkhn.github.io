@@ -122,17 +122,29 @@ for (const phrase of ["github/codeql-action/init@v4", "github/codeql-action/anal
 for (const phrase of ["paths-ignore:", "tests/**", "node_modules/**", "test-results/**", "playwright-report/**"]) {
   assert(codeqlConfig.includes(phrase), `CodeQL config missing: ${phrase}`);
 }
-for (const phrase of ["Input Accessibility Evidence", "keyboard-only", "mouse/pointer-only", "touch-only", "static labels/ARIA checks", "tap-target/no-overflow", "Input accessibility"]) {
+for (const phrase of ["Input Accessibility Evidence", "keyboard only", "mouse/pointer only", "touch only", "platform-limited input only", "No critical workflow may require", "platform text-entry support", "Single input operation"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing input accessibility term: ${phrase}`);
+}
+for (const phrase of ["Design Language Evidence", "modern minimalist", "Uiverse", "Open Props", "Design language/UI safety", "browser JS popups", "component overlap"]) {
+  assert(evidenceReceipt.includes(phrase), `Evidence receipt missing design language term: ${phrase}`);
 }
 for (const phrase of ["GitHub API Metadata Evidence", "localStorage cache data", "supporting repo cards only", "not proof that a project is flagship", "source-controlled in this repo", "rate-limited, unavailable, or contradicted"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing GitHub API metadata term: ${phrase}`);
+}
+for (const phrase of ["Mission-Critical Reliability Evidence", "self-checking", "crash-recoverable", "state-explicit", "TDD/SDD", "Autonomous AI-assisted development", "Mission-critical reliability"]) {
+  assert(evidenceReceipt.includes(phrase), `Evidence receipt missing mission-critical reliability term: ${phrase}`);
 }
 for (const phrase of ["Legacy Pages API Residue Evidence", "branch-based GitHub Pages", "building", "errored", "HTTP 200", "Deployment failed, try again later.", "PASS_WITH_LIMITATIONS", "docs/tests", "real blocker"]) {
   assert(evidenceReceipt.includes(phrase), `Evidence receipt missing legacy Pages residue term: ${phrase}`);
 }
 for (const phrase of ["OmniOS Transfer Contract", "Product truth", "Execution truth", "Evidence truth", "Operations truth", "Transfer truth", "GitHub Releases stay absent"]) {
   assert(handoff.includes(phrase), `Handoff missing OmniOS transfer contract term: ${phrase}`);
+}
+for (const phrase of ["Reliability truth", "self-checking", "crash-recoverable", "state-explicit", "TDD/SDD-backed", "remove complexity"]) {
+  assert(handoff.includes(phrase), `Handoff missing reliability truth term: ${phrase}`);
+}
+for (const phrase of ["Design truth", "Single input truth", "modern minimalist", "MIT UI libraries/resources", "browser JS popups", "arbitrary component copy-paste", "combined input-mode path"]) {
+  assert(handoff.includes(phrase), `Handoff missing design truth term: ${phrase}`);
 }
 assert(handoff.includes("treat a contradictory API summary as stale residue"), "Handoff must preserve legacy Pages API residue handling.");
 assert(handoff.includes("GitHub-side deploy failure after successful build/upload"), "Handoff must distinguish source failures from GitHub-side deploy residue.");

@@ -39,15 +39,29 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 
 ## Input Accessibility Evidence
 
-- Critical portfolio navigation must remain usable by keyboard-only, mouse/pointer-only, and touch-only users.
-- Accessibility claims require current evidence from static labels/ARIA checks, responsive review, live checks, and tap-target/no-overflow checks where applicable.
-- If a route or card lacks direct input-mode coverage, label it `PASS_WITH_LIMITATIONS` or `NOT_RUN`; do not claim full accessibility from link presence alone.
+- After setup, critical portfolio navigation must remain fully usable with one available input mode: keyboard only, mouse/pointer only, touch only, or platform-limited input only.
+- No critical workflow may require a combined keyboard-plus-pointer, keyboard-plus-touch, hover-plus-keyboard, drag-plus-keyboard, or browser-popup path.
+- Accessibility claims require current evidence from static labels/ARIA checks, responsive review, live checks, platform text-entry support, and tap-target/no-overflow checks where applicable.
+- If keyboard-only, mouse-only, touch-only, or platform-limited operation is not directly covered for a route or card, label it `PASS_WITH_LIMITATIONS` or `NOT_RUN`; do not claim full accessibility from link presence alone.
+
+## Design Language Evidence
+
+- UI changes must preserve a modern minimalist, utilitarian, professional, joyful, responsive, portfolio-contextual design language with local CSS/Tailwind tokens, semantic native controls, visible focus, reduced-motion-safe transitions, no horizontal overflow, and no component overlap.
+- MIT UI libraries/resources such as Uiverse, Open Props, Primer, Radix Colors, Pico CSS, Heroicons, Bootstrap Icons, Floating UI, or A11y Dialog are inspiration sources only unless a source-backed, license-checked, tested need justifies a dependency.
+- Reject browser JS popups, blocking overlays, arbitrary component copy-paste, mixed visual systems, unbounded animation, external CDNs, or styling that distracts from flagship routing.
 
 ## GitHub API Metadata Evidence
 
 - GitHub API and localStorage cache data may enrich supporting repo cards only; it is not proof that a project is flagship, current, active, retired, safe to publish, or privately approved.
 - Primary routing, retired-folder absence, sitemap entries, and public-safe project claims must remain source-controlled in this repo and verified by static tests before publication.
 - If GitHub API data is stale, rate-limited, unavailable, or contradicted by source-controlled policy, the portfolio must degrade to the static primary cards and downgrade dynamic metadata claims to `PASS_WITH_LIMITATIONS` or `NOT_RUN`.
+
+## Mission-Critical Reliability Evidence
+
+- Critical portfolio navigation, static routing, fallback metadata, sitemap, and public app-link flows must stay self-checking, crash-recoverable, state-explicit, modular, maintainable, simple, one-input accessible, and TDD/SDD-backed.
+- Runtime failures must fail closed to source-controlled static cards, visible status, no browser popup APIs, no hidden upload, and no unsupported retired-project routing.
+- New complexity is acceptable only when it directly improves resilience, usability, routing clarity, public safety, or maintainability and is covered by current tests or explicit evidence.
+- Autonomous AI-assisted development must start from current files, add or update tests before broad routing/UI changes, keep claims inside evidence boundaries, and leave a reproducible recovery path.
 
 ## Claim Boundaries
 
@@ -59,6 +73,9 @@ This public-safe receipt keeps portfolio claims tied to evidence instead of chat
 | Live/static behavior | `PASS_WITH_LIMITATIONS` | `npm test`, Pages/live check, GitHub API metadata evidence | GitHub API data can fail; primary static cards must still render and remain authoritative. |
 | Legacy Pages API summary | `PASS_WITH_LIMITATIONS` | current-head static/CodeQL checks, live HTTP 200, static runtime-route checks, legacy Pages build/deploy log | Branch-based Pages `.status` can lag or report deploy residue after docs/test-only pushes; report residue separately. |
 | Input accessibility | `PASS_WITH_LIMITATIONS` | static labels/ARIA checks, responsive review, live check | Does not certify screen-reader behavior or every assistive technology/browser pairing. |
+| Single input operation | `PASS_WITH_LIMITATIONS` | input accessibility evidence, static labels/ARIA checks, no browser popup policy | Does not certify every OS assistive technology or unusual HID/browser pairing. |
+| Design language/UI safety | `PASS_WITH_LIMITATIONS` | handoff/evidence docs, static tests, Tailwind build, live/visual checks where run | Does not certify every viewport or assistive technology; portfolio surfaces may be more visual than utility apps. |
+| Mission-critical reliability | `PASS_WITH_LIMITATIONS` | mission-critical reliability evidence, build/static/live checks | Does not certify linked app runtime behavior; app repos own their own recovery evidence. |
 
 ## Required Before Public-Facing Change
 

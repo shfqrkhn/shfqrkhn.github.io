@@ -24,6 +24,9 @@ Maintain the public portfolio as a focused discovery surface. It should route at
 - Execution truth: preserve route order, retired-folder absence, sitemap, screenshot, static-build, and public-surface gates before publishing.
 - Evidence truth: use `docs/EVIDENCE_RECEIPT.md`, `docs/PUBLIC_SURFACE_POLICY.md`, static tests, and live checks; public claims must stay within `PASS` or `PASS_WITH_LIMITATIONS`.
 - Operations truth: live Pages or current main repository ZIP are the only distribution paths; GitHub Releases stay absent.
+- Reliability truth: keep portfolio navigation, routing, metadata fallback, sitemap, and app-link flows self-checking, crash-recoverable, state-explicit, modular, maintainable, simple, one-input accessible, and TDD/SDD-backed; remove complexity that does not improve resilience or usability.
+- Design truth: keep UI changes modern minimalist, utilitarian, professional, joyful, responsive, and contextual to focused project discovery; use local CSS/Tailwind tokens and native controls first, treat MIT UI libraries/resources as inspiration only unless a source-backed need justifies a dependency, and reject browser JS popups, blocking overlays, overlapping components, inaccessible controls, unbounded motion, or arbitrary component copy-paste.
+- Single input truth: after setup, critical portfolio navigation must remain fully operable by keyboard only, mouse/pointer only, touch only, or platform-limited input only; never require a combined input-mode path.
 - Transfer truth: update this handoff and the evidence receipt when routing, screenshots, sitemap entries, retired-project handling, or public-surface guarantees change.
 
 ## Doctrine Delta Decision
