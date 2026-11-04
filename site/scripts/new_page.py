@@ -10,7 +10,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts")); sys.dont_write_bytecode = True
 import build_pages
 
-args = [a for a in sys.argv[1:] if not a.startswith("--")]
+args = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith("--") and sys.argv[i - 1] != "--topic"]
 if len(args) != 3:
     print('Usage: python site/scripts/new_page.py <kind> <slug> "<Title>" [--topic food]\nKinds: ' + ", ".join(build_pages.KINDS) + "\nTopics: " + ", ".join(build_pages.TOPICS))
     sys.exit(2)

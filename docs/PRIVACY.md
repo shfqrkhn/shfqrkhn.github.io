@@ -8,7 +8,7 @@ Omnevum never publishes personal information. This holds for every app, page and
 - Identifiers: government or account numbers, usernames and handles, IP addresses.
 - Secrets: API keys, tokens, private keys.
 - Traces: local file paths, credit lines that name a person.
-- Employment: employer, ministry, department, agency, military or government-unit names and acronyms that identify the owner's job, and any handle beyond the site address. Keep these terms in the private list only.
+- Employment: employer, ministry, department, agency, military or government-unit names and acronyms that identify the owner's job, and any handle beyond the owner's GitHub handle in the site and repository addresses. Keep these terms in the private list only.
 - Origin: content taken from work material, internal training or client data. Use public sources only.
 
 ## What is allowed

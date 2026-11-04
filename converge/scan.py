@@ -227,7 +227,7 @@ def main():
         print("manifest absent: claims, sources and environment are not in the keys; carried claims are capped to the sources bytes seen")
     for k, v in res["out"].items():
         print("%-8s %d" % (k, len(v)))
-        for r in (v if "--all" in a and k != "CARRIED" else v[:15] if k != "CARRIED" else []):
+        for r in (v if "--all" in a else v[:15] if k != "CARRIED" else []):
             print("   " + r)
     print("broken links: %d" % len(res["broken"]))
     for b in res["broken"][:15]:

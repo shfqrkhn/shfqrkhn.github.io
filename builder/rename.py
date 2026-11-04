@@ -145,6 +145,8 @@ def main():
         print("The address must be lowercase letters, digits and dashes."); return 1
     if any(x is not p and x["kind"] == p["kind"] and x["slug"] == slug for x in reg["pages"]):
         print("That address is already used: %s/%s" % (p["kind"], slug)); return 1
+    if any(x is not p and "%s/%s" % (p["kind"], slug) in x.get("aliases", []) for x in reg["pages"]):
+        print("That address is an old address of another page: %s/%s" % (p["kind"], slug)); return 1
     hue = None
     if "--hue" in opts:
         hue = int(opts["--hue"])
@@ -159,6 +161,7 @@ def main():
         p.setdefault("aliases", [])
         old_addr = "%s/%s" % (p["kind"], old_slug)
         if old_addr not in p["aliases"]: p["aliases"].append(old_addr)
+        p["aliases"] = [a for a in p["aliases"] if a != "%s/%s" % (p["kind"], slug)]  # renaming back to an earlier address makes it live again
         p["slug"] = slug; report.append("address: /%s/%s/ -> /%s/%s/ (old address forwards)" % (p["kind"], old_slug, p["kind"], slug))
     if "--tagline" in opts:
         tl = opts["--tagline"].strip()

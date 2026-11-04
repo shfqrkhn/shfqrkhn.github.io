@@ -39,7 +39,7 @@ if not go:
     print("\nDry run. Add --yes to commit and push."); sys.exit(0)
 print("4/4 commit and push")
 run(["git", "add", "-A"])
-if not run(["git", "config", "user.email"], check=False).stdout.strip():
+if not run(["git", "config", "user.email"], check=False).stdout.strip().endswith("@users.noreply.github.com"):
     print("git has no identity. Set one first (use your GitHub noreply address): git config user.name <name>; git config user.email <id>+<user>@users.noreply.github.com"); sys.exit(1)
 run(["git", "commit", "--quiet", "-m", msg])
 run(["git", "push", "origin", "HEAD:main"])

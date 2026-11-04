@@ -42,7 +42,7 @@ for r in sorted(refs, key=lambda x: [int(i) for i in x.split(".")]):
     if r not in bare:
         defects.append("section reference with no heading: §" + r)
 major = (re.search(r"(?m)^version: (\d+)\.", s) or [None, "7"])[1]
-ver = set(re.findall(r"\b" + major + r"\.\d+\.\d+\b", s))
+ver = set(re.findall(r"(?<![\d.])" + major + r"\.\d+\.\d+(?!\d|\.\d)", s))
 c0 = s.find("\n## Contents")
 if c0 >= 0:
     block = s[c0:].split("\n---", 1)[0].split("\n")[2:]
@@ -63,3 +63,4 @@ if "\r" in s:
 for d in defects[:60]:
     print("DEFECT", d)
 print("headings", len(heads), "distinct section references", len(refs), "defects", len(defects))
+sys.exit(1 if defects else 0)
