@@ -57,7 +57,7 @@ def _data_block(attrs):
             t = am.group(2).strip("\"'"); break
     if t is None:
         return False
-    return t.split(";")[0].strip().lower() not in ("", "module", "text/javascript", "application/javascript", "text/ecmascript", "application/ecmascript", "application/x-javascript", "text/jscript")
+    return t.split(";")[0].strip().lower() not in ("", "module", "text/javascript", "application/javascript", "text/ecmascript", "application/ecmascript", "application/x-javascript", "text/jscript", "text/x-javascript", "text/livescript", "text/x-ecmascript", "application/x-ecmascript")
 
 
 def repair_csp(html):
