@@ -121,8 +121,10 @@ for _rel in ("builder/registry.json", "builder/icons.json", "builder/topics.json
     _src = os.path.join(os.path.dirname(OM), *_rel.split("/"))
     if os.path.exists(_src):
         os.makedirs(os.path.join(_stage, os.path.dirname(_rel)), exist_ok=True); shutil.copy(_src, os.path.join(_stage, *_rel.split("/")))
-gate(_stage, "registry and root documents")
-shutil.rmtree(_stage, ignore_errors=True)
+try:
+    gate(_stage, "registry and root documents")
+finally:
+    shutil.rmtree(_stage, ignore_errors=True)
 if os.path.isdir(os.path.join(OUT, "content")): gate(os.path.join(OUT, "content"), "content")
 APPS, META = [], {}
 for p in REG:
