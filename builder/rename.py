@@ -165,8 +165,8 @@ def main():
     if len(hits) != 1:
         print('"%s": %s' % (pos[0], "no page matches" if not hits else "matches several; use the id")); return 1
     p = hits[0]; new = pos[1].strip() if len(pos) > 1 else p["title"]
-    if not (1 <= len(new) <= 40):
-        print("The name must be 1 to 40 characters."); return 1
+    if not (1 <= len(new) <= 40) or re.search("[\u2013\u2014]", new):
+        print("The name must be 1 to 40 characters, with no em or en dash."); return 1
     slug = opts.get("--slug") or (slugify(new) if len(pos) > 1 else p["slug"])
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug):
         print("The address must be lowercase letters, digits and dashes."); return 1
@@ -192,12 +192,18 @@ def main():
         p["slug"] = slug; report.append("address: /%s/%s/ -> /%s/%s/ (old address forwards)" % (p["kind"], old_slug, p["kind"], slug))
     if "--tagline" in opts:
         tl = opts["--tagline"].strip()
-        if not (1 <= len(tl) <= 40):
-            print("The tagline must be 1 to 40 characters."); return 1
+        if not (1 <= len(tl) <= 40) or re.search("[\u2013\u2014]", tl):
+            print("The tagline must be 1 to 40 characters, with no em or en dash."); return 1
         if p.get("tagline") != tl:
             p["tagline"] = tl; report.append("tagline: %s" % tl)
     if hue is not None and p.get("hue") != hue:
         p["hue"] = hue; report.append("accent hue: %d" % hue)
+    pending = []  # source edits are written only after every check has passed
+
+    def flush():
+        for f, t in pending:
+            open(f, "w", encoding="utf-8", newline="").write(t)
+        pending.clear()
     if olds and p.get("form", "single") == "single" and not os.path.isabs(p["source"]):
         files = glob.glob(os.path.join(glob.escape(V), p["source"].replace("/", os.sep)))
         if files:
@@ -207,7 +213,7 @@ def main():
                 new_html = fix_csp(html, new_html)
             report.append("source %s: %d replacement(s) in visible text and attributes; %d occurrence(s) left in scripts for review" % (os.path.basename(f), changed, left))
             if changed and "--dry-run" not in opts:
-                open(f, "w", encoding="utf-8", newline="").write(new_html)
+                pending.append((f, new_html))
     if "--file-stem" in opts and p.get("form", "single") == "single" and not os.path.isabs(p["source"]):
         m = re.fullmatch(r"(?P<dir>.*/)?(?P<pre>(?:[A-Z]+-)+)(?P<stem>[A-Za-z0-9]+)(?P<ver>-v(?:\*|[\d.]+))?\.html", p["source"])
         stem = opts["--file-stem"].strip()
@@ -223,6 +229,7 @@ def main():
                 moved.append((f, nf))
             report.append("source file: %s -> %s (%d file%s)" % (p["source"], new_src, len(moved), "" if len(moved) == 1 else "s"))
             if "--dry-run" not in opts:
+                flush()
                 for f, nf in moved:
                     os.rename(f, nf)
                 old_glob = m.group("pre") + m.group("stem") + (m.group("ver") or "")
@@ -246,6 +253,7 @@ def main():
     print("\n".join(report) if report else "Nothing to change: the page already has that name, address and colour.")
     if "--dry-run" in opts or not report:
         return 0
+    flush()
     json.dump(reg, open(REG, "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
     if "--no-build" not in opts:
         r = subprocess.run([sys.executable, "-B", os.path.join(OM, "build.py")], capture_output=True, text=True)
