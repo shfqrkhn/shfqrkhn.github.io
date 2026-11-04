@@ -52,7 +52,7 @@ class Scan(HTMLParser):
             if (a.get("http-equiv") or "").lower() == "content-security-policy": self.csp = True
         if "id" in a: self.ids.append(a["id"])
         if re.fullmatch(r"h[1-6]", tag): self.headings.append(int(tag[1]))
-        if (a.get("tabindex") or "0").lstrip("-").isdigit() and int(a.get("tabindex") or 0) > 0: self.bad_tabindex += 1
+        if re.fullmatch(r"[1-9][0-9]*", (a.get("tabindex") or "").strip()) is not None: self.bad_tabindex += 1
         if a.get("target") == "_blank" and not {"noopener", "noreferrer"} & set((a.get("rel") or "").split()): self.bad_blank += 1
         if tag == "img" and a.get("alt") is None: self.imgs_no_alt += 1
         res = {"script": "src", "img": "src", "iframe": "src", "source": "src", "audio": "src", "video": "src", "embed": "src", "form": "action"}
@@ -144,7 +144,7 @@ def main():
             # language-light, accessible, high-signal pages (WCAG 2.2, plain structure): errors on generated pages, warnings on hand-built apps
             flag = errors if strict else warnings
             if where != "404.html" and not s.desc: flag.append(where + ": missing meta description")
-            if re.search(r"user-scalable\s*=\s*(no|0)|maximum-scale\s*=\s*[0-4](\.\d+)?(?!\d)", s.viewport_content, re.I): errors.append(where + ": the viewport blocks zoom")
+            if re.search(r"user-scalable\s*=\s*(no|false|0)|maximum-scale\s*=\s*[0-4](\.\d+)?(?!\d)", s.viewport_content, re.I): errors.append(where + ": the viewport blocks zoom")
             if s.bad_tabindex: errors.append("%s: %d element(s) with tabindex above 0 (breaks keyboard order)" % (where, s.bad_tabindex))
             if s.bad_blank: errors.append("%s: %d link(s) open a new tab without rel=noopener" % (where, s.bad_blank))
             if s.headings.count(1) != 1: flag.append("%s: %d <h1> (want exactly one)" % (where, s.headings.count(1)))
@@ -163,6 +163,8 @@ def main():
                 errors.append("%s: %d KB is over the %d KB budget" % (where, len(raw) // 1000, BUDGET[kind] // 1000))
             elif kind == "app" and len(raw) > 1_500_000:
                 warnings.append("%s: %d KB (large)" % (where, len(raw) // 1000))
+    if count == 0:
+        errors.append("no page was checked (the site folder is empty or moved)")
     for w in warnings:
         print("WARN " + w)
     if errors:

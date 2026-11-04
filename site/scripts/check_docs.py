@@ -62,6 +62,7 @@ def main():
     for rel, (budget, max_grade, max_avg) in DOCS.items():
         path = os.path.join(HOME, *rel.split("/"))
         if not os.path.exists(path):
+            errors.append("%s: the document is missing (update the list in check_docs.py if it moved)" % rel)
             continue
         raw = open(path, encoding="utf-8").read()
         low = raw.lower()

@@ -153,7 +153,7 @@ for p in REG:
     if form == "single":
         a["path"] = resolve(p["source"]); m = re.search(r"-v(\d+\.\d+\.\d+)\.html$", os.path.basename(a["path"]))
         a["version"] = m.group(1) if m else p["version"]
-        assert re.search(rb"(?<![\d.])" + re.escape(a["version"].encode()) + rb"(?![\d.])", open(a["path"], "rb").read()), ("version text not inside the file", p["id"], a["version"])
+        assert re.search(rb"(?<![\d.])" + re.escape(a["version"].encode()) + rb"(?!\d|\.\d)", open(a["path"], "rb").read()), ("version text not inside the file", p["id"], a["version"])
     elif form == "bundle":
         a["path"] = resolve(p["source"]); a["version"] = p["version"]
         assert os.path.isfile(os.path.join(a["path"], "index.html")), ("a bundle needs an index.html", p["id"])
