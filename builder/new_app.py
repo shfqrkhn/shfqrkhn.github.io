@@ -51,4 +51,4 @@ icons_path = os.path.join(OM, "icons.json"); icons = json.load(open(icons_path, 
 icons.setdefault("starter", "plus-square")
 json.dump(icons, open(icons_path, "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
 print("Created " + dest + "\nRegistered %s/%s in registry.json (icon 'starter': give it its own icon in icons.json).\n"
-      "Next: build the app in that file, then run  python %s\\build.py" % (kind, slug, OM))
+      "Next: build the app in that file, then run  python %s" % (kind, slug, os.path.join(OM, "build.py")))
