@@ -205,7 +205,7 @@ ids = [a["id"] for a in apps]
 KIND = {p["id"]: p["kind"] for p in REG}
 
 def personalize(raw):
-    """Load the shared personalization script first in the head of a page and let the page's policy load scripts from its own site.
+    """Load the shared personalization script at the end of the head of a page (before the body paints) and let the page's policy load scripts from its own site.
     Pages without a head or without a script-src (nothing could run there anyway) are left as they are."""
     if b"personalize.js" in raw or b"</head>" not in raw:
         return raw

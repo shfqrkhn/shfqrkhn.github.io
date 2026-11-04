@@ -2,7 +2,7 @@
   python builder/rename.py "<page>" "<New Name>"
   python builder/rename.py <page> "<New Name>" --hue 210
   python builder/rename.py "<page>" "<New Name>" --old "Earlier Name" --old "EarlierName"   # also rewrite the name inside the page
-Options: --slug <new-slug> (default: the new name, lowercase letters and digits)   --hue <0-359> (the page's accent colour)
+Options: --slug <new-slug> (default: the new name in lowercase, words joined by dashes)   --hue <0-359> (the page's accent colour)
          --old <text> (repeatable: earlier spellings of the name to replace inside the page's source file)   --dry-run   --no-build
          --scripts (with --old: also replace the name inside scripts and styles, but only as a whole word that is not part of a longer
                     identifier, then recompute every Content-Security-Policy hash the change affected. Use it only for names that exist
@@ -71,7 +71,7 @@ def repair_csp(html):
         listed = re.findall(r"'(sha256-[^']+)'", d.group(1))
         bodies = []
         for b in re.finditer(r"<%s\b([^>]*)>(.*?)</%s>" % (tag, tag), html, re.S | re.I):
-            if tag == "script" and ("src=" in b.group(1) or re.search(r"""type\s*=\s*["'](?!module)[^"']*["']""", b.group(1))):
+            if tag == "script" and ("src=" in b.group(1) or re.search(r"""type\s*=\s*["'](?!(?:module|text/javascript|application/javascript|text/ecmascript|application/ecmascript)["'])[^"']*["']""", b.group(1))):
                 continue
             if b.group(2).strip():
                 bodies.append(h(b.group(2)))

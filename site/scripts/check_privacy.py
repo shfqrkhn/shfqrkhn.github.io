@@ -19,7 +19,7 @@ ROLE = re.compile(r"\b(?:Owners?|Managers?|Teams?|Users?|Leads?|Engineers?|Studi
 RULES = [
     ("email", re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")),
     ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}[ .-])?(?:\(\d{3}\)[ .-]?|\d{3}[ .-])\d{3}[ .-]\d{4}(?![\d.])")),
-    ("email-spelled", re.compile(r"[A-Za-z0-9._%+-]+\s*(?:\[at\]|\(at\)|\{at\})\s*[A-Za-z0-9-]+(?:\s*(?:\[dot\]|\(dot\)|\.)\s*[A-Za-z0-9-]+)+", re.I)),
+    ("email-spelled", re.compile(r"(?<![A-Za-z0-9._%+-])[A-Za-z0-9._%+-]{1,64}\s*(?:\[at\]|\(at\)|\{at\})\s*[A-Za-z0-9-]{1,63}(?:\s*(?:\[dot\]|\(dot\)|\.)\s*[A-Za-z0-9-]{1,63}){1,4}", re.I)),
     ("gov-id", re.compile(r"(?<!\d)\d{3}[- ]\d{3}[- ]\d{3}(?!\d)|(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")),
     ("postal-ca", re.compile(r"(?<![#\w])[ABCEGHJ-NPRSTVXY]\d[A-Z][ -]\d[A-Z]\d(?!\w)")),
     ("street", re.compile(r"\b\d{1,5}\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\s(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd|Crescent|Court|Ct)\b")),
@@ -57,7 +57,7 @@ def files():
 def main():
     names = []
     if "--names" in sys.argv:
-        names = [l.strip() for l in open(sys.argv[sys.argv.index("--names") + 1], encoding="utf-8") if l.strip() and not l.startswith("#")]
+        names = [l.strip() for l in open(sys.argv[sys.argv.index("--names") + 1], encoding="utf-8-sig") if l.strip() and not l.startswith("#")]
     _short = [n for n in names if len(n) < 5]; _long = [n for n in names if len(n) >= 5]
     _parts = ([r"(?<![A-Za-z0-9/])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(re.escape(n) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
     name_rx = re.compile("|".join(_parts), re.I) if _parts else None
@@ -75,7 +75,7 @@ def main():
             continue
         raw = norm(text)
         text = COLOR.sub(" ", BLOB.sub(" ", raw))
-        if name_rx and name_rx.search(norm(rel)):
+        if name_rx and name_rx.search(norm(rel).replace(os.sep, " ").replace("/", " ")):
             problems.append("%s: owner-name: the file name carries a private name" % rel)
         checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
         for kind, rx in checks:
@@ -85,7 +85,7 @@ def main():
                 hit = m.group(0)
                 ctx = text[max(0, m.start() - 40):m.end() + 40].replace("\n", " ")
                 low = (hit + " " + ctx).lower()
-                if kind == "email" and re.search(r"@(example\.(com|org|net)|users\.noreply\.github\.com)$", hit, re.I):
+                if kind == "email" and re.search(r"@example\.(com|org|net)$|^(\d+\+)?shfqrkhn@users\.noreply\.github\.com$", hit, re.I):
                     continue
                 if kind == "email" and re.search(r"\.(png|svg|jpg|css|js|woff2?)$", hit, re.I):
                     continue
