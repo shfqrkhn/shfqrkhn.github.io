@@ -1,4 +1,4 @@
-"""Personalization test. Needs Playwright (optional; CI does not run it). Run from the repo root: python scripts/test_personalize.py
+"""Personalization test. Needs Playwright (run by the self-test in CI). Run from anywhere: python site/scripts/test_personalize.py
 Sets an accent colour and a text size in the hub's Personalize dialog, then checks that every single-file page takes both, raises no
 console error (the page policies allow the shared script), keeps them when a page saves its own look, and returns to its own
 look after Reset."""

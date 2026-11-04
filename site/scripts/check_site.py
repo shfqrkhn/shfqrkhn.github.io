@@ -1,4 +1,4 @@
-"""Consistency check for the site. Standard library only. Run from the repo root: python scripts/check_site.py
+"""Consistency check for the site. Standard library only. Run from anywhere: python site/scripts/check_site.py
 
 Layout: /<kind>/<page>/index.html, one folder per page, grouped by kind (apps, games, guides, recipes, courses).
 The catalog inside index.html is the single list of pages; this check makes the files, the worker and the catalog agree.

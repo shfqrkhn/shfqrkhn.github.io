@@ -1,5 +1,5 @@
 """Privacy gate for Omnevum. Standard library only. Fails on personal data in any published file.
-Run from the repo root: python scripts/check_privacy.py   (optional: --root <folder>, --names <private list>)
+Run from anywhere: python site/scripts/check_privacy.py   (optional: --root <folder>, --names <private list>)
 
 Rule: no app, page or doc may carry personal information in any form: names, emails, phone numbers,
 addresses, government or account numbers, keys, tokens, local paths, private IPs, or credit lines naming a person.
@@ -30,7 +30,7 @@ RULES = [
 
 
 def load_allow():
-    p = os.path.join(ROOT, "scripts", "privacy-allow.json")
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "privacy-allow.json")
     return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {"contains": []}
 
 

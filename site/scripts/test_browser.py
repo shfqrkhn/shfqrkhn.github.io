@@ -1,5 +1,5 @@
-"""Browser tests for the site. Needs Playwright (pip install playwright; playwright install chromium). Optional: CI does not run it.
-Run from the repo root: python scripts/test_browser.py
+"""Browser tests for the site. Needs Playwright (pip install playwright; playwright install chromium). Run by the self-test in CI.
+Run from anywhere: python site/scripts/test_browser.py
 Serves the repo locally the way GitHub Pages does (including the 404 page) and checks the hub, every group page, every page, the home links,
 old-address forwarding and offline use."""
 import functools, http.server, json, os, re, sys, threading

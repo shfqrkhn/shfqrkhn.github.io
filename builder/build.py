@@ -1,8 +1,8 @@
 """Omnevum site builder: the one command.   python builder/build.py
-Reads this folder (registry.json = every hand-built page, icons.json, topics.json, today_data.json), the content pages in the
-staged site repo (content/<kind>/<slug>.json), and the single-file apps in sources/apps.
+Reads this folder (registry.json = every hand-built page, icons.json, topics.json, today_data.json), the content pages in
+site/content (content/<kind>/<slug>.json), and the single-file apps in sources/apps.
 Writes the hub, group pages, worker, manifest and 404 into site, then runs the privacy gate on sources and output.
-Rules and how to extend it: docs/FRAMEWORK.md in the site repo and the Omnevum framework note in the sources."""
+Rules and how to extend it: docs/FRAMEWORK.md."""
 import os, sys, re, json, hashlib, base64, html, glob
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
@@ -114,6 +114,15 @@ check_registry()
 gate(APPS_DIR, "sources")
 gate(DOCS, "docs")
 gate(os.path.join(V, "method"), "method documents")
+# the registry, icon list and the root documents carry names and text too: gate a copy of them
+import tempfile, shutil
+_stage = tempfile.mkdtemp()
+for _rel in ("builder/registry.json", "builder/icons.json", "builder/topics.json", "README.md", "AGENTS.md", "CONTRIBUTING.md", "SECURITY.md", ".github/pull_request_template.md"):
+    _src = os.path.join(os.path.dirname(OM), *_rel.split("/"))
+    if os.path.exists(_src):
+        os.makedirs(os.path.join(_stage, os.path.dirname(_rel)), exist_ok=True); shutil.copy(_src, os.path.join(_stage, *_rel.split("/")))
+gate(_stage, "registry and root documents")
+shutil.rmtree(_stage, ignore_errors=True)
 if os.path.isdir(os.path.join(OUT, "content")): gate(os.path.join(OUT, "content"), "content")
 APPS, META = [], {}
 for p in REG:
@@ -530,7 +539,7 @@ print("FOSS: %d of %d pages use an open licence%s" % (len(apps) - len(_non), len
 # ---- output gate and quality gates (the sources were gated before anything was written)
 gate(OUT, "output")
 import subprocess
-for _chk in ("check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
+for _chk in ("check_contrast.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
     _r = subprocess.run([sys.executable, "-B", os.path.join(OUT, "scripts", _chk)], capture_output=True, text=True, cwd=OUT)
     print(_chk, "->", (_r.stdout.strip().splitlines() or ["no output"])[-1])
     if _r.returncode: fail([_chk + " failed: " + _r.stdout[-1500:].replace("\n", " | ")])

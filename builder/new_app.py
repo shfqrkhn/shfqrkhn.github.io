@@ -44,7 +44,7 @@ dest = os.path.join(APPS_DIR, fname)
 if os.path.exists(dest):
     print("File exists: " + dest); sys.exit(1)
 open(dest, "w", encoding="utf-8", newline="\n").write(page)
-reg["pages"].append(dict(id=slug, title=title, kind=kind, slug=slug, source="APPS/" + fname.replace("-v0.1.0.html", "-v*.html"), topic=topic, blurb=blurb,
+reg["pages"].append(dict(id=slug, title=title, kind=kind, slug=slug, source="apps/" + fname.replace("-v0.1.0.html", "-v*.html"), topic=topic, blurb=blurb,
                          keywords=" ".join(re.findall(r"[a-z]+", (title + " " + blurb).lower())), icon="starter", lazy=True, private=False, archived=False, license="MIT"))
 json.dump(reg, open(reg_path, "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
 icons_path = os.path.join(OM, "icons.json"); icons = json.load(open(icons_path, encoding="utf-8"))

@@ -1,4 +1,4 @@
-"""Design-language gate. Standard library only. Run from the repo root: python scripts/check_kit.py
+"""Design-language gate. Standard library only. Run from anywhere: python site/scripts/check_kit.py
 
 Every hand-built page must stay on the shared Omnevum core design language while keeping its own accent colour:
   - its <style> starts with the kit block (/* OMNEVUM KIT:BEGIN */ ... /* OMNEVUM KIT:END */)

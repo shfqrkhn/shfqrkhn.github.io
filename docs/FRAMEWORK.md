@@ -1,6 +1,6 @@
 # Omnevum
 
-**Say it:** om-nee-VEE-um, like *continuum*. **Home:** https://shfqrkhn.github.io (GitHub Pages). **Source of truth for this note:** this file. The build copies it to `docs/FRAMEWORK.md` in the site repo, and rewrites the two generated blocks below (inventory and build record) on every build. Never edit those blocks by hand.
+**Say it:** om-nee-VEE-um, like *continuum*. **Home:** https://shfqrkhn.github.io (GitHub Pages). **Source of truth for this note:** this file. The build copies it to `site/docs/FRAMEWORK.md` and rewrites the two generated blocks below (inventory and build record) on every build. Never edit those blocks by hand.
 
 **Standalone:** paste this note whole into an AI with a request such as "make a guide for X" or "build a tool that does Y". Everything needed is here.
 
@@ -17,7 +17,7 @@ A quality word is only worth writing if something enforces it. This table is the
 | Principle | Mechanism (all automatic unless marked) |
 | --- | --- |
 | Modular | One folder per page: `<kind>/<slug>/`. One registry entry per hand-built page. One data file per generated page. Delivery forms are rows in one table. |
-| DRY, one source of truth | One design system file (`site/scripts/ui.css`) inlined into every page. One registry. One catalog in the hub. This note is copied to the repo, never retyped. |
+| DRY, one source of truth | One design system file (`site/scripts/ui.css`) inlined into every page. One registry. One catalog in the hub. This note is copied to `site/docs/`, never retyped. |
 | Idempotent, deterministic | The build writes no timestamps and no random values. The self-test builds twice and requires identical output. |
 | Fault-tolerant | The hub works with no script (links are plain HTML). Storage failures never crash a page. The offline worker serves the last good copy. A bad registry stops the build before anything is written. |
 | Repairable | Every failure names the page and the fix in plain words. Re-run the build to regenerate everything derived. Git holds every version. |
@@ -104,7 +104,7 @@ Published site (the site/ folder, served at the site root)
 | `remote` | An app hosted elsewhere: a **full stack app with a backend**, or any live service. Listed on the hub as an external link, never copied. | `url` (https), `host`, `license`, optional `stack` | Anywhere: see below. The hub labels it as another site and opens it in a new tab with `noopener noreferrer`. |
 | generated | A recipe, guide, game page, lesson or reference built from `content/<kind>/<slug>.json` by one template. | the JSON file | Rendered to `/<kind>/<slug>/index.html` |
 
-**Add a new form** (a technology not invented yet): add one row to `FORMS` in `build.py`, handle it in the three places marked `FORM` (find and identify its content, write its files, list it), add a self-test case in `selftest.py`, and document it here. Nothing else changes.
+**Add a new form** (a technology not invented yet): add one row to `FORMS` in `build.py`, handle it in the places that use `FORMS` in `build.py` (find and identify its content, write its files, list it), add a self-test case in `selftest.py`, and document it here. Nothing else changes.
 
 GitHub Pages serves static files only and has published size and bandwidth limits: check the current limits before a large release (the limits were not rechecked on 2026-11-02). Pages cannot run server code, so any backend lives elsewhere (section 7) and the page is `remote`, or a static front end that calls a backend the user starts.
 
@@ -159,7 +159,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Move a page to another kind:** change `kind`. Old links forward through the 404 page.
 
-**Add a topic or kind:** topics: add to `topics.json` and a colour in `build.py`. Kind: add to `KINDS` in `build.py` (name and icon) and to the allowed lists in `build_pages.py` and `check_site.py`.
+**Add a topic or kind:** topics: add to `topics.json` and a colour in `build.py`. Kind: add to `KINDS` in `build.py` (name and icon) and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
 
 **Publish:** `python builder/publish.py "Message"` is a dry run: it builds, tests and lists the changes. Add `--yes` to commit and push to main; the deploy workflow then builds and publishes the site, and the command waits until the live hub matches this build. Generated files are never committed (git ignores them). Check the live site any time with `python site/scripts/check_live.py`.
 
@@ -174,8 +174,9 @@ One rule places every page, archived or not: its topic picks the section, then i
 | Pages | doctype, lang, title, viewport, unique ids, alt text, named controls, no outside requests, CSP, internal links, size budgets | build, CI |
 | PWA | manifest, icons at the stated sizes, maskable icon, iOS tags, worker shell and page table match the catalog, download budget | build, CI |
 | Site | files, worker, catalog and hashes agree; nothing unlisted; size limits | build, CI |
-| Contrast | every colour pair in every look meets WCAG 2.2 (604 checks) | CI |
-| Self-test | idempotent build, refusals, planted-PII catch, forms, generator, browser tests | manual, before big changes |
+| Contrast | every colour pair in every look meets WCAG 2.2 (1468 checks, hues in steps of 5) | build, CI |
+| Kit | every hand-built page carries the current kit block and its own accent hue | build, CI |
+| Self-test | idempotent build, refusals, planted-PII catch, forms, generator, browser tests | CI, every push |
 | Live | the published site still matches the catalog | weekly, after publish |
 
 ### Review workflow (scripts first, cheap models, strong tier last)
@@ -188,7 +189,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 One file: `site/scripts/ui.css`. Tokens (`--bg --fg --mut --card --line --acc --on-acc`, spacing `--s1..--s6`, radius `--r`), four looks, shared components: `.ph` header, `.ib` round icon button, `.card`, `.tile`, `.grid`, `.today` with four `.nudge` rows, `.chk` tick list, `.steps`, table, `.none` empty state, `.skip`. Icons are Phosphor Icons (MIT), Regular weight on a 256 grid, drawn as filled outlines with `fill: currentColor`; the Fill weight marks a selected state. The pack lives in `builder/icons/phosphor/`; `icons.json` maps each page's icon key to a Phosphor name; the build inlines only the icons used and ships the licence as `docs/ICONS-LICENSE.txt`. Motion is short and disabled for reduced-motion. Print hides controls. Forced-colours mode keeps borders.
 
-**Core design language and individuality.** Every page shares the core: the same four looks stored under `hub.prefs.v1`, the same neutral palette tokens, system font at 16/1.5, a 16 px card radius with a 1 px border, round 44 px icon buttons, a 3 px accent focus ring, spacing in multiples of 4, Phosphor icons, and one page chrome (a round home button, the app's own icon and name, a spacer, then round icon buttons for Help, Look and the app's actions). Each page keeps its individuality through five things only: its name (funny, punny, alliterative), its accent hue (`hue` in the registry, applied by `<html data-app style="--hue:N">`; the hub tile uses the same hue), its icon, its signature components and layout, and one short playful line (six words at most) on its first screen. Everything else is shared, so a token change reaches every page. Apps carry the shared part as a kit block that the build refreshes from `kit.css`; a check that the block is current is on the list for the next release.
+**Core design language and individuality.** Every page shares the core: the same four looks stored under `hub.prefs.v1`, the same neutral palette tokens, system font at 16/1.5, a 16 px card radius with a 1 px border, round 44 px icon buttons, a 3 px accent focus ring, spacing in multiples of 4, Phosphor icons, and one page chrome (a round home button, the app's own icon and name, a spacer, then round icon buttons for Help, Look and the app's actions). Each page keeps its individuality through five things only: its name (funny, punny, alliterative), its accent hue (`hue` in the registry, applied by `<html data-app style="--hue:N">`; the hub tile uses the same hue), its icon, its signature components and layout, and one short playful line (six words at most) on its first screen. Everything else is shared, so a token change reaches every page. Apps carry the shared part as a kit block that the build refreshes from `kit.css`; `check_kit.py` verifies in the build that every block is current.
 
 **Grandma test** (every new page must pass): a first-time visitor with no instructions and no reading can find the main action, do it, see that it worked, and undo or export their work. If a screen needs a paragraph to explain it, redesign the screen.
 
@@ -231,7 +232,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 20 pages in 7 groups: 20 single, 0 bundle, 0 remote, 0 generated; 9 archived, 0 private. Inventory fingerprint `1a7d637a`, last changed 2026-11-04.
+Hub 1.4.3. 20 pages in 7 groups: 20 single, 0 bundle, 0 remote, 0 generated; 9 archived, 0 private. Inventory fingerprint `0d41db09`, last changed 2026-11-04.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -254,17 +255,17 @@ Hub 1.4.3. 20 pages in 7 groups: 20 single, 0 bundle, 0 remote, 0 generated; 9 a
 | HandheldHunter PC Games | references | single | games | 16.10.3 | live | MIT | /references/handheldhunter-pc-games/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.4 | live | MIT | /references/streamscholar-youtube-channels/ |
 | PromptPlayground AI Chat | tools | single | ai | 0.5.5 | archived | MIT | /tools/promptplayground-ai-chat/ |
-| StepSleuth Step Counter | tools | single | health | 1.2.3 | archived | MIT | /tools/stepsleuth-step-counter/ |
+| StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
 | TranscriptTidy AI Exports | tools | single | ai | 1.6.2 | live | MIT | /tools/transcripttidy-ai-exports/ |
 | TrendTracker Charts | tools | single | ai | 1.5.3 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
 
 ## 13. Change log (newest first)
 
-- 2026-11-04, hub 1.4.4 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.0, Resource Catalogue 2.0.0, Prompt Clipboard 1.0.0 and Knowledge Distiller 1.5.5 (the separate MIT edition is retired; 1.5.5 is the single release), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.
-- 2026-11-04, hub 1.4.4: identity hardening. The privacy rule now also forbids employer, ministry, department, agency, military and government-unit names or acronyms, and any handle beyond the site address; the private list carries them; content must come from public sources; leaks are fixed by rewriting history, not by a later commit. The retirement planner lost its government-specific wording; the licence holder is now "Omnevum contributors".
+- 2026-11-04, hub 1.4.3 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.1, Resource Catalogue 2.0.1, Prompt Clipboard 1.0.1 and Knowledge Distiller 1.5.6 (the separate MIT edition is retired; 1.5.5 is the single release), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.
+- 2026-11-04, hub 1.4.3: identity hardening. The privacy rule now also forbids employer, ministry, department, agency, military and government-unit names or acronyms, and any handle beyond the site address; the private list carries them; content must come from public sources; leaks are fixed by rewriting history, not by a later commit. The retirement planner lost its government-specific wording; the licence holder is now "Omnevum contributors".
 - 2026-11-04, hub 1.4.3: the whole project moved into this repository: sources, builder, framework documents and review scripts live beside the site. GitHub Actions now builds and deploys the site on every push, so generated files are no longer committed; `publish.py` commits and pushes sources and waits for the deploy; `backup.py` zips tracked and local-only files. The rebuilt site was proven byte for byte identical to the previously published one. The Obsidian vault is no longer part of the workflow.
-- 4.0.0, hub 1.4.3 and later: `backup.py` (dated zip with manifest and git bundle, `--verify`, `--copy-to`).
+- 4.0.0, hub 1.4.3 and later: `backup.py` (dated zip with manifest, `--verify`).
 - 4.0.0, hub 1.4.2 (with 1.4.1): FlexxFiles reps-in-reserve buttons moved directly under Complete set (first screen on a phone); Omni 7.31.1 and the Prompt Clipboard converged to PARTIAL under the 3-round cap; Resource Catalogue 1.3.1; review workflow and lessons added; live repo history rewritten to one commit; archived repos deleted; PennyPlanner and NestEggNinja top bars stay one row from 320 px up; `rename.py --file-stem`; Knowledge Distiller rule to extract its template by script when a shell exists.
 - 4.0.0, hub 1.4.0: personalization (accent colour and text size for every page, from the hub); self-explanatory page names (`<Pun> <Subject>`); legacy build folders moved to archive; Converge economy tooling in `converge`.
 - 4.0.0, hub 1.3.0: screen stays awake (dimming allowed) during FlexxFiles workouts, Eggspress Eats cooking, Meeple Mentor play and Meeting Mediator meetings; lessons-learned section added; Knowledge Distiller 1.5.1.

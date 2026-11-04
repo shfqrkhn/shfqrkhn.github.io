@@ -278,7 +278,7 @@
    "tagline": "AI chats to Markdown"
   },
   {
-   "id": "sfc-dfre-steps",
+   "id": "stepsleuth-steps",
    "title": "StepSleuth Step Counter",
    "kind": "tools",
    "slug": "stepsleuth-step-counter",
@@ -286,16 +286,14 @@
    "topic": "health",
    "blurb": "Estimates your steps from an activity's distance and time, in English or French.",
    "keywords": "steps step count conversion activity distance time speed walk run km pace fitness print slip french",
-   "icon": "sfc-dfre-steps",
+   "icon": "stepsleuth-steps",
    "lazy": true,
    "private": false,
    "archived": true,
    "former_names": [
-    "SFC/DFRE Steps",
     "StepSleuth"
    ],
    "aliases": [
-    "tools/sfcdfresteps",
     "tools/stepsleuth"
    ],
    "hue": 73,

@@ -3,8 +3,8 @@ Standard library only.
 
   content/<kind>/<slug>.json   ->   <kind>/<slug>/index.html   (one self-contained file, same look as the hub)
 
-Check a data file:   python scripts/build_pages.py --check
-Render all of them:  python scripts/build_pages.py
+Check a data file:   python site/scripts/build_pages.py --check
+Render all of them:  python site/scripts/build_pages.py
 The Omnevum build (builder/build.py) also renders and lists them; see docs/FRAMEWORK.md.
 """
 import base64, hashlib, html, json, os, re, sys

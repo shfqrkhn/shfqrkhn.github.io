@@ -1,4 +1,4 @@
-"""Contrast gate for the design system. Standard library only. Run from the repo root: python scripts/check_contrast.py
+"""Contrast gate for the design system. Standard library only. Run from anywhere: python site/scripts/check_contrast.py
 
 Reads scripts/ui.css and checks, in every look (paper, charcoal, black, auto-dark), against WCAG 2.2:
   text pairs >= 4.5:1, icon and focus colours >= 3:1, for every icon hue (0-359 in steps of 5).

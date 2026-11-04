@@ -1,4 +1,4 @@
-"""Page quality gate. Standard library only. Run from the repo root: python scripts/check_pages.py
+"""Page quality gate. Standard library only. Run from anywhere: python site/scripts/check_pages.py
 
 Every published page must be a sound, small, self-contained document:
   - doctype, lang, title, viewport; no duplicate ids; images have alt text

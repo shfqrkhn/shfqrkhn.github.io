@@ -13,19 +13,19 @@ Omnevum never publishes personal information. This holds for every app, page and
 
 ## What is allowed
 - Attributed historical quotes, with the author's name.
-- Legally required copyright lines in third-party licences (listed in `scripts/privacy-allow.json`).
+- Legally required copyright lines in third-party licences (listed in `site/scripts/privacy-allow.json`).
 - The public site address itself.
 - Names of organisations, products, places and fictional characters.
 
 ## How it is enforced
-1. `scripts/check_privacy.py` scans every published file for the patterns above. A hit fails the check.
-2. `scripts/check_site.py` runs it, and so does the CI workflow on every push.
+1. `site/scripts/check_privacy.py` scans every published file for the patterns above. A hit fails the check.
+2. `site/scripts/check_site.py` runs it, and so does the CI workflow on every push.
 3. The release build also checks the app sources against a private list of owner and household names. That list is kept outside this repo.
 4. Apps keep what you type on your own device. They send nothing anywhere unless you start it, and no app ships with someone's records inside.
 
 ## When you add or change an app
 - Use neutral labels in sample data ("Person A", "Customer 12").
 - Cite sources by title and organisation, not by person.
-- Run `python scripts/check_privacy.py`. It must print `OK`.
-- If a licence must name a person, add the exact line to `scripts/privacy-allow.json`.
-- If something identifying was published, scrub the sources and replace the git history; a later delete-commit leaves it recoverable.
+- Run `python site/scripts/check_privacy.py`. It must print `OK`.
+- If a licence must name a person, add the exact line to `site/scripts/privacy-allow.json`.
+- If something identifying was published, scrub the sources and ask the owner to replace the git history (rewriting history is the owner's act); a later delete-commit leaves it recoverable.
