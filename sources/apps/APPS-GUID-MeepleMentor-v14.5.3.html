@@ -2,12 +2,12 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-yDXZFMxDzrFpkjnzLxEk9oWhaoWB1lK9WEnwzctu5n4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- MeepleMentor 14.5.2 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-gL+aw+52yi7t30S/D/rzFqnO7uS1Cmz0a1JefbOLXSY='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- MeepleMentor 14.5.3 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="MeepleMentor Board Game Rules 14.5.2: rules first, sealed strategy, for 17 board games.">
+<meta name="description" content="MeepleMentor Board Game Rules 14.5.3: rules first, sealed strategy, for 17 board games.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="MeepleMentor Board Game Rules">
 <title>MeepleMentor Board Game Rules | Rules for 17 games</title>
@@ -36,7 +36,7 @@ button,input{font:inherit;color:inherit}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
 @media(prefers-reduced-motion:no-preference){.ib{transition:border-color .15s,transform .12s,box-shadow .15s}}
 /* OMNEVUM KIT:END */
-/* MeepleMentor 14.5.2. Tokens by role; colours come from the Omnevum kit above. */
+/* MeepleMentor 14.5.3. Tokens by role; colours come from the Omnevum kit above. */
 html{--surface:var(--card);--ink:var(--fg);--muted:var(--mut);--accent:var(--acc);--accent-ink:var(--on-acc);--focus:var(--acc);--bd:color-mix(in srgb,var(--fg) 45%,var(--bg));--danger:#9B2C2C;--success:#2F6B3A;--warning:#7A4F00}
 html[data-theme="charcoal"],html[data-theme="black"]{--danger:#F0A3A3;--success:#94D19E;--warning:#E3B15E}
 :root{--s1:4px;--s2:8px;--s3:16px;--s4:24px;--s5:40px;--s6:72px;--r0:3px;--t0:1rem;--t1:1.125rem;--t2:1.375rem;--t3:2.25rem;--t4:clamp(2.75rem,8vw,4.5rem);--serif:"Subset Serif",Georgia,"Times New Roman",serif;--cond:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--rule:var(--line);--print-paper:#fff;--print-ink:#000;--print-grey:#333;--print-line:#555;--print-rule:#999;--p-fine:9pt;--p-small:10pt;--p-body:11pt;--p-lead:12pt;--p-h3:13pt;--p-h2:14pt;--p-h1:22pt}
@@ -209,6 +209,7 @@ h1,.index h1,.text h1,.doc h1{font-size:var(--p-h1);margin-bottom:6pt}
 </style>
 </head>
 <body>
+<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">MeepleMentor Board Game Rules</h1>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-home" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol><symbol id="i-help" viewBox="0 0 256 256"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol><symbol id="i-theme" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,16.37a86.4,86.4,0,0,1,16,3V212.67a86.4,86.4,0,0,1-16,3Zm32,9.26a87.81,87.81,0,0,1,16,10.54V195.83a87.81,87.81,0,0,1-16,10.54ZM40,128a88.11,88.11,0,0,1,80-87.63V215.63A88.11,88.11,0,0,1,40,128Zm160,50.54V77.46a87.82,87.82,0,0,1,0,101.08Z"/></symbol></defs></svg>
 <a class="skip" href="#root">Skip</a>
 <header class="omn-bar">
@@ -224,7 +225,7 @@ Array.prototype.forEach.call(document.querySelectorAll("[data-go]"),function(b){
 </script>
 <main id="root" tabindex="-1"></main>
 <footer class="foot"><div>
-<span>Version 14.5.2</span>
+<span>Version 14.5.3</span>
 <span id="content-ver">-</span>
 <span>Data stays on this device</span>
 <button type="button" class="link" data-go="help">Help</button>
@@ -537,7 +538,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
 {
  "dataVersion": 1,
  "date": "2026-10-31",
- "source": "Written for MeepleMentor; content as shipped in version 14.5.2. No publisher text is copied. Ten games have short chapters (listed in thinGames); check the publisher's rulebook for full rules.",
+ "source": "Written for MeepleMentor; content as shipped in version 14.5.3. No publisher text is copied. Ten games have short chapters (listed in thinGames); check the publisher's rulebook for full rules.",
  "thinGames": [
   "sw",
   "sg",
@@ -1085,8 +1086,8 @@ const useSafeStorage = (key, initial) => {
   return [data, setData];
 };
 
-// ---- Interface layer v14.5.2 (rulebook). Data, storage key, RichText and useSafeStorage above are unchanged. ----
-const APP_VERSION = "14.5.2";
+// ---- Interface layer v14.5.3 (rulebook). Data, storage key, RichText and useSafeStorage above are unchanged. ----
+const APP_VERSION = "14.5.3";
 const h = React.createElement;
 const ICONS = {
   search: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z",

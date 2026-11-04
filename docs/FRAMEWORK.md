@@ -240,7 +240,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 19 pages in 7 groups: 19 single, 0 bundle, 0 remote, 0 generated; 8 archived, 0 private. Inventory fingerprint `00af6186`, last changed 2026-11-04.
+Hub 1.4.3. 19 pages in 7 groups: 19 single, 0 bundle, 0 remote, 0 generated; 8 archived, 0 private. Inventory fingerprint `707fca73`, last changed 2026-11-04.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -250,11 +250,11 @@ Hub 1.4.3. 19 pages in 7 groups: 19 single, 0 bundle, 0 remote, 0 generated; 8 a
 | FlexxFiles Workout Log | apps | single | health | 2.5.5 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NestEggNinja Retirement | apps | single | money | 10.4.5 | archived | MIT | /apps/nesteggninja-retirement/ |
-| NoodleNudge Journal | apps | single | health | 1.7.5 | live | MIT | /apps/noodlenudge-journal/ |
-| PennyPlanner Budget | apps | single | money | 1.3.6 | archived | MIT | /apps/pennyplanner-budget/ |
+| NoodleNudge Journal | apps | single | health | 1.7.6 | live | MIT | /apps/noodlenudge-journal/ |
+| PennyPlanner Budget | apps | single | money | 1.3.7 | archived | MIT | /apps/pennyplanner-budget/ |
 | TickleTodo Tasks | apps | single | health | 1.3.4 | archived | MIT | /apps/tickletodo-tasks/ |
-| ProjectPopQuiz Exams | courses | single | learning | 1.7.3 | live | MIT | /courses/projectpopquiz-exams/ |
-| MeepleMentor Board Game Rules | games | single | games | 14.5.2 | live | MIT | /games/meeplementor-board-game-rules/ |
+| ProjectPopQuiz Exams | courses | single | learning | 1.7.4 | live | MIT | /courses/projectpopquiz-exams/ |
+| MeepleMentor Board Game Rules | games | single | games | 14.5.3 | live | MIT | /games/meeplementor-board-game-rules/ |
 | WorldCupWizard Predictions | games | single | games | 1.5.4 | archived | MIT | /games/worldcupwizard-predictions/ |
 | BoonBuilder Hades Guide | guides | single | games | 1.1.4 | live | MIT | /guides/boonbuilder-hades-guide/ |
 | SproutScheduler Planting Calendar | guides | single | home | 1.4.4 | live | MIT | /guides/sproutscheduler-planting-calendar/ |
