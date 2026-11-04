@@ -207,7 +207,7 @@ def main():
     bad = [x for x in a if x.startswith("--") and x not in known]
     if bad:
         print("error: unknown flag(s): " + ", ".join(bad)); sys.exit(2)
-    opt = lambda k, d=None: a[a.index(k) + 1] if k in a else d
+    opt = lambda k, d=None: a[a.index(k) + 1] if k in a and a.index(k) + 1 < len(a) else d
     home = os.path.dirname(HERE)
     root = opt("--root", os.path.join(home, "sources"))
     bp = opt("--baseline")
@@ -217,6 +217,9 @@ def main():
     if base and base.get("outcome") != "ASSURED_CONVERGED":
         print("baseline refused: its outcome is %s, not ASSURED_CONVERGED; every item is UNKNOWN" % base.get("outcome")); base = None
     manifest = json.load(open(opt("--manifest"), encoding="utf-8")) if opt("--manifest") else None
+    bad_pairs = [x for i, x in enumerate(a) if i and a[i - 1] in ("--open", "--cap") and "=" not in x]
+    if bad_pairs:
+        print("error: --open and --cap need \"<path>=<text>\": " + ", ".join(bad_pairs)); sys.exit(2)
     opens = dict(x.split("=", 1) for i, x in enumerate(a) if i and a[i - 1] == "--open")
     caps = dict(x.split("=", 1) for i, x in enumerate(a) if i and a[i - 1] == "--cap")
     sections = [int(x) for x in opt("--sections", "7,8,10,16").split(",")]
