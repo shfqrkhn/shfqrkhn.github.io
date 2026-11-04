@@ -207,6 +207,9 @@ def main():
     bad = [x for x in a if x.startswith("--") and x not in known]
     if bad:
         print("error: unknown flag(s): " + ", ".join(bad)); sys.exit(2)
+    valued = {"--root", "--baseline", "--save", "--sections", "--manifest", "--open", "--cap", "--clear-cap", "--note", "--outcome"}
+    if a and a[-1] in valued:
+        print("error: %s needs a value" % a[-1]); sys.exit(2)
     opt = lambda k, d=None: a[a.index(k) + 1] if k in a and a.index(k) + 1 < len(a) else d
     home = os.path.dirname(HERE)
     root = opt("--root", os.path.join(home, "sources"))
