@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PBMRCcBKv/BcrVqwCzEAK+BihmjAv67o/tbZKC0faZ8=' 'sha256-VWlD2+WRbNnu88xxw/uJemuqTWZTJffhwVeMeaCN2zY=' 'sha256-mm9C/sUh1dq65PJawtn39xKUFRq78ndOSgSiv0qlWCU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'none'; form-action 'none'" />
-    <meta name="version" content="1.3.6-single" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PBMRCcBKv/BcrVqwCzEAK+BihmjAv67o/tbZKC0faZ8=' 'sha256-TVNFht0/1ho9nzlBePjF62gbiYe1hm/OwYJtOweCVWw=' 'sha256-mm9C/sUh1dq65PJawtn39xKUFRq78ndOSgSiv0qlWCU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="version" content="1.3.7-single" />
     <meta name="theme-color" content="#faf8f4" />
-    <!-- PennyPlanner 1.3.6-single (Add Transaction saves again, two identical rows in one CSV are both imported, a category made in the nested window is selected, Map Columns fills itself, clear dates; before that 1.3.5-single (a second identical entry is kept, plain words for storage errors, a tag made inside Add Transaction is attached, Enter on a closed list adds, toasts clear of dialogs, Scheduled in the bottom menu; before that 1.3.4-single (Enter on any quick-entry field, ask before discarding typed entries, toasts at the top on phones, Reports in the bottom menu, CA$ chart labels, glossary near the top; before that 1.3.3-single (plain-words fixes: default categories for new data, budget tag flow, Reports link, one accent pair, Help rewritten; before that 1.3.1-single (repairs: CSV thousands separators, reports without transfers and opening balances, 5 MB import limit, names, focus, contrast, reflow, print; on 1.3.0-single: quick entry row and a quieter exchange-rate note, on 1.2.0-single: exact money, envelope export and CSV, on 1.1.1-single; repair of 1.1.0-single, interface rebuild of 1.0.1-single): single-file offline build of the PennyPlanner docs/ (Vite build).
+    <!-- PennyPlanner 1.3.7-single (Add Transaction saves again, two identical rows in one CSV are both imported, a category made in the nested window is selected, Map Columns fills itself, clear dates; before that 1.3.5-single (a second identical entry is kept, plain words for storage errors, a tag made inside Add Transaction is attached, Enter on a closed list adds, toasts clear of dialogs, Scheduled in the bottom menu; before that 1.3.4-single (Enter on any quick-entry field, ask before discarding typed entries, toasts at the top on phones, Reports in the bottom menu, CA$ chart labels, glossary near the top; before that 1.3.3-single (plain-words fixes: default categories for new data, budget tag flow, Reports link, one accent pair, Help rewritten; before that 1.3.1-single (repairs: CSV thousands separators, reports without transfers and opening balances, 5 MB import limit, names, focus, contrast, reflow, print; on 1.3.0-single: quick entry row and a quieter exchange-rate note, on 1.2.0-single: exact money, envelope export and CSV, on 1.1.1-single; repair of 1.1.0-single, interface rebuild of 1.0.1-single): single-file offline build of the PennyPlanner docs/ (Vite build).
          Bundled libraries are those of the original build: React 18.3.1 (MIT), React Router 6.30.0 / @remix-run/router 1.23.0 (MIT),
          Dexie 4.0.11 (Apache-2.0), Recharts (MIT), Radix UI (MIT), lucide-react 0.525.0 (ISC), zod (MIT), date-fns (MIT),
          PapaParse 5.x (MIT), @faker-js/faker (MIT), @google/generative-ai 0.24.1 (Apache-2.0).
@@ -382,7 +382,7 @@ nav.fixed.bottom-0 a span{overflow-wrap:normal!important;white-space:nowrap}
 }
 @media (max-width:359px){ nav.fixed.bottom-0 a span{font-size:.75rem!important} }
 
-/* ---------- 1.3.6 icons ---------- */
+/* ---------- 1.3.7 icons ---------- */
 .ff-ic{flex:none}
 .ff-big{display:flex;justify-content:center;color:var(--muted)}
 .ff-big svg{width:40px;height:40px}
@@ -398,7 +398,7 @@ nav.fixed.bottom-0 a .ff-ni svg{width:22px;height:22px}
 .ff-paypop [cmdk-list]{max-height:132px;overflow-y:auto}
 [role="dialog"] form>div:has(input[aria-label="Description"][aria-expanded="true"]){margin-bottom:144px}
 
-/* ---------- 1.3.6 fixes ---------- */
+/* ---------- 1.3.7 fixes ---------- */
 @media (max-width:1023px){
   [data-sonner-toaster][data-y-position="top"]{top:8px!important}
   [data-sonner-toaster] [data-sonner-toast]{max-height:60px;overflow:hidden}
@@ -414,6 +414,7 @@ nav.fixed.bottom-0 a .ff-ni svg{width:22px;height:22px}
   </head>
 
   <body>
+<h1 class="vh">PennyPlanner Budget</h1>
 <a class="skip ff-skip" href="#ff-main">Skip to content</a>
 <header class="ff-bar"><div class="top"><a class="ib" href="../" id="back-to-hub" aria-label="Omnevum home"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg></a><svg class="appic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M192,116a12,12,0,1,1-12-12A12,12,0,0,1,192,116ZM152,64H112a8,8,0,0,0,0,16h40a8,8,0,0,0,0-16Zm96,48v32a24,24,0,0,1-24,24h-2.36l-16.21,45.38A16,16,0,0,1,190.36,224H177.64a16,16,0,0,1-15.07-10.62L160.65,208h-57.3l-1.92,5.38A16,16,0,0,1,86.36,224H73.64a16,16,0,0,1-15.07-10.62L46,178.22a87.69,87.69,0,0,1-21.44-48.38A16,16,0,0,0,16,144a8,8,0,0,1-16,0,32,32,0,0,1,24.28-31A88.12,88.12,0,0,1,112,32H216a8,8,0,0,1,0,16H194.61a87.93,87.93,0,0,1,30.17,37c.43,1,.85,2,1.25,3A24,24,0,0,1,248,112Zm-16,0a8,8,0,0,0-8-8h-3.66a8,8,0,0,1-7.64-5.6A71.9,71.9,0,0,0,144,48H112A72,72,0,0,0,58.91,168.64a8,8,0,0,1,1.64,2.71L73.64,208H86.36l3.82-10.69A8,8,0,0,1,97.71,192h68.58a8,8,0,0,1,7.53,5.31L177.64,208h12.72l18.11-50.69A8,8,0,0,1,216,152h8a8,8,0,0,0,8-8Z"/></svg><p class="ttl">PennyPlanner Budget</p><button type="button" class="ib" id="ff-help-open" aria-haspopup="dialog" aria-label="Help"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></button><label class="ib lk" title="Look"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,16.37a86.4,86.4,0,0,1,16,3V212.67a86.4,86.4,0,0,1-16,3Zm32,9.26a87.81,87.81,0,0,1,16,10.54V195.83a87.81,87.81,0,0,1-16,10.54ZM40,128a88.11,88.11,0,0,1,80-87.63V215.63A88.11,88.11,0,0,1,40,128Zm160,50.54V77.46a87.82,87.82,0,0,1,0,101.08Z"/></svg><select id="look" aria-label="Look"><option value="auto">Auto</option><option value="paper">Paper</option><option value="charcoal">Charcoal</option><option value="black">Black</option></select></label><button type="button" class="ib" id="ff-add" aria-label="Add transaction"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></button></div></header>
 
@@ -754,7 +755,7 @@ const TABLES=["accounts","transactions","payees","categories","tags","rules","im
 const SPEC={transactions:{amount:100},scheduledTransactions:{amount:100},budgets:{amount:100},goals:{targetAmount:100},debts:{initialAmount:100,minimumPayment:100},holdings:{bookValue:100,quantity:1e8}};
 const RATE=1e8;
 const SCHEMA=12;
-const APPV="1.3.6";
+const APPV="1.3.7";
 const DATEF=["createdAt","date","targetDate","startDate","nextDueDate","endDate"];
 const ISO=/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
 const cap=n=>n.charAt(0).toUpperCase()+n.slice(1);
@@ -1143,14 +1144,14 @@ For more information, see https://radix-ui.com/primitives/docs/components/alert-
 </script>
 <script type="application/json" id="content-meta">
 {
- "dataVersion": "1.3.6",
+ "dataVersion": "1.3.7",
  "date": "2026-10-31",
  "source": "Content as shipped in this version: the starting categories for a new install (the block named ff-defaults: Groceries, Rent, Utilities, Transport, Eating out, Health, Fun, Income, Other) and the synthetic sample data (Settings, Backup and tools, Data), which has its own larger category set. The sample data lives in the app code; this block records the content version, date and source."
 }
 </script>
 <footer class="ff-foot" id="ff-footer">
   <div class="ff-foot-in">
-    <p><strong>PennyPlanner Budget 1.3.6.</strong> Prototype. Your data stays in this browser. Content <span id="ff-content-ver">1.3.6</span>, <span id="ff-content-date">2026-10-31</span>.</p>
+    <p><strong>PennyPlanner Budget 1.3.7.</strong> Prototype. Your data stays in this browser. Content <span id="ff-content-ver">1.3.7</span>, <span id="ff-content-date">2026-10-31</span>.</p>
     <button type="button" id="ff-help-open2" aria-haspopup="dialog">Help</button>
     <button type="button" id="ff-lic-open" aria-haspopup="dialog">Licences</button>
     <a href="https://shfqrkhn.github.io/" rel="noopener noreferrer" target="_blank" aria-label="Source (external site)">Source</a>
@@ -1188,7 +1189,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/alert-
 <dialog class="ff-dlg" id="ff-lic" aria-labelledby="ff-lic-h">
   <div class="ff-dlg-in">
     <h2 id="ff-lic-h">Licences</h2>
-    <p>Single-file build of PennyPlanner Budget 1.3.6. Inside:</p>
+    <p>Single-file build of PennyPlanner Budget 1.3.7. Inside:</p>
     <dl>
       <dt>Bitter 3.021 (font)</dt><dd>SIL Open Font License 1.1 (OFL-1.1). Copyright 2011 The Bitter Project Authors (https://github.com/solmatas/BitterPro). The original carries the Reserved Font Name "Bitter Pro", so the embedded subset is renamed "Subset Slab" inside the font file. Embedded as a Latin subset in two weights (600 to 700).</dd>
       <dt>Atkinson Hyperlegible Next 2.001 (font)</dt><dd>SIL Open Font License 1.1 (OFL-1.1). Copyright 2020-2024 The Atkinson Hyperlegible Next Project Authors (https://github.com/googlefonts/atkinson-hyperlegible-next). Embedded as a Latin subset (weights 400 to 700).</dd>
