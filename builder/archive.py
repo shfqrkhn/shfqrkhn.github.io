@@ -59,7 +59,7 @@ def remove(reg, pages, words, build):
             reg["pages"] = [x for x in reg["pages"] if x["id"] != p["id"]]
             d = p["data"]
             if d.get("form", "single") == "single" and not os.path.isabs(d["source"]):
-                for f in glob.glob(os.path.join(SOURCES, d["source"].replace("/", os.sep))):
+                for f in glob.glob(os.path.join(glob.escape(SOURCES), d["source"].replace("/", os.sep))):
                     shutil.copy2(f, sup)
                     if open(f, "rb").read() == open(os.path.join(sup, os.path.basename(f)), "rb").read():
                         os.remove(f)

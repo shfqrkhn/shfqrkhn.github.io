@@ -55,7 +55,10 @@ def main():
             else:
                 lost = facts(old) - facts(new)
                 if lost and "--fix-mode" in a and len(new) < len(old) * 0.9:
-                    lost = lost - facts(work[:i] + work[j:])
+                    rest, at = "", 0  # what remains once every accepted edit and this one are applied: a fact must survive there
+                    for s0, t0, n0 in sorted([(s1, t1, nn) for (s1, t1, nn) in ok] + [(i, j, new)]):
+                        rest += work[at:s0] + n0; at = t0
+                    lost = lost - facts(rest + work[at:])
                 if lost:
                     why = "drops " + ", ".join(sorted(lost)[:4])
         if why:

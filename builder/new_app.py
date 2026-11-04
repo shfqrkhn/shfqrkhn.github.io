@@ -12,7 +12,8 @@ KINDS = ("apps", "tools", "games", "guides", "recipes", "courses", "references")
 
 
 def opt(name, default):
-    return sys.argv[sys.argv.index(name) + 1] if name in sys.argv else default
+    i = sys.argv.index(name) + 1 if name in sys.argv else 0
+    return sys.argv[i] if 0 < i < len(sys.argv) else default
 
 
 pos = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith("--") and not sys.argv[i - 1].startswith("--")]
@@ -38,7 +39,7 @@ def _icon(m):
 
 tpl = re.sub(r"@@ICON:([a-z-]+)@@", _icon, tpl)
 page = (tpl.replace("@@UI_CSS@@", "/* OMNEVUM KIT:BEGIN */\n" + css + "\n/* OMNEVUM KIT:END */").replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)).replace("@@SCRIPT_HASH@@", script_hash)
-        .replace("@@TITLE@@", title).replace("@@BLURB@@", blurb))
+        .replace("@@TITLE@@", __import__("html").escape(title)).replace("@@BLURB@@", __import__("html").escape(blurb)))
 _st = re.search(r"<style>(.*?)</style>", page, re.S).group(1)
 page = page.replace("@@STYLE_HASH@@", "sha256-" + base64.b64encode(hashlib.sha256(_st.encode()).digest()).decode())
 fname = "APPS-%s-%s-v0.1.0.html" % (kind[:4].upper(), re.sub(r"[^A-Za-z0-9]+", "-", title).strip("-"))
