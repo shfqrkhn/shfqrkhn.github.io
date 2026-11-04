@@ -5,7 +5,7 @@ Standard library only.
 
 Check a data file:   python scripts/build_pages.py --check
 Render all of them:  python scripts/build_pages.py
-The Omnevum build (build/omnevum/build.py in the owner's vault) also renders and lists them; see docs/FRAMEWORK.md.
+The Omnevum build (builder/build.py) also renders and lists them; see docs/FRAMEWORK.md.
 """
 import base64, hashlib, html, json, os, re, sys
 

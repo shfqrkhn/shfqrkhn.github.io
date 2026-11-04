@@ -58,7 +58,7 @@ def evaluator():
 
 def governing(root, sections):
     best = None
-    for dp, dn, fn in os.walk(root):  # any folder under the root: the repository keeps Omni in sources/method, a vault keeps it in TECH
+    for dp, dn, fn in os.walk(root):  # any folder under the root: Omni lives in sources/method
         dn[:] = [d for d in dn if not skip(d)]
         for f in fn:
             m = re.fullmatch(r"TECH-AINT-Omni-v(\d+)\.(\d+)\.(\d+)\.md", f)

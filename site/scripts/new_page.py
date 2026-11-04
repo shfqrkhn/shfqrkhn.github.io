@@ -2,7 +2,7 @@
 
   python scripts/new_page.py recipes egg-salad "Egg salad" --topic food
 
-Creates content/<kind>/<slug>.json with a valid starting page. Edit it, then run the build in the owner's vault (see docs/FRAMEWORK.md).
+Creates content/<kind>/<slug>.json with a valid starting page. Edit it, then run python builder/build.py (see docs/FRAMEWORK.md).
 """
 import json, os, re, sys
 
