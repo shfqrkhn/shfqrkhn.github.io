@@ -1,7 +1,7 @@
 """Start a new single-file app from the Omnevum starter, already registered.
   python builder/new_app.py <kind> <slug> "<Title>" --topic <topic> --blurb "<up to 20 words>"
 Kinds: apps, tools, games, guides, recipes, courses, references.  Topics: see topics.json.
-Creates sources/apps/APPS-<KIND>-<Title>-v0.1.0.html (the design system and the CSP hash are filled in), adds a registry entry
+Creates sources/apps/APPS-<KIND>-<first word of Title>-v0.1.0.html (the design system and the CSP hash are filled in), adds a registry entry
 (published by the next build; set "archived" or "private" first if it should not be), and tells you the next step."""
 import base64, hashlib, json, os, re, sys
 sys.dont_write_bytecode = True
