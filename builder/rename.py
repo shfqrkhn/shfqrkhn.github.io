@@ -51,10 +51,13 @@ def _version_key(path):
 
 def _data_block(attrs):
     """A script whose type is not JavaScript never runs (data, templates). Types match case-blind and ignore parameters; an empty type runs."""
-    m = re.search(r"""(?<![\w-])type\s*=\s*(["'])(.*?)\1""", attrs, re.I | re.S)
-    if not m:
+    t = None
+    for am in re.finditer(r"""([^\s=]+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s"'>]+))?""", attrs):  # real attributes only, never text inside another value
+        if am.group(1).lower() == "type" and am.group(2) is not None:
+            t = am.group(2).strip("\"'"); break
+    if t is None:
         return False
-    return m.group(2).split(";")[0].strip().lower() not in ("", "module", "text/javascript", "application/javascript", "text/ecmascript", "application/ecmascript", "application/x-javascript", "text/jscript")
+    return t.split(";")[0].strip().lower() not in ("", "module", "text/javascript", "application/javascript", "text/ecmascript", "application/ecmascript", "application/x-javascript", "text/jscript")
 
 
 def repair_csp(html):
