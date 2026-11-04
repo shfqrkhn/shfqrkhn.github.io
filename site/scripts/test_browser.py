@@ -92,9 +92,9 @@ with sync_playwright() as p:
     pg.evaluate("navigator.serviceWorker.ready.then(function(r){r.active.postMessage({type:'precache',big:true})})")
     try:
         wait_state(pg, ("ready",), 180)
-        ok("every page, including the large game, is saved for offline", True)
+        ok("every page is saved for offline", True)
     except Exception:
-        ok("every page, including the large game, is saved for offline (state: %s)" % pg.get_attribute("#off", "data-s"), False)
+        ok("every page is saved for offline (state: %s)" % pg.get_attribute("#off", "data-s"), False)
     ctx.set_offline(True)
     pg.goto(B); ok("hub works offline", pg.title() == "Omnevum")
     pg.goto(B + kinds[0] + "/"); ok("group page works offline", pg.locator("a.tile").count() >= 1)

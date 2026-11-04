@@ -119,11 +119,16 @@ def rename_html(html, olds, new, scripts=False):
 
 
 def slugify(name):
-    return re.sub(r"[^a-z0-9]+", "", name.lower())
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
 
 
 def main():
     args = sys.argv[1:]
+    if args and args[0] == "--repair-csp":  # python builder/rename.py --repair-csp <file> ...: recompute the script and style hashes of a page after editing its inline code
+        for f in args[1:]:
+            fixed_html, n = repair_csp(open(f, encoding="utf-8", newline="").read())
+            open(f, "w", encoding="utf-8", newline="").write(fixed_html); print("%s: %d hash(es) repaired" % (f, n))
+        return 0
     flags = {"--dry-run", "--no-build", "--scripts"}
     opts, pos, olds, i = {}, [], [], 0
     while i < len(args):
@@ -149,8 +154,8 @@ def main():
     slug = opts.get("--slug") or (slugify(new) if len(pos) > 1 else p["slug"])
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug):
         print("The address must be lowercase letters, digits and dashes."); return 1
-    if any(x is not p and x["kind"] == p["kind"] and x["slug"] == slug for x in reg["pages"]):
-        print("That address is already used: %s/%s" % (p["kind"], slug)); return 1
+    if any(x is not p and x["slug"] == slug for x in reg["pages"]):  # a slug is unique across all kinds (the build requires it)
+        print("That address is already used by another page: %s" % slug); return 1
     if any(x is not p and "%s/%s" % (p["kind"], slug) in x.get("aliases", []) for x in reg["pages"]):
         print("That address is an old address of another page: %s/%s" % (p["kind"], slug)); return 1
     hue = None

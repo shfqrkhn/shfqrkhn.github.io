@@ -60,9 +60,11 @@ class Scan(HTMLParser):
         if tag == "link" and re.match(r"(https?:)?//", a.get("href") or "") and (a.get("rel") or "") not in ("canonical", "alternate"): self.external.append(("link", a["href"]))
         if tag == "a" and a.get("href") is not None: self.links.append(a["href"])
         if tag in ("a", "button"):
-            self._stack.append([tag, bool(a.get("aria-label") or a.get("title")), False, a.get("href") or a.get("id") or ""])
+            self._stack.append([tag, bool(a.get("aria-label") or a.get("title") or a.get("aria-labelledby")), False, a.get("href") or a.get("id") or ""])
         elif tag == "svg" and self._stack:
             self._stack[-1][2] = self._stack[-1][2]  # icons alone do not name a control
+        elif tag == "img" and self._stack and (a.get("alt") or "").strip():
+            self._stack[-1][2] = True  # an image with alt text names its control
 
     def handle_data(self, data):
         if self._in_title: self.title += data
@@ -87,6 +89,14 @@ def csp_gaps(text):
     if csp is None:
         return []
     gaps = []
+    def _dir(name):
+        return re.search(r"(?<![\w-])" + name + r"\s+([^;]*)", csp) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp)
+    markup = re.sub(r"<script\b.*?</script>|<style\b.*?</style>", "", text, flags=re.S | re.I)
+    _ss, _sc = _dir("style-src"), _dir("script-src")
+    if _ss and "'unsafe-inline'" not in _ss.group(1) and re.search(r"<[a-zA-Z][^>]*\sstyle\s*=", markup):
+        gaps.append("a style attribute is blocked: style-src has no unsafe-inline")
+    if _sc and "'unsafe-inline'" not in _sc.group(1) and re.search(r"<[a-zA-Z][^>]*\son[a-zA-Z]+\s*=", markup):
+        gaps.append("an inline event handler is blocked: script-src has no unsafe-inline")
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace(chr(13) + chr(10), chr(10)).replace(chr(13), chr(10)).encode("utf-8")).digest()).decode()  # browsers normalise line endings before hashing
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
         d = re.search(r"(?<![\w-])" + directive + r"\s+([^;]*)", csp) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp)  # an unset directive falls back to default-src
@@ -155,15 +165,16 @@ def main():
                 if s.unnamed: errors.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))
             elif not s.csp:
                 warnings.append(where + ": no Content-Security-Policy")
+            if not strict and s.unnamed: warnings.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))
             # language-light, accessible, high-signal pages (WCAG 2.2, plain structure): errors on generated pages, warnings on hand-built apps
             flag = errors if strict else warnings
             if where != "404.html" and not s.desc: flag.append(where + ": missing meta description")
-            if re.search(r"user-scalable\s*=\s*(no|false|0)|maximum-scale\s*=\s*[0-4](\.\d+)?(?!\d)", s.viewport_content, re.I): errors.append(where + ": the viewport blocks zoom")
+            if re.search(r"user-scalable\s*=\s*(no|false|0)|maximum-scale\s*=\s*(?:0|1)(?:\.\d+)?(?!\d)", s.viewport_content, re.I): errors.append(where + ": the viewport blocks zoom")
             if s.bad_tabindex: errors.append("%s: %d element(s) with tabindex above 0 (breaks keyboard order)" % (where, s.bad_tabindex))
             if s.bad_blank: errors.append("%s: %d link(s) open a new tab without rel=noopener" % (where, s.bad_blank))
             if s.headings.count(1) != 1: flag.append("%s: %d <h1> (want exactly one)" % (where, s.headings.count(1)))
             if any(b - a > 1 for a, b in zip(s.headings, s.headings[1:])): flag.append(where + ": a heading level is skipped")
-            if len(s.title.strip()) > 60: warnings.append("%s: title is %d characters (keep it under 60)" % (where, len(s.title.strip())))
+            if len(s.title.strip()) >= 60: warnings.append("%s: title is %d characters (keep it under 60)" % (where, len(s.title.strip())))
             if re.search(r"\banimation\s*:|\btransition\s*:", text) and "prefers-reduced-motion" not in text: flag.append(where + ": motion without a prefers-reduced-motion rule")
             if kind in ("hub", "group") or where in ("404.html",):
                 base = os.path.dirname(full)
