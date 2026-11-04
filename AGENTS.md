@@ -23,7 +23,7 @@ python builder/publish.py "message" --yes
 5. **Free and open source first.** Prefer open licences and open tools; name anything else.
 6. **Check before you claim.** Run the build and the self-test; report what ran and what did not. Verify claims from other models by exact quote against the file.
 7. **Commit with the GitHub noreply address, never a personal email.** In this clone: `git config user.name <github-user>` and `git config user.email <id>+<github-user>@users.noreply.github.com`; commit messages and history are public.
-8. **History is git.** Do not rewrite `main`; branch protection blocks force-pushes. A history rewrite needs the owner and protection turned off first.
+8. **History is git.** Do not rewrite `main`; branch protection, when on, blocks force-pushes. A history rewrite needs the owner and protection turned off first.
 
 ## Doing the work cheaply
 

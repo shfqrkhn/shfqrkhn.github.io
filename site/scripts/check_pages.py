@@ -2,7 +2,7 @@
 
 Every published page must be a sound, small, self-contained document:
   - doctype, lang, title, viewport; no duplicate ids; images have alt text
-  - the hub, group pages, 404 and generated pages also carry a Content-Security-Policy and name every button and link
+  - the hub, group pages and generated pages also carry a Content-Security-Policy and name every button and link
   - no page loads anything from another website (scripts, styles, images, fonts, frames, forms)
   - internal links on the hub, group pages and 404 point at files that exist
   - size budgets, so the site stays fast on a slow phone

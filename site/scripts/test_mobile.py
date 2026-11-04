@@ -1,4 +1,4 @@
-"""Mobile checks. Needs Playwright (pip install playwright; playwright install chromium firefox). Run by the self-test in CI.
+"""Mobile checks. Needs Playwright (pip install playwright; playwright install chromium firefox). Run by hand (CI does not install Firefox).
 Run from anywhere: python site/scripts/test_mobile.py
 
 Emulates phones (Pixel 7, iPhone 13, a small 320 px phone) with touch, and runs a real Firefox engine, against the site served locally.

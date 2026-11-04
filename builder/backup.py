@@ -17,8 +17,8 @@ def sha(data):
 
 
 def make():
-    tracked = subprocess.run(["git", "ls-files"], cwd=HOME, capture_output=True, text=True, check=True).stdout.split("\n")
-    files = [f for f in tracked if f]
+    tracked = subprocess.run(["git", "ls-files", "-z"], cwd=HOME, capture_output=True, text=True, check=True).stdout.split("\0")
+    files = [f for f in tracked if f and os.path.exists(os.path.join(HOME, f))]
     files += [f for f in LOCAL_ONLY if os.path.exists(os.path.join(HOME, f))]
     rec = os.path.join(HOME, "converge", "receipts")
     if os.path.isdir(rec):

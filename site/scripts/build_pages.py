@@ -14,7 +14,8 @@ KINDS = ("games", "guides", "recipes", "courses", "references")
 TOPICS = ("money", "health", "home", "food", "games", "learning", "work", "travel", "local", "music", "ai")
 E = html.escape
 
-ICON = json.load(open(os.path.join(ROOT, "scripts", "ui-icons.json"), encoding="utf-8"))  # Phosphor Icons (MIT), written by the build
+_ICONS = os.path.join(ROOT, "scripts", "ui-icons.json")
+ICON = json.load(open(_ICONS, encoding="utf-8")) if os.path.exists(_ICONS) else {}  # Phosphor Icons (MIT), written by the build; empty until the first build
 
 CSS = re.sub(r"\n\s*", "\n", re.sub(r"/\*.*?\*/", "", open(os.path.join(ROOT, "scripts", "ui.css"), encoding="utf-8").read(), flags=re.S).strip())  # the one design system
 

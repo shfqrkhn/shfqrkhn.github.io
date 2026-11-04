@@ -2,7 +2,7 @@
 <html lang="en" data-app data-theme="paper" data-look="auto" style="--hue:73">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-6gzxC3B0dlhfq57hFnLZnuq2JdagNMqvToSRSbwQz+0=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-faGQew+kck1sqHIRHjUHJuQefB38BIxq0WRgeJ4xunA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-MI6FNRjBXIQje76CEy+EId8z4ftgVRENMY2s4aLa6nU=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-faGQew+kck1sqHIRHjUHJuQefB38BIxq0WRgeJ4xunA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- StepSleuth 1.2.4. Single file, offline, no network. Fira Sans (SIL OFL 1.1) embedded as subset woff2. Bootstrap and Bootstrap Icons removed in 1.1.0. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#faf8f4">
@@ -347,7 +347,7 @@ dialog .btn{margin-top:var(--s5)}
   <button type="button" class="btn primary" id="close-lic"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg><span class="t">Close</span></button>
 </dialog>
 
-<script type="application/json" id="sfc-content">
+<script type="application/json" id="ss-content">
 {
 "dataVersion": "1.0.0",
 "date": "2026-10-31",
@@ -475,7 +475,7 @@ dialog .btn{margin-top:var(--s5)}
 
         let Content;
         try {
-            Content = JSON.parse(document.getElementById('sfc-content').textContent);
+            Content = JSON.parse(document.getElementById('ss-content').textContent);
             if (!Content || !Array.isArray(Content.activities) || !Content.activities.length) throw new Error('no activities');
         } catch (e) {
             Content = { dataVersion: '?', date: '?', source: '', activities: [], broken: true };

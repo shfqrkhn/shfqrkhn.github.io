@@ -85,7 +85,7 @@ def rename_html(html, olds, new, scripts=False):
         low = tok[:8].lower()
         if low.startswith("<script") or (scripts and low.startswith("<style")):
             if scripts:
-                nv, n = word.subn(new, tok); changed += n; left += len(pat.findall(nv)); out.append(nv)
+                nv, n = word.subn(lambda _m: new, tok); changed += n; left += len(pat.findall(nv)); out.append(nv)
             else:
                 left += len(pat.findall(tok)); out.append(tok)
         elif low.startswith("<style") or tok.startswith("<!--"):
@@ -97,12 +97,12 @@ def rename_html(html, olds, new, scripts=False):
                 nonlocal changed
                 an, q, val = m.group(1), m.group(2), m.group(3)
                 if an in ATTRS or (an == "content" and names & META_NAMES):
-                    nv, n = pat.subn(new, val); changed += n
+                    nv, n = pat.subn(lambda _m: new, val); changed += n
                     return "%s=%s%s%s" % (an, q, nv, q)
                 return m.group(0)
             out.append(re.sub(r'([\w:-]+)=(["\'])(.*?)\2', attr, tok, flags=re.S))
         else:
-            nv, n = pat.subn(new, tok); changed += n; out.append(nv)
+            nv, n = pat.subn(lambda _m: new, tok); changed += n; out.append(nv)
     return "".join(out), changed, left
 
 
@@ -165,7 +165,7 @@ def main():
     if olds and p.get("form", "single") == "single" and not os.path.isabs(p["source"]):
         files = glob.glob(os.path.join(V, p["source"].replace("/", os.sep)))
         if files:
-            f = sorted(files)[-1]; html = open(f, encoding="utf-8", newline="").read()
+            f = max(files, key=lambda p: tuple(int(x) for x in (re.search(r"-v(\d+)\.(\d+)\.(\d+)\.html$", p) or [None, 0, 0, 0]).groups()[0:3])); html = open(f, encoding="utf-8", newline="").read()
             new_html, changed, left = rename_html(html, olds + [old_title], new, "--scripts" in opts)
             if "--scripts" in opts:
                 new_html = fix_csp(html, new_html)

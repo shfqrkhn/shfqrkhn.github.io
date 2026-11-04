@@ -1,6 +1,7 @@
 ---
 type: payload
 status: active
+version: 1.5.6
 updated: 2026-11-04
 description: "KnowledgeDistiller: standalone offline study app generator with rights-aware MIT-ready release checks."
 aliases: [KnowledgeDistiller]
@@ -16,7 +17,7 @@ Copyright is not eliminated by paraphrasing. A permissive licence grants reuse p
 
 The generic self-contained template later in this file is the implementation baseline; topic-specific progress migrations belong only in updates to that same app. A finished app may contain topic data, manifest details, a specific migration, and different script integrity hashes. Data drives the lesson; only code changes require integrity-hash updates. Old progress must migrate safely when display-neutral identifiers change. A generator template stays topic-independent; a finished app may add a clearly tested, topic-specific migration overlay. Compare the shared code after accounting for documented overlays rather than requiring byte-for-byte identity.
 
-## Verification and continuity contract (revision 1.5.5)
+## Verification and continuity contract (revision 1.5.6)
 
 - When the owner requests a revision, read the newest accessible KnowledgeDistiller file and relevant subject/app sources; compare versions and hashes. Other projects are not subject evidence. Use the newest available baseline while preserving existing data, chapters, activity types, and saved-progress identifiers unless a verified migration is implemented.
 - An offline file may run with browser storage disabled. The guide must still be readable and usable, warn when progress is not persistent, and offer manual progress export and restoration. Treat `file:` storage as browser-dependent; never promise durable automatic saving.

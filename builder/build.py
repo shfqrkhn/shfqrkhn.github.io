@@ -151,7 +151,7 @@ PACK = os.path.join(OM, "icons", "phosphor")  # Phosphor Icons (MIT), see docs/I
 def P(name, weight="regular"):
     """Inner markup of one Phosphor icon (viewBox 0 0 256 256, filled outlines). A missing name stops the build."""
     f = os.path.join(PACK, weight, name + ("-fill" if weight == "fill" else "") + ".svg")
-    assert os.path.isfile(f), ("icon not found in the Phosphor pack (a backup keeps only the icons in use: run builder/fetch_icons.py to restore the full pack)", name, weight)
+    assert os.path.isfile(f), ("icon not found in the Phosphor pack (the repository keeps only the icons in use: run builder/fetch_icons.py to restore the full pack)", name, weight)
     return re.search(r"<svg[^>]*>(.*)</svg>", open(f, encoding="utf-8").read(), re.S).group(1)
 
 

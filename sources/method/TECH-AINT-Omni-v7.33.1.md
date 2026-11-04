@@ -55,7 +55,7 @@ Text in this document guides behaviour. It does not by itself create tools, isol
 2. Precedence
 3. Authority
 4. Truth, sources, and untrusted input
-5. Privacy, security, and least privilege
+5. Privacy, security, and least privilege - quality duties, not guardrails
 6. Work method
 7. Evidence and status
 8. Convergence
@@ -1118,7 +1118,7 @@ Rules for every tier:
 
 - A tier is a compressed projection of §1-§12 under the DRY canon (§1.6): a view of the controlling sections, never a second statement of them, and on any conflict the controlling section governs. Tiers are not semantically equivalent: a smaller tier preserves the priorities and critical invariants, not every sub-rule. The loss table after the tiers states exactly what each tier omits.
 - Character counts include spaces and internal line breaks and exclude the fence and any final line break. State the line-ending basis when a count matters: a count under Windows CRLF line endings is higher than under LF, and the margins at the 1,500, 3,000 and 8,000 tiers are under 10 characters under CRLF, so verify in the actual field.
-- Field limits belong to named interfaces, not to a vendor as a whole, and they change. The limit list below and the four tier sizes are illustrative, dated 2026-10; re-verify at the destination before use. The tenant-policy examples named in the 8,000 tier are likewise illustrations. Limits: 1,500 for the smallest consumer custom-instruction fields; 3,000 for certain cloud-assistant project fields; 5,000 for mid-tier consumer and business custom-instruction fields; 8,000 for agent-builder and prompt-modification fields. Several other personalisation fields publish no verified number - start with the 1,500 text where it is accepted.
+- Field limits belong to named interfaces, not to a vendor as a whole, and they change. The limit list below and the four tier sizes are illustrative; re-verify at the destination before use. The tenant-policy examples named in the 8,000 tier are likewise illustrations. Limits: 1,500 for the smallest consumer custom-instruction fields; 3,000 for certain cloud-assistant project fields; 5,000 for mid-tier consumer and business custom-instruction fields; 8,000 for agent-builder and prompt-modification fields. Several other personalisation fields publish no verified number - start with the 1,500 text where it is accepted.
 - If a field is smaller than the chosen tier, do not truncate a larger tier mid-sentence. Use a smaller tier, or generate a descendant sized to the field under §19.0.
 - Pasting a tier guarantees neither safety nor compliance. User-written text never upgrades its own authority and never supplies tool permissions (§3, §5). On a host that cannot load a tier as a high-priority instruction, treat it as a preference only.
 

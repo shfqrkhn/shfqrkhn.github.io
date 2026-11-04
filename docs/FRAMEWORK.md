@@ -41,13 +41,13 @@ Honest limits: "self-healing" means detect, report, and regenerate; no part rewr
 - **Topic** is what a page is about: money, health, home, food, games, learning, work, travel, local, music, ai. The hub groups by topic. It has no search box and no filter chips (owner decision, 2026-11-02): the landing screen is the Today card with all four daily pieces, then the topic sections. Group pages (`/apps/`, `/games/` and so on) still exist and work as direct addresses, but the hub does not link to them. Topics live in `topics.json`.
 - **Form** is how a page is delivered (section 6): `single`, `bundle`, `remote`.
 - **Address** is `/<kind>/<slug>/` and never changes once published. The Archive is a display flag in the registry, not a folder, so retiring a page never breaks a link. Old flat addresses forward through `404.html`.
-- **Page id** is the slug; it must be unique within its kind and is used for the worker cache name `app-<slug>-v<version>-<hash8>`.
+- **Page id and slug.** The slug is the address and must be unique within its kind; it names the worker cache `app-<slug>-v<version>-<hash8>`. The registry id is an internal key.
 
 ## 4. Where things live
 
 ```
 Repository (github.com/shfqrkhn/shfqrkhn.github.io): everything needed to rebuild, run and extend the project
-  sources/apps/                        hand-built single-file apps, named APPS-<KIND>-<Name>-v<X.Y.Z>.html
+  sources/apps/                        hand-built single-file apps, named <PREFIX>-<Name>-v<X.Y.Z>.html (a few keep older prefixes or no version)
   sources/method/                      Omni, the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue; one file each, `TECH-AINT-<Name>-v<X.Y.Z>.<ext>`, the latest version only (replace the old file when a new one arrives)
   docs/                                this note (FRAMEWORK.md, the source of truth) and PRIVACY.md
   builder/                             the framework tools
@@ -83,14 +83,14 @@ Published site (the site/ folder, served at the site root)
 ## 5. Hard rules
 
 1. **Privacy gate.** No page, doc or registry text may carry personal information in any form: names of real people (owner, household, authors, designers, developers, players, creators), emails, phone numbers, addresses, government or account numbers, usernames or handles, IP addresses, keys, tokens, local paths, credit lines naming a person. Allowed: attributed historical quotes; copyright lines in third-party licences that the licence requires; the public site address; names of organisations, products, places and fictional characters. Sample data uses neutral labels ("Person A"). Nothing published may reveal who the owner is or where they work: no employer, ministry, department, agency, military or government-unit names or acronyms that identify the owner's job, and no handle beyond the required site address. These terms go in the private list (`builder/privacy_names.txt`), so the public repository never spells them out. Content must come from public sources, never from work material, internal training or client data. The public credit an open-data licence requires is allowed. If something identifying ever reaches the repository, deleting it in a later commit is not enough because history keeps it: scrub the sources, then replace the history with one clean commit (needs branch protection off for the push) and, to clear old pull request refs, recreate the repository.
-2. **No network.** A page makes no request unless the user starts it. No analytics, no external fonts, scripts or styles. The hub and generated pages ship a strict Content-Security-Policy.
+2. **No network.** A page makes no request unless the user starts it. Four apps that use an AI or data service (PromptPlayground, PennyPlanner, MeetingMediator, WorldCupWizard) list that service's hosts in their Content-Security-Policy `connect-src`; no other host is allowed, and `check_pages.py` inspects only `src`, `href` and `action` attributes, not `connect-src`. No analytics, no external fonts, scripts or styles. The hub and generated pages ship a strict Content-Security-Policy.
 3. **Local-first.** Everything the user enters stays on the device (localStorage or IndexedDB). Every page that stores data offers export and restore. Storage keys are never renamed. Schemas carry a version and are validated on read.
 4. **Offline.** Every page works with the network off. The hub saves all pages in the background after the first visit (large ones on a tap), tries the network first for freshness but falls back to the saved copy after 3.5 seconds, and updates only when the person taps the update button. A page with its own PWA (bundle with `pwa: true`) brings its own worker and scope.
 5. **Home link.** Every single-file page has one link `href="../"` (the source file), which the build rewrites to `../../` on the site. Bundles write `../../` themselves. Remote pages link out and are labelled.
 6. **Icons first, few words.** One icon family everywhere: Phosphor Icons (MIT), Regular weight, with the Fill weight for the selected state. Never hand-draw an icon. Buttons are icons with an accessible name. Labels are one to three words. Help is one short line. Empty states are an icon and three to six words. Sentences stay under 20 words. No emoji. No em or en dashes in text.
 7. **Accessible.** Real buttons and links, labelled controls, keyboard operable, visible focus, 44 px targets, AA contrast, reflow to 320 px, respects reduced motion.
-8. **Looks.** Auto, Paper, Charcoal, Black. The choice lives in `hub.prefs.v1` (`look` only) and every page reads it.
-9. **Small.** Budgets: hub 300 KB, group page 60 KB, generated page 120 KB, any file 25 MB, whole site 900 MB. Larger single pages (finance apps, a 15 MB game) are known, reported exceptions.
+8. **Looks.** Auto, Paper, Charcoal, Black. The choice lives in `hub.prefs.v1` and every page reads it.
+9. **Small.** Budgets: hub 300 KB, group page 60 KB, generated page 120 KB, any file 25 MB, whole site 900 MB. Any app page: 3 MB; a page over 5 MB (the 15 MB game) is exempt and waits for a tap before it is saved offline.
 10. **Licence.** Every page declares an SPDX licence in the registry (default MIT). Prefer free and open source for every dependency (section 7).
 11. **Never publish what the gates reject.** A failing gate stops the build. Do not weaken a gate to pass; fix the cause, or add an exact, reasoned allowance in `site/scripts/privacy-allow.json`.
 12. **Nothing irreversible without the owner.** Deleting repositories, rewriting history and spending money are the owner's acts.
@@ -127,7 +127,7 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 **Make a new single-file app** (also tools, games, guides, recipes, courses, references):
 1. `python builder/new_app.py <kind> <slug> "<Title>" --topic <topic> --blurb "<up to 20 words>"`
 2. Open the new file in `sources/apps`. Build the app inside it. Keep the starter's pieces: strict CSP (recompute the script hash whenever you edit the inline script), the home link, the look control, validated storage, export, `textContent` for user data, the version meta.
-3. Give it its own icon in `icons.json` (24 px, stroke icons, one path set). Set `lazy`, `archived`, `license` in `registry.json` if needed.
+3. Give it its own icon: a Phosphor icon name in `icons.json`. Set `lazy`, `archived`, `license` in `registry.json` if needed.
 4. Run the build. Fix what it reports.
 
 **Make a simple content page** (a recipe, guide, board game page, lesson):
@@ -145,7 +145,7 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 
 **Back up:** GitHub is the primary copy of everything tracked, and its history is the project's history. `python builder/backup.py` also zips the tracked files plus the few local-only files (`builder/privacy_names.txt`, `converge/private-skip.txt`, `converge/receipts/`); keep that zip private and off this computer, and `--verify <zip>` rechecks it. Generated files are not stored: `python builder/build.py` rebuilds them and the deploy workflow does it on every push. The full icon pack is restored with `python builder/fetch_icons.py`. Make a backup after each release and test a restore once.
 
-**Re-skin the whole site:** edit tokens in `site/scripts/ui.css` (colours per look, radius, spacing, type), run the build. The contrast gate re-checks every colour pair for every accent hue; the kit file for the apps regenerates; the hub, group pages, generated pages and the 404 follow at once. Hand-built apps follow the kit through their kit block (section 10); to push a token change into them, re-run the same copy step the owner or an assistant used (the kit block is delimited by `OMNEVUM KIT:BEGIN` and `OMNEVUM KIT:END`).
+**Re-skin the whole site:** edit tokens in `site/scripts/ui.css` (colours per look, radius, spacing, type), run the build. The contrast gate re-checks every colour pair for every accent hue; the kit file for the apps (`builder/kit.css`) regenerates; the hub, group pages, generated pages and the 404 follow at once. Hand-built apps follow the kit through their kit block (section 10); to push a token change into them, re-run the same copy step the owner or an assistant used (the kit block is delimited by `OMNEVUM KIT:BEGIN` and `OMNEVUM KIT:END`).
 
 **Update an app:** edit the file, bump the version in the file name and in the version meta, run the build. The hash changes, so installed copies fetch the new version.
 
@@ -155,11 +155,11 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 - `python builder/archive.py restore "MeepleMentor"` brings it back.
 One rule places every page, archived or not: its topic picks the section, then its kind, then its title. The Archive is grouped by topic in the same order as the main hub (and on each group page, archived pages sit in a collapsed Archive section). Nothing is remembered about where a page "used to be": restoring simply stops excluding it, so it returns to its correct place by itself. A page is named by its id, slug or title. It rebuilds and checks automatically (add `--no-build` to only change the registry). Addresses never change, installed copies keep working, and repeating a command is harmless. Under the hood it flips `"archived"` in `registry.json` (or in the page's `content/` file); you may also edit that flag by hand and run the build.
 
-**Delete a page for good:** `python builder/archive.py remove "<page>" --yes`. It leaves the registry (or deletes its content file), drops its unused icon, and moves its source file from `sources/apps` into the git-ignored `history/` (git history keeps it too) so a mistake is recoverable. The next build and publish remove it from the site; its old address then shows the 404 page.
+**Delete a page for good:** `python builder/archive.py remove "<page>" --yes`. It leaves the registry (or deletes its content file) and moves its source file from `sources/apps` into the git-ignored `history/` (git history keeps it too) so a mistake is recoverable. The next build and publish remove it from the site; its old address then shows the 404 page.
 
 **Move a page to another kind:** change `kind`. Old links forward through the 404 page.
 
-**Add a topic or kind:** topics: add to `topics.json` and a colour in `build.py`. Kind: add to `KINDS` in `build.py` (name and icon) and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
+**Add a topic or kind:** topics: add to `topics.json`, a colour in `build.py`, and `TOPICS` in `build_pages.py`. Kind: add to `KINDS` in `build.py` (name and icon), to `KINDS` in `new_app.py`, and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
 
 **Publish:** `python builder/publish.py "Message"` is a dry run: it builds, tests and lists the changes. Add `--yes` to commit and push to main; the deploy workflow then builds and publishes the site, and the command waits until the live hub matches this build. Generated files are never committed (git ignores them). Check the live site any time with `python site/scripts/check_live.py`.
 
@@ -189,7 +189,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 One file: `site/scripts/ui.css`. Tokens (`--bg --fg --mut --card --line --acc --on-acc`, spacing `--s1..--s6`, radius `--r`), four looks, shared components: `.ph` header, `.ib` round icon button, `.card`, `.tile`, `.grid`, `.today` with four `.nudge` rows, `.chk` tick list, `.steps`, table, `.none` empty state, `.skip`. Icons are Phosphor Icons (MIT), Regular weight on a 256 grid, drawn as filled outlines with `fill: currentColor`; the Fill weight marks a selected state. The pack lives in `builder/icons/phosphor/`; `icons.json` maps each page's icon key to a Phosphor name; the build inlines only the icons used and ships the licence as `docs/ICONS-LICENSE.txt`. Motion is short and disabled for reduced-motion. Print hides controls. Forced-colours mode keeps borders.
 
-**Core design language and individuality.** Every page shares the core: the same four looks stored under `hub.prefs.v1`, the same neutral palette tokens, system font at 16/1.5, a 16 px card radius with a 1 px border, round 44 px icon buttons, a 3 px accent focus ring, spacing in multiples of 4, Phosphor icons, and one page chrome (a round home button, the app's own icon and name, a spacer, then round icon buttons for Help, Look and the app's actions). Each page keeps its individuality through five things only: its name (funny, punny, alliterative), its accent hue (`hue` in the registry, applied by `<html data-app style="--hue:N">`; the hub tile uses the same hue), its icon, its signature components and layout, and one short playful line (six words at most) on its first screen. Everything else is shared, so a token change reaches every page. Apps carry the shared part as a kit block that the build refreshes from `kit.css`; `check_kit.py` verifies in the build that every block is current.
+**Core design language and individuality.** Every page shares the core: the same four looks stored under `hub.prefs.v1`, the same neutral palette tokens, system font at 16/1.5, a 16 px card radius with a 1 px border, round 44 px icon buttons, a 3 px accent focus ring, spacing in multiples of 4, Phosphor icons, and one page chrome (a round home button, the app's own icon and name, a spacer, then round icon buttons for Help, Look and the app's actions). Each page keeps its individuality through five things only: its name (funny, punny, alliterative), its accent hue (`hue` in the registry, applied by `<html data-app style="--hue:N">`; the hub tile uses the same hue), its icon, its signature components and layout, and one short playful line (six words at most) on its first screen. Everything else is shared, so a token change reaches every page. Apps carry the shared part as a kit block that is copied from `kit.css` by hand; `check_kit.py` verifies in the build that every block is current.
 
 **Grandma test** (every new page must pass): a first-time visitor with no instructions and no reading can find the main action, do it, see that it worked, and undo or export their work. If a screen needs a paragraph to explain it, redesign the screen.
 
@@ -207,7 +207,7 @@ One file: `site/scripts/ui.css`. Tokens (`--bg --fg --mut --card --line --acc --
 - Pages share one origin, so any page on the site could read another page's stored data. Pages here are all the owner's, and no page ships third-party scripts. A page that must be isolated should live on its own origin as a `remote` page.
 - The live repo's history was rewritten on 2026-11-02 to a single commit with a noreply author, so earlier content is gone from `main`. GitHub may still hold old pull request refs; only deleting and recreating the repo clears them (needs the owner's delete permission). `shfqrkhn.github.io` is the only repo; the five archived ones are deleted. Branch protection on `main` is off at the owner's choice and blocks force-pushes when on.
 - Some third-party licences name their authors in a copyright line that the licence requires; those lines are kept.
-- Browser tests run in headless Chromium only. Real-device checks are manual.
+- The self-test runs browser tests in headless Chromium; `test_mobile.py` (Chromium and Firefox) is run by hand. Real-device checks are manual.
 
 ## 11a. Lessons learned (read before building any new app)
 
