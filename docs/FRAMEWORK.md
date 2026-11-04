@@ -90,7 +90,7 @@ Published site (the site/ folder, served at the site root)
 6. **Icons first, few words.** One icon family everywhere: Phosphor Icons (MIT), Regular weight, with the Fill weight for the selected state. Never hand-draw an icon. Buttons are icons with an accessible name. Labels are one to three words. Help is one short line. Empty states are an icon and three to six words. Sentences stay under 20 words. No emoji. No em or en dashes in text the owner writes for the page chrome and the documents; quoted text, imported data and country-flag glyphs are exempt.
 7. **Accessible.** Real buttons and links, labelled controls, keyboard operable, visible focus, 44 px targets, AA contrast, reflow to 320 px, respects reduced motion.
 8. **Looks.** Auto, Paper, Charcoal, Black. The choice lives in `hub.prefs.v1` and every page reads it.
-9. **Small.** Budgets: hub 300 KB, group page 60 KB, generated page 120 KB, any file 25 MB, whole site 900 MB. Any app page: 3 MB; a page over 5 MB (the 15 MB game) is exempt and waits for a tap before it is saved offline.
+9. **Small.** Budgets: hub 300 KB, group page 60 KB, generated page 120 KB, any file 25 MB, whole site 900 MB. Any app page: 3 MB; a page over 5 MB would be exempt by the worker's `big` flag and wait for a tap before it is saved offline.
 10. **Licence.** Every page declares an SPDX licence in the registry (default MIT). Prefer free and open source for every dependency (section 7).
 11. **Never publish what the gates reject.** A failing gate stops the build. Do not weaken a gate to pass; fix the cause, or add an exact, reasoned allowance in `site/scripts/privacy-allow.json`.
 12. **Nothing irreversible without the owner.** Deleting repositories, rewriting history and spending money are the owner's acts.
@@ -232,7 +232,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 20 pages in 7 groups: 20 single, 0 bundle, 0 remote, 0 generated; 9 archived, 0 private. Inventory fingerprint `abd63424`, last changed 2026-11-04.
+Hub 1.4.3. 19 pages in 7 groups: 19 single, 0 bundle, 0 remote, 0 generated; 8 archived, 0 private. Inventory fingerprint `00af6186`, last changed 2026-11-04.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -246,7 +246,6 @@ Hub 1.4.3. 20 pages in 7 groups: 20 single, 0 bundle, 0 remote, 0 generated; 9 a
 | PennyPlanner Budget | apps | single | money | 1.3.6 | archived | MIT | /apps/pennyplanner-budget/ |
 | TickleTodo Tasks | apps | single | health | 1.3.4 | archived | MIT | /apps/tickletodo-tasks/ |
 | ProjectPopQuiz Exams | courses | single | learning | 1.7.3 | live | MIT | /courses/projectpopquiz-exams/ |
-| AuctionAcademy Classroom Game | games | single | learning | 5.1.2 | archived | MIT | /games/auctionacademy-classroom-game/ |
 | MeepleMentor Board Game Rules | games | single | games | 14.5.2 | live | MIT | /games/meeplementor-board-game-rules/ |
 | WorldCupWizard Predictions | games | single | games | 1.5.4 | archived | MIT | /games/worldcupwizard-predictions/ |
 | BoonBuilder Hades Guide | guides | single | games | 1.1.4 | live | MIT | /guides/boonbuilder-hades-guide/ |

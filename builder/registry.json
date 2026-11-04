@@ -350,32 +350,6 @@
    "tagline": "PC games for handhelds"
   },
   {
-   "id": "sea-learning-game",
-   "title": "AuctionAcademy Classroom Game",
-   "kind": "games",
-   "slug": "auctionacademy-classroom-game",
-   "source": "apps/APPS-GAME-AuctionAcademy-v*.html",
-   "topic": "learning",
-   "blurb": "A classroom auction game on systems engineering awareness, in English and French.",
-   "keywords": "sea systems engineering classroom auction game bilingual french english teaching training class course",
-   "icon": "sea-learning-game",
-   "lazy": true,
-   "private": false,
-   "archived": true,
-   "former_names": [
-    "SEA Learning Game",
-    "GavelGang",
-    "AuctionAcademy"
-   ],
-   "aliases": [
-    "games/sealearninggame",
-    "games/gavelgang",
-    "games/auctionacademy"
-   ],
-   "hue": 125,
-   "tagline": "Classroom auction game"
-  },
-  {
    "id": "codex-ludus",
    "title": "MeepleMentor Board Game Rules",
    "kind": "games",
