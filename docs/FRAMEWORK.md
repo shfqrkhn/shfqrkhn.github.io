@@ -45,7 +45,7 @@ Honest limits: "self-healing" means detect, report, and regenerate; no part rewr
 
 ## 4. Where things live
 
-```
+```text
 Repository (github.com/shfqrkhn/shfqrkhn.github.io): everything needed to rebuild, run and extend the project
   sources/apps/                        hand-built single-file apps, named <PREFIX>-<Name>-v<X.Y.Z>.html (a few keep older prefixes or no version)
   sources/method/                      Omni, the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue; one file each, `TECH-AINT-<Name>-v<X.Y.Z>.<ext>`, the latest version only (replace the old file when a new one arrives)

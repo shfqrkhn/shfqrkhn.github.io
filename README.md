@@ -11,7 +11,7 @@ This repository is the whole project: the apps, the builder that turns them into
 
 ## How it fits together
 
-```
+```text
 sources/apps/*.html   one self-contained HTML file per app (authored)
 builder/registry.json  every page: name, address, colour, archive state (the one source of truth)
         |
