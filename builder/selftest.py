@@ -117,6 +117,8 @@ try:
 finally:
     shutil.rmtree(tmp, ignore_errors=True); shutil.rmtree(bund, ignore_errors=True)
     run([os.path.join(OM, "build.py")])  # restore the real site
+    if _note_before is not None and open(_notep, "rb").read() != _note_before:
+        open(_notep, "wb").write(_note_before)  # keep the tracked note exactly as it was
 
 # 3. the privacy gate catches planted personal data (and lets the allowed things through)
 tmp = tempfile.mkdtemp()

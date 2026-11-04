@@ -82,7 +82,7 @@ def repair_csp(html):
     csp, fixed = m.group(2), 0
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
         d = re.search(directive + r"\s+([^;]*)", csp)
-        if not d or "'unsafe-inline'" in d.group(1) or "'sha256-" not in d.group(1):
+        if not d or "'sha256-" not in d.group(1):  # with a hash listed, browsers ignore unsafe-inline, so the hashes must be right
             continue
         listed = re.findall(r"'(sha256-[^']+)'", d.group(1))
         bodies = []
