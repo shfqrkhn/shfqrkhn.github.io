@@ -107,7 +107,7 @@ Published site (the site/ folder, served at the site root)
 | Form | What it is | Registry fields | Hosting |
 | --- | --- | --- | --- |
 | `single` (default) | One self-contained HTML file in `sources/apps`. Highest version wins when the source has `-v*.html`. The version text must appear in the file. | `source` | Copied to `/<kind>/<slug>/index.html` |
-| `bundle` | A folder of static files: assets, images, **WebAssembly**, a build output, or an app with its **own PWA**. `index.html` is the entry and must contain a home link `href="../../"`. | `source` (folder), `version`, optional `wasm: true`, `pwa: true` | Whole folder copied; tree hash recorded. With `pwa: true` the page brings its own manifest and worker (scope = its folder) and the hub worker leaves it alone. For WebAssembly add `'wasm-unsafe-eval'` to the page's `script-src`. |
+| `bundle` | A folder of static files: assets, images, **WebAssembly**, a build output, or an app with its **own PWA**. `index.html` is the entry, must contain a home link `href="../../"` and carries a Content-Security-Policy. | `source` (folder), `version`, optional `wasm: true`, `pwa: true` | Whole folder copied; tree hash recorded. With `pwa: true` the page brings its own manifest and worker (scope = its folder) and the hub worker leaves it alone. For WebAssembly add `'wasm-unsafe-eval'` to the page's `script-src`. |
 | `remote` | An app hosted elsewhere: a **full stack app with a backend**, or any live service. Listed on the hub as an external link, never copied. | `url` (https), `host`, `license`, optional `stack` | Anywhere: see below. The hub labels it as another site and opens it in a new tab with `noopener noreferrer`. |
 | generated | A recipe, guide, game page, lesson or reference built from `content/<kind>/<slug>.json` by one template. | the JSON file | Rendered to `/<kind>/<slug>/index.html` |
 
@@ -146,7 +146,7 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 
 **List a full stack app:** add a registry entry with `form: "remote"`, `url`, `host`, `license`, `stack`. Nothing is copied.
 
-**Give a page its icon:** find a name in `builder/icons/phosphor/regular/` (one file per icon, for example `egg.svg`), put that name in `icons.json` under the page's icon key, run the build. Inside a hand-built app, copy the inner paths of the icon file into `<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">`.
+**Give a page its icon:** find a name in `builder/icons/phosphor/regular/` (one file per icon, for example `egg.svg`; the repository keeps only the icons in use, so run `python builder/fetch_icons.py` first to see the full set), put that name in `icons.json` under the page's icon key, run the build. Inside a hand-built app, copy the inner paths of the icon file into `<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">`.
 
 **Rename or recolour a page:** `python builder/rename.py "<page>" "<New Name>"` (add `--hue 0-359` for its accent colour, `--slug` to choose the address, `--tagline "<up to 40 characters>"` for the plain descriptor, `--file-stem <Stem>` to also rename the source file (and every `.md` and `.html` file under `sources/` that names it), `--old "<earlier spelling>"` to also rewrite the name inside the page, `--dry-run` to preview). It updates the registry, remembers the old name in `former_names` and the old address in `aliases` (the 404 page forwards old links, including addresses from before pages were grouped), rewrites the name in the page's visible text and safe attributes only (never scripts, styles, storage keys or file formats; occurrences left in scripts are listed for review), and rebuilds. Names follow the house style: funny, punny, alliterative, generic and CamelCase like NoodleNudge; never a trademark or a person's name. Page file names in `sources/apps` keep their old names until a deliberate move (the registry points at them).
 
@@ -166,7 +166,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Move a page to another kind:** change `kind`. Old links forward through the 404 page.
 
-**Add a topic or kind:** topics: add to `topics.json`, a colour and an icon in `build.py` (`TOPIC_IC`), and `TOPICS` in `build_pages.py`. Kind: add to `KINDS` in `build.py` (name and icon), to `KINDS` in `new_app.py`, and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
+**Add a topic or kind:** topics: add to `topics.json`, a colour and an icon in `build.py` (`TOPIC_IC`), and `TOPICS` in `build_pages.py`. Kind: add to `KINDS` in `build.py` (name and icon), to `KINDS` in `new_app.py`, its `site/<kind>/` folder to `.gitignore`, and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
 
 **Publish:** `python builder/publish.py "Message"` is a dry run: it builds, tests and lists the changes. Add `--yes` to commit and push to main; the deploy workflow then builds and publishes the site, and the command waits until the live hub matches this build. Generated files are never committed (git ignores them). Check the live site any time with `python site/scripts/check_live.py`.
 

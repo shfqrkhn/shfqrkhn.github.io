@@ -180,7 +180,7 @@ def main():
                 if where != "404.html" and not s.csp: errors.append(where + ": missing Content-Security-Policy")
                 if s.unnamed: errors.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))
             elif not s.csp:
-                warnings.append(where + ": no Content-Security-Policy")
+                (errors if kind == "app" else warnings).append(where + ": no Content-Security-Policy")
             if not strict and s.unnamed: warnings.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))
             # language-light, accessible, high-signal pages (WCAG 2.2, plain structure): errors on generated pages, warnings on hand-built apps
             flag = errors if strict else warnings
