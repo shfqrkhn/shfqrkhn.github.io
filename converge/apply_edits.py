@@ -5,7 +5,7 @@ A proposal is {"file": "<path relative to sources/>", "edits": [{"old", "new", "
   - every section reference (§...), number, backticked term, ALL-CAPS term, file name or path in "old" is still in "new";
   - "new" is at least --min-saving shorter and contains no em or en dash;
   - "old" is not inside an html script or style element.
-Without --apply it only reports. --fix-mode accepts edits that add text (definitions, dates) and deletions whose tokens (numbers, `code`, ALL-CAPS terms, file names) all survive elsewhere in the file; a person must read every fix-mode deletion, because a token check is not a fact check. With --apply the original is copied to history/token-pass first."""
+Without --apply it only reports. --control checks that the gate rejects planted bad edits. --fix-mode accepts edits that add text (definitions, dates) and deletions whose tokens (numbers, `code`, ALL-CAPS terms, file names) all survive elsewhere in the file; a person must read every fix-mode deletion, because a token check is not a fact check. With --apply the original is copied to history/token-pass first."""
 import json, os, re, shutil, sys
 
 _H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,22 +22,11 @@ def facts(t):
     return f
 
 
-def main():
-    a = sys.argv[1:]
-    prop = json.load(open(a[0], encoding="utf-8"))
-    apply = "--apply" in a
-    ms = float(a[a.index("--min-saving") + 1]) if "--min-saving" in a else 0.10
-    if "--fix-mode" in a:
-        ms = -10.0  # fixes may add text; deletions must keep every fact somewhere else in the file
-    path = V + prop["file"]
-    if not os.path.realpath(path).startswith(os.path.realpath(V.rstrip("/")) + os.sep):
-        sys.exit("refused: the proposal names a file outside sources/: " + prop["file"])
-    text = open(path, encoding="utf-8", newline="").read()
-    nl = "\r\n" if "\r\n" in text else "\n"
-    work = text.replace("\r\n", "\n")
+def judge(work, edits, ms, fix):
+    """The gate: (accepted (start, end, new) spans, rejected (why, old) pairs) for edits against the LF text."""
     spans = [(m.start(), m.end()) for m in re.finditer(r"<(script|style)\b.*?</\1>", work, flags=re.S | re.I)]
     ok, rejected, taken = [], [], []
-    for e in prop["edits"]:
+    for e in edits:
         old, new = e.get("old", ""), e.get("new", "")
         why = None
         if len(old) < 30 or old == new:
@@ -56,7 +45,7 @@ def main():
                 why = "saving under %d%%" % int(ms * 100)
             else:
                 lost = facts(old) - facts(new)
-                if lost and "--fix-mode" in a and len(new) < len(old) * 0.9:
+                if lost and fix and len(new) < len(old) * 0.9:
                     rest, at = "", 0  # what remains once every accepted edit and this one are applied: a fact must survive there
                     for s0, t0, n0 in sorted([(s1, t1, nn) for (s1, t1, nn) in ok] + [(i, j, new)]):
                         rest += work[at:s0] + n0; at = t0
@@ -67,6 +56,38 @@ def main():
             rejected.append((why, old[:70].replace("\n", " ")))
         else:
             ok.append((i, j, new)); taken.append((i, j))
+    return ok, rejected
+
+
+def control():
+    work = "Run three passes under \u00a78.4 with scan.py and keep the CARRIED items as they are today.\n"
+    bad = [{"old": "Run three passes under \u00a78.4 with scan.py", "new": "Run passes with the script"},  # drops a section, a file name
+           {"old": "keep the CARRIED items as they are today.", "new": "keep the items."},  # drops an ALL-CAPS term
+           {"old": "Run three passes under \u00a78.4 with scan.py and keep", "new": "Run \u00a78.4 scan.py \u2014 keep"}]  # dash
+    good = [{"old": "keep the CARRIED items as they are today.", "new": "keep CARRIED items."}]
+    ok_bad, _ = judge(work, bad, 0.10, False)
+    ok_good, _ = judge(work, good, 0.10, False)
+    passed = not ok_bad and len(ok_good) == 1
+    print("control: planted bad edits %s, a good edit %s" % ("all rejected" if not ok_bad else "NOT all rejected", "accepted" if len(ok_good) == 1 else "NOT accepted"))
+    return 0 if passed else 1
+
+
+def main():
+    a = sys.argv[1:]
+    if "--control" in a:
+        sys.exit(control())
+    prop = json.load(open(a[0], encoding="utf-8"))
+    apply = "--apply" in a
+    ms = float(a[a.index("--min-saving") + 1]) if "--min-saving" in a else 0.10
+    if "--fix-mode" in a:
+        ms = -10.0  # fixes may add text; deletions must keep every fact somewhere else in the file
+    path = V + prop["file"]
+    if not os.path.realpath(path).startswith(os.path.realpath(V.rstrip("/")) + os.sep):
+        sys.exit("refused: the proposal names a file outside sources/: " + prop["file"])
+    text = open(path, encoding="utf-8", newline="").read()
+    nl = "\r\n" if "\r\n" in text else "\n"
+    work = text.replace("\r\n", "\n")
+    ok, rejected = judge(work, prop["edits"], ms, "--fix-mode" in a)
     saved = sum((j - i) - len(n) for i, j, n in ok)
     print("%s: %d edits proposed, %d accepted, %d rejected, %d characters saved (%.1f%% of the file)" % (
         prop["file"], len(prop["edits"]), len(ok), len(rejected), saved, 100.0 * saved / max(1, len(work))))
