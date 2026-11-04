@@ -1,6 +1,6 @@
 """Render the install icons from one drawing. Run only when the logo changes (needs Playwright):
   python builder/make_icons.py
-Writes build/omnevum/pwa-icons/: icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png, favicon.svg.
+Writes builder/pwa-icons/: icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png, favicon.svg.
 The build copies them to /icons/ on the site. Keeping the images as files (not rendered at build time) keeps the build free of a browser."""
 import os, sys
 sys.dont_write_bytecode = True

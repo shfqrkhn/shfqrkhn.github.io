@@ -2,7 +2,7 @@
   python builder/new_app.py <kind> <slug> "<Title>" --topic <topic> --blurb "<up to 20 words>"
 Kinds: apps, tools, games, guides, recipes, courses, references.  Topics: see topics.json.
 Creates sources/apps/APPS-<KIND>-<Title>-v0.1.0.html (the design system and the CSP hash are filled in), adds a registry entry
-(unpublished until you set "archived"/"private" as you wish and run build.py), and tells you the next step."""
+(published by the next build; set "archived" or "private" first if it should not be), and tells you the next step."""
 import base64, hashlib, json, os, re, sys
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
@@ -37,15 +37,17 @@ def _icon(m):
 
 
 tpl = re.sub(r"@@ICON:([a-z-]+)@@", _icon, tpl)
-page = (tpl.replace("@@UI_CSS@@", css).replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)).replace("@@SCRIPT_HASH@@", script_hash)
+page = (tpl.replace("@@UI_CSS@@", "/* OMNEVUM KIT:BEGIN */\n" + css + "\n/* OMNEVUM KIT:END */").replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)).replace("@@SCRIPT_HASH@@", script_hash)
         .replace("@@TITLE@@", title).replace("@@BLURB@@", blurb))
+_st = re.search(r"<style>(.*?)</style>", page, re.S).group(1)
+page = page.replace("@@STYLE_HASH@@", "sha256-" + base64.b64encode(hashlib.sha256(_st.encode()).digest()).decode())
 fname = "APPS-%s-%s-v0.1.0.html" % (kind[:4].upper(), re.sub(r"[^A-Za-z0-9]+", "-", title).strip("-"))
 dest = os.path.join(APPS_DIR, fname)
 if os.path.exists(dest):
     print("File exists: " + dest); sys.exit(1)
 open(dest, "w", encoding="utf-8", newline="\n").write(page)
-reg["pages"].append(dict(id=slug, title=title, kind=kind, slug=slug, source="APPS/" + fname.replace("-v0.1.0.html", "-v*.html"), topic=topic, blurb=blurb,
-                         keywords=" ".join(re.findall(r"[a-z]+", (title + " " + blurb).lower())), icon="starter", lazy=True, private=False, archived=False, license="MIT"))
+reg["pages"].append(dict(id=slug, title=title, kind=kind, slug=slug, source="apps/" + fname.replace("-v0.1.0.html", "-v*.html"), topic=topic, blurb=blurb,
+                         keywords=" ".join(re.findall(r"[a-z]+", (title + " " + blurb).lower())), icon="starter", tagline="A new app", lazy=True, private=False, archived=False, license="MIT"))
 json.dump(reg, open(reg_path, "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
 icons_path = os.path.join(OM, "icons.json"); icons = json.load(open(icons_path, encoding="utf-8"))
 icons.setdefault("starter", "plus-square")

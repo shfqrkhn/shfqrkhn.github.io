@@ -21,6 +21,9 @@ def run(cmd, cwd=HOME, check=True):
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 msg = args[0] if args else "Update Omnevum"
 go = "--yes" in sys.argv
+_br = run(["git", "rev-parse", "--abbrev-ref", "HEAD"]).stdout.strip()
+if _br != "main":
+    print("FAILED: publish.py pushes to main and you are on %s. Check out main first." % _br); sys.exit(1)
 print("1/4 build and gates"); run(PY + [os.path.join(OM, "build.py")])
 if "--fast" not in sys.argv:
     print("2/4 self-test"); run(PY + [os.path.join(OM, "selftest.py")])
@@ -35,8 +38,21 @@ if not status:
 if not go:
     print("\nDry run. Add --yes to commit and push."); sys.exit(0)
 print("4/4 commit and push")
+import shutil, tempfile
+_stage = tempfile.mkdtemp()
+try:
+    open(os.path.join(_stage, "commit-message.txt"), "w", encoding="utf-8").write(msg)
+    for _f in run(["git", "ls-files", "-mo", "--exclude-standard"]).stdout.splitlines():
+        if _f != "builder/selftest.py" and os.path.isfile(os.path.join(HOME, _f)):  # the self-test plants fake personal data on purpose
+            os.makedirs(os.path.join(_stage, os.path.dirname(_f)), exist_ok=True); shutil.copy(os.path.join(HOME, _f), os.path.join(_stage, _f))
+    _names = os.path.join(OM, "privacy_names.txt")
+    _r = run(PY + [os.path.join(os.path.dirname(OM), "site", "scripts", "check_privacy.py"), "--root", _stage] + (["--names", _names] if os.path.exists(_names) else []), check=False)
+    if _r.returncode:
+        print("FAILED: the privacy gate rejects the commit message or the changed files:\n" + _r.stdout[-1500:]); sys.exit(1)
+finally:
+    shutil.rmtree(_stage, ignore_errors=True)
 run(["git", "add", "-A"])
-if not run(["git", "config", "user.email"], check=False).stdout.strip():
+if not run(["git", "config", "user.email"], check=False).stdout.strip().endswith("@users.noreply.github.com"):
     print("git has no identity. Set one first (use your GitHub noreply address): git config user.name <name>; git config user.email <id>+<user>@users.noreply.github.com"); sys.exit(1)
 run(["git", "commit", "--quiet", "-m", msg])
 run(["git", "push", "origin", "HEAD:main"])

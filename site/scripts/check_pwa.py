@@ -1,4 +1,4 @@
-"""PWA gate. Standard library only. Run from the repo root: python scripts/check_pwa.py
+"""PWA gate. Standard library only. Run from anywhere: python site/scripts/check_pwa.py
 
 Omnevum must install and work offline on a phone. This checks the contract without a browser:
   manifest: name, id, start_url inside scope, standalone, 192 and 512 PNG icons that exist at those sizes, a maskable icon, shortcuts that resolve

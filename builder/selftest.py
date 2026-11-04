@@ -120,7 +120,7 @@ tmp = tempfile.mkdtemp()
 try:
     _nf, names = tempfile.mkstemp(suffix=".txt"); os.close(_nf); open(names, "w", encoding="utf-8").write("Zed\n")  # a made-up name stands in for the private list, kept outside the scanned folder
     open(os.path.join(tmp, "a.html"), "w", encoding="utf-8").write(
-        "<p>Mail jane.doe@gmail.com or call 613-555-0142 at 12 Maple Street. Designed by Jane Doe. C:\\Users\\jane\\x. Hello Zed.</p>")
+        "<p>Mail jane.doe@gmail.com or call 212-555-0142 at 12 Maple Street. Designed by Jane Teamsworth. C:\\Users\\jane\\x. Hello Zed.</p>")
     r = run([os.path.join(OUT, "scripts", "check_privacy.py"), "--root", tmp, "--names", names])
     kinds = ("email", "phone", "street", "credit-line", "local-path", "owner-name")
     ok("privacy gate catches planted PII", r.returncode != 0 and all(k + ":" in r.stdout for k in kinds), r.stdout[-300:])
@@ -147,9 +147,13 @@ except ValueError:
 ok("generator refuses bad data", bad)
 
 # 5. every gate on the real site
-for chk in ("check_privacy.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
+for chk in ("check_privacy.py", "check_docs.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
     r = run([os.path.join(OUT, "scripts", chk)], cwd=OUT)
     ok(chk + " passes on the site", r.returncode == 0, r.stdout[-300:])
+_conv = os.path.join(os.path.dirname(OM), "converge")
+if os.path.isdir(_conv):  # the converge scripts must flag their own planted defects (Omni 8.7 step 1)
+    _c = [run([os.path.join(_conv, "omni_check.py"), "--control"]), run([os.path.join(_conv, "scan.py"), "--control"])]
+    ok("converge scripts flag their planted defects", all(x.returncode == 0 for x in _c), " | ".join(x.stdout[-120:] for x in _c))
 
 # 6. browser tests (optional)
 try:

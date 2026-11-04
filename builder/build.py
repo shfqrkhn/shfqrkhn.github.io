@@ -1,8 +1,8 @@
 """Omnevum site builder: the one command.   python builder/build.py
-Reads this folder (registry.json = every hand-built page, icons.json, topics.json, today_data.json), the content pages in the
-staged site repo (content/<kind>/<slug>.json), and the single-file apps in sources/apps.
+Reads this folder (registry.json = every hand-built page, icons.json, topics.json, today_data.json), the content pages in
+site/content (content/<kind>/<slug>.json), and the single-file apps in sources/apps.
 Writes the hub, group pages, worker, manifest and 404 into site, then runs the privacy gate on sources and output.
-Rules and how to extend it: docs/FRAMEWORK.md in the site repo and the Omnevum framework note in the sources."""
+Rules and how to extend it: docs/FRAMEWORK.md."""
 import os, sys, re, json, hashlib, base64, html, glob
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
@@ -52,6 +52,15 @@ def check_registry():
         if (p.get("kind"), p.get("slug")) in slugs: errs.append("%s: address %s/%s used twice" % (who, p.get("kind"), p.get("slug")))
         if p.get("source") and p.get("source") in sources: errs.append("%s: source used twice" % who)
         ids.add(who); slugs.add((p.get("kind"), p.get("slug"))); sources.add(p.get("source"))
+    _al = {}
+    for p in REG:
+        for al in p.get("aliases", []):
+            if al in _al: errs.append("%s: alias %s is also an alias of %s" % (p.get("id"), al, _al[al]))
+            _al[al] = p.get("id")
+    _fold = {}
+    for p in REG:
+        if p.get("slug") in _fold: errs.append("%s: address folder '%s' is also used by %s (a slug must be unique across kinds)" % (p.get("id"), p.get("slug"), _fold[p.get("slug")]))
+        _fold[p.get("slug")] = p.get("id")
     live = {"%s/%s" % (p.get("kind"), p.get("slug")) for p in REG}
     for p in REG:
         for al in p.get("aliases", []):
@@ -70,8 +79,8 @@ def gate(root, label):
 
 
 
-# A "form" is how a page is delivered. Adding a new technology means adding one row here and one branch in the three
-# places marked FORM below; nothing else changes. Hosting stays static files on GitHub Pages (or any static host).
+# A "form" is how a page is delivered. Adding a new technology means adding one row here and one branch in the places
+# that use FORMS below; nothing else changes. Hosting stays static files on GitHub Pages (or any static host).
 FORMS = {
     "single": "one self-contained HTML file in sources/apps (the default)",
     "bundle": "a folder of static files: assets, WebAssembly, or an app with its own PWA (set pwa: true); index.html is the entry",
@@ -114,6 +123,26 @@ check_registry()
 gate(APPS_DIR, "sources")
 gate(DOCS, "docs")
 gate(os.path.join(V, "method"), "method documents")
+# the registry, icon list and the root documents carry names and text too: gate a copy of them
+import tempfile, shutil
+_stage = tempfile.mkdtemp()
+_root = os.path.dirname(OM)
+_staged = ["builder/registry.json", "builder/icons.json", "builder/topics.json", "builder/today_data.json", "builder/app-starter.html", "README.md", "AGENTS.md",
+           "CONTRIBUTING.md", "SECURITY.md", "requirements.txt", ".gitignore", ".github/pull_request_template.md", ".github/dependabot.yml"]
+_staged += [".github/workflows/" + _f for _f in sorted(os.listdir(os.path.join(_root, ".github", "workflows")))] if os.path.isdir(os.path.join(_root, ".github", "workflows")) else []
+_staged += ["converge/" + _f for _f in sorted(os.listdir(os.path.join(_root, "converge"))) if _f.endswith(".py")] if os.path.isdir(os.path.join(_root, "converge")) else []
+_missing = [_r for _r in _staged if not os.path.exists(os.path.join(_root, *_r.split("/")))]
+if _missing and not os.environ.get("OMNEVUM_BUILDER"):  # a selftest copy of the builder has no repository around it
+    fail(["the privacy gate's list names files that do not exist: " + ", ".join(_missing) + " (update the list in build.py)"])
+for _rel in _staged:
+    _src = os.path.join(_root, *_rel.split("/"))
+    if os.path.exists(_src):
+        os.makedirs(os.path.join(_stage, os.path.dirname(_rel)), exist_ok=True); shutil.copy(_src, os.path.join(_stage, *_rel.split("/")))
+try:
+    if os.listdir(_stage):  # empty only in a self-test copy of the builder
+        gate(_stage, "registry and root documents")
+finally:
+    shutil.rmtree(_stage, ignore_errors=True)
 if os.path.isdir(os.path.join(OUT, "content")): gate(os.path.join(OUT, "content"), "content")
 APPS, META = [], {}
 for p in REG:
@@ -124,7 +153,7 @@ for p in REG:
     if form == "single":
         a["path"] = resolve(p["source"]); m = re.search(r"-v(\d+\.\d+\.\d+)\.html$", os.path.basename(a["path"]))
         a["version"] = m.group(1) if m else p["version"]
-        assert a["version"].encode() in open(a["path"], "rb").read(), ("version text not inside the file", p["id"], a["version"])
+        assert re.search(rb"(?<![\d.])" + re.escape(a["version"].encode()) + rb"(?!\d|\.\d)", open(a["path"], "rb").read()), ("version text not inside the file", p["id"], a["version"])
     elif form == "bundle":
         a["path"] = resolve(p["source"]); a["version"] = p["version"]
         assert os.path.isfile(os.path.join(a["path"], "index.html")), ("a bundle needs an index.html", p["id"])
@@ -140,7 +169,7 @@ PACK = os.path.join(OM, "icons", "phosphor")  # Phosphor Icons (MIT), see docs/I
 def P(name, weight="regular"):
     """Inner markup of one Phosphor icon (viewBox 0 0 256 256, filled outlines). A missing name stops the build."""
     f = os.path.join(PACK, weight, name + ("-fill" if weight == "fill" else "") + ".svg")
-    assert os.path.isfile(f), ("icon not found in the Phosphor pack (a backup keeps only the icons in use: run builder/fetch_icons.py to restore the full pack)", name, weight)
+    assert os.path.isfile(f), ("icon not found in the Phosphor pack (the repository keeps only the icons in use: run builder/fetch_icons.py to restore the full pack)", name, weight)
     return re.search(r"<svg[^>]*>(.*)</svg>", open(f, encoding="utf-8").read(), re.S).group(1)
 
 
@@ -367,7 +396,7 @@ page = ('<!doctype html>\n<html lang="en" data-look="auto">\n<head>\n<meta chars
  '<button class="ib sm" id="say" type="button" aria-label="Hear it" title="Hear it" hidden>%s</button></span></div>'
  '<button class="ib" id="look" type="button" aria-label="Look" title="Look">%s</button></div>'
  '</div></header>\n'
- '<main class="wrap" id="main" tabindex="-1">\n'
+ '<main class="wrap" id="main" tabindex="-1">\n<h1 class="vh">Omnevum</h1>\n'
  '<section class="today" id="today" hidden aria-label="Today"><div class="th"><span class="td">@@TODAY@@</span><span class="dt" id="dt" aria-live="polite"></span>'
  '<button class="ib sm" id="pv" type="button" aria-label="Previous day" title="Previous day">%s</button>'
  '<button class="ib sm" id="nx" type="button" aria-label="Next day" title="Next day">%s</button></div>@@NUDGES@@</section>\n'
@@ -431,10 +460,10 @@ for k, t, ic in present:
     gp = ('<!doctype html>\n<html lang="en" data-look="auto"><head><meta charset="utf-8">'
           '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
           '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; script-src \'%s\'; style-src \'unsafe-inline\'; img-src \'self\' data:; base-uri \'none\'; form-action \'none\'">'
-          '<meta name="color-scheme" content="light dark"><title>%s - Omnevum</title>'
+          '<meta name="color-scheme" content="light dark"><meta name="description" content="%s: small offline pages on Omnevum."><title>%s - Omnevum</title>'
           '<link rel="icon" href="../icon.svg" type="image/svg+xml"><style>%s</style></head><body>'
           '<main class="wrap"><div class="ph"><a class="ib" href="../" aria-label="Omnevum home" title="Omnevum">%s</a><h1>%s</h1></div>%s</main>'
-          '<script>%s</script></body></html>\n') % (sri(GJS), E(t), CSS, svg(P("house")), E(t), body, GJS)
+          '<script>%s</script></body></html>\n') % (sri(GJS), E(t), E(t), CSS, svg(P("house")), E(t), body, GJS)
     open(os.path.join(OUT, k, "index.html"), "w", encoding="utf-8", newline="\n").write(re.sub(r' data-k="[^"]*"', "", gp))
 BIG = 5_000_000  # pages over 5 MB download only when the owner taps (mobile data)
 PAGES = {}
@@ -463,7 +492,7 @@ manifest = dict(
 open(os.path.join(OUT, "manifest.webmanifest"), "w", encoding="utf-8", newline="\n").write(json.dumps(manifest, indent=1) + "\n")
 NF = ('<!doctype html>\n<html lang="en" data-look="auto"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
       '<meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>Omnevum</title><link rel="icon" href="/icon.svg" type="image/svg+xml">'
-      '<style>@@CSS@@</style></head><body><div class="lost"><a href="/" aria-label="Omnevum home">@@HOME@@<b>Omnevum</b></a></div>'
+      '<style>@@CSS@@</style></head><body><div class="lost"><h1 class="vh">Omnevum</h1><a href="/" aria-label="Omnevum home">@@HOME@@<b>Omnevum</b></a></div>'
       '<script>(function(){var m=@@MAP@@,s=location.pathname.split("/").filter(Boolean),t=m[s.slice(0,2).join("/")]||m[s[0]];if(t)location.replace("/"+t+"/"+location.search+location.hash);'
       'try{var s=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null");if(s&&s.look)document.documentElement.setAttribute("data-look",s.look)}catch(e){}})();</script></body></html>\n')
 FWD = {a["folder"]: a["dir"] for a in apps if a["dir"]}  # the first flat address, from before pages were grouped
@@ -530,7 +559,7 @@ print("FOSS: %d of %d pages use an open licence%s" % (len(apps) - len(_non), len
 # ---- output gate and quality gates (the sources were gated before anything was written)
 gate(OUT, "output")
 import subprocess
-for _chk in ("check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
+for _chk in ("check_docs.py", "check_contrast.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
     _r = subprocess.run([sys.executable, "-B", os.path.join(OUT, "scripts", _chk)], capture_output=True, text=True, cwd=OUT)
     print(_chk, "->", (_r.stdout.strip().splitlines() or ["no output"])[-1])
     if _r.returncode: fail([_chk + " failed: " + _r.stdout[-1500:].replace("\n", " | ")])

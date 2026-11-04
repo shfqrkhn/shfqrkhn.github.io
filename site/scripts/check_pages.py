@@ -1,8 +1,8 @@
-"""Page quality gate. Standard library only. Run from the repo root: python scripts/check_pages.py
+"""Page quality gate. Standard library only. Run from anywhere: python site/scripts/check_pages.py
 
 Every published page must be a sound, small, self-contained document:
   - doctype, lang, title, viewport; no duplicate ids; images have alt text
-  - the hub, group pages, 404 and generated pages also carry a Content-Security-Policy and name every button and link
+  - the hub, group pages and generated pages also carry a Content-Security-Policy and name every button and link
   - no page loads anything from another website (scripts, styles, images, fonts, frames, forms)
   - internal links on the hub, group pages and 404 point at files that exist
   - size budgets, so the site stays fast on a slow phone
@@ -36,6 +36,7 @@ class Scan(HTMLParser):
         self.doctype = False; self.lang = None; self.title = ""; self.viewport = False; self.csp = False
         self.ids = []; self.imgs_no_alt = 0; self.external = []; self.links = []; self.unnamed = []
         self._in_title = False; self._stack = []
+        self.desc = False; self.viewport_content = ""; self.headings = []; self.bad_tabindex = 0; self.bad_blank = 0
 
     def handle_decl(self, decl):
         if decl.lower().startswith("doctype html"):
@@ -46,9 +47,13 @@ class Scan(HTMLParser):
         if tag == "html": self.lang = a.get("lang")
         if tag == "title": self._in_title = True
         if tag == "meta":
-            if a.get("name") == "viewport": self.viewport = True
+            if a.get("name") == "viewport": self.viewport = True; self.viewport_content = a.get("content") or ""
+            if a.get("name") == "description" and (a.get("content") or "").strip(): self.desc = True
             if (a.get("http-equiv") or "").lower() == "content-security-policy": self.csp = True
         if "id" in a: self.ids.append(a["id"])
+        if re.fullmatch(r"h[1-6]", tag): self.headings.append(int(tag[1]))
+        if re.fullmatch(r"[1-9][0-9]*", (a.get("tabindex") or "").strip()) is not None: self.bad_tabindex += 1
+        if a.get("target") == "_blank" and not {"noopener", "noreferrer"} & set((a.get("rel") or "").split()): self.bad_blank += 1
         if tag == "img" and a.get("alt") is None: self.imgs_no_alt += 1
         res = {"script": "src", "img": "src", "iframe": "src", "source": "src", "audio": "src", "video": "src", "embed": "src", "form": "action"}
         if tag in res and re.match(r"(https?:)?//", a.get(res[tag]) or ""): self.external.append((tag, a[res[tag]]))
@@ -136,6 +141,16 @@ def main():
                 if s.unnamed: errors.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))
             elif not s.csp:
                 warnings.append(where + ": no Content-Security-Policy")
+            # language-light, accessible, high-signal pages (WCAG 2.2, plain structure): errors on generated pages, warnings on hand-built apps
+            flag = errors if strict else warnings
+            if where != "404.html" and not s.desc: flag.append(where + ": missing meta description")
+            if re.search(r"user-scalable\s*=\s*(no|false|0)|maximum-scale\s*=\s*[0-4](\.\d+)?(?!\d)", s.viewport_content, re.I): errors.append(where + ": the viewport blocks zoom")
+            if s.bad_tabindex: errors.append("%s: %d element(s) with tabindex above 0 (breaks keyboard order)" % (where, s.bad_tabindex))
+            if s.bad_blank: errors.append("%s: %d link(s) open a new tab without rel=noopener" % (where, s.bad_blank))
+            if s.headings.count(1) != 1: flag.append("%s: %d <h1> (want exactly one)" % (where, s.headings.count(1)))
+            if any(b - a > 1 for a, b in zip(s.headings, s.headings[1:])): flag.append(where + ": a heading level is skipped")
+            if len(s.title.strip()) > 60: warnings.append("%s: title is %d characters (keep it under 60)" % (where, len(s.title.strip())))
+            if re.search(r"\banimation\s*:|\btransition\s*:", text) and "prefers-reduced-motion" not in text: flag.append(where + ": motion without a prefers-reduced-motion rule")
             if kind in ("hub", "group") or where in ("404.html",):
                 base = os.path.dirname(full)
                 for h in s.links:
@@ -148,6 +163,8 @@ def main():
                 errors.append("%s: %d KB is over the %d KB budget" % (where, len(raw) // 1000, BUDGET[kind] // 1000))
             elif kind == "app" and len(raw) > 1_500_000:
                 warnings.append("%s: %d KB (large)" % (where, len(raw) // 1000))
+    if count == 0:
+        errors.append("no page was checked (the site folder is empty or moved)")
     for w in warnings:
         print("WARN " + w)
     if errors:

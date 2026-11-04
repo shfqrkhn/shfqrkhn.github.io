@@ -1,4 +1,4 @@
-"""Live health check. Standard library only. Run from anywhere: python scripts/check_live.py [site-url]
+"""Live health check. Standard library only. Run from anywhere: python site/scripts/check_live.py [site-url]
 
 Add --version X to require a specific hub version (used right after a publish).
 Fetches the published hub, reads its catalog, then confirms that every hosted page answers 200 and (for single-file pages)

@@ -1,8 +1,8 @@
 """Start a simple content page (recipe, guide, game page, lesson, reference). Standard library only.
 
-  python scripts/new_page.py recipes egg-salad "Egg salad" --topic food
+  python site/scripts/new_page.py recipes egg-salad "Egg salad" --topic food
 
-Creates content/<kind>/<slug>.json with a valid starting page. Edit it, then run the build in the owner's vault (see docs/FRAMEWORK.md).
+Creates content/<kind>/<slug>.json with a valid starting page. Edit it, then run python builder/build.py (see docs/FRAMEWORK.md).
 """
 import json, os, re, sys
 
@@ -10,9 +10,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts")); sys.dont_write_bytecode = True
 import build_pages
 
-args = [a for a in sys.argv[1:] if not a.startswith("--")]
+args = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith("--") and sys.argv[i - 1] != "--topic"]
 if len(args) != 3:
-    print('Usage: python scripts/new_page.py <kind> <slug> "<Title>" [--topic food]\nKinds: ' + ", ".join(build_pages.KINDS) + "\nTopics: " + ", ".join(build_pages.TOPICS))
+    print('Usage: python site/scripts/new_page.py <kind> <slug> "<Title>" [--topic food]\nKinds: ' + ", ".join(build_pages.KINDS) + "\nTopics: " + ", ".join(build_pages.TOPICS))
     sys.exit(2)
 kind, slug, title = args
 topic = sys.argv[sys.argv.index("--topic") + 1] if "--topic" in sys.argv else "learning"
@@ -30,4 +30,4 @@ if os.path.exists(path):
     print("Already exists: " + path); sys.exit(1)
 json.dump(page, open(path, "w", encoding="utf-8", newline="\n"), indent=2, ensure_ascii=False)
 open(path, "a", encoding="utf-8").write("\n")
-print("Created " + os.path.relpath(path, ROOT) + "\nNext: edit it, run  python scripts/build_pages.py --check , then run the Omnevum build.")
+print("Created " + os.path.relpath(path, ROOT) + "\nNext: edit it, run  python site/scripts/build_pages.py --check , then run the Omnevum build.")

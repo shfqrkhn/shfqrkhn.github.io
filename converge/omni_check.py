@@ -19,8 +19,21 @@ b = open(p, "rb").read()
 s = b.decode("utf-8")
 print("sha256", hashlib.sha256(b).hexdigest()[:16], "bytes", len(b))
 defects = []
+fm_version = re.search(r"(?m)^version: (\S+)", s)
+file_version = re.search(r"-v(\d+\.\d+\.\d+)\.md$", p)
+if fm_version and file_version and fm_version.group(1) != file_version.group(1):
+    defects.append("file name version %s differs from the front matter version %s" % (file_version.group(1), fm_version.group(1)))
 heads = set()
+fence = False
+titles = []
 for line in s.split("\n"):
+    if line.startswith("```"):
+        fence = not fence
+    if fence:
+        continue
+    t = re.match(r"## (\d+\. .+|Appendix [A-Z]\. .+)$", line)
+    if t:
+        titles.append(t.group(1))
     m = re.match(r"#{2,4} (?:(\d+(?:\.\d+)*)\.? |(Appendix [A-Z]|[A-Z]\.\d+) )", line)
     if m:
         k = m.group(1) or m.group(2)
@@ -32,7 +45,16 @@ refs = set(re.findall(r"§(\d+(?:\.\d+)*)", s))
 for r in sorted(refs, key=lambda x: [int(i) for i in x.split(".")]):
     if r not in bare:
         defects.append("section reference with no heading: §" + r)
-ver = set(re.findall(r"\b7\.\d+\.\d+\b", s))
+major = (re.search(r"(?m)^version: (\d+)\.", s) or [None, "7"])[1]
+ver = set(re.findall(r"(?<![\d.])" + major + r"\.\d+\.\d+(?!\d|\.\d)", s))
+c0 = s.find("\n## Contents")
+if c0 >= 0:
+    block = s[c0:].split("\n---", 1)[0].split("\n")[2:]
+    listed = [x.strip() for x in block if x.strip()]
+    want = [t.split(". ", 1)[1] if re.match(r"\d+\. ", t) else t for t in titles]
+    got = [x.split(". ", 1)[1] if re.match(r"\d+\. ", x) else x for x in listed]
+    if got != want:
+        defects.append("contents list does not match the headings: " + str([x for x in want if x not in got][:3] + [x for x in got if x not in want][:3]))
 if len(ver) != 1:
     defects.append("version strings disagree: " + ", ".join(sorted(ver)))
 for n, line in enumerate(s.split("\n"), 1):
@@ -45,3 +67,4 @@ if "\r" in s:
 for d in defects[:60]:
     print("DEFECT", d)
 print("headings", len(heads), "distinct section references", len(refs), "defects", len(defects))
+sys.exit(1 if defects else 0)

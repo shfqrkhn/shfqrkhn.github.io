@@ -43,6 +43,12 @@ def fix_csp(before, after):
     return after
 
 
+def _version_key(path):
+    """Numeric order of -vX.Y.Z file names (the same rule as build.resolve); a name with no version sorts first."""
+    m = re.search(r"-v(\d+)\.(\d+)\.(\d+)\.html$", path)
+    return tuple(int(x) for x in m.groups()) if m else (0, 0, 0)
+
+
 def repair_csp(html):
     """For each of script-src and style-src that lists sha256 hashes: executable inline blocks that are not covered replace the listed hashes
     that match nothing, in order. Returns (html, number_repaired). Does nothing when the counts cannot be paired."""
@@ -85,7 +91,7 @@ def rename_html(html, olds, new, scripts=False):
         low = tok[:8].lower()
         if low.startswith("<script") or (scripts and low.startswith("<style")):
             if scripts:
-                nv, n = word.subn(new, tok); changed += n; left += len(pat.findall(nv)); out.append(nv)
+                nv, n = word.subn(lambda _m: new, tok); changed += n; left += len(pat.findall(nv)); out.append(nv)
             else:
                 left += len(pat.findall(tok)); out.append(tok)
         elif low.startswith("<style") or tok.startswith("<!--"):
@@ -97,12 +103,12 @@ def rename_html(html, olds, new, scripts=False):
                 nonlocal changed
                 an, q, val = m.group(1), m.group(2), m.group(3)
                 if an in ATTRS or (an == "content" and names & META_NAMES):
-                    nv, n = pat.subn(new, val); changed += n
+                    nv, n = pat.subn(lambda _m: new, val); changed += n
                     return "%s=%s%s%s" % (an, q, nv, q)
                 return m.group(0)
             out.append(re.sub(r'([\w:-]+)=(["\'])(.*?)\2', attr, tok, flags=re.S))
         else:
-            nv, n = pat.subn(new, tok); changed += n; out.append(nv)
+            nv, n = pat.subn(lambda _m: new, tok); changed += n; out.append(nv)
     return "".join(out), changed, left
 
 
@@ -139,6 +145,8 @@ def main():
         print("The address must be lowercase letters, digits and dashes."); return 1
     if any(x is not p and x["kind"] == p["kind"] and x["slug"] == slug for x in reg["pages"]):
         print("That address is already used: %s/%s" % (p["kind"], slug)); return 1
+    if any(x is not p and "%s/%s" % (p["kind"], slug) in x.get("aliases", []) for x in reg["pages"]):
+        print("That address is an old address of another page: %s/%s" % (p["kind"], slug)); return 1
     hue = None
     if "--hue" in opts:
         hue = int(opts["--hue"])
@@ -153,6 +161,7 @@ def main():
         p.setdefault("aliases", [])
         old_addr = "%s/%s" % (p["kind"], old_slug)
         if old_addr not in p["aliases"]: p["aliases"].append(old_addr)
+        p["aliases"] = [a for a in p["aliases"] if a != "%s/%s" % (p["kind"], slug)]  # renaming back to an earlier address makes it live again
         p["slug"] = slug; report.append("address: /%s/%s/ -> /%s/%s/ (old address forwards)" % (p["kind"], old_slug, p["kind"], slug))
     if "--tagline" in opts:
         tl = opts["--tagline"].strip()
@@ -165,7 +174,7 @@ def main():
     if olds and p.get("form", "single") == "single" and not os.path.isabs(p["source"]):
         files = glob.glob(os.path.join(V, p["source"].replace("/", os.sep)))
         if files:
-            f = sorted(files)[-1]; html = open(f, encoding="utf-8", newline="").read()
+            f = max(files, key=_version_key); html = open(f, encoding="utf-8", newline="").read()
             new_html, changed, left = rename_html(html, olds + [old_title], new, "--scripts" in opts)
             if "--scripts" in opts:
                 new_html = fix_csp(html, new_html)

@@ -14,17 +14,19 @@ window, an "as of" date (YYYY-MM-DD, YYYY-MM or Month YYYY) older than the windo
 that the script itself must flag. Reads no credential or plugin data; sources outside the scanned folder are not seen (cap their claims)."""
 import datetime, hashlib, json, os, re, sys, tempfile
 
-SKIP_DIRS = {".obsidian", ".git", "archive", "node_modules", "__pycache__"}
+SKIP_DIRS = {".obsidian", ".git", "archive", "node_modules", "__pycache__", "receipts", "history"}  # receipts: a run must not hash its own records
 TEXT = {".md", ".html", ".json", ".txt", ".css", ".js", ".csv", ".py", ".yml", ".yaml"}
 WINDOW_RUNS, WINDOW_DAYS = 4, 90
 HERE = os.path.dirname(os.path.abspath(__file__))
 MONTHS = {m: i + 1 for i, m in enumerate("january february march april may june july august september october november december".split())}
+MONTHS.update({k[:3]: v for k, v in list(MONTHS.items())}); MONTHS["sept"] = 9  # abbreviations: Nov 2025, Sept 2025
 
 
 def dates_after(label, text):
     """Dates written after a label: YYYY-MM-DD, YYYY-MM, or Month YYYY (the first day of the month is used)."""
     out = []
-    for m in re.finditer(label + r"[:\s]*(?:by |on |after )?(\d{4})-(\d{2})(?:-(\d{2}))?|" + label + r"[:\s]*(?:by |on |after )?([A-Za-z]+) (\d{4})", text, flags=re.I):
+    label = r"(?<![A-Za-z])" + label
+    for m in re.finditer(label + r"[:\s]*(?:by |on |after )?(\d{4})-(\d{2})(?:-(\d{2}))?|" + label + r"[:\s]*(?:by |on |after )?([A-Za-z]+)\.? (\d{4})", text, flags=re.I):
         try:
             if m.group(1):
                 out.append(datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3) or 1)).isoformat())
@@ -38,7 +40,7 @@ def dates_after(label, text):
 def private_prefixes():
     """Folder-name prefixes this machine keeps out of every scan, one per line in converge/private-skip.txt (git-ignored)."""
     p = os.path.join(HERE, "private-skip.txt")
-    return tuple(x.strip().upper() for x in open(p, encoding="utf-8") if x.strip()) if os.path.exists(p) else ()
+    return tuple(x.strip().upper() for x in open(p, encoding="utf-8-sig") if x.strip()) if os.path.exists(p) else ()
 
 
 PRIVATE = private_prefixes()
@@ -58,7 +60,7 @@ def evaluator():
 
 def governing(root, sections):
     best = None
-    for dp, dn, fn in os.walk(root):  # any folder under the root: the repository keeps Omni in sources/method, a vault keeps it in TECH
+    for dp, dn, fn in (x for base in (root, os.path.join(os.path.dirname(HERE), "sources")) for x in os.walk(base)):  # the scanned root, then the repository's sources/method
         dn[:] = [d for d in dn if not skip(d)]
         for f in fn:
             m = re.fullmatch(r"TECH-AINT-Omni-v(\d+)\.(\d+)\.(\d+)\.md", f)
@@ -67,6 +69,7 @@ def governing(root, sections):
                 if not best or v > best[0]:
                     best = (v, os.path.join(dp, f))
     if not best:
+        print("warning: no TECH-AINT-Omni-v*.md found under the root or sources/: the governing-section text is not in the keys")
         return "no-omni"
     text = open(best[1], encoding="utf-8").read()
     parts = re.split(r"(?m)^(?=## \d+\. )", text)
@@ -224,7 +227,7 @@ def main():
         print("manifest absent: claims, sources and environment are not in the keys; carried claims are capped to the sources bytes seen")
     for k, v in res["out"].items():
         print("%-8s %d" % (k, len(v)))
-        for r in (v if "--all" in a and k != "CARRIED" else v[:15] if k != "CARRIED" else []):
+        for r in (v if "--all" in a else v[:15] if k != "CARRIED" else []):
             print("   " + r)
     print("broken links: %d" % len(res["broken"]))
     for b in res["broken"][:15]:

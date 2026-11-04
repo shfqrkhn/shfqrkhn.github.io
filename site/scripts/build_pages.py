@@ -3,9 +3,9 @@ Standard library only.
 
   content/<kind>/<slug>.json   ->   <kind>/<slug>/index.html   (one self-contained file, same look as the hub)
 
-Check a data file:   python scripts/build_pages.py --check
-Render all of them:  python scripts/build_pages.py
-The Omnevum build (build/omnevum/build.py in the owner's vault) also renders and lists them; see docs/FRAMEWORK.md.
+Check a data file:   python site/scripts/build_pages.py --check
+Render all of them:  python site/scripts/build_pages.py
+The Omnevum build (builder/build.py) also renders and lists them; see docs/FRAMEWORK.md.
 """
 import base64, hashlib, html, json, os, re, sys
 
@@ -14,7 +14,8 @@ KINDS = ("games", "guides", "recipes", "courses", "references")
 TOPICS = ("money", "health", "home", "food", "games", "learning", "work", "travel", "local", "music", "ai")
 E = html.escape
 
-ICON = json.load(open(os.path.join(ROOT, "scripts", "ui-icons.json"), encoding="utf-8"))  # Phosphor Icons (MIT), written by the build
+_ICONS = os.path.join(ROOT, "scripts", "ui-icons.json")
+ICON = json.load(open(_ICONS, encoding="utf-8")) if os.path.exists(_ICONS) else {}  # Phosphor Icons (MIT), written by the build; empty until the first build
 
 CSS = re.sub(r"\n\s*", "\n", re.sub(r"/\*.*?\*/", "", open(os.path.join(ROOT, "scripts", "ui.css"), encoding="utf-8").read(), flags=re.S).strip())  # the one design system
 

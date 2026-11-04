@@ -1,4 +1,4 @@
-"""Restore the full Phosphor Icons pack (MIT), which the backup folder keeps only in part to stay small.
+"""Restore the full Phosphor Icons pack (MIT), which the repository keeps only in part (the icons in use) to stay small.
   python builder/fetch_icons.py
 Reads the pinned version from builder/icons/phosphor/package.json, downloads that exact package from the npm registry (about 1.4 MB), and fills
 in every missing icon under builder/icons/phosphor/regular and fill. Existing files are never changed. Needs an internet connection once.
