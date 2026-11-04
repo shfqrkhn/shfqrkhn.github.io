@@ -98,6 +98,8 @@ def csp_gaps(text):
                 gaps.append("an inline script is blocked: script-src has no hash and no unsafe-inline")
             continue
         if "'sha256-" not in d.group(1):
+            if tag == "style" and re.search(r"<style\b[^>]*>\s*\S", text):
+                gaps.append("an inline style is blocked: style-src has no hash and no unsafe-inline")
             continue
         for b in re.finditer(r"<%s\b([^>]*)>(.*?)</%s>" % (tag, tag), text, re.S | re.I):
             attrs, body = b.group(1), b.group(2)

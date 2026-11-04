@@ -163,7 +163,7 @@ for p in REG:
     APPS.append(a)
     META[p["id"]] = dict(topic=p["topic"], blurb=p["blurb"], keywords=p["keywords"], icon=p["icon"])
 E = html.escape
-PACK = os.path.join(OM, "icons", "phosphor")  # Phosphor Icons (MIT), see docs/ICONS-LICENSE.txt
+PACK = os.path.join(OM, "icons", "phosphor")  # Phosphor Icons (MIT), see site/docs/ICONS-LICENSE.txt (generated)
 
 
 def P(name, weight="regular"):
