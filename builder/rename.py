@@ -49,6 +49,14 @@ def _version_key(path):
     return tuple(int(x) for x in m.groups()) if m else (0, 0, 0)
 
 
+def _data_block(attrs):
+    """A script whose type is not JavaScript never runs (data, templates). Types match case-blind and ignore parameters; an empty type runs."""
+    m = re.search(r"""(?<![\w-])type\s*=\s*(["'])(.*?)\1""", attrs, re.I | re.S)
+    if not m:
+        return False
+    return m.group(2).split(";")[0].strip().lower() not in ("", "module", "text/javascript", "application/javascript", "text/ecmascript", "application/ecmascript", "application/x-javascript", "text/jscript")
+
+
 def repair_csp(html):
     """For each of script-src and style-src that lists sha256 hashes: executable inline blocks that are not covered replace the listed hashes
     that match nothing, in order. Returns (html, number_repaired). Does nothing when the counts cannot be paired."""
@@ -71,7 +79,7 @@ def repair_csp(html):
         listed = re.findall(r"'(sha256-[^']+)'", d.group(1))
         bodies = []
         for b in re.finditer(r"<%s\b([^>]*)>(.*?)</%s>" % (tag, tag), html, re.S | re.I):
-            if tag == "script" and ("src=" in b.group(1) or re.search(r"""type\s*=\s*["'](?!(?:module|text/javascript|application/javascript|text/ecmascript|application/ecmascript)["'])[^"']*["']""", b.group(1))):
+            if tag == "script" and ("src=" in b.group(1) or _data_block(b.group(1))):
                 continue
             if b.group(2).strip():
                 bodies.append(h(b.group(2)))

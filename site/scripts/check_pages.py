@@ -77,6 +77,14 @@ class Scan(HTMLParser):
             if not (named or has_text): self.unnamed.append("%s %s" % (t, ident))
 
 
+def _data_block(attrs):
+    """A script whose type is not JavaScript never runs (data, templates). Types match case-blind and ignore parameters; an empty type runs."""
+    m = re.search(r"""(?<![\w-])type\s*=\s*(["'])(.*?)\1""", attrs, re.I | re.S)
+    if not m:
+        return False
+    return m.group(2).split(";")[0].strip().lower() not in ("", "module", "text/javascript", "application/javascript", "text/ecmascript", "application/ecmascript", "application/x-javascript", "text/jscript")
+
+
 def csp_gaps(text):
     """Inline scripts and styles that the page's own Content-Security-Policy would block (a hash is listed but not for this block)."""
     import base64, hashlib
@@ -103,7 +111,7 @@ def csp_gaps(text):
         if not d or "'unsafe-inline'" in d.group(1):
             continue
         if "'sha256-" not in d.group(1) and directive == "script-src":  # no hash and no unsafe-inline: every inline script is blocked
-            if any(b.group(2).strip() and "src=" not in b.group(1) and not re.search(r"""type\s*=\s*["'](?!(?:module|text/javascript|application/javascript|text/ecmascript|application/ecmascript)["'])[^"']*["']""", b.group(1))
+            if any(b.group(2).strip() and "src=" not in b.group(1) and not _data_block(b.group(1))
                    for b in re.finditer(r"<script\b([^>]*)>(.*?)</script>", text, re.S | re.I)):
                 gaps.append("an inline script is blocked: script-src has no hash and no unsafe-inline")
             continue
@@ -113,7 +121,7 @@ def csp_gaps(text):
             continue
         for b in re.finditer(r"<%s\b([^>]*)>(.*?)</%s>" % (tag, tag), text, re.S | re.I):
             attrs, body = b.group(1), b.group(2)
-            if tag == "script" and ("src=" in attrs or re.search(r"""type\s*=\s*["'](?!(?:module|text/javascript|application/javascript|text/ecmascript|application/ecmascript)["'])[^"']*["']""", attrs)):
+            if tag == "script" and ("src=" in attrs or _data_block(attrs)):
                 continue  # external, or a data block that never runs
             if not body.strip():
                 continue
