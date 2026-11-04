@@ -41,9 +41,12 @@ for a in catalog["apps"]:
     if not m:
         errors.append("%s: no kit block (the page is not on the core design language)" % rel); continue
     block = re.sub(r"\s+", "", m.group(1))
+    sels = {"paper": ":root", "charcoal": ":root[data-look=charcoal]", "black": ":root[data-look=black]"}
     for look, toks in LOOKS.items():
+        rule = re.search(re.escape(sels[look]) + r"\{([^}]*)\}", block)  # the look's own rule, so a value repeated elsewhere cannot stand in
+        have = dict(re.findall(r"(--[\w-]+):([^;]+)(?:;|$)", rule.group(1))) if rule else {}
         for t in TOKENS:
-            if t in toks and ("%s:%s" % (t, re.sub(r"\s+", "", toks[t]))) not in block:
+            if t in toks and have.get(t) != re.sub(r"\s+", "", toks[t]):
                 errors.append("%s: kit block is out of date: %s in the %s look should be %s" % (rel, t, look, toks[t].strip())); break
     h = re.search(r"<html\b[^>]*>", html)
     tag = h.group(0) if h else ""
