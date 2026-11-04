@@ -33,3 +33,6 @@ __pycache__/
 Thumbs.db
 node_modules/
 .playwright-mcp/
+
+# Private sources are supplied locally on demand and never committed
+/sources/

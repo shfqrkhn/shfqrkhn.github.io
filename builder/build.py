@@ -9,8 +9,8 @@ OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
 from paths import OUT, V, APPS_DIR, SUP, DOCS
 VERSION = "1.4.3"
-REG = json.load(open(OM + r"\registry.json", encoding="utf-8"))["pages"]
-TOPICS = json.load(open(OM + r"\topics.json", encoding="utf-8"))
+REG = json.load(open(os.path.join(OM, "registry.json"), encoding="utf-8"))["pages"]
+TOPICS = json.load(open(os.path.join(OM, "topics.json"), encoding="utf-8"))
 ARCHIVED = {p["id"] for p in REG if p.get("archived")}
 
 
@@ -22,7 +22,7 @@ def fail(problems):
 def check_registry():
     """Plain-language validation: every problem is listed at once, none is silent."""
     kinds = {"apps", "tools", "games", "guides", "recipes", "courses", "references"}
-    topics = {t["id"] for t in TOPICS}; icons = json.load(open(OM + r"\icons.json", encoding="utf-8"))
+    topics = {t["id"] for t in TOPICS}; icons = json.load(open(os.path.join(OM, "icons.json"), encoding="utf-8"))
     errs, ids, slugs, sources = [], set(), set(), set()
     for p in REG:
         who = p.get("id", "(an entry with no id)")
@@ -114,7 +114,7 @@ check_registry()
 gate(APPS_DIR, "sources")
 gate(DOCS, "docs")
 gate(os.path.join(V, "method"), "method documents")
-if os.path.isdir(OUT + r"\content"): gate(OUT + r"\content", "content")
+if os.path.isdir(os.path.join(OUT, "content")): gate(os.path.join(OUT, "content"), "content")
 APPS, META = [], {}
 for p in REG:
     form = p.get("form", "single")
@@ -134,7 +134,7 @@ for p in REG:
     APPS.append(a)
     META[p["id"]] = dict(topic=p["topic"], blurb=p["blurb"], keywords=p["keywords"], icon=p["icon"])
 E = html.escape
-PACK = OM + r"\icons\phosphor"  # Phosphor Icons (MIT), see docs/ICONS-LICENSE.txt
+PACK = os.path.join(OM, "icons", "phosphor")  # Phosphor Icons (MIT), see docs/ICONS-LICENSE.txt
 
 
 def P(name, weight="regular"):
@@ -145,7 +145,7 @@ def P(name, weight="regular"):
 
 
 # 24px stroke icons, one per page (icons.json)
-IC = json.load(open(OM + r"\icons.json", encoding="utf-8"))
+IC = json.load(open(os.path.join(OM, "icons.json"), encoding="utf-8"))
 TOPIC_IC = {k: P(v) for k, v in {"money": "coins", "health": "heartbeat", "home": "house-line", "food": "fork-knife", "games": "game-controller",
                                   "learning": "graduation-cap", "work": "users-three", "travel": "airplane-tilt", "local": "map-pin", "music": "music-notes", "ai": "cpu"}.items()}
 HUE = {"money": 140, "health": 350, "home": 95, "food": 35, "games": 265, "learning": 215, "work": 190, "travel": 15, "local": 315, "music": 290, "ai": 240}
@@ -199,12 +199,12 @@ for a in apps:
         a["cache"] = (a["version"] if a["version"] != "unversioned" else "20261030") + "-" + a["sha256"][:8]
 
 # ---- generated pages: content/<kind>/<slug>.json (one small data file per page)
-sys.path.insert(0, OUT + r"\scripts")
+sys.path.insert(0, os.path.join(OUT, "scripts"))
 # ---- icon support files for the page generator (written first: build_pages reads them, and a clean checkout has none)
 _ui = {"home": "house", "look": "sun", "reset": "arrow-counter-clockwise", "list": "list-bullets", "steps": "list-numbers", "text": "text-align-left", "table": "table"}
 open(os.path.join(OUT, "scripts", "ui-icons.json"), "w", encoding="utf-8", newline="\n").write(json.dumps({k: P(v) for k, v in _ui.items()}, indent=1))
 import build_pages
-for d in build_pages.load_all(OUT + r"\content"):
+for d in build_pages.load_all(os.path.join(OUT, "content")):
     raw = personalize(d["html"]); sha = hashlib.sha256(raw).hexdigest(); pid = d["kind"] + "-" + d["slug"]
     assert pid not in KIND, ("duplicate id", pid)
     apps.append(dict(id=pid, title=d["title"], folder=d["slug"], version=d["version"], path=None, cache=d["version"] + "-" + sha[:8], lazy=True, sensitive=False,
@@ -253,14 +253,14 @@ arch_groups = "".join(
 archive = ('<details class="sec arch" data-s="archive"><summary><span class="sic" style="--h:220">%s</span><h2>Archive</h2><span class="n">%d</span></summary>%s</details>'
            % (svg(ARCH_IC), len(arch_items), arch_groups)) if arch_items else ""
 
-today = json.load(open(OM + r"\today_data.json", encoding="utf-8"))
+today = json.load(open(os.path.join(OM, "today_data.json"), encoding="utf-8"))
 tj = json.dumps({k: today[k] for k in ("quotes", "reflections", "meditations", "biases")}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 catalog = [dict(id=a["id"], title=a["title"], kind=a["kind"], form=a.get("form", "single"), license=a.get("license", "MIT"), own_pwa=bool(a.get("own_pwa")),
                 address=(a["url"] if a.get("form") == "remote" else "./%s/" % a["dir"]), version=a["version"], sha256=a["sha256"], size=a["size"],
                 topic=a["topic"], sensitive=a["sensitive"], archived=a["archived"], hue=a.get("hue")) for a in apps]
 cj = json.dumps(dict(version=VERSION, apps=catalog), ensure_ascii=False, indent=1).replace("</", "<\\/")
 
-CSS = open(OUT + r"\scripts\ui.css", encoding="utf-8").read()  # the one design system, shared with generated pages
+CSS = open(os.path.join(OUT, "scripts", "ui.css"), encoding="utf-8").read()  # the one design system, shared with generated pages
 CSS = re.sub(r"\n\s*", "\n", re.sub(r"/\*.*?\*/", "", CSS, flags=re.S).strip())
 CSS += """
 #pzd{border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--fg);padding:var(--s4);width:min(92vw,26rem);max-height:90vh;overflow:auto}
@@ -403,7 +403,7 @@ page = page.replace('<div id="upd" hidden>', _pzd + '<div id="upd" hidden>', 1)
 assert "life" + "os" not in page.lower()  # a retired product word that must never reappear (written in two pieces so the guard itself does not contain it)
 os.makedirs(OUT, exist_ok=True)
 open(os.path.join(OUT, "today.json"), "w", encoding="utf-8", newline="\n").write(tj)
-open(OUT + r"\index.html", "w", encoding="utf-8", newline="\n").write(page)
+open(os.path.join(OUT, "index.html"), "w", encoding="utf-8", newline="\n").write(page)
 
 ship = [a for a in apps if not a["sensitive"] and a.get("form", "single") != "remote"]
 import shutil
@@ -446,7 +446,7 @@ for a in ship:
     if a["size"] > BIG: ent["big"] = True
     PAGES[a["dir"]] = ent
 SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg", "./today.json", "./404.html", "./scripts/personalize.js", "./icons/icon-192.png", "./icons/icon-512.png"] + ["./%s/" % k for k, t, ic in present]
-sw = open(OM + r"\sw.template.js", encoding="utf-8").read().replace("@@VERSION@@", VERSION).replace("@@SHELL@@", json.dumps(SHELL)).replace("@@PAGES@@", json.dumps(PAGES, indent=1))
+sw = open(os.path.join(OM, "sw.template.js"), encoding="utf-8").read().replace("@@VERSION@@", VERSION).replace("@@SHELL@@", json.dumps(SHELL)).replace("@@PAGES@@", json.dumps(PAGES, indent=1))
 open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8", newline="\n").write(sw)
 # install icons: rendered once by make_icons.py, copied here byte for byte
 os.makedirs(os.path.join(OUT, "icons"), exist_ok=True)
@@ -508,8 +508,8 @@ if os.path.isfile(NOTE):
     if new != note:
         open(NOTE, "w", encoding="utf-8", newline="\n").write(new)
     body = new[new.index("# Omnevum"):]
-    os.makedirs(OUT + r"\docs", exist_ok=True)
-    open(OUT + r"\docs\FRAMEWORK.md", "w", encoding="utf-8", newline="\n").write(body)
+    os.makedirs(os.path.join(OUT, "docs"), exist_ok=True)
+    open(os.path.join(OUT, "docs", "FRAMEWORK.md"), "w", encoding="utf-8", newline="\n").write(body)
     if os.path.isfile(os.path.join(DOCS, "PRIVACY.md")):  # the privacy rules travel with the site
         shutil.copyfile(os.path.join(DOCS, "PRIVACY.md"), os.path.join(OUT, "docs", "PRIVACY.md"))
 else:
