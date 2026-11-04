@@ -42,6 +42,7 @@ ok("build is idempotent (identical output)", t1 == t2)
 
 # 1b. archive and restore round trip: a page moves to the Archive section and back, leaving everything identical
 regp = os.path.join(OM, "registry.json"); reg_before = open(regp, "rb").read()
+_notep = os.path.join(os.path.dirname(OM), "docs", "FRAMEWORK.md"); _note_before = open(_notep, "rb").read() if os.path.isfile(_notep) else None  # archive and restore re-date the framework note
 try:
     _ct = next(x["title"] for x in json.load(open(regp, encoding="utf-8"))["pages"] if x["id"] == "codex-ludus")  # the page's current name
     r = run([os.path.join(OM, "archive.py"), "archive", "codex-ludus"])
@@ -56,6 +57,8 @@ try:
 finally:
     if open(regp, "rb").read() != reg_before:
         open(regp, "wb").write(reg_before); run([os.path.join(OM, "build.py")])
+    if _note_before is not None and open(_notep, "rb").read() != _note_before:
+        open(_notep, "wb").write(_note_before)  # keep the tracked note exactly as it was
 
 # 1c. renaming is safe: the name changes in visible text and safe attributes only, never in scripts, styles or identifiers
 sys.path.insert(0, OM)
