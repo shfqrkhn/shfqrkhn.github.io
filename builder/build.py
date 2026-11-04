@@ -127,7 +127,7 @@ gate(os.path.join(V, "method"), "method documents")
 import tempfile, shutil
 _stage = tempfile.mkdtemp()
 _root = os.path.dirname(OM)
-_staged = ["builder/registry.json", "builder/icons.json", "builder/topics.json", "builder/today_data.json", "builder/app-starter.html", "README.md", "AGENTS.md",
+_staged = ["builder/registry.json", "builder/icons.json", "builder/topics.json", "builder/today_data.json", "builder/app-starter.html", "README.md", "AGENTS.md", "CLAUDE.md", "LICENSE",
            "CONTRIBUTING.md", "SECURITY.md", "requirements.txt", ".gitignore", ".github/pull_request_template.md", ".github/dependabot.yml"]
 _staged += [".github/workflows/" + _f for _f in sorted(os.listdir(os.path.join(_root, ".github", "workflows")))] if os.path.isdir(os.path.join(_root, ".github", "workflows")) else []
 _staged += ["converge/" + _f for _f in sorted(os.listdir(os.path.join(_root, "converge"))) if _f.endswith(".py")] if os.path.isdir(os.path.join(_root, "converge")) else []
