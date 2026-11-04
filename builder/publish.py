@@ -51,9 +51,10 @@ try:
         print("FAILED: the privacy gate rejects the commit message or the changed files:\n" + _r.stdout[-1500:]); sys.exit(1)
 finally:
     shutil.rmtree(_stage, ignore_errors=True)
+_ids = [run(["git", "var", v], check=False).stdout for v in ("GIT_AUTHOR_IDENT", "GIT_COMMITTER_IDENT")]  # includes GIT_AUTHOR_EMAIL and GIT_COMMITTER_EMAIL overrides
+if not all(re.search(r"<[^<>]*@users\.noreply\.github\.com>", x) for x in _ids):
+    print("git has no noreply identity (check git config and GIT_AUTHOR_EMAIL / GIT_COMMITTER_EMAIL). Set one first: git config user.name <name>; git config user.email <id>+<user>@users.noreply.github.com"); sys.exit(1)
 run(["git", "add", "-A"])
-if not run(["git", "config", "user.email"], check=False).stdout.strip().endswith("@users.noreply.github.com"):
-    print("git has no identity. Set one first (use your GitHub noreply address): git config user.name <name>; git config user.email <id>+<user>@users.noreply.github.com"); sys.exit(1)
 run(["git", "commit", "--quiet", "-m", msg])
 run(["git", "push", "origin", "HEAD:main"])
 page = open(os.path.join(OUT, "index.html"), "rb").read()
