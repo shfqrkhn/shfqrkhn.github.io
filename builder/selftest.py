@@ -96,7 +96,7 @@ tmp = tempfile.mkdtemp(); bund = tempfile.mkdtemp()
 try:
     os.makedirs(os.path.join(bund, "pkg"))
     open(os.path.join(bund, "index.html"), "w", encoding="utf-8").write(
-        '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Wasm test</title></head>'
+        '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\' \'wasm-unsafe-eval\'"><meta name="description" content="A bundle test page."><title>Wasm test</title></head>'
         '<body><a href="../../" aria-label="Omnevum home">home</a><p>test</p></body></html>')
     open(os.path.join(bund, "pkg", "m.wasm"), "wb").write(bytes([0, 97, 115, 109, 1, 0, 0, 0]))
     for f in ("build.py", "paths.py", "icons.json", "topics.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
