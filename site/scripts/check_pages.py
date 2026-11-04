@@ -109,14 +109,14 @@ def csp_gaps(text):
         return re.search(r"(?<![\w-])" + name + r"\s+([^;]*)", csp) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp)
     markup = re.sub(r"<script\b.*?</script>|<style\b.*?</style>", "", text, flags=re.S | re.I)
     _ss, _sc = _dir("style-src"), _dir("script-src")
-    if _ss and "'unsafe-inline'" not in _ss.group(1) and re.search(r"<[a-zA-Z][^>]*\sstyle\s*=", markup):
+    if _ss and ("'unsafe-inline'" not in _ss.group(1) or "'sha256-" in _ss.group(1)) and re.search(r"<[a-zA-Z][^>]*\sstyle\s*=", markup):
         gaps.append("a style attribute is blocked: style-src has no unsafe-inline")
-    if _sc and "'unsafe-inline'" not in _sc.group(1) and re.search(r"<[a-zA-Z][^>]*\son[a-zA-Z]+\s*=", markup):
+    if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<[a-zA-Z][^>]*\son[a-zA-Z]+\s*=", markup):
         gaps.append("an inline event handler is blocked: script-src has no unsafe-inline")
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace(chr(13) + chr(10), chr(10)).replace(chr(13), chr(10)).encode("utf-8")).digest()).decode()  # browsers normalise line endings before hashing
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
         d = re.search(r"(?<![\w-])" + directive + r"\s+([^;]*)", csp) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp)  # an unset directive falls back to default-src
-        if not d or "'unsafe-inline'" in d.group(1):
+        if not d or ("'unsafe-inline'" in d.group(1) and "'sha256-" not in d.group(1)):  # with a hash listed, browsers ignore unsafe-inline
             continue
         if "'sha256-" not in d.group(1) and directive == "script-src":  # no hash and no unsafe-inline: every inline script is blocked
             if any(b.group(2).strip() and _attr(b.group(1), "src") is None and not _data_block(b.group(1))
