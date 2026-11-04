@@ -49,13 +49,18 @@ def _version_key(path):
     return tuple(int(x) for x in m.groups()) if m else (0, 0, 0)
 
 
+def _attr(attrs, name):
+    """The value of the first real attribute called name ("" when it has no value, None when absent), as HTML reads it."""
+    for am in re.finditer(r"""([^\s=/]+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s"'>]+))?""", attrs):  # real attributes only, never text inside another value
+        if am.group(1).lower() == name:
+            return (am.group(2) or "").strip("\"'")
+    return None
+
+
 def _data_block(attrs):
     """A script whose type is not JavaScript never runs (data, templates). Types match case-blind and ignore parameters; an empty type runs."""
-    t = None
-    for am in re.finditer(r"""([^\s=]+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s"'>]+))?""", attrs):  # real attributes only, never text inside another value
-        if am.group(1).lower() == "type" and am.group(2) is not None:
-            t = am.group(2).strip("\"'"); break
-    if t is None:
+    t = _attr(attrs, "type")
+    if not t:
         return False
     return t.split(";")[0].strip().lower() not in ("", "module", "text/javascript", "application/javascript", "text/ecmascript", "application/ecmascript", "application/x-javascript", "text/jscript", "text/x-javascript", "text/livescript", "text/x-ecmascript", "application/x-ecmascript")
 
@@ -82,7 +87,7 @@ def repair_csp(html):
         listed = re.findall(r"'(sha256-[^']+)'", d.group(1))
         bodies = []
         for b in re.finditer(r"<%s\b([^>]*)>(.*?)</%s>" % (tag, tag), html, re.S | re.I):
-            if tag == "script" and ("src=" in b.group(1) or _data_block(b.group(1))):
+            if tag == "script" and (_attr(b.group(1), "src") is not None or _data_block(b.group(1))):
                 continue
             if b.group(2).strip():
                 bodies.append(h(b.group(2)))

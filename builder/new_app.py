@@ -42,7 +42,7 @@ page = (tpl.replace("@@UI_CSS@@", "/* OMNEVUM KIT:BEGIN */\n" + css + "\n/* OMNE
         .replace("@@TITLE@@", __import__("html").escape(title)).replace("@@BLURB@@", __import__("html").escape(blurb)))
 _st = re.search(r"<style>(.*?)</style>", page, re.S).group(1)
 page = page.replace("@@STYLE_HASH@@", "sha256-" + base64.b64encode(hashlib.sha256(_st.encode()).digest()).decode())
-fname = "APPS-%s-%s-v0.1.0.html" % (kind[:4].upper(), re.sub(r"[^A-Za-z0-9]", "", title.split()[0]) or "App")  # the stem is the pun, the first word (house naming; rename.py --file-stem expects it)
+fname = "APPS-%s-%s-v0.1.0.html" % (kind[:4].upper(), re.sub(r"[^A-Za-z0-9]", "", (title.split() or ["App"])[0]) or "App")  # the stem is the pun, the first word (house naming; rename.py --file-stem expects it)
 dest = os.path.join(APPS_DIR, fname)
 if os.path.exists(dest):
     print("File exists: " + dest); sys.exit(1)
