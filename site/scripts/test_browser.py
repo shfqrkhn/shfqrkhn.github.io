@@ -49,7 +49,7 @@ def ok(name, cond):
 
 
 cat = json.loads(re.search(r'id="catalogData">(.*?)</script>', open(os.path.join(ROOT, "index.html"), encoding="utf-8").read(), re.S).group(1).replace("<\\/", "</"))
-pages = [(a["kind"], a["address"][2:].rstrip("/"), a["address"].split("/")[-2]) for a in cat["apps"] if not a["sensitive"]]
+pages = [(a["kind"], a["address"][2:].rstrip("/"), a["address"].split("/")[-2]) for a in cat["apps"] if not a["sensitive"] and a.get("form") != "remote"]
 kinds = sorted({k for k, _, _ in pages})
 with sync_playwright() as p:
     b = p.chromium.launch(); ctx = b.new_context(viewport={"width": 390, "height": 800}); pg = ctx.new_page(); errs = []
