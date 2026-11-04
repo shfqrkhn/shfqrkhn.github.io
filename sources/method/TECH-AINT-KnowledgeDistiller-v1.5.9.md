@@ -1,7 +1,7 @@
 ---
 type: payload
 status: active
-version: 1.5.8
+version: 1.5.9
 updated: 2026-11-04
 description: "KnowledgeDistiller: standalone offline study app generator with rights-aware MIT-ready release checks."
 aliases: [KnowledgeDistiller]
@@ -17,7 +17,7 @@ Copyright is not eliminated by paraphrasing. A permissive licence grants reuse p
 
 The generic self-contained template later in this file is the implementation baseline; topic-specific progress migrations belong only in updates to that same app. A finished app may contain topic data, manifest details, a specific migration, and different script integrity hashes. Data drives the lesson; only code changes require integrity-hash updates. Old progress must migrate safely when display-neutral identifiers change. A generator template stays topic-independent; a finished app may add a clearly tested, topic-specific migration overlay. Compare the shared code after accounting for documented overlays rather than requiring byte-for-byte identity.
 
-## Verification and continuity contract (revision 1.5.8)
+## Verification and continuity contract (revision 1.5.9)
 
 - When the owner requests a revision, read the newest accessible KnowledgeDistiller file and relevant subject/app sources; compare versions and hashes. Other projects are not subject evidence. Use the newest available baseline while preserving existing data, chapters, activity types, and saved-progress identifiers unless a verified migration is implemented.
 - An offline file may run with browser storage disabled. The guide must still be readable and usable, warn when progress is not persistent, and offer manual progress export and restoration. Treat `file:` storage as browser-dependent; never promise durable automatic saving.
@@ -245,7 +245,7 @@ must be established before making an unqualified MIT compliance claim.
 <meta name="referrer" content="no-referrer">
 <meta name="kd-app" content="kd-app/1.5.5">
 <link rel="icon" href="data:,">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ofzvPxIKLbOgzKhrZdPYyampF46qIPd15eyN1suPF5g='; style-src 'sha256-D13PfkSzCtFOqAY+oKMxJiSb9kyCBWgw3XTpbpwNKOA='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-vkEXm7xKK4+5Xo6dPUqiqZUAr7q1d6p+fH0UYbLdNR0='; style-src 'sha256-D13PfkSzCtFOqAY+oKMxJiSb9kyCBWgw3XTpbpwNKOA='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
 <title>Guide</title>
 <style>
 :root{--h:200;--r:8px;--rc:16px;--lh:1.6;--bg:#F6F1E7;--sf:#ECE5D6;--fg:#2B261F;--mu:#574F43;--bd:#877D6C;--ok:#1E6B35;--wn:#8A4600;--al:24%;--acc:hsl(var(--h) 50% var(--al));--ff:system-ui,sans-serif;--fh:var(--ff);color-scheme:light}
@@ -750,7 +750,7 @@ function search(m,id){var q=dec(id.slice(2)).toLowerCase().trim(),hits=[];m.appe
 if(q){var add=function(href,label,o){if(flat(o).toLowerCase().indexOf(q)>-1)hits.push([href,label])};
 add('#start','Start Here',D.start);add('#big','Big Picture',D.big);CH.forEach(function(c){add('#c-'+c._id,str(c.title),c)});
 G.forEach(function(g){add('#glossary','Glossary: '+str(g.term),g)});objs(D.rules).forEach(function(r){add('#rules','Rule: '+str(r.rule),r)});objs(D.decide).forEach(function(r){add('#decide','Decision: '+str(r.if),r)});
-objs(D.ref).forEach(function(r){add('#ref','Quick Reference: '+str(r.name),r)});add('#next','What To Do Next',D.next);add('#unsure',lb('unsure','What We Are Not Sure About'),D.uncertain);objs(D.sources).forEach(function(s){add('#sources','Source: '+str(s.id),s)});ACT.forEach(function(a){add('#a-'+a.id,'Activity: '+a.title,[a.raw,AT[a.type][0],a.type,'activity practice'])});if(ACT.length)add('#play',lb('play','Practice and Play'),'activity activities simulation practice play '+ACT.map(function(a){return AT[a.type][0]+' '+a.type}).join(' '));if(QS.length)add('#drill','Practice What You Missed','practice what you missed review questions')}
+objs(D.ref).forEach(function(r){add('#ref','Quick Reference: '+str(r.name),r)});add('#next','What To Do Next',D.next);add('#unsure',lb('unsure','What We Are Not Sure About'),D.uncertain);objs(D.sources).forEach(function(s){var c=CH.filter(function(x){return strs(x.src).indexOf(str(s.id))>=0})[0];if(c)add('#c-'+c._id,'Source: '+str(s.id)+' (in '+str(c.title)+')',s)});ACT.forEach(function(a){add('#a-'+a.id,'Activity: '+a.title,[a.raw,AT[a.type][0],a.type,'activity practice'])});if(ACT.length)add('#play',lb('play','Practice and Play'),'activity activities simulation practice play '+ACT.map(function(a){return AT[a.type][0]+' '+a.type}).join(' '));if(QS.length)add('#drill','Practice What You Missed','practice what you missed review questions')}
 if(!hits.length){m.append(h('p',{text:'Nothing found. Try a shorter word.'}));return}
 m.append(h('p',{'class':'mu',text:hits.length+' found'+(hits.length>40?'. Showing the first 40.':'.')}),h('ul',null,hits.slice(0,40).map(function(x){return h('li',null,[h('a',{href:x[0],text:x[1]})])})))}
 function view(id){var m=$('#main'),st=D.start&&typeof D.start==='object'?D.start:{};
