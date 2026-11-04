@@ -111,7 +111,7 @@ def resolve(src):
     """A registry source is a file under sources/ (the highest -vX.Y.Z wins when it has a * ) or an absolute path."""
     if os.path.isabs(src):
         return src
-    found = glob.glob(os.path.join(V, src.replace("/", os.sep)))
+    found = glob.glob(os.path.join(glob.escape(V), src.replace("/", os.sep)))
     assert found, ("source not found", src)
     def vkey(p):
         m = re.search(r"-v(\d+)\.(\d+)\.(\d+)\.html$", p)

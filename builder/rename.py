@@ -54,7 +54,13 @@ def repair_csp(html):
     that match nothing, in order. Returns (html, number_repaired). Does nothing when the counts cannot be paired."""
     import base64, hashlib
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")).digest()).decode()
-    m = re.search(r'(http-equiv="Content-Security-Policy"\s+content=")([^"]*)(")', html)
+    m = None
+    for tag_m in re.finditer(r"<meta\b[^>]*>", html, re.I):  # any attribute order, either quote
+        if re.search(r"http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
+            c = re.search(r"content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
+            if c:
+                m = type("M", (), {"start": lambda self, g: tag_m.start() + c.start(2), "end": lambda self, g: tag_m.start() + c.end(2), "group": lambda self, g: c.group(2)})()
+            break
     if not m:
         return html, 0
     csp, fixed = m.group(2), 0
@@ -65,7 +71,7 @@ def repair_csp(html):
         listed = re.findall(r"'(sha256-[^']+)'", d.group(1))
         bodies = []
         for b in re.finditer(r"<%s\b([^>]*)>(.*?)</%s>" % (tag, tag), html, re.S | re.I):
-            if tag == "script" and ("src=" in b.group(1) or re.search(r'type="(?!module)[^"]*"', b.group(1))):
+            if tag == "script" and ("src=" in b.group(1) or re.search(r"""type\s*=\s*["'](?!module)[^"']*["']""", b.group(1))):
                 continue
             if b.group(2).strip():
                 bodies.append(h(b.group(2)))
@@ -172,7 +178,7 @@ def main():
     if hue is not None and p.get("hue") != hue:
         p["hue"] = hue; report.append("accent hue: %d" % hue)
     if olds and p.get("form", "single") == "single" and not os.path.isabs(p["source"]):
-        files = glob.glob(os.path.join(V, p["source"].replace("/", os.sep)))
+        files = glob.glob(os.path.join(glob.escape(V), p["source"].replace("/", os.sep)))
         if files:
             f = max(files, key=_version_key); html = open(f, encoding="utf-8", newline="").read()
             new_html, changed, left = rename_html(html, olds + [old_title], new, "--scripts" in opts)
@@ -189,7 +195,7 @@ def main():
         if m.group("stem") != stem:
             new_src = (m.group("dir") or "") + m.group("pre") + stem + (m.group("ver") or "") + ".html"
             moved = []
-            for f in glob.glob(os.path.join(V, p["source"].replace("/", os.sep))):
+            for f in glob.glob(os.path.join(glob.escape(V), p["source"].replace("/", os.sep))):
                 nf = os.path.join(os.path.dirname(f), os.path.basename(f).replace(m.group("pre") + m.group("stem"), m.group("pre") + stem, 1))
                 if os.path.exists(nf):
                     print("A file named %s already exists." % os.path.basename(nf)); return 1

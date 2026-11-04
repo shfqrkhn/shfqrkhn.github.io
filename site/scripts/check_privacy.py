@@ -64,7 +64,7 @@ def main():
         text = COLOR.sub(" ", BLOB.sub(" ", text))
         checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
         for kind, rx in checks:
-            if kind == "key":
+            if kind in ("key", "owner-name"):  # a key or a name can hide inside a long run of letters and dashes: scan the raw text
                 text, body = raw, text  # a key can be longer than the blob limit: scan the raw text for it
             for m in rx.finditer(text):
                 hit = m.group(0)
@@ -81,7 +81,7 @@ def main():
                 if any(a in low for a in allow):
                     continue
                 problems.append("%s: %s: %r ... %s" % (rel, kind, hit[:60], ctx[:100]))
-            if kind == "key":
+            if kind in ("key", "owner-name"):
                 text = body
     if scanned == 0:
         print("FAIL no file was scanned in " + ROOT + ": a moved or renamed folder must not shrink the gate")

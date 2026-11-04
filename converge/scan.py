@@ -203,6 +203,10 @@ def main():
     a = sys.argv[1:]
     if "--control" in a:
         sys.exit(control())
+    known = {"--root", "--baseline", "--save", "--full", "--all", "--sections", "--manifest", "--open", "--cap", "--clear-cap", "--note", "--outcome", "--control"}
+    bad = [x for x in a if x.startswith("--") and x not in known]
+    if bad:
+        print("error: unknown flag(s): " + ", ".join(bad)); sys.exit(2)
     opt = lambda k, d=None: a[a.index(k) + 1] if k in a else d
     home = os.path.dirname(HERE)
     root = opt("--root", os.path.join(home, "sources"))
@@ -216,12 +220,16 @@ def main():
     opens = dict(x.split("=", 1) for i, x in enumerate(a) if i and a[i - 1] == "--open")
     caps = dict(x.split("=", 1) for i, x in enumerate(a) if i and a[i - 1] == "--cap")
     sections = [int(x) for x in opt("--sections", "7,8,10,16").split(",")]
+    if not os.path.isdir(root):
+        print("error: the folder to scan does not exist: " + root); sys.exit(2)
     res = scan(root, base, "--full" in a, sections, manifest, opens, caps=caps, outcome=opt("--outcome", "UNACCEPTED"))
     res["clear"] = {x for i, x in enumerate(a) if i and a[i - 1] == "--clear-cap"}
     res["note"] = opt("--note", "")
     unknown = [p for p in list(opens) + list(caps) + list(res["clear"]) if p not in res["files"]]
     if unknown:
         print("error: --open or --cap names a path scan.py does not list (use the sources-relative path with forward slashes): " + ", ".join(unknown)); sys.exit(2)
+    if not res["files"]:
+        print("error: no file found under " + root); sys.exit(2)
     print("governing: %s  evaluator: %s  files: %d" % (res["gov"], res["ev"], len(res["files"])))
     if not manifest:
         print("manifest absent: claims, sources and environment are not in the keys; carried claims are capped to the sources bytes seen")

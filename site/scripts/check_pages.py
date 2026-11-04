@@ -78,18 +78,30 @@ class Scan(HTMLParser):
 def csp_gaps(text):
     """Inline scripts and styles that the page's own Content-Security-Policy would block (a hash is listed but not for this block)."""
     import base64, hashlib
-    m = re.search(r'http-equiv="Content-Security-Policy"\s+content="([^"]*)"', text)
-    if not m:
+    csp = None
+    for tag_m in re.finditer(r"<meta\b[^>]*>", text, re.I):  # any attribute order, either quote
+        if re.search(r"http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
+            c = re.search(r"content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
+            csp = c.group(2) if c else None
+            break
+    if csp is None:
         return []
-    csp = m.group(1); gaps = []
+    gaps = []
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace(chr(13) + chr(10), chr(10)).replace(chr(13), chr(10)).encode("utf-8")).digest()).decode()  # browsers normalise line endings before hashing
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
-        d = re.search(directive + r"\s+([^;]*)", csp)
-        if not d or "'unsafe-inline'" in d.group(1) or "'sha256-" not in d.group(1):
+        d = re.search(r"(?<![\w-])" + directive + r"\s+([^;]*)", csp) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp)  # an unset directive falls back to default-src
+        if not d or "'unsafe-inline'" in d.group(1):
+            continue
+        if "'sha256-" not in d.group(1) and directive == "script-src":  # no hash and no unsafe-inline: every inline script is blocked
+            if any(b.group(2).strip() and "src=" not in b.group(1) and not re.search(r"""type\s*=\s*["'](?!module)[^"']*["']""", b.group(1))
+                   for b in re.finditer(r"<script\b([^>]*)>(.*?)</script>", text, re.S | re.I)):
+                gaps.append("an inline script is blocked: script-src has no hash and no unsafe-inline")
+            continue
+        if "'sha256-" not in d.group(1):
             continue
         for b in re.finditer(r"<%s\b([^>]*)>(.*?)</%s>" % (tag, tag), text, re.S | re.I):
             attrs, body = b.group(1), b.group(2)
-            if tag == "script" and ("src=" in attrs or re.search(r'type="(?!module)[^"]*"', attrs)):
+            if tag == "script" and ("src=" in attrs or re.search(r"""type\s*=\s*["'](?!module)[^"']*["']""", attrs)):
                 continue  # external, or a data block that never runs
             if not body.strip():
                 continue
@@ -113,7 +125,7 @@ def classify(rel):
 def main():
     count = 0
     for dp, dn, fn in os.walk(ROOT):
-        dn[:] = [d for d in dn if d not in (".git", "docs", "scripts", "content", "templates", ".github", "__pycache__")]
+        dn[:] = [d for d in dn if d not in (".git", ".github", "__pycache__") and not (dp == ROOT and d in ("docs", "scripts", "content", "templates"))]
         for f in fn:
             if f != "index.html" and f != "404.html":
                 continue

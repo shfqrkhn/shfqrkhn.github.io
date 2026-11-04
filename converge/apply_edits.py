@@ -5,7 +5,7 @@ A proposal is {"file": "<path relative to sources/>", "edits": [{"old", "new", "
   - every section reference (§...), number, backticked term, ALL-CAPS term, file name or path in "old" is still in "new";
   - "new" is at least --min-saving shorter and contains no em or en dash;
   - "old" is not inside an html script or style element.
-Without --apply it only reports. --fix-mode accepts edits that add text (definitions, dates) and deletions whose facts all survive elsewhere in the file. With --apply the original is copied to history/token-pass first."""
+Without --apply it only reports. --fix-mode accepts edits that add text (definitions, dates) and deletions whose tokens (numbers, `code`, ALL-CAPS terms, file names) all survive elsewhere in the file; a person must read every fix-mode deletion, because a token check is not a fact check. With --apply the original is copied to history/token-pass first."""
 import json, os, re, shutil, sys
 
 _H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -55,7 +55,10 @@ def main():
             else:
                 lost = facts(old) - facts(new)
                 if lost and "--fix-mode" in a and len(new) < len(old) * 0.9:
-                    lost = lost - facts(work[:i] + work[j:])
+                    rest, at = "", 0  # what remains once every accepted edit and this one are applied: a fact must survive there
+                    for s0, t0, n0 in sorted([(s1, t1, nn) for (s1, t1, nn) in ok] + [(i, j, new)]):
+                        rest += work[at:s0] + n0; at = t0
+                    lost = lost - facts(rest + work[at:])
                 if lost:
                     why = "drops " + ", ".join(sorted(lost)[:4])
         if why:
