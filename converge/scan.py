@@ -55,7 +55,7 @@ def h(b):
 
 
 def evaluator():
-    return "scan:" + h(b"".join(open(os.path.join(HERE, n), "rb").read() for n in ("scan.py", "omni_check.py") if os.path.exists(os.path.join(HERE, n))))
+    return "scan:" + h(b"".join(open(os.path.join(HERE, n), "rb").read() for n in ("scan.py", "omni_check.py", "apply_edits.py") if os.path.exists(os.path.join(HERE, n))))
 
 
 def governing(root, sections):
@@ -174,7 +174,8 @@ def receipt(res):
         elif prev and prev.get("cap") and not new[r].get("defect") and r not in res["clear"]:
             new[r]["cap"] = prev["cap"]  # a cap is inherited until a run clears it explicitly (--clear-cap)
     return {"date": today.isoformat(), "run": run, "last_full": last_full, "governing": res["gov"], "evaluator": res["ev"], "outcome": res["outcome"],
-            "manifest": "present" if res["manifest"] else "absent", "notes": res["note"], "items": new}
+            "manifest": "present" if res["manifest"] else "absent", "notes": res["note"],
+            "baseline": {"date": res["base"].get("date"), "run": res["base"].get("run"), "sha256": res.get("base_sha")} if res["base"] else None, "items": new}
 
 
 def control():
@@ -217,6 +218,7 @@ def main():
     if bp and not os.path.exists(bp):
         print("no baseline file at %s: every item is UNKNOWN" % bp); bp = None
     base = json.load(open(bp, encoding="utf-8")) if bp else None
+    base_sha = hashlib.sha256(open(bp, "rb").read()).hexdigest() if bp else None
     if base and base.get("outcome") not in ("ASSURED_CONVERGED", "ASSURED_CONVERGED AT THE PRACTICAL PEAK"):
         print("baseline refused: its outcome is %s, not an ASSURED outcome; every item is UNKNOWN" % base.get("outcome")); base = None
     manifest = json.load(open(opt("--manifest"), encoding="utf-8")) if opt("--manifest") else None
@@ -231,6 +233,7 @@ def main():
     res = scan(root, base, "--full" in a, sections, manifest, opens, caps=caps, outcome=opt("--outcome", "UNACCEPTED"))
     res["clear"] = {x for i, x in enumerate(a) if i and a[i - 1] == "--clear-cap"}
     res["note"] = opt("--note", "")
+    res["base_sha"] = base_sha if base else None
     unknown = [p for p in list(opens) + list(caps) + list(res["clear"]) if p not in res["files"]]
     if unknown:
         print("error: --open or --cap names a path scan.py does not list (use the sources-relative path with forward slashes): " + ", ".join(unknown)); sys.exit(2)

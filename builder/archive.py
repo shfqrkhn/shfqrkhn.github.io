@@ -7,7 +7,7 @@ A page can be named by its id, its address slug, or its title (any capitals). Ad
 It is safe to repeat: asking for the state a page already has changes nothing.
 "remove" deletes a page: it leaves the registry (or deletes its content file), the site drops it on the next build, and its source file in
 sources/apps moves to history (so a mistake is recoverable). It needs --yes. Old links to it show the 404 page."""
-import json, os, subprocess, sys
+import json, os, subprocess, sys, time
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
@@ -33,10 +33,10 @@ def load_all():
     return reg, pages
 
 
-def find(pages, word):
+def find(pages, word, exact=False):
     w = word.strip().lower()
     hits = [p for p in pages if w in (p["id"].lower(), p["slug"].lower(), p["title"].lower()) or w in [f.lower() for f in p["data"].get("former_names", [])]]
-    if not hits:
+    if not hits and not exact:  # a partial name is fine for archive and restore, never for remove
         hits = [p for p in pages if w in p["title"].lower() or w in p["id"].lower()]
     return hits
 
@@ -47,24 +47,31 @@ def remove(reg, pages, words, build):
         print("Removing deletes a page from the site. Add --yes to confirm."); return 2
     gone, problems = [], []
     for word in words:
-        hits = find(pages, word)
+        hits = find(pages, word, exact=True)
         if len(hits) != 1:
-            problems.append('"%s": %s' % (word, "no page matches" if not hits else "matches several (%s); use the id" % ", ".join(h["id"] for h in hits))); continue
+            problems.append('"%s": %s' % (word, "no page has that id, address or name" if not hits else "matches several (%s); use the id" % ", ".join(h["id"] for h in hits))); continue
         gone.append(hits[0])
     if problems:
         print("Nothing changed.\n  " + "\n  ".join(problems)); return 1
     sup = SUP; os.makedirs(sup, exist_ok=True)
+
+    def keep(f):  # copy into history without overwriting an older, different copy; True when the copy is verified
+        dst = os.path.join(sup, os.path.basename(f))
+        if os.path.exists(dst) and open(dst, "rb").read() != open(f, "rb").read():
+            b, e = os.path.splitext(dst); dst = "%s.%s%s" % (b, time.strftime("%Y%m%d-%H%M%S"), e)
+        shutil.copy2(f, dst)
+        return open(f, "rb").read() == open(dst, "rb").read()
     for p in gone:
         if p["src"] == "registry":
             reg["pages"] = [x for x in reg["pages"] if x["id"] != p["id"]]
             d = p["data"]
             if d.get("form", "single") == "single" and not os.path.isabs(d["source"]):
                 for f in glob.glob(os.path.join(glob.escape(SOURCES), d["source"].replace("/", os.sep))):
-                    shutil.copy2(f, sup)
-                    if open(f, "rb").read() == open(os.path.join(sup, os.path.basename(f)), "rb").read():
+                    if keep(f):
                         os.remove(f)
         else:
-            shutil.copy2(p["src"], sup); os.remove(p["src"])
+            if keep(p["src"]):
+                os.remove(p["src"])
         print("Removed: %s (source kept in history)" % p["title"])
     json.dump(reg, open(REG, "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
     if build:

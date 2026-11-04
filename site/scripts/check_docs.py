@@ -22,7 +22,7 @@ DOCS = {
 }
 FILLER = ("in order to", "it is important to note", "please note", "basically", "obviously", "needless to say", "it should be noted",
           "due to the fact", "at this point in time", "a number of", "as a matter of fact", "it goes without saying", "needless")
-EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿⭐⬆✅❌]")
+EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿⬀-⯿\ufe0f]")
 errors = []
 
 

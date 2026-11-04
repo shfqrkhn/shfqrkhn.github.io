@@ -157,7 +157,7 @@ for chk in ("check_privacy.py", "check_docs.py", "check_pages.py", "check_pwa.py
     ok(chk + " passes on the site", r.returncode == 0, r.stdout[-300:])
 _conv = os.path.join(os.path.dirname(OM), "converge")
 if os.path.isdir(_conv):  # the converge scripts must flag their own planted defects (Omni 8.7 step 1)
-    _c = [run([os.path.join(_conv, "omni_check.py"), "--control"]), run([os.path.join(_conv, "scan.py"), "--control"])]
+    _c = [run([os.path.join(_conv, "omni_check.py"), "--control"]), run([os.path.join(_conv, "scan.py"), "--control"]), run([os.path.join(_conv, "apply_edits.py"), "--control"])]
     ok("converge scripts flag their planted defects", all(x.returncode == 0 for x in _c), " | ".join(x.stdout[-120:] for x in _c))
 
 # 6. browser tests (optional)
