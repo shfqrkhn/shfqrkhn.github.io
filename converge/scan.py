@@ -14,7 +14,7 @@ window, an "as of" date (YYYY-MM-DD, YYYY-MM or Month YYYY) older than the windo
 that the script itself must flag. Reads no credential or plugin data; sources outside the scanned folder are not seen (cap their claims)."""
 import datetime, hashlib, json, os, re, sys, tempfile
 
-SKIP_DIRS = {".obsidian", ".git", "archive", "node_modules", "__pycache__"}
+SKIP_DIRS = {".obsidian", ".git", "archive", "node_modules", "__pycache__", "receipts"}  # receipts: a run must not hash its own records
 TEXT = {".md", ".html", ".json", ".txt", ".css", ".js", ".csv", ".py", ".yml", ".yaml"}
 WINDOW_RUNS, WINDOW_DAYS = 4, 90
 HERE = os.path.dirname(os.path.abspath(__file__))
