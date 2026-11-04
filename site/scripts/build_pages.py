@@ -42,6 +42,9 @@ def validate(d, where):
     for k in ("title", "kind", "slug", "topic", "blurb", "blocks"):
         if k not in d:
             bad("missing " + k)
+    for k in ("title", "kind", "slug", "topic", "blurb"):
+        if not isinstance(d[k], str):
+            bad(k + " must be text")
     if d["kind"] not in KINDS:
         bad("kind must be one of %s" % ", ".join(KINDS))
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", d["slug"]):
@@ -53,6 +56,10 @@ def validate(d, where):
     if not isinstance(d["blocks"], list) or not d["blocks"]:
         bad("blocks must be a non-empty list")
     for i, b in enumerate(d["blocks"]):
+        if not isinstance(b, dict):
+            bad("block %d must be an object" % i)
+        if not isinstance(b.get("title", ""), str):
+            bad("block %d: title must be text" % i)
         t = b.get("type")
         if t in ("list", "steps"):
             if not isinstance(b.get("items"), list) or not all(isinstance(x, str) and x for x in b["items"]):
@@ -61,8 +68,9 @@ def validate(d, where):
             if not isinstance(b.get("text"), str) or not b["text"]:
                 bad("block %d: text must be a string" % i)
         elif t == "table":
-            if not isinstance(b.get("head"), list) or not isinstance(b.get("rows"), list) or any(len(r) != len(b["head"]) for r in b["rows"]):
-                bad("block %d: rows must match head" % i)
+            cells = lambda r: isinstance(r, list) and all(isinstance(c, str) for c in r)
+            if not cells(b.get("head")) or not isinstance(b.get("rows"), list) or not all(cells(r) and len(r) == len(b["head"]) for r in b["rows"]):
+                bad("block %d: head and each row must be lists of text, rows as long as head" % i)
         else:
             bad("block %d: type must be list, steps, text or table" % i)
     d.setdefault("keywords", "")

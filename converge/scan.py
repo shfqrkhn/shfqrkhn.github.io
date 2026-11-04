@@ -7,7 +7,7 @@
 Walks the sources (never archive, .git, or a folder named in private-skip.txt), hashes every file by bytes, builds the relation index (wikilinks,
 markdown links, file stems named in text; links are symmetric), and computes each item's closure key: own bytes + the content
 hashes of every linked item + the manifest entry for the item (claim, sources, environment: anything a script cannot identify)
-+ the evaluator (the bytes of this script and omni_check.py) + the text of the named governing Omni sections.
++ the evaluator (the bytes of this script, omni_check.py and apply_edits.py) + the text of the named governing Omni sections.
 Status per item against the baseline: NEW, CHANGED (own bytes), IMPACT (a neighbour or the key inputs changed), REFRESH (refresh
 window, an "as of" date (YYYY-MM-DD, YYYY-MM or Month YYYY) older than the window, a passed "recheck" date in the same forms, or an open defect), CARRIED (same key), REMOVED.
 --save writes the receipt of this run; give --outcome ASSURED_CONVERGED (or ASSURED_CONVERGED AT THE PRACTICAL PEAK) only after the run completed, because --baseline refuses any other receipt. --control runs a planted-defect check
@@ -163,7 +163,7 @@ def receipt(res):
     for r, own in res["files"].items():
         prev = res["items"].get(r)
         carried = r in res["out"]["CARRIED"]
-        runs = prev.get("runs", 0) + 1 if carried else int(res["keys"][r], 16) % WINDOW_RUNS  # staggers refresh dates across items reviewed together
+        runs = prev.get("runs", 0) + 1 if carried else int(res["keys"][r], 16) % WINDOW_RUNS  # staggers the run counts of items reviewed together
         status = "CARRIED" if carried else ("REFRESHED" if r in res["out"]["REFRESH"] else "REVIEWED")
         new[r] = {"own": own, "key": res["keys"][r], "status": status, "reviewed": prev["reviewed"] if carried else today.isoformat(), "runs": runs,
                   "reviewed_run": prev.get("reviewed_run", 0) if carried else run, "links": sorted(res["edges"][r])}

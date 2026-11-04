@@ -20,6 +20,9 @@ def make():
     tracked = subprocess.run(["git", "ls-files", "-z"], cwd=HOME, capture_output=True, text=True, check=True).stdout.split("\0")
     files = [f for f in tracked if f and os.path.exists(os.path.join(HOME, f))]
     files += [f for f in LOCAL_ONLY if os.path.exists(os.path.join(HOME, f))]
+    for f in LOCAL_ONLY:
+        if not os.path.exists(os.path.join(HOME, f)):
+            print("warning: %s is missing, so this backup does not hold it" % f)
     rec = os.path.join(HOME, "converge", "receipts")
     if os.path.isdir(rec):
         files += ["converge/receipts/" + f for f in sorted(os.listdir(rec)) if f.endswith(".json")]
@@ -41,10 +44,16 @@ def verify(path):
         if z.testzip():
             bad.append("corrupt member")
         man = json.loads(z.read("Omnevum/BACKUP-MANIFEST.json"))["files"]
+        if not man:
+            bad.append("empty manifest")
+        bad += ["missing " + f for f in man if "Omnevum/" + f not in z.namelist()]
         for f, h in man.items():
+            if "Omnevum/" + f not in z.namelist():
+                continue
             if sha(z.read("Omnevum/" + f)) != h:
                 bad.append("hash mismatch " + f)
-    print("verify: %s (%d files)" % ("OK" if not bad else "FAILED " + ", ".join(bad[:8]), len(man)))
+    gone = [f for f in LOCAL_ONLY if f not in man]
+    print("verify: %s (%d files)%s" % ("OK" if not bad else "FAILED " + ", ".join(bad[:8]), len(man), "; not in this backup: " + ", ".join(gone) if gone else ""))
     return 1 if bad else 0
 
 
