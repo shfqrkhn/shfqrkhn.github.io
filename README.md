@@ -39,7 +39,7 @@ https://shfqrkhn.github.io
 
 ## Work on it
 
-Python 3.12 or newer, Windows. The browser tests need Playwright: `python -m pip install -r requirements.txt` then `python -m playwright install chromium`.
+Python 3.12 or newer, on Windows, macOS or Linux (CI builds on Windows). The browser tests need Playwright: `python -m pip install -r requirements.txt` then `python -m playwright install chromium`.
 
 ```bash
 python builder/build.py                              # build site/ and run every gate

@@ -48,7 +48,7 @@ Honest limits: "self-healing" means detect, report, and regenerate; no part rewr
 ```
 Repository (github.com/shfqrkhn/shfqrkhn.github.io): everything needed to rebuild, run and extend the project
   sources/apps/                        hand-built single-file apps, named APPS-<KIND>-<Name>-v<X.Y.Z>.html
-  sources/method/                      Omni, the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue
+  sources/method/                      Omni, the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue; one file each, `TECH-AINT-<Name>-v<X.Y.Z>.<ext>`, the latest version only (replace the old file when a new one arrives)
   docs/                                this note (FRAMEWORK.md, the source of truth) and PRIVACY.md
   builder/                             the framework tools
     build.py                           THE command: validate, gate, build, check
@@ -182,7 +182,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 - Run the executed checks first: `build.py` (all gates), `selftest.py`, `site/scripts/test_mobile.py`, `site/scripts/test_personalize.py`. They are free and decide most questions.
 - For reading and coverage use the cheapest sufficient model: haiku agents, or Codex with the text passed in the prompt and low or medium effort (`codex exec -s read-only -c model_reasoning_effort="low"`). Keep a strong model for adversarial passes and for applying edits. Converge is the owner's convergence method (Omni section 8), run with the Prompt Clipboard blocks ConvergeOmni, ConvergeWork and ConvergeLibrary. Verify every reported defect by exact quote before acting; most reports from weaker models are false positives.
-- The Converge tooling lives in `converge/` (`scan.py`, `omni_check.py`, `apply_edits.py`; receipts stay local and git-ignored because they list private file names). A receipt counts as a baseline only when its run ended ASSURED_CONVERGED (Omni 8.4).
+- The Converge tooling lives in `converge/` (`scan.py` (use `--root .` to cover the whole repository; it finds Omni under any folder), `omni_check.py`, `apply_edits.py`; receipts stay local and git-ignored because they list private file names). A receipt counts as a baseline only when its run ended ASSURED_CONVERGED (Omni 8.4).
 
 ## 10. Design system
 
@@ -261,6 +261,7 @@ Hub 1.4.3. 20 pages in 7 groups: 20 single, 0 bundle, 0 remote, 0 generated; 9 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-04, hub 1.4.4 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.0, Resource Catalogue 2.0.0, Prompt Clipboard 1.0.0 and Knowledge Distiller 1.5.5 (the separate MIT edition is retired; 1.5.5 is the single release), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.
 - 2026-11-04, hub 1.4.4: identity hardening. The privacy rule now also forbids employer, ministry, department, agency, military and government-unit names or acronyms, and any handle beyond the site address; the private list carries them; content must come from public sources; leaks are fixed by rewriting history, not by a later commit. The retirement planner lost its government-specific wording; the licence holder is now "Omnevum contributors".
 - 2026-11-04, hub 1.4.3: the whole project moved into this repository: sources, builder, framework documents and review scripts live beside the site. GitHub Actions now builds and deploys the site on every push, so generated files are no longer committed; `publish.py` commits and pushes sources and waits for the deploy; `backup.py` zips tracked and local-only files. The rebuilt site was proven byte for byte identical to the previously published one. The Obsidian vault is no longer part of the workflow.
 - 4.0.0, hub 1.4.3 and later: `backup.py` (dated zip with manifest and git bundle, `--verify`, `--copy-to`).

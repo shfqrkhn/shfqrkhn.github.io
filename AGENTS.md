@@ -6,7 +6,7 @@ Instructions for AI coding agents (and people) working in this repository. Read 
 
 A static, offline-first site of small apps, built from sources by `builder/build.py` and deployed by GitHub Actions. Sources live in `sources/`, the builder in `builder/`, the published tree in `site/`. Generated files in `site/` are git-ignored: never edit them, never commit them.
 
-## Commands (Windows, Python 3.12+)
+## Commands (Python 3.12+, any OS; CI builds on Windows)
 
 ```bash
 python builder/build.py        # validate, build site/, run every gate; must pass
