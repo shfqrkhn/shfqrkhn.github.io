@@ -8,7 +8,7 @@ Omnevum never publishes personal information. This holds for every app, page and
 - Identifiers: government or account numbers, usernames and handles, IP addresses.
 - Secrets: API keys, tokens, private keys.
 - Traces: local file paths, credit lines that name a person.
-- Employment: employer, ministry, department, agency, military or government-unit names and acronyms that identify the owner's job, and any handle beyond the owner's GitHub handle in the site and repository addresses. Keep these terms in the private list only.
+- Employment: any detail of the owner's employment or workplace (names, units, acronyms), and any handle beyond the owner's GitHub handle in the site and repository addresses. Keep these terms in the private list only.
 - Origin: content taken from work material, internal training or client data. Use public sources only.
 
 ## What is allowed
@@ -18,7 +18,7 @@ Omnevum never publishes personal information. This holds for every app, page and
 - Names of organisations, products, places and fictional characters.
 
 ## How it is enforced
-1. `site/scripts/check_privacy.py` scans every published file for the patterns above. A hit fails the check.
+1. `site/scripts/check_privacy.py` scans every published file for contact data, keys, local paths and credit lines. Names, handles and employment details rely on the private list and on review. A hit fails the check.
 2. `site/scripts/check_site.py` runs it, and so does the CI workflow on every push.
 3. The release build also checks the app sources against a private list of owner and household names. That list is kept outside this repo.
 4. Apps keep what you type on your own device. They send nothing anywhere unless you start it, and no app ships with someone's records inside.

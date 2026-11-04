@@ -18,7 +18,8 @@ COLOR = re.compile(r"(?:rgba?|hsla?)\([^)]*\)")  # CSS colour values look like n
 ROLE = re.compile(r"\b(?:Owners?|Managers?|Teams?|Users?|Leads?|Engineers?|Studios?|Games|Software|Inc|Ltd|Corporation|Contributors|Authors|Developers)\b")
 RULES = [
     ("email", re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")),
-    ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}[ .-])?\(?\d{3}\)?[ .-]\d{3}[ .-]\d{4}(?![\d.])")),
+    ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}[ .-])?(?:\(\d{3}\)[ .-]?|\d{3}[ .-])\d{3}[ .-]\d{4}(?![\d.])")),
+    ("email-spelled", re.compile(r"[A-Za-z0-9._%+-]+\s*(?:\[at\]|\(at\)|\{at\})\s*[A-Za-z0-9-]+(?:\s*(?:\[dot\]|\(dot\)|\.)\s*[A-Za-z0-9-]+)+", re.I)),
     ("gov-id", re.compile(r"(?<!\d)\d{3}[- ]\d{3}[- ]\d{3}(?!\d)|(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")),
     ("postal-ca", re.compile(r"(?<![#\w])[ABCEGHJ-NPRSTVXY]\d[A-Z][ -]\d[A-Z]\d(?!\w)")),
     ("street", re.compile(r"\b\d{1,5}\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\s(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd|Crescent|Court|Ct)\b")),
@@ -34,6 +35,16 @@ def load_allow():
     return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {"contains": []}
 
 
+import html as _html, unicodedata
+_ZW = re.compile("[\u200b-\u200f\u2060\ufeff\u00ad]")
+_HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p", "\u0441": "c", "\u0445": "x", "\u0443": "y", "\u0456": "i", "\u0455": "s", "\u0458": "j", "\u03bf": "o", "\u03b1": "a"})
+
+
+def norm(t):
+    """What a person reads: entities decoded, compatibility forms folded, zero-width marks removed, look-alike letters mapped to Latin."""
+    return _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t))).translate(_HOMO)
+
+
 def files():
     for dp, dn, fn in os.walk(ROOT):
         dn[:] = [d for d in dn if d not in SKIP_DIRS]
@@ -47,7 +58,9 @@ def main():
     names = []
     if "--names" in sys.argv:
         names = [l.strip() for l in open(sys.argv[sys.argv.index("--names") + 1], encoding="utf-8") if l.strip() and not l.startswith("#")]
-    name_rx = re.compile(r"(?<![A-Za-z0-9/])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in names), re.I) if names else None
+    _short = [n for n in names if len(n) < 5]; _long = [n for n in names if len(n) >= 5]
+    _parts = ([r"(?<![A-Za-z0-9/])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(re.escape(n) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
+    name_rx = re.compile("|".join(_parts), re.I) if _parts else None
     allow = [a.lower() for a in load_allow().get("contains", [])]
     problems = []
     if not os.path.isdir(ROOT):
@@ -60,8 +73,10 @@ def main():
             text = open(p, encoding="utf-8", errors="replace").read()
         except OSError:
             continue
-        raw = text
-        text = COLOR.sub(" ", BLOB.sub(" ", text))
+        raw = norm(text)
+        text = COLOR.sub(" ", BLOB.sub(" ", raw))
+        if name_rx and name_rx.search(norm(rel)):
+            problems.append("%s: owner-name: the file name carries a private name" % rel)
         checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
         for kind, rx in checks:
             if kind in ("key", "owner-name"):  # a key or a name can hide inside a long run of letters and dashes: scan the raw text

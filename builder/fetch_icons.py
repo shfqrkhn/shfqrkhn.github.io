@@ -14,6 +14,9 @@ def main():
     url = "https://registry.npmjs.org/@phosphor-icons/core/-/core-%s.tgz" % ver
     print("downloading %s" % url)
     data = urllib.request.urlopen(url, timeout=90).read()
+    pinned = {"2.1.1": "sha512-v4ARvrip4qBCImOE5rmPUylOEK4iiED9ZyKjcvzuezqMaiRASCHKcRIuvvxL/twvLpkfnEODCOJp5dM4eZilxQ=="}.get(ver)  # the registry's published integrity for each version in use
+    if not pinned or "sha512-" + __import__("base64").b64encode(__import__("hashlib").sha512(data).digest()).decode() != pinned:
+        sys.exit("refused: the downloaded package does not match the pinned sha512 for version " + ver + " (pin the new version's integrity in fetch_icons.py after checking it)")
     t = tarfile.open(fileobj=io.BytesIO(data), mode="r:gz")
     added = 0
     for m in t.getmembers():

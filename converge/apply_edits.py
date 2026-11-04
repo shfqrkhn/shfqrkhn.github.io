@@ -30,6 +30,8 @@ def main():
     if "--fix-mode" in a:
         ms = -10.0  # fixes may add text; deletions must keep every fact somewhere else in the file
     path = V + prop["file"]
+    if not os.path.realpath(path).startswith(os.path.realpath(V.rstrip("/"))):
+        sys.exit("refused: the proposal names a file outside sources/: " + prop["file"])
     text = open(path, encoding="utf-8", newline="").read()
     nl = "\r\n" if "\r\n" in text else "\n"
     work = text.replace("\r\n", "\n")

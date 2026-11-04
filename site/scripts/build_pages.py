@@ -16,6 +16,8 @@ E = html.escape
 
 _ICONS = os.path.join(ROOT, "scripts", "ui-icons.json")
 ICON = json.load(open(_ICONS, encoding="utf-8")) if os.path.exists(_ICONS) else {}  # Phosphor Icons (MIT), written by the build; empty until the first build
+if not ICON and __name__ == "__main__":
+    sys.exit("Run python builder/build.py once first: it writes the icon file these scripts need.")
 
 CSS = re.sub(r"\n\s*", "\n", re.sub(r"/\*.*?\*/", "", open(os.path.join(ROOT, "scripts", "ui.css"), encoding="utf-8").read(), flags=re.S).strip())  # the one design system
 
