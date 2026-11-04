@@ -1,7 +1,7 @@
 ---
 type: payload
 status: active
-version: 1.5.7
+version: 1.5.8
 updated: 2026-11-04
 description: "KnowledgeDistiller: standalone offline study app generator with rights-aware MIT-ready release checks."
 aliases: [KnowledgeDistiller]
@@ -17,7 +17,7 @@ Copyright is not eliminated by paraphrasing. A permissive licence grants reuse p
 
 The generic self-contained template later in this file is the implementation baseline; topic-specific progress migrations belong only in updates to that same app. A finished app may contain topic data, manifest details, a specific migration, and different script integrity hashes. Data drives the lesson; only code changes require integrity-hash updates. Old progress must migrate safely when display-neutral identifiers change. A generator template stays topic-independent; a finished app may add a clearly tested, topic-specific migration overlay. Compare the shared code after accounting for documented overlays rather than requiring byte-for-byte identity.
 
-## Verification and continuity contract (revision 1.5.7)
+## Verification and continuity contract (revision 1.5.8)
 
 - When the owner requests a revision, read the newest accessible KnowledgeDistiller file and relevant subject/app sources; compare versions and hashes. Other projects are not subject evidence. Use the newest available baseline while preserving existing data, chapters, activity types, and saved-progress identifiers unless a verified migration is implemented.
 - An offline file may run with browser storage disabled. The guide must still be readable and usable, warn when progress is not persistent, and offer manual progress export and restoration. Treat `file:` storage as browser-dependent; never promise durable automatic saving.
@@ -199,7 +199,7 @@ For large sources, use a local text extractor; for current facts, use available 
 ## MIT compatibility and provenance gate (mandatory on public-facing builds)
 
 1. Identify every copied element of the HTML, including icons, layout code, text, datasets, and any source-dependent figure. Mark each as authored; explicitly MIT-licensed with full notice; separately licensed with reviewed compatibility; or RIGHTS_UNKNOWN. Public MIT clearance is blocked by RIGHTS_UNKNOWN or unapproved restrictive material.
-2. Place the exact MIT grant, conditions and warranty disclaimer plus a copyright-holder notice in the HTML, using only holder text the owner supplies (never a person's name inferred from the sources). If holder identity cannot be established, label the notice provisional and the result MIT-ready candidate only. A generic “Contributors” credit is not proof of contributor authorization. Do not add third-party artwork. If a third-party component is unavoidable, independently validate its rights and retain mandatory notices; do not claim it is original.
+2. Keep the template's MIT grant, conditions and warranty disclaimer with its generic holder line. When the AI rewords all material and copies no third-party expression, no further copyright-holder notice is needed; never insert a person's name. Do not add third-party artwork. If a third-party component is unavoidable, independently validate its rights and retain mandatory notices; do not claim it is original.
 3. If source rights are unresolved, avoid importing source passages, images, tables, logos, and recognizable expression; re-express general uncopyrightable methods where accurate. Do not claim that term substitution, paraphrasing or source removal itself clears copyright.
 4. Keep a private source inventory, support map, evidence dates and rights status, without embedding the source passages in the public file. A learner-facing “Sources” page may be omitted only if no attribution rule or academic obligation requires it; the “Licences” page must remain.
 5. Keep the data block self-contained and independent of the source files: no CDNs, web fonts, remote APIs, telemetry, build step, browser plugin, separate files, or runtime imports. All features must work after network access is removed.
