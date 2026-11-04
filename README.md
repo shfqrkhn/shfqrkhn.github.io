@@ -62,4 +62,4 @@ Everything about how pages are made, added, moved and published is in [docs/FRAM
 
 ## Licence
 
-Code and documents are MIT licensed (see `LICENSE`). Each app names its own licence in `builder/registry.json`. Phosphor Icons are MIT (`site/docs` carries the notice in the published site).
+Code and documents are MIT licensed (see `LICENSE`). Each app is MIT unless its `license` field in `builder/registry.json` says otherwise. Phosphor Icons are MIT (`site/docs` carries the notice in the published site).

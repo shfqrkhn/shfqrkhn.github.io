@@ -70,8 +70,8 @@ def gate(root, label):
 
 
 
-# A "form" is how a page is delivered. Adding a new technology means adding one row here and one branch in the three
-# places marked FORM below; nothing else changes. Hosting stays static files on GitHub Pages (or any static host).
+# A "form" is how a page is delivered. Adding a new technology means adding one row here and one branch in the places
+# that use FORMS below; nothing else changes. Hosting stays static files on GitHub Pages (or any static host).
 FORMS = {
     "single": "one self-contained HTML file in sources/apps (the default)",
     "bundle": "a folder of static files: assets, WebAssembly, or an app with its own PWA (set pwa: true); index.html is the entry",
