@@ -5,7 +5,7 @@ A proposal is {"file": "<path relative to sources/>", "edits": [{"old", "new", "
   - every section reference (§...), number, backticked term, ALL-CAPS term, file name or path in "old" is still in "new";
   - "new" is at least --min-saving shorter and contains no em or en dash;
   - "old" is not inside an html script or style element.
-Without --apply it only reports. --fix-mode accepts edits that add text (definitions, dates) and deletions whose facts all survive elsewhere in the file. With --apply the original is copied to history/token-pass first."""
+Without --apply it only reports. --fix-mode accepts edits that add text (definitions, dates) and deletions whose tokens (numbers, `code`, ALL-CAPS terms, file names) all survive elsewhere in the file; a person must read every fix-mode deletion, because a token check is not a fact check. With --apply the original is copied to history/token-pass first."""
 import json, os, re, shutil, sys
 
 _H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
