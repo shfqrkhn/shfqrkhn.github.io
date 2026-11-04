@@ -19,6 +19,10 @@ b = open(p, "rb").read()
 s = b.decode("utf-8")
 print("sha256", hashlib.sha256(b).hexdigest()[:16], "bytes", len(b))
 defects = []
+fm_version = re.search(r"(?m)^version: (\S+)", s)
+file_version = re.search(r"-v(\d+\.\d+\.\d+)\.md$", p)
+if fm_version and file_version and fm_version.group(1) != file_version.group(1):
+    defects.append("file name version %s differs from the front matter version %s" % (file_version.group(1), fm_version.group(1)))
 heads = set()
 fence = False
 titles = []

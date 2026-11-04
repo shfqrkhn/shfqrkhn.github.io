@@ -38,6 +38,19 @@ if not status:
 if not go:
     print("\nDry run. Add --yes to commit and push."); sys.exit(0)
 print("4/4 commit and push")
+import shutil, tempfile
+_stage = tempfile.mkdtemp()
+try:
+    open(os.path.join(_stage, "commit-message.txt"), "w", encoding="utf-8").write(msg)
+    for _f in run(["git", "ls-files", "-mo", "--exclude-standard"]).stdout.splitlines():
+        if _f != "builder/selftest.py" and os.path.isfile(os.path.join(HOME, _f)):  # the self-test plants fake personal data on purpose
+            os.makedirs(os.path.join(_stage, os.path.dirname(_f)), exist_ok=True); shutil.copy(os.path.join(HOME, _f), os.path.join(_stage, _f))
+    _names = os.path.join(OM, "privacy_names.txt")
+    _r = run(PY + [os.path.join(os.path.dirname(OM), "site", "scripts", "check_privacy.py"), "--root", _stage] + (["--names", _names] if os.path.exists(_names) else []), check=False)
+    if _r.returncode:
+        print("FAILED: the privacy gate rejects the commit message or the changed files:\n" + _r.stdout[-1500:]); sys.exit(1)
+finally:
+    shutil.rmtree(_stage, ignore_errors=True)
 run(["git", "add", "-A"])
 if not run(["git", "config", "user.email"], check=False).stdout.strip().endswith("@users.noreply.github.com"):
     print("git has no identity. Set one first (use your GitHub noreply address): git config user.name <name>; git config user.email <id>+<user>@users.noreply.github.com"); sys.exit(1)

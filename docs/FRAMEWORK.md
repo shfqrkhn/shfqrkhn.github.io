@@ -29,9 +29,16 @@ A quality word is only worth writing if something enforces it. This table is the
 | Free and open | Free and open source options first, always (section 7). Every page declares its licence; the build reports any that is not open. |
 | Accessible, polished | One design system with four looks, 44 px targets, AA contrast checked on every colour pair in every look, reduced-motion, high-contrast, print, safe areas. |
 | Fast, minimal | Size budgets are enforced. Pages are small. No frameworks are required. |
+| Token-efficient, high signal | Say each thing once, in the fewest plain words that stay complete. No filler, no history inside rules (section 13 holds history). Every document has a size budget, so an AI can load `AGENTS.md` first and read more only on need. `check_docs.py` fails on filler, a repeated sentence, a high reading grade, bad heading structure or a blown budget. |
+| Grandma test, plain words | The first-time-user test of section 10 applies to every page and document. Short documents stay at reading grade 10 or lower (`check_docs.py`); page text follows rule 6 of section 5. |
+| Pictorial, language-light | Icons first (section 5, rule 6): meaning never rests on colour, on text inside an image or on one language. Every icon control has an accessible name; every page sets `lang`; dates, numbers and units come from the browser's `Intl`; labels stay short so a translation fits; text may grow to 200 percent and reflow at 320 px. `check_pages.py` checks `lang`, names, alt text and zoom. |
+| Structure and semantics | One `h1`, no skipped heading level, a meta description, a title under 60 characters, natural keyboard order (no `tabindex` above 0), `rel=noopener` on links that open a tab, and motion only with a `prefers-reduced-motion` rule. `check_pages.py` fails generated pages and warns on hand-built apps. |
+| Sustainable, ethical | Few bytes, no tracking, no ads, no accounts, no autoplay, work offline, honour reduced motion, offer an OLED black look. Confirm or undo risky actions; the user can always export their data. |
 | Installable, offline-first, mobile-first | Omnevum is a PWA: a full manifest (192 and 512 icons, maskable icon, shortcuts), iOS and Android install tags, and one worker that saves every page in the background. A status button shows saving, ready or offline. Large pages (over 5 MB) wait for a tap so mobile data is never spent without asking. Storage is asked to be persistent so the phone does not evict it. Checked by `check_pwa.py` and by a browser test that installs, goes offline and opens every page. |
 | Overhaul on a dime | Everything a person sees is data, not code. A name, address, accent colour, icon, kind, topic or archive state is one registry field; every colour, radius, spacing and looks value is one token in `site/scripts/ui.css`; every icon is one name in `icons.json`. One command changes it (`rename.py`, `archive.py`, an edit plus the build) and the build regenerates and re-checks everything derived. Old names and addresses are remembered (`former_names`, `aliases`) so nothing breaks. |
 | Future proof | Hosting is plain static files with relative paths: it moves to any static host unchanged. New technologies enter as a new form (section 6). |
+
+**Standards behind the rules.** WCAG 2.2 AA (accessibility), ISO 24495-1 plain language and ASD-STE100 style (short, plain sentences), GOV.UK content design (answer first, one idea per sentence), Nielsen's usability heuristics (visible state, error recovery, undo), the Web Sustainability Guidelines, OWASP-style least privilege (strict CSP, pinned actions), Semantic Versioning and Keep a Changelog (section 13), and SPDX licence ids. The Resource Catalogue lists tools that could check more (a slop detector, a plain-language linter, an interface review pack); qualify one under Omni 6.3 before adopting it. Not machine-checked yet: real screen-reader runs, translation quality and device tests. They stay manual.
 
 Honest limits: "self-healing" means detect, report, and regenerate; no part rewrites your content on its own. "Self-improving" means findings turn into tests, by you or an assistant, not an automatic learner. Nothing here claims more.
 
@@ -77,7 +84,7 @@ Published site (the site/ folder, served at the site root)
   <kind>/<slug>/index.html             a page (single and generated) or a folder of files (bundle)
   content/<kind>/<slug>.json           data for generated pages (folders starting with _ are examples)
   scripts/                             ui.css, build_pages.py, new_page.py, check_*.py, test_*.py, personalize.js
-  docs/                                FRAMEWORK.md (copy of this note), PRIVACY.md, ICONS-LICENSE.txt (generated from docs/)
+  docs/                                FRAMEWORK.md (copy of this note), PRIVACY.md, ICONS-LICENSE.txt (generated from the icon pack's licence)
 ```
 
 ## 5. Hard rules
@@ -159,7 +166,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Move a page to another kind:** change `kind`. Old links forward through the 404 page.
 
-**Add a topic or kind:** topics: add to `topics.json`, a colour in `build.py`, and `TOPICS` in `build_pages.py`. Kind: add to `KINDS` in `build.py` (name and icon), to `KINDS` in `new_app.py`, and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
+**Add a topic or kind:** topics: add to `topics.json`, a colour and an icon in `build.py` (`TOPIC_IC`), and `TOPICS` in `build_pages.py`. Kind: add to `KINDS` in `build.py` (name and icon), to `KINDS` in `new_app.py`, and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
 
 **Publish:** `python builder/publish.py "Message"` is a dry run: it builds, tests and lists the changes. Add `--yes` to commit and push to main; the deploy workflow then builds and publishes the site, and the command waits until the live hub matches this build. Generated files are never committed (git ignores them). Check the live site any time with `python site/scripts/check_live.py`.
 
@@ -170,11 +177,12 @@ One rule places every page, archived or not: its topic picks the section, then i
 | Gate | Checks | Runs |
 | --- | --- | --- |
 | Registry | required fields, forms, unique ids and addresses, blurb length, icons and topics exist | build |
-| Privacy | personal data patterns, credit lines, private name list | build (sources, content, output), CI |
-| Pages | doctype, lang, title, viewport, unique ids, alt text, named controls, no outside requests, CSP, internal links, size budgets | build, CI |
+| Privacy | personal data patterns, keys, credit lines, private name list; also the registry, root documents, workflows and converge scripts, and the commit message in `publish.py` | build (sources, content, output), publish, CI |
+| Pages | doctype, lang, title, viewport (zoom allowed), meta description, one h1, heading order, unique ids, alt text, named controls, tab order, noopener, reduced motion, no outside requests, CSP, internal links, size budgets | build, CI |
 | PWA | manifest, icons at the stated sizes, maskable icon, iOS tags, worker shell and page table match the catalog, download budget | build, CI |
 | Site | files, worker, catalog and hashes agree; nothing unlisted; size limits | build, CI |
 | Contrast | every colour pair in every look meets WCAG 2.2 (1468 checks, hues in steps of 5) | build, CI |
+| Docs | filler, repeated sentences, reading grade, heading structure and size budget of the repository documents | build, CI |
 | Kit | every hand-built page carries the current kit block and its own accent hue | build, CI |
 | Self-test | idempotent build, refusals, planted-PII catch, forms, generator, browser tests | CI, every push |
 | Live | the published site still matches the catalog | weekly, after publish |

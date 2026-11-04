@@ -37,8 +37,10 @@ def _icon(m):
 
 
 tpl = re.sub(r"@@ICON:([a-z-]+)@@", _icon, tpl)
-page = (tpl.replace("@@UI_CSS@@", css).replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)).replace("@@SCRIPT_HASH@@", script_hash)
+page = (tpl.replace("@@UI_CSS@@", "/* OMNEVUM KIT:BEGIN */\n" + css + "\n/* OMNEVUM KIT:END */").replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)).replace("@@SCRIPT_HASH@@", script_hash)
         .replace("@@TITLE@@", title).replace("@@BLURB@@", blurb))
+_st = re.search(r"<style>(.*?)</style>", page, re.S).group(1)
+page = page.replace("@@STYLE_HASH@@", "sha256-" + base64.b64encode(hashlib.sha256(_st.encode()).digest()).decode())
 fname = "APPS-%s-%s-v0.1.0.html" % (kind[:4].upper(), re.sub(r"[^A-Za-z0-9]+", "-", title).strip("-"))
 dest = os.path.join(APPS_DIR, fname)
 if os.path.exists(dest):

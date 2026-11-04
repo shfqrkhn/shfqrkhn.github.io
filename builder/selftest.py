@@ -147,9 +147,13 @@ except ValueError:
 ok("generator refuses bad data", bad)
 
 # 5. every gate on the real site
-for chk in ("check_privacy.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
+for chk in ("check_privacy.py", "check_docs.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
     r = run([os.path.join(OUT, "scripts", chk)], cwd=OUT)
     ok(chk + " passes on the site", r.returncode == 0, r.stdout[-300:])
+_conv = os.path.join(os.path.dirname(OM), "converge")
+if os.path.isdir(_conv):  # the converge scripts must flag their own planted defects (Omni 8.7 step 1)
+    _c = [run([os.path.join(_conv, "omni_check.py"), "--control"]), run([os.path.join(_conv, "scan.py"), "--control"])]
+    ok("converge scripts flag their planted defects", all(x.returncode == 0 for x in _c), " | ".join(x.stdout[-120:] for x in _c))
 
 # 6. browser tests (optional)
 try:

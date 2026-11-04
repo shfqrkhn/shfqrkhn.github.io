@@ -50,15 +50,22 @@ def main():
     name_rx = re.compile(r"(?<![A-Za-z0-9/])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in names), re.I) if names else None
     allow = [a.lower() for a in load_allow().get("contains", [])]
     problems = []
+    if not os.path.isdir(ROOT):
+        print("FAIL the folder to scan does not exist: " + ROOT); return 1
+    scanned = 0
     for p in files():
+        scanned += 1
         rel = os.path.relpath(p, ROOT)
         try:
             text = open(p, encoding="utf-8", errors="replace").read()
         except OSError:
             continue
+        raw = text
         text = COLOR.sub(" ", BLOB.sub(" ", text))
         checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
         for kind, rx in checks:
+            if kind == "key":
+                text, body = raw, text  # a key can be longer than the blob limit: scan the raw text for it
             for m in rx.finditer(text):
                 hit = m.group(0)
                 ctx = text[max(0, m.start() - 40):m.end() + 40].replace("\n", " ")
@@ -67,13 +74,18 @@ def main():
                     continue
                 if kind == "email" and re.search(r"\.(png|svg|jpg|css|js|woff2?)$", hit, re.I):
                     continue
-                if kind == "private-ip" and rel.startswith(("docs", "scripts")):
+                if kind == "private-ip" and rel.split(os.sep)[0] in ("docs", "scripts"):
                     continue
                 if kind == "credit-line" and ROLE.search(hit):
                     continue
                 if any(a in low for a in allow):
                     continue
                 problems.append("%s: %s: %r ... %s" % (rel, kind, hit[:60], ctx[:100]))
+            if kind == "key":
+                text = body
+    if scanned == 0:
+        print("FAIL no file was scanned in " + ROOT + ": a moved or renamed folder must not shrink the gate")
+        return 1
     if problems:
         print("\n".join("FAIL " + x for x in problems[:60]))
         print("privacy gate: %d problem(s)" % len(problems))

@@ -40,7 +40,7 @@ def dates_after(label, text):
 def private_prefixes():
     """Folder-name prefixes this machine keeps out of every scan, one per line in converge/private-skip.txt (git-ignored)."""
     p = os.path.join(HERE, "private-skip.txt")
-    return tuple(x.strip().upper() for x in open(p, encoding="utf-8") if x.strip()) if os.path.exists(p) else ()
+    return tuple(x.strip().upper() for x in open(p, encoding="utf-8-sig") if x.strip()) if os.path.exists(p) else ()
 
 
 PRIVATE = private_prefixes()
