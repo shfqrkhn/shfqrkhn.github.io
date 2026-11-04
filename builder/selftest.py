@@ -120,7 +120,7 @@ tmp = tempfile.mkdtemp()
 try:
     _nf, names = tempfile.mkstemp(suffix=".txt"); os.close(_nf); open(names, "w", encoding="utf-8").write("Zed\n")  # a made-up name stands in for the private list, kept outside the scanned folder
     open(os.path.join(tmp, "a.html"), "w", encoding="utf-8").write(
-        "<p>Mail jane.doe@gmail.com or call 613-555-0142 at 12 Maple Street. Designed by Jane Leadbeater. C:\\Users\\jane\\x. Hello Zed.</p>")
+        "<p>Mail jane.doe@gmail.com or call 613-555-0142 at 12 Maple Street. Designed by Jane Teamsworth. C:\\Users\\jane\\x. Hello Zed.</p>")
     r = run([os.path.join(OUT, "scripts", "check_privacy.py"), "--root", tmp, "--names", names])
     kinds = ("email", "phone", "street", "credit-line", "local-path", "owner-name")
     ok("privacy gate catches planted PII", r.returncode != 0 and all(k + ":" in r.stdout for k in kinds), r.stdout[-300:])

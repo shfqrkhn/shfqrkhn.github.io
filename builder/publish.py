@@ -21,14 +21,14 @@ def run(cmd, cwd=HOME, check=True):
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 msg = args[0] if args else "Update Omnevum"
 go = "--yes" in sys.argv
+_br = run(["git", "rev-parse", "--abbrev-ref", "HEAD"]).stdout.strip()
+if _br != "main":
+    print("FAILED: publish.py pushes to main and you are on %s. Check out main first." % _br); sys.exit(1)
 print("1/4 build and gates"); run(PY + [os.path.join(OM, "build.py")])
 if "--fast" not in sys.argv:
     print("2/4 self-test"); run(PY + [os.path.join(OM, "selftest.py")])
 else:
     print("2/4 self-test skipped (--fast)")
-_br = run(["git", "rev-parse", "--abbrev-ref", "HEAD"]).stdout.strip()
-if _br != "main":
-    print("FAILED: publish.py pushes to main and you are on %s. Check out main first." % _br); sys.exit(1)
 status = run(["git", "status", "--short"]).stdout.strip().splitlines()
 print("3/4 changes to commit: %d" % len(status))
 for line in status[:25]:

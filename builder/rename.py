@@ -43,6 +43,12 @@ def fix_csp(before, after):
     return after
 
 
+def _version_key(path):
+    """Numeric order of -vX.Y.Z file names (the same rule as build.resolve); a name with no version sorts first."""
+    m = re.search(r"-v(\d+)\.(\d+)\.(\d+)\.html$", path)
+    return tuple(int(x) for x in m.groups()) if m else (0, 0, 0)
+
+
 def repair_csp(html):
     """For each of script-src and style-src that lists sha256 hashes: executable inline blocks that are not covered replace the listed hashes
     that match nothing, in order. Returns (html, number_repaired). Does nothing when the counts cannot be paired."""
@@ -165,7 +171,7 @@ def main():
     if olds and p.get("form", "single") == "single" and not os.path.isabs(p["source"]):
         files = glob.glob(os.path.join(V, p["source"].replace("/", os.sep)))
         if files:
-            f = max(files, key=lambda p: tuple(int(x) for x in (re.search(r"-v(\d+)\.(\d+)\.(\d+)\.html$", p) or [None, 0, 0, 0]).groups()[0:3])); html = open(f, encoding="utf-8", newline="").read()
+            f = max(files, key=_version_key); html = open(f, encoding="utf-8", newline="").read()
             new_html, changed, left = rename_html(html, olds + [old_title], new, "--scripts" in opts)
             if "--scripts" in opts:
                 new_html = fix_csp(html, new_html)

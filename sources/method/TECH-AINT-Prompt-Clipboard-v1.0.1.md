@@ -43,7 +43,7 @@ EscapeHatch: From the whole conversation and all sources, give the revised promp
 Check and fix existing work, narrowest to widest.
 
 ```
-ConvergeOmni: OMNI ASSURED. Run only when the Omni key changed since the last ConvergeOmni receipt, or when asked (Omni 8.7). The Omni key is the sha256 printed by `python converge/omni_check.py <path of the latest TECH-AINT-Omni-v*.md>`; only when a ConvergeOmni run ends ASSURED_CONVERGED, recompute it on the final Omni file after its last edit and store it in `converge/receipts/omni.json` as {"sha256": "..."}; with no such file, run. Fix what omni_check.py flags first. Recursively update yourself, then CONVERGE OMNI: apply the full material Omni principle set; fix each contradiction with the smallest edit and show the diff; require 3 consecutive fresh same-key zero-change passes. Changed or delivered files meet FileGen (complete, self-contained, nothing lost or invented).
+ConvergeOmni: OMNI ASSURED. Run only when the Omni key changed since the last ConvergeOmni receipt, or when asked (Omni 8.7). The Omni key is the sha256 prefix (16 hex characters) printed by `python converge/omni_check.py <path of the latest TECH-AINT-Omni-v*.md>`; only when a ConvergeOmni run ends ASSURED_CONVERGED, recompute it on the final Omni file after its last edit and store it in `converge/receipts/omni.json` as {"sha256": "..."}; with no such file, run. Fix what omni_check.py flags first. Recursively update yourself, then CONVERGE OMNI: apply the full material Omni principle set; fix each contradiction with the smallest edit and show the diff; require 3 consecutive fresh same-key zero-change passes. Changed or delivered files meet FileGen (complete, self-contained, nothing lost or invented).
 ```
 
 ```
