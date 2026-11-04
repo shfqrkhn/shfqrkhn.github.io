@@ -55,8 +55,11 @@ class Scan(HTMLParser):
         if re.fullmatch(r"[1-9][0-9]*", (a.get("tabindex") or "").strip()) is not None: self.bad_tabindex += 1
         if a.get("target") == "_blank" and not {"noopener", "noreferrer"} & set((a.get("rel") or "").split()): self.bad_blank += 1
         if tag == "img" and a.get("alt") is None: self.imgs_no_alt += 1
-        res = {"script": "src", "img": "src", "iframe": "src", "source": "src", "audio": "src", "video": "src", "embed": "src", "form": "action"}
+        res = {"script": "src", "img": "src", "iframe": "src", "source": "src", "audio": "src", "video": "src", "embed": "src", "form": "action", "input": "src"}
         if tag in res and re.match(r"(https?:)?//", a.get(res[tag]) or ""): self.external.append((tag, a[res[tag]]))
+        for k, on in (("poster", tag == "video"), ("data", tag == "object"), ("formaction", tag in ("button", "input"))):
+            if on and re.match(r"\s*(https?:)?//", a.get(k) or ""): self.external.append((tag, a[k]))
+        if tag in ("img", "source") and any(re.match(r"(https?:)?//", u.strip()) for u in (a.get("srcset") or "").split(",")): self.external.append((tag, a["srcset"]))
         if tag == "link" and re.match(r"(https?:)?//", a.get("href") or "") and (a.get("rel") or "") not in ("canonical", "alternate"): self.external.append(("link", a["href"]))
         if tag == "a" and a.get("href") is not None: self.links.append(a["href"])
         if tag in ("a", "button"):
@@ -113,6 +116,8 @@ def csp_gaps(text):
         gaps.append("a style attribute is blocked: style-src allows no inline styles (unsafe-inline is ignored when a hash is listed)")
     if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<[a-zA-Z][^>]*\son[a-zA-Z]+\s*=", markup):
         gaps.append("an inline event handler is blocked: script-src allows no inline handlers (unsafe-inline is ignored when a hash is listed)")
+    if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<a\b[^>]*\shref\s*=\s*[\"']?\s*javascript:", markup, re.I):
+        gaps.append("a javascript: link is blocked: script-src allows no inline script")
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace(chr(13) + chr(10), chr(10)).replace(chr(13), chr(10)).encode("utf-8")).digest()).decode()  # browsers normalise line endings before hashing
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
         d = re.search(r"(?<![\w-])" + directive + r"\s+([^;]*)", csp) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp)  # an unset directive falls back to default-src

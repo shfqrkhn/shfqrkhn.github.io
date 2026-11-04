@@ -19,13 +19,14 @@ ROLE = re.compile(r"\b(?:Owners?|Managers?|Teams?|Users?|Leads?|Engineers?|Studi
 RULES = [
     ("email", re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")),
     ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}[ .-])?(?:\(\d{3}\)[ .-]?|\d{3}[ .-])\d{3}[ .-]\d{4}(?![\d.])")),
+    ("phone-run", re.compile(r"(?:tel:\+?|(?<![\w+])\+)\d{10,14}(?![\d.])", re.I)),
     ("email-spelled", re.compile(r"(?<![A-Za-z0-9._%+-])[A-Za-z0-9._%+-]{1,64}\s*(?:\[at\]|\(at\)|\{at\})\s*[A-Za-z0-9-]{1,63}(?:\s*(?:\[dot\]|\(dot\)|\.)\s*[A-Za-z0-9-]{1,63}){1,4}", re.I)),
     ("gov-id", re.compile(r"(?<!\d)\d{3}[- ]\d{3}[- ]\d{3}(?!\d)|(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")),
     ("postal-ca", re.compile(r"(?<![#\w])[ABCEGHJ-NPRSTVXY]\d[A-Z][ -]\d[A-Z]\d(?!\w)")),
     ("street", re.compile(r"\b\d{1,5}\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\s(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd|Crescent|Court|Ct)\b")),
     ("private-ip", re.compile(r"(?<![\d.])(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?![\d./])")),
-    ("key", re.compile(r"(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}")),
-    ("local-path", re.compile(r"[A-Za-z]:\\(?:Users|Documents and Settings|VSCode)\\[^\s\"'<>]{2,}|/Users/[A-Za-z0-9._-]+/|/home/(?!user/)[A-Za-z0-9._-]+/")),
+    ("key", re.compile(r"(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|glpat-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}")),
+    ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|/Users/[A-Za-z0-9._-]+/|/home/(?!user/)[A-Za-z0-9._-]+/")),
     ("credit-line", re.compile(r"\b(?:[Dd]esigned|[Cc]reated|[Ww]ritten|[Bb]uilt|[Mm]ade|[Ee]dited|[Cc]ompiled|[Pp]hotographed|[Dd]eveloped) by\s+[A-Z][a-z]+\s+(?:[A-Z]\.\s+)?[A-Z][a-z]+\b|\b(?:[Aa]uthor|[Bb]yline|[Dd]esigner|[Cc]redits?)\s*:\s*[A-Z][a-z]+\s+[A-Z][a-z]+\b")),
 ]
 
@@ -42,7 +43,7 @@ _HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p
 
 def norm(t):
     """What a person reads: entities decoded, compatibility forms folded, zero-width marks removed, look-alike letters mapped to Latin."""
-    return _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t))).translate(_HOMO)
+    return _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t).replace("%40", "@"))).translate(_HOMO)
 
 
 def files():
@@ -77,6 +78,9 @@ def main():
         text = COLOR.sub(" ", BLOB.sub(" ", raw))
         if name_rx and name_rx.search(norm(rel).replace(os.sep, " ").replace("/", " ")):
             problems.append("%s: owner-name: the file name carries a private name" % rel)
+        for kind, rx in RULES:
+            if kind in ("email", "phone", "phone-run", "key", "local-path") and rx.search(norm(os.path.basename(rel))):
+                problems.append("%s: %s: the file name carries personal data" % (rel, kind))
         checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
         for kind, rx in checks:
             if kind in ("key", "owner-name"):  # a key or a name can hide inside a long run of letters and dashes: scan the raw text

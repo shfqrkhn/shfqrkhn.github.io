@@ -1,7 +1,7 @@
 """Converge scan: the executed evidence for Omni 8.4 and 8.7. Standard library only.
   python scan.py [--root <folder>] [--baseline <receipt.json>] [--save <receipt.json>] [--full]
                  [--sections 7,8,10,16] [--manifest <manifest.json>] [--open "<path>=<open defect>"]... [--cap "<path>=<capped claim and lowest rung>"]...
-                 [--clear-cap "<path>"]... [--note "<text>"] [--all] [--outcome ASSURED_CONVERGED] [--control]
+                 [--clear-cap "<path>"]... [--note "<text>"] [--all] [--outcome "ASSURED_CONVERGED[ AT THE PRACTICAL PEAK]"] [--control]
 (--all lists every file per status, not the first 15; --save records the relation index as each item's links, the run number, the
  last FULL run and the notes; --clear-cap removes an inherited cap after a fresh full review.)
 Walks the sources (never archive, .git, or a folder named in private-skip.txt), hashes every file by bytes, builds the relation index (wikilinks,
@@ -10,7 +10,7 @@ hashes of every linked item + the manifest entry for the item (claim, sources, e
 + the evaluator (the bytes of this script and omni_check.py) + the text of the named governing Omni sections.
 Status per item against the baseline: NEW, CHANGED (own bytes), IMPACT (a neighbour or the key inputs changed), REFRESH (refresh
 window, an "as of" date (YYYY-MM-DD, YYYY-MM or Month YYYY) older than the window, a passed "recheck" date in the same forms, or an open defect), CARRIED (same key), REMOVED.
---save writes the receipt of this run; give --outcome ASSURED_CONVERGED only after the run completed, because --baseline refuses any other receipt. --control runs a planted-defect check
+--save writes the receipt of this run; give --outcome ASSURED_CONVERGED (or ASSURED_CONVERGED AT THE PRACTICAL PEAK) only after the run completed, because --baseline refuses any other receipt. --control runs a planted-defect check
 that the script itself must flag. Reads no credential or plugin data; sources outside the scanned folder are not seen (cap their claims)."""
 import datetime, hashlib, json, os, re, sys, tempfile
 
@@ -141,7 +141,7 @@ def scan(root, base=None, full=False, sections=(7, 8, 10, 16), manifest=None, op
         t = texts.get(r, "")
         stale = [x for x in dates_after("as of", t) if x < cutoff]
         passed = [x for x in dates_after("recheck", t) if x <= today.isoformat()]
-        due = bool(stale or passed or b.get("defect") or b.get("runs", 0) + 1 >= WINDOW_RUNS or (today - datetime.date.fromisoformat(b["reviewed"])).days >= WINDOW_DAYS)
+        due = bool(stale or passed or b.get("defect") or b.get("runs", 0) + 1 >= WINDOW_RUNS or (today - datetime.date.fromisoformat(b.get("reviewed", "1970-01-01"))).days >= WINDOW_DAYS)
         if b["own"] != files[r]:
             out["CHANGED"].append(r)
         elif b["key"] != keys[r]:
@@ -217,8 +217,8 @@ def main():
     if bp and not os.path.exists(bp):
         print("no baseline file at %s: every item is UNKNOWN" % bp); bp = None
     base = json.load(open(bp, encoding="utf-8")) if bp else None
-    if base and base.get("outcome") != "ASSURED_CONVERGED":
-        print("baseline refused: its outcome is %s, not ASSURED_CONVERGED; every item is UNKNOWN" % base.get("outcome")); base = None
+    if base and base.get("outcome") not in ("ASSURED_CONVERGED", "ASSURED_CONVERGED AT THE PRACTICAL PEAK"):
+        print("baseline refused: its outcome is %s, not an ASSURED outcome; every item is UNKNOWN" % base.get("outcome")); base = None
     manifest = json.load(open(opt("--manifest"), encoding="utf-8")) if opt("--manifest") else None
     bad_pairs = [x for i, x in enumerate(a) if i and a[i - 1] in ("--open", "--cap") and "=" not in x]
     if bad_pairs:
@@ -255,4 +255,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (ValueError, OSError, KeyError, TypeError) as e:  # a bad value, a missing file or a malformed receipt
+        print("error: %s" % e); sys.exit(2)
