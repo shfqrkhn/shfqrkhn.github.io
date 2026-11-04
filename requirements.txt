@@ -1,2 +1,2 @@
 # The browser tests need Playwright; the build itself needs only the Python standard library
-playwright>=1.40
+playwright>=1.64.1
