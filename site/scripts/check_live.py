@@ -26,6 +26,8 @@ if HUBSHA and hashlib.sha256(body).hexdigest() != HUBSHA:
 if EXPECT and catalog["version"] != EXPECT:
     problems.append("live hub is %s, expected %s (the new version is not deployed yet)" % (catalog["version"], EXPECT))
 for a in catalog["apps"]:
+    if a.get("sensitive"):
+        continue  # private pages are listed but never shipped
     form = a.get("form", "single")
     if form == "remote":
         if not a["address"].startswith("https://"):
