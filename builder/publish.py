@@ -42,7 +42,7 @@ import shutil, tempfile
 _stage = tempfile.mkdtemp()
 try:
     open(os.path.join(_stage, "commit-message.txt"), "w", encoding="utf-8").write(msg)
-    for _f in [x for x in run(["git", "ls-files", "-mo", "--exclude-standard", "-z"]).stdout.split("\0") if x]:
+    for _f in sorted({x for x in (run(["git", "ls-files", "-mo", "--exclude-standard", "-z"]).stdout + "\0" + run(["git", "diff", "--cached", "--name-only", "-z"]).stdout).split("\0") if x}):  # changed, new and already staged files
         if _f != "builder/selftest.py" and os.path.isfile(os.path.join(HOME, _f)):  # the self-test plants fake personal data on purpose
             os.makedirs(os.path.join(_stage, os.path.dirname(_f)), exist_ok=True); shutil.copy(os.path.join(HOME, _f), os.path.join(_stage, _f))
     _names = os.path.join(OM, "privacy_names.txt")

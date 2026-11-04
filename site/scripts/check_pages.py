@@ -103,7 +103,7 @@ def csp_gaps(text):
         if not d or "'unsafe-inline'" in d.group(1):
             continue
         if "'sha256-" not in d.group(1) and directive == "script-src":  # no hash and no unsafe-inline: every inline script is blocked
-            if any(b.group(2).strip() and "src=" not in b.group(1) and not re.search(r"""type\s*=\s*["'](?!module)[^"']*["']""", b.group(1))
+            if any(b.group(2).strip() and "src=" not in b.group(1) and not re.search(r"""type\s*=\s*["'](?!(?:module|text/javascript|application/javascript|text/ecmascript|application/ecmascript)["'])[^"']*["']""", b.group(1))
                    for b in re.finditer(r"<script\b([^>]*)>(.*?)</script>", text, re.S | re.I)):
                 gaps.append("an inline script is blocked: script-src has no hash and no unsafe-inline")
             continue
@@ -113,7 +113,7 @@ def csp_gaps(text):
             continue
         for b in re.finditer(r"<%s\b([^>]*)>(.*?)</%s>" % (tag, tag), text, re.S | re.I):
             attrs, body = b.group(1), b.group(2)
-            if tag == "script" and ("src=" in attrs or re.search(r"""type\s*=\s*["'](?!module)[^"']*["']""", attrs)):
+            if tag == "script" and ("src=" in attrs or re.search(r"""type\s*=\s*["'](?!(?:module|text/javascript|application/javascript|text/ecmascript|application/ecmascript)["'])[^"']*["']""", attrs)):
                 continue  # external, or a data block that never runs
             if not body.strip():
                 continue
@@ -184,7 +184,7 @@ def main():
                     target = os.path.normpath(os.path.join(ROOT if h.startswith("/") else base, h.lstrip("/").split("#")[0].split("?")[0]))
                     if os.path.isdir(target): target = os.path.join(target, "index.html")
                     if not os.path.isfile(target): errors.append("%s: broken link %s" % (where, h))
-            if len(raw) > BUDGET[kind] and not any(where.startswith(b) for b in BIG_OK):
+            if len(raw) > BUDGET[kind] and not any(where == b.rstrip("/") + "/index.html" or where.startswith(b.rstrip("/") + "/") for b in BIG_OK):
                 errors.append("%s: %d KB is over the %d KB budget" % (where, len(raw) // 1000, BUDGET[kind] // 1000))
             elif kind == "app" and len(raw) > 1_500_000:
                 warnings.append("%s: %d KB (large)" % (where, len(raw) // 1000))

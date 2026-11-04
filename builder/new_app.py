@@ -25,8 +25,8 @@ topics = {t["id"] for t in json.load(open(os.path.join(OM, "topics.json"), encod
 if topic not in topics or not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug) or len(blurb.split()) > 20:
     print("Check: topic must be one of %s; slug lowercase-with-dashes; blurb up to 20 words." % ", ".join(sorted(topics))); sys.exit(1)
 reg_path = os.path.join(OM, "registry.json"); reg = json.load(open(reg_path, encoding="utf-8"))
-if any(p["slug"] == slug and p["kind"] == kind for p in reg["pages"]):
-    print("That address is already used: %s/%s" % (kind, slug)); sys.exit(1)
+if any(p["slug"] == slug for p in reg["pages"]):  # a slug is unique across all kinds (the build requires it)
+    print("That address is already used by another page: %s" % slug); sys.exit(1)
 
 tpl = open(os.path.join(OM, "app-starter.html"), encoding="utf-8").read()
 css = re.sub(r"\n\s*", "\n", re.sub(r"/\*.*?\*/", "", open(os.path.join(OUT, "scripts", "ui.css"), encoding="utf-8").read(), flags=re.S).strip())
