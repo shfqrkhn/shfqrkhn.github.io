@@ -1,7 +1,8 @@
 """Executed identity and reference checks for the Omni document (Omni 8.7 step 1). Standard library only.
   python omni_check.py <Omni file>
 Prints the byte hash and a list of script-provable defects: unresolved section references, heading and contents mismatches,
-version strings that disagree, em or en dashes, control characters, carriage returns, duplicate headings."""
+version strings that disagree, a file name that disagrees with the front matter, compact tiers over their limit under CRLF,
+em or en dashes, control characters, carriage returns, duplicate headings; exit 1 when any defect is found."""
 import hashlib, re, sys
 
 if "--control" in sys.argv:
@@ -64,6 +65,17 @@ for n, line in enumerate(s.split("\n"), 1):
         defects.append("control character at line %d" % n)
 if "\r" in s:
     defects.append("carriage returns present")
+L = s.split("\n")
+for n, line in enumerate(L):
+    tm = re.match(r"### 19\.\d+ Tier ([\d,]+)$", line)
+    if tm:
+        limit = int(tm.group(1).replace(",", ""))
+        f0 = next((i for i in range(n + 1, len(L)) if L[i].startswith("```")), None)
+        f1 = next((i for i in range(f0 + 1, len(L)) if L[i].startswith("```")), None) if f0 is not None else None
+        if f1 is not None:
+            body = L[f0 + 1:f1]
+            if len("\n".join(body)) + len(body) - 1 > limit:
+                defects.append("tier %s is over its limit under CRLF" % tm.group(1))
 for d in defects[:60]:
     print("DEFECT", d)
 print("headings", len(heads), "distinct section references", len(refs), "defects", len(defects))

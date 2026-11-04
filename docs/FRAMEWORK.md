@@ -166,7 +166,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Move a page to another kind:** change `kind`. Old links forward through the 404 page.
 
-**Add a topic or kind:** topics: add to `topics.json`, a colour and an icon in `build.py` (`TOPIC_IC`), and `TOPICS` in `build_pages.py`. Kind: add to `KINDS` in `build.py` (name and icon), to `KINDS` in `new_app.py`, its `site/<kind>/` folder to `.gitignore`, and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
+**Add a topic or kind:** topics: add to `topics.json`, a colour (`HUE`) and an icon (`TOPIC_IC`) in `build.py`, and `TOPICS` in `build_pages.py`. Kind: add to `KINDS` in `build.py` (name and icon), to `KINDS` in `new_app.py`, its `site/<kind>/` folder to `.gitignore`, and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
 
 **Publish:** `python builder/publish.py "Message"` is a dry run: it builds, tests and lists the changes. Add `--yes` to commit and push to main; the deploy workflow then builds and publishes the site, and the command waits until the live hub matches this build. Generated files are never committed (git ignores them). Check the live site any time with `python site/scripts/check_live.py`.
 
@@ -269,7 +269,7 @@ Hub 1.4.3. 19 pages in 7 groups: 19 single, 0 bundle, 0 remote, 0 generated; 8 a
 
 ## 13. Change log (newest first)
 
-- 2026-11-04, hub 1.4.3 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.1, Resource Catalogue 2.0.1, Prompt Clipboard 1.0.1 and Knowledge Distiller 1.5.8 (the separate MIT edition is retired; 1.5.8 is the single release), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.
+- 2026-11-04, hub 1.4.3 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.1, Resource Catalogue 2.0.1, Prompt Clipboard 1.0.1 and Knowledge Distiller 1.5.9 (the separate MIT edition is retired; 1.5.9 is the single release), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.
 - 2026-11-04, hub 1.4.3: identity hardening. The privacy rule now also forbids any detail of the owner's employment or workplace and any handle beyond the owner's own; the private list carries them; content must come from public sources; leaks are fixed by rewriting history, not by a later commit; the licence holder is "Omnevum contributors".
 - 2026-11-04, hub 1.4.3: the whole project moved into this repository: sources, builder, framework documents and review scripts live beside the site. GitHub Actions now builds and deploys the site on every push, so generated files are no longer committed; `publish.py` commits and pushes sources and waits for the deploy; `backup.py` zips tracked and local-only files. The rebuilt site was proven byte for byte identical to the previously published one. The Obsidian vault is no longer part of the workflow.
 - 4.0.0, hub 1.4.3 and later: `backup.py` (dated zip with manifest, `--verify`).
