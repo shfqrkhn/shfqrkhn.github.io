@@ -32,6 +32,20 @@ def _hook(kind, value, tb):  # an assert or crash message can carry a registry v
 
 
 sys.excepthook = _hook
+import signal, atexit
+try:
+    signal.signal(signal.SIGTERM, lambda *a: sys.exit(143))  # a stopped build runs the restore below
+except (ValueError, AttributeError, OSError):
+    pass
+
+
+def _restore_at_exit():
+    if _RESTORE and not _DONE:
+        open(_RESTORE[0], "w", encoding="utf-8", newline="\n").write(_RESTORE[1])
+
+
+_DONE = False
+atexit.register(_restore_at_exit)
 
 
 _RESTORE = None  # (path, text): a tracked file this build rewrote, put back if a later gate fails
@@ -50,7 +64,14 @@ def check_registry():
     topics = {t["id"] for t in TOPICS}; icons = json.load(open(os.path.join(OM, "icons.json"), encoding="utf-8"))
     errs, ids, slugs, sources = [], set(), set(), set()
     for p in REG:
-        who = p.get("id", "(an entry with no id)")
+        who = p.get("id", "(an entry with no id)") if isinstance(p, dict) and isinstance(p.get("id"), str) else "(an entry with no valid id)"
+        if not isinstance(p, dict): errs.append("%s: each page must be an object" % who); continue
+        _bad = [k for k in ("id", "title", "kind", "slug", "source", "topic", "blurb", "keywords", "icon", "tagline", "form", "license", "version", "url", "host") if k in p and not isinstance(p[k], str)]
+        _bad += [k for k in ("aliases", "former_names") if k in p and not (isinstance(p[k], list) and all(isinstance(x, str) for x in p[k]))]
+        _bad += [k for k in ("private", "archived", "lazy", "own_pwa") if k in p and not isinstance(p[k], bool)]
+        _bad += [k for k in ("hue",) if k in p and p[k] is not None and (not isinstance(p[k], int) or isinstance(p[k], bool))]
+        if _bad: errs.append("%s: wrong type for %s (text, a list of text, true or false, or a whole number as the field needs)" % (who, ", ".join(_bad))); continue
+        if "@@" in "".join(str(p.get(k, "")) for k in ("title", "tagline", "blurb", "keywords")): errs.append("%s: @@ is reserved for build placeholders" % who)
         for k in ("id", "title", "kind", "slug", "source", "topic", "blurb", "keywords", "icon", "tagline"):
             if k == "source" and p.get("form") == "remote": continue
             if not p.get(k) and p.get(k) is not False: errs.append("%s: missing '%s'" % (who, k))
@@ -594,5 +615,7 @@ gate(OUT, "output")
 import subprocess
 for _chk in ("check_docs.py", "check_contrast.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
     _r = subprocess.run([sys.executable, "-B", os.path.join(OUT, "scripts", _chk)], capture_output=True, text=True, cwd=OUT)
-    print(_hide("%s -> %s" % (_chk, (_r.stdout.strip().splitlines() or ["no output"])[-1])))
-    if _r.returncode: fail([_chk + " failed: " + _r.stdout[-1500:].replace("\n", " | ")])
+    _out = (_r.stdout + _r.stderr).strip()  # a gate may report through SystemExit, which writes to stderr
+    print(_hide("%s -> %s" % (_chk, (_out.splitlines() or ["no output"])[-1])))
+    if _r.returncode: fail([_chk + " failed: " + _out[-1500:].replace("\n", " | ")])
+_DONE = True  # every gate passed: keep the rewritten FRAMEWORK.md

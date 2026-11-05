@@ -43,7 +43,9 @@ class Scan(HTMLParser):
             self.doctype = True
 
     def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
+        a = {}
+        for _k, _v in attrs:  # the browser uses the first of two same-named attributes
+            a.setdefault(_k, _v)
         if tag == "html": self.lang = a.get("lang")
         if tag == "title": self._in_title = True
         if tag == "meta":
@@ -55,10 +57,10 @@ class Scan(HTMLParser):
         if re.fullmatch(r"[1-9][0-9]*", (a.get("tabindex") or "").strip()) is not None: self.bad_tabindex += 1
         if a.get("target") == "_blank" and not {"noopener", "noreferrer"} & set((a.get("rel") or "").split()): self.bad_blank += 1
         if tag == "img" and a.get("alt") is None: self.imgs_no_alt += 1
-        ext = lambda v: re.match(r"\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"[\t\r\n]", "", v or ""), re.I)  # browsers drop tabs and line breaks; any scheme case, // or \\, or http:host
-        res = {"script": "src", "img": "src", "iframe": "src", "source": "src", "audio": "src", "video": "src", "embed": "src", "form": "action", "input": "src", "track": "src", "base": "href"}
+        ext = lambda v: re.match(r"\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"^[\x00-\x20]+", "", re.sub(r"[\t\r\n]", "", v or "")), re.I)  # browsers drop tabs and line breaks; any scheme case, // or \\, or http:host
+        res = {"script": "src", "img": "src", "iframe": "src", "source": "src", "audio": "src", "video": "src", "embed": "src", "form": "action", "input": "src", "track": "src", "base": "href", "frame": "src"}
         if tag in res and ext(a.get(res[tag])): self.external.append((tag, a[res[tag]]))
-        for k, on in (("poster", tag == "video"), ("data", tag == "object"), ("formaction", tag in ("button", "input")), ("href", tag in ("image", "use", "feimage", "script")), ("xlink:href", tag in ("image", "use", "feimage", "script")), ("src", tag == "image"), ("background", True), ("ping", True)):
+        for k, on in (("poster", tag == "video"), ("data", tag == "object"), ("formaction", tag in ("button", "input")), ("href", tag in ("image", "use", "feimage", "script")), ("xlink:href", tag in ("image", "use", "feimage", "script")), ("src", tag == "image"), ("background", True), ("ping", True), ("to", tag in ("set", "animate")), ("from", tag in ("set", "animate")), ("values", tag in ("set", "animate"))):
             if on and ext(a.get(k)): self.external.append((tag, a[k]))
         if tag in ("img", "source") and any(ext(u) for u in (a.get("srcset") or "").split(",")): self.external.append((tag, a["srcset"]))
         if tag == "link" and any(ext(u) for u in (a.get("imagesrcset") or "").split(",")): self.external.append((tag, a["imagesrcset"]))
@@ -174,7 +176,7 @@ def main():
             count += 1
             raw = open(full, "rb").read()
             text = raw.decode("utf-8", "replace")
-            s = Scan(); s.feed(re.sub(r"<script[^>]*>.*?</script>|<style[^>]*>.*?</style>", lambda m: m.group(0)[: m.group(0).index(">") + 1] + "</" + ("script" if m.group(0).startswith("<script") else "style") + ">", text, flags=re.S))
+            s = Scan(); s.feed(re.sub(r"<script(?:\"[^\"]*\"|'[^']*'|[^>])*>.*?</script>|<style(?:\"[^\"]*\"|'[^']*'|[^>])*>.*?</style>", lambda m: m.group(0)[: m.group(0).index(">") + 1] + "</" + ("script" if m.group(0).startswith("<script") else "style") + ">", text, flags=re.S))
             where = rel.replace("\\", "/")
             if not s.doctype: errors.append(where + ": missing <!doctype html>")
             if not s.lang: errors.append(where + ": missing lang")
@@ -186,6 +188,8 @@ def main():
             if s.imgs_no_alt: errors.append("%s: %d image(s) without alt" % (where, s.imgs_no_alt))
             if s.external: errors.append(where + ": loads from another site: " + ", ".join(u for _, u in s.external[:3]))
             _css = re.sub(r"\\([0-9a-fA-F]{1,6})\s?", lambda m: chr(int(m.group(1), 16)) if int(m.group(1), 16) < 0x110000 else "", html.unescape(text))  # decode HTML entities and CSS escapes first
+            _css = re.sub(r"\\([^0-9a-fA-F\n])", r"\1", re.sub(r"/\*.*?\*/", "", _css, flags=re.S))  # then simple escapes and comments
+            _css = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", " ", _css)  # control characters the URL parser drops
             if re.search(r"@import\s*(?:url\()?\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)|(?:url|image-set)\(\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", _css, re.I): errors.append(where + ": stylesheet, font or image from another site")
             if strict:
                 if where != "404.html" and not s.csp: errors.append(where + ": missing Content-Security-Policy")

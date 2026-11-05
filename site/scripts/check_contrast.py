@@ -15,6 +15,8 @@ def _strip_comments(t):
     while i < len(t):
         c = t[i]
         if q:
+            if c in "{};":
+                raise SystemExit("ui.css: a brace or semicolon inside a string (the gate cannot parse it safely)")
             out.append(c); q = None if c == q else q; i += 1
         elif c in "\"'":
             q = c; out.append(c); i += 1
@@ -64,6 +66,8 @@ for _at, _sel, _body in _rules(css):
     _toks = re.findall(r"(?:^|;)\s*(--[\w-]+)\s*:([^;]*)", _body)
     if not _toks:
         continue
+    if re.search(r"[\"']", _body):
+        raise SystemExit("ui.css: a quoted string in token rule " + _sel + " (the gate cannot model it)")
     if any("!important" in v for _, v in _toks):
         raise SystemExit("ui.css: !important on a token in " + _sel + " (the gate cannot model it)")
     if _sel not in _READ | {":root", ":root[data-app]"}:
@@ -79,7 +83,7 @@ charcoal = {**paper, **block(":root[data-look=charcoal]")}
 dark_ic = block(":root[data-look=charcoal],:root[data-look=black]")
 charcoal.update(dark_ic)
 black = {**charcoal, **block(":root[data-look=black]")}
-auto_dark = {**charcoal, **block(":root[data-look=auto]")}  # inside the prefers-color-scheme block
+auto_dark = {**paper, **block(":root[data-look=auto]")}  # data-look=auto matches only :root and its own rule, as in the browser
 LOOKS = {"paper": paper, "charcoal": charcoal, "black": black, "auto-dark": auto_dark}
 
 
@@ -109,7 +113,17 @@ def hsl(h, s, l):
 
 
 def pct(v):
-    return float(v.strip().rstrip("%"))
+    try:
+        return float(v.strip().rstrip("%"))
+    except ValueError:
+        raise SystemExit("ui.css: a percentage the contrast gate cannot read: " + v)
+
+
+_NEED = ("--bg", "--fg", "--mut", "--card", "--acc", "--on-acc", "--app-s", "--app-l", "--app-on", "--ic-fg-s", "--ic-fg-l")
+for _n, _t in {"paper": paper, "charcoal": charcoal, "black": black, "auto-dark": auto_dark}.items():
+    _miss = [k for k in _NEED if k not in _t]
+    if _miss:
+        raise SystemExit("ui.css: the %s look has no %s" % (_n, ", ".join(_miss)))
 
 
 fails, checked = [], 0
