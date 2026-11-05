@@ -180,7 +180,7 @@ def main():
             if dup: errors.append(where + ": duplicate ids " + ", ".join(dup[:5]))
             if s.imgs_no_alt: errors.append("%s: %d image(s) without alt" % (where, s.imgs_no_alt))
             if s.external: errors.append(where + ": loads from another site: " + ", ".join(u for _, u in s.external[:3]))
-            if re.search(r"@import\s+url\(\s*['\"]?https?:|url\(\s*['\"]?https?://[^)]*\.(?:woff2?|ttf|otf|css)", text): errors.append(where + ": stylesheet or font from another site")
+            if re.search(r"@import\s+(?:url\()?\s*['\"]?(?:https?:)?//|url\(\s*['\"]?(?:https?:)?//", text): errors.append(where + ": stylesheet, font or image from another site")
             if strict:
                 if where != "404.html" and not s.csp: errors.append(where + ": missing Content-Security-Policy")
                 if s.unnamed: errors.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))

@@ -55,6 +55,9 @@ def validate(d, where):
         bad("title up to 60 characters, blurb up to 20 words")
     if re.search(r"[|<>\r\n\u2013\u2014]", d["title"]):
         bad("title has no |, <, >, line break, em or en dash")
+    for k in ("version", "license", "tagline"):
+        if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n]", d[k])):
+            bad(k + " must be text with no |, <, > or line break")
     if not isinstance(d["blocks"], list) or not d["blocks"]:
         bad("blocks must be a non-empty list")
     for i, b in enumerate(d["blocks"]):
