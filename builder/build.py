@@ -55,6 +55,7 @@ def check_registry():
         if len(p.get("tagline", "")) > 40: errs.append("%s: tagline is longer than 40 characters" % who)
         if re.search("[\u2013\u2014]", p.get("tagline", "") + p.get("title", "")): errs.append("%s: no em or en dashes in names" % who)
         if re.search(r"[|<>\r\n]", p.get("tagline", "") + p.get("title", "")): errs.append("%s: no |, <, > or line break in names (they break the inventory table)" % who)
+        if re.search(r"[|<>\r\n]", "".join(str(p.get(k, "")) for k in ("license", "version", "url", "host"))): errs.append("%s: no |, <, > or line break in license, version, url or host" % who)
         if p.get("icon") not in icons: errs.append("%s: icon '%s' is not in icons.json" % (who, p.get("icon")))
         form = p.get("form", "single")
         if form not in FORMS: errs.append("%s: form must be one of %s" % (who, ", ".join(FORMS)))
@@ -92,7 +93,7 @@ def gate(root, label):
     import subprocess
     names = os.path.join(OM, "privacy_names.txt")  # the private list: local, or written in CI from the PRIVACY_NAMES secret; without it the pattern checks still run
     r = subprocess.run([sys.executable, "-B", os.path.join(OUT, "scripts", "check_privacy.py"), "--root", root] + (["--names", names] if os.path.exists(names) else []), capture_output=True, text=True)
-    print("privacy gate (%s):" % label, (r.stdout.strip().splitlines() or ["no output"])[-1])
+    print(_hide("privacy gate (%s): %s" % (label, (r.stdout.strip().splitlines() or ["no output"])[-1])))
     if r.returncode: fail(["privacy gate failed in " + label + ":\n" + r.stdout[-1500:]])
 
 
@@ -580,5 +581,5 @@ gate(OUT, "output")
 import subprocess
 for _chk in ("check_docs.py", "check_contrast.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
     _r = subprocess.run([sys.executable, "-B", os.path.join(OUT, "scripts", _chk)], capture_output=True, text=True, cwd=OUT)
-    print(_chk, "->", (_r.stdout.strip().splitlines() or ["no output"])[-1])
+    print(_hide("%s -> %s" % (_chk, (_r.stdout.strip().splitlines() or ["no output"])[-1])))
     if _r.returncode: fail([_chk + " failed: " + _r.stdout[-1500:].replace("\n", " | ")])
