@@ -58,6 +58,8 @@ def validate(d, where):
     for k in ("version", "license", "tagline"):
         if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n\u2013\u2014]", d[k])):
             bad(k + " must be text with no |, <, >, line break, em or en dash")
+    if "@@" in "".join(str(d.get(k, "")) for k in ("title", "blurb", "keywords", "tagline")):
+        bad("@@ is reserved for build placeholders")
     if "keywords" in d and not isinstance(d["keywords"], str):
         bad("keywords must be text")
     if "lang" in d and not (isinstance(d["lang"], str) and re.fullmatch(r"[A-Za-z]{2,3}(-[A-Za-z0-9]{1,8})*", d["lang"])):
