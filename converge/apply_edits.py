@@ -76,7 +76,14 @@ def main():
     a = sys.argv[1:]
     if "--control" in a:
         sys.exit(control())
-    prop = json.load(open(a[0], encoding="utf-8"))
+    if not a:
+        sys.exit("usage: python apply_edits.py <proposal.json> [--apply] [--fix-mode] | --control")
+    try:
+        prop = json.load(open(a[0], encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        sys.exit("error: cannot read the proposal: %s" % e.__class__.__name__)
+    if not isinstance(prop, dict) or not isinstance(prop.get("file"), str) or not isinstance(prop.get("edits"), list):
+        sys.exit("error: the proposal must be {\"file\": \"<path under sources/>\", \"edits\": [...]}")
     apply = "--apply" in a
     ms = float(a[a.index("--min-saving") + 1]) if "--min-saving" in a else 0.10
     if "--fix-mode" in a:
@@ -84,6 +91,8 @@ def main():
     path = V + prop["file"]
     if not os.path.realpath(path).startswith(os.path.realpath(V.rstrip("/")) + os.sep):
         sys.exit("refused: the proposal names a file outside sources/: " + prop["file"])
+    if not os.path.isfile(path):
+        sys.exit("error: no such file under sources/: " + prop["file"])
     text = open(path, encoding="utf-8", newline="").read()
     nl = "\r\n" if "\r\n" in text else "\n"
     work = text.replace("\r\n", "\n")

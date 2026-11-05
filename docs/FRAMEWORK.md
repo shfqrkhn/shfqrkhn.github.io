@@ -184,7 +184,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 | Contrast | every colour pair in every look meets WCAG 2.2 (1468 checks, hues in steps of 5) | build, CI |
 | Docs | filler, repeated sentences, reading grade, heading structure and size budget of the repository documents | build, CI |
 | Kit | every hand-built page carries the current kit block and its own accent hue | build, CI |
-| Self-test | idempotent build, refusals, planted-PII catch, forms, generator, browser tests | CI, every push |
+| Self-test | idempotent build, refusals, planted-PII catch, forms, generator, archive, rename, converge controls, browser tests | CI, every push |
 | Live | the published site still matches the catalog | weekly, after publish |
 
 ### Review workflow (scripts first, cheap models, strong tier last)

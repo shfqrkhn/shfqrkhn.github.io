@@ -2,7 +2,7 @@
 Run:  python builder/selftest.py
 Checks: (1) the build is idempotent (two builds, identical output), (2) a broken registry is refused with a plain message,
 (3) the privacy gate catches planted personal data, (4) the page generator renders valid pages, (5) every gate passes on the real site,
-(6) the browser tests pass when Playwright is installed."""
+(6) archive and restore, rename, bundle and remote forms, and the converge scripts' planted defects, (7) the browser tests pass when Playwright is installed."""
 import hashlib, json, os, shutil, subprocess, sys, tempfile
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
