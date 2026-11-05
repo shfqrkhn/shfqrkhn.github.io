@@ -176,7 +176,7 @@ def main():
             count += 1
             raw = open(full, "rb").read()
             text = raw.decode("utf-8", "replace")
-            s = Scan(); s.feed(re.sub(r"<script\b(?:\"[^\"]*\"|'[^']*'|[^>])*>.*?</script>|<style\b(?:\"[^\"]*\"|'[^']*'|[^>])*>.*?</style>", lambda m: m.group(0)[: m.group(0).index(">") + 1] + "</" + ("script" if m.group(0).startswith("<script") else "style") + ">", text, flags=re.S))
+            s = Scan(); s.feed(text)  # HTMLParser already reads script and style bodies as raw text and comments as comments
             where = rel.replace("\\", "/")
             if not s.doctype: errors.append(where + ": missing <!doctype html>")
             if not s.lang: errors.append(where + ": missing lang")

@@ -3,7 +3,7 @@
 Prints the byte hash and a list of script-provable defects: unresolved section references, heading and contents mismatches,
 version strings that disagree, a file name that disagrees with the front matter, compact tiers over their limit under CRLF,
 em or en dashes, control characters, carriage returns, duplicate headings; exit 1 when any defect is found."""
-import hashlib, re, sys
+import hashlib, os, re, sys
 
 if "--control" in sys.argv:
     import subprocess, tempfile, os
@@ -15,9 +15,17 @@ if "--control" in sys.argv:
     miss = [x for x in want if x not in out]
     print("known-bad control: %s" % ("all three planted defects flagged" if not miss else "NOT flagged: " + ", ".join(miss)))
     sys.exit(1 if miss else 0)
+if len(sys.argv) < 2:
+    print("usage: python omni_check.py <Omni file> | --control"); sys.exit(2)
 p = sys.argv[1]
-b = open(p, "rb").read()
-s = b.decode("utf-8")
+try:
+    b = open(p, "rb").read()
+except OSError as e:
+    print("error: cannot read %s: %s" % (os.path.basename(p), e.strerror)); sys.exit(2)
+try:
+    s = b.decode("utf-8")
+except UnicodeDecodeError:
+    print("error: %s is not UTF-8 text" % os.path.basename(p)); sys.exit(2)
 print("sha256", hashlib.sha256(b).hexdigest()[:16], "bytes", len(b))
 defects = []
 fm_version = re.search(r"(?m)^version: (\S+)", s)
