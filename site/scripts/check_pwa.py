@@ -1,9 +1,10 @@
 """PWA gate. Standard library only. Run from anywhere: python site/scripts/check_pwa.py
 
 Omnevum must install and work offline on a phone. This checks the contract without a browser:
-  manifest: name, id, start_url inside scope, standalone, 192 and 512 PNG icons that exist at those sizes, a maskable icon, shortcuts that resolve
+  manifest: name, id, relative start_url and scope, standalone, 192 and 512 PNG icons that exist at those sizes, a maskable icon, shortcuts that resolve
   hub: manifest link, theme-color, viewport, apple-touch-icon and the iOS app tags
-  worker: the shell files exist, and every hosted page (except pages that bring their own PWA) is in the worker's page table
+  worker: the shell files exist, the page table matches the catalog (except pages that bring their own PWA), and pages that
+  download by themselves (bundles counted in full) total under 15 MB
 Run scripts/test_browser.py for the real thing (installs, goes offline, opens every page).
 """
 import json, os, re, struct, sys

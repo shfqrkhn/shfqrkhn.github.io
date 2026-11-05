@@ -165,8 +165,8 @@ def main():
     if len(hits) != 1:
         print('"%s": %s' % (pos[0], "no page matches" if not hits else "matches several; use the id")); return 1
     p = hits[0]; new = pos[1].strip() if len(pos) > 1 else p["title"]
-    if not (1 <= len(new) <= 40) or re.search("[\u2013\u2014]", new):
-        print("The name must be 1 to 40 characters, with no em or en dash."); return 1
+    if not (1 <= len(new) <= 40) or re.search("[\u2013\u2014|<>\r\n]", new):
+        print("The name must be 1 to 40 characters, with no em or en dash, |, <, > or line break."); return 1
     slug = opts.get("--slug") or (slugify(new) if len(pos) > 1 else p["slug"])
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug):
         print("The address must be lowercase letters, digits and dashes."); return 1
@@ -192,8 +192,8 @@ def main():
         p["slug"] = slug; report.append("address: /%s/%s/ -> /%s/%s/ (old address forwards)" % (p["kind"], old_slug, p["kind"], slug))
     if "--tagline" in opts:
         tl = opts["--tagline"].strip()
-        if not (1 <= len(tl) <= 40) or re.search("[\u2013\u2014]", tl):
-            print("The tagline must be 1 to 40 characters, with no em or en dash."); return 1
+        if not (1 <= len(tl) <= 40) or re.search("[\u2013\u2014|<>\r\n]", tl):
+            print("The tagline must be 1 to 40 characters, with no em or en dash, |, <, > or line break."); return 1
         if p.get("tagline") != tl:
             p["tagline"] = tl; report.append("tagline: %s" % tl)
     if hue is not None and p.get("hue") != hue:

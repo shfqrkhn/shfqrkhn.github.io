@@ -29,7 +29,7 @@ https://shfqrkhn.github.io
 | `sources/apps/` | The apps, one file each, versioned in the file name |
 | `sources/method/` | The AI method documents: Omni, the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue |
 | `builder/` | The builder and every tool: build, rename, archive, new app, publish, backup, self-test, icon restore; the registry, icon list, install icons |
-| `site/` | The published site. Authored: `scripts/` (design system, page generator, checks, tests), `content/` (generated pages' data), `robots.txt`. Generated and git-ignored: everything else |
+| `site/` | The published site. Authored: `scripts/` (design system, page generator, checks, tests; `ui-icons.json` there is generated), `content/` (generated pages' data), `robots.txt`. Generated and git-ignored: everything else |
 | `docs/` | `FRAMEWORK.md` (how everything works: start here) and `PRIVACY.md` |
 | `converge/` | Scripts for reviewing the documents with AI cheaply (`scan.py`, `omni_check.py`, `apply_edits.py`) and their receipts |
 | `.github/workflows/` | `deploy.yml` (build, test, deploy) and `health.yml` (weekly check that the live site still matches) |

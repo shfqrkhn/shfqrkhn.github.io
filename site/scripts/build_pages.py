@@ -53,6 +53,8 @@ def validate(d, where):
         bad("topic must be one of %s" % ", ".join(TOPICS))
     if not (1 <= len(d["title"]) <= 60) or not (1 <= len(d["blurb"].split()) <= 20):
         bad("title up to 60 characters, blurb up to 20 words")
+    if re.search(r"[|<>\r\n\u2013\u2014]", d["title"]):
+        bad("title has no |, <, >, line break, em or en dash")
     if not isinstance(d["blocks"], list) or not d["blocks"]:
         bad("blocks must be a non-empty list")
     for i, b in enumerate(d["blocks"]):

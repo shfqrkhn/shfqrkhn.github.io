@@ -60,7 +60,7 @@ def main():
     if "--names" in sys.argv:
         names = [l.strip() for l in open(sys.argv[sys.argv.index("--names") + 1], encoding="utf-8-sig") if l.strip() and not l.startswith("#")]
     _short = [n for n in names if len(n) < 5]; _long = [n for n in names if len(n) >= 5]
-    _parts = ([r"(?<![A-Za-z0-9/])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(re.escape(n) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
+    _parts = ([r"(?<![A-Za-z0-9])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(re.escape(n) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
     name_rx = re.compile("|".join(_parts), re.I) if _parts else None
     allow = [a.lower() for a in load_allow().get("contains", [])]
     problems = []

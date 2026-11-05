@@ -7,6 +7,7 @@ import colorsys, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 css = open(os.path.join(ROOT, "scripts", "ui.css"), encoding="utf-8").read()
+css = re.sub(r"\s*([{}\[\]=,])\s*", r"\1", re.sub(r"/\*.*?\*/", "", css, flags=re.S)).lower()  # one canonical form, so spacing or case cannot hide a rule
 
 
 def block(selector_start):
@@ -20,9 +21,14 @@ def block(selector_start):
     return out
 
 
-_unknown = set(re.findall(r"data-look=(\w+)", css)) - {"charcoal", "black", "auto"}
+_unknown = set(re.findall(r"data-look=[\"']?(\w+)", css)) - {"charcoal", "black", "auto"}
 if _unknown:
     raise SystemExit("ui.css: a look the contrast gate does not check: " + ", ".join(sorted(_unknown)))
+_READ = {":root[data-look=charcoal]", ":root[data-look=black]", ":root[data-look=charcoal],:root[data-look=black]", ":root[data-look=auto]"}
+for _m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+    _sel = re.sub(r"\s+", "", _m.group(1))
+    if re.search(r"(?:^|;)\s*--[\w-]+\s*:", _m.group(2)) and _sel not in _READ | {":root", ":root[data-app]"}:
+        raise SystemExit("ui.css: tokens set in a rule the contrast gate does not read: " + _sel)
 
 
 paper = block(":root")
