@@ -8,7 +8,7 @@ Every published page must be a sound, small, self-contained document:
   - size budgets, so the site stays fast on a slow phone
 Errors fail the check. Warnings are printed and do not.
 """
-import json, os, re, sys
+import html, json, os, re, sys
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -55,14 +55,15 @@ class Scan(HTMLParser):
         if re.fullmatch(r"[1-9][0-9]*", (a.get("tabindex") or "").strip()) is not None: self.bad_tabindex += 1
         if a.get("target") == "_blank" and not {"noopener", "noreferrer"} & set((a.get("rel") or "").split()): self.bad_blank += 1
         if tag == "img" and a.get("alt") is None: self.imgs_no_alt += 1
-        ext = lambda v: re.match(r"\s*(?:(?:https?:)?[/\\]{2}|https?:)", v or "", re.I)  # any scheme case, leading space, // or \\, or http:host
+        ext = lambda v: re.match(r"\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"[\t\r\n]", "", v or ""), re.I)  # browsers drop tabs and line breaks; any scheme case, // or \\, or http:host
         res = {"script": "src", "img": "src", "iframe": "src", "source": "src", "audio": "src", "video": "src", "embed": "src", "form": "action", "input": "src", "track": "src", "base": "href"}
         if tag in res and ext(a.get(res[tag])): self.external.append((tag, a[res[tag]]))
-        for k, on in (("poster", tag == "video"), ("data", tag == "object"), ("formaction", tag in ("button", "input")), ("href", tag in ("image", "use")), ("xlink:href", tag in ("image", "use")), ("ping", True)):
+        for k, on in (("poster", tag == "video"), ("data", tag == "object"), ("formaction", tag in ("button", "input")), ("href", tag in ("image", "use", "feimage", "script")), ("xlink:href", tag in ("image", "use", "feimage", "script")), ("src", tag == "image"), ("background", True), ("ping", True)):
             if on and ext(a.get(k)): self.external.append((tag, a[k]))
         if tag in ("img", "source") and any(ext(u) for u in (a.get("srcset") or "").split(",")): self.external.append((tag, a["srcset"]))
+        if tag == "link" and any(ext(u) for u in (a.get("imagesrcset") or "").split(",")): self.external.append((tag, a["imagesrcset"]))
         if tag == "link" and ext(a.get("href")) and (a.get("rel") or "") not in ("canonical", "alternate"): self.external.append(("link", a["href"]))
-        if tag == "meta" and (a.get("http-equiv") or "").lower() == "refresh" and re.search(r"url\s*=\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", a.get("content") or "", re.I): self.external.append(("meta", a["content"]))
+        if tag == "meta" and (a.get("http-equiv") or "").lower() == "refresh" and re.search(r"^\s*\d*\.?\d*\s*[;,]?\s*(?:url\s*=\s*)?['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"[\t\r\n]", "", a.get("content") or ""), re.I): self.external.append(("meta", a["content"]))
         if a.get("srcdoc"):
             inner = Scan(); inner.feed(a["srcdoc"]); self.external += inner.external  # an iframe's inline document loads too
         if tag == "a" and a.get("href") is not None: self.links.append(a["href"])
@@ -184,7 +185,8 @@ def main():
             if dup: errors.append(where + ": duplicate ids " + ", ".join(dup[:5]))
             if s.imgs_no_alt: errors.append("%s: %d image(s) without alt" % (where, s.imgs_no_alt))
             if s.external: errors.append(where + ": loads from another site: " + ", ".join(u for _, u in s.external[:3]))
-            if re.search(r"@import\s+(?:url\()?\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)|(?:url|image-set)\(\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", text, re.I): errors.append(where + ": stylesheet, font or image from another site")
+            _css = re.sub(r"\\([0-9a-fA-F]{1,6})\s?", lambda m: chr(int(m.group(1), 16)) if int(m.group(1), 16) < 0x110000 else "", html.unescape(text))  # decode HTML entities and CSS escapes first
+            if re.search(r"@import\s*(?:url\()?\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)|(?:url|image-set)\(\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", _css, re.I): errors.append(where + ": stylesheet, font or image from another site")
             if strict:
                 if where != "404.html" and not s.csp: errors.append(where + ": missing Content-Security-Policy")
                 if s.unnamed: errors.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))

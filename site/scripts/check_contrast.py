@@ -7,7 +7,26 @@ import colorsys, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 css = open(os.path.join(ROOT, "scripts", "ui.css"), encoding="utf-8").read()
-css = re.sub(r"\s*([{}\[\]=,])\s*", r"\1", re.sub(r"/\*.*?\*/", "", css, flags=re.S)).lower()  # one canonical form, so spacing or case cannot hide a rule
+if "\\" in css:
+    raise SystemExit("ui.css: a backslash escape (the gate cannot read escaped tokens or selectors)")
+def _strip_comments(t):
+    """Remove /* */ comments, leaving quoted strings intact (a comment marker inside a string is not a comment)."""
+    out, i, q = [], 0, None
+    while i < len(t):
+        c = t[i]
+        if q:
+            out.append(c); q = None if c == q else q; i += 1
+        elif c in "\"'":
+            q = c; out.append(c); i += 1
+        elif t.startswith("/*", i):
+            j = t.find("*/", i + 2); i = len(t) if j < 0 else j + 2
+        else:
+            out.append(c); i += 1
+    return "".join(out)
+
+
+css = re.sub(r"\s*([{}\[\]=,;])\s*", r"\1", _strip_comments(css)).lower()
+css = re.sub(r"(--[\w-]+)\s+:", r"\1:", css)  # one canonical form, so spacing or case cannot hide a rule
 
 
 def block(selector_start):
@@ -70,7 +89,7 @@ def rgb(v):
     if m:
         h = m.group(1); h = "".join(c * 2 for c in h) if len(h) == 3 else h
         return tuple(int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
-    raise ValueError("unsupported colour " + v)
+    raise SystemExit("ui.css: a colour the contrast gate cannot read: " + v + " (use #rgb or #rrggbb)")
 
 
 def lum(c):
