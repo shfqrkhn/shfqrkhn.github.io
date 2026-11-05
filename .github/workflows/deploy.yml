@@ -24,6 +24,11 @@ jobs:
         run: |
           python -m pip install -r requirements.txt
           python -m playwright install chromium
+      - name: Private name list (repository secret PRIVACY_NAMES, one name per line; optional)
+        env:
+          PRIVACY_NAMES: ${{ secrets.PRIVACY_NAMES }}
+        run: |
+          python -c "import os; v = os.environ.get('PRIVACY_NAMES', ''); open('builder/privacy_names.txt', 'w', encoding='utf-8').write(v) if v.strip() else print('PRIVACY_NAMES is not set, so only the pattern checks run')"
       - name: Build the site and run every gate
         run: python builder/build.py
       - name: Self-test (framework, guards, browser, personalization)
