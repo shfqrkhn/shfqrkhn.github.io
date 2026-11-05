@@ -183,6 +183,9 @@ def main():
             raw = open(full, "rb").read()
             text = raw.decode("utf-8", "replace")
             s = Scan(); s.feed(text)  # HTMLParser already reads script and style bodies as raw text and comments as comments
+            for m in re.finditer(r"<meta", text, re.I):  # CSP cannot stop a meta refresh, so read every <meta> as a tag wherever it sits
+                t = Scan(); t.feed(text[m.start():m.start() + 4096])
+                s.external += [e for e in t.external if e[0] == "meta" and e not in s.external]
             where = rel.replace("\\", "/")
             if not s.doctype: errors.append(where + ": missing <!doctype html>")
             if not s.lang: errors.append(where + ": missing lang")

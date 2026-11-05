@@ -219,6 +219,8 @@ def main():
         print("no baseline file at %s: every item is UNKNOWN" % bp); bp = None
     base = json.load(open(bp, encoding="utf-8")) if bp else None
     base_sha = hashlib.sha256(open(bp, "rb").read()).hexdigest() if bp else None
+    if base is not None and not isinstance(base, dict):
+        print("baseline refused: it is not a JSON object; every item is UNKNOWN"); base = None
     if base and base.get("outcome") not in ("ASSURED_CONVERGED", "ASSURED_CONVERGED AT THE PRACTICAL PEAK"):
         print("baseline refused: its outcome is %s, not an ASSURED outcome; every item is UNKNOWN" % base.get("outcome")); base = None
     manifest = json.load(open(opt("--manifest"), encoding="utf-8")) if opt("--manifest") else None

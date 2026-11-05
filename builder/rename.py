@@ -141,8 +141,13 @@ def slugify(name):
 def main():
     args = sys.argv[1:]
     if args and args[0] == "--repair-csp":  # python builder/rename.py --repair-csp <file> ...: recompute the script and style hashes of a page after editing its inline code
+        if len(args) < 2:
+            print("Usage: rename.py --repair-csp <file> ..."); return 2
         for f in args[1:]:
-            fixed_html, n = repair_csp(open(f, encoding="utf-8", newline="").read())
+            try:
+                fixed_html, n = repair_csp(open(f, encoding="utf-8", newline="").read())
+            except (OSError, UnicodeDecodeError) as e:
+                print("%s: cannot read as UTF-8 text (%s)" % (f, e.__class__.__name__)); return 2
             open(f, "w", encoding="utf-8", newline="").write(fixed_html); print("%s: %d hash(es) repaired" % (f, n))
         return 0
     flags = {"--dry-run", "--no-build", "--scripts"}
@@ -151,14 +156,18 @@ def main():
         a = args[i]
         if a in flags:
             opts[a] = True
-        elif a == "--old":
-            olds.append(args[i + 1]); i += 1
-        elif a in ("--slug", "--hue", "--tagline", "--file-stem"):
-            opts[a] = args[i + 1]; i += 1
+        elif a in ("--old", "--slug", "--hue", "--tagline", "--file-stem"):
+            if i + 1 >= len(args):
+                print("%s needs a value" % a); return 2
+            if a == "--old": olds.append(args[i + 1])
+            else: opts[a] = args[i + 1]
+            i += 1
+        elif a.startswith("--"):
+            print("unknown option: %s" % a); return 2
         else:
             pos.append(a)
         i += 1
-    if len(pos) < 1 or (len(pos) < 2 and "--hue" not in opts and "--tagline" not in opts and "--file-stem" not in opts):
+    if len(pos) < 1 or len(pos) > 2 or (len(pos) < 2 and "--hue" not in opts and "--tagline" not in opts and "--file-stem" not in opts):
         print('Usage: rename.py <page> "<New Name>" [--slug s] [--hue 0-359] [--old "Earlier name"]... [--dry-run] [--no-build]'); return 2
     reg = json.load(open(REG, encoding="utf-8")); word = pos[0].strip().lower()
     hits = [p for p in reg["pages"] if word in (p["id"].lower(), p["slug"].lower(), p["title"].lower()) or word in [f.lower() for f in p.get("former_names", [])]]
@@ -176,7 +185,7 @@ def main():
         print("That address is an old address of another page: %s/%s" % (p["kind"], slug)); return 1
     hue = None
     if "--hue" in opts:
-        hue = int(opts["--hue"])
+        hue = int(opts["--hue"]) if re.fullmatch(r"\d{1,3}", opts["--hue"]) else -1
         if not 0 <= hue <= 359:
             print("The hue must be 0 to 359."); return 1
     old_title, old_slug = p["title"], p["slug"]; report = []
