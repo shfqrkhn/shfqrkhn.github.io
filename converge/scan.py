@@ -236,7 +236,7 @@ def main():
     res["base_sha"] = base_sha if base else None
     unknown = [p for p in list(opens) + list(caps) + list(res["clear"]) if p not in res["files"]]
     if unknown:
-        print("error: --open or --cap names a path scan.py does not list (use the sources-relative path with forward slashes): " + ", ".join(unknown)); sys.exit(2)
+        print("error: --open or --cap names a path scan.py does not list (use the path relative to --root, with forward slashes): " + ", ".join(unknown)); sys.exit(2)
     if not res["files"]:
         print("error: no file found under " + root); sys.exit(2)
     print("governing: %s  evaluator: %s  files: %d" % (res["gov"], res["ev"], len(res["files"])))
