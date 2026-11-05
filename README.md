@@ -58,7 +58,7 @@ Everything about how pages are made, added, moved and published is in [docs/FRAM
 
 - Generated pages, the offline worker and the manifest: `python builder/build.py` rebuilds them, and the deploy workflow does it on every push.
 - The full Phosphor icon pack: `python builder/fetch_icons.py` downloads the pinned version.
-- `builder/privacy_names.txt`, the private list of names that must never appear. It is kept off GitHub by design; the pattern checks run without it.
+- `builder/privacy_names.txt`, the private list of names that must never appear. It is kept off GitHub by design. CI reads it from the repository secret PRIVACY_NAMES (one name per line) and hides any match in its logs; without the secret the pattern checks run alone.
 
 ## Licence
 

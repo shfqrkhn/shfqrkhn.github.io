@@ -76,11 +76,13 @@ def main():
             continue
         raw = norm(text)
         text = COLOR.sub(" ", BLOB.sub(" ", raw))
-        if name_rx and name_rx.search(norm(rel).replace(os.sep, " ").replace("/", " ")):
-            problems.append("%s: owner-name: the file name carries a private name" % rel)
+        named = bool(name_rx and name_rx.search(norm(rel).replace(os.sep, " ").replace("/", " ")))
+        shown = "[path hidden in CI]" if named and os.environ.get("CI") else rel  # CI logs are public: never print a path that holds a private name
+        if named:
+            problems.append("%s: owner-name: the file name carries a private name" % shown)
         for kind, rx in RULES:
             if kind in ("email", "phone", "phone-run", "key", "local-path") and rx.search(norm(os.path.basename(rel))):
-                problems.append("%s: %s: the file name carries personal data" % (rel, kind))
+                problems.append("%s: %s: the file name carries personal data" % (shown, kind))
         checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
         for kind, rx in checks:
             if kind in ("key", "owner-name"):  # a key or a name can hide inside a long run of letters and dashes: scan the raw text
@@ -99,7 +101,9 @@ def main():
                     continue
                 if any(a in low for a in allow):
                     continue
-                problems.append("%s: %s: %r ... %s" % (rel, kind, hit[:60], ctx[:100]))
+                if os.environ.get("CI"):  # CI logs are public: never print what was found or its context there
+                    hit, ctx = "[hidden in CI]", "[context hidden in CI]"
+                problems.append("%s: %s: %r ... %s" % (shown, kind, hit[:60], ctx[:100]))
             if kind in ("key", "owner-name"):
                 text = body
     if scanned == 0:

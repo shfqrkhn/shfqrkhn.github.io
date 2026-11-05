@@ -71,7 +71,8 @@ if want != set(pages):
 for k, v in pages.items():
     if not os.path.isfile(os.path.join(ROOT, v["start"].strip("./").replace("/", os.sep), "index.html")):
         fail("worker lists a page that is not published: " + k)
-auto = sum(os.path.getsize(os.path.join(ROOT, k.replace("/", os.sep), "index.html")) for k, v in pages.items() if not v.get("big"))
+size = {a["address"].strip("./"): a.get("size") or 0 for a in catalog["apps"]}
+auto = sum(max(size.get(k, 0), os.path.getsize(os.path.join(ROOT, k.replace("/", os.sep), "index.html"))) for k, v in pages.items() if not v.get("big"))  # a bundle counts in full
 if auto > 15_000_000:
     errors.append("pages that download by themselves total %d MB; keep it under 15 MB (mark the largest as big)" % (auto // 1_000_000))
 
