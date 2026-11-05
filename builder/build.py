@@ -71,7 +71,7 @@ def check_registry():
         _bad += [k for k in ("private", "archived", "lazy", "own_pwa") if k in p and not isinstance(p[k], bool)]
         _bad += [k for k in ("hue",) if k in p and p[k] is not None and (not isinstance(p[k], int) or isinstance(p[k], bool))]
         if _bad: errs.append("%s: wrong type for %s (text, a list of text, true or false, or a whole number as the field needs)" % (who, ", ".join(_bad))); continue
-        if "@@" in "".join(str(p.get(k, "")) for k in ("title", "tagline", "blurb", "keywords")): errs.append("%s: @@ is reserved for build placeholders" % who)
+        if "@@" in json.dumps(p, ensure_ascii=False): errs.append("%s: @@ is reserved for build placeholders (in any field)" % who)
         for k in ("id", "title", "kind", "slug", "source", "topic", "blurb", "keywords", "icon", "tagline"):
             if k == "source" and p.get("form") == "remote": continue
             if not p.get(k) and p.get(k) is not False: errs.append("%s: missing '%s'" % (who, k))
@@ -282,7 +282,11 @@ sys.path.insert(0, os.path.join(OUT, "scripts"))
 _ui = {"home": "house", "look": "sun", "reset": "arrow-counter-clockwise", "list": "list-bullets", "steps": "list-numbers", "text": "text-align-left", "table": "table"}
 open(os.path.join(OUT, "scripts", "ui-icons.json"), "w", encoding="utf-8", newline="\n").write(json.dumps({k: P(v) for k, v in _ui.items()}, indent=1))
 import build_pages
-for d in build_pages.load_all(os.path.join(OUT, "content")):
+try:
+    _content = build_pages.load_all(os.path.join(OUT, "content"))
+except (ValueError, TypeError, KeyError) as _e:
+    fail(["content page: %s" % _e])
+for d in _content:
     raw = personalize(d["html"]); sha = hashlib.sha256(raw).hexdigest(); pid = d["kind"] + "-" + d["slug"]
     assert pid not in KIND, ("duplicate id", pid)
     apps.append(dict(id=pid, title=d["title"], folder=d["slug"], version=d["version"], path=None, cache=d["version"] + "-" + sha[:8], lazy=True, sensitive=False,

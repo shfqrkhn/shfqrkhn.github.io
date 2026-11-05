@@ -39,6 +39,8 @@ def validate(d, where):
     """Strict shape check. Returns the normalised page or raises ValueError with the file name."""
     def bad(msg):
         raise ValueError("%s: %s" % (where, msg))
+    if not isinstance(d, dict):
+        bad("the file must hold one JSON object")
     for k in ("title", "kind", "slug", "topic", "blurb", "blocks"):
         if k not in d:
             bad("missing " + k)
@@ -58,7 +60,7 @@ def validate(d, where):
     for k in ("version", "license", "tagline"):
         if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n\u2013\u2014]", d[k])):
             bad(k + " must be text with no |, <, >, line break, em or en dash")
-    if "@@" in "".join(str(d.get(k, "")) for k in ("title", "blurb", "keywords", "tagline")):
+    if "@@" in json.dumps(d, ensure_ascii=False):
         bad("@@ is reserved for build placeholders")
     if "keywords" in d and not isinstance(d["keywords"], str):
         bad("keywords must be text")

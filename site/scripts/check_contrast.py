@@ -119,7 +119,7 @@ def pct(v):
         raise SystemExit("ui.css: a percentage the contrast gate cannot read: " + v)
 
 
-_NEED = ("--bg", "--fg", "--mut", "--card", "--acc", "--on-acc", "--app-s", "--app-l", "--app-on", "--ic-fg-s", "--ic-fg-l")
+_NEED = ("--bg", "--fg", "--mut", "--card", "--acc", "--on-acc", "--app-s", "--app-l", "--app-on", "--ic-fg-s", "--ic-fg-l", "--ic-bg-s", "--ic-bg-l", "--sic-bg-l")
 for _n, _t in {"paper": paper, "charcoal": charcoal, "black": black, "auto-dark": auto_dark}.items():
     _miss = [k for k in _NEED if k not in _t]
     if _miss:

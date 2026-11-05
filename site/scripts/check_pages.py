@@ -65,7 +65,7 @@ class Scan(HTMLParser):
         if tag in ("img", "source") and any(ext(u) for u in (a.get("srcset") or "").split(",")): self.external.append((tag, a["srcset"]))
         if tag == "link" and any(ext(u) for u in (a.get("imagesrcset") or "").split(",")): self.external.append((tag, a["imagesrcset"]))
         if tag == "link" and ext(a.get("href")) and (a.get("rel") or "") not in ("canonical", "alternate"): self.external.append(("link", a["href"]))
-        if tag == "meta" and (a.get("http-equiv") or "").lower() == "refresh" and re.search(r"^\s*\d*\.?\d*\s*[;,]?\s*(?:url\s*=\s*)?['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"[\t\r\n]", "", a.get("content") or ""), re.I): self.external.append(("meta", a["content"]))
+        if tag == "meta" and (a.get("http-equiv") or "").lower() == "refresh" and re.search(r"^\s*[\d.]*\s*[;,]?\s*(?:url\s*=\s*)?['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"[\t\r\n]", "", a.get("content") or ""), re.I): self.external.append(("meta", a["content"]))
         if a.get("srcdoc"):
             inner = Scan(); inner.feed(a["srcdoc"]); self.external += inner.external  # an iframe's inline document loads too
         if tag == "a" and a.get("href") is not None: self.links.append(a["href"])
@@ -176,7 +176,7 @@ def main():
             count += 1
             raw = open(full, "rb").read()
             text = raw.decode("utf-8", "replace")
-            s = Scan(); s.feed(re.sub(r"<script(?:\"[^\"]*\"|'[^']*'|[^>])*>.*?</script>|<style(?:\"[^\"]*\"|'[^']*'|[^>])*>.*?</style>", lambda m: m.group(0)[: m.group(0).index(">") + 1] + "</" + ("script" if m.group(0).startswith("<script") else "style") + ">", text, flags=re.S))
+            s = Scan(); s.feed(re.sub(r"<script\b(?:\"[^\"]*\"|'[^']*'|[^>])*>.*?</script>|<style\b(?:\"[^\"]*\"|'[^']*'|[^>])*>.*?</style>", lambda m: m.group(0)[: m.group(0).index(">") + 1] + "</" + ("script" if m.group(0).startswith("<script") else "style") + ">", text, flags=re.S))
             where = rel.replace("\\", "/")
             if not s.doctype: errors.append(where + ": missing <!doctype html>")
             if not s.lang: errors.append(where + ": missing lang")
