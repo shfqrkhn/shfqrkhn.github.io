@@ -55,7 +55,7 @@ self.addEventListener("fetch", function (e) {
         if (req.mode === "navigate") {
           if (url.pathname !== BASE && url.pathname !== BASE + "index.html") {
             var seg = url.pathname.slice(BASE.length).replace(/index\.html$/, "").replace(/\/+$/, "");
-            if (PAGES[seg] && url.pathname !== BASE + seg + "/") return Response.redirect(BASE + seg + "/", 302);  // a saved page reached at another form of its address
+            if ((PAGES[seg] || SHELL.indexOf("./" + seg + "/") >= 0) && url.pathname !== BASE + seg + "/") return Response.redirect(BASE + seg + "/", 302);  // a saved page reached at another form of its address
             return caches.match("./404.html", { cacheName: HUB }).then(function (nf) { return nf || Response.redirect(BASE, 302); });  // 404 forwards old addresses and links home
           }
           return caches.match("./index.html", { cacheName: HUB }).then(function (hub) { return hub || Response.error(); });

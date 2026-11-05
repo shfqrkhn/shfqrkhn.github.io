@@ -25,10 +25,32 @@ _unknown = set(re.findall(r"data-look=[\"']?(\w+)", css)) - {"charcoal", "black"
 if _unknown:
     raise SystemExit("ui.css: a look the contrast gate does not check: " + ", ".join(sorted(_unknown)))
 _READ = {":root[data-look=charcoal]", ":root[data-look=black]", ":root[data-look=charcoal],:root[data-look=black]", ":root[data-look=auto]"}
-for _m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
-    _sel = re.sub(r"\s+", "", _m.group(1))
-    if re.search(r"(?:^|;)\s*--[\w-]+\s*:", _m.group(2)) and _sel not in _READ | {":root", ":root[data-app]"}:
+def _rules(text):
+    """Yield (enclosing at-rule or '', selector, declarations) for every plain rule, by brace depth."""
+    stack, start = [], 0
+    for i, ch in enumerate(text):
+        if ch == "{":
+            stack.append(text[start:i].strip().split("}")[-1].strip()); start = i + 1
+        elif ch == "}":
+            if stack:
+                head = stack.pop()
+                if not head.startswith("@"):
+                    yield (stack[-1] if stack else ""), head, text[start:i]
+            start = i + 1
+
+
+for _at, _sel, _body in _rules(css):
+    _toks = re.findall(r"(?:^|;)\s*(--[\w-]+)\s*:([^;]*)", _body)
+    if not _toks:
+        continue
+    if any("!important" in v for _, v in _toks):
+        raise SystemExit("ui.css: !important on a token in " + _sel + " (the gate cannot model it)")
+    if _sel not in _READ | {":root", ":root[data-app]"}:
         raise SystemExit("ui.css: tokens set in a rule the contrast gate does not read: " + _sel)
+    if _sel == ":root[data-app]" and {t for t, _ in _toks} - {"--acc", "--on-acc"}:
+        raise SystemExit("ui.css: :root[data-app] may set only --acc and --on-acc")
+    if re.sub(r"\s+", "", _at) != ("@media(prefers-color-scheme:dark)" if _sel == ":root[data-look=auto]" else ""):
+        raise SystemExit("ui.css: token rule %s sits in %s, where the gate does not expect it" % (_sel, _at or "no at-rule"))
 
 
 paper = block(":root")
