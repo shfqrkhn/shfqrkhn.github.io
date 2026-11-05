@@ -58,6 +58,12 @@ def validate(d, where):
     for k in ("version", "license", "tagline"):
         if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n\u2013\u2014]", d[k])):
             bad(k + " must be text with no |, <, >, line break, em or en dash")
+    if "keywords" in d and not isinstance(d["keywords"], str):
+        bad("keywords must be text")
+    if "lang" in d and not (isinstance(d["lang"], str) and re.fullmatch(r"[A-Za-z]{2,3}(-[A-Za-z0-9]{1,8})*", d["lang"])):
+        bad("lang must be a language code such as en or fr-CA")
+    if "archived" in d and not isinstance(d["archived"], bool):
+        bad("archived must be true or false")
     if len(d.get("tagline", "")) > 40:
         bad("tagline up to 40 characters")
     if "hue" in d and d["hue"] is not None and not (isinstance(d["hue"], int) and not isinstance(d["hue"], bool) and 0 <= d["hue"] <= 359):
@@ -70,6 +76,8 @@ def validate(d, where):
         if not isinstance(b.get("title", ""), str):
             bad("block %d: title must be text" % i)
         t = b.get("type")
+        if "check" in b and not isinstance(b["check"], bool):
+            bad("block %d: check must be true or false" % i)
         if t in ("list", "steps"):
             if not isinstance(b.get("items"), list) or not all(isinstance(x, str) and x for x in b["items"]):
                 bad("block %d: items must be non-empty strings" % i)
