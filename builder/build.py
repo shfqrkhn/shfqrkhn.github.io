@@ -32,7 +32,12 @@ def _hook(kind, value, tb):  # an assert or crash message can carry a registry v
 sys.excepthook = _hook
 
 
+_RESTORE = None  # (path, text): a tracked file this build rewrote, put back if a later gate fails
+
+
 def fail(problems):
+    if _RESTORE:
+        open(_RESTORE[0], "w", encoding="utf-8", newline="\n").write(_RESTORE[1])
     print(_hide("\nThe build stopped. Fix these, then run it again:\n" + "\n".join("  - " + x for x in problems)))
     raise SystemExit(1)
 
@@ -261,6 +266,10 @@ for d in build_pages.load_all(os.path.join(OUT, "content")):
                      dir=d["kind"] + "/" + d["slug"], bytes=raw))
     KIND[pid] = d["kind"]
     if d["archived"]: ARCHIVED.add(pid)
+_slugs = {}
+for a in apps:  # a slug is unique across every kind and both sources (registry and content pages): the 404 map forwards /<slug>/
+    if a.get("folder") in _slugs: fail(["%s and %s share the address word '%s' (it must be unique across kinds)" % (_slugs[a["folder"]], a["id"], a["folder"])])
+    _slugs[a.get("folder")] = a["id"]
 
 def _tile(a, sect=False):
     hue = a["hue"] if a.get("hue") is not None else HUE[a["topic"]]
@@ -556,6 +565,7 @@ if os.path.isfile(NOTE):
     new = re.sub(r"(?m)^updated: .*$", "updated: " + day, new, count=1)
     if new != note:
         open(NOTE, "w", encoding="utf-8", newline="\n").write(new)
+        _RESTORE = (NOTE, note)
     body = new[new.index("# Omnevum"):]
     os.makedirs(os.path.join(OUT, "docs"), exist_ok=True)
     open(os.path.join(OUT, "docs", "FRAMEWORK.md"), "w", encoding="utf-8", newline="\n").write(body)

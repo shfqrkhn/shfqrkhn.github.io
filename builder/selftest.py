@@ -77,7 +77,7 @@ ok("rename is repeatable (a second run changes nothing)", again == out_html and 
 tmp = tempfile.mkdtemp()
 try:
     for f in ("build.py", "paths.py", "icons.json", "topics.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
-        if os.path.exists(os.path.join(OM, f)):  # privacy_names.txt is local only and absent in CI
+        if os.path.exists(os.path.join(OM, f)):  # privacy_names.txt is local, or written in CI from the PRIVACY_NAMES secret
             shutil.copy(os.path.join(OM, f), tmp)
     for d in ("icons", "pwa-icons"):
         shutil.copytree(os.path.join(OM, d), os.path.join(tmp, d))
@@ -100,7 +100,7 @@ try:
         '<body><a href="../../" aria-label="Omnevum home">home</a><p>test</p></body></html>')
     open(os.path.join(bund, "pkg", "m.wasm"), "wb").write(bytes([0, 97, 115, 109, 1, 0, 0, 0]))
     for f in ("build.py", "paths.py", "icons.json", "topics.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
-        if os.path.exists(os.path.join(OM, f)):  # privacy_names.txt is local only and absent in CI
+        if os.path.exists(os.path.join(OM, f)):  # privacy_names.txt is local, or written in CI from the PRIVACY_NAMES secret
             shutil.copy(os.path.join(OM, f), tmp)
     for d in ("icons", "pwa-icons"):
         shutil.copytree(os.path.join(OM, d), os.path.join(tmp, d))
