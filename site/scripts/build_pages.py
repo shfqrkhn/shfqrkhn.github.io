@@ -56,8 +56,12 @@ def validate(d, where):
     if re.search(r"[|<>\r\n\u2013\u2014]", d["title"]):
         bad("title has no |, <, >, line break, em or en dash")
     for k in ("version", "license", "tagline"):
-        if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n]", d[k])):
-            bad(k + " must be text with no |, <, > or line break")
+        if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n\u2013\u2014]", d[k])):
+            bad(k + " must be text with no |, <, >, line break, em or en dash")
+    if len(d.get("tagline", "")) > 40:
+        bad("tagline up to 40 characters")
+    if "hue" in d and d["hue"] is not None and not (isinstance(d["hue"], int) and not isinstance(d["hue"], bool) and 0 <= d["hue"] <= 359):
+        bad("hue must be a whole number from 0 to 359")
     if not isinstance(d["blocks"], list) or not d["blocks"]:
         bad("blocks must be a non-empty list")
     for i, b in enumerate(d["blocks"]):

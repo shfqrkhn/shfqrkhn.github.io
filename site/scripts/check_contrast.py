@@ -30,6 +30,8 @@ def _rules(text):
     stack, start = [], 0
     for i, ch in enumerate(text):
         if ch == "{":
+            if stack and not stack[-1].startswith("@"):
+                raise SystemExit("ui.css: a rule nested inside " + stack[-1] + " (nested CSS is not read by the gate)")
             stack.append(text[start:i].strip().split("}")[-1].strip()); start = i + 1
         elif ch == "}":
             if stack:
