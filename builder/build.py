@@ -14,8 +14,26 @@ TOPICS = json.load(open(os.path.join(OM, "topics.json"), encoding="utf-8"))
 ARCHIVED = {p["id"] for p in REG if p.get("archived")}
 
 
+def _hide(text):
+    """In CI the log is public: replace every private name (case-insensitive) before anything is printed."""
+    names_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "privacy_names.txt")
+    if not os.environ.get("CI") or not os.path.exists(names_file):
+        return text
+    for n in sorted({l.strip() for l in open(names_file, encoding="utf-8-sig") if l.strip() and not l.startswith("#")}, key=len, reverse=True):
+        text = re.sub(re.escape(n), "[hidden in CI]", text, flags=re.I)
+    return text
+
+
+def _hook(kind, value, tb):  # an assert or crash message can carry a registry value: hide private names there too
+    import traceback
+    sys.stderr.write(_hide("".join(traceback.format_exception(kind, value, tb))))
+
+
+sys.excepthook = _hook
+
+
 def fail(problems):
-    print("\nThe build stopped. Fix these, then run it again:\n" + "\n".join("  - " + x for x in problems))
+    print(_hide("\nThe build stopped. Fix these, then run it again:\n" + "\n".join("  - " + x for x in problems)))
     raise SystemExit(1)
 
 
@@ -36,7 +54,7 @@ def check_registry():
         if len(p.get("title", "")) > 40: errs.append("%s: title is longer than 40 characters" % who)
         if len(p.get("tagline", "")) > 40: errs.append("%s: tagline is longer than 40 characters" % who)
         if re.search("[\u2013\u2014]", p.get("tagline", "") + p.get("title", "")): errs.append("%s: no em or en dashes in names" % who)
-        if "|" in p.get("tagline", "") + p.get("title", ""): errs.append("%s: no | in names (it breaks the inventory table)" % who)
+        if re.search(r"[|<>\r\n]", p.get("tagline", "") + p.get("title", "")): errs.append("%s: no |, <, > or line break in names (they break the inventory table)" % who)
         if p.get("icon") not in icons: errs.append("%s: icon '%s' is not in icons.json" % (who, p.get("icon")))
         form = p.get("form", "single")
         if form not in FORMS: errs.append("%s: form must be one of %s" % (who, ", ".join(FORMS)))
@@ -512,7 +530,7 @@ NOTE = os.path.join(DOCS, "FRAMEWORK.md")
 
 def set_block(text, name, body):
     a = "<!-- %s:BEGIN -->" % name; b = "<!-- %s:END -->" % name
-    i = text.index(a) + len(a); j = text.index(b)
+    i = text.index(a) + len(a); j = re.compile(r"^" + re.escape(b), re.M).search(text, i).start()  # the END marker only counts at the start of a line
     return text[:i] + "\n" + body + "\n" + text[j:]
 
 
