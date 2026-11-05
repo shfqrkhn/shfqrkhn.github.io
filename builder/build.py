@@ -72,7 +72,7 @@ def check_registry():
 def gate(root, label):
     """Privacy gate on a folder. Runs before anything is written, and again on the output."""
     import subprocess
-    names = os.path.join(OM, "privacy_names.txt")  # the private list is local only; without it the pattern checks still run (CI)
+    names = os.path.join(OM, "privacy_names.txt")  # the private list: local, or written in CI from the PRIVACY_NAMES secret; without it the pattern checks still run
     r = subprocess.run([sys.executable, "-B", os.path.join(OUT, "scripts", "check_privacy.py"), "--root", root] + (["--names", names] if os.path.exists(names) else []), capture_output=True, text=True)
     print("privacy gate (%s):" % label, (r.stdout.strip().splitlines() or ["no output"])[-1])
     if r.returncode: fail(["privacy gate failed in " + label + ":\n" + r.stdout[-1500:]])

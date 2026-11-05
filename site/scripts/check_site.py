@@ -1,6 +1,6 @@
 """Consistency check for the site. Standard library only. Run from anywhere: python site/scripts/check_site.py
 
-Layout: /<kind>/<page>/index.html, one folder per page, grouped by kind (apps, games, guides, recipes, courses).
+Layout: /<kind>/<page>/index.html, one folder per page, grouped by kind (apps, tools, games, guides, recipes, courses, references).
 The catalog inside index.html is the single list of pages; this check makes the files, the worker and the catalog agree.
 """
 import hashlib, json, os, re, subprocess, sys
