@@ -35,14 +35,19 @@ class Scan(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.doctype = False; self.lang = None; self.title = ""; self.viewport = False; self.csp = False
         self.ids = []; self.imgs_no_alt = 0; self.external = []; self.links = []; self.unnamed = []
-        self._in_title = False; self._stack = []
+        self._in_title = False; self._stack = []; self._foreign = 0
         self.desc = False; self.viewport_content = ""; self.headings = []; self.bad_tabindex = 0; self.bad_blank = 0
 
     def handle_decl(self, decl):
         if decl.lower().startswith("doctype html"):
             self.doctype = True
 
+    def set_cdata_mode(self, elem, **kw):
+        # inside svg or math, style, title, iframe and the like are not raw text to a browser
+        if not self._foreign: super().set_cdata_mode(elem, **kw)
+
     def handle_starttag(self, tag, attrs):
+        if tag in ("svg", "math"): self._foreign += 1
         a = {}
         for _k, _v in attrs:  # the browser uses the first of two same-named attributes
             a.setdefault(_k, _v)
@@ -81,6 +86,7 @@ class Scan(HTMLParser):
         if self._stack and data.strip(): self._stack[-1][2] = True
 
     def handle_endtag(self, tag):
+        if tag in ("svg", "math") and self._foreign: self._foreign -= 1
         if tag == "title": self._in_title = False
         if tag in ("a", "button") and self._stack:
             t, named, has_text, ident = self._stack.pop()
