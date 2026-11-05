@@ -10,11 +10,19 @@ css = open(os.path.join(ROOT, "scripts", "ui.css"), encoding="utf-8").read()
 
 
 def block(selector_start):
-    """Return the declarations of the first rule whose selector starts with the given text."""
-    m = re.search(re.escape(selector_start) + r"\{([^}]*)\}", css)
-    if not m:
+    """Return the declarations of every rule with exactly this selector, later rules winning, as in CSS."""
+    ms = list(re.finditer(re.escape(selector_start) + r"\{([^}]*)\}", css))
+    if not ms:
         raise SystemExit("ui.css: rule not found: " + selector_start)
-    return dict(re.findall(r"(--[\w-]+):\s*([^;]+)(?:;|$)", m.group(1)))
+    out = {}
+    for m in ms:
+        out.update(re.findall(r"(--[\w-]+):\s*([^;]+)(?:;|$)", m.group(1)))
+    return out
+
+
+_unknown = set(re.findall(r"data-look=(\w+)", css)) - {"charcoal", "black", "auto"}
+if _unknown:
+    raise SystemExit("ui.css: a look the contrast gate does not check: " + ", ".join(sorted(_unknown)))
 
 
 paper = block(":root")

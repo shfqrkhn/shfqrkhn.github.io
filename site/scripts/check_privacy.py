@@ -101,8 +101,8 @@ def main():
                     continue
                 if any(a in low for a in allow):
                     continue
-                if kind == "owner-name" and os.environ.get("CI"):  # CI logs are public: never print a private name or its context there
-                    hit, ctx = "[private name]", "[context hidden in CI]"
+                if os.environ.get("CI"):  # CI logs are public: never print what was found or its context there
+                    hit, ctx = "[hidden in CI]", "[context hidden in CI]"
                 problems.append("%s: %s: %r ... %s" % (shown, kind, hit[:60], ctx[:100]))
             if kind in ("key", "owner-name"):
                 text = body

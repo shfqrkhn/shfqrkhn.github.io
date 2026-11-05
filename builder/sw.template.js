@@ -52,7 +52,10 @@ self.addEventListener("fetch", function (e) {
         return res;
       }).catch(function () {
         if (cached) return cached;
-        if (req.mode === "navigate") return caches.match("./index.html", { cacheName: HUB }).then(function (hub) { return hub || Response.error(); });
+        if (req.mode === "navigate") {
+          if (url.pathname !== BASE && url.pathname !== BASE + "index.html") return Response.redirect(BASE, 302);  // the hub at another address would break its relative links
+          return caches.match("./index.html", { cacheName: HUB }).then(function (hub) { return hub || Response.error(); });
+        }
         return Response.error();
       });
     });

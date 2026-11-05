@@ -36,6 +36,7 @@ def check_registry():
         if len(p.get("title", "")) > 40: errs.append("%s: title is longer than 40 characters" % who)
         if len(p.get("tagline", "")) > 40: errs.append("%s: tagline is longer than 40 characters" % who)
         if re.search("[\u2013\u2014]", p.get("tagline", "") + p.get("title", "")): errs.append("%s: no em or en dashes in names" % who)
+        if "|" in p.get("tagline", "") + p.get("title", ""): errs.append("%s: no | in names (it breaks the inventory table)" % who)
         if p.get("icon") not in icons: errs.append("%s: icon '%s' is not in icons.json" % (who, p.get("icon")))
         form = p.get("form", "single")
         if form not in FORMS: errs.append("%s: form must be one of %s" % (who, ", ".join(FORMS)))
@@ -283,11 +284,11 @@ archive = ('<details class="sec arch" data-s="archive"><summary><span class="sic
            % (svg(ARCH_IC), len(arch_items), arch_groups)) if arch_items else ""
 
 today = json.load(open(os.path.join(OM, "today_data.json"), encoding="utf-8"))
-tj = json.dumps({k: today[k] for k in ("quotes", "reflections", "meditations", "biases")}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+tj = json.dumps({k: today[k] for k in ("quotes", "reflections", "meditations", "biases")}, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
 catalog = [dict(id=a["id"], title=a["title"], kind=a["kind"], form=a.get("form", "single"), license=a.get("license", "MIT"), own_pwa=bool(a.get("own_pwa")),
                 address=(a["url"] if a.get("form") == "remote" else "./%s/" % a["dir"]), version=a["version"], sha256=a["sha256"], size=a["size"],
                 topic=a["topic"], sensitive=a["sensitive"], archived=a["archived"], hue=a.get("hue")) for a in apps]
-cj = json.dumps(dict(version=VERSION, apps=catalog), ensure_ascii=False, indent=1).replace("</", "<\\/")
+cj = json.dumps(dict(version=VERSION, apps=catalog), ensure_ascii=False, indent=1).replace("<", "\\u003c")  # no < at all, so no title can open a tag or comment inside the script
 
 CSS = open(os.path.join(OUT, "scripts", "ui.css"), encoding="utf-8").read()  # the one design system, shared with generated pages
 CSS = re.sub(r"\n\s*", "\n", re.sub(r"/\*.*?\*/", "", CSS, flags=re.S).strip())
