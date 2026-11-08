@@ -41,6 +41,12 @@ if not status:
 if not go:
     print("\nDry run. Add --yes to commit and push."); sys.exit(0)
 print("4/4 commit and push")
+_url = run(["git", "remote", "get-url", "origin"], check=False).stdout.strip().lower()
+if "shfqrkhn/shfqrkhn.github.io" not in _url:
+    print("FAILED: origin is not the site repository. Fix it first: git remote set-url origin <repository url>"); sys.exit(1)
+_ahead = run(["git", "rev-list", "--count", "origin/main..HEAD"], check=False).stdout.strip()
+if _ahead not in ("", "0"):
+    print("FAILED: %s local commit(s) are not on origin/main and were never privacy-checked. Review them (git log origin/main..HEAD), then push by hand or reset." % _ahead); sys.exit(1)
 import shutil, tempfile
 _stage = tempfile.mkdtemp()
 try:

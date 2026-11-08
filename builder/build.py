@@ -84,7 +84,7 @@ def check_registry():
         if len(p.get("title", "")) > 40: errs.append("%s: title is longer than 40 characters" % who)
         if len(p.get("tagline", "")) > 40: errs.append("%s: tagline is longer than 40 characters" % who)
         if re.search("[\u2013\u2014]", p.get("tagline", "") + p.get("title", "")): errs.append("%s: no em or en dashes in names" % who)
-        if re.search(r"[|<>\r\n]", p.get("tagline", "") + p.get("title", "")): errs.append("%s: no |, <, > or line break in names (they break the inventory table)" % who)
+        if re.search(r"[|<>\r\n]", p.get("tagline", "") + p.get("title", "") + str(p.get("blurb", ""))): errs.append("%s: no |, <, > or line break in names or blurb (they break the inventory table and llms.txt)" % who)
         if any(k in p and not isinstance(p[k], str) for k in ("license", "version", "url", "host", "keywords", "title", "tagline", "blurb")): errs.append("%s: license, version, url, host, keywords, title, tagline and blurb must be text" % who)
         if re.search(r"[|<>\r\n]", "".join(str(p.get(k, "")) for k in ("license", "version", "url", "host"))): errs.append("%s: no |, <, > or line break in license, version, url or host" % who)
         if p.get("icon") not in icons: errs.append("%s: icon '%s' is not in icons.json" % (who, p.get("icon")))
@@ -179,9 +179,10 @@ import tempfile, shutil
 _stage = tempfile.mkdtemp()
 _root = os.path.dirname(OM)
 _staged = ["builder/registry.json", "builder/icons.json", "builder/topics.json", "builder/today_data.json", "builder/app-starter.html", "README.md", "AGENTS.md", "CLAUDE.md", "LICENSE",
-           "CONTRIBUTING.md", "SECURITY.md", "requirements.txt", ".gitignore", ".github/pull_request_template.md", ".github/dependabot.yml"]
+           "CONTRIBUTING.md", "SECURITY.md", "requirements.txt", ".gitignore", ".github/pull_request_template.md", ".github/dependabot.yml", ".gitattributes", "builder/brand.json", "builder/sw.template.js"]
 _staged += [".github/workflows/" + _f for _f in sorted(os.listdir(os.path.join(_root, ".github", "workflows")))] if os.path.isdir(os.path.join(_root, ".github", "workflows")) else []
-_staged += ["converge/" + _f for _f in sorted(os.listdir(os.path.join(_root, "converge"))) if _f.endswith(".py")] if os.path.isdir(os.path.join(_root, "converge")) else []
+_staged += ["converge/" + _f for _f in sorted(os.listdir(os.path.join(_root, "converge"))) if _f.endswith((".py", ".json"))] if os.path.isdir(os.path.join(_root, "converge")) else []
+_staged += ["builder/" + _f for _f in sorted(os.listdir(OM)) if _f.endswith(".py") and _f != "selftest.py"]  # builder code is scanned too (selftest.py plants fake data on purpose)
 _missing = [_r for _r in _staged if not os.path.exists(os.path.join(_root, *_r.split("/")))]
 if _missing and not os.environ.get("OMNEVUM_BUILDER"):  # a selftest copy of the builder has no repository around it
     fail(["the privacy gate's list names files that do not exist: " + ", ".join(_missing) + " (update the list in build.py)"])

@@ -69,6 +69,8 @@ def remove(reg, pages, words, build):
                 for f in glob.glob(os.path.join(glob.escape(SOURCES), d["source"].replace("/", os.sep))):
                     if keep(f):
                         os.remove(f)
+            else:
+                print("Note: %s is a bundle or an absolute path, so its source was not moved (remove it by hand)" % d["source"])
         else:
             if keep(p["src"]):
                 os.remove(p["src"])
