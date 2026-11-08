@@ -6,7 +6,7 @@ The catalog inside index.html is the single list of pages; this check makes the 
 import hashlib, json, os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_FILES = {"index.html", "404.html", "sw.js", "manifest.webmanifest", "icon.svg", "today.json", "robots.txt", "LICENSE", "README.md", ".gitignore", ".gitattributes", ".nojekyll"}
+ROOT_FILES = {"index.html", "404.html", "sw.js", "manifest.webmanifest", "icon.svg", "today.json", "robots.txt", "llms.txt", "LICENSE", "README.md", ".gitignore", ".gitattributes", ".nojekyll"}
 ROOT_DIRS = {"docs", "scripts", "content", "templates", "icons", ".github", ".git"}
 errors = []
 

@@ -11,6 +11,8 @@ from paths import OUT, V, APPS_DIR, SUP, DOCS
 VERSION = "1.4.3"
 REG = json.load(open(os.path.join(OM, "registry.json"), encoding="utf-8"))["pages"]
 TOPICS = json.load(open(os.path.join(OM, "topics.json"), encoding="utf-8"))
+BRAND = json.load(open(os.path.join(OM, "brand.json"), encoding="utf-8"))  # the one place the name, pronunciation and blurbs live
+BN = BRAND["name"]
 ARCHIVED = {p["id"] for p in REG if p.get("archived")}
 
 
@@ -68,7 +70,7 @@ def check_registry():
         if not isinstance(p, dict): errs.append("%s: each page must be an object" % who); continue
         _bad = [k for k in ("id", "title", "kind", "slug", "source", "topic", "blurb", "keywords", "icon", "tagline", "form", "license", "version", "url", "host") if k in p and not isinstance(p[k], str)]
         _bad += [k for k in ("aliases", "former_names") if k in p and not (isinstance(p[k], list) and all(isinstance(x, str) for x in p[k]))]
-        _bad += [k for k in ("private", "archived", "lazy", "own_pwa") if k in p and not isinstance(p[k], bool)]
+        _bad += [k for k in ("private", "archived", "lazy", "own_pwa", "big") if k in p and not isinstance(p[k], bool)]
         _bad += [k for k in ("hue",) if k in p and p[k] is not None and (not isinstance(p[k], int) or isinstance(p[k], bool))]
         if _bad: errs.append("%s: wrong type for %s (text, a list of text, true or false, or a whole number as the field needs)" % (who, ", ".join(_bad))); continue
         if "@@" in json.dumps(p, ensure_ascii=False): errs.append("%s: @@ is reserved for build placeholders (in any field)" % who)
@@ -198,7 +200,7 @@ for p in REG:
     form = p.get("form", "single")
     a = dict(id=p["id"], title=p["title"], folder=p["slug"], form=form, lazy=p.get("lazy", True), sensitive=p.get("private", False),
              own_pwa=bool(p.get("pwa")), license=p.get("license", "MIT"), url=p.get("url"), host=p.get("host"), wasm=bool(p.get("wasm")),
-             aliases=list(p.get("aliases", [])), hue=p.get("hue"), former_names=list(p.get("former_names", [])), tagline=p.get("tagline", ""))
+             aliases=list(p.get("aliases", [])), hue=p.get("hue"), former_names=list(p.get("former_names", [])), tagline=p.get("tagline", ""), big=bool(p.get("big")))
     if form == "single":
         a["path"] = resolve(p["source"]); m = re.search(r"-v(\d+\.\d+\.\d+)\.html$", os.path.basename(a["path"]))
         a["version"] = m.group(1) if m else p["version"]
@@ -300,7 +302,7 @@ for a in apps:  # a slug is unique across every kind and both sources (registry 
     _slugs[a.get("folder")] = a["id"]
 
 def _tile(a, sect=False):
-    hue = a["hue"] if a.get("hue") is not None else HUE[a["topic"]]
+    hue = HUE[a["topic"]]  # a tile takes its section's hue, so colour means the topic; the page keeps its own accent hue inside
     ico = svg(P(IC[a["icon"]]) if a.get("icon") in IC else TOPIC_IC[a["topic"]])
     if a["sensitive"]:
         return ('<li><span class="tile held" role="img" aria-label="%s, private" style="--h:%d" data-k="%s">'
@@ -445,26 +447,26 @@ NUDGES = "".join(
 page = ('<!doctype html>\n<html lang="en" data-look="auto">\n<head>\n<meta charset="utf-8">\n'
  '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
  '<meta http-equiv="Content-Security-Policy" content="%s">\n<meta name="referrer" content="no-referrer">\n<script src="./scripts/personalize.js"></script>\n'
- '<meta name="description" content="Omnevum (om-nee-VEE-um): small apps and guides that work offline. No account.">\n'
+ '<meta name="description" content="' + BN + ' (' + BRAND["say"] + '): ' + BRAND["description"] + '">\n'
  '<meta name="color-scheme" content="light dark">\n<meta name="theme-color" content="#faf8f4">\n<meta name="omnevum-hub-version" content="%s">\n'
- '<title>Omnevum</title>\n<link rel="icon" href="./icon.svg" type="image/svg+xml">\n<link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">\n<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">\n<link rel="manifest" href="./manifest.webmanifest">\n<meta name="mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-title" content="Omnevum">\n<meta name="apple-mobile-web-app-status-bar-style" content="default">\n<style>%s</style>\n</head>\n<body>\n'
- '<a class="skip" href="#main">Skip</a>\n<header class="bar"><div class="wrap"><div class="top"><div class="brand"><b>Omnevum</b>'
+ '<title>' + BN + '</title>\n<link rel="icon" href="./icon.svg" type="image/svg+xml">\n<link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">\n<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">\n<link rel="manifest" href="./manifest.webmanifest">\n<meta name="mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-title" content="Omnevum">\n<meta name="apple-mobile-web-app-status-bar-style" content="default">\n<style>%s</style>\n</head>\n<body>\n'
+ '<a class="skip" href="#main">Skip</a>\n<header class="bar"><div class="wrap"><div class="top"><div class="brand"><b>' + BN + '</b>'
  '<span class="say"><span lang="en" title="/ˌɒmniˈviːəm/">om·nee·VEE·um</span>'
  '<button class="ib sm" id="say" type="button" aria-label="Hear it" title="Hear it" hidden>%s</button></span></div>'
  '<button class="ib" id="look" type="button" aria-label="Look" title="Look">%s</button></div>'
  '</div></header>\n'
- '<main class="wrap" id="main" tabindex="-1">\n<h1 class="vh">Omnevum</h1>\n'
+ '<main class="wrap" id="main" tabindex="-1">\n<h1 class="vh">' + BN + '</h1>\n'
+ '%s\n'
  '<section class="today" id="today" hidden aria-label="Today"><div class="th"><span class="td">@@TODAY@@</span><span class="dt" id="dt" aria-live="polite"></span>'
  '<button class="ib sm" id="pv" type="button" aria-label="Previous day" title="Previous day">%s</button>'
  '<button class="ib sm" id="nx" type="button" aria-label="Next day" title="Next day">%s</button></div>@@NUDGES@@</section>\n'
- '%s\n%s\n</main>\n'
+ '\n%s\n</main>\n'
  '<footer class="wrap"><span>%s</span><span>Local. Offline. Yours.</span></footer>\n'
  '<div id="upd" hidden><button class="ib" id="updBtn" type="button" aria-label="Update" title="Update">%s</button></div>\n'
  '<script type="application/json" id="catalogData">%s</script>\n<script>%s</script>\n</body>\n</html>\n'
 ) % (csp, VERSION, CSS,
      I(P("speaker-high")), I(P("sun")),
-     I(P("caret-left")), I(P("caret-right")),
-     "\n".join(main), archive, VERSION,
+     "\n".join(main), I(P("caret-left")), I(P("caret-right")), archive, VERSION,
      I(P("arrow-clockwise")), cj, JS)
 present = [k for k in KINDS if any(a["kind"] == k[0] and not a["sensitive"] for a in apps)]
 page = page.replace("@@TODAY@@", svg(P("sun-horizon"))).replace("@@NUDGES@@", NUDGES)
@@ -489,6 +491,12 @@ page = page.replace('<div id="upd" hidden>', _pzd + '<div id="upd" hidden>', 1)
 assert "life" + "os" not in page.lower()  # a retired product word that must never reappear (written in two pieces so the guard itself does not contain it)
 os.makedirs(OUT, exist_ok=True)
 open(os.path.join(OUT, "today.json"), "w", encoding="utf-8", newline="\n").write(tj)
+_ll = ["# " + BN, "", "> " + BRAND["llms_summary"], ""]
+for _t in TOPICS:
+    _items = [a for a in apps if a["topic"] == _t["id"] and not a["archived"] and not a["sensitive"] and a["form"] != "remote" and a["id"] not in ARCHIVED]
+    if _items:
+        _ll += ["## " + _t["title"], ""] + ["- [%s](/%s/): %s" % (a["title"], a["dir"], a["blurb"]) for a in sorted(_items, key=lambda x: x["title"])] + [""]
+open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8", newline="\n").write("\n".join(_ll))  # llmstxt.org: a plain index for assistants
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8", newline="\n").write(page)
 
 ship = [a for a in apps if not a["sensitive"] and a.get("form", "single") != "remote"]
@@ -517,9 +525,9 @@ for k, t, ic in present:
     gp = ('<!doctype html>\n<html lang="en" data-look="auto"><head><meta charset="utf-8">'
           '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
           '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; script-src \'%s\'; style-src \'unsafe-inline\'; img-src \'self\' data:; base-uri \'none\'; form-action \'none\'">'
-          '<meta name="color-scheme" content="light dark"><meta name="description" content="%s: small offline pages on Omnevum."><title>%s - Omnevum</title>'
+          '<meta name="color-scheme" content="light dark"><meta name="description" content="%s: small offline pages on ' + BN + '."><title>%s - ' + BN + '</title>'
           '<link rel="icon" href="../icon.svg" type="image/svg+xml"><style>%s</style></head><body>'
-          '<main class="wrap"><div class="ph"><a class="ib" href="../" aria-label="Omnevum home" title="Omnevum">%s</a><h1>%s</h1></div>%s</main>'
+          '<main class="wrap"><div class="ph"><a class="ib" href="../" aria-label="' + BN + ' home" title="' + BN + '">%s</a><h1>%s</h1></div>%s</main>'
           '<script>%s</script></body></html>\n') % (sri(GJS), E(t), E(t), CSS, svg(P("house")), E(t), body, GJS)
     open(os.path.join(OUT, k, "index.html"), "w", encoding="utf-8", newline="\n").write(re.sub(r' data-k="[^"]*"', "", gp))
 BIG = 5_000_000  # pages over 5 MB download only when the owner taps (mobile data)
@@ -529,7 +537,7 @@ for a in ship:
     ent = dict(cache="app-%s-v%s" % (a["folder"], a["cache"]), start="./%s/" % a["dir"])
     if a.get("form", "single") == "bundle":
         ent["files"] = ["./%s/" % a["dir"]] + ["./%s/%s" % (a["dir"], rel) for rel, _ in tree_files(a["path"]) if rel != "index.html"]
-    if a["size"] > BIG: ent["big"] = True
+    if a["size"] > BIG or a.get("big"): ent["big"] = True  # or the registry says so (big: true), for a large page that should wait for a tap
     PAGES[a["dir"]] = ent
 SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg", "./today.json", "./404.html", "./scripts/personalize.js", "./icons/icon-192.png", "./icons/icon-512.png"] + ["./%s/" % k for k, t, ic in present]
 sw = open(os.path.join(OM, "sw.template.js"), encoding="utf-8").read().replace("@@VERSION@@", VERSION).replace("@@SHELL@@", json.dumps(SHELL)).replace("@@PAGES@@", json.dumps(PAGES, indent=1))
@@ -540,7 +548,7 @@ for _f in ("icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch
     shutil.copyfile(os.path.join(OM, "pwa-icons", _f), os.path.join(OUT, "icons", _f))
 shutil.copyfile(os.path.join(OM, "pwa-icons", "favicon.svg"), os.path.join(OUT, "icon.svg"))
 manifest = dict(
-    id="./", name="Omnevum", short_name="Omnevum", description="Small local-first apps, tools, games, guides and recipes. Works offline.", lang="en", dir="ltr",
+    id="./", name=BN, short_name=BN, description=BRAND["manifest_description"], lang="en", dir="ltr",
     start_url="./", scope="./", display="standalone", display_override=["standalone", "minimal-ui"], orientation="any",
     background_color="#faf8f4", theme_color="#faf8f4", categories=["productivity", "utilities", "lifestyle"], prefer_related_applications=False,
     icons=[dict(src="./icons/icon-192.png", sizes="192x192", type="image/png", purpose="any"), dict(src="./icons/icon-512.png", sizes="512x512", type="image/png", purpose="any"),
@@ -548,8 +556,8 @@ manifest = dict(
     shortcuts=[dict(name=t, short_name=t, url="./%s/" % k, icons=[dict(src="./icons/icon-192.png", sizes="192x192", type="image/png")]) for k, t, ic in present[:4]])
 open(os.path.join(OUT, "manifest.webmanifest"), "w", encoding="utf-8", newline="\n").write(json.dumps(manifest, indent=1) + "\n")
 NF = ('<!doctype html>\n<html lang="en" data-look="auto"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-      '<meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>Omnevum</title><link rel="icon" href="/icon.svg" type="image/svg+xml">'
-      '<style>@@CSS@@</style></head><body><div class="lost"><h1 class="vh">Omnevum</h1><a href="/" aria-label="Omnevum home">@@HOME@@<b>Omnevum</b></a></div>'
+      '<meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>@@BN@@</title><link rel="icon" href="/icon.svg" type="image/svg+xml">'
+      '<style>@@CSS@@</style></head><body><div class="lost"><h1 class="vh">@@BN@@</h1><a href="/" aria-label="@@BN@@ home">@@HOME@@<b>@@BN@@</b></a></div>'
       '<script>(function(){var m=@@MAP@@,s=location.pathname.split("/").filter(Boolean),t=m[s.slice(0,2).join("/")]||m[s[0]];if(t)location.replace("/"+t+"/"+location.search+location.hash);'
       'try{var s=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null");if(s&&s.look)document.documentElement.setAttribute("data-look",s.look)}catch(e){}})();</script></body></html>\n')
 FWD = {a["folder"]: a["dir"] for a in apps if a["dir"]}  # the first flat address, from before pages were grouped
@@ -557,7 +565,7 @@ for a in apps:
     for al in a.get("aliases", []):
         if a["dir"]:
             FWD[al] = a["dir"]; FWD.setdefault(al.split("/")[-1], a["dir"])
-NF = NF.replace("@@CSS@@", CSS).replace("@@HOME@@", svg(P("house"))).replace("@@MAP@@", json.dumps(FWD, separators=(",", ":")))
+NF = NF.replace("@@BN@@", html.escape(BN)).replace("@@CSS@@", CSS).replace("@@HOME@@", svg(P("house"))).replace("@@MAP@@", json.dumps(FWD, separators=(",", ":")))
 open(os.path.join(OUT, "404.html"), "w", encoding="utf-8", newline="\n").write(NF)
 print("hub bytes", len(page.encode()), "tiles", len(apps), "shipped", len(ship), "archive", len(arch_items))
 

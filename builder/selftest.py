@@ -76,7 +76,7 @@ ok("rename is repeatable (a second run changes nothing)", again == out_html and 
 # 2. a broken registry is refused, before anything is written
 tmp = tempfile.mkdtemp()
 try:
-    for f in ("build.py", "paths.py", "icons.json", "topics.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
+    for f in ("build.py", "paths.py", "icons.json", "topics.json", "brand.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
         if os.path.exists(os.path.join(OM, f)):  # privacy_names.txt is local, or written in CI from the PRIVACY_NAMES secret
             shutil.copy(os.path.join(OM, f), tmp)
     for d in ("icons", "pwa-icons"):
@@ -99,7 +99,7 @@ try:
         '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\' \'wasm-unsafe-eval\'"><meta name="description" content="A bundle test page."><title>Wasm test</title></head>'
         '<body><a href="../../" aria-label="Omnevum home">home</a><p>test</p></body></html>')
     open(os.path.join(bund, "pkg", "m.wasm"), "wb").write(bytes([0, 97, 115, 109, 1, 0, 0, 0]))
-    for f in ("build.py", "paths.py", "icons.json", "topics.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
+    for f in ("build.py", "paths.py", "icons.json", "topics.json", "brand.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
         if os.path.exists(os.path.join(OM, f)):  # privacy_names.txt is local, or written in CI from the PRIVACY_NAMES secret
             shutil.copy(os.path.join(OM, f), tmp)
     for d in ("icons", "pwa-icons"):

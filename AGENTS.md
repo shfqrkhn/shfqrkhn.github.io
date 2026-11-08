@@ -32,5 +32,5 @@ Run scripts first (they are free). Use the cheapest model that is sufficient for
 ## Where to look
 
 - `docs/FRAMEWORK.md`: rules, how-tos, lessons learned, change log.
-- `sources/method/`: Omni (the method), Prompt Clipboard (reusable prompts), Knowledge Distiller, Resource Catalogue.
+- `sources/method/`: Prompt Clipboard (reusable prompts), Knowledge Distiller, Resource Catalogue (also a page in the hub, RepoRadar). Rebrand: `builder/brand.json`. Any suspicion of PII in history: delete and recreate the repository, then upload the scrubbed files as one commit.
 - `.github/workflows/`: what CI does.

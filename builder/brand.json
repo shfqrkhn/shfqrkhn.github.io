@@ -1,0 +1,7 @@
+{
+ "name": "Omnevum",
+ "say": "om-nee-VEE-um",
+ "description": "small apps and guides that work offline. No account.",
+ "manifest_description": "Small local-first apps, tools, games, guides and recipes. Works offline.",
+ "llms_summary": "Personal apps, tools, games, guides, recipes and references. Static pages, no accounts, no tracking; data stays on the device."
+}

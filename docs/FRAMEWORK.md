@@ -55,7 +55,7 @@ Honest limits: "self-healing" means detect, report, and regenerate; no part rewr
 ```text
 Repository (github.com/shfqrkhn/shfqrkhn.github.io): everything needed to rebuild, run and extend the project
   sources/apps/                        hand-built single-file apps, named <PREFIX>-<Name>-v<X.Y.Z>.html (a few keep older prefixes or no version)
-  sources/method/                      Omni, the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue; one file each, `TECH-AINT-<Name>-v<X.Y.Z>.<ext>`, the latest version only (replace the old file when a new one arrives)
+  sources/method/                      the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue; one file each, `TECH-AINT-<Name>-v<X.Y.Z>.<ext>`, the latest version only (replace the old file when a new one arrives)
   docs/                                this note (FRAMEWORK.md, the source of truth) and PRIVACY.md
   builder/                             the framework tools
     build.py                           THE command: validate, gate, build, check
@@ -89,7 +89,7 @@ Published site (the site/ folder, served at the site root)
 
 ## 5. Hard rules
 
-1. **Privacy gate.** No page, doc or registry text may carry personal information in any form: names of real people (owner, household, authors, designers, developers, players, creators), emails, phone numbers, addresses, government or account numbers, usernames or handles (the owner's GitHub handle in site and repository addresses is the one allowed handle), IP addresses, keys, tokens, local paths, credit lines naming a person. Allowed: attributed historical quotes; copyright lines in third-party licences that the licence requires; the public site address; names of organisations, products, places and fictional characters. Sample data uses neutral labels ("Person A"). Nothing published may reveal who the owner is or where they work: no detail of the owner's employment or workplace, and no handle beyond the owner's GitHub handle in the site and repository addresses. These terms go in the private list (`builder/privacy_names.txt`), so the public repository never spells them out. Content must come from public sources, never from work material, internal training or client data. The public credit an open-data licence requires is allowed. If something identifying ever reaches the repository, deleting it in a later commit is not enough because history keeps it: scrub the sources, then replace the history with one clean commit (needs branch protection off for the push) and, to clear old pull request refs, recreate the repository.
+1. **Privacy gate.** No page, doc or registry text may carry personal information in any form: names of real people (owner, household, authors, designers, developers, players, creators), emails, phone numbers, addresses, government or account numbers, usernames or handles (the owner's GitHub handle in site and repository addresses is the one allowed handle), IP addresses, keys, tokens, local paths, credit lines naming a person. Allowed: attributed historical quotes; copyright lines in third-party licences that the licence requires; the public site address; names of organisations, products, places and fictional characters. Sample data uses neutral labels ("Person A"). Nothing published may reveal who the owner is or where they work: no detail of the owner's employment or workplace, and no handle beyond the owner's GitHub handle in the site and repository addresses. These terms go in the private list (`builder/privacy_names.txt`), so the public repository never spells them out. Content must come from public sources, never from work material, internal training or client data. The public credit an open-data licence requires is allowed. If something identifying ever reaches the repository, deleting it in a later commit is not enough because history keeps it: scrub the sources, then replace the history with one clean commit (needs branch protection off for the push) and, to clear old pull request refs, recreate the repository. Suspicion alone is enough: when in doubt about a historical trail, delete the repository, recreate it, scrub the sources, and upload them again as one commit (the clean re-upload). Never wait for proof.
 2. **No network.** A page makes no request unless the user starts it. Four apps that use an AI or data service (PromptPlayground, PennyPlanner, MeetingMediator, WorldCupWizard) list that service's hosts (PromptPlayground also local addresses, for a model on the user's own machine) in their Content-Security-Policy `connect-src` and FlexxFiles allows its own origin only; no other host is allowed, and `check_pages.py` inspects resource attributes (`src`, `srcset`, `imagesrcset`, `background`, `href`, `xlink:href`, `action`, `formaction`, `poster`, `data`, `ping`, the `to`, `from` and `values` of svg `set` and `animate`, an iframe's `srcdoc`, a meta refresh) and stylesheet `url()`, `image-set()` and `@import`, not `connect-src`. No analytics, no external fonts, scripts or styles. The hub and generated pages ship a strict Content-Security-Policy.
 3. **Local-first.** Everything the user enters stays on the device (localStorage or IndexedDB). Every page that stores data offers export and restore. Storage keys are never renamed. Schemas carry a version and are validated on read.
 4. **Offline.** Every page works with the network off. The hub saves all pages in the background after the first visit (large ones on a tap), tries the network first for freshness but falls back to the saved copy after 3.5 seconds, and updates only when the person taps the update button. A page with its own PWA (bundle with `pwa: true`) brings its own worker and scope.
@@ -172,6 +172,22 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Self-test everything:** `python builder/selftest.py`.
 
+**Update, rebrand, expand, scale (one minute each):**
+
+| Goal | The one place |
+|---|---|
+| Update an app | Replace its file in `sources/apps` (new version in the name); build |
+| Update a method document (Resource Catalogue, Prompt Clipboard, Knowledge Distiller) | Replace the file in `sources/method`, latest version only; build |
+| Rename the whole project | `builder/brand.json` (name, pronunciation, blurbs); then replace the display name in `site/scripts/ui.css` header and docs by search; build |
+| Rename or recolour one page | `python builder/rename.py` |
+| Re-skin | Tokens in `site/scripts/ui.css` |
+| Add an app, page, kind, topic | Section 8 recipes above; `registry.json`, `icons.json`, `topics.json` |
+| Scale | Pages are grouped by kind; a page over 5 MB takes `"big": true` and downloads on a tap; the budgets in rule 9 stay |
+
+**Fold a method document into the hub** (the Resource Catalogue is the example; it appears as RepoRadar): put the file in `sources/method`, add a registry entry whose `source` is `method/<glob>` with `"big": true` when it is large, copy the kit block from any app (`OMNEVUM KIT:BEGIN` to `END`) to the start of its `<style>`, set `data-app` on `<html>` and `:root[data-app]{--hue:N}`, add the icon-only home link (`id="back-to-hub"`, `href="../"` once, `aria-label` and `title` only; no words, so it works in every language), read and write `hub.prefs.v1` for the look, add the CSP meta, then recompute its hashes with `python builder/rename.py --repair-csp <file>` and check the script hash by hand when the page has a JSON data block. Its blurb stays one plain sentence.
+
+**Hub layout rules:** a tile takes the colour of its topic (the page keeps its own accent inside); the Today card sits after the topic sections so the page does not shift while it loads; the build also writes `llms.txt` (a plain list of live pages for assistants) and `robots.txt`. Topic labels live in `topics.json`.
+
 ## 9. Gates
 
 | Gate | Checks | Runs |
@@ -240,7 +256,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 40 pages in 7 groups: 40 single, 0 bundle, 0 remote, 0 generated; 8 archived, 0 private. Inventory fingerprint `d21e06cc`, last changed 2026-11-08.
+Hub 1.4.3. 41 pages in 7 groups: 41 single, 0 bundle, 0 remote, 0 generated; 8 archived, 0 private. Inventory fingerprint `1968901e`, last changed 2026-11-08.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -259,15 +275,15 @@ Hub 1.4.3. 40 pages in 7 groups: 40 single, 0 bundle, 0 remote, 0 generated; 8 a
 | ConfigCompass Change Control | courses | single | work | 1.5.5 | live | MIT | /courses/configcompass-change/ |
 | DealDojo Negotiation Guide | courses | single | work | 1.5.5 | live | MIT | /courses/dealdojo-negotiation/ |
 | DebtDial Capital Structure | courses | single | money | 1.5.5 | live | MIT | /courses/debtdial-capital/ |
-| GlobalGambit Strategy Reader | courses | single | work | 1.5.5 | live | MIT | /courses/globalgambit-strategy/ |
-| LeadLantern Leadership Reader | courses | single | work | 1.5.5 | live | MIT | /courses/leadlantern-leadership/ |
-| MoralMap Ethics Guide | courses | single | work | 1.5.5 | live | MIT | /courses/moralmap-ethics/ |
-| ProcessPilot Operations Reader | courses | single | work | 1.5.5 | live | MIT | /courses/processpilot-operations/ |
+| GlobalGambit Strategy Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/globalgambit-strategy/ |
+| LeadLantern Leadership Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/leadlantern-leadership/ |
+| MoralMap Ethics Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/moralmap-ethics/ |
+| ProcessPilot Operations Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/processpilot-operations/ |
 | ProjectPopQuiz Exams | courses | single | learning | 1.7.4 | live | MIT | /courses/projectpopquiz-exams/ |
 | ScopeScribe Requirements Guide | courses | single | work | 1.5.5 | live | MIT | /courses/scopescribe-requirements/ |
 | StatSafari Data Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/statsafari-data/ |
 | SupportScout Equipment Decisions | courses | single | work | 1.5.5 | live | MIT | /courses/supportscout-equipment/ |
-| SystemSage Information Systems | courses | single | work | 1.5.5 | live | MIT | /courses/systemsage-info-systems/ |
+| SystemSage Information Systems | courses | single | learning | 1.5.5 | live | MIT | /courses/systemsage-info-systems/ |
 | WattWatcher Energy Audit | courses | single | home | 1.5.5 | live | MIT | /courses/wattwatcher-energy/ |
 | AuctionAcademy Classroom Game | games | single | games | 5.1.2 | live | MIT | /games/auctionacademy-game/ |
 | MeepleMentor Board Game Rules | games | single | games | 14.5.3 | live | MIT | /games/meeplementor-board-game-rules/ |
@@ -281,6 +297,7 @@ Hub 1.4.3. 40 pages in 7 groups: 40 single, 0 bundle, 0 remote, 0 generated; 8 a
 | Eggspress Egg Salad | recipes | single | food | 1.3.3 | live | MIT | /recipes/eggspress-egg-salad/ |
 | DrumDeck Kit Reference | references | single | music | 1.5.5 | live | MIT | /references/drumdeck-kit/ |
 | HandheldHunter PC Games | references | single | games | 16.10.3 | live | MIT | /references/handheldhunter-pc-games/ |
+| RepoRadar GitHub Catalogue | references | single | ai | 4.3.1 | live | MIT | /references/reporadar-github/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.4 | live | MIT | /references/streamscholar-youtube-channels/ |
 | PromptPlayground AI Chat | tools | single | ai | 0.5.5 | archived | MIT | /tools/promptplayground-ai-chat/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
@@ -289,6 +306,8 @@ Hub 1.4.3. 40 pages in 7 groups: 40 single, 0 bundle, 0 remote, 0 generated; 8 a
 <!-- INV:END -->
 
 ## 13. Change log (newest first)
+
+- 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; the Today card moved below the sections (no layout shift; Lighthouse 100 across the board on the hub); `llms.txt` is generated; the brand (name, pronunciation, blurbs) lives in `builder/brand.json`; the clean re-upload rule is explicit.
 
 - 2026-11-04, hub 1.4.3 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.1, Resource Catalogue 2.0.1, Prompt Clipboard 1.0.1 and Knowledge Distiller 1.6.0 (the separate MIT edition is retired; 1.6.0 is the single release; it keeps a complete canonical knowledge record inside each app, separate from the teaching parts), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.
 - 2026-11-04, hub 1.4.3: identity hardening. The privacy rule now also forbids any detail of the owner's employment or workplace and any handle beyond the owner's own; the private list carries them; content must come from public sources; leaks are fixed by rewriting history, not by a later commit; the licence holder is "Omnevum contributors".

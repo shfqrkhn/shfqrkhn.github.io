@@ -553,7 +553,7 @@
    "kind": "courses",
    "slug": "moralmap-ethics",
    "source": "apps/APPS-EDUC-MoralMap-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "A guide to business ethics and career choices, with cases and prompts.",
    "keywords": "ethics business career cases decisions guide",
    "icon": "moral-map",
@@ -571,7 +571,7 @@
    "kind": "courses",
    "slug": "systemsage-info-systems",
    "source": "apps/APPS-EDUC-SystemSage-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "A study reader on information systems and how firms manage them.",
    "keywords": "information systems management reader it strategy",
    "icon": "system-sage",
@@ -607,7 +607,7 @@
    "kind": "courses",
    "slug": "processpilot-operations",
    "source": "apps/APPS-EDUC-ProcessPilot-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "A study reader on operations, processes and project management.",
    "keywords": "operations projects process management reader",
    "icon": "process-pilot",
@@ -625,7 +625,7 @@
    "kind": "courses",
    "slug": "leadlantern-leadership",
    "source": "apps/APPS-EDUC-LeadLantern-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "A study reader on perception, communication and leadership.",
    "keywords": "leadership communication perception teams reader",
    "icon": "lead-lantern",
@@ -643,7 +643,7 @@
    "kind": "courses",
    "slug": "globalgambit-strategy",
    "source": "apps/APPS-EDUC-GlobalGambit-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "A study reader on strategy, marketing and international business.",
    "keywords": "strategy marketing international business reader",
    "icon": "global-gambit",
@@ -852,6 +852,27 @@
    "tagline": "Classroom auction game",
    "former_names": [],
    "aliases": []
+  },
+  {
+   "id": "repo-radar",
+   "title": "RepoRadar GitHub Catalogue",
+   "kind": "references",
+   "slug": "reporadar-github",
+   "source": "method/TECH-AINT-GH-Omni-Resource-Catalogue-v*.html",
+   "topic": "ai",
+   "blurb": "A curated, searchable library of GitHub projects and bookmarks for building apps with AI agents.",
+   "keywords": "github repositories catalogue bookmarks ai agents tools library curated shortlist open source",
+   "icon": "repo-radar",
+   "lazy": true,
+   "private": false,
+   "archived": false,
+   "hue": 200,
+   "tagline": "GitHub projects for AI builders",
+   "former_names": [
+    "GitHub Omni Resource Catalogue"
+   ],
+   "aliases": [],
+   "big": true
   }
  ]
 }

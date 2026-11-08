@@ -10,6 +10,7 @@ The Omnevum build (builder/build.py) also renders and lists them; see docs/FRAME
 import base64, hashlib, html, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BN = json.load(open(os.path.join(os.path.dirname(ROOT), "builder", "brand.json"), encoding="utf-8"))["name"]  # rebrand in builder/brand.json
 KINDS = ("games", "guides", "recipes", "courses", "references")
 TOPICS = ("money", "health", "home", "food", "games", "learning", "work", "travel", "local", "music", "ai")
 E = html.escape
@@ -125,7 +126,7 @@ def render(d):
             '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; script-src \'%s\'; style-src \'unsafe-inline\'; img-src \'self\' data:; base-uri \'none\'; form-action \'none\'">'
             '<meta name="color-scheme" content="light dark"><meta name="description" content="%s"><title>%s</title>'
             '<link rel="icon" href="../../icon.svg" type="image/svg+xml"><style>%s</style></head><body><div class="wrap narrow page">'
-            '<div class="ph"><a class="ib" id="back-to-hub" href="../../" aria-label="Omnevum home" title="Omnevum">%s</a><h1>%s</h1>%s'
+            '<div class="ph"><a class="ib" id="back-to-hub" href="../../" aria-label="' + BN + ' home" title="' + BN + '">%s</a><h1>%s</h1>%s'
             '<button class="ib" id="look" type="button" aria-label="Look" title="Look">%s</button></div>%s</div><script>%s</script></body></html>\n') % (
         E(d.get("lang", "en")), sri, E(d["blurb"]), E(d["title"]), CSS, _svg(ICON["home"]), E(d["title"]),
         '<button class="ib" id="reset" type="button" aria-label="Clear checks" title="Clear checks">%s</button>' % _svg(ICON["reset"]) if has_checks else "",
