@@ -3,6 +3,7 @@ Run from anywhere: python site/scripts/check_privacy.py   (optional: --root <fol
 
 Rule: no app, page or doc may carry personal information in any form: names, emails, phone numbers,
 addresses, government or account numbers, keys, tokens, local paths, private IPs, or credit lines naming a person.
+The gate is pattern-based: the listed forms are caught, and names otherwise depend on the private list.
 Allowed: attributed historical quotes, and the legally required copyright lines listed in scripts/privacy-allow.json.
 An optional private list of names can be passed with --names <file> (kept outside the repo, never committed).
 """
@@ -29,7 +30,7 @@ RULES = [
     ("private-ip", re.compile(r"(?<![\d.])(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?![\d./])")),
     ("key", re.compile(r"(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|glpat-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}")),
     ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|/Users/[A-Za-z0-9._-]+/|/home/(?!user/)[A-Za-z0-9._-]+/")),
-    ("credit-line", re.compile(r"\b(?:[Dd]esigned|[Cc]reated|[Ww]ritten|[Bb]uilt|[Mm]ade|[Ee]dited|[Cc]ompiled|[Pp]hotographed|[Dd]eveloped) by\s+[A-Z][a-z]+\s+(?:[A-Z]\.\s+)?[A-Z][a-z]+\b|\b(?:[Aa]uthor|[Bb]yline|[Dd]esigner|[Cc]redits?)\s*:\s*[A-Z][a-z]+\s+[A-Z][a-z]+\b")),
+    ("credit-line", re.compile(r"\b(?:[Dd]esigned|[Cc]reated|[Ww]ritten|[Bb]uilt|[Mm]ade|[Ee]dited|[Cc]ompiled|[Pp]hotographed|[Dd]eveloped|[Pp]hotos?|[Ii]mage|[Cc]redit) by\s+[A-Z][a-z]+\s+(?:[A-Z]\.\s+)?[A-Z][a-z]+\b|\b(?:[Aa]uthor|[Bb]yline|[Dd]esigner|[Cc]redits?)\s*[:\u2013\u2014-]\s*[A-Z][a-z]+\s+[A-Z][a-z]+\b")),
 ]
 
 
