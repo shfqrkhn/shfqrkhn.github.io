@@ -14,8 +14,8 @@ const KEEP = new Set([HUB].concat(Object.keys(PAGES).map(function (k) { return P
 const BASE = new URL("./", self.location.href).pathname;
 const SLOW = 3500;
 
-// Fill a cache from the network, never from the browser HTTP cache (Pages sends max-age=600), so a new version never stores old bytes.
-function fill(c, urls) { return Promise.all(urls.map(function (u) { return fetch(new Request(u, { cache: "reload" })).then(function (r) { if (!r.ok) throw new Error(u); return c.put(u, r); }); })); }
+// Fill a cache from the network, never from the browser HTTP cache (Pages sends max-age=600), so a new version never stores old bytes; nothing is stored unless every file is ok.
+function fill(c, urls) { return Promise.all(urls.map(function (u) { return fetch(new Request(u, { cache: "reload" })).then(function (r) { if (!r.ok) throw new Error(u); return r; }); })).then(function (rs) { return Promise.all(rs.map(function (r, i) { return c.put(urls[i], r); })); }); }  // all or nothing, like addAll
 
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(HUB).then(function (c) { return fill(c, SHELL); }));
