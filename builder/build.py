@@ -462,17 +462,17 @@ page = ('<!doctype html>\n<html lang="en" data-look="auto">\n<head>\n<meta chars
  '<button class="ib" id="look" type="button" aria-label="Look" title="Look">%s</button></div>'
  '</div></header>\n'
  '<main class="wrap" id="main" tabindex="-1">\n<h1 class="vh">' + BN + '</h1>\n'
- '%s\n'
- '<section class="today" id="today" hidden aria-label="Today"><div class="th"><span class="td">@@TODAY@@</span><span class="dt" id="dt" aria-live="polite"></span>'
+ '<section class="today" id="today" aria-label="Today"><div class="th"><span class="td">@@TODAY@@</span><span class="dt" id="dt" aria-live="polite"></span>'
  '<button class="ib sm" id="pv" type="button" aria-label="Previous day" title="Previous day">%s</button>'
  '<button class="ib sm" id="nx" type="button" aria-label="Next day" title="Next day">%s</button></div>@@NUDGES@@</section>\n'
+ '%s\n'
  '\n%s\n</main>\n'
  '<footer class="wrap"><span>%s</span><span>Local. Offline. Yours.</span></footer>\n'
  '<div id="upd" hidden><button class="ib" id="updBtn" type="button" aria-label="Update" title="Update">%s</button></div>\n'
  '<script type="application/json" id="catalogData">%s</script>\n<script>%s</script>\n</body>\n</html>\n'
 ) % (csp, VERSION, CSS,
      I(P("speaker-high")), I(P("sun")),
-     "\n".join(main), I(P("caret-left")), I(P("caret-right")), archive, VERSION,
+     I(P("caret-left")), I(P("caret-right")), "\n".join(main), archive, VERSION,
      I(P("arrow-clockwise")), cj, JS)
 present = [k for k in KINDS if any(a["kind"] == k[0] and not a["sensitive"] for a in apps)]
 page = page.replace("@@TODAY@@", svg(P("sun-horizon"))).replace("@@NUDGES@@", NUDGES)

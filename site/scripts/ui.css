@@ -98,3 +98,5 @@ body{min-height:100vh;min-height:100dvh;overscroll-behavior-y:contain}
 .nic{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;color:hsl(var(--h) var(--ic-fg-s) var(--ic-fg-l));background:hsl(var(--h) var(--ic-bg-s) var(--sic-bg-l))}
 .nt{margin:0;font-weight:700}.nb{margin:2px 0 0}.na{margin:2px 0 0;color:var(--mut)}
 .nudge p[hidden]{display:none}
+/* the Today card sits near the top; its space is reserved (about the median height per width) so filling it in moves the tiles very little */
+.today{min-height:23rem}@media(max-width:1023px){.today{min-height:24rem}}@media(max-width:767px){.today{min-height:27rem}}@media(max-width:480px){.today{min-height:33rem}}@media(max-width:380px){.today{min-height:34.5rem}}

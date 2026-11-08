@@ -47,7 +47,8 @@ PRIVATE = private_prefixes()
 
 
 def skip(name):
-    return name in SKIP_DIRS or (bool(PRIVATE) and name.upper().startswith(PRIVATE))
+    # the owner's rules: ADIS and every ADIS-* entry are never opened, listed or hashed; the FinTrak workbook is never opened
+    return name in SKIP_DIRS or name.upper().startswith(("ADIS", "FINTRAK")) or (bool(PRIVATE) and name.upper().startswith(PRIVATE))
 
 
 def h(b):
@@ -85,7 +86,7 @@ def scan(root, base=None, full=False, sections=(7, 8, 10, 16), manifest=None, op
     files, texts = {}, {}
     for dp, dn, fn in os.walk(root):
         dn[:] = [d for d in dn if not skip(d)]
-        for f in fn:
+        for f in (x for x in fn if not skip(x)):
             p = os.path.join(dp, f)
             rel = os.path.relpath(p, root).replace("\\", "/")
             b = open(p, "rb").read()

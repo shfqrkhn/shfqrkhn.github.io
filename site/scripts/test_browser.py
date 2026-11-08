@@ -60,7 +60,7 @@ with sync_playwright() as p:
     ok("hub: one tile per page, no search box and no filter chips", pg.locator("a.tile").count() == len(pages) and pg.locator("#q, .kinds, .find").count() == 0)
     nudges = pg.locator(".nudge")
     ok("hub: all four daily pieces are visible on landing, each with text", nudges.count() == 4 and all(nudges.nth(n).is_visible() and len(nudges.nth(n).inner_text().strip()) > 10 for n in range(4)))
-    ok("hub: the Today card sits after the topic sections, so loading it never shifts the tiles", pg.evaluate("(function(){var t=document.getElementById('today'),s=document.querySelector('main .sec');return !!t&&!!s&&(t.compareDocumentPosition(s)&Node.DOCUMENT_POSITION_PRECEDING)!==0})()"))
+    ok("hub: the Today card sits above the topic sections, and its space is reserved", pg.evaluate("(function(){var t=document.getElementById('today'),s=document.querySelector('main .sec');return !!t&&!!s&&(t.compareDocumentPosition(s)&Node.DOCUMENT_POSITION_FOLLOWING)!==0})()"))
     ok("hub: the pronunciation stays on one line", pg.evaluate("(function(){var r=document.querySelector('.say').getBoundingClientRect();return r.height<44})()"))
     clip = pg.evaluate("""(function(){var bad=[];document.querySelectorAll('.tile,.ib,summary').forEach(function(el){var p=el.parentElement;while(p&&p!==document.body){var c=getComputedStyle(p);if(/paint|strict|content/.test(c.contain)||c.contentVisibility==='auto'||(c.overflowX!=='visible'&&p.tagName!=='MAIN')||(c.overflowY!=='visible'&&p.tagName!=='MAIN')){bad.push((el.id||el.className)+' inside '+(p.id||p.className||p.tagName));break}p=p.parentElement}});return bad.slice(0,3)})()""")
     ok("hub: no focus or selection outline can be clipped %s" % clip, not clip)
