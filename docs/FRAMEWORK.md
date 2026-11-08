@@ -207,7 +207,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 - Run the executed checks first: `build.py` (all gates), `selftest.py`, `site/scripts/test_mobile.py`, `site/scripts/test_personalize.py`. They are free and decide most questions.
 - For reading and coverage use the cheapest sufficient model: haiku agents, or Codex with the text passed in the prompt and low or medium effort (`codex exec -s read-only -c model_reasoning_effort="low"`). Keep a strong model for adversarial passes and for applying edits. Converge is the owner's convergence method (Omni section 8), run with the Prompt Clipboard blocks ConvergeOmni, ConvergeWork and ConvergeLibrary. Verify every reported defect by exact quote before acting; most reports from weaker models are false positives.
-- The Converge tooling lives in `converge/` (`scan.py` (use `--root .` to cover the whole repository; it finds Omni under any folder), `omni_check.py`, `apply_edits.py`; receipts stay local and git-ignored because they list private file names). A receipt counts as a baseline only when its run ended ASSURED_CONVERGED (Omni 8.4).
+- The Converge tooling lives in `converge/` (`scan.py` (from the repo root, `--root .` covers the whole repository; it finds Omni under any folder), `omni_check.py`, `apply_edits.py`; receipts stay local and git-ignored because they list private file names). A receipt counts as a baseline only when its run ended ASSURED_CONVERGED (Omni 8.4).
 
 ## 10. Design system
 
