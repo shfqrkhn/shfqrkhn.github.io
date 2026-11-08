@@ -134,7 +134,7 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 **Make a new single-file app** (also tools, games, guides, recipes, courses, references):
 1. `python builder/new_app.py <kind> <slug> "<Title>" --topic <topic> --blurb "<up to 20 words>"`
 2. Open the new file in `sources/apps`. Build the app inside it. Keep the starter's pieces: strict CSP (recompute the script hash whenever you edit the inline script), the home link, the look control, validated storage, export, `textContent` for user data, the version meta.
-3. Give it its own icon: a Phosphor icon name in `icons.json`. Set `lazy`, `archived`, `license` in `registry.json` if needed.
+3. Give it its own icon: a Phosphor icon name in `icons.json`. Set `archived` or `license` in `registry.json` if needed (`lazy` and `wasm` are stored but not used).
 4. Run the build. Fix what it reports.
 
 **Make a simple content page** (a recipe, guide, board game page, lesson):
