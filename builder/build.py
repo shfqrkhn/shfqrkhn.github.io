@@ -369,6 +369,9 @@ CSS += """
 .pzb{display:flex;gap:var(--s2);justify-content:flex-end;flex-wrap:wrap}
 .pzb button{min-height:44px;padding:0 var(--s4);border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:inherit;font:inherit;cursor:pointer}
 .pzb .pzp{background:var(--acc);color:var(--on-acc);border-color:var(--acc)}
+#toast{position:fixed;left:50%;bottom:calc(var(--s4) + env(safe-area-inset-bottom));transform:translate(-50%,8px);max-width:calc(100vw - 2*var(--s4));padding:var(--s2) var(--s4);border-radius:var(--r);background:var(--fg);color:var(--bg);font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){#toast{transition:none}}
 """
 
 JS = r'''(function(){"use strict";
@@ -376,9 +379,16 @@ var $=function(i){return document.getElementById(i)},root=document.documentEleme
 var P={schemaVersion:1,look:"auto",hue:null,size:null};
 try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){if(LOOKS.indexOf(s.look)>=0)P.look=s.look;if(Number.isInteger(s.hue)&&s.hue>=0&&s.hue<360)P.hue=s.hue;if([90,115,130].indexOf(s.size)>=0)P.size=s.size}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}}
-function look(){root.setAttribute("data-look",P.look);var b=$("look");b.setAttribute("aria-label","Look: "+P.look);b.title="Look: "+P.look;
+var NAMES={auto:"Auto",paper:"Light",charcoal:"Dark",black:"Black"};function dark(){return !!(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)}
+function look(){root.setAttribute("data-look",P.look);var b=$("look");var nm="Look: "+NAMES[P.look]+(P.look==="auto"?" ("+(dark()?"Dark":"Light")+")":"");b.setAttribute("aria-label",nm);b.title=nm;
  var m=document.querySelector('meta[name=theme-color]');if(m)m.content=getComputedStyle(document.body).backgroundColor}
-$("look").addEventListener("click",function(){P.look=LOOKS[(LOOKS.indexOf(P.look)+1)%LOOKS.length];save();look()});look();
+var tt=null;
+function toast(t){var e=$("toast");if(!e){e=document.createElement("div");e.id="toast";e.setAttribute("role","status");e.setAttribute("aria-live","polite");document.body.appendChild(e)}
+ e.textContent=t;e.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on")},1800)}
+/* Auto already shows Light or Dark, so the cycle skips the look that would repeat it */
+$("look").addEventListener("click",function(){var n=P.look,dup=dark()?"charcoal":"paper";
+ do{n=LOOKS[(LOOKS.indexOf(n)+1)%LOOKS.length]}while(n===dup);
+ P.look=n;save();look();toast("Look: "+NAMES[n]+(n==="auto"?" ("+(dark()?"Dark":"Light")+" on this device)":""))});look();
 /* personalize: accent colour and text size for every page; the pages read the same saved choice */
 var pzd=$("pzd"),pzh=$("pzh"),pzs=$("pzs");
 function pzApply(){save();if(window.omnevumApply)window.omnevumApply()}

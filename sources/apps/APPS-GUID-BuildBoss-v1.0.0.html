@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-7XcLxbET3jSszn6ijrbWck0sLyIdRMjt9Xq7zj36pv8='; style-src 'sha256-2qg875/K/F+ISJxKWLd7L/wv0QSM1/MGA1kW2W/MUv8='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-7XcLxbET3jSszn6ijrbWck0sLyIdRMjt9Xq7zj36pv8='; style-src 'sha256-Rv66SBvnHIOTFZ3YgC/0lKfQnb/trjbLNU7eztE3ryk='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -24,7 +24,7 @@
             --surface-color: #FFFFFF;
             --primary-text-color: #212529;
             --secondary-text-color: #6C757D;
-            --accent-color-1: #007BFF; /* Vibrant Blue */
+            --accent-color-1: #0062CC; /* Vibrant Blue */
             --accent-color-2: #28A745; /* Green */
             --border-color: #DEE2E6; /* Light Gray Border */
             --shadow-color: rgba(0, 0, 0, 0.05);
@@ -459,7 +459,7 @@
             gap: 1rem;
         }
 
-        .navbar-content h4 {
+        .navbar-content .nav-title {
             color: var(--surface-color);
             margin-top: 0;
             margin-bottom: 0.5rem;
@@ -851,7 +851,7 @@
             <span class="sr-only">Toggle On-Page Tools</span>
         </button>
         <div class="navbar-content" id="navbar-content">
-            <h4>On-Page Tools</h4>
+            <p class="nav-title">On-Page Tools</p>
             <div class="navbar-tool">
                 <label for="cpu-tdp-input">CPU TDP (Watts per CPU):</label>
                 <input type="number" id="cpu-tdp-input" value="120" min="0" aria-label="Input CPU Thermal Design Power in Watts">

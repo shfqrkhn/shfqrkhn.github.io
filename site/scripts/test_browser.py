@@ -64,7 +64,12 @@ with sync_playwright() as p:
     ok("hub: the pronunciation stays on one line", pg.evaluate("(function(){var r=document.querySelector('.say').getBoundingClientRect();return r.height<44})()"))
     clip = pg.evaluate("""(function(){var bad=[];document.querySelectorAll('.tile,.ib,summary').forEach(function(el){var p=el.parentElement;while(p&&p!==document.body){var c=getComputedStyle(p);if(/paint|strict|content/.test(c.contain)||c.contentVisibility==='auto'||(c.overflowX!=='visible'&&p.tagName!=='MAIN')||(c.overflowY!=='visible'&&p.tagName!=='MAIN')){bad.push((el.id||el.className)+' inside '+(p.id||p.className||p.tagName));break}p=p.parentElement}});return bad.slice(0,3)})()""")
     ok("hub: no focus or selection outline can be clipped %s" % clip, not clip)
-    pg.click("#look"); ok("hub: look control cycles", pg.get_attribute("html", "data-look") == "paper")
+    dk = pg.evaluate("matchMedia('(prefers-color-scheme: dark)').matches")
+    seen = []
+    for _ in range(3):
+        pg.click("#look"); seen.append(pg.get_attribute("html", "data-look"))
+    ok("hub: look control cycles and never repeats what Auto already shows", seen == (["paper", "black", "auto"] if dk else ["charcoal", "black", "auto"]))
+    ok("hub: a toast names the new look", pg.inner_text("#toast").startswith("Look: Auto"))
     for k in kinds:
         pg.goto(B + k + "/"); n = pg.locator("a.tile").count()
         ok("group %s lists %d" % (k, n), n == sum(1 for x, _, _ in pages if x == k) and pg.get_attribute("a.ib", "href") == "../")
