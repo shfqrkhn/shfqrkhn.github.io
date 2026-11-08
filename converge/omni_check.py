@@ -1,7 +1,7 @@
 """Executed identity and reference checks for the Omni document (Omni 8.7 step 1). Standard library only.
   python omni_check.py <Omni file>
 Prints the byte hash and a list of script-provable defects: unresolved section references, heading and contents mismatches,
-version strings that disagree, a file name that disagrees with the front matter, compact tiers over their limit under CRLF,
+a version string newer than the front matter version, a file name that disagrees with the front matter, compact tiers over their limit under CRLF,
 em or en dashes, control characters, carriage returns, duplicate headings; exit 1 when any defect is found."""
 import hashlib, os, re, sys
 
@@ -64,8 +64,11 @@ if c0 >= 0:
     got = [x.split(". ", 1)[1] if re.match(r"\d+\. ", x) else x for x in listed]
     if got != want:
         defects.append("contents list does not match the headings: " + str([x for x in want if x not in got][:3] + [x for x in got if x not in want][:3]))
-if len(ver) != 1:
-    defects.append("version strings disagree: " + ", ".join(sorted(ver)))
+# the file's own version (frontmatter) must appear, and no string may name a LATER version; earlier versions are permanent predecessor records
+fv = (re.search(r"(?m)^version: (\d+\.\d+\.\d+)", s) or [None, None])[1]
+vkey = lambda v: [int(i) for i in v.split(".")]
+if fv is None or fv not in ver or any(vkey(v) > vkey(fv) for v in ver):
+    defects.append("version strings disagree with the frontmatter version " + str(fv) + ": " + ", ".join(sorted(ver, key=vkey)))
 for n, line in enumerate(s.split("\n"), 1):
     if re.search("[–—]", line):
         defects.append("em or en dash at line %d" % n)
