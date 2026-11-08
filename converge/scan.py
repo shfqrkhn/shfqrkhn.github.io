@@ -48,7 +48,7 @@ PRIVATE = private_prefixes()
 
 def skip(name):
     # the owner's rules: ADIS and every ADIS-* entry are never opened, listed or hashed; the FinTrak workbook is never opened
-    return name in SKIP_DIRS or name.upper().startswith(("ADIS", "FINTRAK")) or (bool(PRIVATE) and name.upper().startswith(PRIVATE))
+    return name in SKIP_DIRS or (name.upper().startswith("ADIS") or "FINTRAK" in name.upper()) or (bool(PRIVATE) and name.upper().startswith(PRIVATE))
 
 
 def h(b):
