@@ -14,7 +14,7 @@ window, an "as of" date (YYYY-MM-DD, YYYY-MM or Month YYYY) older than the windo
 that the script itself must flag. Reads no credential or plugin data; sources outside the scanned folder are not seen (cap their claims)."""
 import datetime, hashlib, json, os, re, sys, tempfile
 
-SKIP_DIRS = {".obsidian", ".git", "archive", "node_modules", "__pycache__", "receipts", "history"}  # receipts: a run must not hash its own records
+SKIP_DIRS = {".obsidian", ".git", "archive", "node_modules", "__pycache__", "receipts", "history", "99-arcv", ".claude"}  # receipts: a run must not hash its own records
 TEXT = {".md", ".html", ".json", ".txt", ".css", ".js", ".csv", ".py", ".yml", ".yaml"}
 WINDOW_RUNS, WINDOW_DAYS = 4, 90
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -48,7 +48,7 @@ PRIVATE = private_prefixes()
 
 def skip(name):
     # the owner's rules: ADIS and every ADIS-* entry are never opened, listed or hashed; the FinTrak workbook is never opened
-    return name in SKIP_DIRS or (name.upper().startswith("ADIS") or "FINTRAK" in name.upper()) or (bool(PRIVATE) and name.upper().startswith(PRIVATE))
+    return name.lower() in SKIP_DIRS or (name.upper().startswith("ADIS") or "FINTRAK" in name.upper()) or (bool(PRIVATE) and name.upper().startswith(PRIVATE))
 
 
 def h(b):
