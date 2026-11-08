@@ -380,8 +380,9 @@
    "applies_to": [
     "omnevum"
    ],
-   "reason": "Dependency-free single-file SVG with press interactions suits Omnevum offline apps; the projection method can be copied directly.",
-   "limits": "MIT; 344 stars; one skill, young project."
+   "reason": "no illustration needs it yet",
+   "limits": "MIT; 344 stars; one skill, young project.",
+   "applied": "rejected"
   },
   {
    "id": "nanocoai/nanoclaw",
@@ -681,8 +682,9 @@
     "omni",
     "quality"
    ],
-   "reason": "Matches Omni verification, evidence and convergence passes: disproving verifier and confirmed/needs_validation/rejected records could shape review receipts.",
-   "limits": "MIT; security-focused; multi-agent cost heavy; no release."
+   "reason": "record shape for next Omni revision; Omni frozen",
+   "limits": "MIT; security-focused; multi-agent cost heavy; no release.",
+   "applied": "deferred"
   },
   {
    "id": "coplaydev/unity-mcp",
@@ -1795,8 +1797,9 @@
     "quality",
     "omnevum"
    ],
-   "reason": "Directly matches Omnevum's Lighthouse quality gate; the Node CLI with config presets and JSON output suits automated checks.",
-   "limits": "Needs Node 22 and Chrome; already in use."
+   "reason": "already in use; pre-push gate keeps build and selftest mandatory",
+   "limits": "Needs Node 22 and Chrome; already in use.",
+   "applied": "applied"
   },
   {
    "id": "heygen-com/hyperframes",
@@ -3560,8 +3563,9 @@
     "omni",
     "quality"
    ],
-   "reason": "Plan-by-strong-model, execute-by-cheap-model with plain markdown plan files matches Omni's cheaper-subagents rule and receipts; copy the pattern.",
-   "limits": "MIT; Agent Skills format; stale since September."
+   "reason": "plan-strong/execute-cheap line in AGENTS.md",
+   "limits": "MIT; Agent Skills format; stale since September.",
+   "applied": "applied"
   },
   {
    "id": "sorrycc/mayoi",
@@ -4345,8 +4349,9 @@
     "omni",
     "vault"
    ],
-   "reason": "Small markdown rubric (directness, rhythm, trust, authenticity, density) can become an Omni prose-quality check without any dependency.",
-   "limits": "MIT; last push March 2026; rules like no em dashes are opinionated."
+   "reason": "SLOP rubric in check_docs.py",
+   "limits": "MIT; last push March 2026; rules like no em dashes are opinionated.",
+   "applied": "applied"
   },
   {
    "id": "hkuds/deeptutor",
@@ -4659,8 +4664,9 @@
    "applies_to": [
     "omnevum"
    ],
-   "reason": "Omnevum could keep one markdown DESIGN.md of its own tokens for consistent apps; copying other brands' files is not the goal.",
-   "limits": "MIT; extracts third-party brand styles; README partly promotional."
+   "reason": "covered by the same token note; no new file",
+   "limits": "MIT; extracts third-party brand styles; README partly promotional.",
+   "applied": "noted"
   },
   {
    "id": "zackriya-solutions/meetily",
@@ -4724,8 +4730,9 @@
    "applies_to": [
     "omni"
    ],
-   "reason": "Its short output-shape rules map onto Omni's context economy and report format; borrow the rules as plain markdown, not the install machinery.",
-   "limits": "MIT; narrow scope; benefit shown by example only, no measurement."
+   "reason": "terse-report rules for next Omni revision; Omni frozen",
+   "limits": "MIT; narrow scope; benefit shown by example only, no measurement.",
+   "applied": "deferred"
   },
   {
    "id": "bradautomates/claude-video",
@@ -5858,8 +5865,9 @@
     "omnevum",
     "omni"
    ],
-   "reason": "Markdown-with-front-matter token file fits Omnevum's shared styling and vault conventions; borrow the structure without its tooling.",
-   "limits": "Apache-2.0; version 0.4.0 spec; still evolving."
+   "reason": "token note in FRAMEWORK; tokens already in ui.css and brand.json",
+   "limits": "Apache-2.0; version 0.4.0 spec; still evolving.",
+   "applied": "applied"
   },
   {
    "id": "headroomlabs-ai/headroom",

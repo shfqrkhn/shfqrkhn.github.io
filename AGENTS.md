@@ -27,7 +27,7 @@ python builder/publish.py "message" --yes
 
 ## Doing the work cheaply
 
-Run scripts first (they are free). Use the cheapest model that is sufficient for reading and first-pass review, a stronger one for adversarial review and for applying edits. `docs/FRAMEWORK.md` has the review workflow; `converge/` has the scripts.
+Run scripts first (they are free). Use the cheapest model that is sufficient for reading and first-pass review, a stronger one for adversarial review and for applying edits. Plan with the strong model, execute with the cheap one, and have the strong one check the result. `docs/FRAMEWORK.md` has the review workflow; `converge/` has the scripts.
 
 ## Where to look
 

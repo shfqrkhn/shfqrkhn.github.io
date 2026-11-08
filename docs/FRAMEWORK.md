@@ -223,8 +223,12 @@ One file: `site/scripts/ui.css`. Tokens (`--bg --fg --mut --card --line --acc --
 - The build injects that script tag and adds `'self'` to the page's `script-src`; the sources stay untouched. Pages with their own PWA (bundles) are not touched.
 - The script merges writes to `hub.prefs.v1`, so a page that saves only its own look never erases the hue or size. A page with no hue of its own simply falls back to its own accent when the choice is reset.
 - Any hue is safe: the contrast gate proves every hue against all four looks.
-- Owner rebrand: `rename.py` renames a page and its address (old ones forward), `--hue` recolours it, `--tagline` rewrites its descriptor. A whole-site look change is a change to `site/scripts/ui.css` tokens, then one build.
+- Owner rebrand: `rename.py` renames a page and its address (old ones forward), `--hue` recolours it, `--tagline` rewrites its descriptor. A whole-site look change is a `ui.css` token change, then one build.
 - Test: `site/scripts/test_personalize.py` (part of the self-test) sets the choices in the dialog, then checks every single-file page, the CSP, the merge and the reset.
+
+### Applied practices
+
+Survey (`converge/reporadar-ledger.json`): anti-slop rubric (`check_docs.py`), pre-push gate (`publish.py`), plan strong, execute cheap (`AGENTS.md`). Tokens: `ui.css`, `brand.json`.
 
 ## 11. Known limits and owner decisions
 
@@ -307,7 +311,7 @@ Hub 1.4.3. 41 pages in 7 groups: 41 single, 0 bundle, 0 remote, 0 generated; 8 a
 
 ## 13. Change log (newest first)
 
-- 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; the Today card moved below the sections (no layout shift; Lighthouse 100 across the board on the hub); `llms.txt` is generated; the brand (name, pronunciation, blurbs) lives in `builder/brand.json`; the clean re-upload rule is explicit.
+- 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; the Today card moved below the sections; `llms.txt` is generated; the brand lives in `builder/brand.json`.
 
 - 2026-11-04, hub 1.4.3 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.1, Resource Catalogue 2.0.1, Prompt Clipboard 1.0.1 and Knowledge Distiller 1.6.0 (the separate MIT edition is retired; 1.6.0 is the single release; it keeps a complete canonical knowledge record inside each app, separate from the teaching parts), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.
 - 2026-11-04, hub 1.4.3: identity hardening. The privacy rule now also forbids any detail of the owner's employment or workplace and any handle beyond the owner's own; the private list carries them; content must come from public sources; leaks are fixed by rewriting history, not by a later commit; the licence holder is "Omnevum contributors".

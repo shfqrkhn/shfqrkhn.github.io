@@ -1,7 +1,7 @@
 """Publish: check, commit, push. GitHub builds and deploys the site (see .github/workflows/deploy.yml).
   python builder/publish.py "message"            dry run: build, test, then list what would be committed
   python builder/publish.py "message" --yes      commit and push to main, then wait until the live hub matches this build
-  --fast                                         skip the self-test (the build and its gates always run)
+  --fast                                         skip the self-test (the build and its gates always run; with --yes the push is refused)
 Needs git with push access to the repository. Generated files (site/ pages, worker, manifest) are never committed: the workflow rebuilds them."""
 import hashlib, json, os, re, subprocess, sys, time
 
@@ -24,11 +24,14 @@ go = "--yes" in sys.argv
 _br = run(["git", "rev-parse", "--abbrev-ref", "HEAD"]).stdout.strip()
 if _br != "main":
     print("FAILED: publish.py pushes to main and you are on %s. Check out main first." % _br); sys.exit(1)
+print("pre-push gate: build plus self-test must pass before anything is committed")
 print("1/4 build and gates"); run(PY + [os.path.join(OM, "build.py")])
 if "--fast" not in sys.argv:
     print("2/4 self-test"); run(PY + [os.path.join(OM, "selftest.py")])
 else:
     print("2/4 self-test skipped (--fast)")
+if go and "--fast" in sys.argv:
+    print("FAILED: the pre-push gate needs the self-test. Drop --fast to push."); sys.exit(1)
 status = run(["git", "status", "--short"]).stdout.strip().splitlines()
 print("3/4 changes to commit: %d" % len(status))
 for line in status[:25]:

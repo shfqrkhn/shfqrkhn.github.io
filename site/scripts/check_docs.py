@@ -1,7 +1,7 @@
 """Documentation gate. Standard library only. Run from anywhere: python site/scripts/check_docs.py
 
 The repository documents must be high signal and low noise, cheap to read and cheap for an AI to load:
-  - no filler phrases, no em or en dashes, no emoji
+  - no filler or slop phrases (SLOP rubric), no em or en dashes, no emoji
   - DRY: no sentence of 10 or more words appears twice (one rule, one home)
   - readable: Flesch-Kincaid grade and average sentence length stay under a limit per document
   - structure: one H1 first, no skipped heading levels, every code fence names its language
@@ -22,6 +22,8 @@ DOCS = {
 }
 FILLER = ("in order to", "it is important to note", "please note", "basically", "obviously", "needless to say", "it should be noted",
           "due to the fact", "at this point in time", "a number of", "as a matter of fact", "it goes without saying", "needless")
+# anti-slop rubric (stop-slop, unslop): stock AI phrasing and hype words; checked in prose only (code, tables and quotes are skipped)
+SLOP = re.compile(r"\b(delve[sd]?|leverag(?:e|es|ed|ing)|seamless(?:ly)?|game[- ]chang\w*|cutting[- ]edge|tapestry|in today's|dive into|elevate[sd]?|empower(?:s|ed|ing)?|revolutioni[sz]\w*|synerg\w*|let's explore|it's worth noting)\b", re.I)
 EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿⬀-⯿\ufe0f]")
 errors = []
 
@@ -71,6 +73,8 @@ def main():
         for f in FILLER:
             if f in low:
                 errors.append("%s: filler phrase '%s' (say it shorter)" % (rel, f))
+        for m in SLOP.finditer(prose(raw)):
+            errors.append("%s: slop phrase '%s' (plain words, one fact once)" % (rel, m.group(0)))
         if re.search("[–—]", raw):
             errors.append("%s: em or en dash (house style)" % rel)
         if EMOJI.search(raw):
