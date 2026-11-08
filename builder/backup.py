@@ -1,6 +1,6 @@
 """Local backup of the repository plus the few files that must never be public. Standard library only.
   python builder/backup.py                 zip the tracked files and the local-only files into Omnevum-backup-<date>.zip beside the repository
-  python builder/backup.py --verify <zip>  check a backup: zip integrity and every file hash
+  python builder/backup.py --verify <zip>  check a backup: zip integrity, every file hash, no unlisted members, and the .sha256.txt beside it (without that sidecar it proves consistency, not authenticity)
 GitHub already holds the tracked files, so the point of this zip is the local-only files: builder/privacy_names.txt (the private name blocklist),
 converge/private-skip.txt, and converge/receipts/*.json. Keep the zip off the public internet. Generated files are not stored: python builder/build.py rebuilds them."""
 import datetime, hashlib, json, os, subprocess, sys, zipfile
@@ -52,6 +52,13 @@ def verify(path):
                 continue
             if sha(z.read("Omnevum/" + f)) != h:
                 bad.append("hash mismatch " + f)
+        known = {"Omnevum/" + f for f in man} | {"Omnevum/BACKUP-MANIFEST.json"}
+        bad += ["unlisted " + n for n in z.namelist() if n not in known and not n.endswith("/")]
+    side = path[:-4] + ".sha256.txt"  # the whole-zip hash written beside the zip: the only value kept outside it
+    if os.path.exists(side):
+        want = open(side, encoding="utf-8").read().split()[0]
+        if sha(open(path, "rb").read()) != want:
+            bad.append("zip differs from its .sha256.txt")
     gone = [f for f in LOCAL_ONLY if f not in man]
     print("verify: %s (%d files)%s" % ("OK" if not bad else "FAILED " + ", ".join(bad[:8]), len(man), "; not in this backup: " + ", ".join(gone) if gone else ""))
     return 1 if bad else 0
