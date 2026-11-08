@@ -22,7 +22,7 @@ DOCS = {
 }
 FILLER = ("in order to", "it is important to note", "please note", "basically", "obviously", "needless to say", "it should be noted",
           "due to the fact", "at this point in time", "a number of", "as a matter of fact", "it goes without saying", "needless")
-# anti-slop rubric (stop-slop, unslop): stock AI phrasing and hype words; checked in prose only (code, tables and quotes are skipped)
+# anti-slop rubric (stop-slop, unslop): stock AI phrasing and hype words; checked in prose only (code and tables are skipped)
 SLOP = re.compile(r"\b(delve[sd]?|leverag(?:e|es|ed|ing)|seamless(?:ly)?|game[- ]chang\w*|cutting[- ]edge|tapestry|in today's|dive into|elevate[sd]?|empower(?:s|ed|ing)?|revolutioni[sz]\w*|synerg\w*|let's explore|it's worth noting)\b", re.I)
 EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿⬀-⯿\ufe0f]")
 errors = []

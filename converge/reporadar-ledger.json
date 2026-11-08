@@ -5,7 +5,7 @@
  "counts": {
   "reject": 284,
   "reference": 140,
-  "study": 73,
+  "study": 74,
   "adapt": 7,
   "adopt": 1,
   "unavailable": 2
@@ -6716,6 +6716,20 @@
    ],
    "reason": "Financial analysis with external APIs and notification channels; contrary to offline static apps; investment advice risk.",
    "limits": "MIT; Chinese README; external data and LLM services."
+  },
+  {
+   "id": "nateherkai/scroll-craft",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "readme_bytes": 3500,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "Agent skill (MIT, JavaScript, 4765 stars, last push 2026-09-30) for scroll-driven immersive sites. Its engine, video and 3D layers conflict with Omnevum budgets (hub 300 KB, app 3 MB), strict CSP, offline-first and the Lighthouse 100 target. Study only its phone art direction, contrast and verification habits; do not adopt the engine.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
   }
  ]
 }

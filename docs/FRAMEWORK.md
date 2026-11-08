@@ -186,7 +186,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Fold a method document into the hub** (the Resource Catalogue is the example; it appears as RepoRadar): put the file in `sources/method`, add a registry entry whose `source` is `method/<glob>` with `"big": true` when it is large, copy the kit block from any app (`OMNEVUM KIT:BEGIN` to `END`) to the start of its `<style>`, set `data-app` on `<html>` and `:root[data-app]{--hue:N}`, add the icon-only home link (`id="back-to-hub"`, `href="../"` once, `aria-label` and `title` only; no words, so it works in every language), read and write `hub.prefs.v1` for the look, add the CSP meta, then recompute its hashes with `python builder/rename.py --repair-csp <file>` and check the script hash by hand when the page has a JSON data block. Its blurb stays one plain sentence.
 
-**Hub layout rules:** a tile takes the colour of its topic (the page keeps its own accent inside); the Today card comes first, then the topic sections; the build also writes `llms.txt` (a plain list of live pages for assistants) and `robots.txt`. Topic labels live in `topics.json`.
+**Hub layout rules:** a tile takes the colour of its topic (the page keeps its own accent inside); the Today card comes first, then the topic sections; the build also writes `llms.txt` (a plain list of live pages for assistants) (`robots.txt` is authored in `site/`). Topic labels live in `topics.json`.
 
 ## 9. Gates
 
