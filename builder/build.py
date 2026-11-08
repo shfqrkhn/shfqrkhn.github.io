@@ -70,7 +70,7 @@ def check_registry():
         if not isinstance(p, dict): errs.append("%s: each page must be an object" % who); continue
         _bad = [k for k in ("id", "title", "kind", "slug", "source", "topic", "blurb", "keywords", "icon", "tagline", "form", "license", "version", "url", "host") if k in p and not isinstance(p[k], str)]
         _bad += [k for k in ("aliases", "former_names") if k in p and not (isinstance(p[k], list) and all(isinstance(x, str) for x in p[k]))]
-        _bad += [k for k in ("private", "archived", "lazy", "own_pwa", "big") if k in p and not isinstance(p[k], bool)]
+        _bad += [k for k in ("private", "archived", "lazy", "pwa", "wasm", "big") if k in p and not isinstance(p[k], bool)]
         _bad += [k for k in ("hue",) if k in p and p[k] is not None and (not isinstance(p[k], int) or isinstance(p[k], bool))]
         if _bad: errs.append("%s: wrong type for %s (text, a list of text, true or false, or a whole number as the field needs)" % (who, ", ".join(_bad))); continue
         if "@@" in json.dumps(p, ensure_ascii=False): errs.append("%s: @@ is reserved for build placeholders (in any field)" % who)

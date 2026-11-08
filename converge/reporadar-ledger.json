@@ -54,7 +54,7 @@
     "nutlope/hallmark"
    ],
    "target": "Omnevum builder/brand.json, check_docs.py",
-   "status": "brand.json already holds tokens; the prose rubric is built (SLOP in check_docs.py)"
+   "status": "tokens live in ui.css (brand.json holds brand strings only); the prose rubric is built (SLOP in check_docs.py)"
   },
   {
    "theme": "Single-file offline SVG",
