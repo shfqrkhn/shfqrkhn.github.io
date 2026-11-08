@@ -1,6 +1,6 @@
 """Converge scan: the executed evidence for Omni 8.4 and 8.7. Standard library only.
   python scan.py [--root <folder>] [--baseline <receipt.json>] [--save <receipt.json>] [--full]
-                 [--sections 7,8,10,16] [--manifest <manifest.json>] [--open "<path>=<open defect>"]... [--cap "<path>=<capped claim and lowest rung>"]...
+                 [--sections 6,7] [--manifest <manifest.json>] [--open "<path>=<open defect>"]... [--cap "<path>=<capped claim and lowest rung>"]...
                  [--clear-cap "<path>"]... [--note "<text>"] [--all] [--outcome "ASSURED_CONVERGED[ AT THE PRACTICAL PEAK]"] [--control]
 (--all lists every file per status, not the first 15; --save records the relation index as each item's links, the run number, the
  last FULL run and the notes; --clear-cap removes an inherited cap after a fresh full review.)
@@ -59,10 +59,15 @@ def evaluator():
     return "scan:" + h(b"".join(open(os.path.join(HERE, n), "rb").read() for n in ("scan.py", "omni_check.py", "apply_edits.py") if os.path.exists(os.path.join(HERE, n))))
 
 
+def linked(p):
+    """True for symlinks and junctions: they are never followed (core 6.6)."""
+    return os.path.islink(p) or getattr(os.path, 'isjunction', lambda q: False)(p)
+
+
 def governing(root, sections):
     best = None
     for dp, dn, fn in (x for base in (root, os.path.join(os.path.dirname(HERE), "sources")) for x in os.walk(base)):  # the scanned root, then the repository's sources/method
-        dn[:] = [d for d in dn if not skip(d)]
+        dn[:] = [d for d in dn if not skip(d) and not linked(os.path.join(dp, d))]
         for f in fn:
             m = re.fullmatch(r"TECH-AINT-Omni-v(\d+)\.(\d+)\.(\d+)\.md", f)
             if m:
@@ -70,7 +75,7 @@ def governing(root, sections):
                 if not best or v > best[0]:
                     best = (v, os.path.join(dp, f))
     if not best:
-        print("warning: no TECH-AINT-Omni-v*.md found under the root or sources/: the governing-section text is not in the keys")
+        print("warning: no TECH-AINT-Omni-v*.md found under the root or sources/: the governing-section text is not in the keys, so nothing is CARRIED: every unchanged item is REFRESH until --root points at a folder holding the Omni file")
         return "no-omni"
     text = open(best[1], encoding="utf-8").read()
     parts = re.split(r"(?m)^(?=## \d+\. )", text)
@@ -79,14 +84,14 @@ def governing(root, sections):
     return ".".join(map(str, best[0])) + ":§" + ",".join(sorted(wanted)) + ":" + h(body.encode())
 
 
-def scan(root, base=None, full=False, sections=(7, 8, 10, 16), manifest=None, opens=None, today=None, caps=None, outcome="UNACCEPTED"):
+def scan(root, base=None, full=False, sections=(6, 7), manifest=None, opens=None, today=None, caps=None, outcome="UNACCEPTED"):
     today = today or datetime.date.today()
     had_manifest = bool(manifest)
     manifest, opens, caps = manifest or {}, opens or {}, caps or {}
     files, texts = {}, {}
     for dp, dn, fn in os.walk(root):
-        dn[:] = [d for d in dn if not skip(d)]
-        for f in (x for x in fn if not skip(x)):
+        dn[:] = [d for d in dn if not skip(d) and not linked(os.path.join(dp, d))]
+        for f in (x for x in fn if not skip(x) and not linked(os.path.join(dp, x))):
             p = os.path.join(dp, f)
             rel = os.path.relpath(p, root).replace("\\", "/")
             b = open(p, "rb").read()
@@ -142,7 +147,7 @@ def scan(root, base=None, full=False, sections=(7, 8, 10, 16), manifest=None, op
         t = texts.get(r, "")
         stale = [x for x in dates_after("as of", t) if x < cutoff]
         passed = [x for x in dates_after("recheck", t) if x <= today.isoformat()]
-        due = bool(stale or passed or b.get("defect") or b.get("runs", 0) + 1 >= WINDOW_RUNS or (today - datetime.date.fromisoformat(b.get("reviewed", "1970-01-01"))).days >= WINDOW_DAYS)
+        due = bool(gov.startswith("no-omni") or stale or passed or b.get("defect") or b.get("runs", 0) + 1 >= WINDOW_RUNS or (today - datetime.date.fromisoformat(b.get("reviewed", "1970-01-01"))).days >= WINDOW_DAYS)
         if b["own"] != files[r]:
             out["CHANGED"].append(r)
         elif b["key"] != keys[r]:
@@ -215,6 +220,9 @@ def main():
     opt = lambda k, d=None: a[a.index(k) + 1] if k in a and a.index(k) + 1 < len(a) else d
     home = os.path.dirname(HERE)
     root = opt("--root", os.path.join(home, "sources"))
+    parts = [x for x in os.path.abspath(root).replace("\\", "/").split("/") if x]
+    if any(skip(x) for x in parts) or any(linked(os.path.join(os.path.abspath(root).split(os.sep)[0] + os.sep, *parts[1:i + 1])) for i in range(len(parts))):
+        print("error: --root is, or sits inside, an excluded or linked folder; scan.py does not enter it"); sys.exit(2)
     bp = opt("--baseline")
     if bp and not os.path.exists(bp):
         print("no baseline file at %s: every item is UNKNOWN" % bp); bp = None
@@ -228,7 +236,7 @@ def main():
         print("error: --open and --cap need \"<path>=<text>\": " + ", ".join(bad_pairs)); sys.exit(2)
     opens = dict(x.split("=", 1) for i, x in enumerate(a) if i and a[i - 1] == "--open")
     caps = dict(x.split("=", 1) for i, x in enumerate(a) if i and a[i - 1] == "--cap")
-    sections = [int(x) for x in opt("--sections", "7,8,10,16").split(",")]
+    sections = [int(x) for x in opt("--sections", "6,7").split(",")]
     if not os.path.isdir(root):
         print("error: the folder to scan does not exist: " + root); sys.exit(2)
     res = scan(root, base, "--full" in a, sections, manifest, opens, caps=caps, outcome=opt("--outcome", "UNACCEPTED"))
