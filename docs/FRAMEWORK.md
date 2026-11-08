@@ -186,7 +186,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Fold a method document into the hub** (the Resource Catalogue is the example; it appears as RepoRadar): put the file in `sources/method`, add a registry entry whose `source` is `method/<glob>` with `"big": true` when it is large, copy the kit block from any app (`OMNEVUM KIT:BEGIN` to `END`) to the start of its `<style>`, set `data-app` on `<html>` and `:root[data-app]{--hue:N}`, add the icon-only home link (`id="back-to-hub"`, `href="../"` once, `aria-label` and `title` only; no words, so it works in every language), read and write `hub.prefs.v1` for the look, add the CSP meta, then recompute its hashes with `python builder/rename.py --repair-csp <file>` and check the script hash by hand when the page has a JSON data block. Its blurb stays one plain sentence.
 
-**Hub layout rules:** a tile takes the colour of its topic (the page keeps its own accent inside); the Today card sits after the topic sections so the page does not shift while it loads; the build also writes `llms.txt` (a plain list of live pages for assistants) and `robots.txt`. Topic labels live in `topics.json`.
+**Hub layout rules:** a tile takes the colour of its topic (the page keeps its own accent inside); the Today card comes first, then the topic sections; the build also writes `llms.txt` (a plain list of live pages for assistants) and `robots.txt`. Topic labels live in `topics.json`.
 
 ## 9. Gates
 
@@ -311,7 +311,7 @@ Hub 1.4.3. 41 pages in 7 groups: 41 single, 0 bundle, 0 remote, 0 generated; 8 a
 
 ## 13. Change log (newest first)
 
-- 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; the Today card moved below the sections; `llms.txt` is generated; the brand lives in `builder/brand.json`.
+- 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; `llms.txt` is generated; the brand lives in `builder/brand.json`.
 
 - 2026-11-04, hub 1.4.3 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.1, Resource Catalogue 2.0.1, Prompt Clipboard 1.0.1 and Knowledge Distiller 1.6.0 (the separate MIT edition is retired; 1.6.0 is the single release; it keeps a complete canonical knowledge record inside each app, separate from the teaching parts), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.
 - 2026-11-04, hub 1.4.3: identity hardening. The privacy rule now also forbids any detail of the owner's employment or workplace and any handle beyond the owner's own; the private list carries them; content must come from public sources; leaks are fixed by rewriting history, not by a later commit; the licence holder is "Omnevum contributors".

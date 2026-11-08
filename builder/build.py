@@ -234,10 +234,6 @@ def svg(inner, cls=""):
 LOCK = P("lock-simple")
 EXT = P("arrow-square-out")
 
-def folder_of(a): return a["folder"]
-def cache_version(b, a):
-    return "20261030-" + hashlib.sha256(b).hexdigest()[:8] if a["version"] == "unversioned" else a["version"]
-
 apps = []
 for a in APPS:
     m = META[a["id"]]
