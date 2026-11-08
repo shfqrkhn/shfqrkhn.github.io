@@ -255,12 +255,18 @@ ids = [a["id"] for a in apps]
 # the archive is a display flag, not a folder, so retiring a page never changes its address.
 KIND = {p["id"]: p["kind"] for p in REG}
 
-def personalize(raw):
+def personalize(raw, blurb=""):
     """Load the shared personalization script at the end of the head of a page (before the body paints) and let the page's policy load scripts from its own site.
     Pages without a head or without a script-src (nothing could run there anyway) are left as they are."""
     if b"personalize.js" in raw or b"</head>" not in raw:
         return raw
     out = raw.replace(b"</head>", b'<script src="../../scripts/personalize.js"></script>\n</head>', 1)
+    # Lighthouse: the charset must sit in the first 1024 bytes and a page needs a description; meta tags need no CSP hash
+    if not re.search(rb"<meta[^>]+charset", out[:1024], re.I):
+        # right after the doctype (the head start tag may be omitted), because a long licence comment pushes <head> past the first 1024 bytes
+        out = re.sub(rb"(<!doctype html>)", lambda m: m.group(1) + b'<meta charset="utf-8">', out, count=1, flags=re.I)
+    if blurb and not re.search(rb'<meta[^>]+name=["\']description', out, re.I):
+        out = out.replace(b"</head>", b'<meta name="description" content="' + html.escape(blurb, quote=True).encode("utf-8") + b'">\n</head>', 1)
     m = re.search(rb"script-src ", out)
     if m and b"'self'" not in out[m.end():m.end() + 400].split(b";")[0]:
         out = out[:m.end()] + b"'self' " + out[m.end():]
@@ -274,7 +280,7 @@ for a in apps:
         # the apps link home with href="../"; one folder deeper in the site, home is "../../". Sources stay untouched (flat use in the sources).
         raw = open(a["path"], "rb").read()
         assert raw.count(b'href="../"') == 1, ("expected exactly one home link", a["id"])
-        a["bytes"] = personalize(raw.replace(b'href="../"', b'href="../../"'))
+        a["bytes"] = personalize(raw.replace(b'href="../"', b'href="../../"'), a["blurb"])
         a["sha256"] = hashlib.sha256(a["bytes"]).hexdigest(); a["size"] = len(a["bytes"])
         a["cache"] = (a["version"] if a["version"] != "unversioned" else "20261030") + "-" + a["sha256"][:8]
 
@@ -289,7 +295,7 @@ try:
 except (ValueError, TypeError, KeyError) as _e:
     fail(["content page: %s" % _e])
 for d in _content:
-    raw = personalize(d["html"]); sha = hashlib.sha256(raw).hexdigest(); pid = d["kind"] + "-" + d["slug"]
+    raw = personalize(d["html"], d["blurb"]); sha = hashlib.sha256(raw).hexdigest(); pid = d["kind"] + "-" + d["slug"]
     assert pid not in KIND, ("duplicate id", pid)
     apps.append(dict(id=pid, title=d["title"], folder=d["slug"], version=d["version"], path=None, cache=d["version"] + "-" + sha[:8], lazy=True, sensitive=False,
                      archived=d["archived"], topic=d["topic"], blurb=d["blurb"], keywords=d["keywords"], sha256=sha, size=len(raw), kind=d["kind"], form="single", license=d.get("license", "MIT"), own_pwa=False, url=None, aliases=[], hue=d.get("hue"), former_names=[], tagline=d.get("tagline", ""),
