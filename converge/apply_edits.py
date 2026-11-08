@@ -1,5 +1,5 @@
 """Apply token-efficiency edit proposals with a mechanical fidelity gate. Standard library only.
-  python apply_edits.py <proposal.json> [--apply] [--min-saving 0.10]
+  python apply_edits.py <proposal.json> [--apply] [--fix-mode] [--min-saving 0.10]
 A proposal is {"file": "<path relative to sources/>", "edits": [{"old", "new", "why"}]}. An edit is accepted only when:
   - "old" occurs exactly once in the file and does not overlap an accepted edit;
   - every section reference (§...), number, backticked term, ALL-CAPS term, file name or path in "old" is still in "new";
@@ -107,7 +107,7 @@ def main():
     if "--control" in a:
         sys.exit(control())
     if not a:
-        sys.exit("usage: python apply_edits.py <proposal.json> [--apply] [--fix-mode] | --control")
+        sys.exit("usage: python apply_edits.py <proposal.json> [--apply] [--fix-mode] [--min-saving 0.10] | --control")
     try:
         prop = json.load(open(a[0], encoding="utf-8"))
     except (OSError, ValueError) as e:

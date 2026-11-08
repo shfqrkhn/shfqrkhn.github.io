@@ -54,7 +54,7 @@
     "nutlope/hallmark"
    ],
    "target": "Omnevum builder/brand.json, check_docs.py",
-   "status": "brand.json already holds tokens; a prose rubric is a candidate for check_docs.py, not yet built"
+   "status": "brand.json already holds tokens; the prose rubric is built (SLOP in check_docs.py)"
   },
   {
    "theme": "Single-file offline SVG",
@@ -72,7 +72,7 @@
     "chromedevtools/chrome-devtools-mcp"
    ],
    "target": "Omnevum verification",
-   "status": "in use: Lighthouse, Playwright, Chrome DevTools MCP"
+   "status": "Lighthouse, Playwright and Chrome DevTools MCP are used by hand and in the self-test; Lighthouse is not run in CI"
   },
   {
    "theme": "Untrusted README handling",
@@ -382,7 +382,7 @@
    ],
    "reason": "no illustration needs it yet",
    "limits": "MIT; 344 stars; one skill, young project.",
-   "applied": "rejected"
+   "applied": "deferred"
   },
   {
    "id": "nanocoai/nanoclaw",
@@ -1797,7 +1797,7 @@
     "quality",
     "omnevum"
    ],
-   "reason": "already in use; pre-push gate keeps build and selftest mandatory",
+   "reason": "used by hand for audits; not run in CI; pre-push gate keeps build and selftest mandatory",
    "limits": "Needs Node 22 and Chrome; already in use.",
    "applied": "applied"
   },
@@ -6650,7 +6650,7 @@
     "none"
    ],
    "reason": "Media sync for Plex; irrelevant to project goals.",
-   "limits": "MIT; README has no content; last release 2024."
+   "limits": "MIT; README not read; last release 2024."
   },
   {
    "id": "tester-army/e2e",
@@ -6727,7 +6727,7 @@
    "applies_to": [
     "omnevum"
    ],
-   "reason": "Agent skill (MIT, JavaScript, 4765 stars, last push 2026-09-30) for scroll-driven immersive sites. Its engine, video and 3D layers conflict with Omnevum budgets (hub 300 KB, app 3 MB), strict CSP, offline-first and the Lighthouse 100 target. Study only its phone art direction, contrast and verification habits; do not adopt the engine.",
+   "reason": "Agent skill (MIT, JavaScript, 4765 stars, last push 2026-09-30) for scroll-driven immersive sites. Its engine, video and 3D layers conflict with Omnevum budgets (hub 300 KB, app 3 MB), strict CSP, offline-first and the Lighthouse 100 results on the hub. Study only its phone art direction, contrast and verification habits; do not adopt the engine.",
    "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
    "applied": "deferred"
   }
