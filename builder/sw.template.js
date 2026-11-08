@@ -14,8 +14,11 @@ const KEEP = new Set([HUB].concat(Object.keys(PAGES).map(function (k) { return P
 const BASE = new URL("./", self.location.href).pathname;
 const SLOW = 3500;
 
+// Fill a cache from the network, never from the browser HTTP cache (Pages sends max-age=600), so a new version never stores old bytes.
+function fill(c, urls) { return Promise.all(urls.map(function (u) { return fetch(new Request(u, { cache: "reload" })).then(function (r) { if (!r.ok) throw new Error(u); return c.put(u, r); }); })); }
+
 self.addEventListener("install", function (e) {
-  e.waitUntil(caches.open(HUB).then(function (c) { return c.addAll(SHELL); }));
+  e.waitUntil(caches.open(HUB).then(function (c) { return fill(c, SHELL); }));
 });
 
 self.addEventListener("activate", function (e) {
@@ -93,7 +96,7 @@ function precache(withBig) {
       if (p.big && !withBig) return;
       return have(k).then(function (ok) {
         if (ok) return;
-        return caches.open(p.cache).then(function (c) { return c.addAll(p.files || [p.start]); }).catch(function () {}).then(function () { return status().then(tell); });
+        return caches.open(p.cache).then(function (c) { return fill(c, p.files || [p.start]); }).catch(function () {}).then(function () { return status().then(tell); });
       });
     });
   }, Promise.resolve()).then(function () {
