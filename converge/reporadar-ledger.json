@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-08",
- "scope": "all 507 RepoRadar repositories",
+ "scope": "all 507 RepoRadar repositories plus 1 owner-added (508 entries)",
  "method": "live README fetch via GitHub API (first 5,000 characters kept); sonnet review per batch of 39; judgement from the opening of each README, not the full repository",
  "counts": {
   "reject": 284,
@@ -10,7 +10,7 @@
   "adopt": 1,
   "unavailable": 2
  },
- "depth_caveat": "503 readme-read (excerpt only), 2 metadata-only, 2 unavailable (HTTP 404). No repository was cloned or executed. Adopt/adapt entries are not yet verified against upstream code.",
+ "depth_caveat": "504 readme-read (excerpt only), 2 metadata-only, 2 unavailable (HTTP 404). No repository was cloned or executed. Adopt/adapt entries are not yet verified against upstream code.",
  "matrix": [
   {
    "theme": "Context economy and terse reports",
