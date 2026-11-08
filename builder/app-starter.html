@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" data-app data-look="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src '@@SCRIPT_HASH@@'; style-src '@@STYLE_HASH@@'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="@@BLURB@@">
+<meta name="application-version" content="0.1.0"> <!-- keep equal to the version in the file name; the build checks it -->
+<title>@@TITLE@@</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%232a5584' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+@@UI_CSS@@
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip</a>
+<!-- RULES (Omnevum framework): one file; no network; no personal data; home link first; short words plus icons; works offline.
+     Keep the home link pointing one folder up (the first link below). The site build rewrites it for the deeper folder. -->
+<div class="wrap narrow">
+  <div class="ph">
+    <a class="ib" id="back-to-hub" href="../" aria-label="Omnevum home" title="Omnevum"><svg viewBox="0 0 256 256" aria-hidden="true">@@ICON:house@@</svg></a>
+    <h1>@@TITLE@@</h1>
+    <button class="ib" id="export" type="button" aria-label="Save a copy" title="Save a copy"><svg viewBox="0 0 256 256" aria-hidden="true">@@ICON:export@@</svg></button>
+    <button class="ib" id="look" type="button" aria-label="Look" title="Look"><svg viewBox="0 0 256 256" aria-hidden="true">@@ICON:sun@@</svg></button>
+  </div>
+  <main id="main" tabindex="-1">
+    <section class="card" aria-live="polite">
+      <p id="empty" class="none"><svg viewBox="0 0 256 256" aria-hidden="true">@@ICON:plus-square@@</svg><span>Nothing yet</span></p>
+      <ul id="list" class="plain" hidden></ul>
+    </section>
+  </main>
+</div>
+<script>
+(function () {
+  "use strict";
+  var KEY = "@@STORAGE_KEY@@", HUB = "hub.prefs.v1", LOOKS = ["auto", "paper", "charcoal", "black"], root = document.documentElement;
+  var data = { schema: 1, items: [] };               // everything the user enters lives here, on their device only
+  function read(k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }  // storage can be blocked: never crash
+  var saved = read(KEY); if (saved && saved.schema === 1 && Array.isArray(saved.items)) data = saved;   // validate what you read
+  var look = (read(HUB) || {}).look; if (LOOKS.indexOf(look) < 0) look = "auto";
+  function paint() {
+    root.setAttribute("data-look", look);
+    var list = document.getElementById("list"); list.textContent = "";
+    data.items.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; list.appendChild(li); });  // textContent, never innerHTML, for user data
+    list.hidden = !data.items.length; document.getElementById("empty").hidden = !!data.items.length;
+  }
+  document.getElementById("look").addEventListener("click", function () {
+    look = LOOKS[(LOOKS.indexOf(look) + 1) % LOOKS.length]; var p = read(HUB) || { schemaVersion: 1 }; p.look = look; write(HUB, p); paint();
+  });
+  document.getElementById("export").addEventListener("click", function () {   // always give the user their data back
+    var a = document.createElement("a"); a.download = "backup.json";
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" })); a.click(); URL.revokeObjectURL(a.href);
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

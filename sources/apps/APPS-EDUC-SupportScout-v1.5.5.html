@@ -1,0 +1,2180 @@
+<!doctype html>
+<!-- standalone study app 1.5.5 | SPDX-License-Identifier: MIT
+MIT License
+Copyright (c) 2026 Contributors to this study app
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+This notice is not proof of a contributor's ownership or a grant of rights to
+unlicensed reference materials or inherited third-party code. Rights clearance
+must be established before making an unqualified MIT compliance claim.
+-->
+<html lang="en" data-look="paper" data-app>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="kd-app" content="kd-app/1.5.5">
+<link rel="icon" href="data:,">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-855FEFB2gkXaT4B8/hVnG6nuoIvGoqmNbsIQfZ35nQk='; style-src 'sha256-rKFOI0iZlf2oc3cRIK6V+XZQIArZNHHy3FC2nY2MlPs='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<title>SupportScout Equipment Support Decisions</title>
+<style>/* OMNEVUM KIT:BEGIN */
+:root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
+--r:16px;--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:40px;--shadow:0 1px 2px rgb(0 0 0/.06),0 1px 1px rgb(0 0 0/.04);
+--ic-fg-s:55%;--ic-fg-l:30%;--ic-bg-s:60%;--ic-bg-l:91%;--sic-bg-l:90%;--app-s:55%;--app-l:28%;--app-on:#fff;color-scheme:light}
+:root[data-look=charcoal]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;color-scheme:dark}
+:root[data-look=black]{--bg:#000;--fg:#f2efe9;--mut:#a9a399;--card:#0d0d0d;--line:#2e2e2e;--acc:#8fb8e3;--on-acc:#000;--shadow:none;color-scheme:dark}
+:root[data-look=charcoal],:root[data-look=black]{--ic-fg-s:70%;--ic-fg-l:80%;--ic-bg-s:25%;--ic-bg-l:24%;--sic-bg-l:24%;--app-s:70%;--app-l:78%;--app-on:#14110d}
+@media(prefers-color-scheme:dark){:root[data-look=auto]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;
+--ic-fg-s:70%;--ic-fg-l:80%;--ic-bg-s:25%;--ic-bg-l:24%;--sic-bg-l:24%;--app-s:70%;--app-l:78%;--app-on:#14110d;color-scheme:dark}}
+/* OMNEVUM KIT:END */
+:root[data-app]{--hue:317}
+
+:root{--h:200;--r:8px;--rc:16px;--lh:1.6;--bg:#F6F1E7;--sf:#ECE5D6;--fg:#2B261F;--mu:#574F43;--bd:#877D6C;--ok:#1E6B35;--wn:#8A4600;--al:24%;--acc:hsl(var(--h) 50% var(--al));--ff:system-ui,sans-serif;--fh:var(--ff);color-scheme:light}
+html[data-look=charcoal]{--bg:#232220;--sf:#2D2B28;--fg:#ECE7DD;--mu:#B9B2A5;--bd:#857E72;--ok:#86D596;--wn:#F2B673;--al:76%;color-scheme:dark}
+html[data-look=black]{--bg:#000;--sf:#0E0D0C;--fg:#E8E3D9;--mu:#B3ACA0;--bd:#756F65;--ok:#86D596;--wn:#F2B673;--al:74%;color-scheme:dark}
+html[data-radius=sharp]{--r:2px;--rc:2px}
+html[data-density=compact]{--lh:1.45}
+html[data-type=humanist]{--ff:ui-sans-serif,sans-serif;--fh:var(--ff)}
+html[data-type=serif]{--ff:ui-serif,serif;--fh:system-ui,sans-serif}
+html{scroll-padding-top:calc(var(--hh,7rem) + 1rem)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:1.125rem/var(--lh) var(--ff);overflow-wrap:anywhere}
+input::placeholder{color:var(--mu);opacity:1}
+h1,h2,h3,header,nav,footer,button,select,input,.lab,.btn{font-family:var(--fh)}
+a{color:var(--acc)}
+button,select,input,.btn,.back{font-size:1rem;color:var(--fg);min-height:44px;padding:.35rem .8rem;border:1px solid var(--bd);border-radius:var(--r);background:var(--sf);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+select{max-width:100%;min-width:0}
+input{cursor:text;background:var(--bg);min-width:0;max-width:100%;flex:1 1 10rem}
+main input[type=search]{width:100%}
+button[aria-pressed=true]{background:var(--bg);border-width:3px;font-weight:700}
+button,.btn{min-width:44px}
+button:disabled{border-style:dashed;color:var(--mu);cursor:not-allowed}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+main:focus-visible{outline:none}
+.skip,.sr{position:absolute;left:-999px}
+.sr:focus-visible+label{outline:3px solid var(--acc);outline-offset:2px}
+.skip:focus{left:8px;top:8px;background:var(--bg);padding:8px;z-index:9}
+header{padding:.5rem 1rem 0;background:var(--bg)}
+.strip{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;margin:.25rem 0}
+.strip strong{flex:1 1 0;min-width:0}
+header progress{width:100%;height:8px;margin:.25rem 0 0;display:block;accent-color:var(--acc)}
+.srch{display:flex;gap:.5rem;margin:0 0 .5rem}
+.srch input{flex:1 1 0}
+.srch button{flex:0 0 auto;white-space:nowrap}
+.wrap{display:flex;align-items:flex-start}
+#side{flex:0 0 min(17rem,38%);min-width:0;padding:1rem}
+nav a{display:flex;align-items:center;min-height:44px;padding:.2rem .5rem;text-decoration:none;border-radius:var(--r)}
+nav a[aria-current=page]{background:var(--sf);font-weight:700;outline:1px solid var(--bd)}
+nav a.done::after{content:" (done)";margin-left:.3rem;color:var(--ok)}
+nav h2{font-size:1rem;text-transform:none;color:var(--mu);margin:1rem 0 .2rem}
+main{flex:1 1 auto;max-width:66ch;padding:1rem 1.25rem 3rem;min-width:0}
+h1{font-size:1.7rem;line-height:1.25;margin:.3rem 0 1rem}
+h2{font-size:1.3rem;margin:1.6rem 0 .5rem}
+.note,.rule{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rc);padding:.7rem 1rem;margin:.8rem 0}
+.ex{border-left:3px solid var(--bd);padding-left:1rem;margin:1rem 0}
+.q{border-top:1px solid var(--bd);padding:.5rem 0 1rem}
+.mkrow button{flex:1 1 0}
+.plan{margin:.3rem 0}
+.goal{border-left:3px solid var(--acc);padding-left:1rem}
+@media(max-width:40rem){main p>a.btn.primary{display:flex;justify-content:center;min-height:52px}.navrow>*{flex:1 1 100%;justify-content:center}.navrow [role=status]{flex:1 1 100%}.scroll table,.scroll thead,.scroll tbody,.scroll tr,.scroll td{display:block}.scroll thead{display:none}.scroll tr{border-top:1px solid var(--bd);padding:.6rem 0}.scroll td{border:0;padding:.15rem 0}.scroll td::before{content:attr(data-l) ": ";font-weight:700}.scroll{overflow:visible}}
+.stack>*{flex:1 1 14rem;justify-content:center}
+.row.sep{margin-top:2rem}
+details{border-bottom:1px solid var(--bd);padding:0 .2rem}
+.rule{border:1px solid var(--acc);border-radius:6px;padding:.6rem .8rem}.note{border:1px solid var(--wn);border-radius:6px;padding:.6rem .8rem}
+.rule p,.note p{margin:.3rem 0}
+.lab{font-weight:700}.mu{color:var(--mu)}
+summary{cursor:pointer;min-height:44px;display:list-item;padding:.55rem 0;font-weight:700}
+pre{border:1px solid var(--bd);padding:.7rem;overflow:auto;border-radius:var(--rc);white-space:pre-wrap}
+.scroll{overflow:auto;margin:.8rem 0}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--bd);padding:.4rem .6rem;text-align:left;vertical-align:top}
+th{overflow-wrap:normal}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0;align-items:center}
+.help{padding-right:.2rem;min-width:44px;justify-content:center}
+.back{border-color:transparent;background:none;color:var(--acc);text-decoration:underline;padding-left:0}
+.btn.primary{background:var(--acc);border-color:var(--acc);color:var(--bg);font-weight:700}
+.facts{margin:1rem 0}.facts dt{font-weight:700;margin-top:1rem}.facts dd{margin:.15rem 0 0}.facts dd p{margin:.3rem 0 0}
+@media(min-width:40rem){.facts{display:grid;grid-template-columns:12rem 1fr;gap:1rem 1.5rem}.facts dt,.facts dd{margin:0}}
+footer{padding:1rem;border-top:1px solid var(--bd);color:var(--mu)}
+footer p{margin:.2rem 0}
+footer .links{display:flex;flex-wrap:wrap;gap:0 1.25rem}
+footer a,main li>a,main p>a{display:inline-flex;align-items:center;min-height:44px;min-width:44px}
+#menu{display:none}
+@media(min-width:50em){header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:.25rem 1.5rem}header .strip{margin:0}header .strip:first-child{flex:1 1 auto}header progress{flex:1 0 100%}#side{position:sticky;top:var(--hh,7.5rem);max-height:calc(100vh - var(--hh,7.5rem) - 1rem);overflow:auto}}
+@media(max-width:49.99em){#menu{display:inline-flex}#side{display:none;flex-basis:auto}#side.open{display:block}.wrap{display:block}main{padding:1rem}html{scroll-padding-top:1rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{html[data-look]{--bg:#fff;--sf:#fff;--fg:#000;--mu:#333;--bd:#666;--acc:#000}header,#side,footer,.row,.skip{display:none!important}body{font-size:12pt}main{max-width:none}}
+
+main{overflow-wrap:anywhere}
+html{color-scheme:light}
+html[data-look=charcoal],html[data-look=black]{color-scheme:dark}
+h1,h2,h3{text-wrap:balance}
+p,li,dd{text-wrap:pretty}
+@media(forced-colors:active){button,select,input,.btn,.q,.note,.rule,details{border:1px solid ButtonText}button:disabled{color:GrayText;border-color:GrayText}a{color:LinkText}:focus-visible{outline:3px solid Highlight}}
+.fig{margin:1rem 0}.fig figcaption{font-weight:700;margin-bottom:.3rem}.fig svg{display:block;width:100%;max-width:34rem;height:auto}
+.vb{fill:var(--sf);stroke:var(--bd);stroke-width:1.5}.vt{fill:var(--fg);font:19px var(--ff)}.vm{fill:var(--mu);font:16px var(--ff)}.va{stroke:var(--fg);stroke-width:2;fill:none}.vg{stroke:var(--bd);stroke-width:1;stroke-dasharray:5 4}.vh{fill:var(--fg)}.vd{fill:var(--acc);stroke:var(--fg);stroke-width:1}.vp{fill:var(--acc);stroke:var(--fg);stroke-width:1}.vn{fill:var(--bg);font:700 16px var(--ff)}
+@media(forced-colors:active){.vb{fill:Canvas;stroke:CanvasText}.vt,.vm,.vh{fill:CanvasText}.va,.vg{stroke:CanvasText}.vd,.vp{fill:Highlight;stroke:CanvasText}.vn{fill:HighlightText}}
+
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rc);padding:.8rem 1rem;margin:.8rem 0}
+.card h2,.card h3{margin:0 0 .4rem;font-size:1.15rem}
+.card h2 a{display:inline-flex;align-items:center;min-height:44px}
+.card p{margin:.3rem 0}
+.act fieldset{border:1px solid var(--bd);border-radius:var(--rc);margin:.8rem 0;padding:.4rem 1rem .8rem;min-width:0}
+.act legend{font-weight:700;padding:0 .3rem}
+.ctl{display:flex;flex-wrap:wrap;gap:.3rem .8rem;align-items:center;margin:.7rem 0}
+.ctl>label,.ctl>.lab{flex:1 0 100%;font-weight:700}
+.ctl input[type=range]{flex:1 1 12rem;padding:0;border:0;background:none;accent-color:var(--acc);min-width:0}
+.rd{font-variant-numeric:tabular-nums;font-weight:700}
+.bl,.lg{list-style:none;padding:0;margin:.3rem 0}.bl li{margin:.3rem 0}
+.ord{padding-left:1.4rem}.ord li{margin:.5rem 0}.ord p{margin:.2rem 0}
+.lg li{display:flex;align-items:center;min-height:28px}
+.fig .lgs{display:inline-block;width:2.5rem;height:.7rem;margin-right:.5rem;flex:none}
+.s0,.s1,.s2{fill:none;stroke-width:2.5}.s0{stroke:var(--fg)}.s1{stroke:var(--acc);stroke-dasharray:9 5}.s2{stroke:var(--mu);stroke-dasharray:2 5}
+.vc{fill:var(--bg);stroke:var(--fg);stroke-width:2.5}
+@media(forced-colors:active){.s0,.s1,.s2,.vc{stroke:CanvasText}.vc{fill:Canvas}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+<div class="strip">
+<strong id="ttl"></strong>
+<a class="back" href="../" id="back-to-hub">Home</a><a class="back help" href="#help">Help</a>
+<button id="menu" type="button" aria-expanded="false" aria-controls="side"><span id="mt">Menu</span></button>
+</div>
+<div class="strip">
+
+<label class="sr" for="look">Look</label>
+<select id="look" name="look"><option value="auto">Look: Auto</option><option value="paper">Look: Paper</option><option value="charcoal">Look: Charcoal</option><option value="black">Look: Black</option></select>
+</div>
+<progress id="bar" value="0" max="1" aria-label="Chapters done"></progress>
+</header>
+<div class="wrap"><aside id="side"><div class="srch"><label class="sr" for="q">Search this guide</label><input id="q" type="search" placeholder="Search"><button id="go" type="button">Search</button></div><nav id="nav" aria-label="Guide sections"></nav></aside><main id="main" tabindex="-1"><p>This guide did not start. Its knowledge is still in the data block inside this file. Ask the AI that made it to copy the app template again without changes.</p></main></div>
+<footer>
+<p>Study app 1.5.5. A generated guide: see <span id="ftU">What We Are Not Sure About</span> for its limits. Your progress stays in this browser; the app does not send it anywhere.</p>
+<p class="links"><a href="#help">Help</a><a href="#licences" id="ftL">Licence and reuse</a></p>
+</footer>
+<noscript><p>This guide needs JavaScript. All its knowledge is also written in the data block inside this file.</p></noscript>
+<template data-kd="manifest">{
+ "app": "kd-app",
+ "purpose": "Offline, institution-neutral equipment-support study app with data-driven lessons and activities. Licence scope remains limited by confirmed ownership and permissions.",
+ "parts": {
+  "content": "The study data lives in the template element data-kd=base. Questions and activities are data rather than executable code.",
+  "design": "meta.hue, meta.type, meta.radius, meta.density and meta.design in the base data choose the look. Colours, corner radius, line height and fonts are CSS variables at the top of the style element; font sizes and spacing are plain values inside the style. meta.labels renames the menu items in plain words.",
+  "behaviour": "The one script element builds every screen from the data. It stores progress only in this browser, under keys that start with the guide id.",
+  "activities": "The key activities in the content holds simulations, matching, sorting, ordering, scenarios and estimates. The script reads their formulas with its own small parser and never runs data as code. Add or change activities in the data only.",
+  "security": "The CSP meta element holds a sha256 fingerprint of the script and of the style. Any edit to either needs new fingerprints.",
+  "licensing": "Original software and new teaching prose may be made available under MIT only where the distributor owns or controls the rights. The only mandatory licence notice is the main app notice; no third-party artwork, icon pack, remote code or source documents are bundled."
+ },
+ "update": [
+  "Read this manifest, the data, and the build notes in the data: meta.updated, log, practice and fresh.",
+  "Recheck the items in fresh against a current primary source and update their asOf date: every item on a bare UPDATE or UPDATE FULL, only the items the notes touch on UPDATE with notes. Mark what you cannot check as UNVERIFIED. Never present a remembered fact as current.",
+  "On UPDATE FULL only: run a fresh practice sweep at runtime for each pertinent domain: the subject, learning design, accessibility, web security and privacy, browser storage, plain language, and any other the subject or the app touches (for example print, translation, performance, data export). Use primary sources first. Compare them with the practice list. Adopt only what a current primary source supports. Record each adopted and rejected practice with its source, date and the trigger to check it again.",
+  "Change only the part that needs changing. Keep existing chapter and question ids whenever possible. This edition includes an explicit migration of earlier identifiers; retain it until older saved progress is no longer supported. If storage must change, write a migration that keeps the old copy until the new one is read back.",
+  "After any edit to the style or the script, recompute base64(sha256(exact text between the tags)) for each and write both into the CSP meta. A wrong fingerprint stops the app, which then shows a notice.",
+  "When the style or script changes, raise the version in the file header comment, the kd-app meta tag, the footer and the APPV constant. Set meta.updated and add a log entry.",
+  "Verify: the JSON parses; the fingerprints match; every screen opens; there are no console errors; there is no sideways scroll at 320 px or at 200 percent text; contrast and 44 px targets hold in the three palettes Paper, Charcoal and Black; every activity type completes by keyboard alone; save, restore and reset of progress work, and an older progress file still restores. If you cannot open a browser, say so and cap the delivery class.",
+  "This edition intentionally omits the displayed external source catalogue. Re-establish documentary provenance and reuse permissions before republishing or making official claims.",
+  "The MIT label grants only the rights actually controlled by its grantor. Rights to inherited software and earlier reference materials still require confirmation. Before redistribution, review ownership and preserve all required copyright and licence notices.",
+  "This edition uses plain text labels rather than bundled icon artwork. Do not introduce external icon libraries, fonts, or brand assets in later builds.",
+  "This 1.5.5 revision preserves topic and chapter IDs. The source generator template does not contain this app’s historical progress migration; the app keeps it for supported prior files.",
+  "A local-file browser may not persist progress; advise readers to export backups, and validate restoration without relying on localStorage."
+ ],
+ "rules": [
+  "Never put a fact that can change into the template or this manifest. Changeable facts live in the data with an asOf date.",
+  "No personal data about any private person. Public authors and figures named in published sources may be named.",
+  "Activity answers, formulas and numbers live in the data, never in the template. Every activity links to chapters that teach it.",
+  "Plain text with ASCII punctuation and no emoji. No marketing words. No dated trend names.",
+  "If any independently licensed asset is later added, retain its required notices and avoid presenting an unknown-rights source as MIT-licensed."
+ ]
+}</template>
+<template data-kd="base">{
+ "meta": {
+  "id": "equipment-support-d8a4",
+  "title": "SupportScout Equipment Support Decisions",
+  "topic": "A general method for assessing equipment support options",
+  "reader": "Adult beginner; no previous decision-analysis experience required",
+  "asOf": "2026-11-03",
+  "updated": "2026-11-03",
+  "hue": 217,
+  "type": "humanist",
+  "radius": "sharp",
+  "density": "airy",
+  "lang": "en",
+  "notVerifiedFor": "This is a general learning aid, not a complete technical manual, formal accessibility audit, licence clearance or approved legal, purchasing, financial or safety procedure.",
+  "assumptions": [
+   "This guide is an independent educational model. It does not claim sponsorship, authority or approval.",
+   "The named study stages describe an example sequence, not a mandatory procedure.",
+   "Exercise values, conditions and sample choices are fictional and cannot determine real equipment needs.",
+   "Only material whose rights are controlled by the distributor can be offered under an open-source licence; any earlier material with unresolved rights is excluded from the licence grant."
+  ],
+  "design": {
+   "concept": "A task-led lesson that follows one decision from needs to monitoring.",
+   "voice": "Short explanations, testable decisions and limits visible before risky use.",
+   "hue": "Deep blue separates actionable controls and progress indicators.",
+   "type": "Humanist fonts support extended reading in the browser.",
+   "radius": "Angular controls keep the interface visually utilitarian.",
+   "density": "Relaxed line spacing separates procedures and feedback."
+  },
+  "labels": {
+   "big": "Workflow at a glance",
+   "rules": "Decision principles",
+   "decide": "What to do next",
+   "ref": "Desk reference",
+   "test": "Check understanding",
+   "play": "Practice decisions",
+   "next": "Continue learning",
+   "ai": "For AI tools"
+  }
+ },
+ "start": {
+  "what": "This single offline file teaches a general way to plan and improve equipment support. It is an independent learning exercise, not an official standard or a permission to enter agreements. “Inferred:” marks invented examples; “Not verified:” marks a point that needs external confirmation. See What We Are Not Sure About for limits.",
+  "who": "First-time learners planning the support of equipment, services or other operating assets.",
+  "need": "A modern browser. No account, internet connection or installation is needed. Save progress files because browser storage is not guaranteed for locally opened files.",
+  "gain": "Describe a needed result, define a measurable requirement, identify a shortfall, compare ways to deliver support, and monitor the outcome.",
+  "time": "Allow about two to four hours for reading and practice. Your pace can differ.",
+  "use": "Read Level 1 first, answer the short checks, then use Practice decisions. Level 1 teaches the central method. My Progress can export a portable backup; automatic browser saving can vary for a local file.",
+  "rules": [
+   "Describe the task and desired outcome before choosing a service model.",
+   "For every essential requirement, define how success will be measured.",
+   "Document a shortfall before proposing a remedy.",
+   "Compare effectiveness, flexibility, cost and wider effects.",
+   "Assess feasible choices against a consistent set of criteria.",
+   "Separate a recommendation from a formal approval.",
+   "Review operating results and correct the model when evidence changes."
+  ],
+  "one": "State the user outcome, measure the current gap, compare realistic support choices, and document the reason for the selected approach."
+ },
+ "big": {
+  "text": "Begin with what equipment users must accomplish. Translate that into observable support outcomes and compare those outcomes with current results. Evaluate feasible delivery choices against common criteria, then define responsibilities and measures. Once the choice is implemented, use performance evidence to adjust it. The six study stages below are illustrative labels, not a universal procedure.",
+  "map": [
+   "Stage A — clarify purpose, scope, responsibilities and evidence",
+   "Stage B — describe user demand and measurable requirements",
+   "Stage C — assess gaps, impacts and the next decision",
+   "Stage D — compare delivery choices and allocate work",
+   "Stage E — define oversight and performance accountability",
+   "Stage F — prepare detailed implementation arrangements",
+   "In operation — measure, learn and improve"
+  ]
+ },
+ "glossary": [
+  {
+   "term": "Support analysis",
+   "def": "A structured study of practical ways to keep assets and services ready for use.",
+   "example": "A team compares repair and supply arrangements before choosing one."
+  },
+  {
+   "term": "Support",
+   "def": "Work and resources that allow an asset to remain usable over time.",
+   "example": "Inspection, servicing and replacement components are support activities."
+  },
+  {
+   "term": "Support system",
+   "def": "All people, processes, facilities, tools and agreements contributing to delivery.",
+   "example": "An internal team, an outside repair shop and a parts provider work together."
+  },
+  {
+   "term": "Equipment user",
+   "def": "The person or group that relies on the asset to complete a task.",
+   "example": "An operations team explains when a machine must be available."
+  },
+  {
+   "term": "Decision owner",
+   "def": "The role authorized to accept a choice or require further analysis.",
+   "example": "The owner reviews evidence before an arrangement begins."
+  },
+  {
+   "term": "Stakeholder",
+   "def": "A party affected by, delivering, or providing evidence for a decision.",
+   "example": "Users and maintainers describe different constraints."
+  },
+  {
+   "term": "Stage",
+   "def": "A manageable portion of the study workflow, not a mandatory legal phase.",
+   "example": "One stage records needs; a later stage compares options."
+  },
+  {
+   "term": "Requirement",
+   "def": "A testable condition or result that a service needs to meet.",
+   "example": "A repair must be completed within an agreed period."
+  },
+  {
+   "term": "Metric",
+   "def": "The observation used to measure how well something works.",
+   "example": "Hours from a request to a completed repair."
+  },
+  {
+   "term": "Target",
+   "def": "The desired value or state against which results are assessed.",
+   "example": "The service reaches an agreed response time."
+  },
+  {
+   "term": "Gap",
+   "def": "The difference between a required result and an observed one.",
+   "example": "Only six of the eight needed devices are available."
+  },
+  {
+   "term": "Outcome",
+   "def": "The benefit or operating result the system is expected to deliver.",
+   "example": "The needed equipment is ready when work starts."
+  },
+  {
+   "term": "Options analysis",
+   "def": "A comparison of practical choices using relevant and consistent criteria.",
+   "example": "A team reviews two repair approaches using the same service measures."
+  },
+  {
+   "term": "Work breakdown structure",
+   "def": "A structured list of distinct activities and their interfaces.",
+   "example": "Inspection, parts ordering and component repair are separate entries."
+  },
+  {
+   "term": "Internal delivery",
+   "def": "Work carried out by the organization’s own people or assets.",
+   "example": "An in-house team completes regular servicing."
+  },
+  {
+   "term": "External delivery",
+   "def": "Work assigned to a separate provider under a defined arrangement.",
+   "example": "A specialist shop repairs a component."
+  },
+  {
+   "term": "Partner delivery",
+   "def": "Work shared with an allied organization under an agreed role.",
+   "example": "Two organizations coordinate specialist equipment testing."
+  },
+  {
+   "term": "Resilience",
+   "def": "Ability to keep operating or recover after interruption.",
+   "example": "An alternative parts route limits the impact of a closure."
+  },
+  {
+   "term": "Flexibility",
+   "def": "Ability to adjust when demand, conditions or constraints change.",
+   "example": "Capacity can increase temporarily during busy periods."
+  },
+  {
+   "term": "Performance framework",
+   "def": "Linked outcomes, measures, owners and review actions.",
+   "example": "A service lead reviews delays monthly and investigates causes."
+  },
+  {
+   "term": "Wider stakeholder effects",
+   "def": "Relevant effects beyond direct service delivery, such as inclusion or environmental impact.",
+   "example": "A choice is evaluated for accessibility and waste reduction."
+  },
+  {
+   "term": "Cost-effectiveness",
+   "def": "The relationship among useful results, full costs and accepted risks.",
+   "example": "The lowest quoted price may not provide the best long-term result."
+  }
+ ],
+ "levels": [
+  {
+   "id": 1,
+   "name": "Essentials",
+   "chapters": [
+    {
+     "id": "purpose",
+     "title": "Define the support decision",
+     "goal": "After this you can explain what a support decision study should decide and deliver.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. This lesson uses support analysis to answer a practical question: which arrangement can keep equipment usable for the tasks that matter? Begin with the result users need, not a preferred supplier. The study considers people, spare parts, facilities, information, costs and agreements as one system. It ends in an explained recommendation, subject to the real decision owner’s approval.",
+     "check": [
+      {
+       "q": "What should the analysis deliver?",
+       "a": "A reasoned proposal for an integrated way to sustain the equipment.",
+       "ref": "Define the support decision"
+      },
+      {
+       "q": "Inferred: Why is naming a contractor before establishing the need premature?",
+       "a": "The team has not yet defined the result or examined feasible alternatives.",
+       "ref": "Define the support decision"
+      }
+     ],
+     "rule": {
+      "text": "Define the needed result before favouring a delivery partner.",
+      "fails": "A mandatory constraint can narrow the choices; it should still be made explicit."
+     },
+     "visual": [
+      {
+       "kind": "flow",
+       "title": "A decision pathway",
+       "alt": "Establish the need, measure current support, compare alternatives, then select a recommended model.",
+       "items": [
+        {
+         "label": "Needs",
+         "note": "Requirements"
+        },
+        {
+         "label": "Gaps",
+         "note": "Compare current support"
+        },
+        {
+         "label": "Options",
+         "note": "Test alternatives"
+        },
+        {
+         "label": "Solution",
+         "note": "One recommendation"
+        }
+       ]
+      }
+     ],
+     "examples": [
+      "Inferred: A group needs a set of devices ready for daily operations. The decision is how to maintain usable devices, not whether to select one named supplier."
+     ]
+    },
+    {
+     "id": "principles",
+     "title": "Balance the evaluation criteria",
+     "goal": "After this you can explain the four lenses used to assess support decisions.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Evaluate a service model from four directions. Service performance covers capability and availability. Flexibility covers changing workload or conditions. Cost-effectiveness compares benefit, total cost and risk. Wider stakeholder effects cover relevant inclusion, environmental or community consequences. An option may improve one area and worsen another; document the trade-offs rather than hiding them.",
+     "check": [
+      {
+       "q": "Which four areas belong in the evaluation?",
+       "a": "Performance, flexibility, cost-effectiveness and wider stakeholder effects.",
+       "ref": "Balance the evaluation criteria"
+      },
+      {
+       "q": "Inferred: An inexpensive service cannot cope with extra deployments. What concern does that raise?",
+       "a": "It raises a flexibility concern, which should be assessed with the other principles.",
+       "ref": "Balance the evaluation criteria"
+      }
+     ],
+     "rule": {
+      "text": "Show the reasoning behind trade-offs among the four areas.",
+      "fails": "Where a criterion truly does not apply, explain that decision instead of fabricating a number."
+     },
+     "visual": [
+      {
+       "kind": "flow",
+       "title": "Four evaluation lenses",
+       "alt": "Every recommendation considers all four areas before selection.",
+       "items": [
+        {
+         "label": "Performance",
+         "note": "Operational support"
+        },
+        {
+         "label": "Cost-effectiveness",
+         "note": "Costs and results"
+        },
+        {
+         "label": "Flexibility",
+         "note": "Changing needs"
+        },
+        {
+         "label": "Wider effects",
+         "note": "Relevant stakeholder outcomes"
+        }
+       ]
+      }
+     ],
+     "examples": [
+      "Inferred: A low-cost service may fail during demand peaks. Compare its usual performance, ability to adapt, full costs and relevant wider effects before choosing."
+     ]
+    },
+    {
+     "id": "scope",
+     "title": "Set clear study boundaries",
+     "goal": "After this you can describe the support boundary and recognize an omitted dependency.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. A useful review has an explicit boundary. Record the types and versions of assets, locations, tasks and participating groups. Show which activities are included and excluded. Note interfaces with outside work, because a proposal that omits a necessary dependency cannot be compared fairly with a complete one.",
+     "check": [
+      {
+       "q": "What makes a scope statement usable?",
+       "a": "It names the equipment, locations, support activities, participating organizations, dependencies and exclusions.",
+       "ref": "Set clear study boundaries"
+      },
+      {
+       "q": "Inferred: A necessary overhaul activity is omitted from the scope. What should be examined?",
+       "a": "Whether the boundary and the relationship to the overhaul service have been defined correctly.",
+       "ref": "Set clear study boundaries"
+      }
+     ],
+     "steps": [
+      {
+       "do": "Inventory equipment types and versions.",
+       "see": "The equipment being examined is identifiable.",
+       "ifNot": "Have technical staff clarify any missing configurations."
+      },
+      {
+       "do": "Map support activities and their participants.",
+       "see": "Internal and outside responsibilities appear in the same overview.",
+       "ifNot": "Compare the map with existing support arrangements."
+      },
+      {
+       "do": "State exclusions and critical interfaces.",
+       "see": "Readers know which work is not covered and where dependencies remain.",
+       "ifNot": "Record the unresolved issue and who must settle it."
+      }
+     ],
+     "rule": {
+      "text": "Make exclusions and interfaces just as visible as inclusions.",
+      "fails": "If the decision boundary changes, obtain agreement on the revised scope."
+     },
+     "examples": [
+      "Inferred: If an outside repair depot handles essential components, state whether that work belongs to the analysis and how it interfaces with other tasks."
+     ]
+    },
+    {
+     "id": "initiation",
+     "title": "Organize the decision work",
+     "goal": "After this you can identify the actions needed to organize a support decision study.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Stage A creates a common plan for the review. Define the trigger, intended decision, scope, roles, data needs, schedule and material risks. Include users, technical specialists, delivery owners and reviewers as relevant. Assign unresolved questions to a named role and a next action. Agreement on a plan is not the same as authorization to make binding commitments.",
+     "check": [
+      {
+       "q": "What must the initiating team settle early?",
+       "a": "The trigger, study boundary, roles, schedule, information needs and major risks.",
+       "ref": "Organize the decision work"
+      },
+      {
+       "q": "Inferred: Two teams assume the other owns a critical task. What should happen?",
+       "a": "Assign responsibility explicitly and document the interface before the analysis advances.",
+       "ref": "Organize the decision work"
+      }
+     ],
+     "steps": [
+      {
+       "do": "Confirm the reason for the study and the decision expected.",
+       "see": "The team shares a clear mandate.",
+       "ifNot": "Escalate uncertainty over scope or authority."
+      },
+      {
+       "do": "Assign participants, deliverables and dates.",
+       "see": "Every major work item has an owner and schedule.",
+       "ifNot": "Identify missing expertise or resources."
+      },
+      {
+       "do": "Document assumptions, risks and open questions.",
+       "see": "Follow-up work is visible and assigned.",
+       "ifNot": "Give unresolved matters an owner and next review date."
+      }
+     ],
+     "rule": {
+      "text": "Obtain a shared mandate and clear ownership of tasks.",
+      "fails": "Significant new evidence may require the original plan to be revised."
+     },
+     "examples": [
+      "Inferred: A review starts with a one-page statement of its goal, boundaries, decision owner, evidence gaps and the next check-in."
+     ]
+    },
+    {
+     "id": "usage",
+     "title": "Turn usage into support demand",
+     "goal": "After this you can separate the user task from the support needed to enable it.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Stage B turns a user task into a support workload. Ask what assets must do, how many are needed, and where and when they must be available. Describe duration, configurations, ordinary demand and exceptional peaks. The support team may not operate the equipment, but it must enable users to do so. Link each proposed support requirement to the user outcome it protects.",
+     "check": [
+      {
+       "q": "How is an user need different from a service requirement?",
+       "a": "The first describes what the user needs to do; the second identifies the support needed to make that possible.",
+       "ref": "Turn usage into support demand"
+      },
+      {
+       "q": "Inferred: A unit needs ten operating vehicles during an exercise. What support issue follows?",
+       "a": "The support system must deliver the required number of serviceable vehicles at the specified place and time.",
+       "ref": "Turn usage into support demand"
+      }
+     ],
+     "steps": [
+      {
+       "do": "Ask users about real operations and training demand.",
+       "see": "Quantity, locations, timing and duration are captured.",
+       "ifNot": "Compare the response with actual use and ask about differences."
+      },
+      {
+       "do": "Specify each usage demand so it can be assessed.",
+       "see": "The needed output and conditions are clear.",
+       "ifNot": "Record a reasonable uncertainty range and its basis."
+      },
+      {
+       "do": "Connect support activities to the operating demands they enable.",
+       "see": "Each relevant target has an operating purpose.",
+       "ifNot": "Explain any need that does not translate into a support obligation."
+      }
+     ],
+     "rule": {
+      "text": "Find out demand, location and timing before planning support capacity.",
+      "fails": "Uncertain workload requires an explicit range, confidence estimate or surge assumption."
+     },
+     "examples": [
+      "Inferred: Forecast annual demand using likely operating activity, noting the difference between routine use, planned increases and short-notice peaks."
+     ]
+    },
+    {
+     "id": "requirements",
+     "title": "Write measurable requirements",
+     "goal": "After this you can write a support outcome with a measurement and a defensible threshold.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Define requirements as observable outcomes, not vague qualities. A metric explains what is measured, and a target defines the result to achieve. State the location, timing, volume, conditions and units when they matter. Explain the evidence behind the chosen threshold. When evidence is weak, report uncertainty instead of inventing precision. Write down who collects each metric, the counting method and how disputed observations are handled.",
+     "check": [
+      {
+       "q": "How do a metric and a target differ?",
+       "a": "The metric specifies what is observed; the target establishes the required result.",
+       "ref": "Write measurable requirements"
+      },
+      {
+       "q": "Inferred: A draft calls for quick repairs. What must be added?",
+       "a": "A defined measure of repair time and a justified performance threshold.",
+       "ref": "Write measurable requirements"
+      }
+     ],
+     "steps": [
+      {
+       "do": "State the outcome the support system must deliver.",
+       "see": "The result can be recognized independently of the method used.",
+       "ifNot": "Return to the user need to clarify the expected outcome."
+      },
+      {
+       "do": "Specify how to observe the result and its units.",
+       "see": "Different observers could collect comparable results.",
+       "ifNot": "Define precisely when the observation begins and ends."
+      },
+      {
+       "do": "Set a defensible target and relevant time period.",
+       "see": "The requirement has a clear success condition.",
+       "ifNot": "Identify missing evidence and who must provide it."
+      }
+     ],
+     "rule": {
+      "text": "Define the measure, required result and period of assessment.",
+      "fails": "If the evidence does not support a numeric threshold, record the uncertainty rather than guessing."
+     },
+     "examples": [
+      "Inferred: A readiness requirement could count how many units are usable at a particular time. The required count should be established from the operating need."
+     ]
+    },
+    {
+     "id": "gaps",
+     "title": "Measure unmet needs",
+     "goal": "After this you can state a measured support deficiency without assuming a solution.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Stage C compares current results with required results. For each gap, record the target, the observed value, their difference, its practical consequence and the reliability of the evidence. A gap is a finding; a proposal to buy, hire or restructure is a possible response. Do not confuse the two, because an early solution can hide the actual cause.",
+     "check": [
+      {
+       "q": "What evidence is central to gap analysis?",
+       "a": "Observed results compared with the relevant approved targets.",
+       "ref": "Measure unmet needs"
+      },
+      {
+       "q": "Inferred: The team writes “purchase more parts” as the problem. What should it record?",
+       "a": "The actual measured shortage or delay, its cause if known, and the operating consequence.",
+       "ref": "Measure unmet needs"
+      }
+     ],
+     "steps": [
+      {
+       "do": "Choose a requirement with an agreed target.",
+       "see": "There is a valid basis for comparison.",
+       "ifNot": "Complete the metric or target before judging a gap."
+      },
+      {
+       "do": "Compare observations with the requirement.",
+       "see": "The extent of any shortfall is recorded.",
+       "ifNot": "Label missing or poor-quality evidence as such."
+      },
+      {
+       "do": "Describe the operating effect and relative urgency.",
+       "see": "Readers understand why the shortfall matters.",
+       "ifNot": "Ask affected users to assess consequences."
+      }
+     ],
+     "rule": {
+      "text": "Describe the unmet result before discussing possible corrections.",
+      "fails": "A new system may not have comparable historical performance to measure."
+     },
+     "examples": [
+      "Inferred: A need for eight usable units compared with a verified count of six gives a gap of two units. The remedy remains an open decision."
+     ]
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "Core Practice",
+   "chapters": [
+    {
+     "id": "outcomes",
+     "title": "Define whole-system outcomes",
+     "goal": "After this you can state a high-level enterprise outcome rather than a task list.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Whole-system outcomes describe what the combined support arrangement must achieve, regardless of which team does the work. They connect detailed service requirements to the final operating result. Keep them few, observable and traceable, so they can be used to compare delivery choices and later monitor performance.",
+     "check": [
+      {
+       "q": "Why is an enterprise outcome not the same as a task?",
+       "a": "It describes the result sought, regardless of which activity produces it.",
+       "ref": "Define whole-system outcomes"
+      },
+      {
+       "q": "Inferred: Why is “hire five more technicians” a weak outcome?",
+       "a": "It specifies a resource decision without describing the service result to be achieved.",
+       "ref": "Define whole-system outcomes"
+      }
+     ],
+     "rule": {
+      "text": "Phrase enterprise success as an observable result.",
+      "fails": "Broad outcomes do not remove the need for detailed measures where they matter."
+     },
+     "examples": [
+      "Inferred: A support outcome could require a set share of broken units repaired within an agreed time."
+     ]
+    },
+    {
+     "id": "phasegate",
+     "title": "Choose a proportionate next review",
+     "goal": "After this you can justify the breadth of the next review from the available evidence.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. After recording major gaps, decide how much further analysis is justified. A large or uncertain problem may warrant a broad review; a narrow, well-understood gap may support a smaller study. Document the reasons, what remains outside scope and which owner must approve the route. The stages in this lesson are illustrative and do not replace an organization’s actual approval process.",
+     "check": [
+      {
+       "q": "What should support a decision to limit design study?",
+       "a": "The established gaps, the documented rationale and the relevant approved decision.",
+       "ref": "Choose a proportionate next review"
+      },
+      {
+       "q": "Inferred: A single narrowly defined problem affects an existing asset group. What might be considered?",
+       "a": "A proportionate design study scope, but only with sufficient justification and approval.",
+       "ref": "Choose a proportionate next review"
+      }
+     ],
+     "rule": {
+      "text": "Use evidence about the shortfalls to justify the next analysis route.",
+      "fails": "The controlling applicability criteria and decision authority may require a different route."
+     },
+     "examples": [
+      "Inferred: A focused review can be suitable when one measurable shortfall is well understood, but the decision owner must accept its limits."
+     ]
+    },
+    {
+     "id": "division",
+     "title": "Assign delivery responsibility",
+     "goal": "After this you can distinguish a support task from the organization accountable for it.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Stage D separates the total support mission into identifiable work packages. For each package, compare internal delivery, external providers and partner organizations where they are feasible. State who owns the result, who performs the task and how handoffs work. The current organizational chart is evidence, not proof that its allocations should remain unchanged.",
+     "check": [
+      {
+       "q": "What does allocating the work establish?",
+       "a": "An accountable delivery path for each defined support activity.",
+       "ref": "Assign delivery responsibility"
+      },
+      {
+       "q": "Inferred: A supplier and a internal depot both participate. What must still be decided?",
+       "a": "Who is responsible for delivery and how their responsibilities connect.",
+       "ref": "Assign delivery responsibility"
+      }
+     ],
+     "steps": [
+      {
+       "do": "Break the support mission into specific activities.",
+       "see": "The work can be assigned without major omissions.",
+       "ifNot": "Review the equipment lifecycle and interfaces."
+      },
+      {
+       "do": "Identify reasonable delivery streams for each activity.",
+       "see": "Plausible in-house, market and organization alternatives are visible.",
+       "ifNot": "Document constraints and missing capability information."
+      },
+      {
+       "do": "Assign accountability and describe handovers.",
+       "see": "The responsibility of each stream is apparent.",
+       "ifNot": "Resolve overlaps or gaps in ownership."
+      }
+     ],
+     "rule": {
+      "text": "Give each defined task clear delivery accountability.",
+      "fails": "The specific provider may change when arrangements are finalized."
+     },
+     "examples": [
+      "Inferred: A repair process has one team receiving faults and another completing work. Document the handoff and who remains accountable for the final result."
+     ]
+    },
+    {
+     "id": "sixsteps",
+     "title": "Compare options in six steps",
+     "goal": "After this you can carry a support decision through six explicit analysis steps.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Compare delivery alternatives in a traceable order: define the choice, collect reliable facts, identify workable options, select relevant evaluation criteria, assess each option on a common basis, then explain the preferred choice and its trade-offs. Repeat the affected comparison if material constraints or evidence change. Check whether the result still holds when uncertain inputs move within plausible ranges. A preference that reverses needs to be shown as conditional.",
+     "check": [
+      {
+       "q": "What makes two options comparable?",
+       "a": "They answer the same decision question and are assessed against suitable shared requirements.",
+       "ref": "Compare options in six steps"
+      },
+      {
+       "q": "Inferred: A new constraint appears after a preferred option is selected. What is the prudent response?",
+       "a": "Revisit the affected criteria and repeat the relevant comparison.",
+       "ref": "Compare options in six steps"
+      }
+     ],
+     "steps": [
+      {
+       "do": "State the choice that needs to be made.",
+       "see": "The comparison has one defined purpose.",
+       "ifNot": "Narrow or restate an unclear decision."
+      },
+      {
+       "do": "Collect evidence, constraints and relevant assumptions.",
+       "see": "The basis for judging choices is documented.",
+       "ifNot": "Identify any material evidence still missing."
+      },
+      {
+       "do": "Form realistic alternatives.",
+       "see": "Each option could plausibly achieve the required task.",
+       "ifNot": "Remove unworkable choices or document what is needed to test them."
+      },
+      {
+       "do": "Select the requirements that will be used in the comparison.",
+       "see": "The evaluation criteria relate to the defined decision.",
+       "ifNot": "Explain why a proposed test is relevant."
+      },
+      {
+       "do": "Assess each option under the same suitable criteria.",
+       "see": "Results can be compared and trade-offs seen.",
+       "ifNot": "Revisit inconsistent scope or missing evidence."
+      },
+      {
+       "do": "Record a preferred option and its rationale.",
+       "see": "The recommendation can be traced to the comparison.",
+       "ifNot": "Document unresolved trade-offs for the decision authority."
+      }
+     ],
+     "rule": {
+      "text": "Judge all realistic choices against the same relevant tests.",
+      "fails": "A material change to the problem or available evidence can require a new assessment."
+     },
+     "visual": [
+      {
+       "kind": "flow",
+       "title": "The six decision steps",
+       "alt": "Every options analysis proceeds from a decision question to a documented choice.",
+       "items": [
+        {
+         "label": "Question",
+         "note": "What is being decided"
+        },
+        {
+         "label": "Considerations",
+         "note": "Evidence and constraints"
+        },
+        {
+         "label": "Options",
+         "note": "Feasible choices"
+        },
+        {
+         "label": "Requirements",
+         "note": "Basis for comparison"
+        },
+        {
+         "label": "Analysis",
+         "note": "Compare against needs"
+        },
+        {
+         "label": "Recommendation",
+         "note": "Select with reasons"
+        }
+       ]
+      }
+     ],
+     "examples": [
+      "Inferred: Two feasible service choices may rank differently when demand doubles. Record the original comparison, change only the demand assumption, and note whether the preferred choice changes."
+     ]
+    },
+    {
+     "id": "strategy",
+     "title": "Choose a delivery strategy",
+     "goal": "After this you can identify the strategic decisions made before drafting contract terms.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. A delivery strategy sets the overall pattern before detailed agreement terms are drafted. Decide what capability stays internal, which tasks can be grouped, how interfaces and disruptions will be handled, and what market or partner approaches may be workable. Separate these structural decisions from later documents, prices and performance clauses.",
+     "check": [
+      {
+       "q": "What should be settled before detailing contract clauses?",
+       "a": "The intended work division and high-level delivery and purchasing approach.",
+       "ref": "Choose a delivery strategy"
+      },
+      {
+       "q": "Inferred: A team starts drafting payment clauses without a delivery strategy. What should it establish?",
+       "a": "Which work is being acquired, why and under what overall arrangement.",
+       "ref": "Choose a delivery strategy"
+      }
+     ],
+     "rule": {
+      "text": "Select the delivery concept before refining its instruments.",
+      "fails": "Some preparation may overlap, provided decisions remain traceable."
+     },
+     "examples": [
+      "Inferred: A review could compare one shared support arrangement with separate specialist agreements, including the coordination needed for each."
+     ]
+    },
+    {
+     "id": "engagement",
+     "title": "Collect relevant evidence",
+     "goal": "After this you can distinguish valid input from an unsupported preference.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Different participants reveal different risks. Users explain demand, maintainers describe technical constraints, finance or purchasing teams test resource assumptions, and prospective providers may offer feasibility information. Ask precise questions and record the evidence received. For a competitive purchase, follow the applicable fairness and confidentiality rules; a vendor preference is not independent proof.",
+     "check": [
+      {
+       "q": "What should a consultation produce?",
+       "a": "Relevant evidence and a clear record of how it influenced the analysis.",
+       "ref": "Collect relevant evidence"
+      },
+      {
+       "q": "Inferred: A potential bidder recommends its own solution. How should that input be handled?",
+       "a": "Treat it as information to check, while protecting fairness and following the approved engagement process.",
+       "ref": "Collect relevant evidence"
+      }
+     ],
+     "rule": {
+      "text": "Request verifiable information rather than expressions of preference.",
+      "fails": "A participant with a commercial interest may provide biased or incomplete evidence."
+     },
+     "examples": [
+      "An effective consultation asks participants targeted questions whose answers may change feasibility, cost or risk assessment."
+     ]
+    },
+    {
+     "id": "framework",
+     "title": "Connect measures and owners",
+     "goal": "After this you can describe what an effective support-performance framework contains.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Stage E turns a preferred delivery pattern into measurable accountability. Specify outcomes, owners, metrics, review periods, data quality checks and escalation routes. A statement such as “provide excellent support” cannot be managed without an observable standard. Use enough measures to guide decisions, but avoid tracking numbers that do not change action.",
+     "check": [
+      {
+       "q": "What belongs in the performance framework?",
+       "a": "Defined outcomes, measures, assigned responsibility and management review.",
+       "ref": "Connect measures and owners"
+      },
+      {
+       "q": "Inferred: A contract says “maintain excellent service” without an observable measure. What is the weakness?",
+       "a": "The organization cannot consistently determine whether the promised service was delivered.",
+       "ref": "Connect measures and owners"
+      }
+     ],
+     "rule": {
+      "text": "Tie significant outcomes to both a metric and a responsible party.",
+      "fails": "An excessive set of measures can create administration without improving decisions."
+     },
+     "examples": [
+      "Inferred: Measure usable units at a fixed interval. Assign a reviewer and state what happens when the result misses the target."
+     ]
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "Advanced Decisions",
+   "chapters": [
+    {
+     "id": "pricing",
+     "title": "Select a pricing approach",
+     "goal": "After this you can explain why pricing depends on the certainty and risk of the work.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. A pricing structure should reflect how well the work, volume and costs can be estimated. Fixed totals, unit rates and reimbursable structures place uncertainty and incentives in different places. Compare the quality of cost evidence, risk allocation, controls and likely behaviour. Specialist review and local rules still govern any real agreement.",
+     "check": [
+      {
+       "q": "What affects the choice of pricing method?",
+       "a": "Scope certainty, cost information, delivery risk, incentives and contract controls.",
+       "ref": "Select a pricing approach"
+      },
+      {
+       "q": "Inferred: Faults cannot be known until equipment is opened. What issue becomes important?",
+       "a": "Greater uncertainty in the work and the resulting allocation of cost risk.",
+       "ref": "Select a pricing approach"
+      }
+     ],
+     "rule": {
+      "text": "Choose a pricing method suited to the information and risks available.",
+      "fails": "Specialist purchasing and agreement-related requirements can rule out an otherwise attractive approach."
+     },
+     "examples": [
+      "Inferred: A predictable, well-specified service offers different pricing choices than troubleshooting equipment with faults that cannot be described in advance."
+     ]
+    },
+    {
+     "id": "riskbenefits",
+     "title": "Account for disruption and wider effects",
+     "goal": "After this you can include disruption, adaptability and wider stakeholder effects in a comparison.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Consider normal operations and disruptions. Resilience concerns continuity and recovery after a failure; flexibility concerns shifts in demand. Cost-effectiveness weighs the results achieved against full cost and uncertainty. Wider stakeholder effects may include inclusive participation, accessibility, environmental impact and community outcomes where relevant. Avoid adding unrelated criteria merely to increase the count. Consider who carries each risk, and whether incentives reward real outcomes rather than easy-to-inflate activity counts.",
+     "check": [
+      {
+       "q": "How does resilience differ from flexibility?",
+       "a": "Resilience addresses disruption; flexibility addresses changing demands and conditions.",
+       "ref": "Account for disruption and wider effects"
+      },
+      {
+       "q": "Inferred: The lowest-cost option fails if the normal supply route closes. What else must be considered?",
+       "a": "Its recovery capability and consequences for performance and value.",
+       "ref": "Account for disruption and wider effects"
+      }
+     ],
+     "rule": {
+      "text": "Make disruption risks and relevant wider stakeholder outcomes part of the decision record.",
+      "fails": "Some programs or measures may not apply to the specific purchasing."
+     },
+     "examples": [
+      "The four principles can be made more concrete by selecting measurable requirements that matter for the case."
+     ]
+    },
+    {
+     "id": "details",
+     "title": "Turn choices into implementation detail",
+     "goal": "After this you can turn the selected strategy into clear implementation instructions.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Stage F makes the chosen strategy actionable. Record service obligations, measurable outcomes, responsibilities, reporting, data handling, implementation steps and any commercial terms. Trace each important detail to an approved need or decision. A completed plan does not authorize a purchase, contract or other commitment on its own.",
+     "check": [
+      {
+       "q": "What should link detailed documents to earlier decisions?",
+       "a": "A clear record connecting the chosen terms with the requirements and options analysis.",
+       "ref": "Turn choices into implementation detail"
+      },
+      {
+       "q": "Inferred: A new contract term appears without earlier analysis. What needs review?",
+       "a": "Its justification, effect on requirements and appropriate approvals.",
+       "ref": "Turn choices into implementation detail"
+      }
+     ],
+     "rule": {
+      "text": "Translate the selected approach into explicit responsibilities and documents.",
+      "fails": "Authorized legal and purchasing review is still needed before execution."
+     },
+     "examples": [
+      "Inferred: An implementation plan could state how work is requested and accepted. It also identifies evidence of completion and change approval."
+     ]
+    },
+    {
+     "id": "governance",
+     "title": "Separate review and approval",
+     "goal": "After this you can explain the purpose of governance checkpoints without assuming they grant approval.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. Review, recommendation and approval are different actions. A team can compile evidence and suggest a route, while a designated decision owner determines whether it may proceed. Document the authority, decision being sought, required checks and record of approval at each checkpoint. Do not assume the illustrative stages in this guide define real legal authority.",
+     "check": [
+      {
+       "q": "Why is a recommendation not the same as an approval?",
+       "a": "A designated authority must make the required decision through the current process.",
+       "ref": "Separate review and approval"
+      },
+      {
+       "q": "Inferred: A team receives positive feedback in a workshop. Can it execute a contract?",
+       "a": "No. It must verify that the necessary formal approval and purchasing authority exist.",
+       "ref": "Separate review and approval"
+      }
+     ],
+     "rule": {
+      "text": "Identify the decision maker and authorization required at each checkpoint.",
+      "fails": "The active governance system may differ from the illustrative examples."
+     },
+     "examples": [
+      "Inferred: A study team recommends an approach. A separately authorized owner records a go-or-stop decision before any commitment is made."
+     ]
+    },
+    {
+     "id": "monitor",
+     "title": "Monitor service and improve",
+     "goal": "After this you can describe how the enterprise is managed after the choice is implemented.",
+     "explain": "For education only; this is not legal, purchasing, financial or safety advice. After implementation, collect reliable operating results and compare them with agreed expectations. Look at availability, repair histories, workloads, costs and the reasons for exceptions. Distinguish temporary noise from repeated deficiencies. Update responsibilities, capacity or the agreement only through the appropriate change process, keeping the evidence trail intact. Revisit both the target and the measurement method if operations change; do not quietly rewrite past results.",
+     "check": [
+      {
+       "q": "What shows whether the chosen arrangement is working?",
+       "a": "Reliable performance and cost evidence compared with the intended support outcomes.",
+       "ref": "Monitor service and improve"
+      },
+      {
+       "q": "Inferred: Readiness drops after the support model begins. What should the manager do first?",
+       "a": "Check the measurements and causes before changing the arrangement.",
+       "ref": "Monitor service and improve"
+      }
+     ],
+     "steps": [
+      {
+       "do": "Start the approved delivery arrangements.",
+       "see": "Responsibilities and interfaces operate as planned.",
+       "ifNot": "Resolve implementation gaps with the accountable teams."
+      },
+      {
+       "do": "Gather agreed performance and cost information.",
+       "see": "Results can be compared over reporting periods.",
+       "ifNot": "Check data quality and collection definitions."
+      },
+      {
+       "do": "Investigate shortfalls and update plans where justified.",
+       "see": "Changes are based on documented needs and results.",
+       "ifNot": "Escalate decisions that exceed the team’s authority."
+      }
+     ],
+     "rule": {
+      "text": "Manage based on actual enterprise results, not the fact that a contract was signed.",
+      "fails": "Incomplete data or changing demand can make a comparison misleading."
+     },
+     "examples": [
+      "Inferred: A monthly review compares service results with an agreed target. It assigns corrective actions and a date to check again."
+     ]
+    }
+   ]
+  }
+ ],
+ "rules": [
+  {
+   "rule": "Define the user result before designing the delivery model.",
+   "works": "When workload and needs are being established.",
+   "fails": "When future demand is uncertain, describe cases and assumptions."
+  },
+  {
+   "rule": "Give each important need a test and a threshold.",
+   "works": "When writing a service requirement.",
+   "fails": "If evidence cannot support a number, explain the uncertainty."
+  },
+  {
+   "rule": "Measure deficiencies before selecting remedies.",
+   "works": "When reviewing an existing service.",
+   "fails": "When there is no credible baseline, do not invent one."
+  },
+  {
+   "rule": "Use suitable common criteria for every option.",
+   "works": "When comparing delivery arrangements.",
+   "fails": "When options have unequal scope, align the scope first."
+  },
+  {
+   "rule": "Include all relevant evaluation dimensions.",
+   "works": "When choices have competing advantages.",
+   "fails": "If a dimension is irrelevant, explain why."
+  },
+  {
+   "rule": "A recommendation does not grant approval.",
+   "works": "Before commitments or material changes.",
+   "fails": "The actual approval route belongs to the organization."
+  },
+  {
+   "rule": "Review service evidence after implementation.",
+   "works": "During operating management.",
+   "fails": "Poor-quality data can hide both problems and successes."
+  }
+ ],
+ "decide": [
+  {
+   "if": "The assets or tasks being studied are unclear.",
+   "then": "Use Stage A to confirm the decision, boundary and roles."
+  },
+  {
+   "if": "Users can describe the task but not the needed support.",
+   "then": "In Stage B, turn usage into measurable service requirements."
+  },
+  {
+   "if": "Targets and actual results are known.",
+   "then": "Use Stage C to record the gap, its impact and uncertainty."
+  },
+  {
+   "if": "The major gaps are understood.",
+   "then": "Select and justify the scope of the next review."
+  },
+  {
+   "if": "Several methods could deliver the service.",
+   "then": "Use Stage D to compare feasible arrangements."
+  },
+  {
+   "if": "The delivery pattern has been selected.",
+   "then": "Define oversight in Stage E and details in Stage F."
+  },
+  {
+   "if": "The arrangement is already operating.",
+   "then": "Measure outcomes, investigate differences and revise if justified."
+  }
+ ],
+ "decideDefault": "If you cannot tell what comes next, find the latest agreed requirement and the evidence or approval that is still missing.",
+ "ref": [
+  {
+   "name": "Illustrative workflow and outputs",
+   "items": [
+    "Stage A: purpose, owners, study boundary and plan.",
+    "Stage B: demand, service requirements, measures and targets.",
+    "Stage C: shortfalls, their consequences and next-review decision.",
+    "Stage D: work allocation, alternatives and delivery strategy.",
+    "Stage E: measurable accountability and oversight.",
+    "Stage F: implementable roles, terms and delivery documents.",
+    "Operation: evidence collection, review and adjustment."
+   ]
+  },
+  {
+   "name": "A six-step comparison",
+   "items": [
+    "State the specific decision.",
+    "Collect evidence and constraints.",
+    "Identify realistic alternatives.",
+    "Set relevant assessment criteria.",
+    "Apply criteria consistently.",
+    "Document the selected option and trade-offs."
+   ]
+  },
+  {
+   "name": "Check a requirement",
+   "items": [
+    "Does it describe an outcome rather than a preferred method?",
+    "Are volume, location, configuration and timing stated where needed?",
+    "Are units and measurement rules clear?",
+    "Is the target supported by evidence?",
+    "Is the reason for the threshold traceable?",
+    "Are uncertainty and dependencies visible?"
+   ]
+  },
+  {
+   "name": "Before a real commitment",
+   "items": [
+    "Check current organizational, safety and legal requirements.",
+    "Confirm approval, purchasing and information-handling authority.",
+    "Use suitably qualified reviewers where consequences warrant it.",
+    "Verify all licences and redistribution rights for any included material."
+   ]
+  }
+ ],
+ "next": {
+  "actions": [
+   "Read the essential chapters in order.",
+   "Try at least one decision activity and review its feedback.",
+   "Use the Self-Test to identify topics needing another look."
+  ],
+  "practice": [
+   "Describe the expected output of a non-sensitive service.",
+   "Work out a fictional result gap using consistent units.",
+   "Compare two possible delivery methods against the same criteria."
+  ],
+  "deeper": [
+   "Check the actual rules for a real organization before using the method.",
+   "Request specialist review for purchases, obligations and safety-critical work.",
+   "Obtain permission for material you did not create before redistributing it."
+  ]
+ },
+ "uncertain": {
+  "gaps": [
+   "This lesson explains a general method. It does not include specialist requirements for every field or organization.",
+   "Completing the exercises does not establish authority to approve work, enter agreements, or certify compliance.",
+   "The six study stages are instructional labels rather than a prescribed universal procedure.",
+   "Real project limits, operating conditions and delegated authority are not included.",
+   "The supplied reference collection is extensive. This compact study guide does not reproduce or validate each specialist rule, form, annex or procedure in it."
+  ],
+  "added": [
+   "Inferred: Exercises, choices and arithmetic values are made up solely to practise a method.",
+   "Inferred: The workload simulation is a capped illustrative plan and separate surge case; it is not a real forecast.",
+   "The four assessment dimensions are an educational structure; each actual project must choose its relevant criteria.",
+   "Inferred: The short chapter examples are hypothetical workflows, not measured cases, procurement instructions or standards."
+  ],
+  "unverified": [
+   "Not verified: Whether any particular organization accepts the illustrated stages and evaluation factors.",
+   "Not verified: The technical, commercial, financial, legal and safety controls for a specific project.",
+   "Not verified: Ownership and licensing permissions for the earlier source materials and inherited template code.",
+   "Not verified: The completeness of this introductory model against every specialist document in the source collection."
+  ],
+  "recheck": [
+   "For practical work, confirm the relevant technical, financial, legal, safety and approval rules.",
+   "Before open-source redistribution, confirm rights to any inherited code, writing, visuals and other protected expression.",
+   "Reconfirm changing factual claims with suitable current evidence before acting."
+  ],
+  "conflicts": [
+   {
+    "claim": "Does the lesson’s illustrative workflow control a real decision?",
+    "sides": [
+     "These stages are a learning sequence suitable for the example.",
+     "Organizations may use different required stages, criteria and authorities."
+    ],
+    "better": "For live work, the organization’s controlling rules and approvals govern.",
+    "why": "A general study model does not establish legal or delegated authority."
+   }
+  ]
+ },
+ "ai": "Use only the embedded lesson data for its substantive claims. Explain the general method and cite its chapter title inside the lesson where useful. Do not imply that the stages are law or policy. Identify gaps or unverified claims; do not invent approvals or instructions. Keep user data private.",
+ "log": [
+  {
+   "date": "2026-11-03",
+   "what": "Recast the guide as a generic, independently worded learning model. Kept the original study app IDs for progress compatibility and included rights-aware licensing guidance."
+  },
+  {
+   "date": "2026-11-03",
+   "what": "Replaced branded icon assets with text-only controls, generalized historical identifiers, and added legacy progress migration. Preserved all study sections and exercises."
+  },
+  {
+   "date": "2026-11-03",
+   "what": "Updated for generic study-app baseline 1.5.5; added original examples, decision sensitivity checks and clearer offline storage limits without changing chapter, test or activity identifiers."
+  }
+ ],
+ "fresh": [
+  {
+   "what": "General workflow and stage applicability",
+   "asOf": "Illustrative model, 2026-11-03",
+   "recheck": "Before any live decision"
+  },
+  {
+   "what": "Approval, safety and purchasing authority",
+   "asOf": "Not established by this guide",
+   "recheck": "Before committing resources"
+  },
+  {
+   "what": "Assessment criteria",
+   "asOf": "Educational principles, 2026-11-03",
+   "recheck": "When adopting a local decision framework"
+  },
+  {
+   "what": "Source and software licensing",
+   "asOf": "Provisional MIT-licensing review, 2026-11-03",
+   "recheck": "Before public licensing or redistribution"
+  },
+  {
+   "what": "Locally opened file progress storage",
+   "asOf": "Browser-dependent guidance checked 2026-11-03",
+   "recheck": "When browser storage requirements or export behaviour change"
+  }
+ ],
+ "practice": [
+  {
+   "area": "Learning and feedback",
+   "adopted": "Practice questions, applied choices and correction feedback.",
+   "rejected": "Treating marks as certified competence.",
+   "asOf": "2026-11-03",
+   "recheck": "When learning goals change"
+  },
+  {
+   "area": "Accessibility",
+   "adopted": "Keyboard and touch controls, visible focus, responsive reflow and no drag-only or timed practice; full conformance remains unverified.",
+   "rejected": "Requiring mouse drag or timed success.",
+   "asOf": "2026-11-03",
+   "recheck": "On UI change or accessibility requirements change"
+  },
+  {
+   "area": "Clear writing",
+   "adopted": "Specific tasks, short explanations and local feedback.",
+   "rejected": "Decorative or undefined jargon.",
+   "asOf": "2026-11-03",
+   "recheck": "After learner feedback"
+  },
+  {
+   "area": "Local privacy",
+   "adopted": "Offline operation, no telemetry, guarded local storage, and portable progress export when the browser does not retain data.",
+   "rejected": "Accounts, tracking and network calls.",
+   "asOf": "2026-11-03",
+   "recheck": "On browser storage changes"
+  },
+  {
+   "area": "Security and maintainability",
+   "adopted": "Offline dependencies, declarative exercises and integrity hashes for inline code.",
+   "rejected": "Third-party runtime services.",
+   "asOf": "2026-11-03",
+   "recheck": "Before reuse in a public deployment"
+  },
+  {
+   "area": "Licensing",
+   "adopted": "Present an open-source licence only for content the distributor is entitled to license; avoid embedded third-party icon sets.",
+   "rejected": "Claiming that paraphrasing grants rights over source material.",
+   "asOf": "2026-11-03",
+   "recheck": "Before a new public release"
+  },
+  {
+   "area": "Resilient local-file use",
+   "adopted": "Explain that automatic progress saving for directly opened files depends on browser behaviour; recommend regular export.",
+   "rejected": "Promises of durable browser saving on all devices.",
+   "asOf": "2026-11-03",
+   "recheck": "On browser or storage-policy change"
+  }
+ ],
+ "activities": [
+  {
+   "id": "four_principles",
+   "type": "sort",
+   "title": "Classify the four decision criteria",
+   "goal": "After this you can identify the principle behind a support concern.",
+   "claims": [
+    "principles",
+    "riskbenefits"
+   ],
+   "hint": "Place each situation under the principle it most closely illustrates.",
+   "done": "The same support choice may have consequences in all four groups.",
+   "buckets": [
+    {
+     "id": "p",
+     "label": "Performance"
+    },
+    {
+     "id": "v",
+     "label": "Cost-effectiveness"
+    },
+    {
+     "id": "f",
+     "label": "Flexibility"
+    },
+    {
+     "id": "s",
+     "label": "Wider stakeholder effects"
+    }
+   ],
+   "items": [
+    {
+     "label": "Equipment is ready at the needed time",
+     "bucket": "p",
+     "why": "Readiness is part of performance."
+    },
+    {
+     "label": "Support maintains required safety conditions",
+     "bucket": "p",
+     "why": "Safe equipment support belongs to performance."
+    },
+    {
+     "label": "Service benefits justify the cost",
+     "bucket": "v",
+     "why": "Cost-effectiveness considers what is obtained for the spending."
+    },
+    {
+     "label": "Risks and prices are considered together",
+     "bucket": "v",
+     "why": "Cost-effectiveness includes an appropriate risk allocation."
+    },
+    {
+     "label": "Support can expand during a busy period",
+     "bucket": "f",
+     "why": "The capacity to scale is a form of flexibility."
+    },
+    {
+     "label": "The arrangement can accommodate future changes",
+     "bucket": "f",
+     "why": "Flexibility includes adapting the model over time."
+    },
+    {
+     "label": "Inclusive participation by providers",
+     "bucket": "s",
+     "why": "Supplier inclusion may be relevant to wider stakeholder outcomes."
+    },
+    {
+     "label": "Accessibility commitments",
+     "bucket": "s",
+     "why": "Accessibility can be a relevant wider stakeholder effect."
+    }
+   ]
+  },
+  {
+   "id": "phase_match",
+   "type": "match",
+   "title": "Match tasks to study stages",
+   "goal": "After this you can match the study stages to their typical outputs. These stages are teaching labels only.",
+   "claims": [
+    "initiation",
+    "requirements",
+    "gaps",
+    "strategy"
+   ],
+   "hint": "Match each activity to the stage that normally handles it.",
+   "done": "You matched each stage with its main job.",
+   "pairs": [
+    {
+     "left": "Stage A",
+     "right": "Agree scope and team",
+     "why": "Initiation establishes the scope, schedule and roles."
+    },
+    {
+     "left": "Stage B",
+     "right": "Define measurable needs",
+     "why": "Requirements analysis records the needs and targets."
+    },
+    {
+     "left": "Stage C",
+     "right": "Evaluate shortfalls and outcomes",
+     "why": "Gap analysis compares current support with needs."
+    },
+    {
+     "left": "Stage D",
+     "right": "Allocate work and choose delivery approach",
+     "why": "Strategy follows division of enterprise scope."
+    },
+    {
+     "left": "Stage E",
+     "right": "Define accountability and oversight",
+     "why": "The framework sets performance and arrangement structure."
+    },
+    {
+     "left": "Stage F",
+     "right": "Prepare implementation arrangements",
+     "why": "Details translate prior choices into usable documents."
+    }
+   ]
+  },
+  {
+   "id": "oa_order",
+   "type": "order",
+   "title": "Order the option comparison",
+   "goal": "After this you can order a repeatable six-step options comparison.",
+   "claims": [
+    "sixsteps"
+   ],
+   "hint": "Arrange these activities in the order used to reason through a support choice.",
+   "done": "A reviewable choice depends on a consistent sequence.",
+   "items": [
+    {
+     "label": "State the decision to be made",
+     "why": "Inferred: Begin by defining the question."
+    },
+    {
+     "label": "Gather evidence and restrictions",
+     "why": "Understand the context before proposing choices."
+    },
+    {
+     "label": "List workable alternatives",
+     "why": "Identify the feasible responses."
+    },
+    {
+     "label": "Choose the criteria for assessment",
+     "why": "Decide which requirements each alternative must satisfy."
+    },
+    {
+     "label": "Apply the criteria consistently",
+     "why": "Compare suitable choices on a common basis."
+    },
+    {
+     "label": "Record the recommended choice",
+     "why": "Make the reasons and trade-offs explicit."
+    }
+   ]
+  },
+  {
+   "id": "gap_story",
+   "type": "scenario",
+   "title": "Tell a measured gap from a proposed fix",
+   "goal": "After this you can separate evidence of a shortfall from a proposed remedy.",
+   "claims": [
+    "gaps",
+    "requirements"
+   ],
+   "hint": "A deficiency is expressed as observed performance compared with a target.",
+   "done": "Write the shortfall before assessing possible fixes.",
+   "start": "start",
+   "nodes": [
+    {
+     "id": "start",
+     "text": "Inferred: The required number of ready units is eight, but records show six. Which statement reports the deficiency?",
+     "choices": [
+      {
+       "label": "Readiness is two units below the target",
+       "say": "This records the measured deficiency, with its size.",
+       "next": "correct"
+      },
+      {
+       "label": "Order additional spare parts immediately",
+       "say": "This proposes a solution before identifying the cause.",
+       "next": "retry"
+      }
+     ]
+    },
+    {
+     "id": "correct",
+     "text": "The shortfall has been recorded in comparable units.",
+     "lesson": "Next, assess impact and evidence before comparing possible repairs."
+    },
+    {
+     "id": "retry",
+     "text": "A possible fix is not the same as the gap.",
+     "lesson": "Record the requirement, actual result and consequence first."
+    }
+   ]
+  },
+  {
+   "id": "stream_story",
+   "type": "scenario",
+   "title": "Define who is accountable",
+   "goal": "After this you can identify the accountable owner and interface for shared work.",
+   "claims": [
+    "division"
+   ],
+   "hint": "A shared task still requires clear responsibility and interfaces.",
+   "done": "Choose and document an accountable delivery stream.",
+   "start": "first",
+   "nodes": [
+    {
+     "id": "first",
+     "text": "Inferred: An internal shop and an outside provider both repair one machine. What must the review establish?",
+     "choices": [
+      {
+       "label": "Who is accountable and how the work is handed over",
+       "say": "This defines the delivery responsibility and interface.",
+       "next": "good"
+      },
+      {
+       "label": "That neither participant needs one accountable lead",
+       "say": "This leaves unclear who must deliver the defined result.",
+       "next": "bad"
+      }
+     ]
+    },
+    {
+     "id": "good",
+     "text": "The support task now has a clear accountability question.",
+     "lesson": "Assign the work according to the agreed delivery model and document the handoff."
+    },
+    {
+     "id": "bad",
+     "text": "The two participants still need clear responsibilities.",
+     "lesson": "Document the accountable stream and any supporting handoffs."
+    }
+   ]
+  },
+  {
+   "id": "capacity_sim",
+   "type": "sim",
+   "title": "Try a fictional demand curve",
+   "goal": "After this you can see how a staged requirement differs from full surge capacity.",
+   "claims": [
+    "usage"
+   ],
+   "hint": "Change the elapsed years and annual increase to explore a fictional workload pattern.",
+   "done": "A stable demand forecast and a surge need should be stated separately.",
+   "inputs": [
+    {
+     "id": "year",
+     "label": "Years after start",
+     "min": 0,
+     "max": 8,
+     "step": 1,
+     "default": 2,
+     "unit": "years",
+     "control": "slider"
+    },
+    {
+     "id": "rise",
+     "label": "Planned yearly increase",
+     "min": 25,
+     "max": 100,
+     "step": 25,
+     "default": 50,
+     "unit": "units/year",
+     "control": "stepper"
+    }
+   ],
+   "outputs": [
+    {
+     "id": "planned",
+     "label": "Projected annual usage",
+     "unit": "units/year",
+     "digits": 0,
+     "formula": "min(800+year*rise,1200)"
+    },
+    {
+     "id": "surgegap",
+     "label": "Additional surge above plan",
+     "unit": "units/year",
+     "digits": 0,
+     "formula": "1350-planned"
+    }
+   ],
+   "chart": {
+    "kind": "line",
+    "x": "year",
+    "y": [
+     "planned",
+     "surgegap"
+    ],
+    "title": "Illustrative use profile"
+   },
+   "predict": {
+    "ask": "If the elapsed years increases to four, does the planned usage increase, decrease or stay unchanged?",
+    "input": "year",
+    "to": 4,
+    "output": "planned"
+   },
+   "notice": [
+    "Inferred: These fictional activity units show how planned growth may reach a cap while emergency capacity remains separate. They do not describe an actual asset group.",
+    "Planning can distinguish a sustained workload from temporary extra demand."
+   ],
+   "checks": [
+    {
+     "in": {
+      "year": 0,
+      "rise": 25
+     },
+     "out": {
+      "planned": 800,
+      "surgegap": 550
+     },
+     "tol": 0
+    },
+    {
+     "in": {
+      "year": 2,
+      "rise": 50
+     },
+     "out": {
+      "planned": 900,
+      "surgegap": 450
+     },
+     "tol": 0
+    },
+    {
+     "in": {
+      "year": 4,
+      "rise": 100
+     },
+     "out": {
+      "planned": 1200,
+      "surgegap": 150
+     },
+     "tol": 0
+    },
+    {
+     "in": {
+      "year": 8,
+      "rise": 50
+     },
+     "out": {
+      "planned": 1200,
+      "surgegap": 150
+     },
+     "tol": 0
+    }
+   ]
+  },
+  {
+   "id": "gap_estimate",
+   "type": "estimate",
+   "title": "Compute a service quantity gap",
+   "goal": "After this you can subtract an observed count from the required count.",
+   "claims": [
+    "gaps",
+    "requirements"
+   ],
+   "hint": "Find how many units fewer were recorded than required.",
+   "done": "A quantity gap can be calculated before identifying its cause.",
+   "ask": "Inferred: Twelve usable units are required, and only nine are available. How large is the deficit?",
+   "unit": "units",
+   "answer": 3,
+   "tol": 0,
+   "low": "You may have understated the difference. Subtract 9 from 12.",
+   "high": "You may have overstated the difference. Compare the same reporting time.",
+   "reasoning": "Required minus observed gives the deficiency: 12 minus 9 equals 3 units."
+  }
+ ]
+}</template>
+<!--ADD-CHUNKS-HERE: paste each extra chunk on the next line-->
+<script>
+(function(){'use strict';
+var APPV='1.5.5';
+function $(s){return document.querySelector(s)}
+function h(t,a,k){var e=document.createElement(t),x;if(a)for(x in a){if(x==='text')e.textContent=a[x];else e.setAttribute(x,a[x])}(k||[]).forEach(function(c){if(c!=null&&c!=='')e.append(c)});return e}
+function arr(x){return Array.isArray(x)?x:[]}
+function objs(x){return arr(x).filter(function(o){return o&&typeof o==='object'&&!Array.isArray(o)})}
+function str(x){return typeof x==='string'?x:(typeof x==='number'||typeof x==='boolean'?String(x):'')}
+function strs(x){return arr(x).map(str).filter(Boolean)}
+function lst(x){return typeof x==='string'?[x]:x}
+function ol(x){return objs(x&&typeof x==='object'&&!Array.isArray(x)?[x]:x)}
+function dec(s){try{return decodeURIComponent(s)}catch(e){return s}}
+var bad=0;
+function readTpl(t){try{var o=JSON.parse(t.content.textContent);return o&&typeof o==='object'&&!Array.isArray(o)?o:null}catch(e){bad++;return null}}
+function merge(d,m,n){n=n||0;if(n>12)return;Object.keys(m).forEach(function(k){if(k==='__proto__'||k==='constructor'||k==='prototype')return;var v=m[k];
+var kd=function(x){return Array.isArray(x)?'a':(x==null?'u':(typeof x==='object'?'o':'p'))};if(kd(d[k])!=='u'&&kd(d[k])!==kd(v))return;
+if(k==='levels'){if(!Array.isArray(v))return;objs(v).forEach(function(L){var t=objs(d.levels).filter(function(x){return String(x.id)===String(L.id)})[0];if(t)t.chapters=arr(t.chapters).concat(arr(L.chapters));else{d.levels=arr(d.levels);d.levels.push(L)}})}
+else if(Array.isArray(v))d[k]=arr(d[k]).concat(v);
+else if(v&&typeof v==='object'){if(!d[k]||typeof d[k]!=='object'||Array.isArray(d[k]))d[k]={};merge(d[k],v,n+1)}else if(v!=null&&typeof v!=='object'&&kd(d[k])==='u')d[k]=v})}
+var D=readTpl($('template[data-kd=base]'))||{};
+var mores=[];document.querySelectorAll('template[data-kd=more]').forEach(function(t){var m=readTpl(t);if(m)mores.push(m)});
+var dupN=0,lastC=Object.create(null);mores.forEach(function(m){var n=Number(m.chunk)||0;if(n>0)lastC[n]=m});mores.sort(function(a,b){return(Number(a.chunk)||0)-(Number(b.chunk)||0)}).forEach(function(m){var n=Number(m.chunk)||0;if(n<1||lastC[n]!==m){dupN++;return}try{merge(D,m.more&&typeof m.more==='object'?m.more:m)}catch(e){dupN++}});
+var M=D.meta&&typeof D.meta==='object'?D.meta:{};var LB=M.labels&&typeof M.labels==='object'?M.labels:{};function lb(k,d){if(/^(start|unsure|me|help|about)$/.test(k))return d;var v=Object.prototype.hasOwnProperty.call(LB,k)&&typeof LB[k]==='string'?LB[k].trim():'';return v&&v.length<=60?v:d}var missN=[],tot=Math.min((typeof M.chunks==='number'||typeof M.chunks==='string'?Number(M.chunks):0)||0,200);for(var q0=2;q0<=tot;q0++)if(!lastC[q0])missN.push(q0);
+var ID=/^[\w-]{1,40}$/.test(str(M.id))?str(M.id):'g'+(function(t){var x=5381,i;for(i=0;i<t.length;i++)x=((x<<5)+x+t.charCodeAt(i))|0;return(x>>>0).toString(36)})(str(M.title));
+var CH=[],QS=[],VALID=Object.create(null),used=Object.create(null);
+objs(D.levels).forEach(function(lv){objs(lv.chapters).forEach(function(c){
+var base=/^[\w-]{1,40}$/.test(str(c.id))&&str(c.id)!=='__proto__'?str(c.id):'x'+CH.length,id=base,n=2;while(used[id]){id=base.slice(0,40)+'-'+n;n++}used[id]=1;
+c._id=id;c._lv=lv;VALID[id]=1;
+c._q=objs(c.check).map(function(q,k){var o={id:id+':'+k,q:str(q.q),a:str(q.a),ref:str(q.ref)};VALID[o.id]=1;QS.push(o);return o});
+CH.push(c)})});
+var G=objs(D.glossary).filter(function(g){return str(g.term).trim()});
+var PK=ID+'.progress',LK=ID+'.look';
+var PREVIOUS_ID=String.fromCharCode(115,98,99,97,45,51,102,97,100), PREVIOUS_CH=String.fromCharCode(99,97,102,110,101,101,100), CURRENT_CH='usage';
+function migrateProgress(o){if(!o||typeof o!=='object')return o;['done','q','qd'].forEach(function(k){var part=o[k];if(!part||typeof part!=='object')return;Object.keys(part).forEach(function(old){var newKey=old===PREVIOUS_CH?CURRENT_CH:(old.indexOf(PREVIOUS_CH+':')===0?CURRENT_CH+old.slice(PREVIOUS_CH.length):null);if(newKey&&!Object.prototype.hasOwnProperty.call(part,newKey))part[newKey]=part[old];if(newKey)delete part[old]})});return o}
+
+function sget(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function sset(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
+function sdel(k){try{localStorage.removeItem(k)}catch(e){}}
+function p2(n){return(n<10?'0':'')+n}
+function fmt(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())}
+function today(){return fmt(new Date())}
+function addDays(s,n){var a=s.split('-');return fmt(new Date(+a[0],+a[1]-1,+a[2]+n))}
+function validDate(s){var m=/^(\d{4})-(\d\d)-(\d\d)$/.exec(s);if(!m)return false;var y=+m[1],mo=+m[2],d=+m[3],t=new Date(y,mo-1,d);return y>=2000&&y<=2100&&t.getFullYear()===y&&t.getMonth()===mo-1&&t.getDate()===d}
+function blank(){return{v:2,first:validDate(today())?today():'2000-01-01',done:Object.create(null),q:Object.create(null),qd:Object.create(null),rev:[],act:Object.create(null)}}
+function safeKey(i){return /^[\w-]{1,60}(:\d{1,6})?$/.test(i)&&i!=='__proto__'}
+function pick(src,dst,f){if(src&&typeof src==='object'&&!Array.isArray(src))Object.keys(src).forEach(function(i){if(safeKey(i)){var v=f(src[i]);if(v!==undefined)dst[i]=v}})}
+function clean(o){if(!o||typeof o!=='object'||(o.v!==1&&o.v!==2)||typeof o.first!=='string'||!validDate(o.first))return null;var n=blank();n.first=o.first;
+pick(o.done,n.done,function(v){return v===true?true:undefined});pick(o.act,n.act,function(v){return v===true?true:undefined});
+pick(o.q,n.q,function(v){return v==='got'||v==='review'?v:undefined});
+pick(o.qd,n.qd,function(v){return v&&typeof v==='object'&&Number.isInteger(v.b)&&v.b>=1&&v.b<=5&&typeof v.d==='string'&&validDate(v.d)?{b:v.b,d:v.d}:undefined});
+Object.keys(n.q).forEach(function(k){if(n.q[k]==='got'&&!n.qd[k])n.qd[k]={b:2,d:addDays(n.first,3)}});
+n.rev=arr(o.rev).filter(function(d,i,a){return(d===1||d===3||d===7||d===21)&&a.indexOf(d)===i});return n}
+var S=null,loadNote='',damaged=sget(PK+'.damaged')!==null,volatile=false,noWrite=false,persist='not asked yet';
+var oldProgressFound=false; if(sget(PK)===null){var prior=sget(PREVIOUS_ID+'.progress'),priorData=null;try{priorData=clean(migrateProgress(JSON.parse(prior)))}catch(e){}if(priorData){oldProgressFound=true;sset(PK,JSON.stringify(priorData))}}
+
+(function(){var raw=sget(PK);if(raw!==null){var s=null;try{s=clean(JSON.parse(raw))}catch(e){}
+if(s)S=s;else{var dk=sget(PK+'.damaged')===null?'.damaged':(sget(PK+'.damaged2')===null?'.damaged2':null),kept=dk?sset(PK+dk,raw):false;damaged=damaged||kept;var l=null;try{l=clean(JSON.parse(sget(PK+'.last')))}catch(e){}
+if(l){S=l;loadNote='Your saved progress could not be read. A copy of it was kept. The last good copy was restored.'}else{S=blank();loadNote='Your saved progress could not be read. A copy of it was kept, and you start with empty progress.'}if(kept)sset(PK,JSON.stringify(S));else{noWrite=true;loadNote='Your saved progress could not be read, and this browser could not keep a copy of it. Nothing was erased. New progress will not be saved in this browser. Use Save progress file to keep a copy.'}}}
+if(!S){S=blank();save(true)}if(oldProgressFound)loadNote='Your earlier progress was imported. The old saved copy remains untouched.'})();
+function save(init){if(noWrite){volatile=true;return false}var prev=sget(PK),ok=sset(PK,JSON.stringify(S));volatile=!ok;
+if(ok){try{if(prev!==null&&clean(JSON.parse(prev)))sset(PK+'.last',prev)}catch(e){}
+if(!init&&persist==='not asked yet'){persist='asked';if(navigator.storage&&navigator.storage.persist){navigator.storage.persist().then(function(g){persist=g?'granted':'denied'},function(){persist='denied'})}else persist='unsupported'}}
+return ok}
+var lookMem=null;
+var HK='hub.prefs.v1';
+function prefs(){try{var o=JSON.parse(sget(HK));return o&&typeof o==='object'&&!Array.isArray(o)&&Number.isInteger(o.schemaVersion)&&o.schemaVersion>=1?o:null}catch(e){return null}}
+function look(){var p=prefs(),v=lookMem||(p&&typeof p.look==='string'?p.look:sget(LK));return v==='paper'||v==='charcoal'||v==='black'?v:'auto'}
+function applyLook(){var v=look(),r=v;if(v==='auto')r=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'charcoal':'paper';document.documentElement.setAttribute('data-look',r);$('#look').value=v}
+var hue=(typeof M.hue==='number'||(typeof M.hue==='string'&&M.hue.trim()!==''))?Number(M.hue):NaN,R=document.documentElement;
+if(isFinite(hue)&&hue>=0&&hue<360)R.style.setProperty('--h',String(Math.round(hue)));
+if(M.type==='serif'||M.type==='humanist')R.setAttribute('data-type',M.type);if(M.radius==='sharp')R.setAttribute('data-radius','sharp');if(M.density==='compact')R.setAttribute('data-density','compact');
+if(/^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$/.test(str(M.lang)))$('#main').lang=M.lang;
+function T(par,t){str(t).split(/\n{2,}/).forEach(function(s){s=s.trim();if(s)par.append(h('p',{text:s}))})}
+function lead(l,t,cls){var d=h('div',cls?{'class':cls}:null),f=true;str(t).split(/\n{2,}/).map(function(s){return s.trim()}).filter(Boolean).forEach(function(s){var p=h('p');if(f){p.append(h('strong',{text:l+': '}));f=false}p.append(s);d.append(p)});if(f)d.append(h('p',null,[h('strong',{text:l+': '})]));return d}
+function facts(rows){var dl=h('dl',{'class':'facts'});rows.forEach(function(r){var dd=h('dd');T(dd,r[1]);dl.append(h('dt',{text:r[0]}),dd)});return dl}
+function ul(list){return h('ul',null,strs(list).map(function(x){return h('li',{text:x})}))}
+function tbl(head,rows){return h('div',{'class':'scroll',role:'region',tabindex:'0','aria-label':'Table, scrolls sideways when wide'},[h('table',null,[h('thead',null,[h('tr',null,head.map(function(x){return h('th',{scope:'col',text:x})}))]),h('tbody',null,rows.map(function(r){return h('tr',null,r.map(function(c,i){return h('td',{'data-l':head[i],text:str(c)})}))}))])])}
+function quiz(q){var qk='qt-'+q.id.replace(/[^\w-]/g,'_'),box=h('div',{'class':'q',role:'group','aria-labelledby':qk}),ans=h('div',{id:'a-'+q.id.replace(/[^\w-]/g,'_'),'class':'ans'}),mk=h('div',{'class':'row mkrow'}),st=h('p',{'class':'mu',role:'status'});
+function say(){var v=S.q[q.id];st.textContent=v==='got'?'Your mark: got it.':(v==='review'?'Your mark: review again.':'')}
+var show=h('button',{type:'button','aria-expanded':'false','aria-controls':ans.id,text:'Show answer'}),got=h('button',{type:'button','data-q':q.id,'data-v':'got',text:'I got it','aria-pressed':String(S.q[q.id]==='got')}),rv=h('button',{type:'button','data-q':q.id,'data-v':'review',text:'Review again','aria-pressed':String(S.q[q.id]==='review')});
+box.append(h('p',{id:qk},[h('strong',{text:'Question: '}),q.q]));ans.hidden=true;
+ans.append(h('p',null,[h('strong',{text:'Answer: '}),q.a]));
+function mark(v){var pr=S.q[q.id];S.q[q.id]=v;var o=S.qd[q.id],tdy=today();if(v==='got'){if(pr==='review'){S.qd[q.id]={b:1,d:addDays(tdy,1)}}else if(!o||o.d<=tdy||far(o,tdy)){var b=Math.min(5,(o?o.b:0)+1);S.qd[q.id]={b:b,d:addDays(tdy,[1,3,7,21,60][b-1])}}}else S.qd[q.id]={b:1,d:tdy};var was=volatile;if(!save()&&!was){render(true);return}got.setAttribute('aria-pressed',String(v==='got'));rv.setAttribute('aria-pressed',String(v==='review'));say();document.querySelectorAll('.sofar').forEach(function(sf){sf.textContent=sofarT(counts(S))})}
+show.addEventListener('click',function(){ans.hidden=!ans.hidden;show.setAttribute('aria-expanded',String(!ans.hidden));show.textContent=ans.hidden?'Show answer':'Hide answer'});
+got.addEventListener('click',function(){mark('got')});rv.addEventListener('click',function(){mark('review')});
+mk.append(got,rv);ans.append(mk);if(q.ref){var rc=CH.filter(function(c){return str(c.title)===str(q.ref)})[0];ans.append(rc&&location.hash!=='#c-'+rc._id?h('p',{'class':'mu'},['To review, re-read: ',h('a',{href:'#c-'+rc._id,text:q.ref})]):h('p',{'class':'mu',text:'To review, re-read: '+q.ref}))}say();box.append(h('div',{'class':'row'},[show]),st,ans);return box}
+function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+var NOSP=/[\u0E00-\u0FFF\u1000-\u109F\u1780-\u17FF\u3040-\u30FF\u3100-\u312F\u3400-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF\u{20000}-\u{2FA1F}]/u;
+function termsFor(c){var t=flat(c).toLowerCase();return G.filter(function(g){var q=str(g.term).toLowerCase();if(NOSP.test(q))return t.indexOf(q)>-1;try{var L='[^\\p{L}\\p{N}]',B=NOSP.test(t)?'('+L+'|'+NOSP.source+')':L;return new RegExp('(^|'+B+')'+esc(q)+'($|'+B+')','u').test(t)}catch(e){return false}})}
+function flat(o,d){d=d||0;if(d>6||o==null)return'';if(typeof o==='string')return o+' ';if(typeof o!=='object')return'';var s='';Object.keys(o).forEach(function(k){if(k.charAt(0)!=='_')s+=flat(o[k],d+1)});return s}
+var NAV=[];
+function build(){NAV=[['start',lb('start','Start Here'),null,'a']];
+if(D.big)NAV.push(['big',lb('big','Big Picture'),null,'a']);if(G.length)NAV.push(['glossary',lb('glossary','Glossary'),null,'l']);
+CH.forEach(function(c){NAV.push(['c-'+c._id,str(c.title)||c._id,c,'c'])});
+if(objs(D.rules).length)NAV.push(['rules',lb('rules','Rules of Thumb'),null,'l']);if(objs(D.decide).length)NAV.push(['decide',lb('decide','Which One Do I Pick?'),null,'l']);
+if(objs(D.ref).length)NAV.push(['ref',lb('ref','Quick Reference'),null,'l']);if(QS.length)NAV.push(['test',lb('test','Self-Test'),null,'p']);if(QS.length)NAV.push(['drill','Practice What You Missed',null,'p']);if(ACT.length||actBad)NAV.push(['play',lb('play','Practice and Play'),null,'p']);
+if(D.next)NAV.push(['next',lb('next','What To Do Next'),null,'p']);NAV.push(['unsure',lb('unsure','What We Are Not Sure About'),null,'m'],['about',lb('about','How This Guide Works'),null,'m']);
+if(D.ai)NAV.push(['ai',lb('ai','For AI Tools'),null,'m']);NAV.push(['me',lb('me','My Progress'),null,'z'],['help',lb('help','Help'),null,'z'],['licences',lb('licences','Licence and reuse'),null,'m'])}
+function drawNav(cur){var n=$('#nav'),od=n.querySelector('details'),wasOpen=!!(od&&od.open);n.replaceChildren();
+function link(x){var a=h('a',{href:'#'+x[0],text:x[1]});if(x[0]===cur)a.setAttribute('aria-current','page');if(x[2]&&S.done[x[2]._id])a.className='done';return a}
+function grp(g,title){var xs=NAV.filter(function(x){return x[3]===g});if(!xs.length)return;if(title)n.append(h('h2',{text:title}));xs.forEach(function(x){n.append(link(x))})}
+n.append(h('h2',{text:'Learn'}));grp('a','');var last=null;NAV.filter(function(x){return x[3]==='c'}).forEach(function(x){if(x[2]._lv!==last){last=x[2]._lv;n.append(h('h2',{text:'Level '+str(last.id)+': '+str(last.name)}))}n.append(link(x))});
+grp('p','Practice');grp('z','Your progress and help');grp('l','Look up');
+var mo=NAV.filter(function(x){return x[3]==='m'});if(mo.length){var d=h('details',null,[h('summary',{text:'More'})]);mo.forEach(function(x){d.append(link(x))});if(wasOpen||mo.some(function(x){return x[0]===cur}))d.open=true;n.append(d)}
+var dn=CH.filter(function(c){return S.done[c._id]}).length;$('#bar').max=Math.max(CH.length,1);$('#bar').value=dn}
+var drillSkip=null;
+var SVN='http://www.w3.org/2000/svg',vid=0;
+function sv(t,a,k){var e=document.createElementNS(SVN,t),x;if(a)for(x in a)e.setAttribute(x,String(a[x]));(k||[]).forEach(function(c){if(c)e.append(c)});return e}
+function svt(x,y,cl,s,an,mx){var e=sv('text',{x:x,y:y,'class':cl});if(an)e.setAttribute('text-anchor',an);if(mx)e.setAttribute('data-mx',String(mx));e.textContent=s;return e}
+function rot(x,y,cl,s,an,mx){var e=svt(0,0,cl,s,an,mx);e.setAttribute('transform','translate('+x+','+y+') rotate(-90)');return e}
+function num(v){return typeof v==='number'?v:(typeof v==='string'&&v.trim()!==''?Number(v):NaN)}
+function c01(n){return Math.max(0,Math.min(100,n))}
+function nice(n){var a=Math.abs(n);return a>=1e15?n.toPrecision(3):(a>0&&a<0.01?n.toPrecision(2):String(Math.round(n*100)/100))}
+function ax(x,d){return str(x)||d}
+function far(o,t){return o.d>addDays(t,[1,3,7,21,60][o.b-1])}
+function fitText(f){f.querySelectorAll('text[data-mx]').forEach(function(t){try{var w=t.getComputedTextLength(),mx=Number(t.getAttribute('data-mx'));if(w>mx){t.setAttribute('textLength',String(mx));t.setAttribute('lengthAdjust','spacingAndGlyphs')}}catch(e){}})}
+function wrap(s,n,mx){var out=[],cur='',n2=NOSP.test(s)?Math.max(4,Math.floor(n/2)):n;str(s).trim().split(/\s+/).forEach(function(w){var cs=Array.from(w);while(cs.length>n2){if(cur){out.push(cur);cur=''}out.push(cs.slice(0,n2).join(''));cs=cs.slice(n2)}w=cs.join('');if(cur&&Array.from(cur+' '+w).length>n2){out.push(cur);cur=w}else cur=cur?cur+' '+w:w});if(cur)out.push(cur);if(out.length>mx){out=out.slice(0,mx);out[mx-1]=Array.from(out[mx-1]).slice(0,Math.max(0,n2-3)).join('')+'...'}return out.length?out:['']}
+function arrowDown(g,x,y1,y2){g.append(sv('line',{x1:x,y1:y1,x2:x,y2:y2-6,'class':'va'}),sv('polygon',{points:x+','+y2+' '+(x-6)+','+(y2-9)+' '+(x+6)+','+(y2-9),'class':'vh'}))}
+function drawFlow(it,loop){var g=sv('g'),y=14,tx=[],first=null,last=null,x0=loop?10:20,bw=loop?340:360,t0=x0+14,mw=bw-28;it.forEach(function(o,i){var ls=wrap((i+1)+'. '+o.label,27,3),nt=o.note?wrap(o.note,32,2):[],hh=20+ls.length*24+nt.length*21;if(i>0){arrowDown(g,x0+bw/2,y,y+26);y+=26}g.append(sv('rect',{x:x0,y:y,width:bw,height:hh,rx:8,'class':'vb'}));ls.forEach(function(l,k){g.append(svt(t0,y+26+24*k,'vt',l,null,mw))});nt.forEach(function(l,k){g.append(svt(t0,y+22+24*ls.length+21*k,'vm',l,null,mw))});if(i===0)first=y+hh/2;last=y+hh/2;y+=hh;tx.push((i+1)+'. '+str(o.label)+(o.note?' ('+str(o.note)+')':''))});
+if(loop&&it.length>1){g.append(sv('polyline',{points:'350,'+last+' 384,'+last+' 384,'+first+' 358,'+first,'class':'va'}),sv('polygon',{points:'350,'+first+' 361,'+(first-6)+' 361,'+(first+6),'class':'vh'}));tx.push('Then it starts again at step 1.')}return{g:g,h:y+14,tx:tx}}
+function drawTime(it){var g=sv('g'),y=14,tx=[];it.forEach(function(o){var a=wrap(o.when,10,3),b=wrap(o.label,22,4),n=Math.max(a.length,b.length),hh=n*24+14;g.append(sv('circle',{cx:112,cy:y+12,r:6,'class':'vp'}));a.forEach(function(l,k){g.append(svt(98,y+19+24*k,'vt',l,'end',92))});b.forEach(function(l,k){g.append(svt(128,y+19+24*k,'vt',l,null,268))});y+=hh;tx.push((o.when?str(o.when)+': ':'')+str(o.label))});g.prepend(sv('line',{x1:112,y1:20,x2:112,y2:Math.max(20,y-26),'class':'va'}));return{g:g,h:y+6,tx:tx}}
+function drawBars(it,unit){var g=sv('g'),y=14,tx=[],mx=0;it.forEach(function(o){if(o.value>mx)mx=o.value});if(!(mx>0))mx=1;it.forEach(function(o){var w=Math.max(2,Math.round(o.value/mx*150)),v=nice(o.value)+(unit?' '+unit:'');g.append(svt(20,y+18,'vt',wrap(o.label,32,1)[0],null,360));g.append(sv('rect',{x:20,y:y+26,width:w,height:20,'class':'vd'}));g.append(svt(28+w,y+42,'vt',v,null,Math.max(60,372-w)));y+=60;tx.push(str(o.label)+': '+v)});return{g:g,h:y,tx:tx}}
+function drawMap(it,v){var g=sv('g'),tx=[],L=46,T=16,PW=340,PH=300;g.append(sv('rect',{x:L,y:T,width:PW,height:PH,'class':'vb'}),sv('line',{x1:L+PW/2,y1:T,x2:L+PW/2,y2:T+PH,'class':'vg'}),sv('line',{x1:L,y1:T+PH/2,x2:L+PW,y2:T+PH/2,'class':'vg'}));
+var xl=Array.from(ax(v.xlow,'low')).slice(0,14).join(''),xh=Array.from(ax(v.xhigh,'high')).slice(0,14).join(''),yl=Array.from(ax(v.ylow,'low')).slice(0,14).join(''),yh=Array.from(ax(v.yhigh,'high')).slice(0,14).join('');
+g.append(svt(L,T+PH+22,'vm',xl,null,150),svt(L+PW,T+PH+22,'vm',xh,'end',150),svt(L+PW/2,T+PH+46,'vt',str(v.xlabel||'').slice(0,60),'middle',300),rot(20,T+PH/2,'vt',str(v.ylabel||'').slice(0,60),'middle',200),rot(38,T+PH,'vm',yl,null,120),rot(38,T,'vm',yh,'end',120));
+var y=T+PH+74;it.forEach(function(o,i){var ox=c01(o.x),oy=c01(o.y),px=L+ox/100*PW,py=T+PH-oy/100*PH;g.append(sv('circle',{cx:px,cy:py,r:12,'class':'vp'}),svt(px,py+5,'vn',String(i+1),'middle'));var ls=wrap(o.label,31,2);ls.forEach(function(l,k){g.append(svt(20,y+24*k,'vt',(k?'':(i+1)+'. ')+l,null,360))});y+=24*ls.length+4;tx.push((i+1)+'. '+str(o.label)+' (across '+Math.round(ox)+' of 100, up '+Math.round(oy)+' of 100)')});
+tx.unshift('Across: '+str(v.xlabel)+', from '+ax(v.xlow,'low')+' to '+ax(v.xhigh,'high')+'. Up: '+str(v.ylabel)+', from '+ax(v.ylow,'low')+' to '+ax(v.yhigh,'high')+'.');return{g:g,h:y,tx:tx}}
+function visual(v){if(!v||typeof v!=='object'||Array.isArray(v))return null;var k=str(v.kind),it=objs(v.items).slice(0,12).map(function(o){return{label:str(o.label).slice(0,120),note:str(o.note).slice(0,120),when:str(o.when).slice(0,40),value:num(o.value),x:num(o.x),y:num(o.y)}}),r=null;
+if(k==='bars')it=it.filter(function(o){return isFinite(o.value)&&o.value>=0});else if(k==='map')it=it.filter(function(o){return isFinite(o.x)&&isFinite(o.y)});else it=it.filter(function(o){return o.label});if(!it.length||!/^(flow|cycle|timeline|bars|map)$/.test(k))return null;
+r=k==='flow'?drawFlow(it,false):k==='cycle'?drawFlow(it,true):k==='timeline'?drawTime(it):k==='bars'?drawBars(it,str(v.unit).slice(0,20)):drawMap(it,v);
+var n=++vid,ti=str(v.title)||'Picture',al=(str(v.alt)||('A '+k+' picture: '+ti+'.'))+(k==='map'?' Positions show relative order only, not exact measurements.':''),s=sv('svg',{viewBox:'0 0 400 '+Math.round(r.h),role:'img','aria-labelledby':'vt'+n+' vd'+n,focusable:'false'},[sv('title',{id:'vt'+n}),sv('desc',{id:'vd'+n}),r.g]);s.firstChild.textContent=ti;s.childNodes[1].textContent=al;
+var d=h('details',null,[h('summary',{text:'Read this picture as text'}),h('ul',null,r.tx.map(function(x){return h('li',{text:x})}))]);return h('figure',{'class':'fig'},[h('figcaption',{text:ti}),s,h('p',{'class':'mu',text:al}),d])}
+function chapter(c){var m=$('#main');m.append(h('h1',{text:str(c.title)}),h('p',{'class':'mu',text:'Level '+str(c._lv.id)+': '+str(c._lv.name)+'. Chapter '+(CH.indexOf(c)+1)+' of '+CH.length+'.'}));
+if(c.goal)m.append(lead('Goal',c.goal,'goal'));
+if(c.explain){m.append(h('h2',{text:'Explanation'}));T(m,c.explain)}
+(Array.isArray(c.visual)?c.visual:(c.visual&&typeof c.visual==='object'?[c.visual]:[])).slice(0,3).forEach(function(v){var f=null;try{f=visual(v)}catch(x){}if(f){m.append(f);fitText(f)}});
+var tm=termsFor(c);if(tm.length){m.append(h('h2',{text:'Terms used here'}));tm.forEach(function(g){var d=h('details',null,[h('summary',{text:str(g.term)})]);d.append(h('p',{text:str(g.def)}));if(g.example)d.append(h('p',{'class':'mu',text:'Example: '+str(g.example)}));m.append(d)})}
+var st=objs(c.steps);if(st.length){m.append(h('h2',{text:'Steps'}));m.append(h('ol',null,st.map(function(s){var li=h('li');T(li,s.do);if(s.see)li.append(h('div',{'class':'mu'},[h('strong',{text:'You should see: '}),str(s.see)]));if(s.ifNot)li.append(h('div',{'class':'mu'},[h('strong',{text:'If not: '}),str(s.ifNot)]));return li})))}
+strs(c.examples).forEach(function(x){m.append(lead('Worked example',x,'ex'))});
+if(c.code)m.append(h('pre',{text:str(c.code)}));
+if(c.rule&&c.rule.text){var r=lead('Rule of thumb',c.rule.text,'rule');if(c.rule.fails)r.append(h('p',{'class':'mu',text:'It fails when: '+str(c.rule.fails)}));m.append(r)}
+var mk=objs(c.mistakes);if(mk.length)m.append(h('h2',{text:'Common mistakes'}),tbl(['Mistake','Why','Fix'],mk.map(function(x){return[x.m,x.why,x.fix]})));
+var ac=ACT.filter(function(a){return a.claims.some(function(k){return k.split(':')[0]===c._id})});if(ac.length)m.append(h('h2',{text:'Try it'}),h('ul',null,ac.map(function(a){return h('li',null,[h('a',{href:'#a-'+a.id,text:a.title}),' ('+AT[a.type][0]+(S.act[a.id]?', done':'')+')'])})));
+if(c._q.length){m.append(h('h2',{text:'Check yourself'}));c._q.forEach(function(q){m.append(quiz(q))})}
+if(strs(c.src).length)m.append(h('p',{'class':'mu',text:'Sources: '+strs(c.src).map(function(id){var so=objs(D.sources).filter(function(x){return str(x.id)===id})[0];return so&&str(so.title)?id+' ('+str(so.title)+')':id}).join(', ')}));
+var done=h('button',{type:'button','data-c':c._id,'aria-pressed':String(!!S.done[c._id]),text:S.done[c._id]?'Chapter done. Select to undo':'Mark done and stay here'}),dst=h('span',{'class':'mu',role:'status',text:S.done[c._id]?'Marked done.':''});
+done.addEventListener('click',function(){if(done.getAttribute('aria-pressed')==='true')delete S.done[c._id];else S.done[c._id]=true;var was=volatile;if(!save()&&!was){render(true);return}done.setAttribute('aria-pressed',String(!!S.done[c._id]));done.textContent=S.done[c._id]?'Chapter done. Select to undo':'Mark done and stay here';dst.textContent=S.done[c._id]?'Marked done.':'Marked not done.';drawNav('c-'+c._id)});
+var i=CH.indexOf(c),row=h('div',{'class':'row navrow'},[done,dst]);
+if(i>0)row.prepend(h('a',{'class':'btn',href:'#c-'+CH[i-1]._id,text:'Previous chapter'}));var nl=null;if(i<CH.length-1)nl=h('a',{'class':'btn primary',href:'#c-'+CH[i+1]._id,text:'Next chapter'});else if(QS.length)nl=h('a',{'class':'btn primary',href:'#test',text:'Take the Self-Test'});else if(D.next)nl=h('a',{'class':'btn primary',href:'#next',text:'What To Do Next'});
+if(nl){nl.addEventListener('click',function(){if(!S.done[c._id]){S.done[c._id]=true;save();loadNote='Chapter marked done: '+str(c.title)+'.'}});row.append(nl)}m.append(row);if(nl)m.append(h('p',{'class':'mu',text:'The next button also marks this chapter done.'}))}
+function ib(n,t,a){a=a||{};a.type='button';return h('button',a,[t])}
+var AT={sim:['Simulation','sliders-horizontal'],match:['Matching','arrows-left-right'],sort:['Sorting','squares-four'],order:['Put in order','list-numbers'],scenario:['Choose a path','git-fork'],estimate:['Estimate','ruler']};
+var FN=Object.create(null);FN.min=[2,4,Math.min];FN.max=[2,4,Math.max];FN.abs=[1,1,Math.abs];FN.sqrt=[1,1,Math.sqrt];FN.ln=[1,1,Math.log];FN.exp=[1,1,Math.exp];FN.round=[1,2,function(x,d){var p=Math.pow(10,Math.max(0,Math.min(6,Math.floor(d||0))));return Math.round(x*p)/p}];
+function ftok(s){var t=[],i=0,m,re=/\s*(?:(\d+(?:\.\d+)?)|([A-Za-z][A-Za-z0-9_]*)|(<=|>=|==|!=|[-+*\/^(),<>]))/y;s=s.replace(/\s+$/,'');
+while(i<s.length){re.lastIndex=i;m=re.exec(s);if(!m)throw new Error('a character is not allowed');i=re.lastIndex;if(m[1]!==undefined)t.push(['n',Number(m[1])]);else if(m[2]!==undefined)t.push(['i',m[2]]);else t.push(['o',m[3]]);if(t.length>150)throw new Error('too long')}return t}
+function fparse(src,names){src=str(src);if(!src||src.length>200)throw new Error('empty or too long');var t=ftok(src),p=0,dp=0;
+function pk(){return t[p]}
+function ok(v){var x=t[p];if(x&&x[0]==='o'&&x[1]===v){p++;return true}return false}
+function need(v){if(!ok(v))throw new Error('expected '+v)}
+function cmp(){var a=add(),x=pk();if(x&&x[0]==='o'&&/^(<=|>=|==|!=|<|>)$/.test(x[1])){p++;return['c',x[1],a,add()]}return a}
+function add(){var a=mul(),x;while((x=pk())&&x[0]==='o'&&(x[1]==='+'||x[1]==='-')){p++;a=['b',x[1],a,mul()]}return a}
+function mul(){var a=un(),x;while((x=pk())&&x[0]==='o'&&(x[1]==='*'||x[1]==='/')){p++;a=['b',x[1],a,un()]}return a}
+function un(){if(++dp>30)throw new Error('too deeply nested');var r;if(ok('-'))r=['u',un()];else{var a=atom();r=ok('^')?['b','^',a,un()]:a}dp--;return r}
+function atom(){var x=t[p++];if(!x)throw new Error('ends too soon');if(x[0]==='n')return['n',x[1]];if(x[0]==='o'&&x[1]==='('){var e=cmp();need(')');return e}
+if(x[0]==='i'){if(ok('(')){var f=x[1],a=[],ar;if(f==='if')ar=[3,3];else if(f in FN)ar=FN[f];else throw new Error('function not allowed');if(!ok(')')){do a.push(cmp());while(ok(','));need(')')}if(a.length<ar[0]||a.length>ar[1])throw new Error('wrong argument count');return['f',f,a]}
+if(!names[x[1]])throw new Error('unknown name');return['v',x[1]]}throw new Error('unexpected symbol')}
+var r=cmp();if(p<t.length)throw new Error('unexpected symbol');return r}
+function fev(n,E){var k=n[0],a,b,r;if(k==='n')return n[1];if(k==='v')return E[n[1]];if(k==='u')return-fev(n[1],E);
+if(k==='b'){a=fev(n[2],E);b=fev(n[3],E);if(n[1]==='+')r=a+b;else if(n[1]==='-')r=a-b;else if(n[1]==='*')r=a*b;else if(n[1]==='/'){if(b===0)throw new Error('division by zero');r=a/b}else r=Math.pow(a,b);if(!isFinite(r))throw new Error('out of range');return r}
+if(k==='c'){a=fev(n[2],E);b=fev(n[3],E);var o=n[1];return(o==='<'?a<b:o==='<='?a<=b:o==='>'?a>b:o==='>='?a>=b:o==='=='?a===b:a!==b)?1:0}
+if(n[1]==='if')return fev(n[2][0],E)!==0?fev(n[2][1],E):fev(n[2][2],E);r=FN[n[1]][2].apply(null,n[2].map(function(x){return fev(x,E)}));if(!isFinite(r))throw new Error('out of range');return r}
+function fcalc(ast,E){try{var v=fev(ast,E);return isFinite(v)?{ok:true,v:v}:{ok:false}}catch(e){return{ok:false}}}
+function aS(x,n){x=str(x).trim();return x&&x.length<=n?x:''}
+function aN(x){return typeof x==='number'&&isFinite(x)?x:NaN}
+function ong(v,mn,sp){var q=(v-mn)/sp;return Math.abs(q-Math.round(q))<1e-6}
+function fx(v,d){var s=v.toFixed(d);return/^-0(\.0+)?$/.test(s)?s.slice(1):s}
+function dp2(s){var t=String(s),i=t.indexOf('.');return i<0?0:Math.min(4,t.length-i-1)}
+function perm(n,sd){var a=[],i,x=0,j,t;for(i=0;i<sd.length;i++)x=(x*31+sd.charCodeAt(i))>>>0;for(i=0;i<n;i++)a.push(i);for(i=n-1;i>0;i--){x=(x*1664525+1013904223)>>>0;j=(x>>>8)%(i+1);t=a[i];a[i]=a[j];a[j]=t}if(n>1&&a.every(function(v,k){return v===k}))a.push(a.shift());return a}
+function simRun(m,v){var E=Object.create(null),r=Object.create(null),i,c;E.pi=Math.PI;E.e=Math.E;m.ins.forEach(function(x){E[x.id]=v[x.id]});for(i=0;i<m.outs.length;i++){c=fcalc(m.outs[i].ast,E);if(!c.ok)return{ok:false};E[m.outs[i].id]=c.v;r[m.outs[i].id]=c.v}return{ok:true,out:r}}
+function simNorm(o){var nm=Object.create(null),ins=[],outs=[],li=ol(o.inputs),lo=ol(o.outputs),ID2=/^[a-z][a-z0-9_]{0,19}$/,i,x,id;nm.pi=1;nm.e=1;if(li.length<1||li.length>4||lo.length<1||lo.length>4)return null;
+for(i=0;i<li.length;i++){x=li[i];id=str(x.id);var mn=aN(x.min),mx=aN(x.max),sp=aN(x.step),df=aN(x.default),lab=aS(x.label,60);if(!ID2.test(id)||nm[id]||id==='if'||(id in FN)||!lab||!(mn<mx&&sp>0&&(mx-mn)/sp<=1000+1e-9&&df>=mn&&df<=mx&&ong(df,mn,sp)))return null;nm[id]=1;ins.push({id:id,label:lab,mn:mn,mx:mx,sp:sp,df:df,unit:aS(x.unit,20),ctl:x.control==='stepper'?'stepper':'slider'})}
+for(i=0;i<lo.length;i++){x=lo[i];id=str(x.id);var ast=null,dg=x.digits===undefined?2:x.digits,lb2=aS(x.label,60);if(!ID2.test(id)||nm[id]||id==='if'||(id in FN)||!lb2||!Number.isInteger(dg)||dg<0||dg>4)return null;try{ast=fparse(x.formula,nm)}catch(e){return null}nm[id]=1;outs.push({id:id,label:lb2,unit:aS(x.unit,20),dg:dg,ast:ast})}
+var ch=o.chart&&typeof o.chart==='object'&&!Array.isArray(o.chart)?o.chart:null,yy=ch?strs(lst(ch.y)):[];if(!ch||!/^(line|bar)$/.test(str(ch.kind))||!yy.length||yy.length>(ch.kind==='line'?3:4)||yy.some(function(y,k){return!outs.some(function(q){return q.id===y})||yy.indexOf(y)!==k}))return null;
+var chart={kind:str(ch.kind),x:str(ch.x),y:yy,title:aS(ch.title,60)||'Chart'};if(chart.kind==='line'&&!ins.some(function(q){return q.id===chart.x}))return null;
+var pd=null;if(o.predict!==undefined){var q=o.predict;if(!q||typeof q!=='object')return null;var pi=ins.filter(function(z){return z.id===str(q.input)})[0],to=aN(q.to);if(!pi||!aS(q.ask,300)||!(to>=pi.mn&&to<=pi.mx&&to!==pi.df&&ong(to,pi.mn,pi.sp))||!outs.some(function(z){return z.id===str(q.output)}))return null;pd={ask:aS(q.ask,300),input:pi.id,to:to,output:str(q.output)}}
+var nt=strs(lst(o.notice));if(nt.length<1||nt.length>3||nt.some(function(s){return s.length>300}))return null;
+var ck=ol(o.checks);if(ck.length<3||ck.length>12)return null;var m={ins:ins,outs:outs,chart:chart,predict:pd,notice:nt,ck:[],ckOK:true};
+for(i=0;i<ck.length;i++){var ci=ck[i].in,co=ck[i].out,tl=ck[i].tol===undefined?0.01:aN(ck[i].tol),v={},ks;if(!ci||typeof ci!=='object'||!co||typeof co!=='object'||!(tl>=0))return null;ins.forEach(function(z){v[z.id]=z.df});ks=Object.keys(ci);if(ks.some(function(k){var z=ins.filter(function(w){return w.id===k})[0];return!z||!isFinite(aN(ci[k]))||ci[k]<z.mn||ci[k]>z.mx}))return null;ks.forEach(function(k){v[k]=ci[k]});
+var ok2=Object.keys(co),r=simRun(m,v),good=r.ok&&ok2.length>0&&ok2.every(function(k){return outs.some(function(z){return z.id===k})&&isFinite(aN(co[k]))&&Math.abs(r.out[k]-co[k])<=tl});m.ck.push({v:ci,e:co,r:r.ok?r.out:null,ok:good});if(!good)m.ckOK=false}
+return m}
+function mkPlace(k,o){var it=[],tg=[],sol=[],i,x,L=Object.create(null),L2=Object.create(null);
+if(k==='match'){var p=ol(o.pairs);if(p.length<3||p.length>6)return null;for(i=0;i<p.length;i++){x=p[i];var l=aS(x.left,120),r=aS(x.right,120),w=aS(x.why,300);if(!l||!r||!w||L[l]||L2[r])return null;L[l]=1;L2[r]=1;tg.push({t:l,cap:1});it.push({t:r,w:w});sol.push(i)}return{items:it,targets:tg,sol:sol,verb:'goes with',help:'Select an item. Then select Put here under the one it goes with.',ih:'Items to match',th:'Matches'}}
+var b=ol(o.buckets),bi=Object.create(null),q=ol(o.items),cn=[];if(b.length<2||b.length>4||q.length<4||q.length>10)return null;
+for(i=0;i<b.length;i++){var id=str(b[i].id),lb3=aS(b[i].label,80);if(!/^[\w-]{1,20}$/.test(id)||bi[id]!==undefined||!lb3)return null;bi[id]=i;cn.push(0);tg.push({t:lb3,cap:99})}
+for(i=0;i<q.length;i++){var t=aS(q[i].label,120),w2=aS(q[i].why,300),bk=bi[str(q[i].bucket)];if(!t||!w2||bk===undefined||L[t])return null;L[t]=1;cn[bk]++;it.push({t:t,w:w2});sol.push(bk)}
+if(cn.some(function(z){return z===0}))return null;
+return{items:it,targets:tg,sol:sol,verb:'goes in',help:'Select an item. Then select Put here under the group it belongs in.',ih:'Items to sort',th:'Groups'}}
+function mkOrder(o){var q=ol(o.items),it=[],i,L=Object.create(null);if(q.length<3||q.length>8)return null;for(i=0;i<q.length;i++){var t=aS(q[i].label,120),w=aS(q[i].why,300);if(!t||!w||L[t])return null;L[t]=1;it.push({t:t,w:w})}return{items:it}}
+function mkScen(o){var nd=ol(o.nodes),M2=Object.create(null),i,j,ends=0;if(nd.length<3||nd.length>10)return null;
+for(i=0;i<nd.length;i++){var id=str(nd[i].id),tx=aS(nd[i].text,500);if(!/^[\w-]{1,20}$/.test(id)||M2[id]||!tx)return null;var cs=ol(nd[i].choices);M2[id]={id:id,t:tx,end:cs.length===0,les:aS(nd[i].lesson,300),ch:[],raw:cs}}
+for(i=0;i<nd.length;i++){var n=M2[str(nd[i].id)];if(n.end){ends++;continue}if(n.raw.length<2||n.raw.length>4)return null;for(j=0;j<n.raw.length;j++){var c=n.raw[j],lb4=aS(c.label,200),sy=aS(c.say,400),nx=str(c.next);if(!lb4||!sy||!M2[nx])return null;n.ch.push({l:lb4,s:sy,n:nx})}}
+var st=str(o.start);if(!M2[st]||!ends)return null;var seen=Object.create(null);function dfs(id,d){if(d>12||seen[id]===1)return false;if(seen[id]===2)return true;seen[id]=1;var ok=M2[id].ch.every(function(c){return dfs(c.n,d+1)});seen[id]=2;return ok}if(!dfs(st,0))return null;ends=Object.keys(seen).filter(function(k){return M2[k].end}).length;return{nodes:M2,start:st,ends:ends}}
+function mkEst(o){var an=aN(o.answer),tl=aN(o.tol),m={ask:aS(o.ask,400),unit:aS(o.unit,30),ans:an,tol:tl,low:aS(o.low,400),high:aS(o.high,400),why:aS(o.reasoning,600)};return m.ask&&m.low&&m.high&&m.why&&isFinite(an)&&tl>=0?m:null}
+var ACT=[],actBad=0,usedA=Object.create(null);
+objs(D.activities).forEach(function(o){var id=str(o.id),ty=str(o.type),cl=strs(o.claims),a=null,m=null;
+if(/^[\w-]{1,40}$/.test(id)&&id!=='__proto__'&&!usedA[id]&&Object.prototype.hasOwnProperty.call(AT,ty)&&cl.length>=1&&cl.length<=4&&cl.every(function(c){return VALID[c]})){
+try{m=ty==='sim'?simNorm(o):(ty==='match'||ty==='sort')?mkPlace(ty,o):ty==='order'?mkOrder(o):ty==='scenario'?mkScen(o):mkEst(o)}catch(e){m=null}
+a={id:id,type:ty,title:aS(o.title,80),goal:aS(o.goal,300),hint:aS(o.hint,300),dn:aS(o.done,300),claims:cl,m:m,raw:o};if(!m||!a.title||!a.goal||!a.hint)a=null}
+if(a){usedA[id]=1;ACT.push(a)}else actBad++});
+function simChart(m,vals,r){var c=m.chart,n,g,ti=c.title,al,tx=[],head,rows,fig;
+if(c.kind==='bar'){if(!r.ok)return h('p',{text:'No chart: these inputs cannot be worked out.'});var it=c.y.map(function(id){var o=m.outs.filter(function(z){return z.id===id})[0];return{label:o.label+(o.unit?' ('+o.unit+')':''),value:r.out[id]}});if(it.some(function(z){return z.value<0}))return h('figure',{'class':'fig'},[h('figcaption',{text:ti}),h('p',{'class':'mu',text:'A bar chart cannot show a negative result, so only the table is shown.'}),tbl(['Result','Value'],it.map(function(z){return[z.label,nice(z.value)]}))]);var d=drawBars(it,'');
+al='Bar chart of '+it.map(function(z){return z.label+' '+nice(z.value)}).join(', ')+'.';return h('figure',{'class':'fig'},[h('figcaption',{text:ti}),mkSvg(d,ti,al),h('details',null,[h('summary',{text:'Read this chart as a table'}),tbl(['Result','Value'],it.map(function(z){return[z.label,nice(z.value)]}))])])}
+var xi=m.ins.filter(function(z){return z.id===c.x})[0],N=21,xs=[],k,ser=c.y.map(function(id){return{o:m.outs.filter(function(z){return z.id===id})[0],ys:[]}}),all=[];
+for(k=0;k<N;k++){var x=xi.mn+(xi.mx-xi.mn)*k/(N-1),vv={},rr;Object.keys(vals).forEach(function(q){vv[q]=vals[q]});vv[xi.id]=x;xs.push(x);rr=simRun(m,vv);ser.forEach(function(s){var y=rr.ok?rr.out[s.o.id]:null;s.ys.push(y);if(y!==null)all.push(y)})}
+if(!all.length)return h('p',{text:'No chart: the formula cannot be worked out for these inputs.'});
+var lo=Math.min.apply(null,all),hi=Math.max.apply(null,all),L=58,T0=14,W=326,H=168;if(lo===hi){lo-=1;hi+=1}if(!(hi-lo>0)||!isFinite(hi-lo))return h('p',{text:'No chart: the results are too far apart to draw.'});
+function px(v){return L+(v-xi.mn)/(xi.mx-xi.mn)*W}function py(v){return T0+H-(v-lo)/(hi-lo)*H}
+g=sv('g');g.append(sv('line',{x1:L,y1:T0,x2:L,y2:T0+H,'class':'va'}),sv('line',{x1:L,y1:T0+H,x2:L+W,y2:T0+H,'class':'va'}));
+var xu=xi.unit&&xi.label.toLowerCase().indexOf(xi.unit.toLowerCase())<0?' ('+xi.unit+')':'',yl=ser.length===1?ser[0].o.label+(ser[0].o.unit?' ('+ser[0].o.unit+')':''):'Results';
+g.append(svt(L-6,T0+H+5,'vm',nice(lo),'end',52),svt(L-6,T0+12,'vm',nice(hi),'end',52),svt(L,T0+H+23,'vm',nice(xi.mn),null,70),svt(L+W,T0+H+23,'vm',nice(xi.mx),'end',70),svt(L+W/2,T0+H+46,'vt',xi.label+xu,'middle',320),rot(16,T0+H/2,'vt',yl,'middle',H));
+var cx=px(vals[xi.id]);g.append(sv('line',{x1:cx,y1:T0,x2:cx,y2:T0+H,'class':'vg'}));
+ser.forEach(function(s,si){var seg=[],segs=[];s.ys.forEach(function(y,i){if(y===null){if(seg.length)segs.push(seg);seg=[]}else seg.push(px(xs[i]).toFixed(1)+','+py(y).toFixed(1))});if(seg.length)segs.push(seg);segs.forEach(function(sg){if(sg.length>1)g.append(sv('polyline',{points:sg.join(' '),'class':'s'+si}));else{var pp=sg[0].split(',');g.append(sv('circle',{cx:pp[0],cy:pp[1],r:3,'class':'vd'}))}});if(r.ok)g.append(sv('circle',{cx:cx,cy:py(r.out[s.o.id]),r:6,'class':'vc'}))});
+al='Line chart. Across: '+xi.label+' from '+nice(xi.mn)+' to '+nice(xi.mx)+(xi.unit?' '+xi.unit:'')+'. '+ser.map(function(s){var v=s.ys.filter(function(y){return y!==null});return s.o.label+' goes from '+nice(v[0])+' to '+nice(v[v.length-1])+', lowest '+nice(Math.min.apply(null,v))+', highest '+nice(Math.max.apply(null,v))+(s.o.unit?' '+s.o.unit:'')+'.'}).join(' ')+(r.ok?' The marked point is at the current input.':'');
+var lg=h('ul',{'class':'lg'},ser.map(function(s,si){return h('li',null,[sv('svg',{viewBox:'0 0 40 10','class':'lgs','aria-hidden':'true',focusable:'false'},[sv('line',{x1:2,y1:5,x2:38,y2:5,'class':'s'+si})]),s.o.label+(s.o.unit?' ('+s.o.unit+')':'')])}));
+head=[xi.label+xu].concat(ser.map(function(s){return s.o.label+(s.o.unit?' ('+s.o.unit+')':'')}));rows=xs.map(function(x,i){return[nice(x)].concat(ser.map(function(s){return s.ys[i]===null?'cannot be worked out':nice(s.ys[i])}))});
+return h('figure',{'class':'fig'},[h('figcaption',{text:ti}),mkSvg({g:g,h:250},ti,al),lg,h('details',null,[h('summary',{text:'Read this chart as a table'}),tbl(head,rows)])])}
+function mkSvg(r,ti,al){var n=++vid,s=sv('svg',{viewBox:'0 0 400 '+Math.round(r.h),role:'img','aria-labelledby':'vt'+n+' vd'+n,focusable:'false'},[sv('title',{id:'vt'+n}),sv('desc',{id:'vd'+n}),r.g]);s.childNodes[0].textContent=ti;s.childNodes[1].textContent=al;return s}
+var PT={up:'it rose',down:'it fell',same:'it stayed about the same'};
+function bSim(box,a,X){var m=a.m,vals={},pre=!m.predict,mv=false,els={},tm=null;function ann(){clearTimeout(tm);tm=setTimeout(function(){X.say(sum())},400)}
+function base(){var o={};m.ins.forEach(function(i){o[i.id]=i.df});return o}
+vals=base();
+var res=h('dl',{'class':'facts'}),fig=h('div');
+function fo(o,r){return o.label+' '+fx(r.out[o.id],o.dg)+(o.unit?' '+o.unit:'')}
+function upd(){m.ins.forEach(function(i){var e=els[i.id];e.rd.textContent=fx(vals[i.id],dp2(i.sp))+(i.unit?' '+i.unit:'');if(e.el){e.el.value=String(vals[i.id]);e.el.setAttribute('aria-valuetext',e.rd.textContent)}});
+var r=simRun(m,vals);res.replaceChildren();m.outs.forEach(function(o){res.append(h('dt',{text:o.label}),h('dd',{text:r.ok?fx(r.out[o.id],o.dg)+(o.unit?' '+o.unit:''):'Cannot be worked out for these inputs. Change an input.'}))});
+fig.replaceChildren(simChart(m,vals,r));fitText(fig);if(pre&&mv)X.fin()}
+function sum(){var r=simRun(m,vals);return(r.ok?m.outs.map(function(o){return fo(o,r)}).join('. ')+'.':'These inputs cannot be worked out. Change an input.')+(S.act[a.id]?' This activity is marked done.':'')}
+var pd=m.predict;
+if(pd){var pi=m.ins.filter(function(z){return z.id===pd.input})[0],po=m.outs.filter(function(z){return z.id===pd.output})[0],pr=h('div',{'class':'row'}),sk=h('button',{type:'button',text:'Skip the guess'});
+var pf=h('fieldset',null,[h('legend',{text:'Predict first'}),h('p',{text:pd.ask}),h('p',{'class':'mu',text:'The test: set '+pi.label+' to '+pd.to+(pi.unit?' '+pi.unit:'')+', then watch '+po.label+'. Choose your guess before you see the result.'})]);
+[['up','It rises'],['down','It falls'],['same','It stays about the same']].forEach(function(g){var b=h('button',{type:'button','aria-pressed':'false',text:g[1]});b.addEventListener('click',function(){guess(g[0],g[1].toLowerCase(),b)});pr.append(b)});
+sk.addEventListener('click',function(){pre=true;clearTimeout(tm);X.say('Guess skipped. Use the inputs to explore.')});pr.append(sk);pf.append(pr);box.append(pf);
+function guess(k,txt,b){clearTimeout(tm);var r0=simRun(m,base()),v1=base();v1[pd.input]=pd.to;var r1=simRun(m,v1);pre=true;if(!r0.ok||!r1.ok){X.say('This test cannot be worked out. Use the inputs to explore.');return}
+var a0=r0.out[pd.output],a1=r1.out[pd.output],d=a1-a0,ac=Math.abs(d)<=Math.max(1e-9,Math.abs(a0)*0.005)?'same':(d>0?'up':'down');vals=v1;mv=true;
+pr.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});upd();
+X.say('You guessed: '+txt+'. '+pi.label+' went to '+pd.to+(pi.unit?' '+pi.unit:'')+'. '+po.label+' went from '+fx(a0,po.dg)+' to '+fx(a1,po.dg)+(po.unit?' '+po.unit:'')+', so '+PT[ac]+'. '+(k===ac?'Your guess matched.':'This time it did not match. Read What to notice below.')+(S.act[a.id]?' This activity is marked done.':''))}}
+var cf=h('fieldset',null,[h('legend',{text:'Change the inputs'})]);
+m.ins.forEach(function(i){var id='ci-'+i.id,rd=h('span',{'class':'rd','aria-hidden':'true'}),w=h('div',{'class':'ctl'}),e={rd:rd,el:null};els[i.id]=e;
+function set(v){v=Math.min(i.mx,Math.max(i.mn,Math.round((v-i.mn)/i.sp)*i.sp+i.mn));vals[i.id]=parseFloat(v.toFixed(6))}
+if(i.ctl==='stepper'){w.setAttribute('role','group');w.setAttribute('aria-labelledby',id);var dn=ib('minus','Decrease',{'aria-label':'Decrease '+i.label}),up=ib('plus','Increase',{'aria-label':'Increase '+i.label});
+dn.addEventListener('click',function(){set(vals[i.id]-i.sp);mv=true;upd();ann()});up.addEventListener('click',function(){set(vals[i.id]+i.sp);mv=true;upd();ann()});w.append(h('span',{'class':'lab',id:id,text:i.label}),rd,h('div',{'class':'row'},[dn,up]))}
+else{var el=h('input',{type:'range',id:id,min:i.mn,max:i.mx,step:i.sp,value:vals[i.id]});e.el=el;el.addEventListener('input',function(){vals[i.id]=Number(el.value);mv=true;upd()});el.addEventListener('change',ann);w.append(h('label',{'for':id,text:i.label}),el,rd)}
+cf.append(w)});
+box.append(cf,h('h2',{text:'Results'}),res,h('h2',{text:c0(m)}),fig,h('h2',{text:'What to notice'}),ul(m.notice));
+var good=m.ck.filter(function(z){return z.ok}).length;
+box.append(h('details',null,[h('summary',{text:'How this simulation was checked ('+good+' of '+m.ck.length+' match)'}),h('p',{'class':'mu',text:'Each row sets the inputs and compares the result with a value worked out separately.'}),tbl(['Inputs','Expected','Worked out','Result'],m.ck.map(function(z){var f=function(o){return Object.keys(o).map(function(k){return k+' = '+o[k]}).join(', ')};return[f(z.v)||'start values',f(z.e),z.r?f(Object.keys(z.e).reduce(function(q,k){q[k]=fx(z.r[k],4);return q},{})):'cannot be worked out',z.ok?'matches':'does not match']}))]));
+if(!m.ckOK)box.prepend(h('div',{'class':'note'},[h('strong',{text:'Warning: '}),'A built-in check of this simulation did not match. Do not rely on its numbers.']));
+upd()}
+function c0(m){return m.chart.kind==='bar'?'Chart of results':'Chart'}
+function bPlace(box,a,X){var m=a.m,n=m.items.length,pl=[],sel=-1,fb=null,fk='',ord=perm(n,a.id),i;for(i=0;i<n;i++)pl.push(-1);
+box.onkeydown=function(e){if(e.key==='Escape'&&sel>=0){var j=sel;sel=-1;fb=null;fk='i'+j;X.say('Nothing selected.');draw()}};
+function draw(){box.replaceChildren();var un=ord.filter(function(j){return pl[j]<0}),pool=h('div',{'class':'row'});
+un.forEach(function(j){var b=h('button',{type:'button','data-k':'i'+j,'aria-pressed':String(sel===j),text:m.items[j].t});b.addEventListener('click',function(){sel=sel===j?-1:j;fb=null;fk='i'+j;X.say(sel<0?'Nothing selected.':'Selected: '+m.items[j].t+'. Now choose Put here under a place.');draw()});pool.append(b)});
+if(!un.length)pool.append(h('p',{'class':'mu',text:'All items are placed.'}));
+box.append(h('p',{'class':'mu',text:m.help}),h('h2',{text:m.ih}),pool,h('h2',{text:m.th}));
+m.targets.forEach(function(t,ti){var inn=ord.filter(function(j){return pl[j]===ti}),cd=h('section',{'class':'card'},[h('h3',{text:t.t})]);
+if(inn.length){var u=h('ul',{'class':'bl'});inn.forEach(function(j){var b=h('button',{type:'button','data-k':'i'+j,'aria-label':m.items[j].t+', placed here. Select to take it back.',text:m.items[j].t});b.addEventListener('click',function(){pl[j]=-1;sel=j;fb=null;fk='i'+j;X.say(m.items[j].t+' taken back and selected. Choose where it goes.');draw()});u.append(h('li',null,[b]))});cd.append(u)}
+else cd.append(h('p',{'class':'mu',text:'Empty.'}));
+var pb=ib('plus','Put here',{'data-k':'t'+ti,'aria-label':'Put here in '+t.t});if(sel<0||inn.length>=t.cap)pb.disabled=true;
+pb.addEventListener('click',function(){var j=sel;pl[j]=ti;sel=-1;fb=null;var rest=ord.filter(function(z){return pl[z]<0});fk=rest.length?'i'+rest[0]:'chk';X.say(m.items[j].t+' put in '+t.t+'.');draw()});cd.append(pb);box.append(cd)});
+var ck=ib('check-circle','Check',{'data-k':'chk'}),rs=ib('arrow-counter-clockwise','Clear all');ck.addEventListener('click',check);rs.addEventListener('click',function(){for(var z=0;z<n;z++)pl[z]=-1;sel=-1;fb=null;fk='i'+ord[0];X.say('All items cleared.');draw()});
+box.append(h('div',{'class':'row'},[ck,rs]));
+if(fb)box.append(h('h2',{text:'Feedback'}),h('ul',{'class':'fbl'},fb.map(function(f){return h('li',{text:f})})));
+if(fk){var e=box.querySelector('[data-k="'+fk+'"]');if(e&&!e.disabled)e.focus();fk=''}}
+function check(){var ok=0,L=[];ord.forEach(function(j){var it=m.items[j],t=m.targets[m.sol[j]];if(pl[j]<0)L.push('Not placed yet: '+it.t+'.');else if(pl[j]===m.sol[j]){ok++;L.push('Right: '+it.t+' '+m.verb+' '+t.t+'. '+it.w)}else L.push('Not yet: '+it.t+' does not go with '+m.targets[pl[j]].t+'. It '+m.verb+' '+t.t+'. '+it.w)});
+fb=L;fk='chk';var nw=ok===n&&X.fin();X.say(ok+' of '+n+' are in the right place.'+(ok===n?' '+a.dn+(nw?' This activity is now marked done.':''):' Read the feedback, then move the ones that are not yet right.'));draw()}
+draw()}
+function bOrder(box,a,X){var m=a.m,n=m.items.length,cur=perm(n,a.id),fb=null,fk='';
+function draw(){box.replaceChildren();box.append(h('p',{'class':'mu',text:'Use Move up and Move down to put the steps in order. Then select Check.'}));var ol=h('ol',{'class':'ord'});
+cur.forEach(function(j,p){var up=ib('caret-up','Move up',{'data-k':'u'+j,'aria-label':'Move up: '+m.items[j].t}),dn=ib('caret-down','Move down',{'data-k':'d'+j,'aria-label':'Move down: '+m.items[j].t});if(p===0)up.disabled=true;if(p===n-1)dn.disabled=true;
+function mvv(d){var t=cur[p];cur[p]=cur[p+d];cur[p+d]=t;fb=null;fk=(d<0?'u':'d')+j;X.say(m.items[j].t+' moved to place '+(p+d+1)+' of '+n+'.');draw()}
+up.addEventListener('click',function(){mvv(-1)});dn.addEventListener('click',function(){mvv(1)});ol.append(h('li',null,[h('p',{text:m.items[j].t}),h('div',{'class':'row'},[up,dn])]))});
+var ck=ib('check-circle','Check',{'data-k':'chk'});ck.addEventListener('click',check);box.append(ol,h('div',{'class':'row'},[ck]));
+if(fb)box.append(h('h2',{text:'Feedback'}),h('ul',{'class':'fbl'},fb.map(function(f){return h('li',{text:f})})));
+if(fk){var e=box.querySelector('[data-k="'+fk+'"]');if(!e||e.disabled)e=box.querySelector('[data-k="'+(fk.charAt(0)==='u'?'d':'u')+fk.slice(1)+'"]');if(e&&!e.disabled)e.focus();fk=''}}
+function check(){var ok=0,L=[];cur.forEach(function(j,p){var it=m.items[j];if(j===p){ok++;L.push('Right: place '+(p+1)+' is '+it.t+'. '+it.w)}else L.push('Not yet: '+it.t+' is at place '+(p+1)+'. It comes at place '+(j+1)+'. '+it.w)});fb=L;fk='chk';var nw=ok===n&&X.fin();X.say(ok+' of '+n+' are in the right place.'+(ok===n?' '+a.dn+(nw?' This activity is now marked done.':''):' Read the feedback, then move the steps that are not yet right.'));draw()}
+draw()}
+function bScen(box,a,X){var m=a.m,cur=m.start,hist=[],seen=Object.create(null),fk='';
+function draw(){box.replaceChildren();hist.forEach(function(s){box.append(h('div',{'class':'ex'},[h('p',{text:s.t}),h('p',null,[h('strong',{text:'You chose: '}),s.l]),h('p',{'class':'mu',text:s.s})]))});var nd=m.nodes[cur];
+if(nd.end){seen[cur]=1;box.append(h('h2',{text:'Where this path ended'}),h('p',{text:nd.t}));if(nd.les)box.append(lead('Lesson',nd.les,'rule'));var nw=X.fin(),ag=ib('arrow-counter-clockwise','Try another path',{'data-k':'again'});ag.addEventListener('click',function(){cur=m.start;hist=[];fk='c0';X.say('Back at the start.');draw()});
+box.append(h('p',{'class':'mu',text:'Endings seen in this visit: '+Object.keys(seen).length+' of '+m.ends+'.'}),h('div',{'class':'row'},[ag]));X.say('This path ended. '+a.dn+(nw?' This activity is now marked done.':''));fk='again'}
+else{box.append(h('p',{text:nd.t}),h('h2',{text:'What do you do?'}));var rw=h('div',{'class':'row stack'});nd.ch.forEach(function(c,k){var b=h('button',{type:'button','data-k':'c'+k,text:c.l});b.addEventListener('click',function(){hist.push({t:nd.t,l:c.l,s:c.s});cur=c.n;fk='c0';X.say(c.s);draw()});rw.append(b)});box.append(rw)}
+if(fk){var e=box.querySelector('[data-k="'+fk+'"]');if(e)e.focus();fk=''}}
+draw()}
+function bEst(box,a,X){var m=a.m,inp=h('input',{type:'number',step:'any',id:'est-in','aria-describedby':'est-u'}),out=h('div'),ck=ib('check-circle','Check my estimate'),dn=false;
+function go2(){var v=inp.value.trim()===''?NaN:Number(inp.value);if(!isFinite(v)){X.say('Type a number first, for example 12.5.');return}
+var cl=Math.abs(v-m.ans)<=m.tol,u=m.unit?' '+m.unit:'';out.replaceChildren(h('p',null,[h('strong',{text:'Your estimate: '}),v+u]),h('p',null,[h('strong',{text:'Answer: '}),m.ans+u]),h('p',{text:cl?'Close enough: within '+m.tol+u+' of the answer.':(v<m.ans?m.low:m.high)}),lead('How to get there',m.why,'rule'));
+var nw=X.fin();X.say((cl?'Close enough. ':(v<m.ans?'Lower than the answer. ':'Higher than the answer. '))+a.dn+(nw?' This activity is now marked done.':''))}
+ck.addEventListener('click',go2);inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go2()}});
+box.append(h('p',{text:m.ask}),h('div',{'class':'row'},[h('label',{'for':'est-in',text:'Your estimate'}),inp,h('span',{id:'est-u',text:m.unit})]),h('div',{'class':'row'},[ck]),out)}
+var BUILD={sim:bSim,match:bPlace,sort:bPlace,order:bOrder,scenario:bScen,estimate:bEst};
+function playPage(m){m.append(h('h1',{text:lb('play','Practice and Play')}),h('p',{text:'Try the ideas in small activities. Nothing is timed and nothing counts against you. Each activity links to the chapter that teaches it.'}));
+if(ACT.length)m.append(h('p',{'class':'mu',text:'Activities done: '+counts(S).ad+' of '+ACT.length+'.'}));
+if(actBad)m.append(h('div',{'class':'note',text:actBad+(actBad>1?' activities could not be shown. Ask the AI that made this file to fix them.':' activity could not be shown. Ask the AI that made this file to fix it.')}));
+ACT.forEach(function(a){m.append(h('section',{'class':'card'},[h('h2',null,[h('a',{href:'#a-'+a.id,text:a.title})]),h('p',{'class':'mu',text:AT[a.type][0]+'. '+(S.act[a.id]?'Done.':'Not done yet.')}),h('p',{text:a.goal})]))})}
+function actView(m,id){var a=ACT.filter(function(x){return'a-'+x.id===id})[0];if(!a){m.append(h('h1',{text:'Not found'}),h('p',null,[h('a',{href:'#play',text:'Go to '+lb('play','Practice and Play')})]));return}
+var ds=h('p',{'class':'mu'}),k=ACT.indexOf(a),st=h('p',{role:'status','class':'mu sr2'});function dtx(){ds.textContent=AT[a.type][0]+'. '+(S.act[a.id]?'Done.':'Not done yet.')}dtx();
+var X={say:function(t){st.textContent=t},fin:function(){if(S.act[a.id])return false;S.act[a.id]=true;var ok=save();dtx();if(!ok)ds.textContent+=' This browser would not save it. Use Save progress file.';return true}};
+m.append(h('h1',{text:a.title}),ds,lead('Goal',a.goal,'goal'));
+var tl=[];a.claims.forEach(function(c){var cid=c.split(':')[0],ch=CH.filter(function(z){return z._id===cid})[0];if(ch&&!tl.some(function(z){return z.id===cid}))tl.push({id:cid,t:str(ch.title)||cid})});
+var tp=h('p',null,['Taught in: ']);tl.forEach(function(z,i){if(i)tp.append(', ');tp.append(h('a',{href:'#c-'+z.id,text:z.t}))});m.append(tp);
+var box=h('div',{'class':'act'});m.append(st,box);BUILD[a.type](box,a,X);
+var hn=h('details',null,[h('summary',{text:'Hint'}),h('p',{text:a.hint})]);m.append(hn);
+var rs=ib('arrow-counter-clockwise','Start over'),row=h('div',{'class':'row navrow'},[rs,h('a',{'class':'btn',href:'#play',text:'All activities'})]);
+rs.addEventListener('click',function(){box.replaceChildren();BUILD[a.type](box,a,X);X.say('Started over. Your done mark stays.');var f=box.querySelector('button,input');if(f)f.focus()});
+if(k<ACT.length-1)row.append(h('a',{'class':'btn primary',href:'#a-'+ACT[k+1].id,text:'Next activity'}));m.append(row)}
+function dl(name,text){var b=new Blob([text],{type:'application/json'}),u=URL.createObjectURL(b),a=h('a',{href:u,download:name});document.body.append(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},1000)}
+function sofarT(c){return(c.g+c.r===QS.length?'Test finished. ':'So far: ')+c.g+' of '+QS.length+' marked got it.'+(c.g+c.r<QS.length?' '+(QS.length-c.g-c.r)+' not marked yet.':'')}
+function counts(s){var dn=0,g=0,r=0,ad=0;ACT.forEach(function(a){if(s.act&&s.act[a.id]===true)ad++});Object.keys(s.done).forEach(function(k){if(VALID[k]&&k.indexOf(':')<0)dn++});Object.keys(s.q).forEach(function(k){if(VALID[k]&&k.indexOf(':')>0){if(s.q[k]==='got')g++;else r++}});return{dn:dn,g:g,r:r,ad:ad}}
+function me(m){m.append(h('h1',{text:'My Progress'}));var c=counts(S);
+m.append(h('p',{text:'Chapters done: '+c.dn+' of '+CH.length+'. Questions: '+c.g+' got it, '+c.r+' to review, '+(QS.length-c.g-c.r)+' not tried.'+(ACT.length?' Activities done: '+c.ad+' of '+ACT.length+'.':'')}));
+m.append(h('h2',{text:'Review plan'}),h('p',{'class':'mu',text:'Review the Self-Test on these days after you first opened this guide ('+S.first+').'}));
+var t=today(),nx=null;[1,3,7,21].forEach(function(n){var d=addDays(S.first,n),dn=S.rev.indexOf(n)>-1;if(!dn&&d<=t&&nx===null)nx=n;m.append(h('p',{'class':'plan',text:'Day '+n+', '+d+': '+(dn?'reviewed':(d<=t?'due now':'upcoming'))}))});
+if(nx!==null){var rb=h('button',{type:'button',text:'Mark day '+nx+' reviewed'});rb.addEventListener('click',function(){S.rev.push(nx);save();loadNote='Day '+nx+' marked reviewed.';render(true)});m.append(h('div',{'class':'row'},[rb]))}
+m.append(h('h2',{text:'Save or restore your progress'}),h('p',{text:'Progress stays in this browser only. A saved file is not encrypted and holds only your progress.'}),h('p',{'class':'mu',text:(persist==='granted'?'Your browser has promised to keep this progress.':'Your browser may delete this progress.')+' Use Save progress file now and then to keep a copy.'}));
+var msg=h('div',{role:'status'}),sv=h('button',{type:'button',text:'Save progress file'}),fi=h('input',{type:'file',id:'rf','class':'sr',accept:'.json,application/json'}),fl=h('label',{'class':'btn',for:'rf',text:'Restore progress file'}),rs=h('button',{type:'button',text:'Reset all progress'}),box=h('div',{role:'status'});
+sv.addEventListener('click',function(){dl('progress-'+ID+'.json',JSON.stringify({app:ID,appVersion:APPV,schemaVersion:2,exportedAt:new Date().toISOString(),data:S}));msg.textContent='Saved. Look for progress-'+ID+'.json in your Downloads folder.'});
+fi.addEventListener('change',function(){var f=fi.files[0];msg.replaceChildren();if(!f)return;if(f.size>1000000){fi.value='';msg.textContent='That file is too big to be a progress file. Nothing was changed. Choose a file made by Save progress file.';return}
+var rd=new FileReader();rd.onerror=function(){fi.value='';msg.textContent='That file could not be read. Nothing was changed.'};rd.onload=function(){fi.value='';var e=null,s=null;try{e=JSON.parse(rd.result)}catch(x){}
+if(!e||typeof e!=='object'||typeof e.app!=='string'){msg.textContent='That file is not a progress file. Nothing was changed. Choose a file made by Save progress file.';return}
+if(e.app!==ID&&e.app!==PREVIOUS_ID){msg.textContent='That file belongs to another guide. Nothing was changed. Choose a file saved from this lesson.';return}
+if(e.schemaVersion!==1&&e.schemaVersion!==2){msg.textContent='That file is from a different version of this app. Nothing was changed. Choose a file made by Save progress file in this guide.';return}
+s=clean(e.app===PREVIOUS_ID?migrateProgress(e.data):e.data);if(!s){msg.textContent='That progress file is damaged. Nothing was changed. Choose another file made by Save progress file.';return}
+var k=counts(s),ap=h('button',{type:'button',text:'Replace my progress'}),ca=h('button',{type:'button',text:'Keep my progress'});
+msg.replaceChildren(h('p',{text:'This file first opened the guide on '+s.first+'. Chapters done: '+k.dn+'. Marked questions: '+(k.g+k.r)+'.'+(ACT.length?' Activities done: '+k.ad+'.':'')+' Replacing erases the progress you have here now. To keep it, select Keep my progress, then Save progress file first.'}),h('div',{'class':'row'},[ap,ca]));
+ap.addEventListener('click',function(){sset(PK+'.last',JSON.stringify(S));S=s;save();loadNote='Your progress was replaced by the saved file.';render(true)});ca.addEventListener('click',function(){msg.replaceChildren();fi.focus()})};rd.readAsText(f)});
+rs.addEventListener('click',function(){var er=h('button',{type:'button',text:'Erase progress'}),ke=h('button',{type:'button',text:'Keep progress'});
+box.replaceChildren(h('p',{text:'Erase all progress for this guide in this browser? Your Look choice and any saved files stay.'}),h('div',{'class':'row'},[er,ke]));er.focus();
+er.addEventListener('click',function(){sdel(PK);sdel(PK+'.last');sdel(PK+'.damaged');sdel(PK+'.damaged2');damaged=false;noWrite=false;S=blank();save();loadNote='All progress for this guide was erased in this browser.';render(true)});ke.addEventListener('click',function(){box.replaceChildren();rs.focus()})});
+m.append(h('div',{'class':'row stack'},[sv,fi,fl]),msg,h('div',{'class':'row sep'},[rs]),box);
+if(damaged||noWrite){m.append(h('h2',{text:'Unreadable saved progress'}),h('p',{'class':'mu',text:'A copy of unreadable saved progress was kept. Reset all progress erases these copies too, so download them first.'}));
+var ks=[PK+'.damaged',PK+'.damaged2'];if(noWrite)ks.push(PK);var nn=0;ks.forEach(function(k){var v=sget(k);if(v===null)return;nn++;var my=nn,b=h('button',{type:'button',text:'Download unreadable data '+my});b.addEventListener('click',function(){dl('unreadable-'+ID+'-'+my+'.json',v)});m.append(h('div',{'class':'row'},[b]))})}}
+function search(m,id){var q=dec(id.slice(2)).toLowerCase().trim(),hits=[];m.append(h('h1',{text:'Search results'}));
+if(q){var add=function(href,label,o){if(flat(o).toLowerCase().indexOf(q)>-1)hits.push([href,label])};
+add('#start','Start Here',D.start);add('#big','Big Picture',D.big);CH.forEach(function(c){add('#c-'+c._id,str(c.title),c)});
+G.forEach(function(g){add('#glossary','Glossary: '+str(g.term),g)});objs(D.rules).forEach(function(r){add('#rules','Rule: '+str(r.rule),r)});objs(D.decide).forEach(function(r){add('#decide','Decision: '+str(r.if),r)});
+objs(D.ref).forEach(function(r){add('#ref','Quick Reference: '+str(r.name),r)});add('#next','What To Do Next',D.next);add('#unsure',lb('unsure','What We Are Not Sure About'),D.uncertain);objs(D.sources).forEach(function(s){add('#sources','Source: '+str(s.id),s)});ACT.forEach(function(a){add('#a-'+a.id,'Activity: '+a.title,[a.raw,AT[a.type][0],a.type,'activity practice'])});if(ACT.length)add('#play',lb('play','Practice and Play'),'activity activities simulation practice play '+ACT.map(function(a){return AT[a.type][0]+' '+a.type}).join(' '));if(QS.length)add('#drill','Practice What You Missed','practice what you missed review questions')}
+if(!hits.length){m.append(h('p',{text:'Nothing found. Try a shorter word.'}));return}
+m.append(h('p',{'class':'mu',text:hits.length+' found'+(hits.length>40?'. Showing the first 40.':'.')}),h('ul',null,hits.slice(0,40).map(function(x){return h('li',null,[h('a',{href:x[0],text:x[1]})])})))}
+function view(id){var m=$('#main'),st=D.start&&typeof D.start==='object'?D.start:{};
+if(id==='start'){m.append(h('h1',{text:lb('start','Start Here')}));
+if(st.what)m.append(h('p',{text:str(st.what)}));
+var dn0=CH.filter(function(c){return S.done[c._id]}).length,tg=CH.filter(function(c){return!S.done[c._id]})[0];
+if(CH[0])m.append(h('p',null,[h('a',{'class':'btn primary',href:tg?'#c-'+tg._id:(QS.length?'#test':'#start'),text:dn0===0?'Start Level 1':(tg?'Continue: '+str(tg.title):(QS.length?'All chapters done. Take the Self-Test':'All chapters done'))})]),h('p',{'class':'mu'},['Your progress: '+dn0+' of '+CH.length+' chapters done. ',h('a',{href:'#me',text:lb('me','My Progress')})]));else m.append(h('p',{text:'This guide has no chapters yet. Ask the AI that made this file to rebuild it.'}));
+if(st.one)m.append(lead('If you only read one thing',st.one,'rule'));
+if(M.notVerifiedFor)m.append(h('div',{'class':'note'},[h('strong',{text:'Not verified for: '}),str(M.notVerifiedFor)]));
+var fx=[['Who it is for',st.who],['What you need first',st.need],['What you will be able to do',st.gain],['How long it takes',st.time],['How to use it',st.use]].filter(function(x){return x[1]});if(fx.length)m.append(facts(fx));
+if(strs(st.rules).length)m.append(h('h2',{text:'The most important rules of thumb'}),ul(st.rules));
+var meta=[['Topic',M.topic],['Reader',M.reader],['Facts checked as of',M.asOf],['Assumptions',strs(M.assumptions).join('\n\n')]].filter(function(x){return x[1]});if(meta.length)m.append(h('h2',{text:'About this guide'}),facts(meta))}
+else if(id==='big'){var B=D.big&&typeof D.big==='object'?D.big:{};m.append(h('h1',{text:'Big Picture'}));T(m,B.text);if(strs(B.map).length)m.append(h('h2',{text:'Map of this guide'}),ul(B.map))}
+else if(id==='glossary'){m.append(h('h1',{text:'Glossary'}));var f=h('input',{type:'search','aria-label':'Filter terms',placeholder:'Filter terms'}),box=h('div');
+function draw(){var q=f.value.toLowerCase();box.replaceChildren();var rows=G.slice().sort(function(a,b){return str(a.term).localeCompare(str(b.term))}).filter(function(g){return(str(g.term)+' '+str(g.def)).toLowerCase().indexOf(q)>-1}).map(function(g){return[str(g.term),str(g.def)+(g.example?'\n\nExample: '+str(g.example):'')]});if(rows.length)box.append(facts(rows));if(!rows.length)box.append(h('p',{text:'No term matches. Clear the filter.'}))}
+f.addEventListener('input',draw);m.append(f,box);draw()}
+else if(id==='rules'){m.append(h('h1',{text:'Rules of Thumb'}),tbl(['Rule','Works when','Fails when'],objs(D.rules).map(function(r){return[r.rule,r.works,r.fails]})))}
+else if(id==='decide'){m.append(h('h1',{text:'Which One Do I Pick?'}),tbl(['If','Then'],objs(D.decide).map(function(r){return[r.if,r.then]})));if(D.decideDefault)m.append(lead('If unsure',D.decideDefault,'rule'))}
+else if(id==='ref'){m.append(h('h1',{text:'Quick Reference'}));objs(D.ref).forEach(function(s){m.append(h('h2',{text:str(s.name)}),ul(s.items))})}
+else if(id==='drill'&&QS.length){var tdy=today(),sk=drillSkip||{},g=[[],[],[]],nxd=null;drillSkip=null;CH.forEach(function(c,ci){var k=[0,0,0];c._q.forEach(function(q){var v=S.q[q.id],o=S.qd[q.id],gi=-1,dd='';if(v==='review'){gi=0;dd=o?o.d:''}else if(v==='got'){var od=o?(far(o,tdy)?tdy:o.d):'';if(!o||od<=tdy){gi=1;dd=od}else if(nxd===null||od<nxd)nxd=od}else gi=2;if(gi>-1)g[gi].push({q:q,d:dd,k:k[gi]++,ci:ci})})});var pk=[];g.forEach(function(a){a.sort(function(x,y){return x.d<y.d?-1:(x.d>y.d?1:(x.k-y.k||x.ci-y.ci))});a.forEach(function(x){if(pk.length<6&&!sk[x.q.id])pk.push(x.q)})});if(pk.length<6)g.forEach(function(a){a.forEach(function(x){if(pk.length<6&&pk.indexOf(x.q)<0)pk.push(x.q)})});var cnt=g[0].length+g[1].length+g[2].length;m.append(h('h1',{text:'Practice What You Missed'}),h('p',{'class':'mu',text:'Questions you marked review again come first, then ones that are due again (1, 3, 7, 21 and 60 days after you got them right), then ones you have not tried. They are mixed across chapters on purpose: mixing and spacing help you remember for longer. Try to answer first, then mark each question so the list moves on.'}),h('p',{'class':'mu sofar',text:sofarT(counts(S))}));if(!pk.length){m.append(h('p',{text:'Nothing is due. '+(nxd?'The next question is due on '+nxd+'.':'Every question is marked got it.')+' Come back then.'}))}else{pk.forEach(function(q){m.append(quiz(q))});if(cnt>pk.length){var nb=h('button',{type:'button',text:'Show different questions'});nb.addEventListener('click',function(){drillSkip={};pk.forEach(function(q){drillSkip[q.id]=1});render(true)});m.append(h('div',{'class':'row'},[nb]))}else m.append(h('p',{'class':'mu',text:'These are all the questions to practise now.'}))}}
+else if(id==='test'&&QS.length){m.append(h('h1',{text:'Self-Test'}),h('p',{'class':'mu',text:'Try to answer first. Then show the answer.'}),h('p',{'class':'mu sofar',text:sofarT(counts(S))}));CH.forEach(function(c){if(c._q.length){m.append(h('h2',{text:str(c.title)}));c._q.forEach(function(q){m.append(quiz(q))})}});m.append(h('p',{'class':'mu sofar',text:sofarT(counts(S))}),h('p',null,[h('a',{'class':'btn primary',href:D.next?'#next':'#start',text:D.next?lb('next','What To Do Next'):lb('start','Start Here')})]))}
+else if(id==='next'){var nx=D.next&&typeof D.next==='object'?D.next:{};m.append(h('h1',{text:'What To Do Next'}));if(strs(nx.actions).length)m.append(h('h2',{text:'First actions'}),h('ol',null,strs(nx.actions).map(function(x){return h('li',{text:x})})));if(strs(nx.practice).length)m.append(h('h2',{text:'Practice'}),ul(nx.practice));if(strs(nx.deeper).length)m.append(h('h2',{text:'Go deeper'}),ul(nx.deeper))}
+else if(id==='unsure'){var U=D.uncertain&&typeof D.uncertain==='object'?D.uncertain:{},any=false;m.append(h('h1',{text:'What We Are Not Sure About'}));
+[['Gaps',U.gaps],['Added context',U.added],['Not verified',U.unverified],['Recheck later',U.recheck]].forEach(function(x){if(strs(x[1]).length){any=true;m.append(h('h2',{text:x[0]}),ul(x[1]))}});
+if(objs(U.conflicts).length){any=true;m.append(h('h2',{text:'Contrary evidence'}),tbl(['Claim','Sides','Better supported','Why'],objs(U.conflicts).map(function(c){return[c.claim,Array.isArray(c.sides)?strs(c.sides).join('; '):c.sides,c.better,c.why]})))}
+if(!any)m.append(h('p',{text:'Nothing is listed here.'}))}
+
+else if(id==='ai'){m.append(h('h1',{text:'For AI Tools'}));T(m,D.ai);m.append(h('p',{text:'All knowledge in this guide is in the data blocks (template elements marked data-kd) inside this file.'}))}
+else if(id==='me')me(m);
+else if(id==='help'){m.append(h('h1',{text:'Help'}),h('ul',null,['Press the big button to start, then Next chapter at the end of each page.','Use Menu (or the list at the side) to jump anywhere.','Your progress may be saved in this browser. For a reliable backup, open My Progress and select Save progress file.'].concat(ACT.length?['Practice and Play has small simulations and activities. Nothing is timed. Use the keyboard or a tap: you never have to drag.']:[]).map(function(x){return h('li',{text:x})})),h('h2',{text:'Your data and settings'}));
+m.append(facts([['Where your data lives','This guide sends no progress to a server. If your browser permits storage, it retains your progress locally, one earlier copy and up to two unreadable copies. For a file opened directly from a device, storage behaviour can vary between browsers or file locations. Storage may be blocked or cleared. Export a progress file regularly; it is your portable backup.'],['How to save a copy','Open My Progress and select Save progress file. The file is not encrypted. It holds only your progress and no secrets.'],['How to restore','Open My Progress and choose a progress file. You see what it holds first. Nothing changes until you select Replace my progress.'],['How to delete','Open My Progress and select Reset all progress. It erases the progress and every kept copy stored in this browser for this guide.'],['Changing the look','Use the Look menu at the top. Paper is light, Charcoal is dark, Black is darkest, and Auto follows your device. Other pages on the same site that use these looks follow your choice.'],['What survives Reset','Your Look choice and any progress files you saved. Clearing the browser site data for this file erases everything stored here.']]),h('p',null,[h('a',{href:'#about',text:'Changing or updating this guide'})]))}
+else if(id==='about'){var dz=M.design&&typeof M.design==='object'?M.design:{};m.append(h('h1',{text:'How This Guide Works'}));
+m.append(facts([['Versions','Content updated '+(str(M.updated)||str(M.asOf)||'date unknown')+'. App kd-app '+APPV+'.']]));
+var lg=objs(D.log);if(lg.length)m.append(h('h2',{text:'What changed'}),tbl(['Date','Change'],lg.map(function(x){return[x.date,x.what]})));
+var fr=objs(D.fresh);m.append(h('h2',{text:'Check before relying'}));if(fr.length)m.append(tbl(['What','As of','Check again when'],fr.map(function(x){return[x.what,x.asOf||'not checked',x.recheck||'none']})));else m.append(h('p',{text:'No fact in this guide is marked as likely to change.'}));
+var ds=[['Concept',dz.concept],['Voice',dz.voice],['Colour',dz.hue],['Type',dz.type],['Corners',dz.radius],['Spacing',dz.density]].filter(function(x){return x[1]});if(ds.length)m.append(h('h2',{text:'How it looks and why'}),facts(ds));
+var pr=objs(D.practice);if(pr.length)m.append(h('h2',{text:'How it was checked'}),tbl(['Area','Adopted','Rejected','Source','As of','Check again when'],pr.map(function(x){return[x.area,x.adopted,x.rejected||'none',x.source||'none',x.asOf,x.recheck]})));
+m.append(h('h2',{text:'How to update this guide'}),h('h3',{text:'With an AI'}),h('ol',null,['Save your progress first: open My Progress, then select Save progress file.','Give an AI this file and the companion study-builder instructions, and type UPDATE. Say what changed: new notes, a date check, or a new look.','Open the new file and restore your progress: My Progress, then Restore progress file.','The AI reads the manifest inside this file (the template element marked data-kd=manifest) to know how.'].map(function(x){return h('li',{text:x})})),h('h3',{text:'By hand'}),h('ol',null,['To change a fact yourself: keep a copy of this file, open it in a plain-text editor, find the block that starts with <template data-kd="base"> (the first match is the right one), change the value you want (text sits inside quotes; hue is a number without quotes; never type a double quote, a backslash, a line break, a < or an & inside the text; use an apostrophe), also set asOf and updated in meta to today (written like 2026-10-31), save, and reload the page.','To change the look yourself: in that same block, find "meta" and change hue (a number from 0 to 359), type (sans, serif or humanist), radius (soft or sharp) or density (airy or compact), save, and reload. A wrong value is ignored and the default is used. Do not change anything outside that block: the app checks its own code and stops if it is altered.','To find a fact, search the file for a word from it. A fact can appear in more than one place, so search for the old value, the bare number too, and the Conflicts and Quick Reference entries, and change every place, then add a line to the log list in the same block, copying an existing one and putting a comma after the previous entry, for example {"date":"2026-10-31","what":"Changed a fact."}.'].map(function(x){return h('li',{text:x})})))}
+else if(id==='licences'){
+m.append(h('h1',{text:'Licence and reuse'}),h('h2',{text:'MIT License'}),h('p',{text:'Copyright (c) 2026 Contributors to this study app'}),h('p',{text:'Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:'}),h('p',{text:'The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.'}),h('p',{text:'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.'}),h('h2',{text:'Scope and limits'}),h('p',{text:'This file uses text controls and generated graphics. It does not embed a third-party icon set, external fonts, images or remote scripts.'}),h('p',{text:'Only the rights held or validly licensed by a distributor can be granted under MIT. The notice does not establish rights to any inherited source expression or code. Confirm the rights chain before public release.'}));}
+
+else if(id==='play'&&(ACT.length||actBad))playPage(m);
+else if(id.indexOf('a-')===0)actView(m,id);
+else if(id.indexOf('s:')===0)search(m,id);
+else if(id.indexOf('c-')===0){var c=CH.filter(function(x){return'c-'+x._id===id})[0];if(c)chapter(c);else m.append(h('h1',{text:'Not found'}),h('p',null,[h('a',{href:'#start',text:'Go to Start Here'})]))}
+else m.append(h('h1',{text:'Not found'}),h('p',null,[h('a',{href:'#start',text:'Go to Start Here'})]))}
+function render(route){var raw=location.hash.slice(1),id=dec(raw)||'start';if(raw.indexOf('s:')===0)id='s:'+raw.slice(2);
+var m=$('#main');m.replaceChildren();
+if(bad)m.append(h('div',{'class':'note',text:'Part of this guide data could not be read ('+bad+' block'+(bad>1?'s':'')+'). Your saved progress is safe. Some content may be missing. If you just edited this file by hand, undo your last edit. Otherwise ask the AI that made this file to resend the missing chunk.'}));
+if(missN.length)m.append(h('div',{'class':'note',text:(missN.length>1?'Chunks '+missN.slice(0,10).join(', ')+(missN.length>10?' and '+(missN.length-10)+' more':'')+' are missing':'Chunk '+missN[0]+' is missing')+', so some content is not here yet. Ask the AI that made this file to resend '+(missN.length>1?'them':'it')+'.'}));if(dupN)m.append(h('div',{'class':'note',text:'A chunk was pasted more than once, or had no number. Only the last copy of a repeated chunk was used.'}));
+if(loadNote){m.append(h('div',{'class':'note',role:'status',text:loadNote}));loadNote=''}
+if(volatile)m.append(h('div',{'class':'note',role:'status',text:'This browser would not save your progress. It is kept only until you close this page. Use Save progress file to keep a copy.'}));
+try{view(id)}catch(e){m.append(h('div',{'class':'note',text:'This part of the guide could not be shown. Your progress is safe. Open another section, or ask the AI that made this file to rebuild it.'}))}
+try{drawNav(id.indexOf('a-')===0?'play':id)}catch(e){}
+if(route){$('#side').classList.remove('open');$('#menu').setAttribute('aria-expanded','false');$('#mt').textContent='Menu'}var nv=NAV.filter(function(x){return x[0]===id&&!x[2]})[0],h1=$('#main h1'),gt=str(M.title)||'Guide';if(nv&&h1)h1.textContent=nv[1];document.title=h1&&h1.textContent!==gt?h1.textContent+' - '+gt:gt;
+if(route){m.focus();window.scrollTo(0,0)}}
+build();var fu=$('#ftU'),fL=$('#ftL');if(fu)fu.textContent=lb('unsure','What We Are Not Sure About');if(fL)fL.textContent=lb('licences','Licence and reuse');document.querySelectorAll('a[href="#help"]').forEach(function(a){a.textContent=lb('help','Help')});$('#ttl').textContent=str(M.title)||'Guide';applyLook();
+function setHH(){R.style.setProperty('--hh',$('header').offsetHeight+'px')}
+setHH();window.addEventListener('resize',setHH);try{new ResizeObserver(setHH).observe($('header'))}catch(e){}
+$('#look').addEventListener('change',function(){lookMem=$('#look').value;sset(LK,lookMem);var raw=sget(HK),p=null,okp=true;if(raw!==null){try{p=JSON.parse(raw)}catch(e){okp=false}if(okp&&!(p&&typeof p==='object'&&!Array.isArray(p)))okp=false}else p={schemaVersion:1};if(okp){p.look=lookMem;sset(HK,JSON.stringify(p))}applyLook()});window.addEventListener('storage',function(e){if(e.key===HK){lookMem=null;applyLook()}});
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){if(look()==='auto')applyLook()})}catch(e){}
+$('#nav').addEventListener('click',function(e){var la=e.target.closest&&e.target.closest('a');if(la){if(la.getAttribute('href')==='#'+(dec(location.hash.slice(1))||'start'))$('#main').focus();$('#side').classList.remove('open');$('#menu').setAttribute('aria-expanded','false');$('#mt').textContent='Menu'}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#side').classList.contains('open')){$('#side').classList.remove('open');$('#menu').setAttribute('aria-expanded','false');$('#mt').textContent='Menu';$('#menu').focus()}});
+$('#menu').addEventListener('click',function(){var o=$('#side').classList.toggle('open');$('#menu').setAttribute('aria-expanded',String(o));$('#mt').textContent=o?'Close menu':'Menu'});
+$('.skip').addEventListener('click',function(e){e.preventDefault();$('#main').focus()});
+function go(){var q=$('#q').value.trim();if(q){var nh='s:'+encodeURIComponent(q);if(location.hash.slice(1)===nh)render(true);else location.hash=nh}}
+$('#go').addEventListener('click',go);$('#q').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.isComposing&&e.keyCode!==229)go()});
+window.addEventListener('hashchange',function(){render(true)});
+window.addEventListener('storage',function(e){if(e.key!==PK||e.newValue===null)return;var s=null;try{s=clean(JSON.parse(e.newValue))}catch(x){}if(!s)return;S=s;var ae=document.activeElement,has=!!(ae&&ae!==document.body&&ae.closest&&ae.closest('main,#side,header'));
+if(!has&&dec(location.hash.slice(1))==='me'&&document.querySelector('main [role=status] button')){try{drawNav('me')}catch(x){}return}
+if(!has){loadNote='Your progress changed in another tab. This page now shows the newest progress.';render(false);return}
+var rt=dec(location.hash.slice(1))||'start',d={tag:ae.tagName.toLowerCase(),id:ae.id,href:ae.getAttribute&&ae.getAttribute('href'),text:(ae.textContent||'').trim(),main:!!ae.closest('main'),side:!!ae.closest('#side'),sum:ae.tagName==='SUMMARY'};
+if(rt==='me'&&document.querySelector('main [role=status] button')){try{drawNav(rt)}catch(x){}}else if(/^(start|me)$/.test(rt)){render(false)}else{try{var db=document.querySelector('main [data-c]');if(db){var on=!!S.done[db.getAttribute('data-c')];db.setAttribute('aria-pressed',String(on));db.textContent=on?'Chapter done. Select to undo':'Mark done and stay here';if(db.nextElementSibling)db.nextElementSibling.textContent=on?'Marked done.':''}document.querySelectorAll('main [data-q]').forEach(function(b){var qv=S.q[b.getAttribute('data-q')];b.setAttribute('aria-pressed',String(qv===b.getAttribute('data-v')));var bx=b.closest('.q'),sx=bx&&bx.querySelector('[role=status]');if(sx)sx.textContent=qv==='got'?'Your mark: got it.':(qv==='review'?'Your mark: review again.':'')});document.querySelectorAll('.sofar').forEach(function(sf){sf.textContent=sofarT(counts(S))})}catch(x){}try{drawNav(rt)}catch(x){}}
+var cur=document.activeElement;if(cur&&cur!==document.body&&document.body.contains(cur))return;var nf=null;
+if(d.id)nf=document.getElementById(d.id);else if(d.side)nf=d.href?document.querySelector('#nav a[href="'+d.href.replace(/["\\]/g,'')+'"]'):(d.sum?document.querySelector('#nav summary'):null);else if(d.main)nf=[].slice.call(document.querySelectorAll('main '+d.tag)).filter(function(x){return x.textContent.trim()===d.text})[0]||document.querySelector('main .btn.primary')||$('#main');
+if(nf&&nf.focus)nf.focus()});
+window.addEventListener('beforeprint',function(){document.querySelectorAll('details,.ans').forEach(function(x){if(x.tagName==='DETAILS'){x.dataset.was=String(x.open);x.open=true}else{x.dataset.was=String(x.hidden);x.hidden=false}})});
+window.addEventListener('afterprint',function(){document.querySelectorAll('details,.ans').forEach(function(x){if(x.dataset.was===undefined)return;if(x.tagName==='DETAILS')x.open=x.dataset.was==='true';else x.hidden=x.dataset.was==='true';delete x.dataset.was})});
+render(false);
+})();
+</script>
+</body>
+</html>

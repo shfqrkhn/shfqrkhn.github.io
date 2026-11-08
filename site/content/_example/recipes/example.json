@@ -1,0 +1,50 @@
+{
+  "title": "Example recipe",
+  "kind": "recipes",
+  "slug": "example",
+  "topic": "food",
+  "blurb": "A tiny example that shows every block type.",
+  "keywords": "example sample",
+  "blocks": [
+    {
+      "type": "list",
+      "title": "Ingredients",
+      "check": true,
+      "items": [
+        "Item A",
+        "Item B"
+      ]
+    },
+    {
+      "type": "steps",
+      "title": "Steps",
+      "items": [
+        "Do this first.",
+        "Then do this."
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Timing",
+      "head": [
+        "Step",
+        "Minutes"
+      ],
+      "rows": [
+        [
+          "Prep",
+          "5"
+        ],
+        [
+          "Cook",
+          "10"
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "title": "Notes",
+      "text": "Plain text. A blank line starts a new paragraph."
+    }
+  ]
+}

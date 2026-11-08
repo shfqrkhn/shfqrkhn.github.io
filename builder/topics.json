@@ -1,0 +1,46 @@
+[
+ {
+  "id": "money",
+  "title": "Money"
+ },
+ {
+  "id": "health",
+  "title": "Health and habits"
+ },
+ {
+  "id": "home",
+  "title": "Home and garden"
+ },
+ {
+  "id": "food",
+  "title": "Food"
+ },
+ {
+  "id": "games",
+  "title": "Games"
+ },
+ {
+  "id": "learning",
+  "title": "Learning"
+ },
+ {
+  "id": "work",
+  "title": "Work and teams"
+ },
+ {
+  "id": "travel",
+  "title": "Travel"
+ },
+ {
+  "id": "local",
+  "title": "Local"
+ },
+ {
+  "id": "music",
+  "title": "Music"
+ },
+ {
+  "id": "ai",
+  "title": "AI and tools"
+ }
+]
