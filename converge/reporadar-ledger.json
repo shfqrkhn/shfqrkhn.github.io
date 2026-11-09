@@ -72,7 +72,7 @@
     "chromedevtools/chrome-devtools-mcp"
    ],
    "target": "Omnevum verification",
-   "status": "Lighthouse, Playwright and Chrome DevTools MCP are used by hand and in the self-test; Lighthouse is not run in CI"
+   "status": "Lighthouse and Chrome DevTools MCP are used by hand; Playwright is used by hand and in the self-test; Lighthouse is not run in CI"
   },
   {
    "theme": "Untrusted README handling",

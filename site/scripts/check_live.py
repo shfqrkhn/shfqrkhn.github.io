@@ -1,6 +1,7 @@
 """Live health check. Standard library only. Run from anywhere: python site/scripts/check_live.py [site-url]
 
 Add --version X to require a specific hub version (used right after a publish).
+Add --hub-sha X to require the exact hub fingerprint (publish.py passes it on every post-publish wait).
 Fetches the published hub, reads its catalog, then confirms that every hosted page answers 200 and (for single-file pages)
 matches its recorded hash. Remote pages are only checked for an https address. Exit 1 if anything differs.
 """
