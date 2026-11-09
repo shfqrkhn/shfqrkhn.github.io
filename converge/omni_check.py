@@ -50,7 +50,7 @@ for line in s.split("\n"):
             defects.append("duplicate heading number " + k)
         heads.add(k)
 bare = {h for h in heads}
-refs = set(re.findall(r"§(\d+(?:\.\d+)*)", s))
+refs = set(re.findall(r"§ ?(\d+(?:\.\d+)*)", s))
 for r in sorted(refs, key=lambda x: [int(i) for i in x.split(".")]):
     if r not in bare:
         defects.append("section reference with no heading: §" + r)
@@ -78,7 +78,7 @@ if "\r" in s:
     defects.append("carriage returns present")
 L = s.split("\n")
 for n, line in enumerate(L):
-    tm = re.match(r"### 19\.\d+ Tier ([\d,]+)$", line)
+    tm = re.match(r"### 19\.\d+ Tier (\d[\d,]*)$", line)
     if tm:
         limit = int(tm.group(1).replace(",", ""))
         f0 = next((i for i in range(n + 1, len(L)) if L[i].startswith("```")), None)
