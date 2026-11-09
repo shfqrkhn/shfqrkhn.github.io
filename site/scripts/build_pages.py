@@ -54,8 +54,8 @@ def validate(d, where):
         bad("slug must be lowercase words joined by dashes, up to 60 characters, and not a Windows device name")
     if d["topic"] not in TOPICS:
         bad("topic must be one of %s" % ", ".join(TOPICS))
-    if not d["title"].strip() or not (1 <= len(d["title"]) <= 60) or not (1 <= len(d["blurb"].split()) <= 20):
-        bad("title up to 60 characters, blurb up to 20 words")
+    if not d["title"].strip() or not (1 <= len(d["title"]) <= 59) or not (1 <= len(d["blurb"].split()) <= 20):
+        bad("title under 60 characters, blurb up to 20 words")
     if re.search("[|<>" + chr(13) + chr(10) + "]", d["blurb"]):
         bad("blurb has no |, <, > or line break (they break llms.txt)")
     if re.search(r"[|<>[\]\r\n\u2013\u2014]", d["title"]):

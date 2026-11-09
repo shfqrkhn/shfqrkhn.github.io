@@ -1,5 +1,5 @@
 /* Omnevum personalization. Applies the visitor's accent hue and text size, saved on the hub, to this page.
-   Loaded first from the page head so nothing flashes. Safe when storage is blocked: the page keeps its own look.
+   Loaded at the end of the page head so nothing flashes. Safe when storage is blocked: the page keeps its own look.
    Stored in localStorage "hub.prefs.v1" as {schemaVersion, look, hue (0-359 or null), size (90, 115, 130 or null)}.
    A page that saves its own look keeps the hue and size, because writes to that key are merged. */
 (function () {
