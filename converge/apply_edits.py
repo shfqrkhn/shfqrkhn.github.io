@@ -49,7 +49,9 @@ def judge(work, edits, ms, fix):
     for e in edits:
         old, new = e.get("old", ""), e.get("new", "")
         why = None
-        if len(old) < 30 or old == new:
+        if not isinstance(old, str) or not isinstance(new, str):
+            why = "old and new must be text"
+        elif len(old) < 30 or old == new:
             why = "trivial"
         elif work.count(old) != 1:
             why = "old found %d times" % work.count(old)
@@ -122,6 +124,8 @@ def main():
     try:
         ms = float(a[a.index("--min-saving") + 1]) if "--min-saving" in a else 0.10
     except (IndexError, ValueError):
+        sys.exit("error: --min-saving needs a number")
+    if ms != ms:
         sys.exit("error: --min-saving needs a number")
     if "--fix-mode" in a:
         ms = -10.0  # fixes may add text; deletions must keep every fact somewhere else in the file

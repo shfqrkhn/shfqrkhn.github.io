@@ -60,7 +60,8 @@ def _chr(h):
 
 def norm(t):
     """What a person reads: entities decoded, compatibility forms folded, zero-width marks removed, look-alike letters mapped to Latin."""
-    t = _ESC.sub(lambda m: _chr(m.group(1) or m.group(2) or m.group(3) or m.group(4)), t)  # JS and CSS escapes render as the character
+    _d = _ESC.sub(lambda m: _chr(m.group(1) or m.group(2) or m.group(3) or m.group(4)), t)  # JS and CSS escapes render as the character
+    if _d != t: t = t + chr(10) + _d  # scan the text as written too: a Windows path with a hex-letter folder name holds look-alike escapes
     t = t + (chr(10) + _COMMENT.sub("", t) if "<!--" in t else "")  # a comment can split a word: scan the text with and without comments
     return _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t).replace("%40", "@"))).translate(_HOMO)
 
@@ -84,6 +85,9 @@ def read_text(p):
     return b.decode("utf-8", errors="replace")
 
 
+_NAME_SEP = r"(?:<[^>]{0,40}>|[\s_.,-]){1,8}"  # a name split by a line break, extra spaces, a hyphen or a tag is still the name
+
+
 def main():
     names = []
     if "--names" in sys.argv:
@@ -92,7 +96,7 @@ def main():
         except OSError as e:
             print("cannot read the names file: %s" % (e.strerror or e)); return 2
     _short = [n for n in names if len(n) < 5]; _long = [n for n in names if len(n) >= 5]
-    _parts = ([r"(?<![A-Za-z0-9])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(re.escape(n) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
+    _parts = ([r"(?<![A-Za-z0-9])(?:%s)(?![A-Za-z0-9])" % "|".join(_NAME_SEP.join(re.escape(w) for w in n.split(" ")) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(_NAME_SEP.join(re.escape(w) for w in n.split(" ")) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
     # a short name (under 5 characters, such as an acronym) matches in its exact case only: in any case it hits minified identifiers and ordinary words
     name_rx = re.compile("|".join("(?i:%s)" % x if x is _parts[-1] and _long else x for x in _parts)) if _parts else None
     _cn = [re.sub(r"\s+", "", n) for n in _long]  # a long name with its spaces left out also matches in file names: JaneDoe, jane_doe, jane-doe
@@ -134,7 +138,7 @@ def main():
                 low = (hit + " " + ctx).lower()
                 if kind == "email" and re.search(r"@example\.(com|org|net)$|^noreply@anthropic\.com$|^(\d+\+)?shfqrkhn@users\.noreply\.github\.com$", hit, re.I):
                     continue
-                if kind == "email" and re.search(r"\.(png|svg|jpg|css|js|woff2?)$", hit, re.I):
+                if kind == "email" and re.search(r"@[\d.]+x?\.(png|svg|jpg|css|js|woff2?)$", hit, re.I):
                     continue
                 if kind == "private-ip" and rel.split(os.sep)[0] in ("docs", "scripts"):
                     continue

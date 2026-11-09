@@ -86,6 +86,9 @@ def remove(reg, pages, words, build):
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     build = "--no-build" not in sys.argv
+    bad = [a for a in sys.argv[1:] if a.startswith("--") and a not in ("--no-build", "--yes")]
+    if bad:
+        print("unknown option: %s (archive.py has --no-build and --yes only)" % bad[0]); return 2
     reg, pages = load_all()
     if not args or args[0] == "list":
         for state, label in ((False, "Main hub"), (True, "Archive")):

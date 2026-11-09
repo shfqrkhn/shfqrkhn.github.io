@@ -223,7 +223,7 @@ One file: `site/scripts/ui.css`. Tokens (`--bg --fg --mut --card --line --acc --
 - The build injects that script tag and adds `'self'` to the page's `script-src`; the sources stay untouched. Bundles are not touched.
 - The script merges writes to `hub.prefs.v1`, so a page that saves only its own look never erases the hue or size. A page with no hue of its own simply falls back to its own accent when the choice is reset.
 - Any hue is safe: the contrast gate proves every hue against all four looks.
-- Owner rebrand: `rename.py` renames a page and its address (old ones forward), `--hue` recolours it, `--tagline` rewrites its descriptor. A whole-site look change is a `ui.css` token change, then one build.
+- Owner rebrand: `rename.py` renames a page and its address (old ones forward), `--hue` sets its hue (hand-built pages also need it in the page), `--tagline` rewrites its descriptor. A whole-site look change is a `ui.css` token change, then one build.
 - Test: `site/scripts/test_personalize.py` (part of the self-test) sets the choices in the dialog, then checks every single-file page, the CSP, the merge and the reset.
 
 ### Applied practices
