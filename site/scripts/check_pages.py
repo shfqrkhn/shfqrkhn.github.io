@@ -113,6 +113,14 @@ def csp_gaps(text):
     gaps = []
     for csp in csp_list(text):  # browsers enforce every policy meta, so each one is judged
         gaps += [g for g in _csp_gaps(text, csp) if g not in gaps]
+        if not re.search(r"(?<![\w-])(?:script-src|default-src)\s", csp, re.I):
+            gaps.append("the policy sets no script-src or default-src, so any script may load")
+        if not re.search(r"(?<![\w-])(?:connect-src|default-src)\s", csp, re.I):
+            gaps.append("the policy sets no connect-src or default-src, so any network call is allowed")
+    masked = re.sub(r"<!--.*?-->|<(template|noscript|textarea|xmp)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I)
+    first = [t.start() for t in re.finditer(r"<meta\b[^>]*http-equiv\s*=\s*[\"']?Content-Security-Policy", masked, re.I)]
+    if first and re.search(r"<script\b|<style\b|<link\b[^>]*rel\s*=\s*[\"']?stylesheet", masked[:first[0]], re.I):
+        gaps.append("a script or style comes before the policy meta, which a browser applies only to what follows it")
     return gaps
 
 
@@ -187,10 +195,10 @@ REMOTE_CALL = re.compile(r"(?:fetch|import|importScripts|Worker|SharedWorker|Web
 def extra_files(full, rel):
     """Other files of a bundle (scripts, styles, pages, images) must not load from another site either."""
     parts = rel.replace(chr(92), "/").split("/")
-    if len(parts) < 3 or parts[0] not in KINDS or os.path.splitext(parts[-1])[1].lower() not in (".html", ".htm", ".js", ".mjs", ".css", ".svg"):
+    if len(parts) < 3 or parts[0] not in KINDS or os.path.splitext(parts[-1])[1].lower() not in (".html", ".htm", ".xhtml", ".xht", ".shtml", ".js", ".mjs", ".css", ".svg"):
         return
     text = open(full, "rb").read().decode("utf-8", "replace")
-    if os.path.splitext(parts[-1])[1].lower() in (".html", ".htm"):
+    if os.path.splitext(parts[-1])[1].lower() in (".html", ".htm", ".xhtml", ".xht", ".shtml"):
         s = Scan(); s.feed(text)
         if s.external: errors.append("%s: loads from another site: %s" % ("/".join(parts), ", ".join(u for _, u in s.external[:3])))
     if REMOTE_CALL.search(html.unescape(text)) or JS_LOAD.search(html.unescape(text)): errors.append("/".join(parts) + ": loads from another site")
@@ -199,7 +207,7 @@ def extra_files(full, rel):
 def main():
     count = 0
     for dp, dn, fn in os.walk(ROOT):
-        dn[:] = [d for d in dn if d not in (".git", ".github", "__pycache__") and not (dp == ROOT and d in ("docs", "scripts", "content", "templates"))]
+        dn[:] = [d for d in dn if d not in (".git", "__pycache__") and not (dp == ROOT and d == ".github") and not (dp == ROOT and d in ("docs", "scripts", "content", "templates"))]
         for f in fn:
             if (f != "index.html" and f != "404.html") or classify(os.path.relpath(os.path.join(dp, f), ROOT))[0] is None:
                 extra_files(os.path.join(dp, f), os.path.relpath(os.path.join(dp, f), ROOT))
