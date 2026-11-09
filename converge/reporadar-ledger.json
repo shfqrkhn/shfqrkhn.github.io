@@ -1,11 +1,11 @@
 {
  "generated": "2026-11-08",
- "scope": "all 507 RepoRadar repositories plus 1 owner-added (508 entries)",
+ "scope": "all 507 RepoRadar repositories plus 4 owner-added (511 entries)",
  "method": "live README fetch via GitHub API (first 5,000 characters kept); sonnet review per batch of 39; judgement from the opening of each README, not the full repository",
  "counts": {
   "reject": 284,
-  "reference": 140,
-  "study": 74,
+  "reference": 142,
+  "study": 75,
   "adapt": 7,
   "adopt": 1,
   "unavailable": 2
@@ -6728,6 +6728,48 @@
     "omnevum"
    ],
    "reason": "Agent skill (MIT, JavaScript, 4765 stars, last push 2026-09-30) for scroll-driven immersive sites. Its engine, video and 3D layers conflict with Omnevum budgets (hub 300 KB, app 3 MB), strict CSP, offline-first and the Lighthouse 100 results on the hub. Study only its phone art direction, contrast and verification habits; do not adopt the engine.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "antocorr/TravelMore",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "readme_bytes": 5000,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "Local-first AI travel planner (MIT, TypeScript, 9 stars, last push 2026-11-05): trip, stop and place tree, OpenStreetMap, checklists, flight price monitor, an assistant that edits plans through server tools. Needs a server and external map, search and AI services, which conflicts with Omnevum's no-external-requests and static-hosting rules. Keep as a reference for itinerary data shape and the trip, stop, place tree.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "JustVugg/colibri",
+   "status": "owner_added",
+   "category": "A4",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "readme_bytes": 5000,
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Hierarchical inference engine for large mixture-of-experts models (Apache-2.0, C, 49101 stars, last push 2026-11-09): hot experts on GPU, warm in RAM, cold streamed from NVMe; thirteen engines across language, image and decision models. Study for the Local-AI expert (running very large open models on ordinary hardware, disk streaming, hardware sizing); nothing to adopt in the static site. Claims are the README's own and are unverified.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "opencut-app/opencut",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "readme_bytes": 2661,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "Free open-source video editor (MIT, TypeScript, 97813 stars, last push 2026-09-24), being rewritten around a Rust core, plugin architecture, MCP server and headless mode; the classic version is a separate repository. Not an Omnevum fit (heavy media editing). Keep as a reference for plugin-first and MCP-for-agents design; check the classic repository before relying on any of it.",
    "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
    "applied": "deferred"
   }
