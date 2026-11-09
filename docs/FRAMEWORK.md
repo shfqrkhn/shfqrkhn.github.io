@@ -142,7 +142,7 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 2. Edit `content/<kind>/<slug>.json`. Blocks: `list` (add `"check": true` for a tick list that remembers), `steps`, `text`, `table`. Check with `python site/scripts/build_pages.py --check`.
 3. Run the build. The page, its tile, its group page and its offline cache appear.
 
-**Make a bundle or WebAssembly page:** put the folder under `sources/apps/<slug>/` (or any absolute path), add a registry entry with `form: "bundle"`, a `version`, and `wasm: true` or `pwa: true` as needed. Make `index.html` link home with `href="../../"`. Run the build.
+**Make a bundle or WebAssembly page:** put the folder under `sources/apps/<slug>/` (or any absolute path), add a registry entry with `form: "bundle"`, a `version`, and `pwa: true` as needed (`wasm` unused). Make `index.html` link home with `href="../../"`. Run the build.
 
 **List a full stack app:** add a registry entry with `form: "remote"`, `url`, `host`, `license`, `stack`. Nothing is copied.
 

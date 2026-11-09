@@ -6,7 +6,7 @@ Every hand-built page must stay on the shared Omnevum core design language while
     until the page is brought up to date)
   - <html> has data-app, and --hue (on the tag, or in the stylesheet for pages whose policy forbids inline styles) equals the page's hue in the catalog
   - the page reads and writes the shared look choice (hub.prefs.v1)
-  - it has the shared round home button (id back-to-hub, the only link home)
+  - it has the shared round home button (id back-to-hub)
 Generated pages use scripts/ui.css directly and are exempt. Failures name the page and what is stale.
 """
 import json, os, re, sys
