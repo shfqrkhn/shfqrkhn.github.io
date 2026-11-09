@@ -3,7 +3,7 @@ Run:  python builder/selftest.py
 Checks: (1) the build is idempotent (two builds, identical output), (2) a broken registry is refused with a plain message,
 (3) the privacy gate catches planted personal data, (4) the page generator renders valid pages, (5) every gate passes on the real site,
 (6) archive and restore, rename, bundle and remote forms, and the converge scripts' planted defects, (7) the browser tests pass when Playwright is installed. The code numbers its checks 1 to 6 with sub-steps."""
-import hashlib, json, os, shutil, subprocess, sys, tempfile
+import hashlib, json, os, re, shutil, subprocess, sys, tempfile
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
@@ -111,7 +111,7 @@ try:
     json.dump(reg, open(os.path.join(tmp, "registry.json"), "w", encoding="utf-8"))
     r = run([os.path.join(tmp, "build.py")])
     wasm_ok = os.path.isfile(os.path.join(OUT, "tools", "zzwasm", "pkg", "m.wasm"))
-    ok("bundle with WebAssembly builds and verifies", r.returncode == 0 and wasm_ok and "1 remote" in r.stdout.replace("(1 remote)", "1 remote"), (r.stdout + r.stderr)[-400:])
+    ok("bundle with WebAssembly builds and verifies", r.returncode == 0 and wasm_ok and re.search(r"(?<!\d)1 remote", r.stdout) is not None, (r.stdout + r.stderr)[-400:])
     ok("remote page is listed, not copied", not os.path.exists(os.path.join(OUT, "apps", "zzremote")) and 'href="https://example.org/app/"' in open(os.path.join(OUT, "index.html"), encoding="utf-8").read())
     ok("own-PWA bundle stays out of the hub worker", "zzwasm" not in open(os.path.join(OUT, "sw.js"), encoding="utf-8").read())
 finally:

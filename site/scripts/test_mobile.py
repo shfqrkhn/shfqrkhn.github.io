@@ -2,9 +2,9 @@
 Run from anywhere: python site/scripts/test_mobile.py
 
 Emulates phones (Pixel 7, iPhone 13, a small 320 px phone) with touch, and runs a real Firefox engine, against the site served locally.
-Checks: no sideways scroll, tap targets, opening pages by touch, the install and offline status controls, and going fully offline.
+Checks: no sideways scroll, tap targets, opening pages by touch, the offline status control, and going fully offline.
 Honest limit: these are emulations. A real phone (install it, switch on airplane mode, open a few pages) is still the final test."""
-import functools, http.server, json, os, re, sys, threading
+import http.server, json, os, re, sys, threading
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BN = json.load(open(os.path.join(os.path.dirname(ROOT), "builder", "brand.json"), encoding="utf-8"))["name"]  # rebrand in builder/brand.json

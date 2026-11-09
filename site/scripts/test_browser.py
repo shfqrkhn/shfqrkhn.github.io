@@ -2,7 +2,7 @@
 Run from anywhere: python site/scripts/test_browser.py
 Serves the repo locally the way GitHub Pages does (including the 404 page) and checks the hub, every group page, every page, the home links,
 old-address forwarding and offline use."""
-import functools, http.server, json, os, re, sys, threading
+import http.server, json, os, re, sys, threading
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BN = json.load(open(os.path.join(os.path.dirname(ROOT), "builder", "brand.json"), encoding="utf-8"))["name"]  # rebrand in builder/brand.json

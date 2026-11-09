@@ -59,7 +59,7 @@ class Scan(HTMLParser):
             if (a.get("http-equiv") or "").lower() == "content-security-policy": self.csp = True
         if "id" in a: self.ids.append(a["id"])
         if re.fullmatch(r"h[1-6]", tag): self.headings.append(int(tag[1]))
-        if re.fullmatch(r"[1-9][0-9]*", (a.get("tabindex") or "").strip().lstrip("+")) is not None: self.bad_tabindex += 1
+        if re.fullmatch(r"0*[1-9][0-9]*", (a.get("tabindex") or "").strip().lstrip("+")) is not None: self.bad_tabindex += 1
         if (a.get("target") or "").strip().lower() == "_blank" and not {"noopener", "noreferrer"} & set((a.get("rel") or "").lower().split()): self.bad_blank += 1
         if tag == "img" and a.get("alt") is None: self.imgs_no_alt += 1
         ext = lambda v: re.match(r"\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"^[\x00-\x20]+", "", re.sub(r"[\t\r\n]", "", v or "")), re.I)  # browsers drop tabs and line breaks; any scheme case, // or \\, or http:host
@@ -118,7 +118,7 @@ def csp_gaps(text):
             gaps.append("the policy sets no connect-src or default-src, so any network call is allowed")
         ms = [x for x in (re.search(r"(?<![\w-])%s\s+([^;]*)" % d, csp, re.I) for d in ("script-src", "script-src-elem", "script-src-attr")) if x]
         ms = ms or [x for x in [re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)] if x]
-        cm = re.search(r"(?<![\w-])connect-src\s+([^;]*)", csp, re.I)
+        cm = re.search(r"(?<![\w-])connect-src\s+([^;]*)", csp, re.I) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)
         if cm and any(t in ("*", "http:", "https:", "ws:", "wss:", "data:", "blob:") or (not t.startswith("'") and "*" in t.split("//")[-1].split("/")[0].split(":")[0] and t.split("//")[-1].split("/")[0].split(":")[0].count(".") < 2) for t in cm.group(1).lower().split()):
             gaps.append("connect-src allows any host or scheme, so any network call is allowed")
         for m in ms:

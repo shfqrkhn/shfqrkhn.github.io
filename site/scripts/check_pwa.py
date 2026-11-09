@@ -106,14 +106,14 @@ if want != set(pages):
     fail("worker page table differs from the catalog: %s" % sorted(want ^ set(pages))[:5])
 def _bundle(f):
     """A bundle entry is a published path under the site root (a folder entry ends in a slash)."""
-    if not isinstance(f, str) or ".." in f.replace(chr(92), "/").split("/"):
+    if not isinstance(f, str) or ".." in f.replace(chr(92), "/").split("/") or os.path.isabs(f) or ":" in f.split("/")[0]:
         return None
     p = os.path.join(ROOT, _rel(f).replace("/", os.sep))
     return p if os.path.exists(p) else None
 
 
 for k, v in pages.items():
-    if not isinstance(v, dict) or not isinstance(v.get("start"), str):
+    if not isinstance(v, dict) or not isinstance(v.get("start"), str) or ".." in v["start"].replace(chr(92), "/").split("/"):
         fail("worker page entry has no start: " + str(k)); continue
     if not os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")):
         fail("worker lists a page that is not published: " + k)

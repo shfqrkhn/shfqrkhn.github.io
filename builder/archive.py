@@ -5,7 +5,7 @@
   python builder/archive.py remove "<page>" --yes     # delete a page for good (see below)
 A page can be named by its id, its address slug, or its title (any capitals). Add --no-build to change the registry only.
 It is safe to repeat: asking for the state a page already has changes nothing.
-"remove" deletes a page: it leaves the registry (or deletes its content file), the site drops it on the next build, and its source file in
+"remove" deletes a page: it leaves the registry (its content file moves to history), the site drops it on the next build, and its source file in
 sources/apps moves to history (so a mistake is recoverable). It needs --yes. Old links to it show the 404 page."""
 import json, os, subprocess, sys, time
 sys.dont_write_bytecode = True

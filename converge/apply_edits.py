@@ -89,7 +89,7 @@ def judge(work, edits, ms, fix):
 
 
 def control():
-    work = "Run three passes under \u00a78.4 with scan.py and keep the CARRIED items as they are today.\n"
+    work = "Run three passes under \u00a78.4 with scan.py and keep the CARRIED items as they are today.\nNever write outside the vault under §8.4 for 3 runs, and keep every CARRIED record.\nUse no more than 5 passes and at least 2 reviewers, as stated in the framework text.\nNever delete the file report.md under §8.4; always keep the copy in 3 places.\nThe worker doesn't cache pages over 5 MB until the owner taps the button, as documented here in detail.\nNothing is sent to any server, ever, under normal use cases in version 3.\n"
     bad = [{"old": "Run three passes under \u00a78.4 with scan.py", "new": "Run passes with the script"},  # drops a section, a file name
            {"old": "keep the CARRIED items as they are today.", "new": "keep the items."},  # drops an ALL-CAPS term
            {"old": "Run three passes under \u00a78.4 with scan.py and keep", "new": "Run \u00a78.4 scan.py \u2014 keep"}]  # dash
