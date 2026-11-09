@@ -79,4 +79,6 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if "--verify" in a and a.index("--verify") + 1 >= len(a):
         print("usage: backup.py --verify <zip>"); sys.exit(2)
+    if any(x in ("-h", "--help", "-?") for x in a) or (a and "--verify" not in a):
+        print(__doc__.split(chr(10) + "GitHub already")[0]); sys.exit(0 if a and a[0] in ("-h", "--help", "-?") else 2)
     sys.exit(verify(a[a.index("--verify") + 1]) if "--verify" in a else make())

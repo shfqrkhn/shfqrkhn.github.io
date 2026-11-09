@@ -63,7 +63,7 @@ def _chr(h):
 
 def _fold(s):
     """Accents removed (Zoe matches Zoe with a diaeresis): a listed name is compared in this form too."""
-    return "".join(c for c in unicodedata.normalize("NFD", s) if not unicodedata.combining(c))
+    return "".join(c for c in unicodedata.normalize("NFD", s.replace("\u00df", "ss").replace("\u1e9e", "SS")) if not unicodedata.combining(c))
 
 
 def norm(t):

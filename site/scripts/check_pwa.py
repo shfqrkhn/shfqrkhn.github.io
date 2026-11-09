@@ -104,14 +104,28 @@ catalog = json.loads(_cm.group(1).replace("<" + chr(92) + "/", "</"))
 want = {_rel(a["address"]) for a in catalog["apps"] if a.get("form", "single") != "remote" and not a.get("sensitive") and not a.get("own_pwa")}
 if want != set(pages):
     fail("worker page table differs from the catalog: %s" % sorted(want ^ set(pages))[:5])
+def _bundle(f):
+    """A bundle entry is a published path under the site root (a folder entry ends in a slash)."""
+    if not isinstance(f, str) or ".." in f.replace(chr(92), "/").split("/"):
+        return None
+    p = os.path.join(ROOT, _rel(f).replace("/", os.sep))
+    return p if os.path.exists(p) else None
+
+
 for k, v in pages.items():
+    if not isinstance(v, dict) or not isinstance(v.get("start"), str):
+        fail("worker page entry has no start: " + str(k)); continue
     if not os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")):
         fail("worker lists a page that is not published: " + k)
-    for f in v.get("files") or []:
-        if not os.path.isfile(os.path.join(ROOT, _rel(f).replace("/", os.sep))):
+    fl = v.get("files") or []
+    if not isinstance(fl, list):
+        fail("worker files for %s is not a list" % k); continue
+    for f in fl:
+        if _bundle(f) is None:
             fail("worker lists a bundle file that is not published: " + str(f))
 size = {_rel(a["address"]): a.get("size") or 0 for a in catalog["apps"]}
 auto = sum(max(size.get(k, 0), os.path.getsize(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) if os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) else 0) for k, v in pages.items() if not v.get("big"))  # a bundle counts in full
+auto += sum(os.path.getsize(_bundle(f)) for v in pages.values() if isinstance(v, dict) and not v.get("big") and isinstance(v.get("files"), list) for f in v["files"] if _bundle(f) and os.path.isfile(_bundle(f)))
 if auto > 15_000_000:
     errors.append("pages that download by themselves total %d MB; keep it under 15 MB (mark the largest as big)" % (auto // 1_000_000))
 
