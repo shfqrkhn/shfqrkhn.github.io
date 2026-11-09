@@ -51,7 +51,7 @@ self.addEventListener("fetch", function (e) {
   e.respondWith(caches.open(name).then(function (cache) {
     return cache.match(req, { ignoreSearch: req.mode === "navigate" }).then(function (cached) {
       return race(fetch(req), cached ? SLOW : 0).then(function (res) {
-        if (res && res.ok) e.waitUntil(cache.put(req, res.clone()));
+        if (res && res.ok) { if (req.mode === "navigate" || !url.search) e.waitUntil(cache.put(req, res.clone())); }  // query-stamped update checks are not stored (the cache would grow without bound)
         else if (cached) return cached;  // an error answer (404, 5xx, captive portal) never hides a saved copy
         return res;
       }).catch(function () {
