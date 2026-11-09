@@ -117,22 +117,30 @@ def csp_gaps(text):
             gaps.append("the policy sets no script-src or default-src, so any script may load")
         if not re.search(r"(?<![\w-])(?:connect-src|default-src)\s", csp, re.I):
             gaps.append("the policy sets no connect-src or default-src, so any network call is allowed")
-    masked = re.sub(r"<!--.*?-->|<(template|noscript|textarea|xmp)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I)
-    first = [t.start() for t in re.finditer(r"<meta\b[^>]*http-equiv\s*=\s*[\"']?Content-Security-Policy", masked, re.I)]
-    if first and re.search(r"<script\b|<style\b|<link\b[^>]*rel\s*=\s*[\"']?stylesheet", masked[:first[0]], re.I):
-        gaps.append("a script or style comes before the policy meta, which a browser applies only to what follows it")
+    metas = policy_metas(text)
+    if metas:
+        before = re.sub(r"<!--.*?-->|<(template|noscript|textarea|title|iframe|xmp)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I)[:metas[0][0]]
+        if re.search(r"<script\b|<style\b|<link\b[^>]*rel\s*=\s*[\"']?[^\"'>]*stylesheet", before, re.I):
+            gaps.append("a script or style comes before the policy meta, which a browser applies only to what follows it")
     return gaps
 
 
-def csp_list(text):
-    """The content of each real Content-Security-Policy meta (not one in a comment, template, noscript, textarea, script or style)."""
+def policy_metas(text):
+    """(start, content start, content end) of each real Content-Security-Policy meta: in the head, not in a comment or an inert element, with a content value."""
+    masked = re.sub(r"<!--.*?-->|<(template|noscript|textarea|title|iframe|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I)
+    end = re.search(r"</head\b|<body\b", masked, re.I)  # a browser applies a policy meta only inside the head
     out = []
-    for tag_m in re.finditer(r"<meta\b[^>]*>", re.sub(r"<!--.*?-->|<(template|noscript|textarea|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I), re.I):
-        if re.search(r"http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
-            c = re.search(r"content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
+    for tag_m in re.finditer(r"<meta\b[^>]*>", masked[:end.start()] if end else masked, re.I):
+        if re.search(r"(?<![\w-])http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
+            c = re.search(r"(?<![\w-])content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
             if c:  # a meta with no content enforces nothing
-                out.append(c.group(2))
+                out.append((tag_m.start(), tag_m.start() + c.start(2), tag_m.start() + c.end(2)))
     return out
+
+
+def csp_list(text):
+    """The content of each real Content-Security-Policy meta (see policy_metas)."""
+    return [text[a:z] for _, a, z in policy_metas(text)]
 
 
 def _csp_gaps(text, csp):
@@ -241,7 +249,7 @@ def main():
                 if where != "404.html" and not (s.csp and csp_list(text)): errors.append(where + ": missing Content-Security-Policy")
                 if re.search(r"<!\[CDATA\[", text, re.I) and not re.search(r"<(svg|math)\b", text, re.I): errors.append(where + ": a CDATA section outside svg or math is read as a comment, so the checks cannot see its content")
                 if s.unnamed: errors.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))
-            elif not s.csp:
+            elif not (s.csp and csp_list(text)):
                 (errors if kind == "app" else warnings).append(where + ": no Content-Security-Policy")
             if not strict and s.unnamed: warnings.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))
             # language-light, accessible, high-signal pages (WCAG 2.2, plain structure): errors on generated pages, warnings on hand-built apps

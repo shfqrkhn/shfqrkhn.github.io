@@ -70,11 +70,14 @@ def repair_csp(html):
     that match nothing, in order. Returns (html, number_repaired). Does nothing when the counts cannot be paired."""
     import base64, hashlib
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")).digest()).decode()
-    metas = re.sub(r"<!--.*?-->|<(template|noscript|textarea|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), html, flags=re.S | re.I)
+    metas = re.sub(r"<!--.*?-->|<(template|noscript|textarea|title|iframe|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), html, flags=re.S | re.I)
+    end = re.search(r"</head\b|<body\b", metas, re.I)
+    if end:
+        metas = metas[:end.start()]  # a browser applies a policy meta only inside the head
     spans = []  # the content of every real policy meta: browsers enforce each one, and the gate judges each one
     for tag_m in re.finditer(r"<meta\b[^>]*>", metas, re.I):
-        if re.search(r"http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
-            c = re.search(r"content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
+        if re.search(r"(?<![\w-])http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
+            c = re.search(r"(?<![\w-])content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
             if c:
                 spans.append((tag_m.start() + c.start(2), tag_m.start() + c.end(2)))
     total = 0
