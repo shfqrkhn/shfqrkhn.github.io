@@ -116,15 +116,17 @@ def csp_gaps(text):
             gaps.append("the policy sets no script-src or default-src, so any script may load")
         if not re.search(r"(?<![\w-])(?:connect-src|default-src)\s", csp, re.I):
             gaps.append("the policy sets no connect-src or default-src, so any network call is allowed")
-        m = re.search(r"(?<![\w-])script-src\s+([^;]*)", csp, re.I) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)
-        if m:
+        ms = [x for x in (re.search(r"(?<![\w-])%s\s+([^;]*)" % d, csp, re.I) for d in ("script-src", "script-src-elem", "script-src-attr")) if x]
+        ms = ms or [x for x in [re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)] if x]
+        for m in ms:
             toks = m.group(1).lower().split()
             if "'unsafe-eval'" in toks:
                 gaps.append("script-src allows unsafe-eval, so eval and string timers run")
             if "'unsafe-inline'" in toks and not any(t.startswith("'sha256-") or t.startswith("'nonce-") for t in toks):
                 gaps.append("script-src allows unsafe-inline with no hash, so any inline script runs")
-            if any(t in ("*", "http:", "https:", "data:", "blob:") for t in toks):
-                gaps.append("script-src allows any host or scheme (" + next(t for t in toks if t in ("*", "http:", "https:", "data:", "blob:")) + "), so any script may load")
+            bad = [t for t in toks if t in ("*", "http:", "https:", "data:", "blob:") or (not t.startswith("'") and "*" in t.split("/")[2 if "//" in t else 0].split(":")[0] and t.split("/")[2 if "//" in t else 0].split(":")[0].count(".") < 2)]
+            if bad:
+                gaps.append("script-src allows any host or scheme (" + bad[0] + "), so any script may load")
     metas = policy_metas(text)
     if metas:
         before = re.sub(r"<!--.*?-->|<(template|noscript|textarea|title|iframe|xmp)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I)[:metas[0][0]]
@@ -157,16 +159,17 @@ def _csp_gaps(text, csp):
     def _dir(name):
         return re.search(r"(?<![\w-])" + name + r"\s+([^;]*)", csp, re.I) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)
     markup = re.sub(r"<script\b.*?</script>|<style\b.*?</style>", "", text, flags=re.S | re.I)
-    _ss, _sc = _dir("style-src"), _dir("script-src")
+    _ss, _sc = _dir("style-src"), _dir("script-src-elem") or _dir("script-src")
+    _sa = _dir("script-src-attr") or _dir("script-src")
     if _ss and ("'unsafe-inline'" not in _ss.group(1) or "'sha256-" in _ss.group(1)) and re.search(r"<[a-zA-Z][^>]*[\s/\"']style\s*=", markup, re.I):
         gaps.append("a style attribute is blocked: style-src allows no inline styles (unsafe-inline is ignored when a hash is listed)")
-    if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<[a-zA-Z][^>]*[\s/\"']on[a-zA-Z]+\s*=", markup, re.I):
+    if _sa and ("'unsafe-inline'" not in _sa.group(1) or "'sha256-" in _sa.group(1)) and re.search(r"<[a-zA-Z][^>]*[\s/\"']on[a-zA-Z]+\s*=", markup, re.I):
         gaps.append("an inline event handler is blocked: script-src allows no inline handlers (unsafe-inline is ignored when a hash is listed)")
-    if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<a\b[^>]*[\s/\"']href\s*=\s*[\"']?\s*j\s*a\s*v\s*a\s*s\s*c\s*r\s*i\s*p\s*t\s*:", html.unescape(markup), re.I):
+    if _sa and ("'unsafe-inline'" not in _sa.group(1) or "'sha256-" in _sa.group(1)) and re.search(r"<a\b[^>]*[\s/\"']href\s*=\s*[\"']?\s*j\s*a\s*v\s*a\s*s\s*c\s*r\s*i\s*p\s*t\s*:", html.unescape(markup), re.I):
         gaps.append("a javascript: link is blocked: script-src allows no inline script")
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace(chr(13) + chr(10), chr(10)).replace(chr(13), chr(10)).encode("utf-8")).digest()).decode()  # browsers normalise line endings before hashing
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
-        d = re.search(r"(?<![\w-])" + directive + r"\s+([^;]*)", csp, re.I) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)  # an unset directive falls back to default-src
+        d = (directive == "script-src" and re.search(r"(?<![\w-])script-src-elem\s+([^;]*)", csp, re.I)) or re.search(r"(?<![\w-])" + directive + r"\s+([^;]*)", csp, re.I) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)  # an unset directive falls back to default-src
         if not d or ("'unsafe-inline'" in d.group(1) and "'sha256-" not in d.group(1)):  # with a hash listed, browsers ignore unsafe-inline
             continue
         if "'sha256-" not in d.group(1) and directive == "script-src":  # no hash and no unsafe-inline: every inline script is blocked
