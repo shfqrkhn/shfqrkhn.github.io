@@ -66,7 +66,11 @@ def main():
         if not os.path.exists(path):
             errors.append("%s: the document is missing (update the list in check_docs.py if it moved)" % rel)
             continue
-        raw = open(path, encoding="utf-8").read()
+        try:
+            raw = open(path, encoding="utf-8-sig").read()
+        except UnicodeDecodeError:
+            errors.append("%s: the document must be UTF-8 text" % rel)
+            continue
         low = raw.lower()
         if len(raw.encode("utf-8")) > budget:
             errors.append("%s: %d bytes is over its %d byte budget (cut text, or raise the budget in check_docs.py on purpose)" % (rel, len(raw.encode("utf-8")), budget))

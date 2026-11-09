@@ -13,7 +13,10 @@ import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 css = open(os.path.join(ROOT, "scripts", "ui.css"), encoding="utf-8").read()
-catalog = json.loads(re.search(r'id="catalogData">(.*?)</script>', open(os.path.join(ROOT, "index.html"), encoding="utf-8").read(), re.S).group(1).replace("<" + chr(92) + "/", "</"))
+_cm = (re.search(r'id="catalogData">(.*?)</script>', open(os.path.join(ROOT, "index.html"), encoding="utf-8").read(), re.S))
+if not _cm:
+    print("FAIL the hub has no catalog (id=catalogData)"); sys.exit(1)
+catalog = json.loads(_cm.group(1).replace("<" + chr(92) + "/", "</"))
 TOKENS = ("--bg", "--fg", "--mut", "--card", "--line")
 errors = []
 

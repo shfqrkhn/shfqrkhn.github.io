@@ -101,6 +101,8 @@ def main():
     if "--names" in sys.argv:
         try:
             names = [l.strip() for l in open(sys.argv[sys.argv.index("--names") + 1], encoding="utf-8-sig") if l.strip() and not l.startswith("#")]
+        except UnicodeDecodeError:
+            print("cannot read the names file: save it as UTF-8 text"); return 2
         except OSError as e:
             print("cannot read the names file: %s" % (e.strerror or e)); return 2
     _short = [n for n in names if len(n) < 5]; _long = [n for n in names if len(n) >= 5]

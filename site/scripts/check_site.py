@@ -17,6 +17,8 @@ def fail(msg):
 
 page = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
 m = re.search(r'id="catalogData">(.*?)</script>', page, re.S)
+if not m:
+    print("FAIL the hub has no catalog (id=catalogData)"); sys.exit(1)
 catalog = json.loads(m.group(1).replace("<\\/", "</"))
 sw = open(os.path.join(ROOT, "sw.js"), encoding="utf-8").read()
 _start = sw.index("const PAGES = ") + len("const PAGES = ")
@@ -105,7 +107,7 @@ for name in sorted(os.listdir(ROOT)):
         fail("unexpected file at root: " + name)
 
 WEB_OK = {os.path.join("scripts", "personalize.js")}  # the only page or script files allowed in the folders the page gate does not walk
-for _d in ("docs", "scripts", "content", "templates"):
+for _d in ("docs", "scripts", "content", "templates", "icons"):
     for dp, dn, fn in os.walk(os.path.join(ROOT, _d)):
         for f in fn:
             rel = os.path.relpath(os.path.join(dp, f), ROOT)

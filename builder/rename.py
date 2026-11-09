@@ -173,6 +173,10 @@ def main():
     p = hits[0]; new = pos[1].strip() if len(pos) > 1 else p["title"]
     if not (1 <= len(new) <= 40) or re.search("[\u2013\u2014|<>\r\n]", new):
         print("The name must be 1 to 40 characters, with no em or en dash, |, <, > or line break."); return 1
+    if new == p["title"]:
+        olds = []  # the name is unchanged: nothing earlier to replace, so a repeat changes nothing
+    if any(x is not p and x["title"].strip().lower() == new.lower() for x in reg["pages"]):
+        print("Another page already has that name: %s" % new); return 1
     slug = opts.get("--slug") or (slugify(new) if len(pos) > 1 and new != p["title"] else p["slug"])
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug) or len(slug) > 60 or slug.split("-")[0] in {"con", "prn", "aux", "nul", "com1", "com2", "com3", "com4", "com5", "com6", "com7", "com8", "com9", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", "lpt8", "lpt9"}:
         print("The address must be lowercase letters, digits and dashes, up to 60 characters, and not a Windows device name."); return 1

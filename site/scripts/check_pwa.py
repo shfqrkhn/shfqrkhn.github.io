@@ -35,7 +35,7 @@ for k in ("id", "name", "short_name", "start_url", "scope", "display", "backgrou
         fail("manifest is missing " + k)
 if mf.get("display") != "standalone":
     fail("manifest display must be standalone")
-if not mf.get("start_url", "").startswith("./") or not mf.get("scope", "").startswith("./"):
+if not (isinstance(mf.get("start_url"), str) and isinstance(mf.get("scope"), str) and mf["start_url"].startswith("./") and mf["scope"].startswith("./")):
     fail("start_url and scope must be relative so the site works from any address")
 for _k in ("start_url", "scope"):
     if not isinstance(mf.get(_k), str):
@@ -48,18 +48,22 @@ sizes, purposes = set(), set()
 if not isinstance(mf.get("icons"), list) or not all(isinstance(i, dict) and all(isinstance(i.get(k), str) for k in ("src", "type", "sizes")) for i in mf["icons"]):
     fail("manifest icons must each have text src, type and sizes"); mf["icons"] = []
 for i in mf.get("icons", []):
-    path = os.path.join(ROOT, i["src"].lstrip("./").replace("/", os.sep))
+    if ".." in i["src"].split("/") or i["src"].startswith(("/", "http")):
+        fail("icon src must stay inside the site: " + i["src"]); continue
+    path = os.path.join(ROOT, (i["src"][2:] if i["src"].startswith("./") else i["src"]).replace("/", os.sep))
     if not os.path.isfile(path):
         fail("icon file missing: " + i["src"]); continue
     if i["type"] == "image/png":
         got = png_size(path)
-        if got is None or "%dx%d" % got != i["sizes"]:
+        if got is None or "%dx%d" % got not in i["sizes"].split():
             fail("icon %s is %s, manifest says %s" % (i["src"], got, i["sizes"]))
-    sizes.add(i["sizes"]); purposes.add(i.get("purpose", "any"))
+    sizes.update(i["sizes"].split()); purposes.update(str(i.get("purpose", "any")).split())
 if not {"192x192", "512x512"} <= sizes:
     fail("manifest needs 192x192 and 512x512 PNG icons")
 if "maskable" not in purposes:
     fail("manifest needs a maskable icon")
+if not isinstance(mf.get("shortcuts", []), list):
+    fail("manifest shortcuts must be a list"); mf["shortcuts"] = []
 for sc in mf.get("shortcuts", []):
     if not isinstance(sc, dict) or not isinstance(sc.get("url"), str):
         fail("each shortcut needs a text url"); continue
@@ -86,7 +90,10 @@ for f in shell:
     p = os.path.join(ROOT, f.lstrip("./").replace("/", os.sep)) if f != "./" else ROOT
     if not os.path.exists(p):
         fail("worker shell lists a file that does not exist: " + f)
-catalog = json.loads(re.search(r'id="catalogData">(.*?)</script>', hub, re.S).group(1).replace("<" + chr(92) + "/", "</"))
+_cm = re.search(r'id="catalogData">(.*?)</script>', hub, re.S)
+if not _cm:
+    print("FAIL the hub has no catalog (id=catalogData)"); sys.exit(1)
+catalog = json.loads(_cm.group(1).replace("<" + chr(92) + "/", "</"))
 want = {a["address"].strip("./") for a in catalog["apps"] if a.get("form", "single") != "remote" and not a.get("sensitive") and not a.get("own_pwa")}
 if want != set(pages):
     fail("worker page table differs from the catalog: %s" % sorted(want ^ set(pages))[:5])
