@@ -85,7 +85,7 @@ with sync_playwright() as p:
     pg.goto(B + rel + "/"); pg.locator('a[href="../../"]').first.click(); pg.wait_for_load_state()
     ok("home link lands on the hub", pg.url == B)
     pg.goto(B + slug + "/"); pg.wait_for_url(B + rel + "/", timeout=5000); ok("old flat address forwards", True)
-    fwd = json.loads(re.search(r"var m=(\{.*?\}),s=", open(os.path.join(ROOT, "404.html"), encoding="utf-8").read(), re.S).group(1))
+    fwd = json.loads(re.search(r"var m=(\{.*?\}),h=", open(os.path.join(ROOT, "404.html"), encoding="utf-8").read(), re.S).group(1))
     olds = [(k, v) for k, v in fwd.items() if "/" in k and k != v][:3]
     for k, v in olds:
         pg.goto(B + k + "/"); pg.wait_for_url(B + v + "/", timeout=5000)
