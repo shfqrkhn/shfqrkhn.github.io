@@ -35,7 +35,7 @@ RULES = [
     ("street", re.compile(r"\b\d{1,5}\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\s(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd|Crescent|Court|Ct)\b")),
     ("private-ip", re.compile(r"(?<![\d.])(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?!\d|\.\d|/\d{1,2}(?!\d))")),
     ("key", re.compile(r"(?<![A-Za-z0-9])(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|(?<![A-Za-z0-9])npm_[A-Za-z0-9]{36}|eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{5,}|xapp-\d-[A-Za-z0-9-]{10,}|(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|glpat-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY(?: BLOCK)?-----|hooks\.slack\.com/services/T[A-Za-z0-9]+/B[A-Za-z0-9]+/[A-Za-z0-9]{16,}|(?<![A-Za-z0-9])SK[0-9a-f]{32}(?![A-Za-z0-9])|(?<![A-Za-z0-9])SG\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{40,}|(?<![A-Za-z0-9])ya29\.[A-Za-z0-9_-]{20,}|(?i:Bearer)\s+[A-Za-z0-9._-]{20,}")),
-    ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|(?<![A-Za-z0-9])[A-Za-z]:\\{1,2}(?!Windows\\|Program Files)[A-Za-z0-9._ -]+\\{1,2}[A-Za-z0-9._ -]+|(?<![A-Za-z0-9\\])\\\\[A-Za-z0-9._-]+\\[A-Za-z0-9._$-]+|(?<![A-Za-z0-9])[A-Za-z]:/(?!Windows/|Program Files)[A-Za-z0-9._ -]+/[A-Za-z0-9._ -]+|/Users/[A-Za-z0-9._-]+/|/root/\.|/home/(?!user/)[A-Za-z0-9._-]+/")),
+    ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|(?<![A-Za-z0-9])[A-Za-z]:\\{1,2}(?!Windows\\|Program Files)[A-Za-z0-9._ -]+\\{1,2}[A-Za-z0-9._ -]+|(?<![A-Za-z0-9\\])\\\\[A-Za-z0-9._-]+\\[A-Za-z0-9._$-]+|(?<![A-Za-z0-9])[A-Za-z]:/(?!Windows/|Program Files)[A-Za-z0-9._ -]+/[A-Za-z0-9._ -]+|/Users/[A-Za-z0-9._-]+(?![A-Za-z0-9._-])|/root/\.|/home/(?!user(?![A-Za-z0-9._-]))[A-Za-z0-9._-]+(?![A-Za-z0-9._-])")),
     ("credit-line", re.compile(r"\b(?:[Dd]esigned|[Cc]reated|[Ww]ritten|[Bb]uilt|[Mm]ade|[Ee]dited|[Cc]ompiled|[Pp]hotographed|[Dd]eveloped|[Pp]hotos?|[Ii]mage|[Cc]redit) by\s+[A-Z][a-z]+\s+(?:[A-Z]\.\s+)?[A-Z][a-z]+\b|\b(?:[Aa]uthor|[Bb]yline|[Dd]esigner|[Cc]redits?)\s*[:\u2013\u2014-]\s*[A-Z][a-z]+\s+[A-Z][a-z]+\b")),
 ]
 
@@ -49,11 +49,13 @@ def load_allow():
 
 import html as _html, unicodedata
 _ZW = re.compile("[\u200b-\u200f\u2060\ufeff\u00ad]")
-_HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p", "\u0441": "c", "\u0445": "x", "\u0443": "y", "\u0456": "i", "\u0455": "s", "\u0458": "j", "\u03bf": "o", "\u03b1": "a"})
+_HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p", "\u0441": "c", "\u0445": "x", "\u0443": "y", "\u0456": "i", "\u0410": "A", "\u0412": "B", "\u0415": "E", "\u041a": "K", "\u041c": "M", "\u041d": "H", "\u041e": "O", "\u0420": "P", "\u0421": "C", "\u0422": "T", "\u0425": "X", "\u0406": "I", "\u2018": "'", "\u2019": "'", "\u02bc": "'", "\u0455": "s", "\u0458": "j", "\u03bf": "o", "\u03b1": "a"})
 
 
 _ESC = re.compile(r"\\x([0-9a-fA-F]{2})|\\u([0-9a-fA-F]{4})|\\u\{([0-9a-fA-F]{1,6})\}|\\([0-9a-fA-F]{1,6}) ?")
 _COMMENT = re.compile(r"<!--.*?-->", re.S)
+_TAGS = re.compile(r"</?[A-Za-z][^<>]{0,200}>")
+_PCT = re.compile(r"%([0-7][0-9A-Fa-f])")
 
 
 def _chr(h):
@@ -63,7 +65,7 @@ def _chr(h):
 
 def _fold(s):
     """Accents removed (Zoe matches Zoe with a diaeresis): a listed name is compared in this form too."""
-    return "".join(c for c in unicodedata.normalize("NFD", s.replace("\u00df", "ss").replace("\u1e9e", "SS")) if not unicodedata.combining(c))
+    return "".join(c for c in unicodedata.normalize("NFD", s.replace("\u2019", "'").replace("\u2018", "'").replace("\u02bc", "'").replace("\u00df", "ss").replace("\u1e9e", "SS")) if not unicodedata.combining(c))
 
 
 def norm(t):
@@ -71,7 +73,7 @@ def norm(t):
     _d = _ESC.sub(lambda m: _chr(m.group(1) or m.group(2) or m.group(3) or m.group(4)), t)  # JS and CSS escapes render as the character
     if _d != t: t = t + chr(10) + _d  # scan the text as written too: a Windows path with a hex-letter folder name holds look-alike escapes
     t = t + (chr(10) + _COMMENT.sub("", t) if "<!--" in t else "")  # a comment can split a word: scan the text with and without comments
-    return _fold(re.sub("[\u2010-\u2015\u2212]", "-", re.sub("[\u3002\uff61]", ".", _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t).replace("%40", "@").replace("%20", " "))).translate(_HOMO))))
+    return _fold(re.sub("[\u2010-\u2015\u2212]", "-", re.sub("[\u3002\uff61]", ".", _ZW.sub("", unicodedata.normalize("NFKC", _PCT.sub(lambda m: chr(int(m.group(1), 16)), _html.unescape(t)))).translate(_HOMO))))
 
 
 def files():

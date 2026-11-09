@@ -117,12 +117,19 @@ for k, v in pages.items():
         fail("worker page entry has no start: " + str(k)); continue
     if not os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")):
         fail("worker lists a page that is not published: " + k)
+    if _rel(v["start"]).rstrip("/") != k:
+        fail("worker start for %s points at %s" % (k, v["start"]))
+    if not isinstance(v.get("cache"), str) or not v["cache"].startswith("app-" + k.split("/")[-1] + "-"):
+        fail("worker cache name for %s does not carry the page slug" % k)
     fl = v.get("files") or []
     if not isinstance(fl, list):
         fail("worker files for %s is not a list" % k); continue
     for f in fl:
         if _bundle(f) is None:
             fail("worker lists a bundle file that is not published: " + str(f))
+_cn = [v.get("cache") for v in pages.values() if isinstance(v, dict)]
+if len(_cn) != len(set(_cn)):
+    fail("two pages share a worker cache name")
 size = {_rel(a["address"]): a.get("size") or 0 for a in catalog["apps"]}
 auto = sum(max(size.get(k, 0), os.path.getsize(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) if os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) else 0) for k, v in pages.items() if not v.get("big"))  # a bundle counts in full
 auto += sum(os.path.getsize(_bundle(f)) for v in pages.values() if isinstance(v, dict) and not v.get("big") and isinstance(v.get("files"), list) for f in v["files"] if _bundle(f) and os.path.isfile(_bundle(f)))

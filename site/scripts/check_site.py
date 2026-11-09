@@ -111,7 +111,7 @@ for _d in ("docs", "scripts", "content", "templates", "icons"):
     for dp, dn, fn in os.walk(os.path.join(ROOT, _d)):
         for f in fn:
             rel = os.path.relpath(os.path.join(dp, f), ROOT)
-            if os.path.splitext(f)[1].lower() in (".html", ".htm", ".xhtml", ".js", ".mjs", ".svg") and rel not in WEB_OK:
+            if os.path.splitext(f)[1].lower() in (".html", ".htm", ".xhtml", ".xht", ".shtml", ".js", ".mjs", ".svg") and rel not in WEB_OK:
                 fail("page or script file in a folder the page gate does not check: " + rel)
 if subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "check_privacy.py")]).returncode:
     fail("privacy gate failed")
