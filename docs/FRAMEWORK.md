@@ -228,7 +228,7 @@ One file: `site/scripts/ui.css`. Tokens (`--bg --fg --mut --card --line --acc --
 
 ### Applied practices
 
-Survey (`converge/reporadar-ledger.json`): anti-slop rubric (`check_docs.py`), pre-push gate (`publish.py`), plan strong, execute cheap (`AGENTS.md`). Tokens: `ui.css`, `brand.json`.
+Survey (`converge/reporadar-ledger.json`): anti-slop rubric (`check_docs.py`), pre-push gate (`publish.py`), plan strong, execute cheap (`AGENTS.md`). Tokens: `ui.css`.
 
 ## 11. Known limits and owner decisions
 
