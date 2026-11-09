@@ -12,7 +12,7 @@ Status per item against the baseline: NEW, CHANGED (own bytes), IMPACT (a neighb
 window, an "as of" date (YYYY-MM-DD, YYYY-MM or Month YYYY) older than the window, a passed "recheck" date in the same forms, or an open defect), CARRIED (same key), REMOVED.
 --save writes the receipt of this run; give --outcome ASSURED_CONVERGED (or ASSURED_CONVERGED AT THE PRACTICAL PEAK) only after the run completed, because --baseline refuses any other receipt. --control runs a planted-defect check
 that the script itself must flag. Reads no credential or plugin data; sources outside the scanned folder are not seen (cap their claims)."""
-import datetime, hashlib, json, os, re, sys, tempfile
+import datetime, hashlib, json, os, re, sys, tempfile, urllib.parse
 
 SKIP_DIRS = {".obsidian", ".git", "archive", "node_modules", "__pycache__", "receipts", "history", "99-arcv", ".claude"}  # receipts: a run must not hash its own records
 TEXT = {".md", ".html", ".json", ".txt", ".css", ".js", ".csv", ".py", ".yml", ".yaml"}
@@ -130,7 +130,7 @@ def scan(root, base=None, full=False, sections=(6, 7), manifest=None, opens=None
         for w in re.findall(r"\]\(([^)#\s]+?)(?:#[^)]*)?\)", body):
             if re.match(r"[a-z]+:", w) or w.startswith("#") or not re.fullmatch(r"[\w .%/-]+\.(?:md|html|pdf|png|jpe?g|svg|xlsx|docx|json|txt|csv)", w):
                 continue
-            tgt = os.path.normpath(os.path.join(os.path.dirname(rel), w)).replace("\\", "/")
+            tgt = os.path.normpath(os.path.join(os.path.dirname(rel), urllib.parse.unquote(w))).replace("\\", "/")
             if tgt in files:
                 link(rel, [tgt])
             elif rel.endswith(".md") and not w.startswith(("http", "mailto")):

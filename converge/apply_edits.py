@@ -6,7 +6,7 @@ A proposal is {"file": "<path relative to sources/>", "edits": [{"old", "new", "
   - "new" is at least --min-saving shorter and contains no em or en dash;
   - "old" is not inside an html script or style element.
 Negations and modals (never, not, no, n't forms, nothing, must, may, only, always ...) must survive in the same order; the accepted edits are printed and a person must read them, because no script proves that meaning is kept. A proposal naming an excluded path (ADIS, FinTrak, archive, hidden tool folders, trailing-dot forms) is refused before the file is opened. Without --apply it only reports. --control checks that the gate rejects planted bad edits. --fix-mode accepts edits that add text (definitions, dates) and deletions whose tokens (numbers, `code`, ALL-CAPS terms, file names) all survive elsewhere in the file; a person must read every fix-mode deletion, because a token check is not a fact check. With --apply the original is copied to history/token-pass first."""
-import json, os, re, shutil, sys
+import json, os, re, shutil, sys, time
 
 _H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 V = os.path.join(_H, "sources").replace("\\", "/") + "/"
@@ -140,9 +140,8 @@ def main():
         print("  rejected (%s): %s" % (why, o))
     if apply and ok:
         os.makedirs(ARCH, exist_ok=True)
-        dst = ARCH + os.path.basename(path)
-        if not os.path.exists(dst):
-            shutil.copy2(path, dst)
+        dst = ARCH + time.strftime("%Y%m%d-%H%M%S-") + os.path.basename(path)  # one copy per apply, so a second apply keeps its own original
+        shutil.copy2(path, dst)
         out = work
         for i, j, n in sorted(ok, reverse=True):
             out = out[:i] + n + out[j:]
