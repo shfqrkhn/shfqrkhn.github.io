@@ -59,8 +59,8 @@ class Scan(HTMLParser):
             if (a.get("http-equiv") or "").lower() == "content-security-policy": self.csp = True
         if "id" in a: self.ids.append(a["id"])
         if re.fullmatch(r"h[1-6]", tag): self.headings.append(int(tag[1]))
-        if re.fullmatch(r"[1-9][0-9]*", (a.get("tabindex") or "").strip()) is not None: self.bad_tabindex += 1
-        if a.get("target") == "_blank" and not {"noopener", "noreferrer"} & set((a.get("rel") or "").split()): self.bad_blank += 1
+        if re.fullmatch(r"[1-9][0-9]*", (a.get("tabindex") or "").strip().lstrip("+")) is not None: self.bad_tabindex += 1
+        if (a.get("target") or "").strip().lower() == "_blank" and not {"noopener", "noreferrer"} & set((a.get("rel") or "").lower().split()): self.bad_blank += 1
         if tag == "img" and a.get("alt") is None: self.imgs_no_alt += 1
         ext = lambda v: re.match(r"\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"^[\x00-\x20]+", "", re.sub(r"[\t\r\n]", "", v or "")), re.I)  # browsers drop tabs and line breaks; any scheme case, // or \\, or http:host
         res = {"script": "src", "img": "src", "iframe": "src", "source": "src", "audio": "src", "video": "src", "embed": "src", "form": "action", "input": "src", "track": "src", "base": "href", "frame": "src"}
@@ -69,7 +69,7 @@ class Scan(HTMLParser):
             if on and ext(a.get(k)): self.external.append((tag, a[k]))
         if tag in ("img", "source") and any(ext(u) for u in (a.get("srcset") or "").split(",")): self.external.append((tag, a["srcset"]))
         if tag == "link" and any(ext(u) for u in (a.get("imagesrcset") or "").split(",")): self.external.append((tag, a["imagesrcset"]))
-        if tag == "link" and ext(a.get("href")) and (a.get("rel") or "") not in ("canonical", "alternate"): self.external.append(("link", a["href"]))
+        if tag == "link" and ext(a.get("href")) and (a.get("rel") or "").strip().lower() not in ("canonical", "alternate"): self.external.append(("link", a["href"]))
         if tag == "meta" and (a.get("http-equiv") or "").lower() == "refresh" and re.search(r"^\s*[\d.]*\s*[;,]?\s*(?:url\s*=\s*)?['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", re.sub(r"[\t\r\n]", "", a.get("content") or ""), re.I): self.external.append(("meta", a["content"]))
         if a.get("srcdoc"):
             inner = Scan(); inner.feed(a["srcdoc"]); self.external += inner.external  # an iframe's inline document loads too
@@ -192,7 +192,7 @@ def main():
     for dp, dn, fn in os.walk(ROOT):
         dn[:] = [d for d in dn if d not in (".git", ".github", "__pycache__") and not (dp == ROOT and d in ("docs", "scripts", "content", "templates"))]
         for f in fn:
-            if f != "index.html" and f != "404.html":
+            if (f != "index.html" and f != "404.html") or classify(os.path.relpath(os.path.join(dp, f), ROOT))[0] is None:
                 extra_files(os.path.join(dp, f), os.path.relpath(os.path.join(dp, f), ROOT))
                 continue
             full = os.path.join(dp, f); rel = os.path.relpath(full, ROOT)
@@ -243,7 +243,7 @@ def main():
                         continue
                     target = os.path.normpath(os.path.join(ROOT if h.startswith("/") else base, h.lstrip("/").split("#")[0].split("?")[0]))
                     if os.path.isdir(target): target = os.path.join(target, "index.html")
-                    if not os.path.isfile(target): errors.append("%s: broken link %s" % (where, h))
+                    if not os.path.isfile(target) or os.path.commonpath([os.path.realpath(target), os.path.realpath(ROOT)]) != os.path.realpath(ROOT): errors.append("%s: broken link %s" % (where, h))
             if len(raw) > BUDGET[kind] and not any(where == b.rstrip("/") + "/index.html" or where.startswith(b.rstrip("/") + "/") for b in BIG_OK):
                 errors.append("%s: %d KB is over the %d KB budget" % (where, len(raw) // 1000, BUDGET[kind] // 1000))
             elif kind == "app" and len(raw) > 1_500_000:

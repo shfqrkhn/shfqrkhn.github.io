@@ -277,5 +277,5 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-    except (ValueError, OSError, KeyError, TypeError) as e:  # a bad value, a missing file or a malformed receipt
+    except (ValueError, OSError, KeyError, TypeError, AttributeError) as e:  # a bad value, a missing file or a malformed receipt
         print("error: %s" % e); sys.exit(2)

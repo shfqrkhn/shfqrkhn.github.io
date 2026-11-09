@@ -117,7 +117,12 @@ def main():
     if not isinstance(prop, dict) or not isinstance(prop.get("file"), str) or not isinstance(prop.get("edits"), list):
         sys.exit("error: the proposal must be {\"file\": \"<path under sources/>\", \"edits\": [...]}")
     apply = "--apply" in a
-    ms = float(a[a.index("--min-saving") + 1]) if "--min-saving" in a else 0.10
+    if any(not isinstance(e, dict) for e in prop["edits"]):
+        sys.exit("error: every edit must be an object with old, new and why")
+    try:
+        ms = float(a[a.index("--min-saving") + 1]) if "--min-saving" in a else 0.10
+    except (IndexError, ValueError):
+        sys.exit("error: --min-saving needs a number")
     if "--fix-mode" in a:
         ms = -10.0  # fixes may add text; deletions must keep every fact somewhere else in the file
     if excluded(prop["file"]) or excluded(os.path.relpath(os.path.realpath(V + prop["file"]), os.path.realpath(V.rstrip("/")))):

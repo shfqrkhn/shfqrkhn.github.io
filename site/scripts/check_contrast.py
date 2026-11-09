@@ -81,10 +81,16 @@ for _at, _sel, _body in _rules(css):
 
 
 paper = block(":root")
-charcoal = {**paper, **block(":root[data-look=charcoal]")}
-dark_ic = block(":root[data-look=charcoal],:root[data-look=black]")
-charcoal.update(dark_ic)
-black = {**charcoal, **block(":root[data-look=black]")}
+def look_rules(sel):
+    """Declarations of every rule whose selector list names this look, in file order, later rules winning, as in CSS."""
+    out = {}
+    for m in re.finditer(r"(?:^|(?<=\}))([^{}@]+)\{([^}]*)\}", css):
+        if sel in m.group(1).split(","):
+            out.update(re.findall(r"(--[\w-]+):\s*([^;]+)(?:;|$)", m.group(2)))
+    return out
+block(":root[data-look=charcoal]"); block(":root[data-look=black]")  # each look must have a rule
+charcoal = {**paper, **look_rules(":root[data-look=charcoal]")}
+black = {**charcoal, **look_rules(":root[data-look=black]")}
 auto_dark = {**paper, **block(":root[data-look=auto]")}  # data-look=auto matches only :root and its own rule, as in the browser
 LOOKS = {"paper": paper, "charcoal": charcoal, "black": black, "auto-dark": auto_dark}
 
