@@ -40,7 +40,7 @@ for a in catalog["apps"]:
     if a.get("form", "single") != "single" or a.get("sensitive"):
         continue
     rel = a["address"].strip("./")
-    if os.path.exists(os.path.join(ROOT, "content", rel.split("/")[0], rel.split("/")[1] + ".json")):
+    if rel.count("/") >= 1 and os.path.exists(os.path.join(ROOT, "content", rel.split("/")[0], rel.split("/")[1] + ".json")):
         continue  # generated from data with scripts/ui.css
     path = os.path.join(ROOT, rel, "index.html")
     if not os.path.isfile(path):

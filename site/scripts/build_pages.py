@@ -63,8 +63,11 @@ def validate(d, where):
     for k in ("version", "license", "tagline"):
         if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n\u2013\u2014]", d[k])):
             bad(k + " must be text with no |, <, >, line break, em or en dash")
-    if "version" in d and not re.fullmatch(r"\d+(?:\.\d+){0,3}", d["version"]):
+    if "version" in d and not re.fullmatch(r"[0-9]+(?:\.[0-9]+){0,3}", d["version"]):
         bad("version must be numbers joined by dots, such as 1.0.0")
+    for k in ("title", "blurb", "tagline", "keywords", "version", "license", "lang"):
+        if isinstance(d.get(k), str) and re.search("[\x00-\x1f\x7f]", d[k]):
+            bad(k + " has a control character")
     if "@@" in json.dumps(d, ensure_ascii=False):
         bad("@@ is reserved for build placeholders")
     if "keywords" in d and not isinstance(d["keywords"], str):

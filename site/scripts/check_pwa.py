@@ -9,6 +9,11 @@ Run scripts/test_browser.py for the real thing (installs, goes offline, opens ev
 """
 import json, os, re, struct, sys
 
+
+def _rel(x):
+    """A site-relative address without a leading ./ and without a trailing slash (a dot in a folder name stays)."""
+    return re.sub(r"^(?:\./)+", "", x).rstrip("/")
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 errors = []
 
@@ -69,7 +74,7 @@ for sc in mf.get("shortcuts", []):
         fail("each shortcut needs a text url"); continue
     if ".." in sc["url"].split("/") or sc["url"].startswith(("/", "http")):
         fail("shortcut url must stay inside the site: " + sc["url"]); continue
-    if not os.path.isdir(os.path.join(ROOT, sc["url"].lstrip("./"))):
+    if not os.path.isdir(os.path.join(ROOT, _rel(sc["url"]))):
         fail("shortcut points nowhere: " + sc["url"])
 
 hub = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
@@ -89,21 +94,21 @@ except ValueError:
 for f in shell:
     if not isinstance(f, str) or ".." in f.split("/"):
         fail("worker shell entry must be a path inside the site: %s" % f); continue
-    p = os.path.join(ROOT, f.lstrip("./").replace("/", os.sep)) if f != "./" else ROOT
+    p = os.path.join(ROOT, _rel(f).replace("/", os.sep)) if f != "./" else ROOT
     if not os.path.exists(p):
         fail("worker shell lists a file that does not exist: " + f)
 _cm = re.search(r'id="catalogData">(.*?)</script>', hub, re.S)
 if not _cm:
     print("FAIL the hub has no catalog (id=catalogData)"); sys.exit(1)
 catalog = json.loads(_cm.group(1).replace("<" + chr(92) + "/", "</"))
-want = {a["address"].strip("./") for a in catalog["apps"] if a.get("form", "single") != "remote" and not a.get("sensitive") and not a.get("own_pwa")}
+want = {_rel(a["address"]) for a in catalog["apps"] if a.get("form", "single") != "remote" and not a.get("sensitive") and not a.get("own_pwa")}
 if want != set(pages):
     fail("worker page table differs from the catalog: %s" % sorted(want ^ set(pages))[:5])
 for k, v in pages.items():
-    if not os.path.isfile(os.path.join(ROOT, v["start"].strip("./").replace("/", os.sep), "index.html")):
+    if not os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")):
         fail("worker lists a page that is not published: " + k)
-size = {a["address"].strip("./"): a.get("size") or 0 for a in catalog["apps"]}
-auto = sum(max(size.get(k, 0), os.path.getsize(os.path.join(ROOT, v["start"].strip("./").replace("/", os.sep), "index.html")) if os.path.isfile(os.path.join(ROOT, v["start"].strip("./").replace("/", os.sep), "index.html")) else 0) for k, v in pages.items() if not v.get("big"))  # a bundle counts in full
+size = {_rel(a["address"]): a.get("size") or 0 for a in catalog["apps"]}
+auto = sum(max(size.get(k, 0), os.path.getsize(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) if os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) else 0) for k, v in pages.items() if not v.get("big"))  # a bundle counts in full
 if auto > 15_000_000:
     errors.append("pages that download by themselves total %d MB; keep it under 15 MB (mark the largest as big)" % (auto // 1_000_000))
 

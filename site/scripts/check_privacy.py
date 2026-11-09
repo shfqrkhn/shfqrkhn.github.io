@@ -26,8 +26,8 @@ BLOB = re.compile(r"[A-Za-z0-9+/=_-]{120,}")  # base64 or hash runs: not prose, 
 COLOR = re.compile(r"(?:rgba?|hsla?)\([^)]*\)")  # CSS colour values look like numbers, they are not
 ROLE = re.compile(r"\b(?:Owners?|Managers?|Teams?|Users?|Leads?|Engineers?|Studios?|Games|Software|Inc|Ltd|Corporation|Contributors|Authors|Developers)\b")
 RULES = [
-    ("email", re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")),
-    ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}[ .-])?(?:\(\d{3}\)[ .-]?|\d{3}[ .-])\d{3}[ .-]\d{4}(?!\d|\.\d)")),
+    ("email", re.compile(r"[\w.%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")),
+    ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}(?:[ .-]|(?=\())|\d{1,2}[ .-])?(?:\(\d{3}\)[ .-]?|\d{3}[ .-])\d{3}[ .-]?\d{4}(?!\d|\.\d)")),
     ("phone-run", re.compile(r"(?:tel:\+?|(?<![\w+])\+)\d{10,14}(?!\d|\.\d)", re.I)),
     ("email-spelled", re.compile(r"(?<![A-Za-z0-9._%+-])[A-Za-z0-9._%+-]{1,64}\s*(?:\[at\]|\(at\)|\{at\})\s*[A-Za-z0-9-]{1,63}(?:\s*(?:\[dot\]|\(dot\)|\.)\s*[A-Za-z0-9-]{1,63}){1,4}", re.I)),
     ("gov-id", re.compile(r"(?<!\d)\d{3}[- ]\d{3}[- ]\d{3}(?!\d)|(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")),
@@ -66,7 +66,7 @@ def norm(t):
     _d = _ESC.sub(lambda m: _chr(m.group(1) or m.group(2) or m.group(3) or m.group(4)), t)  # JS and CSS escapes render as the character
     if _d != t: t = t + chr(10) + _d  # scan the text as written too: a Windows path with a hex-letter folder name holds look-alike escapes
     t = t + (chr(10) + _COMMENT.sub("", t) if "<!--" in t else "")  # a comment can split a word: scan the text with and without comments
-    return _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t).replace("%40", "@"))).translate(_HOMO)
+    return re.sub("[\u2010-\u2015\u2212]", "-", re.sub("[\u3002\uff61]", ".", _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t).replace("%40", "@"))).translate(_HOMO)))
 
 
 def files():

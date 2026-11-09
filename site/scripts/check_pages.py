@@ -110,24 +110,34 @@ def _data_block(attrs):
 def csp_gaps(text):
     """Inline scripts and styles that the page's own Content-Security-Policy would block (a hash is listed but not for this block)."""
     import base64, hashlib
-    csp = None
-    for tag_m in re.finditer(r"<meta\b[^>]*>", re.sub(r"<!--.*?-->", lambda k: " " * len(k.group(0)), text, flags=re.S), re.I):  # a commented-out meta is not the policy  # any attribute order, either quote
+    gaps = []
+    for csp in csp_list(text):  # browsers enforce every policy meta, so each one is judged
+        gaps += [g for g in _csp_gaps(text, csp) if g not in gaps]
+    return gaps
+
+
+def csp_list(text):
+    """The content of each real Content-Security-Policy meta (not one in a comment, template, noscript, textarea, script or style)."""
+    out = []
+    for tag_m in re.finditer(r"<meta\b[^>]*>", re.sub(r"<!--.*?-->|<(template|noscript|textarea|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I), re.I):
         if re.search(r"http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
             c = re.search(r"content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
-            csp = c.group(2) if c else None
-            break
-    if csp is None:
-        return []
+            out.append(c.group(2) if c else "")
+    return out
+
+
+def _csp_gaps(text, csp):
+    import base64, hashlib
     gaps = []
     def _dir(name):
         return re.search(r"(?<![\w-])" + name + r"\s+([^;]*)", csp) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp)
     markup = re.sub(r"<script\b.*?</script>|<style\b.*?</style>", "", text, flags=re.S | re.I)
     _ss, _sc = _dir("style-src"), _dir("script-src")
-    if _ss and ("'unsafe-inline'" not in _ss.group(1) or "'sha256-" in _ss.group(1)) and re.search(r"<[a-zA-Z][^>]*\sstyle\s*=", markup):
+    if _ss and ("'unsafe-inline'" not in _ss.group(1) or "'sha256-" in _ss.group(1)) and re.search(r"<[a-zA-Z][^>]*[\s/\"']style\s*=", markup):
         gaps.append("a style attribute is blocked: style-src allows no inline styles (unsafe-inline is ignored when a hash is listed)")
-    if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<[a-zA-Z][^>]*\son[a-zA-Z]+\s*=", markup):
+    if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<[a-zA-Z][^>]*[\s/\"']on[a-zA-Z]+\s*=", markup):
         gaps.append("an inline event handler is blocked: script-src allows no inline handlers (unsafe-inline is ignored when a hash is listed)")
-    if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<a\b[^>]*\shref\s*=\s*[\"']?\s*javascript:", markup, re.I):
+    if _sc and ("'unsafe-inline'" not in _sc.group(1) or "'sha256-" in _sc.group(1)) and re.search(r"<a\b[^>]*[\s/\"']href\s*=\s*[\"']?\s*j\s*a\s*v\s*a\s*s\s*c\s*r\s*i\s*p\s*t\s*:", html.unescape(markup), re.I):
         gaps.append("a javascript: link is blocked: script-src allows no inline script")
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace(chr(13) + chr(10), chr(10)).replace(chr(13), chr(10)).encode("utf-8")).digest()).decode()  # browsers normalise line endings before hashing
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
@@ -219,7 +229,8 @@ def main():
             _css = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", " ", _css)  # control characters the URL parser drops
             if re.search(r"@import\s*(?:url\()?\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)|(?:url|image-set)\(\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)", _css, re.I): errors.append(where + ": stylesheet, font or image from another site")
             if strict:
-                if where != "404.html" and not s.csp: errors.append(where + ": missing Content-Security-Policy")
+                if where != "404.html" and not (s.csp and csp_list(text)): errors.append(where + ": missing Content-Security-Policy")
+                if re.search(r"<!\[CDATA\[", text, re.I) and not re.search(r"<(svg|math)\b", text, re.I): errors.append(where + ": a CDATA section outside svg or math is read as a comment, so the checks cannot see its content")
                 if s.unnamed: errors.append(where + ": unnamed controls: " + ", ".join(s.unnamed[:4]))
             elif not s.csp:
                 (errors if kind == "app" else warnings).append(where + ": no Content-Security-Policy")
