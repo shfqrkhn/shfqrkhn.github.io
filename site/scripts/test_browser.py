@@ -53,7 +53,8 @@ pages = [(a["kind"], a["address"][2:].rstrip("/"), a["address"].split("/")[-2]) 
 kinds = sorted({k for k, _, _ in pages})
 with sync_playwright() as p:
     b = p.chromium.launch(); ctx = b.new_context(viewport={"width": 390, "height": 800}); pg = ctx.new_page(); errs = []
-    pg.on("console", lambda m: errs.append(m.text[:90]) if m.type == "error" and "404" not in m.text else None); pg.on("pageerror", lambda e: errs.append(str(e)[:90]))
+    pg.on("console", lambda m: errs.append(m.text[:90]) if m.type == "error" else None); pg.on("pageerror", lambda e: errs.append(str(e)[:90]))
+    pg.on("response", lambda r: errs.append("404 " + r.url[-60:]) if r.status == 404 else None)
     pg.goto(B); pg.wait_for_load_state("networkidle")
     ok("hub: title, pronunciation, no horizontal scroll", pg.title() == "Omnevum" and "VEE" in pg.text_content(".say") and pg.evaluate("document.documentElement.scrollWidth <= innerWidth"))
     pg.wait_for_selector("#today:not([hidden])", timeout=10000)
@@ -84,6 +85,7 @@ with sync_playwright() as p:
     k, rel, slug = pages[0]
     pg.goto(B + rel + "/"); pg.locator('a[href="../../"]').first.click(); pg.wait_for_load_state()
     ok("home link lands on the hub", pg.url == B)
+    n404 = len(errs)
     pg.goto(B + slug + "/"); pg.wait_for_url(B + rel + "/", timeout=5000); ok("old flat address forwards", True)
     fwd = json.loads(re.search(r"var m=(\{.*?\}),h=", open(os.path.join(ROOT, "404.html"), encoding="utf-8").read(), re.S).group(1))
     olds = [(k, v) for k, v in fwd.items() if "/" in k and k != v][:3]
@@ -91,6 +93,7 @@ with sync_playwright() as p:
         pg.goto(B + k + "/"); pg.wait_for_url(B + v + "/", timeout=5000)
     ok("%d renamed addresses forward to the new ones" % len(olds), True)
     pg.goto(B + "no-such-page-xyz/"); ok("unknown address shows the 404 page", pg.locator('a[href="/"]').count() == 1)
+    errs[n404:] = [e for e in errs[n404:] if not e.startswith("404 ") and "Failed to load resource" not in e]  # the forwards and the unknown address are deliberate 404s; every other 404 counts
     pg.goto(B); pg.evaluate("navigator.serviceWorker.ready"); pg.reload(); pg.wait_for_timeout(1500)
     ok("offline worker controls the page", pg.evaluate("!!navigator.serviceWorker.controller"))
     pg.evaluate("navigator.serviceWorker.ready.then(function(r){r.active.postMessage({type:'precache',big:true})})")

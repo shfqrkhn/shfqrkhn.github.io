@@ -12,7 +12,7 @@ import json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if "--root" in sys.argv:
     ROOT = os.path.abspath(sys.argv[sys.argv.index("--root") + 1])
-SKIP_DIRS = {".git", "node_modules", "__pycache__"}
+SKIP_DIRS = {".git", "__pycache__"}  # __pycache__ is git-ignored; a committed node_modules is scanned like anything else
 SKIP_EXT = {".pyc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".woff", ".woff2", ".ico"}
 B64_RUN = re.compile(r"[A-Za-z0-9+/=]{200,}")  # a long run holding "+" or "/" is base64 file bytes: random letters, not prose
 DATA_URI = re.compile(r"(?<=;base64,)[A-Za-z0-9+/=]+")  # embedded file bytes: random letters, not prose; removed before the name scan
@@ -28,8 +28,8 @@ RULES = [
     ("postal-ca", re.compile(r"(?<![#\w])[ABCEGHJ-NPRSTVXY]\d[A-Z][ -]\d[A-Z]\d(?!\w)")),
     ("street", re.compile(r"\b\d{1,5}\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\s(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd|Crescent|Court|Ct)\b")),
     ("private-ip", re.compile(r"(?<![\d.])(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?![\d./])")),
-    ("key", re.compile(r"(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|glpat-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}")),
-    ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|/Users/[A-Za-z0-9._-]+/|/home/(?!user/)[A-Za-z0-9._-]+/")),
+    ("key", re.compile(r"(?<![A-Za-z0-9])(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|(?<![A-Za-z0-9])npm_[A-Za-z0-9]{36}|eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{5,}|xapp-\d-[A-Za-z0-9-]{10,}|(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|glpat-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}")),
+    ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|(?<![A-Za-z0-9])[A-Za-z]:\\{1,2}(?!Windows\\|Program Files)[A-Za-z0-9._ -]+\\{1,2}[A-Za-z0-9._ -]+|(?<![A-Za-z0-9\\])\\\\[A-Za-z0-9._-]+\\[A-Za-z0-9._$-]+|/Users/[A-Za-z0-9._-]+/|/root/\.|/home/(?!user/)[A-Za-z0-9._-]+/")),
     ("credit-line", re.compile(r"\b(?:[Dd]esigned|[Cc]reated|[Ww]ritten|[Bb]uilt|[Mm]ade|[Ee]dited|[Cc]ompiled|[Pp]hotographed|[Dd]eveloped|[Pp]hotos?|[Ii]mage|[Cc]redit) by\s+[A-Z][a-z]+\s+(?:[A-Z]\.\s+)?[A-Z][a-z]+\b|\b(?:[Aa]uthor|[Bb]yline|[Dd]esigner|[Cc]redits?)\s*[:\u2013\u2014-]\s*[A-Z][a-z]+\s+[A-Z][a-z]+\b")),
 ]
 
@@ -53,9 +53,17 @@ def files():
     for dp, dn, fn in os.walk(ROOT):
         dn[:] = [d for d in dn if d not in SKIP_DIRS]
         for f in fn:
-            if os.path.splitext(f)[1].lower() in SKIP_EXT:
-                continue
             yield os.path.join(dp, f)
+
+
+def read_text(p):
+    """File text for scanning: UTF-16 is decoded as such; image and font files are read as bytes (metadata and stray text still count)."""
+    b = open(p, "rb").read()
+    if b[:2] in (bytes([255, 254]), bytes([254, 255])) or (len(b) > 8 and b[1::2].count(0) > len(b) // 4):
+        return b.decode("utf-16", errors="replace")
+    if os.path.splitext(p)[1].lower() in SKIP_EXT:
+        return b.decode("latin-1")
+    return b.decode("utf-8", errors="replace")
 
 
 def main():
@@ -75,7 +83,7 @@ def main():
         scanned += 1
         rel = os.path.relpath(p, ROOT)
         try:
-            text = open(p, encoding="utf-8", errors="replace").read()
+            text = read_text(p)
         except OSError:
             continue
         raw = norm(text)
@@ -84,15 +92,20 @@ def main():
         shown = "[path hidden in CI]" if named and os.environ.get("CI") else rel  # CI logs are public: never print a path that holds a private name
         if named:
             problems.append("%s: owner-name: the file name carries a private name" % shown)
+        binary = os.path.splitext(p)[1].lower() in SKIP_EXT
         for kind, rx in RULES:
             if kind in ("email", "phone", "phone-run", "key", "local-path") and rx.search(norm(os.path.basename(rel))):
                 problems.append("%s: %s: the file name carries personal data" % (shown, kind))
         checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
         for kind, rx in checks:
+            if binary and kind not in ("email", "key", "local-path", "owner-name"):
+                continue  # binary files hold random digits and letters: only the shapes that cannot occur by chance are checked
             if kind in ("key", "owner-name"):  # a key or a name can hide inside a long run of letters and dashes: scan the raw text
-                text, body = (B64_RUN.sub(lambda m: "" if ("+" in m.group(0) or "/" in m.group(0)) else m.group(0), DATA_URI.sub("", raw)) if kind == "owner-name" else raw), text  # a key can be longer than the blob limit: scan the raw text for it
+                text, body = (B64_RUN.sub(lambda m: "" if (("+" in m.group(0) or "/" in m.group(0)) and len(set(m.group(0))) >= 40) else m.group(0), DATA_URI.sub("", raw)) if kind == "owner-name" else raw), text  # a key can be longer than the blob limit: scan the raw text for it
             for m in rx.finditer(text):
                 hit = m.group(0)
+                if binary and kind == "owner-name" and len(hit) < 5:
+                    continue  # a short initial pair appears in random image bytes by chance
                 ctx = text[max(0, m.start() - 40):m.end() + 40].replace("\n", " ")
                 low = (hit + " " + ctx).lower()
                 if kind == "email" and re.search(r"@example\.(com|org|net)$|^noreply@anthropic\.com$|^(\d+\+)?shfqrkhn@users\.noreply\.github\.com$", hit, re.I):

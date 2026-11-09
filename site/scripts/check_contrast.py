@@ -74,6 +74,8 @@ for _at, _sel, _body in _rules(css):
         raise SystemExit("ui.css: tokens set in a rule the contrast gate does not read: " + _sel)
     if _sel == ":root[data-app]" and {t for t, _ in _toks} - {"--acc", "--on-acc"}:
         raise SystemExit("ui.css: :root[data-app] may set only --acc and --on-acc")
+    if _sel == ":root[data-app]" and {t: re.sub(r"\s+", " ", v).strip() for t, v in _toks} != {"--acc": "hsl(var(--hue,215) var(--app-s) var(--app-l))", "--on-acc": "var(--app-on)"}:
+        raise SystemExit("ui.css: :root[data-app] values must be the app-s, app-l and app-on tokens (the gate checks those, not a literal)")
     if re.sub(r"\s+", "", _at) != ("@media(prefers-color-scheme:dark)" if _sel == ":root[data-look=auto]" else ""):
         raise SystemExit("ui.css: token rule %s sits in %s, where the gate does not expect it" % (_sel, _at or "no at-rule"))
 

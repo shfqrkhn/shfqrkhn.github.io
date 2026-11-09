@@ -64,6 +64,7 @@ with sync_playwright() as pw:
     pg.click("#pz"); pg.click("#pzr"); pg.click("#pzx")
     q.reload(); q.wait_for_timeout(500)
     check("Reset returns the page to its own size", q.evaluate("document.documentElement.style.fontSize") == "")
+    check("Reset returns the page to its own hue", q.evaluate('document.documentElement.style.getPropertyValue("--hue")') != "10")
     b.close()
 srv.shutdown()
 print("personalize tests: %d passed, %d failed" % (sum(out), len(out) - sum(out)))

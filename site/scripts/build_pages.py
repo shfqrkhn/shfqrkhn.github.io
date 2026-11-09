@@ -54,7 +54,7 @@ def validate(d, where):
         bad("slug must be lowercase words joined by dashes")
     if d["topic"] not in TOPICS:
         bad("topic must be one of %s" % ", ".join(TOPICS))
-    if not (1 <= len(d["title"]) <= 60) or not (1 <= len(d["blurb"].split()) <= 20):
+    if not d["title"].strip() or not (1 <= len(d["title"]) <= 60) or not (1 <= len(d["blurb"].split()) <= 20):
         bad("title up to 60 characters, blurb up to 20 words")
     if re.search(r"[|<>\r\n\u2013\u2014]", d["title"]):
         bad("title has no |, <, >, line break, em or en dash")

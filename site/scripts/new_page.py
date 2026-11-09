@@ -15,6 +15,10 @@ if len(args) != 3:
     print('Usage: python site/scripts/new_page.py <kind> <slug> "<Title>" [--topic food]\nKinds: ' + ", ".join(build_pages.KINDS) + "\nTopics: " + ", ".join(build_pages.TOPICS))
     sys.exit(2)
 kind, slug, title = args
+if "--topic" in sys.argv and sys.argv.index("--topic") + 1 >= len(sys.argv):
+    print("--topic needs a value. Topics: " + ", ".join(build_pages.TOPICS)); sys.exit(2)
+if slug.split(".")[0].lower() in {"con", "prn", "aux", "nul", "com1", "com2", "com3", "com4", "lpt1", "lpt2", "lpt3"}:
+    print("That slug is a reserved device name on Windows: " + slug); sys.exit(2)
 topic = sys.argv[sys.argv.index("--topic") + 1] if "--topic" in sys.argv else "learning"
 page = dict(title=title, kind=kind, slug=slug, topic=topic, blurb="One short line that says what this is.", keywords="", blocks=[
     dict(type="text", title="About", text="Write the first idea here."),
