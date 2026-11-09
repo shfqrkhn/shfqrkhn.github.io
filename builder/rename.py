@@ -142,6 +142,8 @@ def main():
     args = sys.argv[1:]
     if args and args[0] == "--repair-csp":  # python builder/rename.py --repair-csp <file> ...: recompute the script and style hashes of a page after editing its inline code
         for f in args[1:]:
+            if not os.path.isfile(f):
+                print("%s: no such file." % f); return 2
             fixed_html, n = repair_csp(open(f, encoding="utf-8", newline="").read())
             open(f, "w", encoding="utf-8", newline="").write(fixed_html); print("%s: %d hash(es) repaired" % (f, n))
         return 0

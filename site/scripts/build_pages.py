@@ -149,7 +149,11 @@ def load_all(content_dir):
             if not f.endswith(".json"):
                 continue
             where = "content/%s/%s" % (kind, f)
-            d = validate(json.load(open(os.path.join(kd, f), encoding="utf-8")), where)
+            try:
+                raw = json.load(open(os.path.join(kd, f), encoding="utf-8"))
+            except ValueError as e:
+                raise ValueError("%s: not valid JSON (%s)" % (where, e))
+            d = validate(raw, where)
             if d["kind"] != kind or d["slug"] + ".json" != f:
                 raise ValueError("%s: kind and slug must match the folder and file name" % where)
             d["html"] = render(d)

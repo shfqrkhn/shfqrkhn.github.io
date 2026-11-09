@@ -87,7 +87,10 @@ def read_text(p):
 def main():
     names = []
     if "--names" in sys.argv:
-        names = [l.strip() for l in open(sys.argv[sys.argv.index("--names") + 1], encoding="utf-8-sig") if l.strip() and not l.startswith("#")]
+        try:
+            names = [l.strip() for l in open(sys.argv[sys.argv.index("--names") + 1], encoding="utf-8-sig") if l.strip() and not l.startswith("#")]
+        except OSError as e:
+            print("cannot read the names file: %s" % (e.strerror or e)); return 2
     _short = [n for n in names if len(n) < 5]; _long = [n for n in names if len(n) >= 5]
     _parts = ([r"(?<![A-Za-z0-9])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(re.escape(n) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
     # a short name (under 5 characters, such as an acronym) matches in its exact case only: in any case it hits minified identifiers and ordinary words
