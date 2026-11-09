@@ -1,5 +1,5 @@
 """Local backup of the repository plus the few files that must never be public. Standard library only.
-  python builder/backup.py                 zip the tracked files and the local-only files into Omnevum-backup-<date>.zip beside the repository
+  python builder/backup.py                 zip the tracked files and the local-only files into Omnevum-backup-<date-time>.zip beside the repository
   python builder/backup.py --verify <zip>  check a backup: zip integrity, every file hash, no unlisted members, and the .sha256.txt beside it (without that sidecar it proves consistency, not authenticity)
 GitHub already holds the tracked files, so the point of this zip is the local-only files: builder/privacy_names.txt (the private name blocklist),
 converge/private-skip.txt, and converge/receipts/*.json. Keep the zip off the public internet. Generated files are not stored: python builder/build.py rebuilds them."""
@@ -26,7 +26,7 @@ def make():
     rec = os.path.join(HOME, "converge", "receipts")
     if os.path.isdir(rec):
         files += ["converge/receipts/" + f for f in sorted(os.listdir(rec)) if f.endswith(".json")]
-    out = os.path.join(os.path.dirname(HOME), "Omnevum-backup-%s.zip" % datetime.date.today().isoformat())
+    out = os.path.join(os.path.dirname(HOME), "Omnevum-backup-%s.zip" % datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S"))
     man = {}
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as z:
         for f in sorted(set(files)):

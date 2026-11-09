@@ -61,12 +61,17 @@ def _chr(h):
     return chr(n) if n < 0x110000 else ""
 
 
+def _fold(s):
+    """Accents removed (Zoe matches Zoe with a diaeresis): a listed name is compared in this form too."""
+    return "".join(c for c in unicodedata.normalize("NFD", s) if not unicodedata.combining(c))
+
+
 def norm(t):
     """What a person reads: entities decoded, compatibility forms folded, zero-width marks removed, look-alike letters mapped to Latin."""
     _d = _ESC.sub(lambda m: _chr(m.group(1) or m.group(2) or m.group(3) or m.group(4)), t)  # JS and CSS escapes render as the character
     if _d != t: t = t + chr(10) + _d  # scan the text as written too: a Windows path with a hex-letter folder name holds look-alike escapes
     t = t + (chr(10) + _COMMENT.sub("", t) if "<!--" in t else "")  # a comment can split a word: scan the text with and without comments
-    return re.sub("[\u2010-\u2015\u2212]", "-", re.sub("[\u3002\uff61]", ".", _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t).replace("%40", "@"))).translate(_HOMO)))
+    return _fold(re.sub("[\u2010-\u2015\u2212]", "-", re.sub("[\u3002\uff61]", ".", _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t).replace("%40", "@").replace("%20", " "))).translate(_HOMO))))
 
 
 def files():
@@ -105,12 +110,14 @@ def main():
             print("cannot read the names file: save it as UTF-8 text"); return 2
         except OSError as e:
             print("cannot read the names file: %s" % (e.strerror or e)); return 2
+    names = [_fold(n) for n in names]
     _short = [n for n in names if len(n) < 5]; _long = [n for n in names if len(n) >= 5]
     _parts = ([r"(?<![A-Za-z0-9])(?:%s)(?![A-Za-z0-9])" % "|".join(_NAME_SEP.join(re.escape(w) for w in n.split()) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(_NAME_SEP.join(re.escape(w) for w in n.split()) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
     # a short name (under 5 characters, such as an acronym) matches in its exact case only: in any case it hits minified identifiers and ordinary words
     name_rx = re.compile("|".join("(?i:%s)" % x if x is _parts[-1] and _long else x for x in _parts)) if _parts else None
     _cn = [re.sub(r"\s+", "", n) for n in _long]  # a long name with its spaces left out also matches in file names: JaneDoe, jane_doe, jane-doe
     name_c = re.compile("(?i:%s)" % "|".join(re.escape(n) for n in _cn if len(n) >= 6)) if any(len(n) >= 6 for n in _cn) else None
+    name_cc = re.compile("(?i:%s)" % "|".join(re.escape(n) for n in _cn if len(n) >= 8)) if any(len(n) >= 8 for n in _cn) else None  # JaneDoe, a handle or a profile URL in content
     allow = [a.lower() for a in load_allow().get("contains", [])]
     problems = []
     if not os.path.isdir(ROOT):
@@ -134,7 +141,7 @@ def main():
         for kind, rx in RULES:
             if kind in ("email", "phone", "phone-run", "key", "local-path") and any(rx.search(norm(_RETINA.sub("", _part) if kind == "email" else _part)) for _part in rel.replace(chr(92), "/").split("/")):
                 problems.append("%s: %s: the file name carries personal data" % (shown, kind))
-        checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
+        checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else []) + ([("owner-name", name_cc)] if name_cc else [])
         for kind, rx in checks:
             if binary and kind not in ("email", "key", "local-path", "owner-name"):
                 continue  # binary files hold random digits and letters: only the shapes that cannot occur by chance are checked
@@ -145,7 +152,7 @@ def main():
                 if binary and kind == "owner-name" and len(hit) < 5:
                     continue  # a short initial pair appears in random image bytes by chance
                 ctx = text[max(0, m.start() - 40):m.end() + 40].replace("\n", " ")
-                low = (hit + " " + ctx).lower()
+                low = hit.lower()
                 if kind == "email" and re.search(r"@example\.(com|org|net)$|^noreply@anthropic\.com$|^(\d+\+)?shfqrkhn@users\.noreply\.github\.com$", hit, re.I):
                     continue
                 if kind == "email" and re.search(r"@[\d.]+x?\.(png|svg|jpg|css|js|woff2?)$", hit, re.I):

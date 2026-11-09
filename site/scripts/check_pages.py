@@ -116,6 +116,15 @@ def csp_gaps(text):
             gaps.append("the policy sets no script-src or default-src, so any script may load")
         if not re.search(r"(?<![\w-])(?:connect-src|default-src)\s", csp, re.I):
             gaps.append("the policy sets no connect-src or default-src, so any network call is allowed")
+        m = re.search(r"(?<![\w-])script-src\s+([^;]*)", csp, re.I) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)
+        if m:
+            toks = m.group(1).lower().split()
+            if "'unsafe-eval'" in toks:
+                gaps.append("script-src allows unsafe-eval, so eval and string timers run")
+            if "'unsafe-inline'" in toks and not any(t.startswith("'sha256-") or t.startswith("'nonce-") for t in toks):
+                gaps.append("script-src allows unsafe-inline with no hash, so any inline script runs")
+            if any(t in ("*", "http:", "https:", "data:", "blob:") for t in toks):
+                gaps.append("script-src allows any host or scheme (" + next(t for t in toks if t in ("*", "http:", "https:", "data:", "blob:")) + "), so any script may load")
     metas = policy_metas(text)
     if metas:
         before = re.sub(r"<!--.*?-->|<(template|noscript|textarea|title|iframe|xmp)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I)[:metas[0][0]]
