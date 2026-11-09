@@ -617,7 +617,6 @@ if os.path.isfile(NOTE):
            % (VERSION, len(apps), len({a["kind"] for a in apps}), forms.count("single"), forms.count("bundle"), forms.count("remote"), forms.count("generated"),
               sum(1 for a in apps if a["archived"]), sum(1 for a in apps if a["sensitive"]), sig, day))
     new = set_block(set_block(note, "INV", inv), "BUILD", rec)
-    new = re.sub(r"(?m)^updated: .*$", "updated: " + day, new, count=1)
     if new != note:
         open(NOTE, "w", encoding="utf-8", newline="\n").write(new)
         _RESTORE = (NOTE, note)
