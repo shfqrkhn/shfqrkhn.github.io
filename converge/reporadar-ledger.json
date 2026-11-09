@@ -6786,7 +6786,7 @@
    ],
    "reason": "Agent skill for writing and reviewing READMEs, distilled from 200 projects (MIT, Python, 4 stars, last push 2026-10-23). Its rule that every command, claim and requirement must trace to repository evidence matches Omnevum's check-before-claim rule; applied to the README and the repo map.",
    "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
-   "applied": "deferred"
+   "applied": "applied"
   },
   {
    "id": "Mayur-Pagote/README_Design_Kit",
@@ -6828,7 +6828,7 @@
    ],
    "reason": "Widely used README template (Unlicense, 16456 stars, last push 2026-04-18). Section order adapted: about, getting started, usage, roadmap, contributing, licence, plus a back-to-top anchor idea and a table of contents; its badge wall and emoji are not.",
    "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
-   "applied": "deferred"
+   "applied": "applied"
   },
   {
    "id": "RichardLitt/standard-readme",
@@ -6843,7 +6843,7 @@
    ],
    "reason": "Specification for README structure (MIT, JavaScript, 6395 stars, last push 2026-09-29): title, short description, table of contents, install, usage, contributing, licence, in a fixed order. Adapted as the Omnevum README section order.",
    "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
-   "applied": "deferred"
+   "applied": "applied"
   },
   {
    "id": "octokatherine/readme.so",
