@@ -10,7 +10,7 @@ A static, offline-first site of small apps, built from sources by `builder/build
 
 ```bash
 python builder/build.py        # validate, build site/, run every gate; must pass
-python builder/selftest.py     # must pass (28 checks, includes browser tests when Playwright is installed)
+python builder/selftest.py     # must pass (29 checks, includes browser tests when Playwright is installed)
 python builder/publish.py "message" --yes
 # --fast skips the self-test (dry run only; --yes refuses to push without it)
 ```

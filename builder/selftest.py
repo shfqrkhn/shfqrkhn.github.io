@@ -155,6 +155,48 @@ ok("generator refuses bad data", bad)
 for chk in ("check_privacy.py", "check_docs.py", "check_pages.py", "check_pwa.py", "check_kit.py", "check_site.py"):
     r = run([os.path.join(OUT, "scripts", chk)], cwd=OUT)
     ok(chk + " passes on the site", r.returncode == 0, r.stdout[-300:])
+# 5b. the gates must fail on planted defects: a script from another site, a stray page, a missing published page, an oversize document
+def _planted(chk, plant, docs=False):
+    with tempfile.TemporaryDirectory() as t:
+        shutil.copytree(OUT, os.path.join(t, "site"), ignore=shutil.ignore_patterns("__pycache__"))
+        if docs:
+            for d in ("README.md", "AGENTS.md", "CONTRIBUTING.md", "SECURITY.md", "docs"):
+                src = os.path.join(os.path.dirname(OM), d)
+                if os.path.isdir(src):
+                    shutil.copytree(src, os.path.join(t, d))
+                elif os.path.isfile(src):
+                    shutil.copy(src, os.path.join(t, d))
+        base = run([os.path.join(t, "site", "scripts", chk)], cwd=os.path.join(t, "site")).returncode == 0
+        plant(t)
+        bad = run([os.path.join(t, "site", "scripts", chk)], cwd=os.path.join(t, "site")).returncode != 0
+        return base and bad
+
+
+def _first_app(t):
+    d = os.path.join(t, "site", "apps")
+    return os.path.join(d, sorted(x for x in os.listdir(d) if os.path.isfile(os.path.join(d, x, "index.html")))[0])
+
+
+def _evil_script(t):
+    f = os.path.join(_first_app(t), "index.html")
+    h = open(f, encoding="utf-8", newline="").read()
+    open(f, "w", encoding="utf-8", newline="").write(h.replace("</head>", '<script src="https://evil.test/x.js"></script></head>', 1))
+
+
+def _stray(t):
+    open(os.path.join(t, "site", "evil.html"), "w").write("<p>x</p>")
+
+
+def _drop_page(t):
+    os.remove(os.path.join(_first_app(t), "index.html"))
+
+
+def _big_readme(t):
+    open(os.path.join(t, "README.md"), "a", encoding="utf-8").write("\nA short line of text.\n" * 400)
+
+
+_pl = {"pages": _planted("check_pages.py", _evil_script), "site": _planted("check_site.py", _stray), "pwa": _planted("check_pwa.py", _drop_page), "docs": _planted("check_docs.py", _big_readme, docs=True)}
+ok("gates fail on planted defects", all(_pl.values()), str(_pl))
 _conv = os.path.join(os.path.dirname(OM), "converge")
 if os.path.isdir(_conv):  # the converge scripts must flag their own planted defects (Omni 8.7 step 1)
     _c = [run([os.path.join(_conv, "omni_check.py"), "--control"]), run([os.path.join(_conv, "scan.py"), "--control"]), run([os.path.join(_conv, "apply_edits.py"), "--control"])]
