@@ -76,8 +76,6 @@ class Scan(HTMLParser):
         if tag == "a" and a.get("href") is not None: self.links.append(a["href"])
         if tag in ("a", "button"):
             self._stack.append([tag, bool(a.get("aria-label") or a.get("title") or a.get("aria-labelledby")), False, a.get("href") or a.get("id") or ""])
-        elif tag == "svg" and self._stack:
-            self._stack[-1][2] = self._stack[-1][2]  # icons alone do not name a control
         elif tag == "img" and self._stack and (a.get("alt") or "").strip():
             self._stack[-1][2] = True  # an image with alt text names its control
 

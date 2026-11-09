@@ -5,6 +5,7 @@ old-address forwarding and offline use."""
 import functools, http.server, json, os, re, sys, threading
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BN = json.load(open(os.path.join(os.path.dirname(ROOT), "builder", "brand.json"), encoding="utf-8"))["name"]  # rebrand in builder/brand.json
 try:
     from playwright.sync_api import sync_playwright
 except ImportError:
@@ -56,7 +57,7 @@ with sync_playwright() as p:
     pg.on("console", lambda m: errs.append(m.text[:90]) if m.type == "error" else None); pg.on("pageerror", lambda e: errs.append(str(e)[:90]))
     pg.on("response", lambda r: errs.append("404 " + r.url[-60:]) if r.status == 404 else None)
     pg.goto(B); pg.wait_for_load_state("networkidle")
-    ok("hub: title, pronunciation, no horizontal scroll", pg.title() == "Omnevum" and "VEE" in pg.text_content(".say") and pg.evaluate("document.documentElement.scrollWidth <= innerWidth"))
+    ok("hub: title, pronunciation, no horizontal scroll", pg.title() == BN and "VEE" in pg.text_content(".say") and pg.evaluate("document.documentElement.scrollWidth <= innerWidth"))
     pg.wait_for_selector("#today:not([hidden])", timeout=10000)
     ok("hub: one tile per page, no search box and no filter chips", pg.locator("a.tile").count() == len(pages) and pg.locator("#q, .kinds, .find").count() == 0)
     nudges = pg.locator(".nudge")
@@ -103,14 +104,14 @@ with sync_playwright() as p:
     except Exception:
         ok("every page is saved for offline (state: %s)" % pg.get_attribute("#off", "data-s"), False)
     ctx.set_offline(True)
-    pg.goto(B); ok("hub works offline", pg.title() == "Omnevum")
+    pg.goto(B); ok("hub works offline", pg.title() == BN)
     pg.goto(B + kinds[0] + "/"); ok("group page works offline", pg.locator("a.tile").count() >= 1)
     lost = []
     for k, rel, slug in pages:
         q = ctx.new_page()
         try:
             q.goto(B + rel + "/")
-            if q.title() in ("", "Omnevum") or len(q.content()) < 3000: lost.append(rel)
+            if q.title() in ("", BN) or len(q.content()) < 3000: lost.append(rel)
         except Exception:
             lost.append(rel)
         q.close()

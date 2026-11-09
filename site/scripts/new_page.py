@@ -33,5 +33,5 @@ path = os.path.join(dest, slug + ".json")
 if os.path.exists(path):
     print("Already exists: " + path); sys.exit(1)
 json.dump(page, open(path, "w", encoding="utf-8", newline="\n"), indent=2, ensure_ascii=False)
-open(path, "a", encoding="utf-8").write("\n")
+open(path, "a", encoding="utf-8", newline="\n").write("\n")
 print("Created " + os.path.relpath(path, ROOT) + "\nNext: edit it, run  python site/scripts/build_pages.py --check , then run the Omnevum build.")

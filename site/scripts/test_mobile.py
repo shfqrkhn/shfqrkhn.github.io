@@ -7,6 +7,7 @@ Honest limit: these are emulations. A real phone (install it, switch on airplane
 import functools, http.server, json, os, re, sys, threading
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BN = json.load(open(os.path.join(os.path.dirname(ROOT), "builder", "brand.json"), encoding="utf-8"))["name"]  # rebrand in builder/brand.json
 try:
     from playwright.sync_api import sync_playwright
 except ImportError:
@@ -82,7 +83,7 @@ with sync_playwright() as p:
         q = ctx.new_page()
         try:
             q.goto(B + rel + "/")
-            if q.title() in ("", "Omnevum") or len(q.content()) < 3000: lost.append(rel)
+            if q.title() in ("", BN) or len(q.content()) < 3000: lost.append(rel)
         except Exception:
             lost.append(rel)
         q.close()
@@ -93,13 +94,13 @@ with sync_playwright() as p:
         fx = p.firefox.launch(); ctx = fx.new_context(viewport={"width": 390, "height": 800}, has_touch=True); pg = ctx.new_page(); errs = []
         pg.on("pageerror", lambda x: errs.append(str(x)[:80]))
         pg.goto(B); pg.evaluate("navigator.serviceWorker.ready"); pg.reload(); pg.wait_for_timeout(2500)
-        ok("Firefox: hub renders and the worker controls it", pg.title() == "Omnevum" and pg.evaluate("!!navigator.serviceWorker.controller"))
+        ok("Firefox: hub renders and the worker controls it", pg.title() == BN and pg.evaluate("!!navigator.serviceWorker.controller"))
         pg.evaluate("navigator.serviceWorker.ready.then(function(r){r.active.postMessage({type:'precache',big:false})})")
         try:
             wait_state(pg, ("ready", "idle"), 120); ok("Firefox: pages saved for offline", True)
         except Exception:
             ok("Firefox: pages saved for offline", False)
-        ctx.set_offline(True); q = ctx.new_page(); q.goto(B + pages[0] + "/"); ok("Firefox: a saved page opens offline", q.title() not in ("", "Omnevum") and len(q.content()) > 3000)
+        ctx.set_offline(True); q = ctx.new_page(); q.goto(B + pages[0] + "/"); ok("Firefox: a saved page opens offline", q.title() not in ("", BN) and len(q.content()) > 3000)
         ok("Firefox: no page errors %s" % errs[:2], not errs); fx.close()
     except Exception as e:
         print("SKIP Firefox (%s)" % str(e)[:80])

@@ -33,7 +33,7 @@ def numbers(t):
 
 
 def excluded(rel):
-    """True when a path component names an excluded folder or file (ADIS*, a FinTrak name, .obsidian, .git, archive, .claude, 99-ARCV)."""
+    """True when a path component names an excluded folder or file (ADIS*, a FinTrak name, .obsidian, .git, archive, history, receipts, .claude, 99-ARCV)."""
     for c in re.split("/+", rel.replace(chr(92), "/")):
         c = c.rstrip(". ")  # Windows ignores trailing dots and spaces when it opens a path
         u = c.upper()
