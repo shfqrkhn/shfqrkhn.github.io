@@ -171,8 +171,8 @@ def main():
     if len(hits) != 1:
         print('"%s": %s' % (pos[0], "no page matches" if not hits else "matches several; use the id")); return 1
     p = hits[0]; new = pos[1].strip() if len(pos) > 1 else p["title"]
-    if not (1 <= len(new) <= 40) or re.search("[\u2013\u2014|<>\r\n]", new):
-        print("The name must be 1 to 40 characters, with no em or en dash, |, <, > or line break."); return 1
+    if not (1 <= len(new) <= 40) or re.search("[\u2013\u2014|<>\r\n\\[\\]]", new):
+        print("The name must be 1 to 40 characters, with no em or en dash, |, <, >, [, ] or line break."); return 1
     if new == p["title"]:
         olds = []  # the name is unchanged: nothing earlier to replace, so a repeat changes nothing
     if any(x is not p and x["title"].strip().lower() == new.lower() for x in reg["pages"]):

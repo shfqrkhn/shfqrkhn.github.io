@@ -59,7 +59,7 @@ def validate(d, where):
     if re.search("[|<>" + chr(13) + chr(10) + "]", d["blurb"]):
         bad("blurb has no |, <, > or line break (they break llms.txt)")
     if re.search(r"[|<>[\]\r\n\u2013\u2014]", d["title"]):
-        bad("title has no |, <, >, line break, em or en dash")
+        bad("title has no |, <, >, [, ], line break, em or en dash")
     for k in ("version", "license", "tagline"):
         if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n\u2013\u2014]", d[k])):
             bad(k + " must be text with no |, <, >, line break, em or en dash")

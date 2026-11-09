@@ -89,6 +89,7 @@ def check_registry():
         if len(p.get("title", "")) > 40: errs.append("%s: title is longer than 40 characters" % who)
         if len(p.get("tagline", "")) > 40: errs.append("%s: tagline is longer than 40 characters" % who)
         if re.search("[\u2013\u2014]", p.get("tagline", "") + p.get("title", "")): errs.append("%s: no em or en dashes in names" % who)
+        if re.search(r"[\[\]]", p.get("title", "")): errs.append("%s: no square brackets in a title (they break the llms.txt link)" % who)
         if re.search(r"[|<>\r\n]", p.get("tagline", "") + p.get("title", "") + str(p.get("blurb", ""))): errs.append("%s: no |, <, > or line break in names or blurb (they break the inventory table and llms.txt)" % who)
         if any(k in p and not isinstance(p[k], str) for k in ("license", "version", "url", "host", "keywords", "title", "tagline", "blurb")): errs.append("%s: license, version, url, host, keywords, title, tagline and blurb must be text" % who)
         if re.search(r"[|<>\r\n]", "".join(str(p.get(k, "")) for k in ("license", "version", "url", "host"))): errs.append("%s: no |, <, > or line break in license, version, url or host" % who)
