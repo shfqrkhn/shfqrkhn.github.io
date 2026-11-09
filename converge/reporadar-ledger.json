@@ -1,16 +1,16 @@
 {
  "generated": "2026-11-08",
- "scope": "all 507 RepoRadar repositories plus 4 owner-added (511 entries)",
+ "scope": "all 507 RepoRadar repositories plus 12 owner-added (519 entries)",
  "method": "live README fetch via GitHub API (first 5,000 characters kept); sonnet review per batch of 39; judgement from the opening of each README, not the full repository",
  "counts": {
-  "reject": 284,
-  "reference": 142,
-  "study": 75,
-  "adapt": 7,
+  "reject": 285,
+  "reference": 146,
+  "study": 76,
+  "adapt": 9,
   "adopt": 1,
   "unavailable": 2
  },
- "depth_caveat": "504 readme-read (excerpt only), 2 metadata-only, 2 unavailable (HTTP 404). No repository was cloned or executed. Adopt/adapt entries are not yet verified against upstream code.",
+ "depth_caveat": "515 readme-read (excerpt only), 2 metadata-only, 2 unavailable (HTTP 404). No repository was cloned or executed. Adopt/adapt entries are not yet verified against upstream code.",
  "matrix": [
   {
    "theme": "Context economy and terse reports",
@@ -6545,7 +6545,7 @@
    "applies_to": [
     "none"
    ],
-   "reason": "Video editor in mid-rewrite; irrelevant to this project.",
+   "reason": "Video editor in mid-rewrite; irrelevant to this project. Owner asked to add it; it was already a catalogue record. Kept as a reference for plugin-first and MCP-for-agents design; the classic version is a separate repository.",
    "limits": "MIT; rewrite in progress; last release April."
   },
   {
@@ -6755,21 +6755,135 @@
    "applies_to": [
     "omni"
    ],
-   "reason": "Hierarchical inference engine for large mixture-of-experts models (Apache-2.0, C, 49101 stars, last push 2026-11-09): hot experts on GPU, warm in RAM, cold streamed from NVMe; thirteen engines across language, image and decision models. Study for the Local-AI expert (running very large open models on ordinary hardware, disk streaming, hardware sizing); nothing to adopt in the static site. Claims are the README's own and are unverified.",
+   "reason": "Hierarchical inference engine for large mixture-of-experts models (Apache-2.0, C, 49101 stars, last push 2026-11-08): hot experts on GPU, warm in RAM, cold streamed from NVMe; thirteen engines across language, image and decision models. Study for the Local-AI expert (running very large open models on ordinary hardware, disk streaming, hardware sizing); nothing to adopt in the static site. Claims are the README's own and are unverified.",
    "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
    "applied": "deferred"
   },
   {
-   "id": "opencut-app/opencut",
+   "id": "matiassingers/awesome-readme",
    "status": "owner_added",
    "category": "A7",
    "disposition": "reference",
    "evidence": "readme-read",
-   "readme_bytes": 2661,
+   "readme_bytes": 35079,
    "applies_to": [
     "omnevum"
    ],
-   "reason": "Free open-source video editor (MIT, TypeScript, 97813 stars, last push 2026-09-24), being rewritten around a Rust core, plugin architecture, MCP server and headless mode; the classic version is a separate repository. Not an Omnevum fit (heavy media editing). Keep as a reference for plugin-first and MCP-for-agents design; check the classic repository before relying on any of it.",
+   "reason": "A curated list of example READMEs (no licence file, 21691 stars, last push 2026-10-23). Used as a gallery of what good READMEs contain: logo, one-line pitch, screenshot, install, table of contents.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "chromoany/readme-atlas",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "readme_bytes": 8788,
+   "applies_to": [
+    "omnevum",
+    "quality"
+   ],
+   "reason": "Agent skill for writing and reviewing READMEs, distilled from 200 projects (MIT, Python, 4 stars, last push 2026-10-23). Its rule that every command, claim and requirement must trace to repository evidence matches Omnevum's check-before-claim rule; applied to the README and the repo map.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "Mayur-Pagote/README_Design_Kit",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "readme_bytes": 4259,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "README design web tool (MIT, TypeScript, 121 stars, last push 2026-11-08). Heavy on badges, emoji and remote images, which conflicts with Omnevum house style; only the idea of a short centred header and compact badge row is kept.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "SenaThenu/readme-forge",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "readme_bytes": 6936,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "README generator web app (MIT, TypeScript, 10 stars, last push 2024-12-25). Relies on remote animated emoji images and stale; nothing to adopt.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "othneildrew/Best-README-Template",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "adapt",
+   "evidence": "readme-read",
+   "readme_bytes": 10853,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "Widely used README template (Unlicense, 16456 stars, last push 2026-04-18). Section order adapted: about, getting started, usage, roadmap, contributing, licence, plus a back-to-top anchor idea and a table of contents; its badge wall and emoji are not.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "RichardLitt/standard-readme",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "adapt",
+   "evidence": "readme-read",
+   "readme_bytes": 7046,
+   "applies_to": [
+    "omnevum",
+    "quality"
+   ],
+   "reason": "Specification for README structure (MIT, JavaScript, 6395 stars, last push 2026-09-29): title, short description, table of contents, install, usage, contributing, licence, in a fixed order. Adapted as the Omnevum README section order.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "octokatherine/readme.so",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "readme_bytes": 941,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "Drag-and-drop README editor (MIT, JavaScript, 4634 stars, last push 2026-03-13). Confirms the common section list (features, tech stack, run locally, contributing, feedback, licence); no code taken.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "builtbyai/documentation-kit",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "readme_bytes": 9098,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "58 dependency-free HTML and Markdown documentation templates (MIT, HTML, 0 stars, last push 2026-07-16). Reference for a no-build documentation style; Omnevum already has its own design system.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "jehna/readme-best-practices",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "readme_bytes": 3226,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "Copy-paste README template (Unlicense, 959 stars, last push 2026-06-07): installing, developing, features, configuration, contributing, links, licensing. Reference for ordering and brevity.",
    "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
    "applied": "deferred"
   }
