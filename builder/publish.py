@@ -61,8 +61,8 @@ try:
 finally:
     shutil.rmtree(_stage, ignore_errors=True)
 _ids = [run(["git", "var", v], check=False).stdout for v in ("GIT_AUTHOR_IDENT", "GIT_COMMITTER_IDENT")]  # includes GIT_AUTHOR_EMAIL and GIT_COMMITTER_EMAIL overrides
-if not all(re.search(r"<[^<>]*@users\.noreply\.github\.com>", x) for x in _ids):
-    print("git has no noreply identity (check git config and GIT_AUTHOR_EMAIL / GIT_COMMITTER_EMAIL). Set one first: git config user.name <name>; git config user.email <id>+<user>@users.noreply.github.com"); sys.exit(1)
+if not all(re.match(r"[A-Za-z0-9][A-Za-z0-9-]* <[^<>]*@users\.noreply\.github\.com>", x) for x in _ids):  # a handle-shaped name (no spaces) and a noreply address
+    print("git has no noreply identity (check git config and GIT_AUTHOR_EMAIL / GIT_COMMITTER_EMAIL). Set one first (the name is the GitHub handle, never a real name): git config user.name <github-user>; git config user.email <id>+<user>@users.noreply.github.com"); sys.exit(1)
 run(["git", "add", "-A"])
 run(["git", "commit", "--quiet", "-m", msg])
 run(["git", "push", "origin", "HEAD:main"])
