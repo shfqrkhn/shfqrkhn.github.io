@@ -95,7 +95,7 @@ def main():
                 hit = m.group(0)
                 ctx = text[max(0, m.start() - 40):m.end() + 40].replace("\n", " ")
                 low = (hit + " " + ctx).lower()
-                if kind == "email" and re.search(r"@example\.(com|org|net)$|^(\d+\+)?shfqrkhn@users\.noreply\.github\.com$", hit, re.I):
+                if kind == "email" and re.search(r"@example\.(com|org|net)$|^noreply@anthropic\.com$|^(\d+\+)?shfqrkhn@users\.noreply\.github\.com$", hit, re.I):
                     continue
                 if kind == "email" and re.search(r"\.(png|svg|jpg|css|js|woff2?)$", hit, re.I):
                     continue

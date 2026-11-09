@@ -202,6 +202,14 @@ def control():
     w("alpha-notes.md", "See [[beta-notes]]. Price as of March 2020.\n")
     ok = ok and "alpha-notes.md" in scan(d, base=receipt(scan(d, today=datetime.date(2026, 1, 1))), today=datetime.date(2026, 1, 2))["out"]["REFRESH"]
     ok = ok and dates_after("recheck", "recheck: 2020-02-01") == ["2020-02-01"]
+    # wiring check: with an Omni file present nothing is due by default, so only the stale date may force REFRESH
+    w("TECH/TECH-AINT-Omni-v0.0.1.md", "## 1. A\nx\n")
+    w("alpha-notes.md", "See [[beta-notes]]. Rate as of 2020-01-01.\n"); w("beta-notes.md", "Beta v1.\n")
+    b = receipt(scan(d, today=datetime.date(2026, 1, 1)))
+    for it in b["items"].values():
+        it["runs"] = 0; it["reviewed"] = "2026-01-01"
+    o = scan(d, base=b, today=datetime.date(2026, 1, 2))["out"]
+    ok = ok and "alpha-notes.md" in o["REFRESH"] and "beta-notes.md" in o["CARRIED"]
     print("control: dangling link, changed neighbour and stale 'as of' date %s" % ("all flagged" if ok else "NOT all flagged"))
     return 0 if ok else 1
 

@@ -53,7 +53,7 @@ def verify(path):
             man = json.loads(z.read("Omnevum/BACKUP-MANIFEST.json"))["files"]
             if not isinstance(man, dict):
                 raise ValueError
-        except (KeyError, ValueError):
+        except Exception:  # a missing, encrypted, corrupt or wrongly shaped manifest
             print("verify: FAILED no readable manifest"); return 1
         if not man:
             bad.append("empty manifest")

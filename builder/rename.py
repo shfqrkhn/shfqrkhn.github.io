@@ -172,11 +172,13 @@ def main():
         print("The address must be lowercase letters, digits and dashes."); return 1
     if any(x is not p and x["slug"] == slug for x in reg["pages"]):  # a slug is unique across all kinds (the build requires it)
         print("That address is already used by another page: %s" % slug); return 1
+    if glob.glob(os.path.join(glob.escape(os.path.dirname(OM)), "site", "content", "*", slug + ".json")):
+        print("That address is already used by a content page: %s" % slug); return 1
     if any(x is not p and "%s/%s" % (p["kind"], slug) in x.get("aliases", []) for x in reg["pages"]):
         print("That address is an old address of another page: %s/%s" % (p["kind"], slug)); return 1
     hue = None
     if "--hue" in opts:
-        hue = int(opts["--hue"]) if opts["--hue"].isdigit() else -1
+        hue = int(opts["--hue"]) if opts["--hue"].isascii() and opts["--hue"].isdigit() else -1
         if not 0 <= hue <= 359:
             print("The hue must be 0 to 359."); return 1
     old_title, old_slug = p["title"], p["slug"]; report = []
