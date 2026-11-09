@@ -70,18 +70,27 @@ def repair_csp(html):
     that match nothing, in order. Returns (html, number_repaired). Does nothing when the counts cannot be paired."""
     import base64, hashlib
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")).digest()).decode()
-    m = None
-    for tag_m in re.finditer(r"<meta\b[^>]*>", re.sub(r"<!--.*?-->|<(template|noscript|textarea|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), html, flags=re.S | re.I), re.I):  # a meta in a comment or inert element is not the policy  # any attribute order, either quote
+    metas = re.sub(r"<!--.*?-->|<(template|noscript|textarea|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), html, flags=re.S | re.I)
+    spans = []  # the content of every real policy meta: browsers enforce each one, and the gate judges each one
+    for tag_m in re.finditer(r"<meta\b[^>]*>", metas, re.I):
         if re.search(r"http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
             c = re.search(r"content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
             if c:
-                m = type("M", (), {"start": lambda self, g: tag_m.start() + c.start(2), "end": lambda self, g: tag_m.start() + c.end(2), "group": lambda self, g: c.group(2)})()
-            break
-    if not m:
-        return html, 0
-    csp, fixed = m.group(2), 0
+                spans.append((tag_m.start() + c.start(2), tag_m.start() + c.end(2)))
+    total = 0
+    for a, z in reversed(spans):
+        csp, fixed = _repair_one(html, html[a:z])
+        if fixed:
+            html = html[:a] + csp + html[z:]; total += fixed
+    return html, total
+
+
+def _repair_one(html, csp):
+    import base64, hashlib
+    h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")).digest()).decode()
+    fixed = 0
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
-        d = re.search(directive + r"\s+([^;]*)", csp)
+        d = re.search(r"(?<![\w-])" + directive + r"\s+([^;]*)", csp, re.I) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)  # an unset directive falls back to default-src
         if not d or "'sha256-" not in d.group(1):  # with a hash listed, browsers ignore unsafe-inline, so the hashes must be right
             continue
         listed = re.findall(r"'(sha256-[^']+)'", d.group(1))
@@ -97,7 +106,7 @@ def repair_csp(html):
             for st, mi in zip(stale, missing):
                 new_dir = new_dir.replace("'" + st + "'", "'" + mi + "'"); fixed += 1
             csp = csp.replace(d.group(1), new_dir)
-    return html[:m.start(2)] + csp + html[m.end(2):], fixed
+    return csp, fixed
 
 
 def rename_html(html, olds, new, scripts=False):
