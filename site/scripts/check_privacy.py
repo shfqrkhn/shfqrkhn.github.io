@@ -18,7 +18,7 @@ for _a in sys.argv[1:]:
         print("usage: check_privacy.py [--root <folder>] [--names <file>]  (unknown option %s)" % _a); sys.exit(2)
 if "--root" in sys.argv:
     ROOT = os.path.abspath(sys.argv[sys.argv.index("--root") + 1])
-SKIP_DIRS = {".git", "__pycache__"}  # __pycache__ is git-ignored; a committed node_modules is scanned like anything else
+SKIP_DIRS = {".git"}  # a committed node_modules or __pycache__ is scanned like anything else (compiled .pyc files are skipped below)
 SKIP_EXT = {".pyc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".woff", ".woff2", ".ico"}
 B64_RUN = re.compile(r"[A-Za-z0-9+/=]{200,}")  # a long run holding "+" or "/" is base64 file bytes: random letters, not prose
 DATA_URI = re.compile(r"(?<=;base64,)[A-Za-z0-9+/=]+")  # embedded file bytes: random letters, not prose; removed before the name scan
@@ -73,6 +73,8 @@ def files():
     for dp, dn, fn in os.walk(ROOT):
         dn[:] = [d for d in dn if d not in SKIP_DIRS]
         for f in fn:
+            if f.endswith(".pyc"):
+                continue
             yield os.path.join(dp, f)
 
 
