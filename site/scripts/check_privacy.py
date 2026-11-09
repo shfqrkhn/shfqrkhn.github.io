@@ -34,8 +34,8 @@ RULES = [
     ("postal-ca", re.compile(r"(?<![#\w])[ABCEGHJ-NPRSTVXY]\d[A-Z][ -]\d[A-Z]\d(?!\w)")),
     ("street", re.compile(r"\b\d{1,5}\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\s(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd|Crescent|Court|Ct)\b")),
     ("private-ip", re.compile(r"(?<![\d.])(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?!\d|\.\d|/\d{1,2}(?!\d))")),
-    ("key", re.compile(r"(?<![A-Za-z0-9])(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|(?<![A-Za-z0-9])npm_[A-Za-z0-9]{36}|eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{5,}|xapp-\d-[A-Za-z0-9-]{10,}|(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|glpat-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}")),
-    ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|(?<![A-Za-z0-9])[A-Za-z]:\\{1,2}(?!Windows\\|Program Files)[A-Za-z0-9._ -]+\\{1,2}[A-Za-z0-9._ -]+|(?<![A-Za-z0-9\\])\\\\[A-Za-z0-9._-]+\\[A-Za-z0-9._$-]+|/Users/[A-Za-z0-9._-]+/|/root/\.|/home/(?!user/)[A-Za-z0-9._-]+/")),
+    ("key", re.compile(r"(?<![A-Za-z0-9])(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|(?<![A-Za-z0-9])npm_[A-Za-z0-9]{36}|eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{5,}|xapp-\d-[A-Za-z0-9-]{10,}|(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|glpat-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|(?i:Bearer)\s+[A-Za-z0-9._-]{20,}")),
+    ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|(?<![A-Za-z0-9])[A-Za-z]:\\{1,2}(?!Windows\\|Program Files)[A-Za-z0-9._ -]+\\{1,2}[A-Za-z0-9._ -]+|(?<![A-Za-z0-9\\])\\\\[A-Za-z0-9._-]+\\[A-Za-z0-9._$-]+|(?<![A-Za-z0-9])[A-Za-z]:/(?!Windows/|Program Files)[A-Za-z0-9._ -]+/[A-Za-z0-9._ -]+|/Users/[A-Za-z0-9._-]+/|/root/\.|/home/(?!user/)[A-Za-z0-9._-]+/")),
     ("credit-line", re.compile(r"\b(?:[Dd]esigned|[Cc]reated|[Ww]ritten|[Bb]uilt|[Mm]ade|[Ee]dited|[Cc]ompiled|[Pp]hotographed|[Dd]eveloped|[Pp]hotos?|[Ii]mage|[Cc]redit) by\s+[A-Z][a-z]+\s+(?:[A-Z]\.\s+)?[A-Z][a-z]+\b|\b(?:[Aa]uthor|[Bb]yline|[Dd]esigner|[Cc]redits?)\s*[:\u2013\u2014-]\s*[A-Z][a-z]+\s+[A-Z][a-z]+\b")),
 ]
 
@@ -124,7 +124,7 @@ def main():
         except OSError:
             continue
         raw = norm(text)
-        text = COLOR.sub(" ", BLOB.sub(" ", raw))
+        text = COLOR.sub(" ", BLOB.sub(lambda k: " " if len(set(k.group(0))) >= 12 else k.group(0), raw))  # only varied runs are encoded data
         _rel = norm(rel).replace(os.sep, " ").replace("/", " ")
         named = bool(name_rx and (name_rx.search(_rel) or name_rx.search(re.sub(r"[_.-]+", " ", _rel)) or (name_c and name_c.search(re.sub(r"[\s_.-]+", "", _rel)))))
         shown = "[path hidden in CI]" if named and os.environ.get("CI") else rel  # CI logs are public: never print a path that holds a private name

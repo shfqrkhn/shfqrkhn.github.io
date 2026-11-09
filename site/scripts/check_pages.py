@@ -111,7 +111,7 @@ def csp_gaps(text):
     """Inline scripts and styles that the page's own Content-Security-Policy would block (a hash is listed but not for this block)."""
     import base64, hashlib
     csp = None
-    for tag_m in re.finditer(r"<meta\b[^>]*>", text, re.I):  # any attribute order, either quote
+    for tag_m in re.finditer(r"<meta\b[^>]*>", re.sub(r"<!--.*?-->", lambda k: " " * len(k.group(0)), text, flags=re.S), re.I):  # a commented-out meta is not the policy  # any attribute order, either quote
         if re.search(r"http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
             c = re.search(r"content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
             csp = c.group(2) if c else None

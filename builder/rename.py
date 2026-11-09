@@ -71,7 +71,7 @@ def repair_csp(html):
     import base64, hashlib
     h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")).digest()).decode()
     m = None
-    for tag_m in re.finditer(r"<meta\b[^>]*>", html, re.I):  # any attribute order, either quote
+    for tag_m in re.finditer(r"<meta\b[^>]*>", re.sub(r"<!--.*?-->", lambda k: " " * len(k.group(0)), html, flags=re.S), re.I):  # a commented-out meta is not the policy  # any attribute order, either quote
         if re.search(r"http-equiv\s*=\s*[\"']?Content-Security-Policy", tag_m.group(0), re.I):
             c = re.search(r"content\s*=\s*([\"'])(.*?)\1", tag_m.group(0), re.S)
             if c:

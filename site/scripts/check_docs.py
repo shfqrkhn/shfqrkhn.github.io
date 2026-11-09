@@ -24,7 +24,7 @@ FILLER = ("in order to", "it is important to note", "please note", "basically", 
           "due to the fact", "at this point in time", "a number of", "as a matter of fact", "it goes without saying", "needless")
 # anti-slop rubric (stop-slop, unslop): stock AI phrasing and hype words; checked in prose only (code and tables are skipped)
 SLOP = re.compile(r"\b(delve[sd]?|leverag(?:e|es|ed|ing)|seamless(?:ly)?|game[- ]chang\w*|cutting[- ]edge|tapestry|in today's|dive into|elevate[sd]?|empower(?:s|ed|ing)?|revolutioni[sz]\w*|synerg\w*|let's explore|it's worth noting)\b", re.I)
-EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿⬀-⯿\ufe0f]")
+EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿⬀-⯿\ufe0f\u203c\u2122\u2139\u2194-\u21aa\u2300-\u23ff\u25a0-\u25ff]")
 errors = []
 
 
@@ -79,7 +79,7 @@ def main():
                 errors.append("%s: filler phrase '%s' (say it shorter)" % (rel, f))
         for m in SLOP.finditer(prose(raw)):
             errors.append("%s: slop phrase '%s' (plain words, one fact once)" % (rel, m.group(0)))
-        if re.search("[–—]", raw):
+        if re.search("[\u2012-\u2015\u2212]", raw):
             errors.append("%s: em or en dash (house style)" % rel)
         if EMOJI.search(raw):
             errors.append("%s: emoji (house style)" % rel)

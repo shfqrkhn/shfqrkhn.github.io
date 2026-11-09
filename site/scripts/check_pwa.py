@@ -67,6 +67,8 @@ if not isinstance(mf.get("shortcuts", []), list):
 for sc in mf.get("shortcuts", []):
     if not isinstance(sc, dict) or not isinstance(sc.get("url"), str):
         fail("each shortcut needs a text url"); continue
+    if ".." in sc["url"].split("/") or sc["url"].startswith(("/", "http")):
+        fail("shortcut url must stay inside the site: " + sc["url"]); continue
     if not os.path.isdir(os.path.join(ROOT, sc["url"].lstrip("./"))):
         fail("shortcut points nowhere: " + sc["url"])
 
