@@ -63,6 +63,8 @@ def validate(d, where):
     for k in ("version", "license", "tagline"):
         if k in d and (not isinstance(d[k], str) or re.search(r"[|<>\r\n\u2013\u2014]", d[k])):
             bad(k + " must be text with no |, <, >, line break, em or en dash")
+    if "version" in d and not re.fullmatch(r"\d+(?:\.\d+){0,3}", d["version"]):
+        bad("version must be numbers joined by dots, such as 1.0.0")
     if "@@" in json.dumps(d, ensure_ascii=False):
         bad("@@ is reserved for build placeholders")
     if "keywords" in d and not isinstance(d["keywords"], str):
@@ -93,7 +95,7 @@ def validate(d, where):
                 bad("block %d: text must be a string" % i)
         elif t == "table":
             cells = lambda r: isinstance(r, list) and all(isinstance(c, str) for c in r)
-            if not cells(b.get("head")) or not isinstance(b.get("rows"), list) or not all(cells(r) and len(r) == len(b["head"]) for r in b["rows"]):
+            if not b.get("head") or not b.get("rows") or not cells(b.get("head")) or not isinstance(b.get("rows"), list) or not all(cells(r) and len(r) == len(b["head"]) for r in b["rows"]):
                 bad("block %d: head and each row must be lists of text, rows as long as head" % i)
         else:
             bad("block %d: type must be list, steps, text or table" % i)
@@ -151,8 +153,8 @@ def load_all(content_dir):
             where = "content/%s/%s" % (kind, f)
             try:
                 raw = json.load(open(os.path.join(kd, f), encoding="utf-8"))
-            except ValueError as e:
-                raise ValueError("%s: not valid JSON (%s)" % (where, e))
+            except (ValueError, RecursionError) as e:
+                raise ValueError("%s: not valid JSON (%s)" % (where, str(e)[:80]))
             d = validate(raw, where)
             if d["kind"] != kind or d["slug"] + ".json" != f:
                 raise ValueError("%s: kind and slug must match the folder and file name" % where)

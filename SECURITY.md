@@ -8,7 +8,7 @@ Include the page or file, what you saw, and how to reproduce it. A leak of perso
 
 ## What is covered
 
-The live site (https://shfqrkhn.github.io) and the `main` branch. Every page is a static file; nothing runs on a server and no page sends your data anywhere on its own. The page-quality gate blocks external scripts, styles, images, media, fonts, frames, objects, forms, `<base>` and `<link>` tags, meta refresh redirects and link pings (ordinary links to other sites stay allowed); four apps that use an AI or data service (PromptPlayground, PennyPlanner, MeetingMediator, WorldCupWizard) list its hosts in their Content Security Policy and can contact only those (PromptPlayground also local addresses, for a model on the user's own machine; FlexxFiles allows its own site only), and each app pins its inline scripts with a Content Security Policy (styles may be inline).
+The live site (https://shfqrkhn.github.io) and the `main` branch. Every page is a static file; nothing runs on a server and no page sends your data anywhere on its own. The page-quality gate blocks external scripts, styles, images, media, fonts, frames, objects, forms, `<base>` tags, other-site `<link>` tags, meta refresh redirects and link pings (ordinary links to other sites stay allowed); four apps that use an AI or data service (PromptPlayground, PennyPlanner, MeetingMediator, WorldCupWizard) list its hosts in their Content Security Policy and can contact only those (PromptPlayground also local addresses, for a model on the user's own machine; FlexxFiles allows its own site only), and each app pins its inline scripts with a Content Security Policy (styles may be inline).
 
 ## How it is kept safe
 

@@ -250,7 +250,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 - Test on a phone viewport (390 and 320 px) and offline; scrollbar gutters, shrinking flex children and below-the-fold primary controls only show there.
 - Test fixtures must track required registry keys; when a key becomes required, update the self-test in the same change.
 - Naming scales: a page name is `<Pun> <Subject>` where the subject says exactly what this one page is (`Eggspress Egg Salad`, `BoonBuilder Hades Guide`), never only the kind. With many recipes or guides, a bare pun cannot tell them apart. The address is the same words in lowercase with dashes. Check the subject is true (a Hades guide is not a Hades II guide) before naming.
-- Long names must wrap, not push buttons off screen: never `white-space:nowrap` on a header title; the kit rule (`overflow-wrap:anywhere`, `min-width:0`) already handles it. After any rename, run the mobile audit at 320 px for horizontal overflow, tap targets under 40 px and console errors.
+- Long names must wrap, not push buttons off screen: never `white-space:nowrap` on a header title; the kit rule (`overflow-wrap:anywhere`, `min-width:0`) already handles it. After any rename, run the mobile audit at 320 px for horizontal overflow, tap targets under 36 px and console errors.
 - Pages seen on a phone may be an older cached copy; judge a screenshot against the current build before fixing.
 - Knowledge Distiller changes need a cold re-run and fresh reviewers; never claim convergence from the author's own pass.
 - Put the control the user needs next, directly under the primary action (FlexxFiles had its reps-in-reserve buttons below the fold until they were moved under Complete set).
