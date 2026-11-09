@@ -77,4 +77,6 @@ def verify(path):
 
 if __name__ == "__main__":
     a = sys.argv[1:]
+    if "--verify" in a and a.index("--verify") + 1 >= len(a):
+        print("usage: backup.py --verify <zip>"); sys.exit(2)
     sys.exit(verify(a[a.index("--verify") + 1]) if "--verify" in a else make())

@@ -159,7 +159,7 @@ def main():
             pos.append(a)
         i += 1
     if len(pos) < 1 or (len(pos) < 2 and "--hue" not in opts and "--tagline" not in opts and "--file-stem" not in opts):
-        print('Usage: rename.py <page> "<New Name>" [--slug s] [--hue 0-359] [--old "Earlier name"]... [--dry-run] [--no-build]'); return 2
+        print('Usage: rename.py <page> "<New Name>" [--slug s] [--hue 0-359] [--tagline "<text>"] [--file-stem <Stem>] [--old "Earlier name"]... [--dry-run] [--no-build]'); return 2
     reg = json.load(open(REG, encoding="utf-8")); word = pos[0].strip().lower()
     hits = [p for p in reg["pages"] if word in (p["id"].lower(), p["slug"].lower(), p["title"].lower()) or word in [f.lower() for f in p.get("former_names", [])]]
     if len(hits) != 1:
