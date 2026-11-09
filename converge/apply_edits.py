@@ -34,7 +34,7 @@ def numbers(t):
 
 def excluded(rel):
     """True when a path component names an excluded folder or file (ADIS*, a FinTrak name, .obsidian, .git, archive, .claude, 99-ARCV)."""
-    for c in re.split(r"[\/]+", rel):
+    for c in re.split("/+", rel.replace(chr(92), "/")):
         c = c.rstrip(". ")  # Windows ignores trailing dots and spaces when it opens a path
         u = c.upper()
         if c.lower() in {".obsidian", ".git", "archive", "99-arcv", ".claude", "history", "receipts"} or u.startswith("ADIS") or "FINTRAK" in u or c == "..":
@@ -82,7 +82,7 @@ def judge(work, edits, ms, fix):
                 if lost:
                     why = "drops " + ", ".join(sorted(lost)[:4])
         if why:
-            rejected.append((why, old[:70].replace("\n", " ")))
+            rejected.append((why, str(old)[:70].replace("\n", " ")))
         else:
             ok.append((i, j, new)); taken.append((i, j))
     return ok, rejected
@@ -125,7 +125,7 @@ def main():
         ms = float(a[a.index("--min-saving") + 1]) if "--min-saving" in a else 0.10
     except (IndexError, ValueError):
         sys.exit("error: --min-saving needs a number")
-    if ms != ms:
+    if ms != ms or ms in (float("inf"), float("-inf")):
         sys.exit("error: --min-saving needs a number")
     if "--fix-mode" in a:
         ms = -10.0  # fixes may add text; deletions must keep every fact somewhere else in the file
@@ -138,6 +138,8 @@ def main():
         sys.exit("error: no such file under sources/: " + prop["file"])
     text = open(path, encoding="utf-8", newline="").read()
     nl = "\r\n" if "\r\n" in text else "\n"
+    if apply and "\r\n" in text and text.count("\n") != text.count("\r\n"):
+        sys.exit("refused: the file mixes CRLF and LF line endings; make them one style first")
     work = text.replace("\r\n", "\n")
     ok, rejected = judge(work, prop["edits"], ms, "--fix-mode" in a)
     saved = sum((j - i) - len(n) for i, j, n in ok)

@@ -159,6 +159,8 @@ def main():
             if a == "--old": olds.append(args[i + 1])
             else: opts[a] = args[i + 1]
             i += 1
+        elif a.startswith("--"):
+            print("unknown option %s." % a); return 2
         else:
             pos.append(a)
         i += 1

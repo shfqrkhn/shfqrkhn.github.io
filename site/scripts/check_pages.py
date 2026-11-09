@@ -170,8 +170,8 @@ def classify(rel):
 
 _Q = r"['" + chr(34) + "`]"
 _Q2 = r"['" + chr(34) + "]?"
-JS_LOAD = re.compile(r"(?:fetch|import|importScripts|WebSocket|EventSource|sendBeacon|Worker|SharedWorker)" + r"\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?:^|[;}\s])import\s*(?:[^;'" + chr(34) + r"`]*?from\s*)?" + _Q + r"\s*(?:https?:)?//", re.I)
-JS_STATIC = re.compile(r"(?:importScripts|Worker|SharedWorker)" + r"\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?:^|[;}\s])import\s*(?:[^;'" + chr(34) + r"`]*?from\s*)?" + _Q + r"\s*(?:https?:)?//", re.I)
+JS_LOAD = re.compile(r"(?:fetch|import|importScripts|WebSocket|EventSource|sendBeacon|Worker|SharedWorker)" + r"\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?<![\w$.])import\s*(?:[^;'" + chr(34) + r"`]*?from\s*)?" + _Q + r"\s*(?:https?:)?//", re.I)
+JS_STATIC = re.compile(r"(?:importScripts|Worker|SharedWorker)" + r"\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?<![\w$.])import\s*(?:[^;'" + chr(34) + r"`]*?from\s*)?" + _Q + r"\s*(?:https?:)?//", re.I)
 REMOTE_CALL = re.compile(r"(?:fetch|import|importScripts|Worker|SharedWorker|WebSocket|EventSource|sendBeacon|open)\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?:src|href)\s*=\s*" + _Q + r"\s*(?:https?:)?//|@import\s*(?:url\()?\s*" + _Q2 + r"\s*(?:https?:)?//|url\(\s*" + _Q2 + r"\s*(?:https?:)?//", re.I)
 
 
@@ -239,7 +239,7 @@ def main():
             if kind in ("hub", "group") or where in ("404.html",):
                 base = os.path.dirname(full)
                 for h in s.links:
-                    if re.match(r"(https?:|mailto:|#|javascript:)", h):
+                    if re.match(r"(?:[a-z][a-z0-9+.-]*:|#)", h, re.I):
                         continue
                     target = os.path.normpath(os.path.join(ROOT if h.startswith("/") else base, h.lstrip("/").split("#")[0].split("?")[0]))
                     if os.path.isdir(target): target = os.path.join(target, "index.html")

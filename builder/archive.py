@@ -50,7 +50,8 @@ def remove(reg, pages, words, build):
         hits = find(pages, word, exact=True)
         if len(hits) != 1:
             problems.append('"%s": %s' % (word, "no page has that id, address or name" if not hits else "matches several (%s); use the id" % ", ".join(h["id"] for h in hits))); continue
-        gone.append(hits[0])
+        if hits[0] not in gone:
+            gone.append(hits[0])
     if problems:
         print("Nothing changed.\n  " + "\n  ".join(problems)); return 1
     sup = SUP; os.makedirs(sup, exist_ok=True)

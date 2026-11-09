@@ -21,12 +21,18 @@ errors = []
 def look_tokens():
     """The colour tokens of each look, read from ui.css: {'paper': {...}, 'charcoal': {...}, 'black': {...}}."""
     def block(sel):
-        m = re.search(re.escape(sel) + r"\{([^}]*)\}", css)
+        m = re.search(re.escape(sel) + r"\s*\{([^}]*)\}", css)
         return dict(re.findall(r"(--[\w-]+):\s*([^;]+)(?:;|$)", m.group(1))) if m else {}
     return {"paper": block(":root"), "charcoal": block(":root[data-look=charcoal]"), "black": block(":root[data-look=black]"), "auto": block(":root[data-look=auto]")}
 
 
 LOOKS = look_tokens()
+for _k, _v in LOOKS.items():
+    if not all(t in _v for t in TOKENS):
+        errors.append("ui.css: the %s look has no complete colour tokens (the gate cannot check the pages)" % _k)
+AUTO_WRAP = re.compile(r"@media\s*\(\s*prefers-color-scheme\s*:\s*dark\s*\)\s*\{\s*:root\[data-look=auto\]\s*\{")
+if not AUTO_WRAP.search(css):
+    errors.append("ui.css: the auto look must sit inside @media (prefers-color-scheme: dark)")
 for a in catalog["apps"]:
     if a.get("form", "single") != "single" or a.get("sensitive"):
         continue
@@ -41,6 +47,8 @@ for a in catalog["apps"]:
     if not m:
         errors.append("%s: no kit block (the page is not on the core design language)" % rel); continue
     block = re.sub(r"\s+", "", m.group(1))
+    if not AUTO_WRAP.search(m.group(1)):
+        errors.append("%s: kit block: the auto look must sit inside @media (prefers-color-scheme: dark)" % rel)
     sels = {"paper": ":root", "charcoal": ":root[data-look=charcoal]", "black": ":root[data-look=black]", "auto": ":root[data-look=auto]"}
     for look, toks in LOOKS.items():
         rule = re.search(re.escape(sels[look]) + r"\{([^}]*)\}", block)  # the look's own rule, so a value repeated elsewhere cannot stand in

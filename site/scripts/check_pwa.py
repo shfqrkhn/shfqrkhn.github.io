@@ -24,7 +24,12 @@ def png_size(path):
     return struct.unpack(">II", b[16:24])
 
 
-mf = json.load(open(os.path.join(ROOT, "manifest.webmanifest"), encoding="utf-8"))
+try:
+    mf = json.load(open(os.path.join(ROOT, "manifest.webmanifest"), encoding="utf-8"))
+except (OSError, ValueError) as e:
+    print("FAIL manifest cannot be read: %s" % e.__class__.__name__); sys.exit(1)
+if not isinstance(mf, dict):
+    print("FAIL manifest must be one JSON object"); sys.exit(1)
 for k in ("id", "name", "short_name", "start_url", "scope", "display", "background_color", "theme_color", "icons", "lang"):
     if not mf.get(k):
         fail("manifest is missing " + k)
@@ -32,7 +37,16 @@ if mf.get("display") != "standalone":
     fail("manifest display must be standalone")
 if not mf.get("start_url", "").startswith("./") or not mf.get("scope", "").startswith("./"):
     fail("start_url and scope must be relative so the site works from any address")
+for _k in ("start_url", "scope"):
+    if not isinstance(mf.get(_k), str):
+        fail("manifest %s must be text" % _k)
+if ".." in str(mf.get("start_url", "")).split("/") or ".." in str(mf.get("scope", "")).split("/"):
+    fail("start_url and scope must stay inside the site (no ..)")
+elif isinstance(mf.get("start_url"), str) and isinstance(mf.get("scope"), str) and not mf["start_url"].startswith(mf["scope"]):
+    fail("start_url must be inside scope")
 sizes, purposes = set(), set()
+if not isinstance(mf.get("icons"), list) or not all(isinstance(i, dict) and all(isinstance(i.get(k), str) for k in ("src", "type", "sizes")) for i in mf["icons"]):
+    fail("manifest icons must each have text src, type and sizes"); mf["icons"] = []
 for i in mf.get("icons", []):
     path = os.path.join(ROOT, i["src"].lstrip("./").replace("/", os.sep))
     if not os.path.isfile(path):
@@ -47,6 +61,8 @@ if not {"192x192", "512x512"} <= sizes:
 if "maskable" not in purposes:
     fail("manifest needs a maskable icon")
 for sc in mf.get("shortcuts", []):
+    if not isinstance(sc, dict) or not isinstance(sc.get("url"), str):
+        fail("each shortcut needs a text url"); continue
     if not os.path.isdir(os.path.join(ROOT, sc["url"].lstrip("./"))):
         fail("shortcut points nowhere: " + sc["url"])
 
@@ -59,12 +75,17 @@ if "serviceWorker" not in hub or './sw.js' not in hub:
     fail("hub does not register the worker")
 
 sw = open(os.path.join(ROOT, "sw.js"), encoding="utf-8").read()
-start = sw.index("const SHELL = ") + len("const SHELL = "); shell = json.loads(sw[start:sw.index(";\nconst PAGES", start)])
+try:
+    start = sw.index("const SHELL = ") + len("const SHELL = "); shell = json.loads(sw[start:sw.index(";\nconst PAGES", start)])
+    start = sw.index("const PAGES = ") + len("const PAGES = "); pages = json.loads(sw[start:sw.index(";\nconst KEEP", start)])
+except ValueError:
+    print("FAIL sw.js does not hold the SHELL and PAGES lists in the expected form"); sys.exit(1)
 for f in shell:
+    if not isinstance(f, str) or ".." in f.split("/"):
+        fail("worker shell entry must be a path inside the site: %s" % f); continue
     p = os.path.join(ROOT, f.lstrip("./").replace("/", os.sep)) if f != "./" else ROOT
     if not os.path.exists(p):
         fail("worker shell lists a file that does not exist: " + f)
-start = sw.index("const PAGES = ") + len("const PAGES = "); pages = json.loads(sw[start:sw.index(";\nconst KEEP", start)])
 catalog = json.loads(re.search(r'id="catalogData">(.*?)</script>', hub, re.S).group(1).replace("<" + chr(92) + "/", "</"))
 want = {a["address"].strip("./") for a in catalog["apps"] if a.get("form", "single") != "remote" and not a.get("sensitive") and not a.get("own_pwa")}
 if want != set(pages):
