@@ -13,7 +13,7 @@ for _f in ("--version", "--hub-sha"):
     if _f in sys.argv and (sys.argv.index(_f) + 1 >= len(sys.argv) or sys.argv[sys.argv.index(_f) + 1].startswith("--")):
         print("%s needs a value." % _f); sys.exit(2)
 EXPECT = sys.argv[sys.argv.index("--version") + 1] if "--version" in sys.argv else None
-HUBSHA = sys.argv[sys.argv.index("--hub-sha") + 1] if "--hub-sha" in sys.argv else None  # exact fingerprint of the hub that was just published  # wait for this hub version (set after a publish)
+HUBSHA = sys.argv[sys.argv.index("--hub-sha") + 1] if "--hub-sha" in sys.argv else None  # wait for this exact hub version (set after a publish)
 
 
 def get(path):

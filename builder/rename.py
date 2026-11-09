@@ -8,6 +8,7 @@ Options: --slug <new-slug> (default: the new name in lowercase, words joined by 
                     identifier, then recompute every Content-Security-Policy hash the change affected. Use it only for names that exist
                     purely as display text; storage keys and file-format ids stay untouched because they are different words)
          --tagline "<up to 40 characters>" (the plain descriptor shown under the name on the hub)
+         --repair-csp <file> (alone: recompute the Content-Security-Policy hashes of one file; no rename)
          --file-stem <Stem> (also rename the sources source file, PREFIX-Stem[-vX.Y.Z].html, and update every source document that names it)
 
 What it does, in order:
@@ -68,8 +69,6 @@ def _data_block(attrs):
 def repair_csp(html):
     """For each of script-src and style-src that lists sha256 hashes: executable inline blocks that are not covered replace the listed hashes
     that match nothing, in order. Returns (html, number_repaired). Does nothing when the counts cannot be paired."""
-    import base64, hashlib
-    h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")).digest()).decode()
     metas = re.sub(r"<!--.*?-->|<(template|noscript|textarea|title|iframe|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), html, flags=re.S | re.I)
     end = re.search(r"</head\b|<body\b", metas, re.I)
     if end:

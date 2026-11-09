@@ -108,7 +108,7 @@ def main():
             problems.append('"%s": %s' % (word, "no page matches" if not hits else "matches several (%s); use the id" % ", ".join(h["id"] for h in hits))); continue
         p = hits[0]
         if bool(p["data"].get("archived")) != target:
-            p["data"]["archived"] = target; p["dirty"] = True; changed.append(p)
+            p["data"]["archived"] = target; changed.append(p)
     if problems:
         print("Nothing changed.\n  " + "\n  ".join(problems)); return 1
     for p in changed:

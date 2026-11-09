@@ -2,7 +2,7 @@
 
 Every published page must be a sound, small, self-contained document:
   - doctype, lang, title, viewport; no duplicate ids; images have alt text
-  - the hub, group pages and generated pages also carry a Content-Security-Policy and name every button and link
+  - every page but 404 carries a Content-Security-Policy (minimum policy, meta first in the head); the hub, group pages and generated pages also name every button and link
   - no page loads anything from another website (scripts, styles, images, fonts, frames, forms)
   - internal links on the hub, group pages and 404 point at files that exist
   - size budgets, so the site stays fast on a slow phone
@@ -109,7 +109,6 @@ def _data_block(attrs):
 
 def csp_gaps(text):
     """Inline scripts and styles that the page's own Content-Security-Policy would block (a hash is listed but not for this block)."""
-    import base64, hashlib
     gaps = []
     for csp in csp_list(text):  # browsers enforce every policy meta, so each one is judged
         gaps += [g for g in _csp_gaps(text, csp) if g not in gaps]
