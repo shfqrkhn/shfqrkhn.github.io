@@ -23,7 +23,7 @@ def look_tokens():
     def block(sel):
         m = re.search(re.escape(sel) + r"\{([^}]*)\}", css)
         return dict(re.findall(r"(--[\w-]+):\s*([^;]+)(?:;|$)", m.group(1))) if m else {}
-    return {"paper": block(":root"), "charcoal": block(":root[data-look=charcoal]"), "black": block(":root[data-look=black]")}
+    return {"paper": block(":root"), "charcoal": block(":root[data-look=charcoal]"), "black": block(":root[data-look=black]"), "auto": block(":root[data-look=auto]")}
 
 
 LOOKS = look_tokens()
@@ -41,7 +41,7 @@ for a in catalog["apps"]:
     if not m:
         errors.append("%s: no kit block (the page is not on the core design language)" % rel); continue
     block = re.sub(r"\s+", "", m.group(1))
-    sels = {"paper": ":root", "charcoal": ":root[data-look=charcoal]", "black": ":root[data-look=black]"}
+    sels = {"paper": ":root", "charcoal": ":root[data-look=charcoal]", "black": ":root[data-look=black]", "auto": ":root[data-look=auto]"}
     for look, toks in LOOKS.items():
         rule = re.search(re.escape(sels[look]) + r"\{([^}]*)\}", block)  # the look's own rule, so a value repeated elsewhere cannot stand in
         have = dict(re.findall(r"(--[\w-]+):([^;]+)(?:;|$)", rule.group(1))) if rule else {}

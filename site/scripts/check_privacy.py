@@ -13,6 +13,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for _f in ("--root", "--names"):
     if _f in sys.argv and (sys.argv.index(_f) + 1 >= len(sys.argv) or sys.argv[sys.argv.index(_f) + 1].startswith("--")):
         print("usage: check_privacy.py [--root <folder>] [--names <file>]  (%s needs a value)" % _f); sys.exit(2)
+for _a in sys.argv[1:]:
+    if _a.startswith("--") and _a not in ("--root", "--names"):
+        print("usage: check_privacy.py [--root <folder>] [--names <file>]  (unknown option %s)" % _a); sys.exit(2)
 if "--root" in sys.argv:
     ROOT = os.path.abspath(sys.argv[sys.argv.index("--root") + 1])
 SKIP_DIRS = {".git", "__pycache__"}  # __pycache__ is git-ignored; a committed node_modules is scanned like anything else
@@ -24,13 +27,13 @@ COLOR = re.compile(r"(?:rgba?|hsla?)\([^)]*\)")  # CSS colour values look like n
 ROLE = re.compile(r"\b(?:Owners?|Managers?|Teams?|Users?|Leads?|Engineers?|Studios?|Games|Software|Inc|Ltd|Corporation|Contributors|Authors|Developers)\b")
 RULES = [
     ("email", re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")),
-    ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}[ .-])?(?:\(\d{3}\)[ .-]?|\d{3}[ .-])\d{3}[ .-]\d{4}(?![\d.])")),
-    ("phone-run", re.compile(r"(?:tel:\+?|(?<![\w+])\+)\d{10,14}(?![\d.])", re.I)),
+    ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}[ .-])?(?:\(\d{3}\)[ .-]?|\d{3}[ .-])\d{3}[ .-]\d{4}(?!\d|\.\d)")),
+    ("phone-run", re.compile(r"(?:tel:\+?|(?<![\w+])\+)\d{10,14}(?!\d|\.\d)", re.I)),
     ("email-spelled", re.compile(r"(?<![A-Za-z0-9._%+-])[A-Za-z0-9._%+-]{1,64}\s*(?:\[at\]|\(at\)|\{at\})\s*[A-Za-z0-9-]{1,63}(?:\s*(?:\[dot\]|\(dot\)|\.)\s*[A-Za-z0-9-]{1,63}){1,4}", re.I)),
     ("gov-id", re.compile(r"(?<!\d)\d{3}[- ]\d{3}[- ]\d{3}(?!\d)|(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")),
     ("postal-ca", re.compile(r"(?<![#\w])[ABCEGHJ-NPRSTVXY]\d[A-Z][ -]\d[A-Z]\d(?!\w)")),
     ("street", re.compile(r"\b\d{1,5}\s+[A-Z][a-z]+(?:\s[A-Z][a-z]+)?\s(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd|Crescent|Court|Ct)\b")),
-    ("private-ip", re.compile(r"(?<![\d.])(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?![\d./])")),
+    ("private-ip", re.compile(r"(?<![\d.])(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?!\d|\.\d|/\d{1,2}(?!\d))")),
     ("key", re.compile(r"(?<![A-Za-z0-9])(?:sk|pk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|(?<![A-Za-z0-9])npm_[A-Za-z0-9]{36}|eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{5,}|xapp-\d-[A-Za-z0-9-]{10,}|(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{30,}|(?<![A-Za-z0-9])gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|glpat-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|Bearer\s+[A-Za-z0-9._-]{20,}")),
     ("local-path", re.compile(r"(?i:[A-Za-z]:(?:\\{1,2}|/)(?:Users|Documents and Settings|VSCode)(?:\\{1,2}|/))[^\s\"'<>]{2,}|(?<![A-Za-z0-9])[A-Za-z]:\\{1,2}(?!Windows\\|Program Files)[A-Za-z0-9._ -]+\\{1,2}[A-Za-z0-9._ -]+|(?<![A-Za-z0-9\\])\\\\[A-Za-z0-9._-]+\\[A-Za-z0-9._$-]+|/Users/[A-Za-z0-9._-]+/|/root/\.|/home/(?!user/)[A-Za-z0-9._-]+/")),
     ("credit-line", re.compile(r"\b(?:[Dd]esigned|[Cc]reated|[Ww]ritten|[Bb]uilt|[Mm]ade|[Ee]dited|[Cc]ompiled|[Pp]hotographed|[Dd]eveloped|[Pp]hotos?|[Ii]mage|[Cc]redit) by\s+[A-Z][a-z]+\s+(?:[A-Z]\.\s+)?[A-Z][a-z]+\b|\b(?:[Aa]uthor|[Bb]yline|[Dd]esigner|[Cc]redits?)\s*[:\u2013\u2014-]\s*[A-Z][a-z]+\s+[A-Z][a-z]+\b")),
@@ -49,7 +52,7 @@ _ZW = re.compile("[\u200b-\u200f\u2060\ufeff\u00ad]")
 _HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p", "\u0441": "c", "\u0445": "x", "\u0443": "y", "\u0456": "i", "\u0455": "s", "\u0458": "j", "\u03bf": "o", "\u03b1": "a"})
 
 
-_ESC = re.compile(r"\\x([0-9a-fA-F]{2})|\\u([0-9a-fA-F]{4})|\\u\\{([0-9a-fA-F]{1,6})\\}|\\([0-9a-fA-F]{1,6}) ?")
+_ESC = re.compile(r"\\x([0-9a-fA-F]{2})|\\u([0-9a-fA-F]{4})|\\u\{([0-9a-fA-F]{1,6})\}|\\([0-9a-fA-F]{1,6}) ?")
 _COMMENT = re.compile(r"<!--.*?-->", re.S)
 
 
@@ -80,6 +83,8 @@ def read_text(p):
         return b.decode("utf-32", errors="replace")
     if b[:2] in (bytes([255, 254]), bytes([254, 255])) or (len(b) > 8 and b[1::2].count(0) > len(b) // 4):
         return b.decode("utf-16", errors="replace")
+    if len(b) > 8 and b[0::2].count(0) > len(b) // 4:
+        return b.decode("utf-16-be", errors="replace")  # UTF-16 big-endian with no byte-order mark
     if os.path.splitext(p)[1].lower() in SKIP_EXT:
         return b.decode("latin-1")
     return b.decode("utf-8", errors="replace")
@@ -122,7 +127,7 @@ def main():
             problems.append("%s: owner-name: the file name carries a private name" % shown)
         binary = os.path.splitext(p)[1].lower() in SKIP_EXT
         for kind, rx in RULES:
-            if kind in ("email", "phone", "phone-run", "key", "local-path") and rx.search(norm(os.path.basename(rel))):
+            if kind in ("email", "phone", "phone-run", "key", "local-path") and any(rx.search(norm(_part)) for _part in rel.replace(chr(92), "/").split("/")):
                 problems.append("%s: %s: the file name carries personal data" % (shown, kind))
         checks = list(RULES) + ([("owner-name", name_rx)] if name_rx else [])
         for kind, rx in checks:
