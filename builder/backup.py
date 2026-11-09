@@ -43,7 +43,10 @@ def verify(path):
     with zipfile.ZipFile(path) as z:
         if z.testzip():
             bad.append("corrupt member")
-        man = json.loads(z.read("Omnevum/BACKUP-MANIFEST.json"))["files"]
+        try:
+            man = json.loads(z.read("Omnevum/BACKUP-MANIFEST.json"))["files"]
+        except (KeyError, ValueError):
+            print("verify: FAILED no readable manifest"); return 1
         if not man:
             bad.append("empty manifest")
         bad += ["missing " + f for f in man if "Omnevum/" + f not in z.namelist()]
@@ -56,7 +59,7 @@ def verify(path):
         bad += ["unlisted " + n for n in z.namelist() if n not in known and not n.endswith("/")]
     side = path[:-4] + ".sha256.txt"  # the whole-zip hash written beside the zip: the only value kept outside it
     if os.path.exists(side):
-        want = open(side, encoding="utf-8").read().split()[0]
+        want = (open(side, encoding="utf-8").read().split() or [""])[0]
         if sha(open(path, "rb").read()) != want:
             bad.append("zip differs from its .sha256.txt")
     gone = [f for f in LOCAL_ONLY if f not in man]

@@ -8,7 +8,7 @@ Options: --slug <new-slug> (default: the new name in lowercase, words joined by 
                     identifier, then recompute every Content-Security-Policy hash the change affected. Use it only for names that exist
                     purely as display text; storage keys and file-format ids stay untouched because they are different words)
          --tagline "<up to 40 characters>" (the plain descriptor shown under the name on the hub)
-         --file-stem <Stem> (also rename the sources source file, PREFIX-Stem[-vX.Y.Z].html, and update every document that names it)
+         --file-stem <Stem> (also rename the sources source file, PREFIX-Stem[-vX.Y.Z].html, and update every source document that names it)
 
 What it does, in order:
 1. registry: new title and address; the old name goes to former_names, the old address to aliases (the 404 page forwards old links, and the
@@ -176,7 +176,7 @@ def main():
         print("That address is an old address of another page: %s/%s" % (p["kind"], slug)); return 1
     hue = None
     if "--hue" in opts:
-        hue = int(opts["--hue"])
+        hue = int(opts["--hue"]) if opts["--hue"].isdigit() else -1
         if not 0 <= hue <= 359:
             print("The hue must be 0 to 359."); return 1
     old_title, old_slug = p["title"], p["slug"]; report = []

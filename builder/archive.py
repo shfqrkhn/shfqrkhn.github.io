@@ -111,7 +111,7 @@ def main():
         if p["src"] == "registry":
             json.dump(reg, open(REG, "w", encoding="utf-8", newline="\n"), indent=1, ensure_ascii=False)
         else:
-            json.dump(p["data"], open(p["src"], "w", encoding="utf-8", newline="\n"), indent=2, ensure_ascii=False); open(p["src"], "a", encoding="utf-8").write("\n")
+            json.dump(p["data"], open(p["src"], "w", encoding="utf-8", newline="\n"), indent=2, ensure_ascii=False); open(p["src"], "a", encoding="utf-8", newline="\n").write("\n")
     print(("%s: " % ("Archived" if target else "Restored")) + (", ".join(p["title"] for p in changed) if changed else "nothing to do (already so)"))
     if changed and build:
         r = subprocess.run([sys.executable, "-B", os.path.join(OM, "build.py")], capture_output=True, text=True)

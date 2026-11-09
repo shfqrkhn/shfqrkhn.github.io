@@ -571,7 +571,7 @@ open(os.path.join(OUT, "manifest.webmanifest"), "w", encoding="utf-8", newline="
 NF = ('<!doctype html>\n<html lang="en" data-look="auto"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
       '<meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>@@BN@@</title><link rel="icon" href="/icon.svg" type="image/svg+xml">'
       '<style>@@CSS@@</style></head><body><div class="lost"><h1 class="vh">@@BN@@</h1><a href="/" aria-label="@@BN@@ home">@@HOME@@<b>@@BN@@</b></a></div>'
-      '<script>(function(){var m=@@MAP@@,s=location.pathname.split("/").filter(Boolean),t=m[s.slice(0,2).join("/")]||m[s[0]];if(t)location.replace("/"+t+"/"+location.search+location.hash);'
+      '<script>(function(){var m=@@MAP@@,h=Object.prototype.hasOwnProperty,s=location.pathname.split("/").filter(Boolean),k=s.slice(0,2).join("/"),t=h.call(m,k)?m[k]:h.call(m,s[0])?m[s[0]]:"";if(t)location.replace("/"+t+"/"+location.search+location.hash);'
       'try{var s=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null");if(s&&s.look)document.documentElement.setAttribute("data-look",s.look)}catch(e){}})();</script></body></html>\n')
 FWD = {a["folder"]: a["dir"] for a in apps if a["dir"]}  # the first flat address, from before pages were grouped
 for a in apps:

@@ -52,6 +52,7 @@ self.addEventListener("fetch", function (e) {
     return cache.match(req, { ignoreSearch: req.mode === "navigate" }).then(function (cached) {
       return race(fetch(req), cached ? SLOW : 0).then(function (res) {
         if (res && res.ok) e.waitUntil(cache.put(req, res.clone()));
+        else if (cached) return cached;  // an error answer (404, 5xx, captive portal) never hides a saved copy
         return res;
       }).catch(function () {
         if (cached) return cached;
