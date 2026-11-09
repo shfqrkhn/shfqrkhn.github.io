@@ -258,7 +258,7 @@ def main():
             _css = re.sub(r"\\([0-9a-fA-F]{1,6})\s?", lambda m: chr(int(m.group(1), 16)) if int(m.group(1), 16) < 0x110000 else "", html.unescape(text))  # decode HTML entities and CSS escapes first
             _css = re.sub(r"\\([^0-9a-fA-F\n])", r"\1", re.sub(r"/\*.*?\*/", "", _css, flags=re.S))  # then simple escapes and comments
             _css = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", " ", _css)  # control characters the URL parser drops
-            if re.search(r"@import\s*(?:url\()?\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)|(?:url|image-set)\(\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)|image-set\([^)]*?[\s,'\"]\s*(?:(?:https?:)?[/\\]{2}|https?:)", _css, re.I): errors.append(where + ": stylesheet, font or image from another site")
+            if re.search(r"@import\s*(?:url\()?\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)|(?:url|image-set)\(\s*['\"]?\s*(?:(?:https?:)?[/\\]{2}|https?:)|image-set\((?:[^()]|\([^()]*\))*?[\s,'\"]\s*(?:(?:https?:)?[/\\]{2}|https?:)", _css, re.I): errors.append(where + ": stylesheet, font or image from another site")
             if strict:
                 if where != "404.html" and not (s.csp and csp_list(text)): errors.append(where + ": missing Content-Security-Policy")
                 if re.search(r"<!\[CDATA\[", text, re.I) and not re.search(r"<(svg|math)\b", text, re.I): errors.append(where + ": a CDATA section outside svg or math is read as a comment, so the checks cannot see its content")

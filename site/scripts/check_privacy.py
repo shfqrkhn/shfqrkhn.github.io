@@ -48,8 +48,9 @@ def load_allow():
 
 
 import html as _html, unicodedata
+from urllib.parse import unquote as _unquote
 _ZW = re.compile("[\u200b-\u200f\u2060\ufeff\u00ad]")
-_HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p", "\u0441": "c", "\u0445": "x", "\u0443": "y", "\u0456": "i", "\u0410": "A", "\u0412": "B", "\u0415": "E", "\u041a": "K", "\u041c": "M", "\u041d": "H", "\u041e": "O", "\u0420": "P", "\u0421": "C", "\u0422": "T", "\u0425": "X", "\u0406": "I", "\u2018": "'", "\u2019": "'", "\u02bc": "'", "\u0455": "s", "\u0458": "j", "\u03bf": "o", "\u03b1": "a"})
+_HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p", "\u0441": "c", "\u0445": "x", "\u0443": "y", "\u0456": "i", "\u0410": "A", "\u0412": "B", "\u0415": "E", "\u041a": "K", "\u041c": "M", "\u041d": "H", "\u041e": "O", "\u0420": "P", "\u0421": "C", "\u0422": "T", "\u0425": "X", "\u0406": "I", "\u2018": "'", "\u2019": "'", "\u02bc": "'", "\u201b": "'", "\u2032": "'", "\u00b4": "'", "`": "'", "\u02b9": "'", "\u02c8": "'", "\u0455": "s", "\u0458": "j", "\u03bf": "o", "\u03b1": "a"})
 
 
 _ESC = re.compile(r"\\x([0-9a-fA-F]{2})|\\u([0-9a-fA-F]{4})|\\u\{([0-9a-fA-F]{1,6})\}|\\([0-9a-fA-F]{1,6}) ?")
@@ -65,7 +66,7 @@ def _chr(h):
 
 def _fold(s):
     """Accents removed (Zoe matches Zoe with a diaeresis): a listed name is compared in this form too."""
-    return "".join(c for c in unicodedata.normalize("NFD", s.replace("\u2019", "'").replace("\u2018", "'").replace("\u02bc", "'").replace("\u00df", "ss").replace("\u1e9e", "SS")) if not unicodedata.combining(c))
+    return "".join(c for c in unicodedata.normalize("NFD", s.replace("\u2019", "'").replace("\u2018", "'").replace("\u02bc", "'").replace("\u201b", "'").replace("\u2032", "'").replace("\u00b4", "'").replace("`", "'").replace("\u02b9", "'").replace("\u02c8", "'").replace("\u00df", "ss").replace("\u1e9e", "SS")) if not unicodedata.combining(c))
 
 
 def norm(t):
@@ -73,7 +74,7 @@ def norm(t):
     _d = _ESC.sub(lambda m: _chr(m.group(1) or m.group(2) or m.group(3) or m.group(4)), t)  # JS and CSS escapes render as the character
     if _d != t: t = t + chr(10) + _d  # scan the text as written too: a Windows path with a hex-letter folder name holds look-alike escapes
     t = t + (chr(10) + _COMMENT.sub("", t) if "<!--" in t else "")  # a comment can split a word: scan the text with and without comments
-    return _fold(re.sub("[\u2010-\u2015\u2212]", "-", re.sub("[\u3002\uff61]", ".", _ZW.sub("", unicodedata.normalize("NFKC", _PCT.sub(lambda m: chr(int(m.group(1), 16)), _html.unescape(t)))).translate(_HOMO))))
+    return _fold(re.sub("[\u2010-\u2015\u2212]", "-", re.sub("[\u3002\uff61]", ".", _ZW.sub("", unicodedata.normalize("NFKC", _unquote(_html.unescape(t)))).translate(_HOMO))))
 
 
 def files():
