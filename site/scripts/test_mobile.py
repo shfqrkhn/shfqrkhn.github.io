@@ -61,7 +61,8 @@ with sync_playwright() as p:
             opened = False
         ok("%s: a tap opens a page" % label, opened)
         pg.goto(B); pg.wait_for_load_state()
-        pg.tap("#look"); ok("%s: look control works by touch" % label, pg.get_attribute("html", "data-look") == "paper")
+        dk = pg.evaluate("matchMedia('(prefers-color-scheme: dark)').matches")  # the first tap skips the look that repeats Auto
+        pg.tap("#look"); ok("%s: look control works by touch" % label, pg.get_attribute("html", "data-look") == ("paper" if dk else "charcoal"))
         ok("%s: offline status control is present" % label, pg.locator("#off").count() == 1)
         pg.wait_for_selector("#today:not([hidden])", timeout=10000)
         ok("%s: the four daily pieces are on the landing screen" % label, pg.locator(".nudge").count() == 4 and pg.locator(".nudge >> nth=0").is_visible())
