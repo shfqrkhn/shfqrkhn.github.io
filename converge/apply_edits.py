@@ -140,7 +140,10 @@ def main():
         print("  rejected (%s): %s" % (why, o))
     if apply and ok:
         os.makedirs(ARCH, exist_ok=True)
-        dst = ARCH + time.strftime("%Y%m%d-%H%M%S-") + os.path.basename(path)  # one copy per apply, so a second apply keeps its own original
+        stem = ARCH + time.strftime("%Y%m%d-%H%M%S-") + os.path.basename(path)  # one copy per apply, so a second apply keeps its own original
+        dst, k = stem, 1
+        while os.path.exists(dst):
+            dst, k = "%s.%d" % (stem, k), k + 1
         shutil.copy2(path, dst)
         out = work
         for i, j, n in sorted(ok, reverse=True):

@@ -40,11 +40,19 @@ def make():
 
 def verify(path):
     bad = []
-    with zipfile.ZipFile(path) as z:
+    try:
+        z = zipfile.ZipFile(path)
+    except (OSError, zipfile.BadZipFile) as e:
+        print("verify: FAILED cannot open the zip (%s)" % type(e).__name__); return 1
+    with z:
+        if len(z.namelist()) != len(set(z.namelist())):
+            bad.append("duplicate member names")
         if z.testzip():
             bad.append("corrupt member")
         try:
             man = json.loads(z.read("Omnevum/BACKUP-MANIFEST.json"))["files"]
+            if not isinstance(man, dict):
+                raise ValueError
         except (KeyError, ValueError):
             print("verify: FAILED no readable manifest"); return 1
         if not man:
