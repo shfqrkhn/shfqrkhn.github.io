@@ -13,7 +13,9 @@ KINDS = ("apps", "tools", "games", "guides", "recipes", "courses", "references")
 
 def opt(name, default):
     i = sys.argv.index(name) + 1 if name in sys.argv else 0
-    return sys.argv[i] if 0 < i < len(sys.argv) else default
+    if i and (i >= len(sys.argv) or sys.argv[i].startswith("--")):
+        print("%s needs a value." % name); sys.exit(2)
+    return sys.argv[i] if i else default
 
 
 pos = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith("--") and not sys.argv[i - 1].startswith("--")]
@@ -22,7 +24,7 @@ if len(pos) != 3 or pos[0] not in KINDS:
 kind, slug, title = pos
 topic = opt("--topic", "learning"); blurb = opt("--blurb", "One short line that says what this is.")
 topics = {t["id"] for t in json.load(open(os.path.join(OM, "topics.json"), encoding="utf-8"))}
-if topic not in topics or not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug) or len(blurb.split()) > 20:
+if topic not in topics or not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug) or len(slug) > 60 or slug.split("-")[0] in {"con", "prn", "aux", "nul", "com1", "com2", "com3", "com4", "com5", "com6", "com7", "com8", "com9", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", "lpt8", "lpt9"} or len(blurb.split()) > 20 or re.search("[|<>" + chr(13) + chr(10) + "]", blurb):
     print("Check: topic must be one of %s; slug lowercase-with-dashes; blurb up to 20 words." % ", ".join(sorted(topics))); sys.exit(1)
 reg_path = os.path.join(OM, "registry.json"); reg = json.load(open(reg_path, encoding="utf-8"))
 if any(p["slug"] == slug for p in reg["pages"]):  # a slug is unique across all kinds (the build requires it)

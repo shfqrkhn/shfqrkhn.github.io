@@ -68,6 +68,8 @@ def check_registry():
     kinds = {"apps", "tools", "games", "guides", "recipes", "courses", "references"}
     topics = {t["id"] for t in TOPICS}; icons = json.load(open(os.path.join(OM, "icons.json"), encoding="utf-8"))
     errs, ids, slugs, sources = [], set(), set(), set()
+    if not all(isinstance(p, dict) for p in REG):
+        return ["registry: each page must be an object"]
     for p in REG:
         who = p.get("id", "(an entry with no id)") if isinstance(p, dict) and isinstance(p.get("id"), str) else "(an entry with no valid id)"
         if not isinstance(p, dict): errs.append("%s: each page must be an object" % who); continue

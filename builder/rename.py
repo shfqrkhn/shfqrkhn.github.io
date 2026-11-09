@@ -151,10 +151,12 @@ def main():
         a = args[i]
         if a in flags:
             opts[a] = True
-        elif a == "--old":
-            olds.append(args[i + 1]); i += 1
-        elif a in ("--slug", "--hue", "--tagline", "--file-stem"):
-            opts[a] = args[i + 1]; i += 1
+        elif a in ("--old", "--slug", "--hue", "--tagline", "--file-stem"):
+            if i + 1 >= len(args) or args[i + 1].startswith("--"):
+                print("%s needs a value." % a); return 2
+            if a == "--old": olds.append(args[i + 1])
+            else: opts[a] = args[i + 1]
+            i += 1
         else:
             pos.append(a)
         i += 1
@@ -168,8 +170,8 @@ def main():
     if not (1 <= len(new) <= 40) or re.search("[\u2013\u2014|<>\r\n]", new):
         print("The name must be 1 to 40 characters, with no em or en dash, |, <, > or line break."); return 1
     slug = opts.get("--slug") or (slugify(new) if len(pos) > 1 else p["slug"])
-    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug):
-        print("The address must be lowercase letters, digits and dashes."); return 1
+    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug) or len(slug) > 60 or slug.split("-")[0] in {"con", "prn", "aux", "nul", "com1", "com2", "com3", "com4", "com5", "com6", "com7", "com8", "com9", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", "lpt8", "lpt9"}:
+        print("The address must be lowercase letters, digits and dashes, up to 60 characters, and not a Windows device name."); return 1
     if any(x is not p and x["slug"] == slug for x in reg["pages"]):  # a slug is unique across all kinds (the build requires it)
         print("That address is already used by another page: %s" % slug); return 1
     if glob.glob(os.path.join(glob.escape(os.path.dirname(OM)), "site", "content", "*", slug + ".json")):

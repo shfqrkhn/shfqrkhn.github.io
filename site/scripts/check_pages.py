@@ -170,7 +170,9 @@ def classify(rel):
 
 _Q = r"['" + chr(34) + "`]"
 _Q2 = r"['" + chr(34) + "]?"
-REMOTE_CALL = re.compile(r"(?:fetch|import|importScripts|WebSocket|EventSource|sendBeacon|open)\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?:src|href)\s*=\s*" + _Q + r"\s*(?:https?:)?//|@import\s*(?:url\()?\s*" + _Q2 + r"\s*(?:https?:)?//|url\(\s*" + _Q2 + r"\s*(?:https?:)?//", re.I)
+JS_LOAD = re.compile(r"(?:fetch|import|importScripts|WebSocket|EventSource|sendBeacon|Worker|SharedWorker)" + r"\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?:^|[;}\s])import\s*(?:[^;'" + chr(34) + r"`]*?from\s*)?" + _Q + r"\s*(?:https?:)?//", re.I)
+JS_STATIC = re.compile(r"(?:importScripts|Worker|SharedWorker)" + r"\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?:^|[;}\s])import\s*(?:[^;'" + chr(34) + r"`]*?from\s*)?" + _Q + r"\s*(?:https?:)?//", re.I)
+REMOTE_CALL = re.compile(r"(?:fetch|import|importScripts|Worker|SharedWorker|WebSocket|EventSource|sendBeacon|open)\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?:src|href)\s*=\s*" + _Q + r"\s*(?:https?:)?//|@import\s*(?:url\()?\s*" + _Q2 + r"\s*(?:https?:)?//|url\(\s*" + _Q2 + r"\s*(?:https?:)?//", re.I)
 
 
 def extra_files(full, rel):
@@ -182,7 +184,7 @@ def extra_files(full, rel):
     if os.path.splitext(parts[-1])[1].lower() in (".html", ".htm"):
         s = Scan(); s.feed(text)
         if s.external: errors.append("%s: loads from another site: %s" % ("/".join(parts), ", ".join(u for _, u in s.external[:3])))
-    if REMOTE_CALL.search(html.unescape(text)): errors.append("/".join(parts) + ": loads from another site")
+    if REMOTE_CALL.search(html.unescape(text)) or JS_LOAD.search(html.unescape(text)): errors.append("/".join(parts) + ": loads from another site")
 
 
 def main():
@@ -211,6 +213,9 @@ def main():
             if dup: errors.append(where + ": duplicate ids " + ", ".join(dup[:5]))
             if s.imgs_no_alt: errors.append("%s: %d image(s) without alt" % (where, s.imgs_no_alt))
             if s.external: errors.append(where + ": loads from another site: " + ", ".join(u for _, u in s.external[:3]))
+            _cs = re.search(r"connect-src([^;" + chr(34) + "]*)", text) or re.search(r"default-src([^;" + chr(34) + "]*)", text)
+            _wild = bool(_cs and re.search(r"(?:^|\s)(?:\*|https?:)(?:\s|$)", _cs.group(1)))  # the CSP is what blocks a network call: a literal call is only a defect when the CSP lets any site through
+            if (JS_LOAD if _wild else JS_STATIC).search(html.unescape(text)): errors.append(where + ": a script loads from another site")
             _css = re.sub(r"\\([0-9a-fA-F]{1,6})\s?", lambda m: chr(int(m.group(1), 16)) if int(m.group(1), 16) < 0x110000 else "", html.unescape(text))  # decode HTML entities and CSS escapes first
             _css = re.sub(r"\\([^0-9a-fA-F\n])", r"\1", re.sub(r"/\*.*?\*/", "", _css, flags=re.S))  # then simple escapes and comments
             _css = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", " ", _css)  # control characters the URL parser drops

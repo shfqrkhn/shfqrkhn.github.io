@@ -10,6 +10,9 @@ An optional private list of names can be passed with --names <file> (kept outsid
 import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _f in ("--root", "--names"):
+    if _f in sys.argv and (sys.argv.index(_f) + 1 >= len(sys.argv) or sys.argv[sys.argv.index(_f) + 1].startswith("--")):
+        print("usage: check_privacy.py [--root <folder>] [--names <file>]  (%s needs a value)" % _f); sys.exit(2)
 if "--root" in sys.argv:
     ROOT = os.path.abspath(sys.argv[sys.argv.index("--root") + 1])
 SKIP_DIRS = {".git", "__pycache__"}  # __pycache__ is git-ignored; a committed node_modules is scanned like anything else
@@ -89,6 +92,8 @@ def main():
     _parts = ([r"(?<![A-Za-z0-9])(?:%s)(?![A-Za-z0-9])" % "|".join(re.escape(n) for n in _short)] if _short else []) + ([r"(?:%s)" % "|".join(re.escape(n) for n in _long)] if _long else [])  # a long name is caught inside ids and keys too
     # a short name (under 5 characters, such as an acronym) matches in its exact case only: in any case it hits minified identifiers and ordinary words
     name_rx = re.compile("|".join("(?i:%s)" % x if x is _parts[-1] and _long else x for x in _parts)) if _parts else None
+    _cn = [re.sub(r"\s+", "", n) for n in _long]  # a long name with its spaces left out also matches in file names: JaneDoe, jane_doe, jane-doe
+    name_c = re.compile("(?i:%s)" % "|".join(re.escape(n) for n in _cn if len(n) >= 6)) if any(len(n) >= 6 for n in _cn) else None
     allow = [a.lower() for a in load_allow().get("contains", [])]
     problems = []
     if not os.path.isdir(ROOT):
@@ -103,7 +108,8 @@ def main():
             continue
         raw = norm(text)
         text = COLOR.sub(" ", BLOB.sub(" ", raw))
-        named = bool(name_rx and name_rx.search(norm(rel).replace(os.sep, " ").replace("/", " ")))
+        _rel = norm(rel).replace(os.sep, " ").replace("/", " ")
+        named = bool(name_rx and (name_rx.search(_rel) or name_rx.search(re.sub(r"[_.-]+", " ", _rel)) or (name_c and name_c.search(re.sub(r"[\s_.-]+", "", _rel)))))
         shown = "[path hidden in CI]" if named and os.environ.get("CI") else rel  # CI logs are public: never print a path that holds a private name
         if named:
             problems.append("%s: owner-name: the file name carries a private name" % shown)
