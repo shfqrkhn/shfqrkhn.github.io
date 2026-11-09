@@ -220,7 +220,7 @@ One file: `site/scripts/ui.css`. Tokens (`--bg --fg --mut --card --line --acc --
 ### Personalization (visitor choices and owner rebrands)
 
 - Visitor choices: the hub's Personalize button opens a dialog with an accent colour (each page keeps its own, or one colour for all) and a text size (small, default, large, larger). They are saved in `hub.prefs.v1` as `{schemaVersion, look, hue, size}`. Every single-file page loads `site/scripts/personalize.js` at the end of its head, so the choice applies before paint, offline, and across tabs.
-- The build injects that script tag and adds `'self'` to the page's `script-src`; the sources stay untouched. Pages with their own PWA (bundles) are not touched.
+- The build injects that script tag and adds `'self'` to the page's `script-src`; the sources stay untouched. Bundles are not touched.
 - The script merges writes to `hub.prefs.v1`, so a page that saves only its own look never erases the hue or size. A page with no hue of its own simply falls back to its own accent when the choice is reset.
 - Any hue is safe: the contrast gate proves every hue against all four looks.
 - Owner rebrand: `rename.py` renames a page and its address (old ones forward), `--hue` recolours it, `--tagline` rewrites its descriptor. A whole-site look change is a `ui.css` token change, then one build.

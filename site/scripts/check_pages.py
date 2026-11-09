@@ -168,12 +168,30 @@ def classify(rel):
     return None, False
 
 
+_Q = r"['" + chr(34) + "`]"
+_Q2 = r"['" + chr(34) + "]?"
+REMOTE_CALL = re.compile(r"(?:fetch|import|importScripts|WebSocket|EventSource|sendBeacon|open)\s*\(\s*(?:[^,)]*,\s*)?" + _Q + r"\s*(?:https?:)?//|(?:src|href)\s*=\s*" + _Q + r"\s*(?:https?:)?//|@import\s*(?:url\()?\s*" + _Q2 + r"\s*(?:https?:)?//|url\(\s*" + _Q2 + r"\s*(?:https?:)?//", re.I)
+
+
+def extra_files(full, rel):
+    """Other files of a bundle (scripts, styles, pages, images) must not load from another site either."""
+    parts = rel.replace(chr(92), "/").split("/")
+    if len(parts) < 3 or parts[0] not in KINDS or os.path.splitext(parts[-1])[1].lower() not in (".html", ".htm", ".js", ".mjs", ".css", ".svg"):
+        return
+    text = open(full, "rb").read().decode("utf-8", "replace")
+    if os.path.splitext(parts[-1])[1].lower() in (".html", ".htm"):
+        s = Scan(); s.feed(text)
+        if s.external: errors.append("%s: loads from another site: %s" % ("/".join(parts), ", ".join(u for _, u in s.external[:3])))
+    if REMOTE_CALL.search(html.unescape(text)): errors.append("/".join(parts) + ": loads from another site")
+
+
 def main():
     count = 0
     for dp, dn, fn in os.walk(ROOT):
         dn[:] = [d for d in dn if d not in (".git", ".github", "__pycache__") and not (dp == ROOT and d in ("docs", "scripts", "content", "templates"))]
         for f in fn:
             if f != "index.html" and f != "404.html":
+                extra_files(os.path.join(dp, f), os.path.relpath(os.path.join(dp, f), ROOT))
                 continue
             full = os.path.join(dp, f); rel = os.path.relpath(full, ROOT)
             kind, strict = classify(rel)

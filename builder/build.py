@@ -12,6 +12,9 @@ VERSION = "1.4.3"
 REG = json.load(open(os.path.join(OM, "registry.json"), encoding="utf-8"))["pages"]
 TOPICS = json.load(open(os.path.join(OM, "topics.json"), encoding="utf-8"))
 BRAND = json.load(open(os.path.join(OM, "brand.json"), encoding="utf-8"))  # the one place the name, pronunciation and blurbs live
+for _k, _v in BRAND.items():
+    if not isinstance(_v, str) or re.search("[%<>" + chr(34) + chr(13) + chr(10) + "]|@@", _v):
+        raise SystemExit("brand.json: '%s' must be text without a percent sign, <, >, a double quote, @@ or a line break" % _k)
 BN = BRAND["name"]
 ARCHIVED = {p["id"] for p in REG if p.get("archived")}
 
@@ -79,7 +82,7 @@ def check_registry():
             if not p.get(k) and p.get(k) is not False: errs.append("%s: missing '%s'" % (who, k))
         if p.get("kind") not in kinds: errs.append("%s: kind must be one of %s" % (who, ", ".join(sorted(kinds))))
         if p.get("topic") not in topics: errs.append("%s: topic '%s' is not in topics.json" % (who, p.get("topic")))
-        if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", p.get("slug", "")): errs.append("%s: slug must be lowercase words joined by dashes" % who)
+        if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", p.get("slug", "")) or len(p.get("slug", "")) > 60 or p.get("slug", "").split("-")[0] in {"con", "prn", "aux", "nul", "com1", "com2", "com3", "com4", "com5", "com6", "com7", "com8", "com9", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", "lpt8", "lpt9"}: errs.append("%s: slug must be lowercase words joined by dashes, up to 60 characters, and not a Windows device name" % who)
         if len(p.get("blurb", "").split()) > 20: errs.append("%s: blurb is %d words (the limit is 20)" % (who, len(p["blurb"].split())))
         if len(p.get("title", "")) > 40: errs.append("%s: title is longer than 40 characters" % who)
         if len(p.get("tagline", "")) > 40: errs.append("%s: tagline is longer than 40 characters" % who)
@@ -204,7 +207,8 @@ for p in REG:
              aliases=list(p.get("aliases", [])), hue=p.get("hue"), former_names=list(p.get("former_names", [])), tagline=p.get("tagline", ""), big=bool(p.get("big")))
     if form == "single":
         a["path"] = resolve(p["source"]); m = re.search(r"-v(\d+\.\d+\.\d+)\.html$", os.path.basename(a["path"]))
-        a["version"] = m.group(1) if m else p["version"]
+        a["version"] = m.group(1) if m else p.get("version", "")
+        if not a["version"]: raise SystemExit("%s: a single page needs a version in its file name (-v1.0.0.html) or a version field" % p["id"])
         assert re.search(rb"(?<![\d.])" + re.escape(a["version"].encode()) + rb"(?!\d|\.\d)", open(a["path"], "rb").read()), ("version text not inside the file", p["id"], a["version"])
     elif form == "bundle":
         a["path"] = resolve(p["source"]); a["version"] = p["version"]

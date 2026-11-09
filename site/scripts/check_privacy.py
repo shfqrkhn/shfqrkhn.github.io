@@ -36,7 +36,9 @@ RULES = [
 
 def load_allow():
     p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "privacy-allow.json")
-    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {"contains": []}
+    d = json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {"contains": []}
+    d["contains"] = [x for x in d.get("contains", []) if isinstance(x, str) and len(x.strip()) >= 3]  # an empty or tiny entry would match everything and switch the gate off
+    return d
 
 
 import html as _html, unicodedata
@@ -44,8 +46,19 @@ _ZW = re.compile("[\u200b-\u200f\u2060\ufeff\u00ad]")
 _HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p", "\u0441": "c", "\u0445": "x", "\u0443": "y", "\u0456": "i", "\u0455": "s", "\u0458": "j", "\u03bf": "o", "\u03b1": "a"})
 
 
+_ESC = re.compile(r"\\x([0-9a-fA-F]{2})|\\u([0-9a-fA-F]{4})|\\u\\{([0-9a-fA-F]{1,6})\\}|\\([0-9a-fA-F]{1,6}) ?")
+_COMMENT = re.compile(r"<!--.*?-->", re.S)
+
+
+def _chr(h):
+    n = int(h, 16)
+    return chr(n) if n < 0x110000 else ""
+
+
 def norm(t):
     """What a person reads: entities decoded, compatibility forms folded, zero-width marks removed, look-alike letters mapped to Latin."""
+    t = _ESC.sub(lambda m: _chr(m.group(1) or m.group(2) or m.group(3) or m.group(4)), t)  # JS and CSS escapes render as the character
+    t = t + (chr(10) + _COMMENT.sub("", t) if "<!--" in t else "")  # a comment can split a word: scan the text with and without comments
     return _ZW.sub("", unicodedata.normalize("NFKC", _html.unescape(t).replace("%40", "@"))).translate(_HOMO)
 
 
@@ -59,6 +72,8 @@ def files():
 def read_text(p):
     """File text for scanning: UTF-16 is decoded as such; image and font files are read as bytes (metadata and stray text still count)."""
     b = open(p, "rb").read()
+    if b[:4] in (bytes([255, 254, 0, 0]), bytes([0, 0, 254, 255])):
+        return b.decode("utf-32", errors="replace")
     if b[:2] in (bytes([255, 254]), bytes([254, 255])) or (len(b) > 8 and b[1::2].count(0) > len(b) // 4):
         return b.decode("utf-16", errors="replace")
     if os.path.splitext(p)[1].lower() in SKIP_EXT:

@@ -50,12 +50,14 @@ def validate(d, where):
             bad(k + " must be text")
     if d["kind"] not in KINDS:
         bad("kind must be one of %s" % ", ".join(KINDS))
-    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", d["slug"]):
-        bad("slug must be lowercase words joined by dashes")
+    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", d["slug"]) or len(d["slug"]) > 60 or d["slug"].split("-")[0] in {"con", "prn", "aux", "nul", "com1", "com2", "com3", "com4", "com5", "com6", "com7", "com8", "com9", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", "lpt8", "lpt9"}:
+        bad("slug must be lowercase words joined by dashes, up to 60 characters, and not a Windows device name")
     if d["topic"] not in TOPICS:
         bad("topic must be one of %s" % ", ".join(TOPICS))
     if not d["title"].strip() or not (1 <= len(d["title"]) <= 60) or not (1 <= len(d["blurb"].split()) <= 20):
         bad("title up to 60 characters, blurb up to 20 words")
+    if re.search("[|<>" + chr(13) + chr(10) + "]", d["blurb"]):
+        bad("blurb has no |, <, > or line break (they break llms.txt)")
     if re.search(r"[|<>\r\n\u2013\u2014]", d["title"]):
         bad("title has no |, <, >, line break, em or en dash")
     for k in ("version", "license", "tagline"):
