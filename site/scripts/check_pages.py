@@ -118,6 +118,9 @@ def csp_gaps(text):
             gaps.append("the policy sets no connect-src or default-src, so any network call is allowed")
         ms = [x for x in (re.search(r"(?<![\w-])%s\s+([^;]*)" % d, csp, re.I) for d in ("script-src", "script-src-elem", "script-src-attr")) if x]
         ms = ms or [x for x in [re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)] if x]
+        cm = re.search(r"(?<![\w-])connect-src\s+([^;]*)", csp, re.I)
+        if cm and any(t in ("*", "http:", "https:", "ws:", "wss:", "data:", "blob:") for t in cm.group(1).lower().split()):
+            gaps.append("connect-src allows any host or scheme, so any network call is allowed")
         for m in ms:
             toks = m.group(1).lower().split()
             if "'unsafe-eval'" in toks:

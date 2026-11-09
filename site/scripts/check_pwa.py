@@ -107,6 +107,9 @@ if want != set(pages):
 for k, v in pages.items():
     if not os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")):
         fail("worker lists a page that is not published: " + k)
+    for f in v.get("files") or []:
+        if not os.path.isfile(os.path.join(ROOT, _rel(f).replace("/", os.sep))):
+            fail("worker lists a bundle file that is not published: " + str(f))
 size = {_rel(a["address"]): a.get("size") or 0 for a in catalog["apps"]}
 auto = sum(max(size.get(k, 0), os.path.getsize(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) if os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) else 0) for k, v in pages.items() if not v.get("big"))  # a bundle counts in full
 if auto > 15_000_000:
