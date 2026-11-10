@@ -92,7 +92,7 @@ try:
 except ValueError:
     print("FAIL sw.js does not hold the SHELL and PAGES lists in the expected form"); sys.exit(1)
 for f in shell:
-    if not isinstance(f, str) or ".." in f.split("/"):
+    if not isinstance(f, str) or f.startswith(("/", chr(92))) or ".." in f.split("/"):
         fail("worker shell entry must be a path inside the site: %s" % f); continue
     p = os.path.join(ROOT, _rel(f).replace("/", os.sep)) if f != "./" else ROOT
     if not os.path.exists(p):
@@ -106,7 +106,7 @@ if want != set(pages):
     fail("worker page table differs from the catalog: %s" % sorted(want ^ set(pages))[:5])
 def _bundle(f):
     """A bundle entry is a published path under the site root (a folder entry ends in a slash)."""
-    if not isinstance(f, str) or not f.strip("/. ") or ".." in f.replace(chr(92), "/").split("/") or os.path.isabs(f) or ":" in f.split("/")[0]:
+    if not isinstance(f, str) or f.startswith(("/", chr(92))) or not f.strip("/. ") or ".." in f.replace(chr(92), "/").split("/") or os.path.isabs(f) or ":" in f.split("/")[0]:
         return None
     p = os.path.join(ROOT, _rel(f).replace("/", os.sep))
     return p if os.path.exists(p) else None
@@ -131,7 +131,7 @@ _cn = [v.get("cache") for v in pages.values() if isinstance(v, dict)]
 if len(_cn) != len(set(_cn)):
     fail("two pages share a worker cache name")
 size = {_rel(a["address"]): a.get("size") or 0 for a in catalog["apps"]}
-auto = sum(max(size.get(k, 0), os.path.getsize(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) if os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) else 0) for k, v in pages.items() if isinstance(v, dict) and not v.get("big"))  # a bundle counts in full
+auto = sum(max(size.get(k, 0), os.path.getsize(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) if os.path.isfile(os.path.join(ROOT, _rel(v["start"]).replace("/", os.sep), "index.html")) else 0) for k, v in pages.items() if isinstance(v, dict) and isinstance(v.get("start"), str) and not v.get("big"))  # a bundle counts in full
 auto += sum(os.path.getsize(_bundle(f)) for v in pages.values() if isinstance(v, dict) and not v.get("big") and isinstance(v.get("files"), list) for f in v["files"] if _bundle(f) and os.path.isfile(_bundle(f)))
 if auto > 15_000_000:
     errors.append("pages that download by themselves total %d MB; keep it under 15 MB (mark the largest as big)" % (auto // 1_000_000))

@@ -61,9 +61,9 @@ for a in catalog["apps"]:
                 errors.append("%s: kit block is out of date: %s in the %s look should be %s" % (rel, t, look, toks[t].strip())); break
     h = re.search(r"<html\b[^>]*>", html)
     tag = h.group(0) if h else ""
-    if "data-app" not in tag:
+    if not re.search(r"\sdata-app[\s=>]", tag):
         errors.append("%s: <html> has no data-app" % rel)
-    mh = re.search(r"--hue:\s*(\d+)", tag) or re.search(r":root[^{]*\{[^}]*--hue:\s*(\d+)", html)  # on the tag, or in the stylesheet when the page forbids inline styles
+    mh = re.search(r"--hue:\s*(\d+)(?![\d.])", tag) or re.search(r":root[^{]*\{[^}]*--hue:\s*(\d+)(?![\d.])", html)  # on the tag, or in the stylesheet when the page forbids inline styles
     if a.get("hue") is not None and (not mh or int(mh.group(1)) != a["hue"]):
         errors.append("%s: accent hue is %s on the page but %s in the registry" % (rel, mh.group(1) if mh else "missing", a["hue"]))
     if "hub.prefs.v1" not in html:

@@ -71,13 +71,13 @@ def main():
         except UnicodeDecodeError:
             errors.append("%s: the document must be UTF-8 text" % rel)
             continue
-        low = raw.lower()
+        low = re.sub(r"[\s\u00a0]+", " ", raw.lower())  # one space between words, so a line break or a no-break space cannot hide a phrase
         if len(raw.encode("utf-8")) > budget:
             errors.append("%s: %d bytes is over its %d byte budget (cut text, or raise the budget in check_docs.py on purpose)" % (rel, len(raw.encode("utf-8")), budget))
         for f in FILLER:
             if f in low:
                 errors.append("%s: filler phrase '%s' (say it shorter)" % (rel, f))
-        for m in SLOP.finditer(prose(raw)):
+        for m in SLOP.finditer(re.sub(r"[\s\u00a0]+", " ", prose(raw))):
             errors.append("%s: slop phrase '%s' (plain words, one fact once)" % (rel, m.group(0)))
         if re.search("[\u2012-\u2015\u2212]", raw):
             errors.append("%s: em or en dash (house style)" % rel)
