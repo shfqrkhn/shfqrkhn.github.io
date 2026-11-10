@@ -20,7 +20,7 @@ Prove, at one exact commit, that the generated site, the registry, the RepoRadar
 
 ## 3. Out of scope
 
-Deploy, GitHub edits, dependency installs, unarchiving apps, data removal, remote crawling, and any rewrite of the worker or an app. The 33 per-app depth reviews (A08 to A40), domain answer checks against primary sources, and rights checks stay NOT_RUN and are listed as remaining gaps. Consolidation proposals (brief section 4) are not implemented.
+Deploy, GitHub edits, dependency installs, data removal, remote crawling, and any rewrite of the worker or an app. The 33 per-app depth reviews (A08 to A40), domain answer checks against primary sources, and rights checks stay NOT_RUN and are listed as remaining gaps. Consolidation proposals (brief section 4) are not implemented.
 
 ## 4. Acceptance
 

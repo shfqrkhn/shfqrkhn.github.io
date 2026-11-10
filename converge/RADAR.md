@@ -68,6 +68,8 @@ Family lens (questions to brainstorm, then test, never assume):
 
 Record the outcome per lead (adopt, adapt, study, reference, reject) in the ledger with the reason. If nothing better exists, say so; that is a valid result.
 
+Archived apps are in scope like any other (see CR-24-7).
+
 ## Files in converge/
 
 `radar_refresh.py`, `radar-queries.json`: the weekly refresh. `reporadar-ledger.json`: what was considered and why. `app-goals.json`: inferred goal per page. `change-requests/`: CR-24-1 to CR-24-7. `CHANGE-REQUEST-v23.md`, `CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v24.md`: the plan and its baseline. `v23_check.py`, `v23_offline.py`: baseline checks. `scan.py`, `omni_check.py`, `apply_edits.py`: review scripts. `receipts/`: local, git-ignored.
