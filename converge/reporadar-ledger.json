@@ -1,11 +1,11 @@
 {
- "generated": "2026-11-08",
- "scope": "all 507 RepoRadar repositories plus 12 owner-added (519 entries)",
+ "generated": "2026-11-09",
+ "scope": "all 507 RepoRadar repositories plus 16 owner-added (523 entries)",
  "method": "live README fetch via GitHub API (first 5,000 characters kept); sonnet review per batch of 39; judgement from the opening of each README, not the full repository",
  "counts": {
   "reject": 285,
-  "reference": 146,
-  "study": 76,
+  "reference": 148,
+  "study": 78,
   "adapt": 9,
   "adopt": 1,
   "unavailable": 2
@@ -6884,6 +6884,62 @@
     "omnevum"
    ],
    "reason": "Copy-paste README template (Unlicense, 959 stars, last push 2026-06-07): installing, developing, features, configuration, contributing, links, licensing. Reference for ordering and brevity.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "amarnath3003/quickLiquid",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "readme_bytes": 12316,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "MIT, 362 stars, last push 2026-09-13. Liquid-glass refraction effects for React and vanilla JS (SVG backdrop displacement). Study its contrast and reduced-motion handling for the glass looks only; a runtime SVG filter engine and npm package conflict with the dependency-free, strict-CSP, size-budgeted site.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "applied": "deferred"
+  },
+  {
+   "id": "greensock/gsap",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "readme_bytes": 6140,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "30k stars, last push 2026-11-04. Mature framework-agnostic animation library. Reference for easing, sequencing and matchMedia reduced-motion patterns. Not adopted: the site ships no third-party runtime, and the licence is GitHub-reported as non-SPDX (custom GSAP terms), so rights would need a separate check.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned). Licence text not read.",
+   "applied": "deferred"
+  },
+  {
+   "id": "juliangarnier/anime",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "readme_bytes": 5337,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "MIT, 74k stars, last push 2026-11-02. Lightweight JS animation engine (v4, repo now also published as animejs). Reference for timeline and stagger design. Not adopted: no third-party runtime in the site; the native Web Animations API and CSS cover current needs.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned). README is mostly sponsor tables.",
+   "applied": "deferred"
+  },
+  {
+   "id": "viettranx/3dviz-pro-max",
+   "status": "owner_added",
+   "category": "A7",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "readme_bytes": 20600,
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "MIT, 1,199 stars, last push 2026-09-11. Agent skill for Three.js and Blender 3D scenes (Claude Code and Codex plugin; recipes, knowledge records, kits). Study its skill structure, verify-what-appears-on-screen step and recipe catalogue layout for Omni skills; its demo is labelled historical footage, so its claims are not verified. Three.js output would exceed page budgets.",
    "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
    "applied": "deferred"
   }
