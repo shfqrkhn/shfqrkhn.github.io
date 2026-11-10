@@ -1,5 +1,7 @@
 # CR-24-1: one source for the study engine
 
+**Status:** planned (not started).
+
 **Problem (Y):** the same 80,359 byte program is copied into 18 reader sources, and SupportScout carries a 1,023 byte variant. A defect is fixed 19 times, and the copies can drift.
 
 **Change:** move the engine to one file under sources/ (for example sources/engine/kd-app-1.5.5.js). Each reader source keeps only its data block and shell. The builder inlines the engine at build time, so every published page stays one self-contained file. SupportScout's migration code becomes an optional engine module used only by that reader.

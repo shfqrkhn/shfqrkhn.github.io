@@ -1,5 +1,7 @@
 # CR-24-6: learning method review of the 19 study readers
 
+**Status:** planned (not started).
+
 **Why:** the courses exist to teach. Whether the shared engine uses the best-supported methods (retrieval practice, spaced review, interleaving, worked examples, immediate feedback, mastery checks) is not measured here. Evidence for these methods is broad (for example the 2013 review "Improving Students' Learning With Effective Learning Techniques"); verify the current primary sources before relying on any claim.
 
 **Change (audit first, build second):**

@@ -1,5 +1,7 @@
 # CR-24-3: measure duplication in the other families, then add content contracts
 
+**Status:** planned (not started).
+
 **Problem (Y):** the money, game, guide and tool families may repeat code or content structure. This is UNVERIFIED; merging on a guess would add risk for no gain.
 
 **Change, step 1 (measure only):** a read-only script converge/dupes.py reports, per family, shared inline script and style bytes between sources (exact blocks above 2 KB). Output is a table.
