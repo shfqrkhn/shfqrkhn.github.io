@@ -7,7 +7,7 @@ import hashlib, json, os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_FILES = {"index.html", "404.html", "sw.js", "manifest.webmanifest", "icon.svg", "today.json", "robots.txt", "llms.txt", "LICENSE", "README.md", ".gitignore", ".gitattributes", ".nojekyll"}
-ROOT_DIRS = {"docs", "scripts", "content", "templates", "icons", ".github", ".git"}
+ROOT_DIRS = {"docs", "scripts", "content", "templates", "icons", ".github"}
 errors = []
 
 
@@ -80,6 +80,9 @@ for a in catalog["apps"]:
 
 total = 0
 for dp, dn, fn in os.walk(ROOT):
+    for x in dn + fn:
+        if x == ".git":
+            fail("a .git entry inside the site would be published and is invisible to the other gates: " + os.path.relpath(os.path.join(dp, x), ROOT))
     dn[:] = [x for x in dn if x != ".git"]
     for f in fn:
         n = os.path.getsize(os.path.join(dp, f)); total += n

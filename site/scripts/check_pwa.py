@@ -91,6 +91,9 @@ try:
     start = sw.index("const PAGES = ") + len("const PAGES = "); pages = json.loads(sw[start:sw.index(";\nconst KEEP", start)])
 except ValueError:
     print("FAIL sw.js does not hold the SHELL and PAGES lists in the expected form"); sys.exit(1)
+# The worker runs outside the page policy, so its own code may not reach a remote host or pull in a script.
+if re.search(r"""importScripts|XMLHttpRequest|['"`]\s*(?:https?:)?//""", sw):
+    fail("sw.js names a remote address or loads a script (importScripts, XMLHttpRequest, or a quoted http/https// address)")
 for f in shell:
     if not isinstance(f, str) or f.startswith(("/", chr(92))) or ".." in f.split("/"):
         fail("worker shell entry must be a path inside the site: %s" % f); continue
