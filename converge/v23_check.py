@@ -127,6 +127,10 @@ rec("CR-4 shared engine", not bad and n == 19 and len(engines) == 1,
 
 siteonly = [q for q in glob.glob(os.path.join(ROOT, "site", "*", "*", "index.html")) if os.path.relpath(os.path.dirname(q), os.path.join(ROOT, "site")).replace(os.sep, "/") not in {x["kind"] + "/" + x["slug"] for x in pages}]
 rec("CR-2b output not in registry", not siteonly, "%d extra pages %s" % (len(siteonly), siteonly[:3]))
+goals_p = os.path.join(ROOT, "converge", "app-goals.json")
+gids = [a.get("id") for a in json.load(open(goals_p, encoding="utf-8")).get("apps", [])] if os.path.exists(goals_p) else []
+gmiss = sorted(set(ids) - set(gids))
+rec("CR-24-7 every page has a goal row", not gmiss and len(gids) == len(set(gids)), "%d goal rows, %d pages missing %s" % (len(gids), len(gmiss), gmiss[:3]))
 out = {"identity": ident, "results": res, "not_run": ["CR-5 gates and CR-6 offline update are recorded by their own runs", "A08 to A40 depth reviews", "domain answers against primary sources", "rights checks"]}
 if "--save" in sys.argv:
     p = sys.argv[sys.argv.index("--save") + 1] if sys.argv.index("--save") + 1 < len(sys.argv) else "converge/receipts/v23-execution.json"

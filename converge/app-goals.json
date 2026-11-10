@@ -1,0 +1,613 @@
+{
+ "generated": "2026-11-10",
+ "method": "Goals are inferred from each page's registry tagline, blurb and kind. They are working statements for review; success measures are targets to test, not measured results. stable_edge_checks list what to evaluate against primary sources (browser Baseline data, MDN, research) before adopting; nothing is adopted until measured, tested and reversible.",
+ "apps": [
+  {
+   "id": "noodle-nudge",
+   "title": "NoodleNudge Journal",
+   "kind": "apps",
+   "archived": false,
+   "goal": "Help a person reflect each day and notice change over time, privately.",
+   "success": "A daily entry takes under a minute; trends are visible; data never leaves the device and can be exported and restored.",
+   "stable_edge_checks": [
+    "Local-first storage durability (persistent storage)",
+    "export and restore",
+    "structured prompts from reflection research"
+   ],
+   "basis": "inferred from registry tagline and blurb: Daily reflection journal",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "ts-dash",
+   "title": "TrendTracker Charts",
+   "kind": "tools",
+   "archived": false,
+   "goal": "Let anyone see patterns in their own CSV time series without uploading it.",
+   "success": "A 100k-row file charts in seconds on a mid phone; nothing is sent anywhere; the chart is readable and exportable.",
+   "stable_edge_checks": [
+    "Off-main-thread parsing (Worker)",
+    "streaming parse",
+    "canvas versus SVG cost",
+    "accessible chart summaries"
+   ],
+   "basis": "inferred from registry tagline and blurb: Chart your own CSV data",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "pmquiz",
+   "title": "ProjectPopQuiz Exams",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Prepare a learner to pass a project management certification exam.",
+   "success": "Mastery by topic is measured, weak topics are repeated, timed exam mode matches the real format.",
+   "stable_edge_checks": [
+    "Spaced and interleaved retrieval",
+    "item analysis",
+    "adaptive weak-topic review",
+    "question-bank integrity checks"
+   ],
+   "basis": "inferred from registry tagline and blurb: Project management practice exams",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "strength-tracker",
+   "title": "FlexxFiles Workout Log",
+   "kind": "apps",
+   "archived": false,
+   "goal": "Record each set fast at the gym and show what plates to load.",
+   "success": "A set logs in two taps; plate math is always correct; works offline with gloves and sweat.",
+   "stable_edge_checks": [
+    "Large tap targets",
+    "wake lock during a session",
+    "progression models",
+    "export"
+   ],
+   "basis": "inferred from registry tagline and blurb: Workout and plate log",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "ledgersuite",
+   "title": "DecisionDesk Briefs",
+   "kind": "apps",
+   "archived": true,
+   "goal": "Turn a decision into a clear brief with options, evidence and a review date.",
+   "success": "A decision is fully written in one sitting and can be revisited on its review date.",
+   "stable_edge_checks": [
+    "Structured decision methods",
+    "printable brief",
+    "reminders without a server"
+   ],
+   "basis": "inferred from registry tagline and blurb: Write up a decision",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "commonground",
+   "title": "MeetingMediator Sessions",
+   "kind": "apps",
+   "archived": true,
+   "goal": "Help a facilitator run a fair session and capture agreements.",
+   "success": "Every participant is heard, issues and agreements are recorded, and the record is shareable offline.",
+   "stable_edge_checks": [
+    "Turn-taking structures",
+    "export",
+    "accessible live timers"
+   ],
+   "basis": "inferred from registry tagline and blurb: Run fair group sessions",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "done-depot",
+   "title": "TickleTodo Tasks",
+   "kind": "apps",
+   "archived": true,
+   "goal": "Keep tasks and focus time in one simple place.",
+   "success": "Capture in one tap; due items are never missed; the timer works with the screen off.",
+   "stable_edge_checks": [
+    "Notifications and badging where stable",
+    "wake lock",
+    "recurring-task models"
+   ],
+   "basis": "inferred from registry tagline and blurb: Tasks with a focus timer",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "frugal-ferret",
+   "title": "PennyPlanner Budget",
+   "kind": "apps",
+   "archived": true,
+   "goal": "Show where money goes and keep spending within budgets, on the device.",
+   "success": "Balances reconcile exactly (integer cents); budgets alert before overspend; full export and restore.",
+   "stable_edge_checks": [
+    "Integer money math",
+    "import of bank CSVs",
+    "local encryption options"
+   ],
+   "basis": "inferred from registry tagline and blurb: Accounts and budgets",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "nfire",
+   "title": "NestEggNinja Retirement",
+   "kind": "apps",
+   "archived": true,
+   "goal": "Let a person explore whether and when they can stop working, with assumptions in view.",
+   "success": "Every result states its assumptions; scenarios compare side by side; math is tested against known cases.",
+   "stable_edge_checks": [
+    "Monte Carlo and historical sequence methods",
+    "inflation and tax assumptions with dated sources"
+   ],
+   "basis": "inferred from registry tagline and blurb: Retirement scenario planner",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "modeltab",
+   "title": "PromptPlayground AI Chat",
+   "kind": "tools",
+   "archived": true,
+   "goal": "Chat with an AI model using the user's own key while showing cost and endpoint.",
+   "success": "The key never leaves the device except to the chosen endpoint; cost per message is shown correctly.",
+   "stable_edge_checks": [
+    "Streaming responses",
+    "current model price data",
+    "key storage safety",
+    "CSP connect rules"
+   ],
+   "basis": "inferred from registry tagline and blurb: Chat with AI, your key",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "ai-studio-cleaner",
+   "title": "TranscriptTidy AI Exports",
+   "kind": "tools",
+   "archived": false,
+   "goal": "Convert AI chat exports to clean Markdown in the browser.",
+   "success": "Round-trips common exports with no loss of text; handles large files; no upload.",
+   "stable_edge_checks": [
+    "Streaming file reads",
+    "File and drag-drop APIs",
+    "Markdown standards"
+   ],
+   "basis": "inferred from registry tagline and blurb: AI chats to Markdown",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "stepsleuth-steps",
+   "title": "StepSleuth Step Counter",
+   "kind": "tools",
+   "archived": true,
+   "goal": "Estimate steps from distance and time, in English or French.",
+   "success": "Estimates are within a stated error of measured steps; language switch is complete.",
+   "stable_edge_checks": [
+    "Stride models from published research",
+    "locale APIs",
+    "unit handling"
+   ],
+   "basis": "inferred from registry tagline and blurb: Steps from distance and time",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "fifa-wc-sim",
+   "title": "WorldCupWizard Predictions",
+   "kind": "games",
+   "archived": true,
+   "goal": "Show each team's chances in the 2026 World Cup by repeated simulation.",
+   "success": "Results stabilize with stated simulation count; ratings source is dated and cited.",
+   "stable_edge_checks": [
+    "Seeded PRNG for reproducibility",
+    "Worker-based simulation",
+    "rating models"
+   ],
+   "basis": "inferred from registry tagline and blurb: World Cup predictions",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "rog-game-finder",
+   "title": "HandheldHunter PC Games",
+   "kind": "references",
+   "archived": false,
+   "goal": "Help a handheld owner choose games that run well and compare them.",
+   "success": "Recommendations match measured handheld performance; data has dates and sources.",
+   "stable_edge_checks": [
+    "Structured data refresh",
+    "accessible comparison tables",
+    "data freshness checks"
+   ],
+   "basis": "inferred from registry tagline and blurb: PC games for handhelds",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "codex-ludus",
+   "title": "MeepleMentor Board Game Rules",
+   "kind": "games",
+   "archived": false,
+   "goal": "Teach board game rules, hiding strategy until asked.",
+   "success": "A new player can start from the rules alone; strategy never spoils unprompted.",
+   "stable_edge_checks": [
+    "Progressive disclosure patterns",
+    "printable quick reference",
+    "rules verified against publisher text"
+   ],
+   "basis": "inferred from registry tagline and blurb: Board game rules",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "apex-egg-salad",
+   "title": "Eggspress Egg Salad",
+   "kind": "recipes",
+   "archived": false,
+   "goal": "Make egg salad in an Instant Pot with correct servings and timing.",
+   "success": "Scaled quantities and times are correct; usable one-handed in a kitchen.",
+   "stable_edge_checks": [
+    "Wake lock",
+    "timers that survive screen off",
+    "food-safety timing from primary sources"
+   ],
+   "basis": "inferred from registry tagline and blurb: Instant Pot egg salad",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "hades-eris-protocol",
+   "title": "BoonBuilder Hades Guide",
+   "kind": "guides",
+   "archived": false,
+   "goal": "Guide a player through one Hades build in order.",
+   "success": "Build order and boon choices match the current game version.",
+   "stable_edge_checks": [
+    "Version tagging of game patches",
+    "quick-glance layout"
+   ],
+   "basis": "inferred from registry tagline and blurb: Hades build guide",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "youtube-subscriptions",
+   "title": "StreamScholar YouTube Channels",
+   "kind": "references",
+   "archived": false,
+   "goal": "Point learners to good video channels by subject.",
+   "success": "Each channel entry is current, described accurately and grouped by what it teaches.",
+   "stable_edge_checks": [
+    "Link health checks (offline list)",
+    "dated entries"
+   ],
+   "basis": "inferred from registry tagline and blurb: Learning video channels",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "canadian-eco-garden",
+   "title": "SproutScheduler Planting Calendar",
+   "kind": "guides",
+   "archived": false,
+   "goal": "Tell a Canadian gardener what to plant when, and lay out beds.",
+   "success": "Dates match local frost data for each of 56 places; printable layout works.",
+   "stable_edge_checks": [
+    "Climate data refresh from public sources",
+    "print stylesheets"
+   ],
+   "basis": "inferred from registry tagline and blurb: Canadian planting calendar",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "cash-crunch",
+   "title": "CashCrunch Accounting Calculators",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach accounting ratios through worked calculators.",
+   "success": "Every formula is correct and shown stepwise; practice numbers check themselves.",
+   "stable_edge_checks": [
+    "Formula test suite",
+    "accessible math rendering"
+   ],
+   "basis": "inferred from registry tagline and blurb: Accounting ratio calculators",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "balance-buddy",
+   "title": "BalanceBuddy Accounting Reader",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach accounting basics with examples and checks.",
+   "success": "The learner can pass the chapter checks after reading; misconceptions are addressed.",
+   "stable_edge_checks": [
+    "Retrieval practice",
+    "worked-example fading",
+    "shared engine inheritance"
+   ],
+   "basis": "inferred from registry tagline and blurb: Accounting study reader",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "debt-dial",
+   "title": "DebtDial Capital Structure",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Let a learner see how debt and equity mix changes cost of capital.",
+   "success": "The model matches textbook results and shows the trade-off visually.",
+   "stable_edge_checks": [
+    "Interactive visualization with accessible text equivalent"
+   ],
+   "basis": "inferred from registry tagline and blurb: Debt and equity mix calculator",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "stat-safari",
+   "title": "StatSafari Data Reader",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach statistics and business intelligence concepts with checks.",
+   "success": "The learner can interpret a result and choose a method after the course.",
+   "stable_edge_checks": [
+    "Interactive simulations",
+    "retrieval practice",
+    "error-aware explanations"
+   ],
+   "basis": "inferred from registry tagline and blurb: Statistics and BI reader",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "moral-map",
+   "title": "MoralMap Ethics Guide",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Prepare learners to reason about business ethics and career choices.",
+   "success": "The learner can apply a framework to a new case and justify a choice.",
+   "stable_edge_checks": [
+    "Case-based learning",
+    "reflection prompts",
+    "retrieval practice"
+   ],
+   "basis": "inferred from registry tagline and blurb: Business ethics and career guide",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "system-sage",
+   "title": "SystemSage Information Systems",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach how firms manage information systems.",
+   "success": "The learner can explain and apply core concepts to a described firm.",
+   "stable_edge_checks": [
+    "Retrieval practice",
+    "case application",
+    "shared engine inheritance"
+   ],
+   "basis": "inferred from registry tagline and blurb: Information systems reader",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "deal-dojo",
+   "title": "DealDojo Negotiation Guide",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Prepare a person for a negotiation and let them practise.",
+   "success": "A prepared plan with goals, limits and tactics; practice rounds give useful feedback.",
+   "stable_edge_checks": [
+    "Scenario practice",
+    "feedback on choices",
+    "deliberate practice loops"
+   ],
+   "basis": "inferred from registry tagline and blurb: Plan and practise negotiations",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "process-pilot",
+   "title": "ProcessPilot Operations Reader",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach operations, processes and project management.",
+   "success": "The learner can map and improve a process and plan a project.",
+   "stable_edge_checks": [
+    "Worked examples",
+    "practice scenarios",
+    "retrieval practice"
+   ],
+   "basis": "inferred from registry tagline and blurb: Operations and projects reader",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "lead-lantern",
+   "title": "LeadLantern Leadership Reader",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach perception, communication and leadership skills.",
+   "success": "The learner can apply concepts to realistic situations.",
+   "stable_edge_checks": [
+    "Scenario practice",
+    "spaced retrieval",
+    "reflection"
+   ],
+   "basis": "inferred from registry tagline and blurb: Leadership and communication reader",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "global-gambit",
+   "title": "GlobalGambit Strategy Reader",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach strategy, marketing and international business.",
+   "success": "The learner can analyse a company and propose a justified strategy.",
+   "stable_edge_checks": [
+    "Case analysis",
+    "interleaved practice",
+    "retrieval"
+   ],
+   "basis": "inferred from registry tagline and blurb: Strategy and marketing reader",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "scope-scribe",
+   "title": "ScopeScribe Requirements Guide",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Help someone write a clear statement of work and evaluation criteria.",
+   "success": "Output is complete, unambiguous and checkable against a checklist.",
+   "stable_edge_checks": [
+    "Template validation",
+    "plain-language checks",
+    "export to document"
+   ],
+   "basis": "inferred from registry tagline and blurb: Write clear requirements",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "setup-sherpa",
+   "title": "SetupSherpa Device Guides",
+   "kind": "guides",
+   "archived": false,
+   "goal": "Get a person through setting up a common device step by step.",
+   "success": "A first-time user completes setup without outside help.",
+   "stable_edge_checks": [
+    "Step state saved offline",
+    "device-specific variants",
+    "tested screenshots-free steps"
+   ],
+   "basis": "inferred from registry tagline and blurb: Step-by-step device setup",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "gear-guardian",
+   "title": "GearGuardian Care Guides",
+   "kind": "guides",
+   "archived": false,
+   "goal": "Keep everyday gear in good condition with clear care steps.",
+   "success": "Instructions match manufacturer guidance and are dated.",
+   "stable_edge_checks": [
+    "Maintenance reminders without a server",
+    "source citations"
+   ],
+   "basis": "inferred from registry tagline and blurb: Gear and care guides",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "ally-ace",
+   "title": "AllyAce Handheld Guide",
+   "kind": "guides",
+   "archived": false,
+   "goal": "Set up, tune and care for a handheld gaming PC.",
+   "success": "Settings advice matches current firmware and drivers and is dated.",
+   "stable_edge_checks": [
+    "Version tagging",
+    "tested settings tables"
+   ],
+   "basis": "inferred from registry tagline and blurb: Handheld PC guide",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "drum-deck",
+   "title": "DrumDeck Kit Reference",
+   "kind": "references",
+   "archived": false,
+   "goal": "Give a drummer quick answers about an electronic kit.",
+   "success": "Any setting is found in a few taps and is correct for the model.",
+   "stable_edge_checks": [
+    "Quick search",
+    "offline use",
+    "verified against the maker's documentation"
+   ],
+   "basis": "inferred from registry tagline and blurb: Electronic drum kit reference",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "config-compass",
+   "title": "ConfigCompass Change Control",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach and support configuration management and change control.",
+   "success": "A team can run a change request using the toolkit.",
+   "stable_edge_checks": [
+    "Templates and checklists",
+    "retrieval practice for concepts"
+   ],
+   "basis": "inferred from registry tagline and blurb: Configuration management toolkit",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "watt-watcher",
+   "title": "WattWatcher Energy Audit",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Help someone audit energy use and find savings.",
+   "success": "A completed audit lists measured use and ranked savings.",
+   "stable_edge_checks": [
+    "Current efficiency data and tariffs with dates",
+    "printable checklists"
+   ],
+   "basis": "inferred from registry tagline and blurb: Energy audit field guide",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "support-scout",
+   "title": "SupportScout Equipment Decisions",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Help decide how to support equipment (repair, replace, contract).",
+   "success": "The decision is justified with cost and risk shown.",
+   "stable_edge_checks": [
+    "Decision analysis methods",
+    "sensitivity display"
+   ],
+   "basis": "inferred from registry tagline and blurb: Decide how to support equipment",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "blueprint-buddy",
+   "title": "BlueprintBuddy Systems Design",
+   "kind": "courses",
+   "archived": false,
+   "goal": "Teach systems design through a lab with templates.",
+   "success": "The learner produces a sound design for a described problem.",
+   "stable_edge_checks": [
+    "Worked examples",
+    "templates",
+    "critique checklists"
+   ],
+   "basis": "inferred from registry tagline and blurb: Systems design lab",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "build-boss",
+   "title": "BuildBoss PC Workstation Guide",
+   "kind": "guides",
+   "archived": false,
+   "goal": "Help plan a high-throughput PC workstation build.",
+   "success": "The plan's parts are compatible and fit the goal, with dated prices and sources.",
+   "stable_edge_checks": [
+    "Compatibility rules as data",
+    "dated references",
+    "power and thermal checks"
+   ],
+   "basis": "inferred from registry tagline and blurb: Plan a workstation build",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "auction-academy",
+   "title": "AuctionAcademy Classroom Game",
+   "kind": "games",
+   "archived": false,
+   "goal": "Let a class learn bidding strategy by playing an auction.",
+   "success": "Players understand the strategy after a round; a teacher can run it with little setup.",
+   "stable_edge_checks": [
+    "Peer-to-peer offline play options",
+    "accessible controls",
+    "debrief prompts"
+   ],
+   "basis": "inferred from registry tagline and blurb: Classroom auction game",
+   "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "repo-radar",
+   "title": "RepoRadar GitHub Catalogue",
+   "kind": "references",
+   "archived": false,
+   "goal": "Give builders a trustworthy, searchable map of useful open projects.",
+   "success": "Each entry has a verified role, licence and limits; the catalogue stays current.",
+   "stable_edge_checks": [
+    "Weekly refresh report (radar.yml)",
+    "checksum-pinned data",
+    "search relevance tests"
+   ],
+   "basis": "inferred from registry tagline and blurb: GitHub projects for AI builders",
+   "status": "inferred, owner to confirm"
+  }
+ ]
+}

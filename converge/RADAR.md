@@ -70,6 +70,10 @@ Family lens (questions to brainstorm, then test, never assume):
 
 Record the outcome per lead (adopt, adapt, study, reference, reject) in the ledger with the reason. If nothing better exists, say so; that is a valid result.
 
+## The stable edge rule
+
+Every app aims at its own goal in `converge/app-goals.json`. Adopt a technology only when it is stable (widely supported or progressively enhanced with a safe fallback), checked in a primary source such as MDN, Baseline or the project's own docs, and measured against that goal. Anything unstable goes on a watch list and is rechecked on the next update. Each adoption is tested and reversible. See CR-24-7.
+
 ## Inherit, do not copy
 
 Put an improvement at the highest level that can hold it, so every child gets it on the next build:
