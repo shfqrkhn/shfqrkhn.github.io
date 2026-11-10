@@ -107,6 +107,28 @@ def _data_block(attrs):
     return t.split(";")[0].strip().lower() not in ("", "module", "text/javascript", "application/javascript", "text/ecmascript", "application/ecmascript", "application/x-javascript", "text/jscript", "text/x-javascript", "text/livescript", "text/x-ecmascript", "application/x-ecmascript")
 
 
+def _mask(text, tags):
+    """Blank out comments and the listed elements (same length) in one pass; a start with no closer later cannot have one for any later start, so it is remembered and nothing is rescanned."""
+    out, i, dead = [], 0, set()
+    for m in re.finditer(r"<!--|<(" + tags + r")\b", text, re.I):
+        if m.start() < i:
+            continue
+        key = (m.group(1) or "!--").lower()
+        if key in dead:
+            continue
+        b = text.find("-->", m.start() + 4) + 3 if key == "!--" else None
+        if b is None:
+            c = re.compile(r"</" + re.escape(key) + r">", re.I).search(text, m.end())
+            b = c.end() if c else 0
+        if b <= 2 or b == 0:
+            dead.add(key)
+            continue
+        out.append(text[i:m.start()] + " " * (b - m.start()))
+        i = b
+    out.append(text[i:])
+    return "".join(out)
+
+
 def csp_gaps(text):
     """Inline scripts and styles that the page's own Content-Security-Policy would block (a hash is listed but not for this block)."""
     gaps = []
@@ -132,7 +154,7 @@ def csp_gaps(text):
                 gaps.append("script-src allows any host or scheme (" + bad[0] + "), so any script may load")
     metas = policy_metas(text)
     if metas:
-        before = re.sub(r"<!--.*?-->|<(template|noscript|textarea|title|iframe|xmp)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I)[:metas[0][0]]
+        before = _mask(text, "template|noscript|textarea|title|iframe|xmp")[:metas[0][0]]
         if re.search(r"<script\b|<style\b|<link\b[^>]*rel\s*=\s*[\"']?[^\"'>]*stylesheet", before, re.I):
             gaps.append("a script or style comes before the policy meta, which a browser applies only to what follows it")
     return gaps
@@ -140,7 +162,7 @@ def csp_gaps(text):
 
 def policy_metas(text):
     """(start, content start, content end) of each real Content-Security-Policy meta: in the head, not in a comment or an inert element, with a content value."""
-    masked = re.sub(r"<!--.*?-->|<(template|noscript|textarea|title|iframe|xmp|script|style)\b.*?</\1>", lambda k: " " * len(k.group(0)), text, flags=re.S | re.I)
+    masked = _mask(text, "template|noscript|textarea|title|iframe|xmp|script|style")
     end = re.search(r"</head\b|<body\b", masked, re.I)  # a browser applies a policy meta only inside the head
     out = []
     for tag_m in re.finditer(r"<meta\b[^>]*>", masked[:end.start()] if end else masked, re.I):

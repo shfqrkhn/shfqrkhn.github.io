@@ -54,7 +54,17 @@ _HOMO = str.maketrans({"\u0430": "a", "\u0435": "e", "\u043e": "o", "\u0440": "p
 
 
 _ESC = re.compile(r"\\x([0-9a-fA-F]{2})|\\u([0-9a-fA-F]{4})|\\u\{([0-9a-fA-F]{1,6})\}|\\([0-9a-fA-F]{1,6}) ?")
-_COMMENT = re.compile(r"<!--.*?-->", re.S)
+def _strip_comments(t):
+    """Remove <!-- ... --> in one pass; an unclosed opener ends the search (a regex would rescan to the end from every opener)."""
+    out, i = [], 0
+    while True:
+        a = t.find("<!--", i)
+        b = t.find("-->", a + 4) if a >= 0 else -1
+        if b < 0:
+            out.append(t[i:])
+            return "".join(out)
+        out.append(t[i:a])
+        i = b + 3
 _TAGS = re.compile(r"</?[A-Za-z][^<>]{0,200}>")
 _PCT = re.compile(r"%([0-7][0-9A-Fa-f])")
 
@@ -73,7 +83,7 @@ def norm(t):
     """What a person reads: entities decoded, compatibility forms folded, zero-width marks removed, look-alike letters mapped to Latin."""
     _d = _ESC.sub(lambda m: _chr(m.group(1) or m.group(2) or m.group(3) or m.group(4)), t)  # JS and CSS escapes render as the character
     if _d != t: t = t + chr(10) + _d  # scan the text as written too: a Windows path with a hex-letter folder name holds look-alike escapes
-    t = t + (chr(10) + _COMMENT.sub("", t) if "<!--" in t else "")  # a comment can split a word: scan the text with and without comments
+    t = t + (chr(10) + _strip_comments(t) if "<!--" in t else "")  # a comment can split a word: scan the text with and without comments
     return _fold(re.sub("[\u2010-\u2015\u2212]", "-", re.sub("[\u3002\uff61]", ".", _ZW.sub("", unicodedata.normalize("NFKC", _unquote(_html.unescape(t)).translate(_HOMO))).translate(_HOMO))))
 
 
