@@ -66,7 +66,7 @@ Research does not authorize publishing. Evidence is labelled PASS, FAIL, NOT_RUN
 
 ## 8. Change requests
 
-CR-24-1 to CR-24-5 in converge/change-requests/. The baseline checks are in CR-v23 (CHANGE-REQUEST-v23.md), which stays valid.
+CR-24-1 to CR-24-6 in converge/change-requests/. The baseline checks are in CR-v23 (CHANGE-REQUEST-v23.md), which stays valid.
 
 ## 9. Unknowns
 

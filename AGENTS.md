@@ -35,4 +35,5 @@ Run scripts first (they are free). Use the cheapest model that is sufficient for
 - `docs/FRAMEWORK.md`: rules, how-tos, lessons learned, change log.
 - `sources/method/`: Prompt Clipboard (reusable prompts), Knowledge Distiller, Resource Catalogue (also a page in the hub, RepoRadar). Rebrand: `builder/brand.json`. Any suspicion of PII in history: delete and recreate the repository, then upload the scrubbed files as one commit.
 - `README.md`: contents and repository map. `CONTRIBUTING.md`, `SECURITY.md`: change and report rules.
+- `converge/RADAR.md`: how RepoRadar stays current, what an update request must sweep (technology, content, method, practice), and inherit-not-copy.
 - `.github/workflows/`: what CI does.

@@ -1,0 +1,92 @@
+{
+ "min_stars": 500,
+ "per_query": 8,
+ "max_calls": 120,
+ "queries": [
+  {
+   "name": "Offline-first web apps",
+   "serves": "all apps, hub, service worker",
+   "q": "topic:pwa topic:offline-first language:JavaScript"
+  },
+  {
+   "name": "Local-first data and sync",
+   "serves": "apps that save data",
+   "q": "topic:local-first"
+  },
+  {
+   "name": "Web accessibility testing",
+   "serves": "all pages, accessibility gates",
+   "q": "topic:accessibility topic:wcag"
+  },
+  {
+   "name": "Web performance budgets",
+   "serves": "all pages, Lighthouse gates",
+   "q": "topic:web-performance"
+  },
+  {
+   "name": "Content Security Policy tooling",
+   "serves": "CSP pins, security gate",
+   "q": "topic:content-security-policy"
+  },
+  {
+   "name": "Spaced repetition and learning science",
+   "serves": "19 study readers",
+   "q": "topic:spaced-repetition"
+  },
+  {
+   "name": "Personal finance and budgeting",
+   "serves": "money apps and courses",
+   "q": "topic:personal-finance"
+  },
+  {
+   "name": "Quantified self and fitness",
+   "serves": "workout and step apps",
+   "q": "topic:fitness topic:workout"
+  },
+  {
+   "name": "Game rules and tabletop references",
+   "serves": "games and board-game guides",
+   "q": "topic:board-game"
+  },
+  {
+   "name": "Charts and data visualization",
+   "serves": "charts tool, dashboards",
+   "q": "topic:data-visualization language:JavaScript"
+  },
+  {
+   "name": "Prompt engineering and LLM tooling",
+   "serves": "Prompt Clipboard, Omni, Distiller",
+   "q": "topic:prompt-engineering"
+  },
+  {
+   "name": "Static site build and test tooling",
+   "serves": "builder, gates, CI",
+   "q": "topic:static-site-generator topic:testing"
+  },
+  {
+   "name": "Obsidian and knowledge management",
+   "serves": "vault, Omni",
+   "q": "topic:obsidian-plugin topic:knowledge-management"
+  },
+  {
+   "name": "Local LLM runtimes",
+   "serves": "Omni Local-AI expert",
+   "q": "topic:llama-cpp OR topic:ollama OR topic:local-llm"
+  },
+  {
+   "name": "Agent frameworks and MCP",
+   "serves": "Omni core, Local-AI expert",
+   "q": "topic:model-context-protocol"
+  },
+  {
+   "name": "LLM evaluation",
+   "serves": "Omni convergence and review method",
+   "q": "topic:llm-evaluation"
+  },
+  {
+   "name": "Learning science tools",
+   "serves": "Knowledge expert, study readers",
+   "q": "topic:learning-science OR topic:retrieval-practice"
+  }
+ ]
+}
