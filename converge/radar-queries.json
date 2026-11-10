@@ -55,7 +55,7 @@
   },
   {
    "name": "Prompt engineering and LLM tooling",
-   "serves": "Prompt Clipboard, Omni, Distiller",
+   "serves": "Prompt Clipboard, Distiller",
    "q": "topic:prompt-engineering"
   },
   {
@@ -65,42 +65,42 @@
   },
   {
    "name": "Obsidian and knowledge management",
-   "serves": "vault, Omni",
+   "serves": "method documents, notes tooling",
    "q": "topic:obsidian-plugin topic:knowledge-management"
   },
   {
    "name": "Local LLM runtimes (1)",
-   "serves": "Omni Local-AI expert",
+   "serves": "local model tooling",
    "q": "topic:llama-cpp"
   },
   {
    "name": "Local LLM runtimes (2)",
-   "serves": "Omni Local-AI expert",
+   "serves": "local model tooling",
    "q": "topic:ollama"
   },
   {
    "name": "Local LLM runtimes (3)",
-   "serves": "Omni Local-AI expert",
+   "serves": "local model tooling",
    "q": "topic:local-llm"
   },
   {
    "name": "Agent frameworks and MCP",
-   "serves": "Omni core, Local-AI expert",
+   "serves": "method documents, agent tooling",
    "q": "topic:model-context-protocol"
   },
   {
    "name": "LLM evaluation",
-   "serves": "Omni convergence and review method",
+   "serves": "review method, gates",
    "q": "topic:llm-evaluation"
   },
   {
    "name": "Learning science tools (1)",
-   "serves": "Knowledge expert, study readers",
+   "serves": "study readers, Knowledge Distiller",
    "q": "topic:learning-science"
   },
   {
    "name": "Learning science tools (2)",
-   "serves": "Knowledge expert, study readers",
+   "serves": "study readers, Knowledge Distiller",
    "q": "topic:retrieval-practice"
   }
  ]

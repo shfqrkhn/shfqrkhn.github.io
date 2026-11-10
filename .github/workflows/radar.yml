@@ -8,6 +8,9 @@ permissions:
   contents: read
 jobs:
   refresh:
+    permissions:
+      contents: read
+      issues: write
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -21,3 +24,11 @@ jobs:
         run: python converge/radar_refresh.py --out radar-report.md
       - name: Show the report in the run summary
         run: cat radar-report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep one tracking issue current (public repository names only)
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          head -c 60000 radar-report.md > body.md
+          n=$(gh issue list --state open --search "RepoRadar weekly report in:title" --json number --jq '.[0].number')
+          if [ -n "$n" ]; then gh issue edit "$n" --body-file body.md; else gh issue create --title "RepoRadar weekly report" --body-file body.md; fi

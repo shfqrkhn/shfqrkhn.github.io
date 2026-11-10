@@ -1,22 +1,20 @@
 # Keeping RepoRadar current
 
-Goal: all of Omnevum (the Omni core and its four experts, the hub, RepoRadar, the builder), this repository, every app and the vault use current, proven technology, content and practice, without losing stability, robustness, compatibility, speed, token efficiency or low cost.
+Goal: the hub, RepoRadar, the builder, this repository and every app use current, proven technology, content and practice, without losing stability, robustness, compatibility, speed, token efficiency or low cost.
 
 ## What is in scope
 
 | Part | Home | What "current" means there |
 |---|---|---|
-| Omni core | `TECH/TECH-AINT-Omni-v*.md` | method, model and tool facts, limits, versioning rules match today's tools and evidence |
-| Four experts (Knowledge, Local AI, Omnevum-Apps, Prompt-Kits) | `TECH/TECH-AINT-Omni-XPRT-*.md` | domain practice: learning method, local models and agents, web and PWA practice, prompt practice |
+| Method documents (Prompt Clipboard, Knowledge Distiller) | `sources/method/` | method, model and tool facts, limits match today's tools and evidence |
 | Hub, RepoRadar, builder | this repository (`sources/method`, `builder/`) | platform features, pins, gates, size and speed budgets |
 | Apps and readers | `sources/apps/` | content truth, method, accessibility, privacy, offline |
-| Vault | `00-META/`, notes | structure, index, conventions |
 
-A change to Omni or an expert is a new version with its own convergence; list it for the owner, do not edit a frozen version in place.
+A change to a method document is a new version with its own review; do not edit a frozen version in place.
 
 ## Automated (weekly, read-only)
 
-`.github/workflows/radar.yml` runs `converge/radar_refresh.py` each Monday and on demand. It needs no secret beyond the built-in token and writes only a report to the run summary. It finds:
+`.github/workflows/radar.yml` runs `converge/radar_refresh.py` each Monday and on demand. It needs no secret beyond the built-in token and writes the report to the run summary and keeps one open issue, "RepoRadar weekly report", up to date with it (its only write). It finds:
 
 1. New popular, recently pushed, openly licensed repositories for each query in `converge/radar-queries.json` that the ledger does not know.
 2. Drift: adopted, adapted or studied entries that are now archived, renamed or stale.
@@ -50,7 +48,7 @@ Edit `converge/radar-queries.json` (name, who it serves, GitHub search terms). R
 
 ## When the owner asks for an update
 
-An update request means a sweep at every level, not only the named file. For the thing asked about (Omnevum, the repo, one app, a family of apps) check:
+An update request means a sweep at every level, not only the named file. For the thing asked about (the hub, the repo, one app, a family of apps) check:
 
 | Level | Question | How |
 |---|---|---|
@@ -66,7 +64,7 @@ Family lens (questions to brainstorm, then test, never assume):
 - Guides and references: is the answer found in few taps, is the fact dated, is the source primary, does it work offline and at 375px?
 - Games and recipes: are the rules or steps verified against the maker or a tested source, is the first minute clear, can it be used one-handed, with large text and without sound?
 - Tools and apps: what is the worst error a user can make, can data be exported and restored, what is the smallest correct feature set, does it stay fast on a slow phone?
-- Omnevum, builder and vault: fewer steps, fewer tokens, clearer failures, one source of truth per fact.
+- Builder and gates: fewer steps, fewer tokens, clearer failures, one source of truth per fact.
 
 Record the outcome per lead (adopt, adapt, study, reference, reject) in the ledger with the reason. If nothing better exists, say so; that is a valid result.
 
@@ -78,7 +76,7 @@ Every app aims at its own goal in `converge/app-goals.json`. Adopt a technology 
 
 Put an improvement at the highest level that can hold it, so every child gets it on the next build:
 
-1. Rules live once: Omni, then `AGENTS.md` and `docs/FRAMEWORK.md`, then the gates that enforce them.
+1. Rules live once: `AGENTS.md` and `docs/FRAMEWORK.md`, then the gates that enforce them.
 2. Shared behavior lives once: the style (`site/scripts/ui.css`), the study engine (CR-24-1), category templates (CR-24-3). A page carries only its data.
 3. A fix that fits a gate becomes a gate check, so every page, present and future, inherits it.
 4. Only a truly local fact stays in one app.
