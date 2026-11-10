@@ -46,7 +46,9 @@ for a in catalog["apps"]:
     if not os.path.isfile(path):
         continue
     html = open(path, encoding="utf-8", errors="replace").read()
-    m = re.search(r"/\*\s*OMNEVUM KIT:BEGIN\s*\*/(.*?)/\*\s*OMNEVUM KIT:END\s*\*/", html, re.S)
+    b0 = re.search(r"/\*\s*OMNEVUM KIT:BEGIN\s*\*/", html)
+    e0 = re.compile(r"/\*\s*OMNEVUM KIT:END\s*\*/").search(html, b0.end()) if b0 else None  # the first end after the first begin; one search, never one per begin
+    m = type("M", (), {"group": lambda self, n: html[b0.end():e0.start()]})() if e0 else None
     if not m:
         errors.append("%s: no kit block (the page is not on the core design language)" % rel); continue
     block = re.sub(r"\s+", "", m.group(1))

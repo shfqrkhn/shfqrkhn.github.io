@@ -27,7 +27,7 @@ def _strip_comments(t):
     return "".join(out)
 
 
-css = re.sub(r"\s*([{}\[\]=,;])\s*", r"\1", _strip_comments(css)).lower()
+css = re.sub(r"(?<!\s)\s+(?=[{}\[\]=,;])|(?<=[{}\[\]=,;])\s+", "", _strip_comments(css)).lower()  # no space beside a delimiter; written so a long run of spaces is read once
 css = re.sub(r"(--[\w-]+)\s+:", r"\1:", css)  # one canonical form, so spacing or case cannot hide a rule
 
 
