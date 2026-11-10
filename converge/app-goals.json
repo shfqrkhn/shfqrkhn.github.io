@@ -1,6 +1,6 @@
 {
  "generated": "2026-11-10",
- "method": "Goals are inferred from each page's registry tagline, blurb and kind. They are working statements for review; success measures are targets to test, not measured results. stable_edge_checks list what to evaluate against primary sources (browser Baseline data, MDN, research) before adopting; nothing is adopted until measured, tested and reversible.",
+ "method": "Goals are inferred from each page's registry tagline, blurb and kind. They are working statements for review; success measures are targets to test, not measured results. stable_edge_checks list what to evaluate against primary sources (browser Baseline data, MDN, research) before adopting; nothing is adopted until measured, tested and reversible. Every success measure begins with 'Target to test' because none has been measured.",
  "apps": [
   {
    "id": "noodle-nudge",
@@ -8,7 +8,7 @@
    "kind": "apps",
    "archived": false,
    "goal": "Help a person reflect each day and notice change over time, privately.",
-   "success": "A daily entry takes under a minute; trends are visible; data never leaves the device and can be exported and restored.",
+   "success": "Target to test: A daily entry takes under a minute; trends are visible; data never leaves the device and can be exported and restored.",
    "stable_edge_checks": [
     "Local-first storage durability (persistent storage)",
     "export and restore",
@@ -23,7 +23,7 @@
    "kind": "tools",
    "archived": false,
    "goal": "Let anyone see patterns in their own CSV time series without uploading it.",
-   "success": "A large CSV (target 100k rows, unverified) charts in seconds on a mid phone; nothing is sent anywhere; the chart is readable and exportable.",
+   "success": "Target to test: A large CSV (target 100k rows, unverified) charts in seconds on a mid phone; nothing is sent anywhere; the chart is readable and exportable.",
    "stable_edge_checks": [
     "Off-main-thread parsing (Worker)",
     "streaming parse",
@@ -39,7 +39,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Prepare a learner to pass a project management certification exam.",
-   "success": "Mastery by topic is measured, weak topics are repeated, and a timed exam mode exists (fit to the real exam format is to be checked against the published format).",
+   "success": "Target to test: mastery by topic is measured, weak topics are repeated, and a timed exam mode exists (fit to the real exam format is to be checked against the published format).",
    "stable_edge_checks": [
     "Spaced and interleaved retrieval",
     "item analysis",
@@ -55,7 +55,7 @@
    "kind": "apps",
    "archived": false,
    "goal": "Record each set fast at the gym and show what plates to load.",
-   "success": "A set logs in two taps; plate math is always correct; works offline with gloves and sweat.",
+   "success": "Target to test: A set logs in two taps; plate math is always correct; works offline with gloves and sweat.",
    "stable_edge_checks": [
     "Large tap targets",
     "wake lock during a session",
@@ -71,7 +71,7 @@
    "kind": "apps",
    "archived": true,
    "goal": "Turn a decision into a clear brief with options, evidence and a review date.",
-   "success": "A decision is fully written in one sitting and can be revisited on its review date.",
+   "success": "Target to test: A decision is fully written in one sitting and can be revisited on its review date.",
    "stable_edge_checks": [
     "Structured decision methods",
     "printable brief",
@@ -86,7 +86,7 @@
    "kind": "apps",
    "archived": true,
    "goal": "Help a facilitator run a fair session and capture agreements.",
-   "success": "Every participant is heard, issues and agreements are recorded, and the record is shareable offline.",
+   "success": "Target to test: every participant is heard, issues and agreements are recorded, and the record is shareable offline.",
    "stable_edge_checks": [
     "Turn-taking structures",
     "export",
@@ -101,7 +101,7 @@
    "kind": "apps",
    "archived": true,
    "goal": "Keep tasks and focus time in one simple place.",
-   "success": "Capture in one tap; an Overdue view and count exist; the focus timer survives a reload (survival with the screen off is a target to test).",
+   "success": "Target to test: capture in one tap; an Overdue view and count exist; the focus timer survives a reload (survival with the screen off is a target to test).",
    "stable_edge_checks": [
     "Notifications and badging where stable",
     "wake lock",
@@ -116,7 +116,7 @@
    "kind": "apps",
    "archived": true,
    "goal": "Show where money goes and keep spending within budgets, on the device.",
-   "success": "Balances reconcile exactly (integer cents); a budget shows Over budget once exceeded (an early warning before overspend is a target to add); backup and restore exist.",
+   "success": "Target to test: balances reconcile exactly (integer cents); a budget shows Over budget once exceeded (an early warning before overspend is a target to add); backup and restore exist.",
    "stable_edge_checks": [
     "Integer money math",
     "import of bank CSVs",
@@ -131,7 +131,7 @@
    "kind": "apps",
    "archived": true,
    "goal": "Let a person explore whether and when they can stop working, with assumptions in view.",
-   "success": "Every result states its assumptions; scenarios compare side by side; math is tested against known cases.",
+   "success": "Target to test: every result states its assumptions; side-by-side scenario comparison is not present yet and is a candidate; math is checked against known cases.",
    "stable_edge_checks": [
     "Monte Carlo and historical sequence methods",
     "inflation and tax assumptions with dated sources"
@@ -145,7 +145,7 @@
    "kind": "tools",
    "archived": true,
    "goal": "Chat with an AI model using the user's own key while showing cost and endpoint.",
-   "success": "The key never leaves the device except to the chosen endpoint; cost is shown for models the user prices in Settings, computed exactly and labelled as from the user's figures.",
+   "success": "Target to test: the key never leaves the device except to the chosen endpoint; cost is shown for models the user prices in Settings, computed exactly and labelled as from the user's figures.",
    "stable_edge_checks": [
     "Streaming responses",
     "current model price data",
@@ -161,7 +161,7 @@
    "kind": "tools",
    "archived": false,
    "goal": "Convert AI chat exports to clean Markdown in the browser.",
-   "success": "Converts AI Studio JSON exports to Markdown with no loss of text (one way); files over the stated size limit are refused with a message; nothing is uploaded.",
+   "success": "Target to test: converts AI Studio JSON exports to Markdown with no loss of text (one way); files over the stated size limit are refused with a message; nothing is uploaded.",
    "stable_edge_checks": [
     "Streaming file reads",
     "File and drag-drop APIs",
@@ -176,7 +176,7 @@
    "kind": "tools",
    "archived": true,
    "goal": "Estimate steps from distance and time, in English or French.",
-   "success": "Estimates come with a stated error range (target: the app does not state one yet), checked against measured steps; the English and French switch is complete.",
+   "success": "Target to test: estimates come with a stated error range (target: the app does not state one yet), checked against measured steps; the English and French switch is complete.",
    "stable_edge_checks": [
     "Stride models from published research",
     "locale APIs",
@@ -191,7 +191,7 @@
    "kind": "games",
    "archived": true,
    "goal": "Show each team's chances in the 2026 World Cup by repeated simulation.",
-   "success": "Results stabilize with stated simulation count; ratings source is dated and cited.",
+   "success": "Target to test: results stabilize with stated simulation count; ratings source is dated and cited.",
    "stable_edge_checks": [
     "Seeded PRNG for reproducibility",
     "Worker-based simulation",
@@ -206,7 +206,7 @@
    "kind": "references",
    "archived": false,
    "goal": "Help a handheld owner choose games that run well and compare them.",
-   "success": "Recommendations match measured handheld performance; data has dates and sources.",
+   "success": "Target to test: each pick is an estimate from trial profiles, labelled as not benchmarked; the app shows dates and sources for its data; measured handheld results are a watch-list item.",
    "stable_edge_checks": [
     "Structured data refresh",
     "accessible comparison tables",
@@ -221,7 +221,7 @@
    "kind": "games",
    "archived": false,
    "goal": "Teach board game rules, hiding strategy until asked.",
-   "success": "A new player can start from the rules alone; strategy never spoils unprompted.",
+   "success": "Target to test: A new player can start from the rules alone; strategy never spoils unprompted.",
    "stable_edge_checks": [
     "Progressive disclosure patterns",
     "printable quick reference",
@@ -236,7 +236,7 @@
    "kind": "recipes",
    "archived": false,
    "goal": "Make egg salad in an Instant Pot with correct servings and timing.",
-   "success": "Scaled quantities and times are correct; usable one-handed in a kitchen.",
+   "success": "Target to test: scaled quantities and times are correct; usable one-handed in a kitchen.",
    "stable_edge_checks": [
     "Wake lock",
     "timers that survive screen off",
@@ -251,7 +251,7 @@
    "kind": "guides",
    "archived": false,
    "goal": "Guide a player through one Hades build in order.",
-   "success": "Build order and boon choices match the current game version.",
+   "success": "Target to test: build order and boon choices carry a game-version stamp (none present yet) so they can be checked against the current version.",
    "stable_edge_checks": [
     "Version tagging of game patches",
     "quick-glance layout"
@@ -265,7 +265,7 @@
    "kind": "references",
    "archived": false,
    "goal": "Point learners to good video channels by subject.",
-   "success": "Each channel entry is current, described accurately and grouped by what it teaches.",
+   "success": "Target to test: each channel entry is current, described accurately and grouped by what it teaches.",
    "stable_edge_checks": [
     "Link health checks (offline list)",
     "dated entries"
@@ -279,7 +279,7 @@
    "kind": "guides",
    "archived": false,
    "goal": "Tell a Canadian gardener what to plant when, and lay out beds.",
-   "success": "Dates match local frost data for each of 56 places; printable layout works.",
+   "success": "Target to test: dates match local frost data for each of 56 places; printable layout works.",
    "stable_edge_checks": [
     "Climate data refresh from public sources",
     "print stylesheets"
@@ -293,7 +293,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach accounting ratios through worked calculators.",
-   "success": "Every formula is correct and shown stepwise; practice numbers check themselves.",
+   "success": "Target to test: every formula is correct and shown stepwise; practice numbers check themselves.",
    "stable_edge_checks": [
     "Formula test suite",
     "accessible math rendering"
@@ -307,7 +307,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach accounting basics with examples and checks.",
-   "success": "The learner can pass the chapter checks after reading; misconceptions are addressed.",
+   "success": "Target to test: the learner can pass the chapter checks after reading; misconceptions are addressed.",
    "stable_edge_checks": [
     "Retrieval practice",
     "worked-example fading",
@@ -322,7 +322,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Let a learner see how debt and equity mix changes cost of capital.",
-   "success": "The model matches textbook results and shows the trade-off visually.",
+   "success": "Target to test: the model matches textbook results and shows the trade-off visually.",
    "stable_edge_checks": [
     "Interactive visualization with accessible text equivalent"
    ],
@@ -335,7 +335,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach statistics and business intelligence concepts with checks.",
-   "success": "The learner can interpret a result and choose a method after the course.",
+   "success": "Target to test: the learner can interpret a result and choose a method after the course.",
    "stable_edge_checks": [
     "Interactive simulations",
     "retrieval practice",
@@ -350,7 +350,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Prepare learners to reason about business ethics and career choices.",
-   "success": "The learner can apply a framework to a new case and justify a choice.",
+   "success": "Target to test: the learner can apply a framework to a new case and justify a choice.",
    "stable_edge_checks": [
     "Case-based learning",
     "reflection prompts",
@@ -365,7 +365,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach how firms manage information systems.",
-   "success": "The learner can explain and apply core concepts to a described firm.",
+   "success": "Target to test: the learner can explain and apply core concepts to a described firm.",
    "stable_edge_checks": [
     "Retrieval practice",
     "case application",
@@ -380,7 +380,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Prepare a person for a negotiation and let them practise.",
-   "success": "A prepared plan with goals, limits and tactics; practice rounds give useful feedback.",
+   "success": "Target to test: A prepared plan with goals, limits and tactics; practice rounds give useful feedback.",
    "stable_edge_checks": [
     "Scenario practice",
     "feedback on choices",
@@ -395,7 +395,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach operations, processes and project management.",
-   "success": "The learner can map and improve a process and plan a project.",
+   "success": "Target to test: the learner can map and improve a process and plan a project.",
    "stable_edge_checks": [
     "Worked examples",
     "practice scenarios",
@@ -410,7 +410,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach perception, communication and leadership skills.",
-   "success": "The learner can apply concepts to realistic situations.",
+   "success": "Target to test: the learner can apply concepts to realistic situations.",
    "stable_edge_checks": [
     "Scenario practice",
     "spaced retrieval",
@@ -425,7 +425,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach strategy, marketing and international business.",
-   "success": "The learner can analyse a company and propose a justified strategy.",
+   "success": "Target to test: the learner can analyse a company and propose a justified strategy.",
    "stable_edge_checks": [
     "Case analysis",
     "interleaved practice",
@@ -440,7 +440,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Help someone write a clear statement of work and evaluation criteria.",
-   "success": "Output is complete, unambiguous and checkable against a checklist.",
+   "success": "Target to test: output is complete, unambiguous and checkable against a checklist.",
    "stable_edge_checks": [
     "Template validation",
     "plain-language checks",
@@ -455,7 +455,7 @@
    "kind": "guides",
    "archived": false,
    "goal": "Get a person through setting up a common device step by step.",
-   "success": "A first-time user completes setup without outside help.",
+   "success": "Target to test: A first-time user completes setup without outside help.",
    "stable_edge_checks": [
     "Step state saved offline",
     "device-specific variants",
@@ -470,7 +470,7 @@
    "kind": "guides",
    "archived": false,
    "goal": "Keep everyday gear in good condition with clear care steps.",
-   "success": "Instructions match manufacturer guidance and are dated.",
+   "success": "Target to test: instructions match manufacturer guidance and are dated.",
    "stable_edge_checks": [
     "Maintenance reminders without a server",
     "source citations"
@@ -484,7 +484,7 @@
    "kind": "guides",
    "archived": false,
    "goal": "Set up, tune and care for a handheld gaming PC.",
-   "success": "Settings advice matches current firmware and drivers and is dated.",
+   "success": "Target to test: settings advice matches current firmware and drivers and is dated.",
    "stable_edge_checks": [
     "Version tagging",
     "tested settings tables"
@@ -498,7 +498,7 @@
    "kind": "references",
    "archived": false,
    "goal": "Give a drummer quick answers about an electronic kit.",
-   "success": "Any setting is found in a few taps and is correct for the model.",
+   "success": "Target to test: any setting is found in a few taps and is correct for the model.",
    "stable_edge_checks": [
     "Quick search",
     "offline use",
@@ -513,7 +513,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach and support configuration management and change control.",
-   "success": "A team can run a change request using the toolkit.",
+   "success": "Target to test: A team can run a change request using the toolkit.",
    "stable_edge_checks": [
     "Templates and checklists",
     "retrieval practice for concepts"
@@ -527,7 +527,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Help someone audit energy use and find savings.",
-   "success": "A completed audit lists measured use and ranked savings.",
+   "success": "Target to test: A completed audit lists measured use and ranked savings.",
    "stable_edge_checks": [
     "Current efficiency data and tariffs with dates",
     "printable checklists"
@@ -541,7 +541,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Help decide how to support equipment (repair, replace, contract).",
-   "success": "The decision is justified with cost and risk shown.",
+   "success": "Target to test: the decision is justified with cost and risk shown.",
    "stable_edge_checks": [
     "Decision analysis methods",
     "sensitivity display"
@@ -555,7 +555,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Teach systems design through a lab with templates.",
-   "success": "The learner produces a sound design for a described problem.",
+   "success": "Target to test: the learner produces a sound design for a described problem.",
    "stable_edge_checks": [
     "Worked examples",
     "templates",
@@ -570,7 +570,7 @@
    "kind": "guides",
    "archived": false,
    "goal": "Help plan a high-throughput PC workstation build.",
-   "success": "The plan's parts are compatible and fit the goal, with dated prices and sources.",
+   "success": "Target to test: the plan's parts are compatible and fit the goal, with dated prices and sources.",
    "stable_edge_checks": [
     "Compatibility rules as data",
     "dated references",
@@ -585,7 +585,7 @@
    "kind": "games",
    "archived": false,
    "goal": "Let a class learn bidding strategy by playing an auction.",
-   "success": "Players understand the strategy after a round; a teacher can run it with little setup.",
+   "success": "Target to test: players understand the strategy after a round; a teacher can run it with little setup.",
    "stable_edge_checks": [
     "Peer-to-peer offline play options",
     "accessible controls",
@@ -600,7 +600,7 @@
    "kind": "references",
    "archived": false,
    "goal": "Give builders a trustworthy, searchable map of useful open projects.",
-   "success": "Each entry has a verified role, licence and limits; the catalogue stays current.",
+   "success": "Target to test: each entry has a verified role, licence and limits; the catalogue stays current.",
    "stable_edge_checks": [
     "Weekly refresh report (radar.yml)",
     "checksum-pinned data",
