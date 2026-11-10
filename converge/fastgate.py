@@ -23,7 +23,15 @@ def run(*a):
 
 def main():
     # no rename detection, NUL separated: a moved file lists both its old and new path
-    out = run("git", "status", "--porcelain=v1", "-z", "--no-renames", "--untracked-files=all").stdout
+    try:
+        st = run("git", "status", "--porcelain=v1", "-z", "--no-renames", "--untracked-files=all")
+    except OSError as e:
+        print("FULL: git is unavailable (%s)" % e)
+        return 1
+    if st.returncode:
+        print("FULL: git status failed (%s)" % st.stderr.strip()[:200])
+        return 1
+    out = st.stdout
     names = {e[3:] for e in out.split("\0") if len(e) > 3}
     if not names:
         print("nothing changed")

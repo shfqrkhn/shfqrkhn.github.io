@@ -101,7 +101,7 @@
    "kind": "apps",
    "archived": true,
    "goal": "Keep tasks and focus time in one simple place.",
-   "success": "Capture in one tap; overdue items are listed when the app opens; the timer stores its end time so it survives the screen turning off (notifications are a watch-list item, not present).",
+   "success": "Capture in one tap; an Overdue view and count exist; the focus timer survives a reload (survival with the screen off is a target to test).",
    "stable_edge_checks": [
     "Notifications and badging where stable",
     "wake lock",
@@ -116,7 +116,7 @@
    "kind": "apps",
    "archived": true,
    "goal": "Show where money goes and keep spending within budgets, on the device.",
-   "success": "Balances reconcile exactly (integer cents); budgets alert before overspend; full export and restore.",
+   "success": "Balances reconcile exactly (integer cents); a budget shows Over budget once exceeded (an early warning before overspend is a target to add); backup and restore exist.",
    "stable_edge_checks": [
     "Integer money math",
     "import of bank CSVs",
@@ -161,7 +161,7 @@
    "kind": "tools",
    "archived": false,
    "goal": "Convert AI chat exports to clean Markdown in the browser.",
-   "success": "Round-trips common exports with no loss of text; handles large files; no upload.",
+   "success": "Converts AI Studio JSON exports to Markdown with no loss of text (one way); files over the stated size limit are refused with a message; nothing is uploaded.",
    "stable_edge_checks": [
     "Streaming file reads",
     "File and drag-drop APIs",

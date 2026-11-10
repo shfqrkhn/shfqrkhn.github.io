@@ -21,7 +21,7 @@ jobs:
       - name: Build the report
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python converge/radar_refresh.py --out radar-report.md
+        run: python converge/radar_refresh.py --out radar-report.md || echo "::warning::RepoRadar refresh could not reach the API; the report says UNCHECKED"
       - name: Show the report in the run summary
         run: cat radar-report.md >> "$GITHUB_STEP_SUMMARY"
       - name: Keep one tracking issue current (public repository names only)
@@ -31,4 +31,4 @@ jobs:
         run: |
           head -c 60000 radar-report.md | iconv -c -f UTF-8 -t UTF-8 > body.md
           n=$(gh issue list --state all --author "app/github-actions" --search "\"RepoRadar weekly report\" in:title" --json number --jq '.[0].number')
-          if [ -n "$n" ]; then gh issue edit "$n" --body-file body.md; else gh issue create --title "RepoRadar weekly report" --body-file body.md; fi
+          if [ -n "$n" ]; then gh issue reopen "$n" 2>/dev/null || true; gh issue edit "$n" --body-file body.md; else gh issue create --title "RepoRadar weekly report" --body-file body.md; fi

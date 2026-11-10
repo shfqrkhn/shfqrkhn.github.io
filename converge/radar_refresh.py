@@ -56,11 +56,11 @@ def main():
         maxq = int(args[args.index("--max-queries") + 1])
     full = os.path.realpath(os.path.join(ROOT, out))
     try:
-        inside = os.path.commonpath([full, ROOT]) == ROOT and full != ROOT
+        inside = os.path.commonpath([full, os.path.realpath(ROOT)]) == os.path.realpath(ROOT) and full != os.path.realpath(ROOT) and full.lower().endswith((".md", ".txt"))
     except ValueError:  # another drive
         inside = False
-    if not inside or os.path.relpath(full, ROOT).split(os.sep)[0] in (".git", ".github"):
-        sys.exit("the report path must stay inside the repository and outside .git and .github")
+    if not inside or os.path.relpath(full, os.path.realpath(ROOT)).split(os.sep)[0] in (".git", ".github"):
+        sys.exit("the report path must stay inside the repository and outside .git and .github, and end in .md or .txt")
     led = json.load(open(os.path.join(ROOT, "converge", "reporadar-ledger.json"), encoding="utf-8"))
     known = {str(e.get("id", "")).lower(): e for e in led["entries"]}
     cfg = json.load(open(os.path.join(ROOT, "converge", "radar-queries.json"), encoding="utf-8"))
@@ -97,11 +97,11 @@ def main():
             continue
         if r.get("archived"):
             drift.append("- %s: archived upstream" % e["id"])
-        elif r.get("full_name", "").lower() != e["id"].lower():
+        elif (r.get("full_name") or "").lower() != e["id"].lower():
             drift.append("- %s: renamed to %s" % (e["id"], r.get("full_name")))
         elif days_since(r.get("pushed_at")) > STALE_DAYS:
             drift.append("- %s: no push since %s" % (e["id"], (r.get("pushed_at") or "unknown")[:10]))
-        if len(drift) + calls["ok"] > cfg["max_calls"]:
+        if calls["ok"] + calls["fail"] > cfg["max_calls"]:
             drift.append("- stopped at the call budget; rerun later")
             break
     lines += (drift or ["- none"]) + (["- UNCHECKED: %d lookups failed; the list above may be incomplete" % (calls["fail"] - f2)] if calls["fail"] > f2 else []) + [""]
@@ -115,7 +115,7 @@ def main():
             repo, _, tag = m.groups()
             r = get("/repos/%s/releases/latest" % repo)
             if r and r.get("tag_name") and r["tag_name"] != tag:
-                pins.append("- %s (%s): pinned %s, latest %s" % (repo, name, tag, r["tag_name"]))
+                pins.append("- %s (%s): pinned `%s`, latest `%s`" % (repo, name, tag, re.sub(r"[`\s]+", " ", str(r["tag_name"]))[:60]))
     lines += (pins or ["- all checked pins match the latest release"]) + (["- UNCHECKED: %d release lookups failed" % (calls["fail"] - f3)] if calls["fail"] > f3 else []) + [""]
 
     lines += ["API calls: %d ok, %d failed." % (calls["ok"], calls["fail"])]
