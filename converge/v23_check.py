@@ -35,7 +35,7 @@ def git(*a):
 # CR-1 identity
 reg_p = os.path.join(ROOT, "builder", "registry.json")
 led_p = os.path.join(ROOT, "converge", "reporadar-ledger.json")
-ident = {"head": git("rev-parse", "HEAD"), "dirty": bool(git("status", "--short")), "python": sys.version.split()[0],
+ident = {"brief_v23_sha256": "550acb73f53cfa20a23f692bc410fea7bf0cca91bd8649de32adfa779e42447b", "head": git("rev-parse", "HEAD"), "dirty": bool(git("status", "--short")), "python": sys.version.split()[0],
          "registry_sha256": sha(reg_p), "ledger_sha256": sha(led_p)}
 try:
     import playwright  # noqa: F401
@@ -50,6 +50,13 @@ for dp, dn, fn in os.walk(os.path.join(ROOT, "site")):
         full = os.path.join(dp, f)
         h.update((os.path.relpath(full, ROOT).replace(os.sep, "/") + "\0" + sha(full) + "\n").encode())
 ident["site_tree_sha256"] = h.hexdigest()
+h2 = hashlib.sha256()
+for dp, dn, fn in os.walk(os.path.join(ROOT, "sources")):
+    dn[:] = sorted(dn)
+    for f in sorted(fn):
+        full = os.path.join(dp, f)
+        h2.update((os.path.relpath(full, ROOT).replace(os.sep, "/") + "\0" + sha(full) + "\n").encode())
+ident["sources_tree_sha256"] = h2.hexdigest()
 print(json.dumps(ident, indent=1))
 rec("CR-1 identity", bool(ident["head"]), "HEAD " + ident["head"][:7] + (" (working tree has changes)" if ident["dirty"] else ""))
 
@@ -59,7 +66,7 @@ apps = [p for p in pages if p["kind"] == "apps"]
 arch = [p for p in pages if p.get("archived")]
 missing = [p["slug"] for p in pages if not os.path.isfile(os.path.join(ROOT, "site", p["kind"], p["slug"], "index.html"))]
 ids = [p["id"] for p in pages]
-rec("CR-2 registry", not missing and len(ids) == len(set(ids)), "%d pages (%d by kind apps), %d archived, %d missing output, ids unique=%s" % (len(pages), len(apps), len(arch), len(missing), len(ids) == len(set(ids))))
+rec("CR-2 registry", not missing and len(ids) == len(set(ids)) and len(pages) == 41 and len(arch) == 8, "%d pages (%d by kind apps), %d archived, %d missing output, ids unique=%s" % (len(pages), len(apps), len(arch), len(missing), len(ids) == len(set(ids))))
 
 # CR-3 ledger
 led = json.load(open(led_p, encoding="utf-8"))
@@ -121,5 +128,9 @@ if "--save" in sys.argv:
     p = sys.argv[sys.argv.index("--save") + 1] if sys.argv.index("--save") + 1 < len(sys.argv) else "converge/receipts/v23-execution.json"
     assert not os.path.isabs(p) and ".." not in p.replace(os.sep, "/").split("/"), "the receipt path must stay inside the repository"
     os.makedirs(os.path.dirname(os.path.join(ROOT, p)), exist_ok=True)
-    json.dump(out, open(os.path.join(ROOT, p), "w", encoding="utf-8"), indent=1)
+    full = os.path.join(ROOT, p)
+    old = json.load(open(full, encoding="utf-8")) if os.path.isfile(full) else {"results": {}}
+    old["results"].update(out["results"])  # keep the CR-5 to CR-7 rows written by other runs
+    old["identity"], old["not_run"] = out["identity"], out["not_run"]
+    json.dump(old, open(full, "w", encoding="utf-8"), indent=1)
 sys.exit(1 if any(v["outcome"] == "FAIL" for v in res.values()) else 0)

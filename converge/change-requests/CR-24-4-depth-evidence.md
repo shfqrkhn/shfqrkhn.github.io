@@ -11,7 +11,7 @@
 
 **Not in scope:** checking that lesson content is true against primary sources (needs a domain reviewer; listed as an owner item).
 
-**Acceptance:** one row per app in converge/receipts/v23-execution.json with outcome and the fixture used; any FAIL is reproduced before a fix.
+**Acceptance:** one row per app in converge/receipts/v24-depth.json (a separate file, so v23_check.py never overwrites it) with outcome and the fixture used; any FAIL is reproduced before a fix.
 
 **Rollback:** receipts are git-ignored; fixes are separate commits.
 

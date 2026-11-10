@@ -109,6 +109,7 @@ for name in sorted(os.listdir(ROOT)):
     elif name not in ROOT_FILES:
         fail("unexpected file at root: " + name)
 
+# ROOT is the published tree, so ".github" and "templates" are normally absent and their scan is a no-op kept as a guard if one ever appears there.
 WEB_OK = {os.path.join("scripts", "personalize.js")}  # the only page or script files allowed in the folders the page gate does not walk
 for _d in ("docs", "scripts", "content", "templates", "icons", ".github"):
     for dp, dn, fn in os.walk(os.path.join(ROOT, _d)):
