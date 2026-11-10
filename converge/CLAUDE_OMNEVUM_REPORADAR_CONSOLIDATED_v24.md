@@ -1,6 +1,6 @@
 # Omnevum and RepoRadar: problem-first brief (v24)
 
-Successor to CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v23 (SHA-256 550acb73f53cfa20a23f692bc410fea7bf0cca91bd8649de32adfa779e42447b). v23 stays as the immutable predecessor; this file restates it around the problem it is meant to solve. Facts below were measured in this repository on 2026-11-10 unless marked UNVERIFIED.
+Successor to CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v23 (SHA-256 550acb73f53cfa20a23f692bc410fea7bf0cca91bd8649de32adfa779e42447b). v23 stays as the immutable predecessor (not kept in this repository; its hash is recorded for reference); this file restates it around the problem it is meant to solve. Facts below were measured in this repository on 2026-11-10 unless marked UNVERIFIED.
 
 ## 1. The ask as stated (X)
 

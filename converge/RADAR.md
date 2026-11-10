@@ -40,7 +40,7 @@ A report is a list of leads, never a change. The queries cover the app families 
 
 ## Per-app currency review
 
-Each app gets a row in `converge/receipts/v24-depth.json` (CR-24-4): its goal, the ledger entries that apply, what was adopted, what was rejected and why, and the next check date. An app is reviewed again when the report names a lead for its query or when its pinned data goes stale. No app can be certified as using everything available; the review shows what was considered and why.
+Each app will get a row in `converge/receipts/v24-depth.json` (CR-24-4; created when that work runs; receipts are local and git-ignored): its goal, the ledger entries that apply, what was adopted, what was rejected and why, and the next check date. An app is reviewed again when the report names a lead for its query or when its pinned data goes stale. No app can be certified as using everything available; the review shows what was considered and why.
 
 ## Tune the queries
 
@@ -67,6 +67,10 @@ Family lens (questions to brainstorm, then test, never assume):
 - Builder and gates: fewer steps, fewer tokens, clearer failures, one source of truth per fact.
 
 Record the outcome per lead (adopt, adapt, study, reference, reject) in the ledger with the reason. If nothing better exists, say so; that is a valid result.
+
+## Files in converge/
+
+`radar_refresh.py`, `radar-queries.json`: the weekly refresh. `reporadar-ledger.json`: what was considered and why. `app-goals.json`: inferred goal per page. `change-requests/`: CR-24-1 to CR-24-7. `CHANGE-REQUEST-v23.md`, `CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v24.md`: the plan and its baseline. `v23_check.py`, `v23_offline.py`: baseline checks. `scan.py`, `omni_check.py`, `apply_edits.py`: review scripts. `receipts/`: local, git-ignored.
 
 ## The stable edge rule
 

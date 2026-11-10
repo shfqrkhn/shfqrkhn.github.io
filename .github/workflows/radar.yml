@@ -1,5 +1,5 @@
 name: radar
-# Weekly: look for new upstream resources and drift in what RepoRadar already tracks. Read-only; it only writes the report to the run summary.
+# Weekly: look for new upstream resources and drift in what RepoRadar already tracks. Read-only on the code; it writes the report to the run summary and to one tracking issue.
 on:
   schedule:
     - cron: "43 5 * * 1"

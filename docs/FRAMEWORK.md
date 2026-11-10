@@ -74,7 +74,7 @@ Repository (github.com/shfqrkhn/shfqrkhn.github.io): everything needed to rebuil
     backup.py                          zip the tracked files plus the local-only files; --verify checks a zip
     fetch_icons.py                     restore the full icon pack from the pinned npm package
   site/                                the published tree: authored scripts/, content/, robots.txt; build.py generates the rest (git-ignored)
-  converge/                            review scripts (scan.py, omni_check.py, apply_edits.py); receipts/ and private-skip.txt stay local
+  converge/                            review scripts, RADAR.md (file list); receipts/ and private-skip.txt stay local
   .github/workflows/                   deploy (build, test, Pages on main), health (weekly live), radar (weekly)
   history/                             local safety copies made by archive.py (git-ignored; git history is the real history)
 
