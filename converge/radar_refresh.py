@@ -31,8 +31,9 @@ def get(path):
         req.add_header("Authorization", "Bearer " + TOKEN)
     try:
         with urllib.request.urlopen(req, timeout=20) as r:
+            data = json.load(r)
             calls["ok"] += 1
-            return json.load(r)
+            return data
     except Exception:  # any network or decoding failure counts as one failed call
         calls["fail"] += 1
         return None
