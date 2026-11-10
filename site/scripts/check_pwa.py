@@ -68,6 +68,22 @@ def _walk(v):
             yield from _walk(x)
 
 
+def _exact(path):
+    """True when the path exists with the same letter case at every step (the live host is case-sensitive, a Windows runner is not)."""
+    path = os.path.normpath(path)
+    if not os.path.exists(path):
+        return False
+    rel = os.path.relpath(path, ROOT)
+    cur = ROOT
+    for part in rel.split(os.sep):
+        if part in (".", ""):
+            continue
+        if part not in os.listdir(cur):
+            return False
+        cur = os.path.join(cur, part)
+    return True
+
+
 for _v in _walk(mf):  # the browser reads the manifest outside the page policy: no field may name a remote address (screenshots, share_target, scope_extensions, related_applications, ...)
     if _remote(_v):
         fail("manifest names a remote or script address: " + _v[:60])
@@ -78,8 +94,8 @@ for i in mf.get("icons", []):
     if ".." in i["src"].split("/") or i["src"].startswith(("/", "http")):
         fail("icon src must stay inside the site: " + i["src"]); continue
     path = os.path.join(ROOT, (i["src"][2:] if i["src"].startswith("./") else i["src"]).replace("/", os.sep))
-    if not os.path.isfile(path):
-        fail("icon file missing: " + i["src"]); continue
+    if not os.path.isfile(path) or not _exact(path):
+        fail("icon file missing (or wrong letter case): " + i["src"]); continue
     if i["type"] == "image/png":
         got = png_size(path)
         if got is None or "%dx%d" % got not in i["sizes"].split():
@@ -110,7 +126,7 @@ for _lk in re.findall(r"<link\b[^>]*>", hub, re.I):  # the hub icons must be rea
     _href = next((g for g in _href_m.groups() if g is not None), "").strip() if _href_m else ""
     if _rel_m and _href and _rel_m.group(1).lower() in ("icon", "apple-touch-icon", "shortcut") and not _href.startswith("data:"):
         _path = urllib.parse.unquote(_href.split("#")[0].split("?")[0]).lstrip("/")  # a leading slash means the site root, which is ROOT here
-        if _remote(_href) or not os.path.isfile(os.path.join(ROOT, _path)):
+        if _remote(_href) or not (os.path.isfile(os.path.join(ROOT, _path)) and _exact(os.path.join(ROOT, _path))):
             fail("hub icon link points at a missing or remote file: " + _href[:60])
 if "serviceWorker" not in hub or './sw.js' not in hub:
     fail("hub does not register the worker")
@@ -134,8 +150,8 @@ for f in shell:
     if not isinstance(f, str) or f.startswith(("/", chr(92))) or ".." in f.split("/"):
         fail("worker shell entry must be a path inside the site: %s" % f); continue
     p = os.path.join(ROOT, _rel(f).replace("/", os.sep)) if f != "./" else ROOT
-    if not os.path.exists(p):
-        fail("worker shell lists a file that does not exist: " + f)
+    if not os.path.exists(p) or not _exact(p):
+        fail("worker shell lists a file that does not exist (or has the wrong letter case): " + f)
 _cm = re.search(r'id="catalogData">(.*?)</script>', hub, re.S)
 if not _cm:
     print("FAIL the hub has no catalog (id=catalogData)"); sys.exit(1)
@@ -148,7 +164,7 @@ def _bundle(f):
     if not isinstance(f, str) or f.startswith(("/", chr(92))) or not f.strip("/. ") or ".." in f.replace(chr(92), "/").split("/") or os.path.isabs(f) or ":" in f.split("/")[0]:
         return None
     p = os.path.join(ROOT, _rel(f).replace("/", os.sep))
-    return p if os.path.exists(p) else None
+    return p if os.path.exists(p) and _exact(p) else None
 
 
 for k, v in pages.items():
