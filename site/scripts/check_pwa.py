@@ -49,6 +49,28 @@ if ".." in str(mf.get("start_url", "")).split("/") or ".." in str(mf.get("scope"
     fail("start_url and scope must stay inside the site (no ..)")
 elif isinstance(mf.get("start_url"), str) and isinstance(mf.get("scope"), str) and not mf["start_url"].startswith(mf["scope"]):
     fail("start_url must be inside scope")
+_REMOTE = re.compile(r"^(?:(?:https?|wss?|ftp):)?[/\\]{2}[^/\\]|^javascript:.", re.I)
+
+
+def _remote(x):
+    """True when a text value would name a remote address once a browser has dropped tabs, line breaks and spaces and read a backslash as a slash."""
+    return bool(_REMOTE.match(re.sub(r"[\x00-\x20]+", "", x)))
+
+
+def _walk(v):
+    if isinstance(v, str):
+        yield v
+    elif isinstance(v, dict):
+        for x in v.values():
+            yield from _walk(x)
+    elif isinstance(v, list):
+        for x in v:
+            yield from _walk(x)
+
+
+for _v in _walk(mf):  # the browser reads the manifest outside the page policy: no field may name a remote address (screenshots, share_target, scope_extensions, related_applications, ...)
+    if _remote(_v):
+        fail("manifest names a remote or script address: " + _v[:60])
 sizes, purposes = set(), set()
 if not isinstance(mf.get("icons"), list) or not all(isinstance(i, dict) and all(isinstance(i.get(k), str) for k in ("src", "type", "sizes")) for i in mf["icons"]):
     fail("manifest icons must each have text src, type and sizes"); mf["icons"] = []
@@ -98,7 +120,7 @@ for _t in _TOK.finditer(sw):  # comments are skipped, string literals are judged
     if _t.group()[0] in "'\"`":
         _strs.append(_t.group()[1:-1])
 sw_code = _TOK.sub(lambda m: m.group() if m.group()[0] in "'\"`" else " ", sw)
-if re.search(r"importScripts|XMLHttpRequest", sw_code) or any(re.match(r"\s*(?:https?:)?//[^\s/\\]", x) for x in _strs):
+if re.search(r"importScripts|XMLHttpRequest", sw_code) or any(_remote(x) for x in _strs):
     fail("sw.js names a remote address or loads a script (importScripts, XMLHttpRequest, or a string starting with http/https// )")
 for f in shell:
     if not isinstance(f, str) or f.startswith(("/", chr(92))) or ".." in f.split("/"):
