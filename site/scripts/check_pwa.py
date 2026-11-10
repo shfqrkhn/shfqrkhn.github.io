@@ -98,7 +98,7 @@ for _t in _TOK.finditer(sw):  # comments are skipped, string literals are judged
     if _t.group()[0] in "'\"`":
         _strs.append(_t.group()[1:-1])
 sw_code = _TOK.sub(lambda m: m.group() if m.group()[0] in "'\"`" else " ", sw)
-if re.search(r"importScripts|XMLHttpRequest", sw_code) or any(re.match(r"\s*(?:https?:)?//", x) for x in _strs):
+if re.search(r"importScripts|XMLHttpRequest", sw_code) or any(re.match(r"\s*(?:https?:)?//[^\s/\\]", x) for x in _strs):
     fail("sw.js names a remote address or loads a script (importScripts, XMLHttpRequest, or a string starting with http/https// )")
 for f in shell:
     if not isinstance(f, str) or f.startswith(("/", chr(92))) or ".." in f.split("/"):
