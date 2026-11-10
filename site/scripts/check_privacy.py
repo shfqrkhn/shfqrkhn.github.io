@@ -26,7 +26,7 @@ BLOB = re.compile(r"[A-Za-z0-9+/=_-]{120,}")  # base64 or hash runs: not prose, 
 COLOR = re.compile(r"(?:rgba?|hsla?)\([^)]*\)")  # CSS colour values look like numbers, they are not
 ROLE = re.compile(r"\b(?:Owners?|Managers?|Teams?|Users?|Leads?|Engineers?|Studios?|Games|Software|Inc|Ltd|Corporation|Contributors|Authors|Developers)\b")
 RULES = [
-    ("email", re.compile(r"[\w.%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")),
+    ("email", re.compile(r"(?<![\w.%+-])[\w.%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")),
     ("phone", re.compile(r"(?<![\d.])(?:\+?\d{1,2}(?:[ .-]|(?=\())|\d{1,2}[ .-])?(?:\(\d{3}\)[ .-]?|\d{3}[ .-])\d{3}[ .-]?\d{4}(?!\d|\.\d)")),
     ("phone-run", re.compile(r"(?:tel:\+?|(?<![\w+])\+)\d{10,14}(?!\d|\.\d)", re.I)),
     ("email-spelled", re.compile(r"(?<![A-Za-z0-9._%+-])[A-Za-z0-9._%+-]{1,64}\s*(?:\[at\]|\(at\)|\{at\})\s*[A-Za-z0-9-]{1,63}(?:\s*(?:\[dot\]|\(dot\)|\.)\s*[A-Za-z0-9-]{1,63}){1,4}", re.I)),

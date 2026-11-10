@@ -71,6 +71,8 @@ def main():
         except UnicodeDecodeError:
             errors.append("%s: the document must be UTF-8 text" % rel)
             continue
+        if not raw.strip():
+            errors.append("%s: the document is empty" % rel)
         low = re.sub(r"[\s\u00a0]+", " ", raw.lower())  # one space between words, so a line break or a no-break space cannot hide a phrase
         if len(raw.encode("utf-8")) > budget:
             errors.append("%s: %d bytes is over its %d byte budget (cut text, or raise the budget in check_docs.py on purpose)" % (rel, len(raw.encode("utf-8")), budget))

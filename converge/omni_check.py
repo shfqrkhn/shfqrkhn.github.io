@@ -55,7 +55,7 @@ for r in sorted(refs, key=lambda x: [int(i) for i in x.split(".")]):
     if r not in bare:
         defects.append("section reference with no heading: §" + r)
 major = (re.search(r"(?m)^version: (\d+)\.", s) or [None, "7"])[1]
-ver = set(re.findall(r"(?<![\d.])" + major + r"\.\d+\.\d+(?!\d|\.\d)", s))
+ver = set(v for v in re.findall(r"(?<![\d.])(\d+\.\d+\.\d+)(?!\d|\.\d)", s) if int(v.split(".")[0]) >= int(major))  # the same major or a later one: earlier majors are predecessor records
 c0 = s.find("\n## Contents")
 if c0 >= 0:
     block = s[c0:].split("\n---", 1)[0].split("\n")[2:]
