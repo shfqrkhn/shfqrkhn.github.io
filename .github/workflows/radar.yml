@@ -21,7 +21,9 @@ jobs:
       - name: Build the report
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python converge/radar_refresh.py --out radar-report.md || echo "::warning::RepoRadar refresh could not reach the API; the report says UNCHECKED"
+        run: |
+          python converge/radar_refresh.py --out radar-report.md || echo "::warning::RepoRadar refresh ended with an error; see the report"
+          [ -f radar-report.md ] || echo "RepoRadar refresh failed before it wrote a report. Rerun later." > radar-report.md
       - name: Show the report in the run summary
         run: cat radar-report.md >> "$GITHUB_STEP_SUMMARY"
       - name: Keep one tracking issue current (public repository names only)

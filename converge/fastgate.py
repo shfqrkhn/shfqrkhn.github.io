@@ -18,10 +18,11 @@ def doc_only(n):
 
 
 def run(*a):
-    return subprocess.run(a, capture_output=True, text=True)
+    return subprocess.run(a, capture_output=True, text=True, timeout=3600)
 
 
 def main():
+    os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # paths from git status are repository-relative
     # no rename detection, NUL separated: a moved file lists both its old and new path
     try:
         st = run("git", "status", "--porcelain=v1", "-z", "--no-renames", "--untracked-files=all")

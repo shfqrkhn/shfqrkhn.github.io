@@ -33,7 +33,7 @@ def get(path):
         with urllib.request.urlopen(req, timeout=20) as r:
             calls["ok"] += 1
             return json.load(r)
-    except (urllib.error.URLError, OSError, ValueError):
+    except Exception:  # any network or decoding failure counts as one failed call
         calls["fail"] += 1
         return None
 
@@ -72,10 +72,12 @@ def main():
     for q in cfg["queries"][:maxq]:
         if not q.get("q") or not q.get("name"):
             continue
+        if calls["ok"] + calls["fail"] > cfg["max_calls"]:
+            break
         qs = "%s pushed:>%s stars:>=%d archived:false" % (q["q"], (datetime.date.today() - datetime.timedelta(days=180)).isoformat(), cfg["min_stars"])
         res = get("/search/repositories?" + urllib.parse.urlencode({"q": qs, "sort": "stars", "order": "desc", "per_page": cfg["per_query"]}))
         rows = []
-        for r in (res or {}).get("items", []):
+        for r in ((res if isinstance(res, dict) else {}).get("items") or []):
             if not r.get("full_name"):
                 continue
             fid = r["full_name"].lower()
@@ -90,6 +92,9 @@ def main():
     drift = []
     f2 = calls["fail"]
     for e in led["entries"]:
+        if calls["ok"] + calls["fail"] > cfg["max_calls"]:
+            drift.append("- stopped at the call budget; rerun later")
+            break
         if e.get("disposition") not in ("adopt", "adapt", "study") or "/" not in str(e.get("id", "")):
             continue
         r = get("/repos/" + e["id"])
