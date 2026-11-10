@@ -47,7 +47,7 @@ for _k in ("start_url", "scope"):
         fail("manifest %s must be text" % _k)
 if ".." in str(mf.get("start_url", "")).split("/") or ".." in str(mf.get("scope", "")).split("/"):
     fail("start_url and scope must stay inside the site (no ..)")
-elif isinstance(mf.get("start_url"), str) and isinstance(mf.get("scope"), str) and not mf["start_url"].startswith(mf["scope"]):
+elif isinstance(mf.get("start_url"), str) and isinstance(mf.get("scope"), str) and not (mf["start_url"].startswith(mf["scope"]) and (mf["scope"].endswith("/") or mf["start_url"][len(mf["scope"]):][:1] in ("/", "?", "#", ""))):
     fail("start_url must be inside scope")
 _REMOTE = re.compile(r"^(?:(?:https?|wss?|ftp):)?[/\\]{2}[^/\\]|^javascript:.", re.I)
 

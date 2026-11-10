@@ -8,4 +8,4 @@
 
 **Rollback:** revert the doc edit.
 
-**Risk:** FRAMEWORK is at 49,828 bytes, so there is no room. Mitigation: place it in sources/method or the change log, or trim another sentence of equal size.
+**Risk:** FRAMEWORK is at 49,828 bytes: 172 under the 50,000 gate and 2 under the working margin of 49,830, so almost no room. Mitigation: place it in sources/method or the change log, or trim another sentence of equal size.

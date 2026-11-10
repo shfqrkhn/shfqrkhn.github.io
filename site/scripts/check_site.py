@@ -49,7 +49,7 @@ for a in catalog["apps"]:
         if not a["address"].startswith("https://"):
             fail("remote page must use https: " + a["id"])
         continue
-    rel = a["address"].strip("./")
+    rel = a["address"].removeprefix("./").rstrip("/")
     kind, _, folder = rel.partition("/")
     if a.get("sensitive"):
         if os.path.exists(os.path.join(ROOT, rel)):

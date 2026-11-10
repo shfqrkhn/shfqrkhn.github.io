@@ -22,7 +22,7 @@ The count of apps is a proxy. Merging products is one way to cut cost, and often
 
 | Fact | Value | Meaning |
 |---|---|---|
-| Pages | 41 = 40 apps plus RepoRadar; 8 archived | registry.json |
+| Pages | 41 = 40 app sources plus the RepoRadar source; 8 archived | registry.json |
 | Source files | 40 HTML, 29.3 MB | sources/apps |
 | Study readers with the shared engine | 19 | data-kd template present |
 | Engine code per reader | 80,359 bytes, byte-identical in 18; SupportScout 81,382 (+1,023, a migration) | the engine is already one program copied 19 times |

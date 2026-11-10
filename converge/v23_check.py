@@ -91,14 +91,18 @@ for p in pages:
     try:
         d = json.loads(m.group(1))
     except ValueError:
-        bad.append(p["slug"] + ": data block is not JSON")
+        d = None
+    if not isinstance(d, dict) or not isinstance(d.get("meta"), dict) or not d["meta"].get("id") or not isinstance(d.get("levels"), list):
+        bad.append(p["slug"] + ": data block is not a JSON object with meta.id and levels")
         continue
     mids.append(d.get("meta", {}).get("id"))
-    chapters = [c for lv in d.get("levels", []) for c in lv.get("chapters", [])]
+    chapters = [c for lv in d["levels"] if isinstance(lv, dict) for c in lv.get("chapters", []) if isinstance(c, dict)]
+    if any(not c.get("id") for c in chapters):
+        bad.append(p["slug"] + ": chapter without an id")
     cids = [c.get("id") for c in chapters]
     if len(cids) != len(set(cids)):
         bad.append(p["slug"] + ": duplicate chapter id")
-    acts = d.get("activities", [])
+    acts = [a for a in d.get("activities", []) if isinstance(a, dict)]
     aids = [a.get("id") for a in acts]
     if len(aids) != len(set(aids)):
         bad.append(p["slug"] + ": duplicate activity id")
@@ -114,11 +118,11 @@ for p in pages:
             if s not in sids:
                 bad.append("%s: chapter %s cites unknown source %s" % (p["slug"], c.get("id"), s))
         for q in c.get("check", []):
-            if not str(q.get("q", "")).strip() or not str(q.get("a", "")).strip():
+            if not isinstance(q, dict) or not str(q.get("q", "")).strip() or not str(q.get("a", "")).strip():
                 bad.append("%s: chapter %s has an empty question or answer" % (p["slug"], c.get("id")))
 if len(set(mids)) != len(mids):
     bad.append("duplicate meta.id across readers")
-rec("CR-4 shared engine", not bad and n >= 19 and len(engines) == 1,
+rec("CR-4 shared engine", not bad and n == 19 and len(engines) == 1,
     "%d readers, engine %s, %d problems %s" % (n, sorted(engines), len(bad), bad[:5]))
 
 siteonly = [q for q in glob.glob(os.path.join(ROOT, "site", "*", "*", "index.html")) if os.path.relpath(os.path.dirname(q), os.path.join(ROOT, "site")).replace(os.sep, "/") not in {x["kind"] + "/" + x["slug"] for x in pages}]
