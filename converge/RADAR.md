@@ -72,7 +72,7 @@ Archived apps are in scope like any other (see CR-24-7).
 
 ## Files in converge/
 
-`radar_refresh.py`, `radar-queries.json`: the weekly refresh. `reporadar-ledger.json`: what was considered and why. `app-goals.json`: inferred goal per page. `change-requests/`: CR-24-1 to CR-24-7. `CHANGE-REQUEST-v23.md`, `CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v24.md`: the plan and its baseline. `v23_check.py`, `v23_offline.py`: baseline checks. `scan.py`, `omni_check.py`, `apply_edits.py`: review scripts. `receipts/`: local, git-ignored.
+`radar_refresh.py`, `radar-queries.json`: the weekly refresh. `reporadar-ledger.json`: what was considered and why. `app-goals.json`: inferred goal per page. `change-requests/`: CR-24-1 to CR-24-7. `CHANGE-REQUEST-v23.md`, `CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v24.md`: the plan and its baseline. `v23_check.py`, `v23_offline.py`: baseline checks. `scan.py`, `omni_check.py`, `apply_edits.py`: review scripts. `fastgate.py`: before a commit, runs only the build, document gate and baseline checks when just documents changed, else says to run the full self-test. `receipts/`: local, git-ignored.
 
 ## The stable edge rule
 
