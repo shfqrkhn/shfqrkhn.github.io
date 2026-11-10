@@ -69,9 +69,19 @@
    "q": "topic:obsidian-plugin topic:knowledge-management"
   },
   {
-   "name": "Local LLM runtimes",
+   "name": "Local LLM runtimes (1)",
    "serves": "Omni Local-AI expert",
-   "q": "topic:llama-cpp OR topic:ollama OR topic:local-llm"
+   "q": "topic:llama-cpp"
+  },
+  {
+   "name": "Local LLM runtimes (2)",
+   "serves": "Omni Local-AI expert",
+   "q": "topic:ollama"
+  },
+  {
+   "name": "Local LLM runtimes (3)",
+   "serves": "Omni Local-AI expert",
+   "q": "topic:local-llm"
   },
   {
    "name": "Agent frameworks and MCP",
@@ -84,9 +94,14 @@
    "q": "topic:llm-evaluation"
   },
   {
-   "name": "Learning science tools",
+   "name": "Learning science tools (1)",
    "serves": "Knowledge expert, study readers",
-   "q": "topic:learning-science OR topic:retrieval-practice"
+   "q": "topic:learning-science"
+  },
+  {
+   "name": "Learning science tools (2)",
+   "serves": "Knowledge expert, study readers",
+   "q": "topic:retrieval-practice"
   }
  ]
 }

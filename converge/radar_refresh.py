@@ -49,11 +49,17 @@ def days_since(iso):
 def main():
     out = "converge/receipts/radar-report.md"
     maxq = 99
-    if "--out" in sys.argv:
-        out = sys.argv[sys.argv.index("--out") + 1]
-    if "--max-queries" in sys.argv:
-        maxq = int(sys.argv[sys.argv.index("--max-queries") + 1])
-    assert not os.path.isabs(out) and ".." not in out.replace(os.sep, "/").split("/"), "the report path must stay inside the repository"
+    args = sys.argv[1:]
+    if "--out" in args and args.index("--out") + 1 < len(args):
+        out = args[args.index("--out") + 1]
+    if "--max-queries" in args and args.index("--max-queries") + 1 < len(args) and args[args.index("--max-queries") + 1].isdigit():
+        maxq = int(args[args.index("--max-queries") + 1])
+    full = os.path.abspath(os.path.join(ROOT, out))
+    try:
+        inside = os.path.commonpath([full, ROOT]) == ROOT and full != ROOT
+    except ValueError:  # another drive
+        inside = False
+    assert inside, "the report path must stay inside the repository"
     led = json.load(open(os.path.join(ROOT, "converge", "reporadar-ledger.json"), encoding="utf-8"))
     known = {e["id"].lower(): e for e in led["entries"]}
     cfg = json.load(open(os.path.join(ROOT, "converge", "radar-queries.json"), encoding="utf-8"))
@@ -61,7 +67,10 @@ def main():
 
     lines += ["## 1. New candidates", ""]
     seen = set()
+    q_fail = calls["fail"]
     for q in cfg["queries"][:maxq]:
+        if not q.get("q") or not q.get("name"):
+            continue
         qs = "%s pushed:>%s stars:>=%d archived:false" % (q["q"], (datetime.date.today() - datetime.timedelta(days=180)).isoformat(), cfg["min_stars"])
         res = get("/search/repositories?" + urllib.parse.urlencode({"q": qs, "sort": "stars", "order": "desc", "per_page": cfg["per_query"]}))
         rows = []
@@ -72,10 +81,11 @@ def main():
                 continue
             seen.add(fid)
             rows.append("- %s (%d stars, %s, pushed %s): %s" % (r["full_name"], r["stargazers_count"], lic, r["pushed_at"][:10], (r.get("description") or "").replace("\n", " ")[:100]))
-        lines += ["### %s (serves: %s)" % (q["name"], q["serves"]), ""] + (rows or ["- none new"]) + [""]
+        lines += ["### %s (serves: %s)" % (q["name"], q.get("serves", "")), ""] + (rows or ["- none new" if res is not None else "- UNCHECKED: the search call failed (rate limit or network); rerun later"]) + [""]
 
     lines += ["## 2. Drift in adopted, adapted or studied entries", ""]
     drift = []
+    f2 = calls["fail"]
     for e in led["entries"]:
         if e["disposition"] not in ("adopt", "adapt", "study") or "/" not in e["id"]:
             continue
@@ -91,10 +101,11 @@ def main():
         if len(drift) + calls["ok"] > cfg["max_calls"]:
             drift.append("- stopped at the call budget; rerun later")
             break
-    lines += (drift or ["- none"]) + [""]
+    lines += (drift or ["- none"]) + (["- UNCHECKED: %d lookups failed; the list above may be incomplete" % (calls["fail"] - f2)] if calls["fail"] > f2 else []) + [""]
 
     lines += ["## 3. Pinned actions", ""]
     pins = []
+    f3 = calls["fail"]
     wf = os.path.join(ROOT, ".github", "workflows")
     for name in sorted(os.listdir(wf)) if os.path.isdir(wf) else []:
         for m in re.finditer(r"uses:\s*([\w.-]+/[\w.-]+)@([0-9a-f]{40})\s*#\s*(\S+)", open(os.path.join(wf, name), encoding="utf-8").read()):
@@ -102,10 +113,9 @@ def main():
             r = get("/repos/%s/releases/latest" % repo)
             if r and r.get("tag_name") and r["tag_name"] != tag:
                 pins.append("- %s (%s): pinned %s, latest %s" % (repo, name, tag, r["tag_name"]))
-    lines += (pins or ["- all pins match the latest release"]) + [""]
+    lines += (pins or ["- all checked pins match the latest release"]) + (["- UNCHECKED: %d release lookups failed" % (calls["fail"] - f3)] if calls["fail"] > f3 else []) + [""]
 
     lines += ["API calls: %d ok, %d failed." % (calls["ok"], calls["fail"])]
-    full = os.path.join(ROOT, out)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     open(full, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
     print("wrote %s: %d new candidates, %d drift, %d pin updates, %d calls failed" % (out, len(seen), len(drift), len(pins), calls["fail"]))
