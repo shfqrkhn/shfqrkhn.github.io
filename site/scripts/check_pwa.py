@@ -7,7 +7,7 @@ Omnevum must install and work offline on a phone. This checks the contract witho
   download by themselves (bundles counted in full) total under 15 MB
 Run scripts/test_browser.py for the real thing (installs, goes offline, opens every page).
 """
-import json, os, re, struct, sys
+import urllib.parse, json, os, re, struct, sys
 
 
 def _rel(x):
@@ -106,10 +106,12 @@ for label, pat in (("manifest link", r'<link rel="manifest"'), ("theme-color", r
         fail("hub is missing " + label)
 for _lk in re.findall(r"<link\b[^>]*>", hub, re.I):  # the hub icons must be real files, not only named in a tag
     _rel_m = re.search(r'rel\s*=\s*["\']?([^"\'>\s]+)', _lk, re.I)
-    _href_m = re.search(r'href\s*=\s*["\']([^"\']+)["\']', _lk, re.I)
-    if _rel_m and _href_m and _rel_m.group(1).lower() in ("icon", "apple-touch-icon", "shortcut") and not _href_m.group(1).startswith("data:"):
-        if _remote(_href_m.group(1)) or not os.path.isfile(os.path.join(ROOT, _rel(_href_m.group(1).split("#")[0].split("?")[0]))):
-            fail("hub icon link points at a missing or remote file: " + _href_m.group(1)[:60])
+    _href_m = re.search(r"href\s*=\s*(?:\"([^\"]*)\"|'([^']*)'|([^\s>]+))", _lk, re.I)
+    _href = next((g for g in _href_m.groups() if g is not None), "").strip() if _href_m else ""
+    if _rel_m and _href and _rel_m.group(1).lower() in ("icon", "apple-touch-icon", "shortcut") and not _href.startswith("data:"):
+        _path = urllib.parse.unquote(_href.split("#")[0].split("?")[0]).lstrip("/")  # a leading slash means the site root, which is ROOT here
+        if _remote(_href) or not os.path.isfile(os.path.join(ROOT, _path)):
+            fail("hub icon link points at a missing or remote file: " + _href[:60])
 if "serviceWorker" not in hub or './sw.js' not in hub:
     fail("hub does not register the worker")
 
