@@ -117,7 +117,7 @@ def scan(root, base=None, full=False, sections=(6, 7), manifest=None, opens=None
             if len(stem) >= 8 and stem in t:
                 link(rel, rels)
         body = re.sub(r"```.*?```|`[^`\n]*`", "", t, flags=re.S)
-        for w in re.findall(r"\[\[([^\]|#\n]{1,200})(?:[|#][^\]\n]{0,200})?\]\]", body):
+        for w in re.findall(r"\[\[([^\]|#\n]{1,255})(?:[|#][^\]\n]{0,2000})?\]\]", body):
             w = w.strip()
             if not re.fullmatch(r"[^\W_][\w ./()-]{0,120}", w):
                 continue
@@ -127,7 +127,7 @@ def scan(root, base=None, full=False, sections=(6, 7), manifest=None, opens=None
                 link(rel, hit)
             elif rel.endswith(".md"):
                 broken.append("%s -> [[%s]]" % (rel, w))
-        for w in re.findall(r"\]\(([^)#\s]{1,200}?)(?:#[^)\n]{0,200})?\)", body):
+        for w in re.findall(r"\]\(([^)#\s]{1,255}?)(?:#[^)\n]{0,2000})?\)", body):
             if re.match(r"[a-z]+:", w) or w.startswith("#") or not re.fullmatch(r"[\w .%/-]+\.(?:md|html|pdf|png|jpe?g|svg|xlsx|docx|json|txt|csv)", w):
                 continue
             tgt = os.path.normpath(os.path.join(os.path.dirname(rel), urllib.parse.unquote(w))).replace("\\", "/")

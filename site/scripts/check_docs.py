@@ -76,6 +76,7 @@ def main():
         low = re.sub(r"[\s\u00a0]+", " ", raw.lower())  # one space between words, so a line break or a no-break space cannot hide a phrase
         if len(raw.encode("utf-8")) > budget:
             errors.append("%s: %d bytes is over its %d byte budget (cut text, or raise the budget in check_docs.py on purpose)" % (rel, len(raw.encode("utf-8")), budget))
+            continue  # the other checks would only repeat on text that has to be cut anyway, and could be slow on it
         for f in FILLER:
             if f in low:
                 errors.append("%s: filler phrase '%s' (say it shorter)" % (rel, f))
