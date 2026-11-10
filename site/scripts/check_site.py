@@ -110,13 +110,13 @@ for name in sorted(os.listdir(ROOT)):
         fail("unexpected file at root: " + name)
 
 WEB_OK = {os.path.join("scripts", "personalize.js")}  # the only page or script files allowed in the folders the page gate does not walk
-for _d in ("docs", "scripts", "content", "templates", "icons"):
+for _d in ("docs", "scripts", "content", "templates", "icons", ".github"):
     for dp, dn, fn in os.walk(os.path.join(ROOT, _d)):
         for f in fn:
             rel = os.path.relpath(os.path.join(dp, f), ROOT)
             if os.path.splitext(f)[1].lower() in (".html", ".htm", ".xhtml", ".xht", ".shtml", ".xml", ".xsl", ".xslt", ".mht", ".mhtml", ".js", ".mjs", ".cjs", ".svg", ".svgz") and rel not in WEB_OK:
                 fail("page or script file in a folder the page gate does not check: " + rel)
-            if os.path.splitext(f)[1].lower() in (".zip", ".gz", ".tgz", ".bz2", ".xz", ".7z", ".rar", ".tar", ".docx", ".xlsx", ".pptx", ".pdf", ".db", ".sqlite") and "__pycache__" not in rel:
+            if os.path.splitext(f)[1].lower() in (".zip", ".gz", ".tgz", ".bz2", ".xz", ".7z", ".rar", ".tar", ".docx", ".xlsx", ".pptx", ".pdf", ".db", ".sqlite", ".sqlite3", ".zst", ".lz4", ".cab", ".iso", ".dmg", ".jar", ".war", ".apk", ".epub", ".odt", ".ods", ".odp", ".rtf", ".mdb", ".parquet"):
                 fail("compressed or document file the privacy gate cannot read: " + rel)
 if subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "check_privacy.py")]).returncode:
     fail("privacy gate failed")

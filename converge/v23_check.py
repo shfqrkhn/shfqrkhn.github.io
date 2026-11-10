@@ -99,7 +99,7 @@ for p in pages:
         for c in a.get("claims", []):
             cid, _, ix = str(c).partition(":")  # a claim is a chapter id, optionally ":n" for its n-th check question
             ch = next((x for x in chapters if x.get("id") == cid), None)
-            if ch is None or (ix and (not ix.isdigit() or int(ix) >= len(ch.get("check", [])))):
+            if ch is None or (ix and (not (ix.isascii() and ix.isdigit()) or int(ix) >= len(ch.get("check", [])))):
                 bad.append("%s: activity %s claims unknown chapter or question %s" % (p["slug"], a.get("id"), c))
     sids = {s.get("id") for s in d.get("sources", [])}
     for c in chapters:
@@ -114,9 +114,12 @@ if len(set(mids)) != len(mids):
 rec("CR-4 shared engine", not bad and n >= 19 and len(engines) == 1,
     "%d readers, engine %s, %d problems %s" % (n, sorted(engines), len(bad), bad[:5]))
 
+siteonly = [q for q in glob.glob(os.path.join(ROOT, "site", "*", "*", "index.html")) if os.path.relpath(os.path.dirname(q), os.path.join(ROOT, "site")).replace(os.sep, "/") not in {x["kind"] + "/" + x["slug"] for x in pages}]
+rec("CR-2b output not in registry", not siteonly, "%d extra pages %s" % (len(siteonly), siteonly[:3]))
 out = {"identity": ident, "results": res, "not_run": ["CR-5 gates and CR-6 offline update are recorded by their own runs", "A08 to A40 depth reviews", "domain answers against primary sources", "rights checks"]}
 if "--save" in sys.argv:
-    p = sys.argv[sys.argv.index("--save") + 1]
+    p = sys.argv[sys.argv.index("--save") + 1] if sys.argv.index("--save") + 1 < len(sys.argv) else "converge/receipts/v23-execution.json"
+    assert not os.path.isabs(p) and ".." not in p.replace(os.sep, "/").split("/"), "the receipt path must stay inside the repository"
     os.makedirs(os.path.dirname(os.path.join(ROOT, p)), exist_ok=True)
     json.dump(out, open(os.path.join(ROOT, p), "w", encoding="utf-8"), indent=1)
 sys.exit(1 if any(v["outcome"] == "FAIL" for v in res.values()) else 0)

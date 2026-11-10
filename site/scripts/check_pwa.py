@@ -73,7 +73,10 @@ def _exact(path):
     path = os.path.normpath(path)
     if not os.path.exists(path):
         return False
-    rel = os.path.relpath(path, ROOT)
+    try:
+        rel = os.path.relpath(path, ROOT)
+    except ValueError:  # another drive
+        return False
     cur = ROOT
     for part in rel.split(os.sep):
         if part in (".", ""):
@@ -91,7 +94,7 @@ sizes, purposes = set(), set()
 if not isinstance(mf.get("icons"), list) or not all(isinstance(i, dict) and all(isinstance(i.get(k), str) for k in ("src", "type", "sizes")) for i in mf["icons"]):
     fail("manifest icons must each have text src, type and sizes"); mf["icons"] = []
 for i in mf.get("icons", []):
-    if ".." in i["src"].split("/") or i["src"].startswith(("/", "http")):
+    if ".." in i["src"].split("/") or i["src"].startswith(("/", "http", chr(92))) or ":" in i["src"].split("/")[0]:
         fail("icon src must stay inside the site: " + i["src"]); continue
     path = os.path.join(ROOT, (i["src"][2:] if i["src"].startswith("./") else i["src"]).replace("/", os.sep))
     if not os.path.isfile(path) or not _exact(path):
@@ -147,7 +150,7 @@ sw_code = _TOK.sub(lambda m: m.group() if m.group()[0] in "'\"`" else " ", sw)
 if re.search(r"importScripts|XMLHttpRequest", sw_code) or any(_remote(x) for x in _strs):
     fail("sw.js names a remote address or loads a script (importScripts, XMLHttpRequest, or a string starting with http/https// )")
 for f in shell:
-    if not isinstance(f, str) or f.startswith(("/", chr(92))) or ".." in f.split("/"):
+    if not isinstance(f, str) or f.startswith(("/", chr(92))) or ".." in f.split("/") or ":" in f.split("/")[0]:
         fail("worker shell entry must be a path inside the site: %s" % f); continue
     p = os.path.join(ROOT, _rel(f).replace("/", os.sep)) if f != "./" else ROOT
     if not os.path.exists(p) or not _exact(p):
