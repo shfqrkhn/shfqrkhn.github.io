@@ -59,7 +59,7 @@ def main():
         inside = os.path.commonpath([full, os.path.realpath(ROOT)]) == os.path.realpath(ROOT) and full != os.path.realpath(ROOT) and full.lower().endswith((".md", ".txt"))
     except ValueError:  # another drive
         inside = False
-    if not inside or os.path.relpath(full, os.path.realpath(ROOT)).split(os.sep)[0] in (".git", ".github"):
+    if not inside or os.path.relpath(full, os.path.realpath(ROOT)).split(os.sep)[0].lower() in (".git", ".github"):
         sys.exit("the report path must stay inside the repository and outside .git and .github, and end in .md or .txt")
     led = json.load(open(os.path.join(ROOT, "converge", "reporadar-ledger.json"), encoding="utf-8"))
     known = {str(e.get("id", "")).lower(): e for e in led["entries"]}
@@ -72,7 +72,7 @@ def main():
     for q in cfg["queries"][:maxq]:
         if not q.get("q") or not q.get("name"):
             continue
-        if calls["ok"] + calls["fail"] > cfg["max_calls"]:
+        if calls["ok"] + calls["fail"] >= cfg["max_calls"]:
             break
         qs = "%s pushed:>%s stars:>=%d archived:false" % (q["q"], (datetime.date.today() - datetime.timedelta(days=180)).isoformat(), cfg["min_stars"])
         res = get("/search/repositories?" + urllib.parse.urlencode({"q": qs, "sort": "stars", "order": "desc", "per_page": cfg["per_query"]}))
@@ -92,7 +92,7 @@ def main():
     drift = []
     f2 = calls["fail"]
     for e in led["entries"]:
-        if calls["ok"] + calls["fail"] > cfg["max_calls"]:
+        if calls["ok"] + calls["fail"] >= cfg["max_calls"]:
             drift.append("- stopped at the call budget; rerun later")
             break
         if e.get("disposition") not in ("adopt", "adapt", "study") or "/" not in str(e.get("id", "")):
@@ -106,7 +106,7 @@ def main():
             drift.append("- %s: renamed to %s" % (e["id"], r.get("full_name")))
         elif days_since(r.get("pushed_at")) > STALE_DAYS:
             drift.append("- %s: no push since %s" % (e["id"], (r.get("pushed_at") or "unknown")[:10]))
-        if calls["ok"] + calls["fail"] > cfg["max_calls"]:
+        if calls["ok"] + calls["fail"] >= cfg["max_calls"]:
             drift.append("- stopped at the call budget; rerun later")
             break
     lines += (drift or ["- none"]) + (["- UNCHECKED: %d lookups failed; the list above may be incomplete" % (calls["fail"] - f2)] if calls["fail"] > f2 else []) + [""]
@@ -118,6 +118,8 @@ def main():
     for name in sorted(os.listdir(wf)) if os.path.isdir(wf) else []:
         for m in re.finditer(r"uses:\s*([\w.-]+/[\w.-]+)@([0-9a-f]{40})\s*#\s*(\S+)", open(os.path.join(wf, name), encoding="utf-8").read()):
             repo, _, tag = m.groups()
+            if calls["ok"] + calls["fail"] >= cfg["max_calls"]:
+                break
             r = get("/repos/%s/releases/latest" % repo)
             if r and r.get("tag_name") and r["tag_name"] != tag:
                 pins.append("- %s (%s): pinned `%s`, latest `%s`" % (repo, name, tag, re.sub(r"[`\s]+", " ", str(r["tag_name"]))[:60]))

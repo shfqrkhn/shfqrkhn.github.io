@@ -25,7 +25,7 @@ A quality word is only worth writing if something enforces it. This table is the
 | Self-updating | Installed copies update through the worker with a visible, never silent, update button. GitHub Actions are pinned to exact commits and Dependabot proposes updates monthly, grouped into one pull request per ecosystem (actions and pip). Review it (the check must pass) and merge, or apply the pins yourself and close it. Remove a tool from the repo and close its old Dependabot pull requests, or Dependabot will report errors. |
 | Self-correcting | Derived files (hub, worker, group pages, 404, this inventory) are regenerated, never patched. Re-running the build removes drift. |
 | Self-improving | Every defect found becomes a gate or a self-test case, so it cannot return (the privacy gate and the page-quality gate were each born from a real finding). This step is manual: add the test when you fix the bug. |
-| Trustworthy, private | The privacy gate (section 5). No network calls, no tracking, no accounts. Data stays on the device. |
+| Trustworthy, private | The privacy gate (section 5). No network calls by default, no tracking, no accounts. Data stays on the device. |
 | Free and open | Free and open source options first, always (section 7). Every page declares its licence; the build reports any that is not open. |
 | Accessible, polished | One design system with four looks, 44 px targets, AA contrast checked on every colour pair in every look, reduced-motion, high-contrast, print, safe areas. |
 | Fast, minimal | Size budgets are enforced. Pages are small. No frameworks are required. |
