@@ -23,7 +23,7 @@
    "kind": "tools",
    "archived": false,
    "goal": "Let anyone see patterns in their own CSV time series without uploading it.",
-   "success": "A 100k-row file charts in seconds on a mid phone; nothing is sent anywhere; the chart is readable and exportable.",
+   "success": "A large CSV (target 100k rows, unverified) charts in seconds on a mid phone; nothing is sent anywhere; the chart is readable and exportable.",
    "stable_edge_checks": [
     "Off-main-thread parsing (Worker)",
     "streaming parse",
@@ -39,7 +39,7 @@
    "kind": "courses",
    "archived": false,
    "goal": "Prepare a learner to pass a project management certification exam.",
-   "success": "Mastery by topic is measured, weak topics are repeated, timed exam mode matches the real format.",
+   "success": "Mastery by topic is measured, weak topics are repeated, and a timed exam mode exists (fit to the real exam format is to be checked against the published format).",
    "stable_edge_checks": [
     "Spaced and interleaved retrieval",
     "item analysis",
@@ -101,7 +101,7 @@
    "kind": "apps",
    "archived": true,
    "goal": "Keep tasks and focus time in one simple place.",
-   "success": "Capture in one tap; due items are never missed; the timer works with the screen off.",
+   "success": "Capture in one tap; overdue items are listed when the app opens; the timer stores its end time so it survives the screen turning off (notifications are a watch-list item, not present).",
    "stable_edge_checks": [
     "Notifications and badging where stable",
     "wake lock",

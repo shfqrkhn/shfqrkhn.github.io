@@ -1,15 +1,20 @@
 """Pre-commit gate that skips the slow self-test when it cannot matter.
 
 Usage (repository root): python converge/fastgate.py
-Looks at the changed files (working tree against HEAD). If any file is outside the documentation-only set below, the full self-test must run, so this prints FULL and exits 1. Otherwise the build, the document gate and the baseline checks are enough: it runs them, prints DOCS-ONLY OK and exits 0.
-Documentation-only: converge/*.md, converge/*.json, converge/change-requests/*, README.md, AGENTS.md, CONTRIBUTING.md, SECURITY.md, PRIVACY.md, docs/*.md.
+Looks at every changed, deleted, moved or new file (git status). If any file is outside the documentation-only set below, the full self-test must run, so this prints FULL and exits 1. Otherwise the build, the document gate and the baseline checks are enough: it runs them, prints DOCS-ONLY OK and exits 0.
+Documentation-only: *.md and *.json directly in converge/, *.md directly in converge/change-requests/ and docs/, and README.md, AGENTS.md, CONTRIBUTING.md, SECURITY.md, PRIVACY.md.
 Anything else (builder, site, sources, workflows, requirements, converge scripts) means FULL.
 """
-import fnmatch
+import os
 import subprocess
 import sys
 
-DOC_ONLY = ["converge/*.md", "converge/*.json", "converge/change-requests/*", "README.md", "AGENTS.md", "CONTRIBUTING.md", "SECURITY.md", "PRIVACY.md", "docs/*.md"]
+DOC_DIRS = {"converge": {".md", ".json"}, "converge/change-requests": {".md"}, "docs": {".md"}}  # one folder level, listed extensions only
+DOC_FILES = {"README.md", "AGENTS.md", "CONTRIBUTING.md", "SECURITY.md", "PRIVACY.md"}
+
+
+def doc_only(n):
+    return n in DOC_FILES or os.path.splitext(n)[1] in DOC_DIRS.get(os.path.dirname(n), ())
 
 
 def run(*a):
@@ -17,11 +22,13 @@ def run(*a):
 
 
 def main():
-    names = set(run("git", "diff", "--name-only", "HEAD").stdout.split()) | set(run("git", "ls-files", "--others", "--exclude-standard").stdout.split())
+    # no rename detection, NUL separated: a moved file lists both its old and new path
+    out = run("git", "status", "--porcelain=v1", "-z", "--no-renames", "--untracked-files=all").stdout
+    names = {e[3:] for e in out.split("\0") if len(e) > 3}
     if not names:
         print("nothing changed")
         return 0
-    other = sorted(n for n in names if not any(fnmatch.fnmatch(n, g) for g in DOC_ONLY))
+    other = sorted(n for n in names if not doc_only(n))
     if other:
         print("FULL: run builder/selftest.py (changed outside documentation: %s)" % ", ".join(other[:5]))
         return 1

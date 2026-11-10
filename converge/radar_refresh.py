@@ -54,14 +54,15 @@ def main():
         out = args[args.index("--out") + 1]
     if "--max-queries" in args and args.index("--max-queries") + 1 < len(args) and args[args.index("--max-queries") + 1].isdigit():
         maxq = int(args[args.index("--max-queries") + 1])
-    full = os.path.abspath(os.path.join(ROOT, out))
+    full = os.path.realpath(os.path.join(ROOT, out))
     try:
         inside = os.path.commonpath([full, ROOT]) == ROOT and full != ROOT
     except ValueError:  # another drive
         inside = False
-    assert inside, "the report path must stay inside the repository"
+    if not inside or os.path.relpath(full, ROOT).split(os.sep)[0] in (".git", ".github"):
+        sys.exit("the report path must stay inside the repository and outside .git and .github")
     led = json.load(open(os.path.join(ROOT, "converge", "reporadar-ledger.json"), encoding="utf-8"))
-    known = {e["id"].lower(): e for e in led["entries"]}
+    known = {str(e.get("id", "")).lower(): e for e in led["entries"]}
     cfg = json.load(open(os.path.join(ROOT, "converge", "radar-queries.json"), encoding="utf-8"))
     lines = ["# RepoRadar refresh report", "", "Generated %s. Candidates only: nothing here is adopted until it has a ledger entry, a reason and a change request." % datetime.date.today().isoformat(), ""]
 
@@ -75,19 +76,21 @@ def main():
         res = get("/search/repositories?" + urllib.parse.urlencode({"q": qs, "sort": "stars", "order": "desc", "per_page": cfg["per_query"]}))
         rows = []
         for r in (res or {}).get("items", []):
+            if not r.get("full_name"):
+                continue
             fid = r["full_name"].lower()
             lic = (r.get("license") or {}).get("spdx_id") or "NONE"
             if fid in known or fid in seen or lic in ("NONE", "NOASSERTION"):
                 continue
             seen.add(fid)
-            rows.append("- %s (%d stars, %s, pushed %s): %s" % (r["full_name"], r["stargazers_count"], lic, r["pushed_at"][:10], (r.get("description") or "").replace("\n", " ")[:100]))
+            rows.append("- %s (%s stars, %s, pushed %s): `%s`" % (r["full_name"], r.get("stargazers_count", "?"), lic, (r.get("pushed_at") or "unknown")[:10], re.sub(r"[`\s]+", " ", str(r.get("description") or ""))[:100]))
         lines += ["### %s (serves: %s)" % (q["name"], q.get("serves", "")), ""] + (rows or ["- none new" if res is not None else "- UNCHECKED: the search call failed (rate limit or network); rerun later"]) + [""]
 
     lines += ["## 2. Drift in adopted, adapted or studied entries", ""]
     drift = []
     f2 = calls["fail"]
     for e in led["entries"]:
-        if e["disposition"] not in ("adopt", "adapt", "study") or "/" not in e["id"]:
+        if e.get("disposition") not in ("adopt", "adapt", "study") or "/" not in str(e.get("id", "")):
             continue
         r = get("/repos/" + e["id"])
         if r is None:
@@ -97,7 +100,7 @@ def main():
         elif r.get("full_name", "").lower() != e["id"].lower():
             drift.append("- %s: renamed to %s" % (e["id"], r.get("full_name")))
         elif days_since(r.get("pushed_at")) > STALE_DAYS:
-            drift.append("- %s: no push since %s" % (e["id"], r["pushed_at"][:10]))
+            drift.append("- %s: no push since %s" % (e["id"], (r.get("pushed_at") or "unknown")[:10]))
         if len(drift) + calls["ok"] > cfg["max_calls"]:
             drift.append("- stopped at the call budget; rerun later")
             break
