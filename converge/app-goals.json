@@ -145,7 +145,7 @@
    "kind": "tools",
    "archived": true,
    "goal": "Chat with an AI model using the user's own key while showing cost and endpoint.",
-   "success": "The key never leaves the device except to the chosen endpoint; cost per message is shown correctly.",
+   "success": "The key never leaves the device except to the chosen endpoint; cost is shown for models the user prices in Settings, computed exactly and labelled as from the user's figures.",
    "stable_edge_checks": [
     "Streaming responses",
     "current model price data",
@@ -176,7 +176,7 @@
    "kind": "tools",
    "archived": true,
    "goal": "Estimate steps from distance and time, in English or French.",
-   "success": "Estimates are within a stated error of measured steps; language switch is complete.",
+   "success": "Estimates come with a stated error range (target: the app does not state one yet), checked against measured steps; the English and French switch is complete.",
    "stable_edge_checks": [
     "Stride models from published research",
     "locale APIs",
