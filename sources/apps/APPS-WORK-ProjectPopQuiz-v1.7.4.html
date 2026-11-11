@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-GYBeBFnEFt7mpahg8HO2hlqHPj2xAPdtjnMpGUKy4zE='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-TnT+/p8RtJ59IiDTXvTWi/KaiII4WBBwhfO5imqEGUI='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>ProjectPopQuiz Exams</title>
     <meta name="app-version" content="1.7.4">
     <script>
@@ -1143,8 +1143,11 @@ const PMQ_LOG = (() => {
             }
         } catch (err) { events = []; }
     }
+    let asked = false;
     function persist() {
-        try { localStorage.setItem(KEY, JSON.stringify({ v: PMQ_SCHEMA, events })); return true; } catch (err) { return false; }
+        try { localStorage.setItem(KEY, JSON.stringify({ v: PMQ_SCHEMA, events })); } catch (err) { return false; }
+        if (!asked) { asked = true; try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (err) { /* best effort */ } }
+        return true;
     }
     function add(e) {
         if (!valid(e) || events.length >= MAX) return false;
