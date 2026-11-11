@@ -18,7 +18,6 @@
  "hades-eris-protocol": "skull",
  "youtube-subscriptions": "play-circle",
  "canadian-eco-garden": "plant",
- "starter": "plus-square",
  "cash-crunch": "coins",
  "balance-buddy": "scales",
  "debt-dial": "sliders-horizontal",
@@ -40,5 +39,6 @@
  "blueprint-buddy": "squares-four",
  "build-boss": "desktop-tower",
  "auction-academy": "dice-five",
- "repo-radar": "binoculars"
+ "repo-radar": "binoculars",
+ "promptpantry-library": "bookmarks"
 }

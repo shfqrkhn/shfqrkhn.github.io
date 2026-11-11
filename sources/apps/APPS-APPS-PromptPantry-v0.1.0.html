@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en" data-app data-look="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-hRr98QMaU8+QTInBXorZJ+5GmpSnYgiSa4GeNh9Q4jg='; style-src 'sha256-7Iat+ga11j/OCeiFZ3/Bvzs+y0VSRmmTFK9GT6JN4xk='; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Keep your own prompts: fill in the blanks, preview, copy, and back up. Stays on this device.">
+<meta name="application-version" content="0.1.0"> <!-- keep equal to the version in the file name; the build checks it -->
+<title>PromptPantry Library</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%232a5584' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+/* OMNEVUM KIT:BEGIN */
+:root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
+--r:16px;--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:40px;--shadow:0 1px 2px rgb(0 0 0/.06),0 1px 1px rgb(0 0 0/.04);
+--ic-fg-s:55%;--ic-fg-l:30%;--ic-bg-s:60%;--ic-bg-l:91%;--sic-bg-l:90%;--app-s:55%;--app-l:28%;--app-on:#fff;color-scheme:light}
+:root[data-look=charcoal]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;color-scheme:dark}
+:root[data-look=black]{--bg:#000;--fg:#f2efe9;--mut:#a9a399;--card:#0d0d0d;--line:#2e2e2e;--acc:#8fb8e3;--on-acc:#000;--shadow:none;color-scheme:dark}
+:root[data-look=charcoal],:root[data-look=black]{--ic-fg-s:70%;--ic-fg-l:80%;--ic-bg-s:25%;--ic-bg-l:24%;--sic-bg-l:24%;--app-s:70%;--app-l:78%;--app-on:#14110d}
+@media(prefers-color-scheme:dark){:root[data-look=auto]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;
+--ic-fg-s:70%;--ic-fg-l:80%;--ic-bg-s:25%;--ic-bg-l:24%;--sic-bg-l:24%;--app-s:70%;--app-l:78%;--app-on:#14110d;color-scheme:dark}}
+:root[data-app]{--acc:hsl(var(--hue,215) var(--app-s) var(--app-l));--on-acc:var(--app-on)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:var(--acc);color:var(--on-acc)}
+svg{width:1.5em;height:1.5em;fill:currentColor;flex:none}
+svg.f{display:none}[aria-selected=true] svg.f{display:inline}[aria-selected=true] svg.r{display:none}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:6px}
+.skip{position:absolute;left:var(--s4);top:-60px;padding:var(--s2) var(--s4);background:var(--acc);color:var(--on-acc);border-radius:var(--r);z-index:9;text-decoration:none;font-weight:600}
+.skip:focus{top:var(--s2)}
+.wrap{max-width:960px;margin:0 auto;padding:0 max(var(--s4),env(safe-area-inset-right)) 0 max(var(--s4),env(safe-area-inset-left))}
+.wrap.narrow{max-width:720px}
+header.bar{padding:var(--s5) 0 var(--s2)}
+.top,.ph{display:flex;align-items:center;gap:var(--s2)}
+.ph{padding:var(--s4) 0 var(--s2)}
+.ph h1{margin:0 auto 0 var(--s1);font-size:clamp(1.25rem,4.5vw,1.6rem);line-height:1.2;letter-spacing:-.01em;overflow-wrap:anywhere}
+.brand{display:flex;flex-direction:column;margin-right:auto;min-width:0}
+.brand b{font-size:clamp(1.7rem,7vw,2.1rem);letter-spacing:-.025em;line-height:1.1}
+.say{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:.95rem;white-space:nowrap}
+.say i{font-style:normal}
+.ib{flex:none;display:inline-grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--card);color:inherit;cursor:pointer;text-decoration:none;box-shadow:var(--shadow)}
+.ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}
+.ib.sm{width:36px;height:36px;border:0;background:none;box-shadow:none}
+.card,.today{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
+.today{margin:var(--s2) 0 var(--s4)}
+.sec{margin:var(--s3) 0}
+.sec>summary{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;list-style:none}
+.sec>summary::-webkit-details-marker{display:none}
+.sec h2{margin:0;font-size:1.1rem}
+.sec .n{margin-left:auto;color:var(--mut);font-size:.9rem}
+.sic{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;color:hsl(var(--h) var(--ic-fg-s) var(--ic-fg-l));background:hsl(var(--h) var(--ic-bg-s) var(--sic-bg-l))}
+.grid{list-style:none;margin:2px calc(-1*var(--s1)) 0;padding:var(--s1);display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:6px;padding:var(--s3) var(--s1);min-height:104px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:inherit;text-decoration:none;text-align:center;box-shadow:var(--shadow)}
+a.tile:hover{border-color:hsl(var(--h) 55% 45%)}a.tile:active{transform:scale(.98)}
+.ic{position:relative;display:grid;place-items:center;width:52px;height:52px;border-radius:14px;color:hsl(var(--h) var(--ic-fg-s) var(--ic-fg-l));background:hsl(var(--h) var(--ic-bg-s) var(--ic-bg-l))}
+.ic svg{width:28px;height:28px}
+.nm{font-size:.8rem;font-weight:600;letter-spacing:-.01em;overflow-wrap:break-word;line-height:1.2;max-width:100%}
+.tg{font-size:.72rem;line-height:1.25;color:var(--mut);max-width:100%;overflow-wrap:break-word}
+.held{opacity:.6;cursor:not-allowed}
+.lock{position:absolute;right:-6px;bottom:-6px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--bg);color:var(--fg);border:1px solid var(--line)}
+.lock svg{width:13px;height:13px}
+.arch .tile{opacity:.85}
+.arch h3.sub{display:flex;align-items:center;gap:var(--s2);margin:var(--s4) 0 var(--s1);font-size:.95rem;color:var(--mut)}
+.arch h3.sub .sic{width:28px;height:28px}
+.arch h3.sub svg{width:1.1em;height:1.1em}
+.none{display:flex;flex-direction:column;align-items:center;gap:var(--s2);padding:var(--s6) 0;color:var(--mut)}.none svg{width:2.4em;height:2.4em}
+.tile[hidden],li[hidden],.sec[hidden],.none[hidden],h3[hidden],ul[hidden]{display:none}
+footer{padding:var(--s5) 0 var(--s6);color:var(--mut);font-size:.85rem;display:flex;gap:var(--s3);align-items:center;flex-wrap:wrap}
+#upd{position:fixed;right:max(var(--s4),env(safe-area-inset-right));bottom:max(var(--s4),env(safe-area-inset-bottom))}
+#upd .ib{background:var(--acc);color:var(--on-acc);border-color:var(--acc);width:52px;height:52px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.page section{margin:var(--s3) 0}
+.page h2{display:flex;align-items:center;gap:var(--s2);margin:0 0 6px;font-size:1.05rem}
+.chk,.steps{margin:0;padding:0;list-style:none}
+.steps{counter-reset:s}.steps li{counter-increment:s;display:flex;gap:10px;padding:6px 0}
+.steps li::before{content:counter(s);flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--on-acc);font-weight:700;font-size:.85rem}
+.plain{margin:0;padding-left:1.2em}
+.chk label{display:flex;align-items:center;gap:var(--s3);min-height:44px;cursor:pointer}
+.chk input{width:24px;height:24px;accent-color:var(--acc);flex:none}
+.chk input:checked+span{color:var(--mut);text-decoration:line-through}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%}th,td{padding:var(--s2);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{white-space:nowrap}
+.page p{margin:6px 0}
+.lost{min-height:100vh;display:grid;place-items:center}.lost a{display:grid;justify-items:center;gap:var(--s2);color:inherit;text-decoration:none;padding:var(--s5)}.lost svg{width:56px;height:56px}.lost b{font-size:1.6rem}
+@media(prefers-reduced-motion:no-preference){a.tile,.ib,.kinds a{transition:border-color .15s,transform .12s,box-shadow .15s}a.tile:hover{transform:translateY(-1px)}}
+@media(forced-colors:active){.tile,.ib,.card,.today,.kinds a,.find input{border:1px solid CanvasText}.tabs button[aria-selected=true]{outline:2px solid Highlight}}
+@media print{.ib,.kinds,.skip,#upd{display:none!important}body{background:#fff;color:#000}.card,.today{box-shadow:none;border-color:#999}.wrap{max-width:none}}
+.off{position:relative}.off .st{display:none}
+.off[data-s=idle] .st-idle,.off[data-s=busy] .st-busy,.off[data-s=ready] .st-ready,.off[data-s=out] .st-out{display:inline}
+.off .cnt{position:absolute;right:-3px;bottom:-3px;min-width:1.7em;padding:0 4px;border-radius:999px;background:var(--acc);color:var(--on-acc);font-size:.62rem;font-weight:700;line-height:1.5;text-align:center}
+.off .cnt:empty{display:none}
+.off[data-s=ready]{color:var(--acc)}
+@media(prefers-reduced-motion:no-preference){.off[data-s=busy] .st-busy{animation:spin 1.1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}}
+a,button,input,summary,label{touch-action:manipulation}
+body{min-height:100vh;min-height:100dvh;overscroll-behavior-y:contain}
+@media(hover:none){a.tile:hover{transform:none}}
+.today{padding:var(--s1) var(--s4) var(--s2)}
+.th{display:flex;align-items:center;gap:var(--s1);min-height:44px}
+.td{display:grid;place-items:center;width:36px;height:36px;color:var(--mut)}
+.dt{margin-right:auto;color:var(--mut);font-weight:600}
+.nudge{display:flex;gap:var(--s3);padding:var(--s3) 0;border-top:1px solid var(--line)}
+.nudge>div{min-width:0}
+.nic{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;color:hsl(var(--h) var(--ic-fg-s) var(--ic-fg-l));background:hsl(var(--h) var(--ic-bg-s) var(--sic-bg-l))}
+.nt{margin:0;font-weight:700}.nb{margin:2px 0 0}.na{margin:2px 0 0;color:var(--mut)}
+.nudge p[hidden]{display:none}
+.today{min-height:23rem}@media(max-width:1023px){.today{min-height:24rem}}@media(max-width:767px){.today{min-height:27rem}}@media(max-width:480px){.today{min-height:33rem}}@media(max-width:380px){.today{min-height:34.5rem}}
+/* OMNEVUM KIT:END */
+/* PromptPantry */
+:root[data-app]{--hue:28}
+[hidden]{display:none!important}
+.view{margin:var(--s3) 0}
+.state{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin:0;padding:0 0 var(--s2);color:var(--mut);font-size:.9rem;min-height:1.6em}
+.state b{font-weight:500}.state .bad{color:var(--fg);font-weight:700}
+.tools,.row{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center;margin:var(--s2) 0}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 var(--s4);border:1px solid var(--line);border-radius:10px;background:var(--card);color:inherit;cursor:pointer;font-weight:500;text-decoration:none}
+.b svg{width:1.25em;height:1.25em}
+.b:hover{border-color:var(--acc)}
+.b.p{background:var(--acc);color:var(--on-acc);border-color:var(--acc)}
+.b[aria-pressed=true]{border-color:var(--acc);box-shadow:inset 0 0 0 2px var(--acc)}
+.b.sm{min-height:36px;padding:0 var(--s3);font-size:.9rem;background:none}
+.b[disabled]{opacity:.55;cursor:not-allowed}
+input[type=text],input[type=search],input[type=number],textarea,select{display:block;width:100%;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px}
+textarea{resize:vertical;line-height:1.45}
+.tx{min-height:7.5em}
+.fld{margin:var(--s3) 0}.fld label,.lbl{display:block;font-weight:600;margin-bottom:var(--s1)}
+.hint{margin:var(--s1) 0 0;color:var(--mut);font-size:.88rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);margin:var(--s2) 0}
+.ck{display:flex;align-items:center;gap:var(--s2);min-height:44px;cursor:pointer}
+.ck input{width:24px;height:24px;accent-color:var(--acc);flex:none}
+.pi{display:block;margin:0;padding:var(--s3) 0;border:0;border-top:1px solid var(--line)}
+.pi h3{margin:0;font-size:1.05rem;overflow-wrap:anywhere}
+.pi.old{opacity:.8}
+.pi p{margin:var(--s1) 0}
+.meta{color:var(--mut);font-size:.85rem}
+.tags{display:flex;flex-wrap:wrap;gap:var(--s1);margin:var(--s1) 0}
+.tag{min-height:32px;padding:0 var(--s3);border:1px solid var(--line);border-radius:8px;background:none;color:var(--mut);cursor:pointer;font-size:.85rem}
+.tag:hover{border-color:var(--acc);color:var(--fg)}
+.pv{white-space:pre-wrap;overflow-wrap:anywhere;padding:var(--s3);border:1px solid var(--line);border-radius:10px;background:var(--card);font:1rem/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:72ch;max-height:50vh;overflow:auto}
+.warn{margin:var(--s2) 0;color:var(--fg)}
+.err{margin:var(--s2) 0;font-weight:700;min-height:1.2em}
+.note{margin:var(--s3) 0;padding:var(--s3);border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.vars{margin:var(--s3) 0;padding:var(--s3) 0 0;border:0;border-top:1px solid var(--line);min-width:0}
+.vars legend{padding:0 var(--s2);font-weight:700}
+.vars .two{margin:var(--s2) 0}
+#help{padding:var(--s1) var(--s4)}
+#help p,#help li{margin:var(--s1) 0}
+#help code{background:var(--bg);padding:0 4px;border-radius:4px}
+.dock{position:sticky;bottom:0;z-index:2;margin:var(--s3) 0 0;padding:var(--s3) 0 max(var(--s3),env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg)}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.dock{background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(12px) saturate(1.1);backdrop-filter:blur(12px) saturate(1.1)}}
+.lnk{all:unset;cursor:pointer;color:var(--fg);font-weight:600;border-radius:6px}.lnk:hover{text-decoration:underline;text-underline-offset:3px}.lnk:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+@media (prefers-reduced-transparency:reduce){.dock{background:var(--bg)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+@media (forced-colors:active){.dock,.pv,.note{background:Canvas;border:1px solid CanvasText;-webkit-backdrop-filter:none;backdrop-filter:none}.b,.tag,input,textarea,select{border:1px solid ButtonText}.b.p{background:Highlight;color:HighlightText}}
+@media (prefers-reduced-motion:no-preference){.view{animation:ppin .15s ease-out}.b{transition:border-color .15s,scale .12s}.b:active{scale:.96;transform:none}@keyframes ppin{from{opacity:0}to{opacity:1}}}
+@media (max-width:420px){.two{grid-template-columns:1fr}}
+@media print{.tools,.filters,.row,.state{display:none!important}.pv{white-space:pre-wrap;overflow-wrap:anywhere;padding:var(--s3);border:1px solid var(--line);border-radius:10px;background:var(--card);font:1rem/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:72ch;max-height:50vh;overflow:auto}body{background-image:none}}
+/* Pantry identity: recipe-card serif titles, shelf rules, label-style tags. Shared kit header and hub link unchanged. */
+h1,.pi h3,#u-h,#e-h,#r-h{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-weight:500;letter-spacing:0}
+#u-h,#e-h,#r-h{font-size:1.5rem;margin:var(--s2) 0}
+.pi h3{font-size:1.15rem}
+.pi{border-top:1px dashed var(--line)}
+.pi:first-child{border-top:2px solid var(--fg)}
+.tag{border-style:dashed}
+.lbl{font-size:.8rem;color:var(--mut);font-weight:500}
+/* Index-card preview: ruled lines and a margin rule (hard stops, no hue gradient) */
+.pv{padding:0 var(--s3) 0 3rem;font-size:1rem;line-height:1.55rem;background-color:var(--card);background-attachment:local;background-image:linear-gradient(90deg,transparent 2.4rem,color-mix(in srgb,var(--acc) 55%,transparent) 2.4rem,color-mix(in srgb,var(--acc) 55%,transparent) calc(2.4rem + 1px),transparent calc(2.4rem + 1px)),repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.55rem - 1px),color-mix(in srgb,var(--line) 45%,transparent) calc(1.55rem - 1px),color-mix(in srgb,var(--line) 45%,transparent) 1.55rem)}
+/* Pantry-label tags: punched tie hole */
+.tag{padding-left:22px;background:radial-gradient(circle at 11px 50%,var(--bg) 0 3px,var(--line) 3px 4px,transparent 4px) no-repeat}
+/* Shelf layout on wide screens: labelled jars in a grid, sized by their own container */
+#list{container-type:inline-size}
+@container (min-width:640px){#list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));column-gap:var(--s4)}.pi:first-child{border-top:1px dashed var(--line)}}
+.stamp{position:absolute;right:var(--s4);bottom:calc(100% + var(--s2));padding:2px var(--s3);border:2px solid var(--acc);border-radius:6px;color:var(--acc);font:700 .9rem Georgia,serif;text-transform:uppercase;letter-spacing:.08em;pointer-events:none;rotate:-6deg}
+.dock{position:sticky}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip</a>
+<div class="wrap narrow">
+  <div class="ph">
+    <a class="ib" id="back-to-hub" href="../" aria-label="Omnevum home" title="Omnevum"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg></a>
+    <h1>PromptPantry Library</h1>
+    <button class="ib" id="export" type="button" aria-label="Save a copy" title="Save a copy"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M216,112v96a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V112A16,16,0,0,1,56,96H80a8,8,0,0,1,0,16H56v96H200V112H176a8,8,0,0,1,0-16h24A16,16,0,0,1,216,112ZM93.66,69.66,120,43.31V136a8,8,0,0,0,16,0V43.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,69.66Z"/></svg></button>
+    <button class="ib" id="look" type="button" aria-label="Look" title="Look"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg></button>
+  </div>
+  <p class="state" role="status"><b id="save">Loading</b><span id="msg"></span></p>
+  <main id="main" tabindex="-1">
+    <section id="v-list" class="view">
+      <div class="tools">
+        <button class="b p" id="new" type="button"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H208V208Zm-32-80a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"/></svg><span>New prompt</span></button>
+        <button class="b" id="restore" type="button"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M248,128a87.34,87.34,0,0,1-17.6,52.81,8,8,0,1,1-12.8-9.62A71.34,71.34,0,0,0,232,128a72,72,0,0,0-144,0,8,8,0,0,1-16,0,88,88,0,0,1,3.29-23.88C74.2,104,73.1,104,72,104a48,48,0,0,0,0,96H96a8,8,0,0,1,0,16H72A64,64,0,1,1,81.29,88.68,88,88,0,0,1,248,128Zm-69.66,42.34L160,188.69V128a8,8,0,0,0-16,0v60.69l-18.34-18.35a8,8,0,0,0-11.32,11.32l32,32a8,8,0,0,0,11.32,0l32-32a8,8,0,0,0-11.32-11.32Z"/></svg><span>Restore a copy</span></button>
+      </div>
+      <div class="fld"><label for="q">Search</label><input id="q" type="search" autocomplete="off" placeholder="Words from the title, tags or text"></div>
+      <div class="filters">
+        <div><label class="vh" for="f-cat">Category</label><select id="f-cat"></select></div>
+        <div><label class="vh" for="f-col">Collection</label><select id="f-col"></select></div>
+        <label class="ck"><input id="f-fav" type="checkbox"><span>Favorites only</span></label>
+        <label class="ck"><input id="f-arch" type="checkbox"><span>Show archived</span></label>
+      </div>
+      <p class="meta num" id="count" aria-live="polite"></p>
+      <div id="list"></div>
+      <div id="empty" class="none" hidden><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M192,24H96A16,16,0,0,0,80,40V56H64A16,16,0,0,0,48,72V224a8,8,0,0,0,12.65,6.51L112,193.83l51.36,36.68A8,8,0,0,0,176,224V184.69l19.35,13.82A8,8,0,0,0,208,192V40A16,16,0,0,0,192,24ZM160,208.46l-43.36-31a8,8,0,0,0-9.3,0L64,208.45V72h96Zm32-32L176,165V72a16,16,0,0,0-16-16H96V40h96Z"/></svg><span id="empty-t"></span><button class="b" id="clear" type="button">Clear search and filters</button></div>
+    </section>
+
+    <section id="v-use" class="view" hidden>
+      <div>
+        <h2 id="u-h" tabindex="-1"></h2>
+        <p class="meta" id="u-meta"></p>
+        <p id="u-desc"></p>
+        <div id="u-form"></div>
+        <p class="lbl">Preview</p>
+        <div id="pv" class="pv" tabindex="0" aria-label="Prompt preview"></div>
+        <ul id="u-warn" class="plain warn"></ul>
+        <div class="row">
+          <button class="b sm" id="u-edit" type="button">Edit</button>
+          <button class="b sm" id="u-dup" type="button">Duplicate</button>
+          <button class="b sm" id="u-fav" type="button" aria-pressed="false">Favorite</button>
+          <button class="b sm" id="u-arch" type="button">Archive</button>
+          <button class="b sm" id="u-del" type="button" hidden>Delete forever</button>
+        </div>
+        <div class="dock row">
+          <span id="stamp" class="stamp" aria-hidden="true" hidden>Copied</span>
+          <button class="b p" id="u-copy" type="button"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M213.66,66.34l-40-40A8,8,0,0,0,168,24H88A16,16,0,0,0,72,40V56H56A16,16,0,0,0,40,72V216a16,16,0,0,0,16,16H168a16,16,0,0,0,16-16V200h16a16,16,0,0,0,16-16V72A8,8,0,0,0,213.66,66.34ZM168,216H56V72h76.69L168,107.31v84.53c0,.06,0,.11,0,.16s0,.1,0,.16V216Zm32-32H184V104a8,8,0,0,0-2.34-5.66l-40-40A8,8,0,0,0,136,56H88V40h76.69L200,75.31Zm-56-32a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,152Zm0,32a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,184Z"/></svg><span>Copy</span></button>
+          <button class="b" id="u-back" type="button"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg><span>Back</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="v-edit" class="view" hidden>
+      <h2 id="e-h" tabindex="-1">Edit prompt</h2>
+      <div class="fld"><label for="e-title">Title</label><input id="e-title" type="text" maxlength="120" autocomplete="off"></div>
+      <div class="fld"><label for="e-desc">Short description</label><input id="e-desc" type="text" maxlength="600" autocomplete="off"></div>
+      <div class="fld"><label for="e-kind">Kind</label><select id="e-kind"></select><p class="hint" id="e-khint"></p></div>
+      <div class="two">
+        <div class="fld"><label for="e-cat">Category</label><input id="e-cat" type="text" list="dl-cat" maxlength="40" autocomplete="off"></div>
+        <div class="fld"><label for="e-col">Collection</label><input id="e-col" type="text" list="dl-col" maxlength="40" autocomplete="off"></div>
+      </div>
+      <datalist id="dl-cat"></datalist><datalist id="dl-col"></datalist>
+      <div class="fld"><label for="e-tags">Tags, separated by commas</label><input id="e-tags" type="text" autocomplete="off"></div>
+      <div class="fld"><label for="e-note">Written for (optional)</label><input id="e-note" type="text" maxlength="120" autocomplete="off"><p class="hint">A note for you, such as the tool you use it with. It never changes the text.</p></div>
+      <label class="ck" id="e-labw"><input id="e-lab" type="checkbox"><span>Show section labels when copying</span></label>
+      <div id="e-fields"></div>
+      <div class="fld"><label for="e-fsel">Insert a fragment</label>
+        <div class="row"><select id="e-fsel"></select><button class="b sm" id="e-fins" type="button">Insert a copy</button></div>
+        <p class="hint">The prompt keeps its own copy. Changing the fragment later does not change it.</p></div>
+      <p id="e-slot" class="note" hidden><span id="e-slottxt"></span> <button class="b sm" id="e-slotgo" type="button">Convert</button> <button class="b sm" id="e-slotundo" type="button" hidden>Undo</button></p>
+      <div id="e-vars"></div>
+      <p id="e-err" class="err" role="alert"></p>
+      <div class="row">
+        <button class="b p" id="e-save" type="button">Save</button>
+        <button class="b" id="e-cancel" type="button">Cancel</button>
+      </div>
+    </section>
+
+    <section id="v-restore" class="view" hidden>
+      <h2 id="r-h" tabindex="-1">Restore a copy</h2>
+      <p id="r-info"></p>
+      <ul id="r-list" class="plain"></ul>
+      <div class="row">
+        <button class="b p" id="r-go" type="button">Replace my library</button>
+        <button class="b" id="r-cancel" type="button">Cancel</button>
+      </div>
+    </section>
+
+    <details class="sec card" id="help">
+      <summary><h2>Help</h2></summary>
+      <p>Everything stays on this device. Nothing is sent anywhere. Values you type in a fill-in form are not saved.</p>
+      <p>Mark a blank in a prompt with <code>{{name}}</code>. Names start with a letter and use letters, digits and underscores, and capitals matter. Every use of a name is filled. To show the characters literally, write <code>\{{</code>. A filled value is never scanned again.</p>
+      <p>Copy is blocked while a required blank is empty. If the browser refuses the clipboard, the preview is selected so you can copy it yourself.</p>
+      <p>A kind only supplies section labels. Fragments are reusable blocks you insert as a copy. Prompts of 50,000 characters or more are refused, never cut.</p>
+      <p>Text written as <code>[LABEL: hint]</code> can be converted to a blank. You choose; nothing is converted on its own.</p>
+      <p>Save a copy writes all prompts to a file. Restore shows what the file holds, then replaces the whole library or nothing.</p>
+      <p>Images are not stored. If a prompt expects a picture, attach it in the tool you paste into.</p>
+      <div class="row"><button class="b sm" id="h-seed" type="button">Add the starter prompts back</button></div>
+    </details>
+  </main>
+</div>
+<input type="file" id="file" accept="application/json,.json" class="vh" tabindex="-1" aria-hidden="true">
+<script>
+(function () {
+  "use strict";
+  var KEY = "omn.apps.promptpantry-library.v1", HUB = "hub.prefs.v1", LOOKS = ["auto", "paper", "charcoal", "black"], root = document.documentElement;
+  var LIMIT = 50000, OUTMAX = 100000, NAME = /^[A-Za-z][A-Za-z0-9_]*$/;
+  var KINDS = {
+    "text-task": { n: "Text task", l: ["Role", "Context", "Task", "Constraints", "Output", "Evaluation"], h: "Sections: Role, Context, Task, Constraints, Output, Evaluation." },
+    "image-transform": { n: "Image restyle", l: ["Instruction", "Style", "Interpretation", "World", "Fusion", "Systems", "Constraint"], h: "Restyle a supplied picture or description. Sections: Instruction, Style, Interpretation, World, Fusion, Systems, Constraint." },
+    "image-create": { n: "Image create", l: ["Subject", "Style", "Composition", "Lighting", "Palette", "Constraint"], h: "A new picture from words. Sections: Subject, Style, Composition, Lighting, Palette, Constraint." },
+    "fragment": { n: "Fragment", l: [], h: "A reusable block to insert into other prompts. No sections." },
+    "freeform": { n: "Freeform", l: [], h: "Any text. No sections; copied exactly as written." }
+  };
+  var KORDER = ["image-transform", "image-create", "text-task", "fragment", "freeform"];
+  var META0 = { label: "", hint: "", required: true, def: "", max: 2000 };
+
+  function $(id) { return document.getElementById(id); }
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function has(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+  function read(k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+  // ---- validation: one path for storage reads and for restore files; it never shortens text
+  function S(v, max, what) {
+    if (v == null) return "";
+    if (typeof v !== "string") throw new Error(what + " must be text");
+    if (v.length > max) throw new Error(what + " is longer than " + max + " characters");
+    return v;
+  }
+  function plainObj(o) { return o && typeof o === "object" && !Array.isArray(o); }
+  function fields(p) { var L = KINDS[p.kind].l; return L.length ? L.map(function (l) { return p.sections[l] || ""; }) : [p.body]; }
+  function size(p) { return fields(p).join("").length; }
+  function clean(p, info) {
+    if (!plainObj(p)) throw new Error("An entry is not a prompt");
+    var q = { id: S(p.id, 80, "id") || uid(), title: S(p.title, 120, "title"), desc: S(p.desc, 600, "description"), kind: p.kind, category: S(p.category, 40, "category"),
+      collection: S(p.collection, 40, "collection"), tags: [], body: S(p.body, LIMIT, "text"), sections: {}, vars: {}, labels: p.labels !== false, favorite: p.favorite === true,
+      archived: p.archived === true, targetNote: S(p.targetNote, 120, "note"), origin: p.origin === "starter" ? "starter" : "user", created: +p.created || Date.now(), updated: +p.updated || Date.now() };
+    if (!q.title.trim()) throw new Error("A prompt has no title");
+    if (Array.isArray(p.tags)) p.tags.forEach(function (t) { t = S(t, 30, "tag").trim().toLowerCase(); if (t && q.tags.indexOf(t) < 0 && q.tags.length < 20) q.tags.push(t); });
+    var secs = plainObj(p.sections) ? p.sections : {};
+    if (typeof q.kind !== "string" || !has(KINDS, q.kind)) {
+      if (info && p.kind != null) info.unknown++;
+      q.kind = "freeform";
+      var extra = Object.keys(secs).filter(function (k) { return typeof secs[k] === "string" && secs[k]; }).map(function (k) { return k + ":\n" + secs[k]; }).join("\n\n");
+      if (extra) q.body = q.body ? q.body + "\n\n" + extra : extra;
+    } else KINDS[q.kind].l.forEach(function (l) { q.sections[l] = S(secs[l], LIMIT, "section"); });
+    var v = plainObj(p.vars) ? p.vars : {};
+    Object.keys(v).forEach(function (n) {
+      if (!NAME.test(n) || !plainObj(v[n])) return;
+      var m = +v[n].max; q.vars[n] = { label: S(v[n].label, 60, "label"), hint: S(v[n].hint, 200, "hint"), required: v[n].required === true, def: S(v[n].def, 2000, "default"), max: m >= 1 && m <= 20000 ? Math.floor(m) : 2000 };
+    });
+    if (size(q) > LIMIT) throw new Error("\"" + q.title + "\" is longer than " + LIMIT + " characters");
+    return q;
+  }
+
+  // ---- placeholders: {{name}}; \{{ writes {{ ; values are never scanned again
+  function compile(p, lab) {
+    var L = KINDS[p.kind].l; if (!L.length) return p.body;
+    var out = []; L.forEach(function (l) { var t = p.sections[l]; if (t && t.trim()) out.push(lab === false ? t : l + ":\n" + t); });
+    return out.join("\n\n");
+  }
+  function scan(text) {
+    var names = [], bad = 0, re = /(\\)?\{\{([^{}\n]{0,60})\}\}/g, m;
+    while ((m = re.exec(text))) { if (m[1]) continue; if (NAME.test(m[2])) { if (names.indexOf(m[2]) < 0) names.push(m[2]); } else bad++; }
+    return { names: names, bad: bad };
+  }
+  function metaOf(p, n) { return has(p.vars, n) ? p.vars[n] : META0; }
+  function render(p, vals) {
+    var text = compile(p, p.labels), sc = scan(text), miss = [], over = [];
+    var out = text.replace(/\\\{\{|\{\{([A-Za-z][A-Za-z0-9_]*)\}\}/g, function (m, n) {
+      if (!n) return "{{";
+      var d = metaOf(p, n), v = has(vals, n) && vals[n] !== "" ? vals[n] : d.def;
+      if (v === "" && d.required) { if (miss.indexOf(n) < 0) miss.push(n); return m; }
+      if (v.length > d.max && over.indexOf(n) < 0) over.push(n);
+      return v;
+    });
+    return { text: out, names: sc.names, bad: sc.bad, miss: miss, over: over, long: out.length > OUTMAX };
+  }
+  function wantsAttach(p, names) {
+    if (p.kind === "image-transform") return true;
+    return names.some(function (n) { var d = metaOf(p, n); return /attach/i.test(d.hint + " " + d.label + " " + d.def); });
+  }
+
+  // ---- starter prompts (original text; no real people or artists)
+  function seed(id, kind, title, desc, cat, tags, secs, body, vars) {
+    return { id: id, title: title, desc: desc, kind: kind, category: cat, collection: "", tags: tags, body: body || "", sections: secs || {}, vars: vars || {}, labels: kind.indexOf("text") === 0, favorite: false, archived: false, targetNote: "", origin: "starter", created: 1, updated: 1 };
+  }
+  function starters() {
+    return [
+      seed("s-restyle", "image-transform", "Restyle a picture as a living habitat", "Turn a source picture into one layered, painted habitat scene.", "image", ["style", "habitat", "restyle"], {
+        Instruction: "Reimagine {{content}} as a single detailed illustration.",
+        Style: "Hand-painted gouache look with soft edges, visible brush texture and a warm, slightly faded palette.",
+        Interpretation: "Treat every shape in the source as part of a habitat: roofs become hills, windows become burrows, railings become branches.",
+        World: "A small, self-contained ecosystem with plants, insects, birds and small mammals living at several heights, from root level to canopy.",
+        Fusion: "Blend the original forms with the living scene so neither dominates and the source stays recognisable.",
+        Systems: "Show simple cycles: water running downhill, light moving across leaves, seeds travelling on the wind.",
+        Constraint: "Absolutely no letters, numbers, words or readable writing anywhere in the image."
+      }, "", { content: { label: "Picture or subject", hint: "Describe it, or attach a picture in the tool you paste into", required: false, def: "the attached picture", max: 600 } }),
+      seed("s-harbour", "image-create", "Harbour at first light", "A calm watercolour scene with a mood you choose.", "image", ["watercolour", "landscape"], {
+        Subject: "A quiet fishing harbour at first light, {{mood}}.",
+        Style: "Soft watercolour with loose washes and visible paper grain.",
+        Composition: "Wide view from a low jetty, with boats leading the eye toward the horizon.",
+        Lighting: "Low golden sun, long soft shadows and mist over the water.",
+        Palette: "Muted teal, warm sand and pale gold, with one small red accent.",
+        Constraint: "No text, signs or logos."
+      }, "", { mood: { label: "Mood", hint: "A few words", required: false, def: "calm and hopeful", max: 120 } }),
+      seed("s-explain", "text-task", "Explain it to a beginner", "A patient explanation with one everyday example.", "text", ["teaching", "explain"], {
+        Role: "You are a patient teacher who explains {{topic}} clearly.",
+        Context: "The reader is {{audience}} and has no background in the subject.",
+        Task: "Explain the core idea of {{topic}} using one everyday example.",
+        Constraints: "Use plain words. Define each technical term the first time it appears. Keep it under 250 words.",
+        Output: "Three short paragraphs, then a one-line summary.",
+        Evaluation: "Check that a beginner could repeat the idea in their own words, and list anything you assumed."
+      }, "", { topic: { label: "Topic", hint: "What to explain", required: true, def: "", max: 200 }, audience: { label: "Reader", hint: "Who is reading", required: false, def: "a curious adult", max: 200 } }),
+      seed("s-tighten", "text-task", "Tighten my draft", "Shorten a draft by about a third without losing a fact.", "text", ["editing", "writing"], {
+        Role: "You are a careful editor.",
+        Context: "Here is my draft:\n{{draft}}",
+        Task: "Shorten the draft by about a third without losing any fact.",
+        Constraints: "Keep my voice. Do not add new claims. Mark any sentence you were unsure about.",
+        Output: "The revised text, then a short list of what you cut.",
+        Evaluation: "Confirm that every fact in the original still appears."
+      }, "", { draft: { label: "Draft", hint: "Paste the text to tighten", required: true, def: "", max: 20000 } }),
+      seed("s-notext", "fragment", "No text in the image", "A hard constraint to insert into image prompts.", "fragments", ["constraint"], null,
+        "Absolutely no letters, numbers, words or readable writing anywhere in the image."),
+      seed("s-softlight", "fragment", "Soft natural light", "A lighting line to insert into image prompts.", "fragments", ["lighting"], null,
+        "Soft, natural, diffused light with gentle shadows and no harsh highlights.")
+    ].map(function (p) {
+      var q = clean(p); return q;
+    });
+  }
+
+  // ---- state
+  var data = { schema: 1, prompts: [] }, locked = false, ui = { q: "", cat: "", col: "", fav: false, arch: false, cur: null, vals: {}, draft: null, dirty: false, lastTa: null, undo: null, sig: "", pending: null, armed: "" };
+  var look = (read(HUB) || {}).look; if (LOOKS.indexOf(look) < 0) look = "auto";
+  var storageOk = true, raw = null;
+  try { raw = localStorage.getItem(KEY); } catch (e) { storageOk = false; }
+  if (raw == null) { data.prompts = starters(); }
+  else {
+    try {
+      var o = JSON.parse(raw);
+      if (!plainObj(o) || o.schema !== 1 || !Array.isArray(o.prompts)) throw new Error("schema");
+      data.prompts = o.prompts.map(function (p) { return clean(p); });
+    } catch (e) { locked = true; data.prompts = []; }
+  }
+  function byId(id) { for (var i = 0; i < data.prompts.length; i++) if (data.prompts[i].id === id) return data.prompts[i]; return null; }
+
+  function say(t, bad) { $("msg").textContent = t || ""; $("msg").className = bad ? "bad" : ""; }
+  function setSave(s, t) { var b = $("save"); b.textContent = t; b.className = s === "ok" ? "" : "bad"; }
+  function save() {
+    if (locked) { setSave("bad", "Not saved"); say("The stored library could not be read, so nothing was written. Restore a copy to continue.", true); return false; }
+    var s = JSON.stringify(data), ok = false;
+    if (!storageOk) { setSave("bad", "Storage unavailable"); say("Your changes stay on this screen only. Use Save a copy to keep them.", true); return false; }
+    try { localStorage.setItem(KEY, s); ok = localStorage.getItem(KEY) === s; } catch (e) { ok = false; }
+    if (!ok) { setSave("bad", "Not saved"); say("The browser refused to store this. Use Save a copy to keep your prompts.", true); return false; }
+    setSave("ok", "Saved");
+    try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () {}); } catch (e) {}
+    return true;
+  }
+
+  // ---- views
+  var VIEWS = ["list", "use", "edit", "restore"], HEAD = { list: "main", use: "u-h", edit: "e-h", restore: "r-h" };
+  var calm = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: true };
+  function show(v) {
+    function swap() {
+      VIEWS.forEach(function (n) { $("v-" + n).hidden = n !== v; });
+      $("help").hidden = v !== "list";
+      window.scrollTo(0, 0);
+      var f = $(HEAD[v]); if (f) f.focus({ preventScroll: true });
+    }
+    if (document.startViewTransition && !calm.matches) { try { document.startViewTransition(swap); return; } catch (e) { /* fall through */ } }
+    swap();
+  }
+  function stamp() {
+    var s = $("stamp"); if (!s || calm.matches || !s.animate) return;
+    s.hidden = false;
+    s.animate([{ opacity: 0, scale: "1.5", rotate: "-14deg" }, { opacity: 1, scale: "1", rotate: "-6deg", offset: 0.25 }, { opacity: 1, scale: "1", rotate: "-6deg", offset: 0.8 }, { opacity: 0, scale: "1", rotate: "-6deg" }], { duration: 1200, easing: "cubic-bezier(.2,.7,.2,1)" }).onfinish = function () { s.hidden = true; };
+  }
+  function paint() { root.setAttribute("data-look", look); }
+
+  function uniq(key) { var a = []; data.prompts.forEach(function (p) { if (p[key] && a.indexOf(p[key]) < 0) a.push(p[key]); }); return a.sort(); }
+  function fillSel(sel, items, cur, all) {
+    sel.textContent = ""; var o = el("option", "", all); o.value = ""; sel.appendChild(o);
+    items.forEach(function (x) { var op = el("option", "", x); op.value = x; sel.appendChild(op); });
+    sel.value = items.indexOf(cur) >= 0 ? cur : "";
+    return sel.value;
+  }
+  function hay(p) { return [p.title, p.desc, p.tags.join(" "), p.category, p.collection, p.targetNote, fields(p).join("\n")].join("\n").toLowerCase(); }
+  function matches() {
+    var toks = ui.q.toLowerCase().split(/\s+/).filter(Boolean);
+    return data.prompts.filter(function (p) {
+      if (p.archived && !ui.arch) return false;
+      if (ui.fav && !p.favorite) return false;
+      if (ui.cat && p.category !== ui.cat) return false;
+      if (ui.col && p.collection !== ui.col) return false;
+      if (!toks.length) return true;
+      var h = hay(p); return toks.every(function (t) { return h.indexOf(t) >= 0; });
+    }).sort(function (a, b) { return (b.favorite - a.favorite) || (b.updated - a.updated) || (a.title < b.title ? -1 : 1); });
+  }
+  function paintList() {
+    ui.cat = fillSel($("f-cat"), uniq("category"), ui.cat, "All categories");
+    ui.col = fillSel($("f-col"), uniq("collection"), ui.col, "All collections");
+    var rows = matches(), box = $("list"); box.textContent = "";
+    rows.forEach(function (p) {
+      var it = el("article", "pi" + (p.archived ? " old" : "")), h = el("h3"), ttl = el("button", "lnk", p.title);
+      ttl.type = "button"; ttl.addEventListener("click", function () { openUse(p.id); }); h.appendChild(ttl);
+      it.appendChild(h);
+      it.appendChild(el("p", "meta", KINDS[p.kind].n + (p.category ? " · " + p.category : "") + (p.collection ? " · " + p.collection : "") + (p.favorite ? " · favorite" : "") + (p.archived ? " · archived" : "")));
+      if (p.desc) it.appendChild(el("p", "", p.desc));
+      if (p.tags.length) {
+        var tg = el("div", "tags");
+        p.tags.forEach(function (t) { var b = el("button", "tag", t); b.type = "button"; b.setAttribute("aria-label", "Search for tag " + t); b.addEventListener("click", function () { $("q").value = t; ui.q = t; paintList(); }); tg.appendChild(b); });
+        it.appendChild(tg);
+      }
+      var r = el("div", "row"), e = el("button", "b sm", "Edit"), f = el("button", "b sm", p.favorite ? "Unfavorite" : "Favorite");
+      e.type = f.type = "button"; e.setAttribute("aria-label", "Edit " + p.title); f.setAttribute("aria-label", (p.favorite ? "Unfavorite " : "Favorite ") + p.title);
+      e.addEventListener("click", function () { openEdit(p.id); });
+      f.addEventListener("click", function () { p.favorite = !p.favorite; p.updated = Date.now(); save(); paintList(); });
+      r.appendChild(e); r.appendChild(f); it.appendChild(r); box.appendChild(it);
+    });
+    var any = data.prompts.length > 0;
+    $("count").textContent = rows.length + (rows.length === 1 ? " prompt" : " prompts") + (any ? " of " + data.prompts.length : "");
+    $("empty").hidden = rows.length > 0;
+    if (!rows.length) { $("empty-t").textContent = any ? "Nothing matches." : "No prompts yet. Make one, or restore a copy."; $("clear").hidden = !any; }
+  }
+  function clearFilters() { ui.q = ""; ui.cat = ""; ui.col = ""; ui.fav = false; ui.arch = false; $("q").value = ""; $("f-fav").checked = false; $("f-arch").checked = false; paintList(); }
+
+  // ---- use view
+  function openUse(id) {
+    var p = byId(id); if (!p) return;
+    ui.cur = id; ui.vals = {};
+    $("u-h").textContent = p.title;
+    $("u-meta").textContent = KINDS[p.kind].n + (p.targetNote ? " · written for " + p.targetNote : "");
+    $("u-desc").textContent = p.desc; $("u-desc").hidden = !p.desc;
+    var form = $("u-form"); form.textContent = "";
+    var names = scan(compile(p, p.labels)).names;
+    names.forEach(function (n) {
+      var d = metaOf(p, n), w = el("div", "fld"), lab = el("label", "", (d.label || n) + (d.required ? " (required)" : "")), id2 = "fv-" + n;
+      lab.setAttribute("for", id2);
+      var inp = el("textarea", ""); inp.id = id2; inp.rows = 2; inp.placeholder = d.def; inp.maxLength = 100000; inp.autocomplete = "off";
+      inp.addEventListener("input", function () { ui.vals[n] = inp.value; paintPreview(); });
+      w.appendChild(lab); w.appendChild(inp);
+      if (d.hint) w.appendChild(el("p", "hint", d.hint));
+      form.appendChild(w);
+    });
+    $("u-fav").setAttribute("aria-pressed", String(p.favorite)); $("u-fav").textContent = p.favorite ? "Unfavorite" : "Favorite";
+    $("u-arch").textContent = p.archived ? "Restore" : "Archive";
+    $("u-del").hidden = !p.archived; $("u-del").textContent = "Delete forever"; ui.armed = "";
+    paintPreview(); show("use");
+  }
+  function paintPreview() {
+    var p = byId(ui.cur); if (!p) return;
+    var r = render(p, ui.vals), w = $("u-warn"); w.textContent = "";
+    $("pv").textContent = r.text;
+    if (r.miss.length) w.appendChild(el("li", "", "Fill in before copying: " + r.miss.join(", ") + "."));
+    if (r.over.length) w.appendChild(el("li", "", "Too long for its limit: " + r.over.join(", ") + "."));
+    if (r.long) w.appendChild(el("li", "", "The result is over " + OUTMAX + " characters, so it cannot be copied."));
+    if (r.bad) w.appendChild(el("li", "", r.bad + " brace pair" + (r.bad > 1 ? "s do" : " does") + " not look like a valid blank and will be copied as written."));
+    if (wantsAttach(p, r.names)) w.appendChild(el("li", "", "Attach any picture in the tool you paste into. PromptPantry stores text only."));
+    $("u-copy").disabled = !!(r.miss.length || r.over.length || r.long);
+  }
+  function copyNow() {
+    var p = byId(ui.cur); if (!p) return;
+    var r = render(p, ui.vals);
+    if (r.miss.length || r.over.length || r.long) { say("Not copied. Fix the notes under the preview first.", true); return; }
+    function sel() { var rg = document.createRange(); rg.selectNodeContents($("pv")); var s = window.getSelection(); s.removeAllRanges(); s.addRange(rg); }
+    function fallback() {
+      var ok = false; try { sel(); ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      if (ok) { say("Copied " + r.text.length + " characters."); stamp(); } else { sel(); say("The browser blocked copying. The preview is selected: press Ctrl+C (or Cmd+C).", true); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(r.text).then(function () { say("Copied " + r.text.length + " characters."); stamp(); }, fallback);
+    else fallback();
+  }
+
+  // ---- edit view
+  function blank() { return clean({ id: uid(), title: "x", kind: "freeform", body: "" }); }
+  function openEdit(id) {
+    var p = id ? byId(id) : null;
+    ui.draft = p ? JSON.parse(JSON.stringify(p)) : Object.assign(blank(), { title: "" });
+    ui.dirty = false; ui.undo = null; ui.sig = ""; ui.armed = ""; ui.lastTa = null;
+    $("e-h").textContent = p ? "Edit prompt" : "New prompt";
+    var d = ui.draft;
+    $("e-title").value = d.title; $("e-desc").value = d.desc; $("e-cat").value = d.category; $("e-col").value = d.collection; $("e-tags").value = d.tags.join(", "); $("e-note").value = d.targetNote; $("e-lab").checked = d.labels;
+    var ks = $("e-kind"); ks.textContent = ""; KORDER.forEach(function (k) { var o = el("option", "", KINDS[k].n); o.value = k; ks.appendChild(o); }); ks.value = d.kind;
+    fillList($("dl-cat"), uniq("category")); fillList($("dl-col"), uniq("collection"));
+    var fs = $("e-fsel"); fs.textContent = "";
+    data.prompts.filter(function (x) { return x.kind === "fragment" && !x.archived && x.id !== d.id; }).forEach(function (x) { var o = el("option", "", x.title); o.value = x.id; fs.appendChild(o); });
+    $("e-fins").disabled = !fs.options.length;
+    $("e-err").textContent = ""; $("e-cancel").textContent = "Cancel";
+    buildFields(); show("edit");
+  }
+  function fillList(dl, items) { dl.textContent = ""; items.forEach(function (x) { var o = document.createElement("option"); o.value = x; dl.appendChild(o); }); }
+  function buildFields() {
+    var d = ui.draft, box = $("e-fields"), L = KINDS[d.kind].l; box.textContent = "";
+    $("e-khint").textContent = KINDS[d.kind].h; $("e-labw").hidden = !L.length;
+    function mk(id, label, val, key) {
+      var w = el("div", "fld"), lb = el("label", "", label), ta = el("textarea", "tx"); lb.setAttribute("for", id); ta.id = id; ta.value = val; ta.maxLength = LIMIT + 1; ta.setAttribute("data-key", key);
+      ta.addEventListener("focus", function () { ui.lastTa = ta; });
+      ta.addEventListener("input", function () { ui.dirty = true; slotCheck(); varsPanel(); });
+      w.appendChild(lb); w.appendChild(ta); box.appendChild(w);
+    }
+    if (L.length) L.forEach(function (l, i) { mk("e-s" + i, l, d.sections[l] || "", l); }); else mk("e-body", d.kind === "fragment" ? "Fragment text" : "Text", d.body, "");
+    ui.sig = ""; slotCheck(); varsPanel();
+  }
+  function pull() {
+    var d = ui.draft;
+    d.title = $("e-title").value; d.desc = $("e-desc").value; d.category = $("e-cat").value.trim(); d.collection = $("e-col").value.trim(); d.targetNote = $("e-note").value; d.labels = $("e-lab").checked;
+    d.tags = []; $("e-tags").value.split(",").forEach(function (t) { t = t.trim().toLowerCase(); if (t && d.tags.indexOf(t) < 0 && d.tags.length < 20) d.tags.push(t); });
+    var L = KINDS[d.kind].l;
+    Array.prototype.forEach.call($("e-fields").querySelectorAll("textarea"), function (ta) { var k = ta.getAttribute("data-key"); if (k) d.sections[k] = ta.value; else d.body = ta.value; });
+    return d;
+  }
+  function retarget(nk) {
+    var d = pull(), old = KINDS[d.kind].l, left = [], nl = KINDS[nk].l;
+    if (old.length) old.forEach(function (l) { var t = d.sections[l]; if (t && t.trim()) { if (nl.indexOf(l) >= 0) return; left.push(l + ":\n" + t); } });
+    else if (d.body) left.push(d.body);
+    var keep = {}; nl.forEach(function (l) { keep[l] = old.length && d.sections[l] ? d.sections[l] : ""; });
+    var text = left.join("\n\n");
+    if (nl.length) { if (text) keep[nl[0]] = keep[nl[0]] ? keep[nl[0]] + "\n\n" + text : text; d.sections = keep; d.body = ""; }
+    else { d.sections = {}; d.body = text; }
+    d.kind = nk;
+  }
+  function draftText() { var d = pull(); return fields(d).join("\n"); }
+  function varsPanel() {
+    var d = pull(), names = scan(draftText()).names, sig = names.join(",");
+    if (sig === ui.sig) return; ui.sig = sig;
+    var box = $("e-vars"); box.textContent = "";
+    names.forEach(function (n) {
+      if (!has(d.vars, n)) d.vars[n] = { label: "", hint: "", required: true, def: "", max: 2000 };
+      var m = d.vars[n], fs = el("fieldset", "vars"), lg = el("legend", "", "{{" + n + "}}"); fs.appendChild(lg);
+      function inp(label, key, type) {
+        var w = el("div", "fld"), id = "m-" + n + "-" + key, lb = el("label", "", label), i = el("input"); lb.setAttribute("for", id); i.id = id; i.type = type; i.autocomplete = "off"; i.value = m[key];
+        i.addEventListener("input", function () { m[key] = type === "number" ? Math.max(1, Math.min(20000, Math.floor(+i.value) || 2000)) : i.value; ui.dirty = true; }); w.appendChild(lb); w.appendChild(i); return w;
+      }
+      var two = el("div", "two"); two.appendChild(inp("Label", "label", "text")); two.appendChild(inp("Hint", "hint", "text")); fs.appendChild(two);
+      var two2 = el("div", "two"); two2.appendChild(inp("Default value", "def", "text")); two2.appendChild(inp("Longest value", "max", "number")); fs.appendChild(two2);
+      var ck = el("label", "ck"), c = el("input"); c.type = "checkbox"; c.checked = m.required; c.addEventListener("change", function () { m.required = c.checked; ui.dirty = true; });
+      ck.appendChild(c); ck.appendChild(el("span", "", "Required: copying waits until it is filled")); fs.appendChild(ck); box.appendChild(fs);
+    });
+    if (!names.length) box.appendChild(el("p", "hint", "No blanks yet. Write {{name}} in the text to add one."));
+  }
+  var SLOT = /\[([A-Z][A-Z0-9 \/&_-]{1,40}):\s*([^\]\n]{1,160})\]/;
+  function slotCheck() {
+    var found = null;
+    Array.prototype.some.call($("e-fields").querySelectorAll("textarea"), function (ta) { var m = SLOT.exec(ta.value); if (m) { found = { ta: ta, m: m }; return true; } return false; });
+    $("e-slot").hidden = !found && !ui.undo; $("e-slotgo").hidden = !found; $("e-slotundo").hidden = !ui.undo;
+    ui.slot = found;
+    if (found) $("e-slottxt").textContent = "Found " + found.m[0] + ". Convert it to a blank named " + slotName(found.m[1]) + "? Nothing else changes.";
+    else if (ui.undo) $("e-slottxt").textContent = "Converted. You can undo it.";
+  }
+  function slotName(label) { var n = label.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, ""); if (!/^[a-z]/.test(n)) n = "v_" + n; return n; }
+  function slotGo() {
+    var f = ui.slot; if (!f) return;
+    var d = pull(), n = slotName(f.m[1]), had = has(d.vars, n);
+    ui.undo = { ta: f.ta, prev: f.ta.value, name: n, had: had, meta: had ? d.vars[n] : null };
+    f.ta.value = f.ta.value.replace(f.m[0], "{{" + n + "}}");
+    if (!had) d.vars[n] = { label: f.m[1], hint: f.m[2], required: true, def: "", max: 2000 };
+    ui.dirty = true; ui.sig = ""; slotCheck(); varsPanel();
+  }
+  function slotUndo() {
+    var u = ui.undo; if (!u) return; var d = pull();
+    u.ta.value = u.prev; if (u.had) d.vars[u.name] = u.meta; else delete d.vars[u.name];
+    ui.undo = null; ui.sig = ""; slotCheck(); varsPanel();
+  }
+  function insertFragment() {
+    var fr = byId($("e-fsel").value), d = pull(); if (!fr) return;
+    if (fr.id === d.id) { $("e-err").textContent = "A fragment cannot contain itself."; return; }
+    var ta = ui.lastTa && document.body.contains(ui.lastTa) ? ui.lastTa : $("e-fields").querySelector("textarea");
+    if (!ta) return;
+    var a = ta.selectionStart == null ? ta.value.length : ta.selectionStart, b = ta.selectionEnd == null ? a : ta.selectionEnd;
+    ta.value = ta.value.slice(0, a) + fr.body + ta.value.slice(b); ta.focus(); ta.setSelectionRange(a + fr.body.length, a + fr.body.length);
+    $("e-err").textContent = ""; ui.dirty = true; slotCheck(); varsPanel();
+  }
+  function saveEdit() {
+    var d = pull(), err = $("e-err"); err.textContent = "";
+    if (!d.title.trim()) { err.textContent = "Give the prompt a title."; $("e-title").focus(); return; }
+    var names = scan(draftText()).names, vars = {};
+    names.forEach(function (n) { vars[n] = has(d.vars, n) ? d.vars[n] : { label: "", hint: "", required: true, def: "", max: 2000 }; });
+    d.vars = vars;
+    var total = size(d);
+    if (total > LIMIT) { err.textContent = "This prompt is " + total + " characters. The limit is " + LIMIT + ". Nothing was cut; shorten it or split it."; return; }
+    var q; try { q = clean(d); } catch (e) { err.textContent = e.message + "."; return; }
+    var old = byId(q.id); q.updated = Date.now(); if (!old) q.created = q.updated;
+    var before = data.prompts.slice();
+    if (old) data.prompts[data.prompts.indexOf(old)] = q; else data.prompts.push(q);
+    if (!save()) { if (storageOk && !locked) { data.prompts = before; err.textContent = "Not saved. Your edits are still on screen."; return; } }
+    ui.dirty = false; ui.cur = q.id; say("Saved " + q.title + "."); paintList(); openUse(q.id);
+  }
+
+  // ---- backup and restore (schema 1)
+  function exportNow() {
+    var obj = { app: "promptpantry", schemaVersion: 1, exported: new Date().toISOString(), prompts: data.prompts };
+    var a = document.createElement("a"); a.download = "promptpantry-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" })); document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000); say("Copy saved to your downloads.");
+  }
+  function readFile(f) {
+    var rd = new FileReader();
+    rd.onload = function () {
+      var info = { unknown: 0 }, list;
+      try {
+        var o = JSON.parse(String(rd.result));
+        if (!plainObj(o)) throw new Error("This file is not a PromptPantry copy");
+        if (o.schemaVersion !== 1) throw new Error("This copy uses schema version " + o.schemaVersion + ", which this app does not know. Nothing was changed");
+        if (!Array.isArray(o.prompts)) throw new Error("The file has no prompt list");
+        if (o.prompts.length > 5000) throw new Error("The file holds more than 5000 prompts");
+        list = o.prompts.map(function (p) { return clean(p, info); });
+        var seen = {}; list.forEach(function (p) { if (has(seen, p.id)) throw new Error("Two prompts share one id"); seen[p.id] = 1; });
+      } catch (e) { say("Not restored: " + (e && e.message ? e.message : "the file could not be read") + ". Your library is unchanged.", true); return; }
+      ui.pending = list;
+      var ul = $("r-list"); ul.textContent = "";
+      var arch = list.filter(function (p) { return p.archived; }).length, fr = list.filter(function (p) { return p.kind === "fragment"; }).length;
+      $("r-info").textContent = "This copy is valid. Restoring replaces your " + data.prompts.length + " current prompts with the " + list.length + " below. Save a copy first if you want to keep the current ones.";
+      ul.appendChild(el("li", "", list.length + " prompts, " + arch + " archived, " + fr + " fragments"));
+      if (info.unknown) ul.appendChild(el("li", "", info.unknown + " with an unknown kind will open as freeform, text unchanged"));
+      list.slice(0, 8).forEach(function (p) { ul.appendChild(el("li", "", p.title)); });
+      if (list.length > 8) ul.appendChild(el("li", "", "and " + (list.length - 8) + " more"));
+      show("restore");
+    };
+    rd.onerror = function () { say("Not restored: the file could not be read. Your library is unchanged.", true); };
+    rd.readAsText(f);
+  }
+  function restoreGo() {
+    var prev = data.prompts; if (!ui.pending) return;
+    data.prompts = ui.pending; var wasLocked = locked; locked = false;
+    if (!save()) { data.prompts = prev; locked = wasLocked; ui.pending = null; say("Not restored. Your library is unchanged.", true); show("list"); paintList(); return; }
+    ui.pending = null; say("Restored " + data.prompts.length + " prompts."); clearFilters(); show("list");
+  }
+
+  // ---- events
+  $("q").addEventListener("input", function () { ui.q = $("q").value; paintList(); });
+  $("f-cat").addEventListener("change", function () { ui.cat = $("f-cat").value; paintList(); });
+  $("f-col").addEventListener("change", function () { ui.col = $("f-col").value; paintList(); });
+  $("f-fav").addEventListener("change", function () { ui.fav = $("f-fav").checked; paintList(); });
+  $("f-arch").addEventListener("change", function () { ui.arch = $("f-arch").checked; paintList(); });
+  $("clear").addEventListener("click", clearFilters);
+  $("new").addEventListener("click", function () { openEdit(null); });
+  $("restore").addEventListener("click", function () { $("file").value = ""; $("file").click(); });
+  $("file").addEventListener("change", function () { if ($("file").files[0]) readFile($("file").files[0]); });
+  $("export").addEventListener("click", exportNow);
+  $("look").addEventListener("click", function () { look = LOOKS[(LOOKS.indexOf(look) + 1) % LOOKS.length]; var p = read(HUB) || { schemaVersion: 1 }; p.look = look; write(HUB, p); paint(); });
+  $("u-copy").addEventListener("click", copyNow);
+  $("u-back").addEventListener("click", function () { show("list"); paintList(); });
+  $("u-edit").addEventListener("click", function () { openEdit(ui.cur); });
+  $("u-dup").addEventListener("click", function () {
+    var p = byId(ui.cur); if (!p) return; var c = clean(JSON.parse(JSON.stringify(p)));
+    c.id = uid(); c.title = (c.title + " copy").slice(0, 120); c.favorite = false; c.archived = false; c.origin = "user"; c.created = c.updated = Date.now();
+    data.prompts.push(c); save(); say("Duplicated."); openEdit(c.id);
+  });
+  $("u-fav").addEventListener("click", function () { var p = byId(ui.cur); if (!p) return; p.favorite = !p.favorite; p.updated = Date.now(); save(); openUse(p.id); });
+  $("u-arch").addEventListener("click", function () { var p = byId(ui.cur); if (!p) return; p.archived = !p.archived; p.updated = Date.now(); save(); say(p.archived ? "Archived." : "Restored."); openUse(p.id); });
+  $("u-del").addEventListener("click", function () {
+    var p = byId(ui.cur); if (!p || !p.archived) return;
+    if (ui.armed !== p.id) { ui.armed = p.id; $("u-del").textContent = "Delete forever? Press again"; return; }
+    data.prompts.splice(data.prompts.indexOf(p), 1); save(); say("Deleted."); show("list"); paintList();
+  });
+  $("e-kind").addEventListener("change", function () { retarget($("e-kind").value); ui.dirty = true; ui.undo = null; buildFields(); });
+  ["e-title", "e-desc", "e-cat", "e-col", "e-tags", "e-note", "e-lab"].forEach(function (i) { $(i).addEventListener("input", function () { ui.dirty = true; }); });
+  $("e-fins").addEventListener("click", insertFragment);
+  $("e-slotgo").addEventListener("click", slotGo);
+  $("e-slotundo").addEventListener("click", slotUndo);
+  $("e-save").addEventListener("click", saveEdit);
+  $("e-cancel").addEventListener("click", function () {
+    if (ui.dirty && ui.armed !== "cancel") { ui.armed = "cancel"; $("e-cancel").textContent = "Discard changes? Press again"; return; }
+    ui.armed = ""; ui.dirty = false; if (byId(ui.draft.id) && ui.cur === ui.draft.id) openUse(ui.draft.id); else { show("list"); paintList(); }
+  });
+  $("r-go").addEventListener("click", restoreGo);
+  $("r-cancel").addEventListener("click", function () { ui.pending = null; show("list"); paintList(); });
+  $("h-seed").addEventListener("click", function () {
+    var add = starters().filter(function (s) { return !byId(s.id); });
+    add.forEach(function (s) { data.prompts.push(s); });
+    if (add.length) { save(); say("Added " + add.length + " starter prompts."); } else say("All starter prompts are already here.");
+    paintList();
+  });
+  window.addEventListener("beforeunload", function (e) { if (!$("v-edit").hidden && ui.dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+  paint(); paintList();
+  if (locked) { setSave("bad", "Not saved"); say("The stored library could not be read. It was left untouched. Restore a copy to continue.", true); }
+  else if (!storageOk) { setSave("bad", "Storage unavailable"); say("Prompts will not be kept after you close this page. Use Save a copy.", true); }
+  else if (raw == null) { save(); } else setSave("ok", "Saved");
+})();
+</script>
+</body>
+</html>

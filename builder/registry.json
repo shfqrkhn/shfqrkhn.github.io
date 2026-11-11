@@ -873,6 +873,23 @@
    ],
    "aliases": [],
    "big": true
+  },
+  {
+   "id": "promptpantry-library",
+   "title": "PromptPantry Library",
+   "kind": "apps",
+   "slug": "promptpantry-library",
+   "source": "apps/APPS-APPS-PromptPantry-v*.html",
+   "topic": "ai",
+   "blurb": "Keep your own prompts: fill in the blanks, preview, copy, and back up. Stays on this device.",
+   "keywords": "promptpantry library keep your own prompts fill in the blanks preview copy and back up stays on this device",
+   "icon": "promptpantry-library",
+   "hue": 28,
+   "tagline": "Your own prompts, kept on this device",
+   "lazy": true,
+   "private": false,
+   "archived": false,
+   "license": "MIT"
   }
  ]
 }

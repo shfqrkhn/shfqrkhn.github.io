@@ -260,7 +260,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 41 pages in 7 groups: 41 single, 0 bundle, 0 remote, 0 generated; 8 archived, 0 private. Inventory fingerprint `1968901e`, last changed 2026-11-08.
+Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 8 archived, 0 private. Inventory fingerprint `139f7b81`, last changed 2026-11-11.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -272,6 +272,7 @@ Hub 1.4.3. 41 pages in 7 groups: 41 single, 0 bundle, 0 remote, 0 generated; 8 a
 | NestEggNinja Retirement | apps | single | money | 10.4.5 | archived | MIT | /apps/nesteggninja-retirement/ |
 | NoodleNudge Journal | apps | single | health | 1.7.6 | live | MIT | /apps/noodlenudge-journal/ |
 | PennyPlanner Budget | apps | single | money | 1.3.7 | archived | MIT | /apps/pennyplanner-budget/ |
+| PromptPantry Library | apps | single | ai | 0.1.0 | live | MIT | /apps/promptpantry-library/ |
 | TickleTodo Tasks | apps | single | health | 1.3.4 | archived | MIT | /apps/tickletodo-tasks/ |
 | BalanceBuddy Accounting Reader | courses | single | money | 1.5.5 | live | MIT | /courses/balancebuddy-accounting/ |
 | BlueprintBuddy Systems Design | courses | single | work | 1.5.5 | live | MIT | /courses/blueprintbuddy-systems/ |
