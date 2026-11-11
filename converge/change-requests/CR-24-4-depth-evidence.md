@@ -28,3 +28,18 @@
 - BoonBuilder: the tick status says "Not saved" when the browser blocks storage (lsSet now reports success). The MeepleMentor "false saved" claim did not reproduce from the code (no saved message on a failed write), so no change. TrendTracker (minified bundle) is deferred.
 
 - Unarchived by owner instruction (2026-11-11): all eight archived pages (StepSleuth, PromptPlayground, WorldCupWizard, NestEggNinja, PennyPlanner, TickleTodo, DecisionDesk, MeetingMediator) are back in the main hub so every app gets equal consideration for consolidation and enhancement. Registry and FRAMEWORK table updated by archive.py; the Archive section is empty.
+
+## Open claims (2026-11-11, unverified reviewer reports; verify by quote or reproduction before any fix)
+
+- BuildBoss: Final Build total equals the default total; negative or oversize quantity and TDP accepted.
+- TrendTracker: Infinity accepted (deferred, minified source).
+- DecisionDesk: stuck on Loading when IndexedDB is blocked.
+- HandheldHunter: false "saved"; fuzzy "hlaf" gives 0 results with a contradictory note; persistShortlist swallows errors.
+- MeepleMentor: search not trimmed.
+- NestEggNinja: saved lab never restored (load runs before `var RULES`); `|| 0.02` turns inflation 0 into 2%; import gaps.
+- PennyPlanner: CSV skipped-row wording. PromptPlayground: `$&` fill corruption. WorldCupWizard: clampNumber. StepSleuth: distance step 0.1 rejects 5.25.
+- NoodleNudge: txt export trailing dashes and "Result: false". TickleTodo: duplicate repeat copy. MeetingMediator: Gemini key in URL query.
+- EggspressEats: no food-safety numbers. StreamScholar: "Modern Business Strategy" links to a search. AuctionAcademy: blurb and sessionStorage guard. MoralMap: board-diversity wording.
+- SupportScout: fork migration. TranscriptTidy: non-text chunks dropped, unterminated fence, BOM. SproutScheduler: tender-crop frost margin, bad saved bed dropped silently, zone/city mismatch.
+- Also: deep-review the 8 restored apps; CR-24-7 deferred items; add PromptPantry to app-goals.json and v24-depth.json.
+- Consolidation candidates: BalanceBuddy + CashCrunch merge; MeepleMentor retire or cut; HandheldHunter vs AllyAce; GearGuardian vs SetupSherpa.
