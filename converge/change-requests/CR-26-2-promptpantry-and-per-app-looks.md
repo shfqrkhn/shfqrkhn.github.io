@@ -26,3 +26,4 @@ Owner items: confirm the app name and icon; decide on any glass or animation lib
 ## Rollout record
 
 - 2026-11-11, hub: Zen look (open ring mark, lowercase spaced name, no shadows, hairlines, slow fade-in under no-preference motion). Kit tokens only; all gates pass in 4 looks.
+- 2026-11-11, batch 1 (kit selectors only, system fonts, reduced-motion and forced-colors paths, no overflow at 375/768/1024/1440 in four looks, no console errors): StepSleuth (trail: dashed path, footprint dots), TickleTodo (notepad: ruled paper, margin rule), PennyPlanner (ledger: double rules, green-bar rows), NestEggNinja (nest: rounded egg curves, growth underline), FlexxFiles (gym floor: stamped caps, plate-edge bars).

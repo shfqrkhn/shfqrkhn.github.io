@@ -194,6 +194,13 @@ dialog .btn{margin-top:var(--s5)}
   .tablewrap{overflow:visible}
   tr{break-inside:avoid}
 }
+/* look: StepSleuth */
+/* trail: footprints along a dashed path, tabular figures */
+.ph h1{letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.sec,.card{border-radius:14px 14px 14px 4px;border-left:3px dashed var(--acc)}
+.sec h2,.card h2{font-weight:600;letter-spacing:.01em}
+.ph h1::after{content:"";display:block;height:6px;margin-top:6px;background:radial-gradient(circle at 3px 3px,var(--acc) 0 2.5px,transparent 3px) 0 0/16px 6px repeat-x;opacity:.7}
+@media (prefers-reduced-motion:no-preference){.sec,.card{animation:ssin .25s ease-out both}@keyframes ssin{from{opacity:0;translate:-6px 0}to{opacity:1;translate:0 0}}}
 </style>
 </head>
 <body>

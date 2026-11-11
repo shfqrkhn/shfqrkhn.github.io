@@ -410,6 +410,15 @@ nav.fixed.bottom-0 a .ff-ni svg{width:22px;height:22px}
 @media (max-width:359px){.ff-bar .top>svg.appic{display:none}}
 .ff-bar select option{color:#000;background:#fff}.ff-bar .top{flex-wrap:nowrap}.ff-bar .ttl{flex:1 1 0;min-width:0;margin:0 0 0 var(--s1);font-size:clamp(1rem,4vw,1.4rem);line-height:1.15;overflow-wrap:anywhere}
 .ff-dlg ol{list-style:decimal}
+/* look: PennyPlanner */
+/* ledger: tabular figures, double rules, green-bar rows */
+body{font-variant-numeric:tabular-nums}
+.ph h1{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-weight:600;letter-spacing:0;border-bottom:3px double var(--line);padding-bottom:var(--s1,4px)}
+.sec h2,.card h2{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-weight:600;border-bottom:3px double var(--line);padding-bottom:2px}
+.sec,.card{border-radius:2px;box-shadow:none}
+table tbody tr:nth-child(even){background:color-mix(in srgb,var(--acc) 7%,transparent)}
+table th{text-transform:uppercase;letter-spacing:.06em;font-size:.78em;font-weight:600}
+@media (forced-colors:active){table tbody tr:nth-child(even){background:none}}
 </style>
   </head>
 

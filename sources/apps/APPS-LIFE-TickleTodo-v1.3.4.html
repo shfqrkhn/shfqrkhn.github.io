@@ -319,6 +319,13 @@ dialog form,.dlg-box{display:flex;flex-direction:column;min-height:0;max-height:
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+/* look: TickleTodo */
+/* notepad: ruled paper with a margin rule, rounded system type */
+body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.card,.sec{background-color:var(--card);background-image:linear-gradient(90deg,transparent 2rem,color-mix(in srgb,var(--acc) 55%,transparent) 2rem,color-mix(in srgb,var(--acc) 55%,transparent) calc(2rem + 1px),transparent calc(2rem + 1px)),repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.7rem - 1px),color-mix(in srgb,var(--line) 50%,transparent) calc(1.7rem - 1px),color-mix(in srgb,var(--line) 50%,transparent) 1.7rem);background-attachment:local;border-radius:6px 6px 14px 14px;padding-left:max(var(--s5,24px),2.6rem)}
+.ph h1{font-weight:700;letter-spacing:0}
+@media (prefers-reduced-motion:no-preference){.card,.sec{animation:ttin .2s ease-out both}@keyframes ttin{from{opacity:0;translate:0 4px}to{opacity:1;translate:0 0}}}
+@media (forced-colors:active){.card,.sec{background-image:none;border:1px solid CanvasText}}
 </style>
 <script>(function(){var K="donedepot.look",H="hub.prefs.v1",r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null;function ok(v){return v==="auto"||v==="paper"||v==="charcoal"||v==="black"}function get(){try{var p=JSON.parse(localStorage.getItem(H)||"null");if(p&&ok(p.look))return p.look}catch(e){}try{var v=localStorage.getItem(K);return ok(v)?v:"auto"}catch(e){return"auto"}}function save(l){try{localStorage.setItem(K,l)}catch(e){}try{var p={};try{p=JSON.parse(localStorage.getItem(H)||"{}")||{}}catch(e){}p.schemaVersion=1;p.look=l;localStorage.setItem(H,JSON.stringify(p))}catch(e){}}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-theme",t);r.setAttribute("data-look",l);var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++){if(i===0){m[i].removeAttribute("media");m[i].setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t])}else m[i].remove()}}apply(get());mq&&mq.addEventListener&&mq.addEventListener("change",function(){get()==="auto"&&apply("auto")});function wire(){var s=document.getElementById("look");if(!s)return;s.value=get();s.addEventListener("change",function(){save(s.value);apply(s.value)})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",wire):wire()})();</script>
 </head>
