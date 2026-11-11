@@ -1,6 +1,6 @@
 # CR-24-4: raise the 33 shallow app reviews to evidence
 
-**Status:** planned (not started).
+**Status:** partly done: every page has a depth record (considered, adopted, deferred, rejected, watch) in the local receipt v24-depth.json; per-app review of the 33 shallow items is not done.
 
 **Problem (Y):** the 33 per-app reviews numbered A08 to A40 in the predecessor brief (not kept in this repository) have a product contract and a checklist but no executed fixtures, so their safety is unproven.
 
