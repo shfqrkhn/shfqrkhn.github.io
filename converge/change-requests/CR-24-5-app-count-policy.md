@@ -1,6 +1,6 @@
 # CR-24-5: rule for changing the number of apps
 
-**Status:** planned (not started).
+**Status:** done: the rule is in converge/RADAR.md (FRAMEWORK has no room).
 
 **Problem (Y):** the app count is being used as a goal, but fewer menu entries do not by themselves cut cost or risk.
 

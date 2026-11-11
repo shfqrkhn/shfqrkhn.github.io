@@ -72,7 +72,7 @@ Archived apps are in scope like any other (see CR-24-7).
 
 ## Files in converge/
 
-`radar_refresh.py`, `radar-queries.json`: the weekly refresh. `reporadar-ledger.json`: what was considered and why. `app-goals.json`: inferred goal per page. `change-requests/`: CR-24-1 to CR-24-7. `CHANGE-REQUEST-v23.md`, `CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v24.md`: the plan and its baseline. `v23_check.py`, `v23_offline.py`: baseline checks. `scan.py`, `omni_check.py`, `apply_edits.py`: review scripts. `fastgate.py`: before a commit, runs only the build, document gate and baseline checks when just documents changed, else says to run the full self-test. `receipts/`: local, git-ignored.
+`radar_refresh.py`, `radar-queries.json`: the weekly refresh. `reporadar-ledger.json`: what was considered and why. `resource-map.json`: which entry supports which change (checked by `v23_check.py`). `dupes.py`: read-only report of exact code blocks shared by pages. `app-goals.json`: inferred goal per page. `change-requests/`: CR-24-1 to CR-24-7. `CHANGE-REQUEST-v23.md`, `CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v24.md`: the plan and its baseline. `v23_check.py`, `v23_offline.py`: baseline checks. `scan.py`, `omni_check.py`, `apply_edits.py`: review scripts. `fastgate.py`: before a commit, runs only the build, document gate and baseline checks when just documents changed, else says to run the full self-test. `receipts/`: local, git-ignored.
 
 ## The stable edge rule
 
@@ -86,6 +86,10 @@ Put an improvement at the highest level that can hold it, so every child gets it
 2. Shared behavior lives once: the style (`site/scripts/ui.css`), the study engine (CR-24-1), category templates (CR-24-3). A page carries only its data.
 3. A fix that fits a gate becomes a gate check, so every page, present and future, inherits it.
 4. Only a truly local fact stays in one app.
+
+## Changing the number of apps
+
+Merge, archive or keep an app by these measures, in order: (1) unique maintained code removed, (2) saved data and routes preserved, (3) blast radius not increased, (4) user purpose kept. Archive with `builder/archive.py`; nothing is deleted. The count is not a goal.
 
 ## Documentation without bloat
 

@@ -1,6 +1,6 @@
 # CR-24-3: measure duplication in the other families, then add content contracts
 
-**Status:** planned (not started).
+**Status:** step 1 done (`python converge/dupes.py`): the only exact block over 2 KB shared by pages is the study engine, so step 2 has nothing to extract. Step 3 not adopted: recipes, guides and games already build from per-page data files through the page generator, so a new contract would remove no manual branching today.
 
 **Problem (Y):** the money, game, guide and tool families may repeat code or content structure. This is UNVERIFIED; merging on a guess would add risk for no gain.
 

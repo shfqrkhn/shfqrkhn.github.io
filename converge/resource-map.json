@@ -1,0 +1,47 @@
+{
+ "about": "Which RepoRadar ledger entry supports which change. Checked by converge/v23_check.py against converge/reporadar-ledger.json.",
+ "roles": [
+  "IDEA",
+  "REFERENCE",
+  "ORACLE",
+  "AUTHORING",
+  "TEST",
+  "VENDORED_COMPONENT",
+  "RUNTIME"
+ ],
+ "results": [
+  "APPLIED",
+  "DEFERRED",
+  "REJECTED"
+ ],
+ "rows": [
+  {
+   "id": "googlechrome/lighthouse",
+   "role": "TEST",
+   "cr": "CR-24-7",
+   "result": "APPLIED",
+   "reason": "live mobile audits run per page at the final check"
+  },
+  {
+   "id": "cloudflare/security-audit-skill",
+   "role": "AUTHORING",
+   "cr": "CR-24-4",
+   "result": "DEFERRED",
+   "reason": "receipt shape is adopted into the next Omni revision, not this repository"
+  },
+  {
+   "id": "shadcn/improve",
+   "role": "AUTHORING",
+   "cr": "CR-24-7",
+   "result": "APPLIED",
+   "reason": "review workflow: fresh read-only reviewers, findings verified by exact quote"
+  },
+  {
+   "id": "hardikpandya/stop-slop",
+   "role": "TEST",
+   "cr": "CR-24-5",
+   "result": "APPLIED",
+   "reason": "wording rules are enforced in site/scripts/check_docs.py"
+  }
+ ]
+}

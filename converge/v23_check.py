@@ -131,6 +131,11 @@ goals_p = os.path.join(ROOT, "converge", "app-goals.json")
 gids = [a.get("id") for a in json.load(open(goals_p, encoding="utf-8")).get("apps", [])] if os.path.exists(goals_p) else []
 gmiss = sorted(set(ids) - set(gids))
 rec("CR-24-7 every page has a goal row", not gmiss and len(gids) == len(set(gids)), "%d goal rows, %d pages missing %s" % (len(gids), len(gmiss), gmiss[:3]))
+rm_p = os.path.join(ROOT, "converge", "resource-map.json")
+rm = json.load(open(rm_p, encoding="utf-8")) if os.path.exists(rm_p) else {}
+led_ids = {str(e.get("id", "")).lower() for e in json.load(open(os.path.join(ROOT, "converge", "reporadar-ledger.json"), encoding="utf-8")).get("entries", [])}
+rm_bad = [r.get("id") for r in rm.get("rows", []) if str(r.get("id", "")).lower() not in led_ids or r.get("role") not in rm.get("roles", []) or r.get("result") not in rm.get("results", [])]
+rec("CR-24-2 resource map", bool(rm.get("rows")) and not rm_bad, "%d rows, %d not in the ledger or with a bad role or result %s" % (len(rm.get("rows", [])), len(rm_bad), rm_bad[:3]))
 out = {"identity": ident, "results": res, "not_run": ["CR-5 gates and CR-6 offline update are recorded by their own runs", "A08 to A40 depth reviews", "domain answers against primary sources", "rights checks"]}
 if "--save" in sys.argv:
     p = sys.argv[sys.argv.index("--save") + 1] if sys.argv.index("--save") + 1 < len(sys.argv) else "converge/receipts/v23-execution.json"

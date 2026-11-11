@@ -1,6 +1,6 @@
 # CR-24-2: tie RepoRadar resources to named changes
 
-**Status:** planned (not started).
+**Status:** done for the 4 starting rows and the check; more rows are added when a change cites a resource.
 
 **Problem (Y):** the ledger has 523 verdicts, but nothing says which resource supports which change, so "use RepoRadar" is not checkable.
 
