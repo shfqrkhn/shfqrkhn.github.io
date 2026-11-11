@@ -194,7 +194,7 @@ if(cn.some(function(z){return z===0}))return null;
 return{items:it,targets:tg,sol:sol,verb:'goes in',help:'Select an item. Then select Put here under the group it belongs in.',ih:'Items to sort',th:'Groups'}}
 function mkOrder(o){var q=ol(o.items),it=[],i,L=Object.create(null);if(q.length<3||q.length>8)return null;for(i=0;i<q.length;i++){var t=aS(q[i].label,120),w=aS(q[i].why,300);if(!t||!w||L[t])return null;L[t]=1;it.push({t:t,w:w})}return{items:it}}
 function mkScen(o){var nd=ol(o.nodes),M2=Object.create(null),i,j,ends=0;if(nd.length<3||nd.length>10)return null;
-for(i=0;i<nd.length;i++){var id=str(nd[i].id),tx=aS(nd[i].text,500);if(!/^[\w-]{1,20}$/.test(id)||M2[id]||!tx)return null;var cs=ol(nd[i].choices);M2[id]={id:id,t:tx,end:cs.length===0,les:aS(nd[i].lesson,300),ch:[],raw:cs}}
+for(i=0;i<nd.length;i++){var id=str(nd[i].id),tx=aS(nd[i].text,500)||(ol(nd[i].choices).length===0&&aS(nd[i].lesson,300)?'This path ends here.':'');if(!/^[\w-]{1,20}$/.test(id)||M2[id]||!tx)return null;var cs=ol(nd[i].choices);M2[id]={id:id,t:tx,end:cs.length===0,les:aS(nd[i].lesson,300),ch:[],raw:cs}}
 for(i=0;i<nd.length;i++){var n=M2[str(nd[i].id)];if(n.end){ends++;continue}if(n.raw.length<2||n.raw.length>4)return null;for(j=0;j<n.raw.length;j++){var c=n.raw[j],lb4=aS(c.label,200),sy=aS(c.say,400),nx=str(c.next);if(!lb4||!sy||!M2[nx])return null;n.ch.push({l:lb4,s:sy,n:nx})}}
 var st=str(o.start);if(!M2[st]||!ends)return null;var seen=Object.create(null);function dfs(id,d){if(d>12||seen[id]===1)return false;if(seen[id]===2)return true;seen[id]=1;var ok=M2[id].ch.every(function(c){return dfs(c.n,d+1)});seen[id]=2;return ok}if(!dfs(st,0))return null;ends=Object.keys(seen).filter(function(k){return M2[k].end}).length;return{nodes:M2,start:st,ends:ends}}
 function mkEst(o){var an=aN(o.answer),tl=aN(o.tol),m={ask:aS(o.ask,400),unit:aS(o.unit,30),ans:an,tol:tl,low:aS(o.low,400),high:aS(o.high,400),why:aS(o.reasoning,600)};return m.ask&&m.low&&m.high&&m.why&&isFinite(an)&&tl>=0?m:null}
@@ -291,8 +291,8 @@ if(fk){var e=box.querySelector('[data-k="'+fk+'"]');if(e)e.focus();fk=''}}
 draw()}
 function bEst(box,a,X){var m=a.m,inp=h('input',{type:'number',step:'any',id:'est-in','aria-describedby':'est-u'}),out=h('div'),ck=ib('check-circle','Check my estimate'),dn=false;
 function go2(){var v=inp.value.trim()===''?NaN:Number(inp.value);if(!isFinite(v)){X.say('Type a number first, for example 12.5.');return}
-var cl=Math.abs(v-m.ans)<=m.tol,u=m.unit?' '+m.unit:'';out.replaceChildren(h('p',null,[h('strong',{text:'Your estimate: '}),v+u]),h('p',null,[h('strong',{text:'Answer: '}),m.ans+u]),h('p',{text:cl?'Close enough: within '+m.tol+u+' of the answer.':(v<m.ans?m.low:m.high)}),lead('How to get there',m.why,'rule'));
-var nw=X.fin();X.say((cl?'Close enough. ':(v<m.ans?'Lower than the answer. ':'Higher than the answer. '))+a.dn+(nw?' This activity is now marked done.':''))}
+var cl=Math.abs(v-m.ans)<=m.tol+1e-9,u=m.unit?' '+m.unit:'';out.replaceChildren(h('p',null,[h('strong',{text:'Your estimate: '}),v+u]),h('p',null,[h('strong',{text:'Answer: '}),m.ans+u]),h('p',{text:cl?'Close enough: within '+m.tol+u+' of the answer.':(v<m.ans?m.low:m.high)}),lead('How to get there',m.why,'rule'));
+var nw=cl?X.fin():false;X.say((cl?'Close enough. ':(v<m.ans?'Lower than the answer. ':'Higher than the answer. '))+a.dn+(nw?' This activity is now marked done.':''))}
 ck.addEventListener('click',go2);inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go2()}});
 box.append(h('p',{text:m.ask}),h('div',{'class':'row'},[h('label',{'for':'est-in',text:'Your estimate'}),inp,h('span',{id:'est-u',text:m.unit})]),h('div',{'class':'row'},[ck]),out)}
 var BUILD={sim:bSim,match:bPlace,sort:bPlace,order:bOrder,scenario:bScen,estimate:bEst};
