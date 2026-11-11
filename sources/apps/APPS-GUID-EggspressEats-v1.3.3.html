@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="auto" style="--hue:40">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-lfuEUymJ7NZ4BsGtSaU3Mz+JOYNllbZUDudlsbhYJmM='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-X7apsIodKrAk0VmUNsao4D1b4QIkaHzH7/NDEl8PpMc='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- Single-file build 1.3.3-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="An Instant Pot egg salad recipe with ingredients, a method and a timer.">
@@ -788,6 +788,7 @@ lookSel.addEventListener('change',function(){omnLook.set(lookSel.value);});
 
 /* ---------- timers (end-time based, survive tab throttling) ---------- */
 var audioCtx=null;
+function unlockAudio(){try{var C=window.AudioContext||window.webkitAudioContext;if(!C)return;audioCtx=audioCtx||new C();if(audioCtx.state==='suspended'){audioCtx.resume();}}catch(e){}}
 function beep(){try{var C=window.AudioContext||window.webkitAudioContext;if(!C)return;audioCtx=audioCtx||new C();var o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=880;g.gain.value=.15;o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.5);}catch(e){}if(navigator.vibrate){try{navigator.vibrate([200,100,200]);}catch(e){}}}
 var baseTitle=document.title;
 function mmss(s){s=Math.max(0,Math.ceil(s));var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r;}
@@ -816,6 +817,7 @@ Timer.prototype.toggle=function(){
   if(this.left<=0){this.msg.hidden=false;this.msg.textContent='Set a time.';return;}
   this.started=true;this.msg.hidden=true;this.el.classList.remove('is-done');
   this.run=true;this.end=Date.now()+this.left*1000;
+  unlockAudio();
   this.iv=setInterval(function(){self.tick();},250);this.paint();
 };
 Timer.prototype.tick=function(){
