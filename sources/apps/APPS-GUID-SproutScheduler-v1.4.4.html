@@ -2,7 +2,7 @@
 <html lang="en-CA" data-app data-look="auto" data-theme="paper" style="--hue:93">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-vWonw86dQ7EJxB02XMUq18nrRpsjEvL6n4SECyu7n44='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-ndiNGUKQ2Biqk9NwyluLEUlV/hQFasXuTQtKX6WLYQ4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- SproutScheduler 1.4.4 (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -957,6 +957,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   var curZone = null, fillTimer = null;
   // Show the plan for a zone band (or the "choose a place" prompt when zone is null).
+  var NOSAVE = ' Not saved: this browser blocked storage, so it will reset when you close the page.';
+  function put(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } }
   function showZone(zone, announce, msg) {
     var place = citySel.value ? findPlace(citySel.value) : null;
     if (!zone || !hasOwn(gardenData, zone)) {
@@ -1040,8 +1042,8 @@ document.addEventListener('DOMContentLoaded', function () {
     renderCalendar(p ? v : '');
     if (!p) { try { localStorage.removeItem(CITY_KEY); } catch (e) {} return; }
     var z = zoneOfPlace(p);
-    try { localStorage.setItem(CITY_KEY, v); if (z) localStorage.setItem(ZONE_KEY, z); } catch (e) {}
-    if (z) showZone(z, announce, announce ? p[0] + ', ' + p[1] + ': your zone band is ' + gardenData[z].label + '. The plan and the calendar match it. Saved on this device.' : null);
+    var saved = put(CITY_KEY, v) && (!z || put(ZONE_KEY, z));
+    if (z) showZone(z, announce, announce ? p[0] + ', ' + p[1] + ': your zone band is ' + gardenData[z].label + '. The plan and the calendar match it.' + (saved ? ' Saved on this device.' : NOSAVE) : null);
     else showZone(curZone, false);
   }
   citySel.addEventListener('change', function () {
@@ -1057,9 +1059,9 @@ document.addEventListener('DOMContentLoaded', function () {
       showZone(null, false, 'Zone removed. Pick a place.');
       return;
     }
-    try { localStorage.setItem(ZONE_KEY, z); } catch (e) {}
+    var zsaved = put(ZONE_KEY, z);
     if (p && zoneOfPlace(p) !== z) { setPlace('', false); note = ' Your place was cleared because it is in another band; choose a place to see dates.'; }
-    showZone(z, true, 'Plan: ' + gardenData[z].label + '. Saved.' + note);
+    showZone(z, true, 'Plan: ' + gardenData[z].label + '.' + (zsaved ? ' Saved.' : NOSAVE) + note);
   });
   (function () {
     var sc = null, sz = null;
@@ -1305,7 +1307,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Validate everything first; nothing is written here.
   function validate(text) {
     var o;
-    try { o = JSON.parse(text); } catch (e) { return { err: 'Not a valid file.' }; }
+    try { o = JSON.parse(String(text).replace(/^﻿/, '')); } catch (e) { return { err: 'Not a valid file.' }; }
     if (!isObj(o)) return { err: 'Not a garden export.' };
     if (hasUnsafe(o, 0)) return { err: 'File has a blocked key.' };
     if (typeof o.app !== 'string') return { err: 'Not a garden export.' };
