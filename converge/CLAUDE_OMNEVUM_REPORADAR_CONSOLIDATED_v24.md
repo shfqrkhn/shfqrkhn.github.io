@@ -23,10 +23,10 @@ The count of apps is a proxy. Merging products is one way to cut cost, and often
 | Fact | Value | Meaning |
 |---|---|---|
 | Pages | 41 = 40 app sources plus the RepoRadar source; 8 archived | registry.json |
-| Source files | 40 HTML, 29.3 MB | sources/apps |
+| Source files | 40 HTML, 27.8 MB | sources/apps |
 | Study readers with the shared engine | 19 | data-kd template present |
-| Engine code per reader | 80,357 bytes, byte-identical in 18; SupportScout 81,382 (+1,023, a migration) | the engine is already one program copied 19 times |
-| Copied engine bytes | about 1.5 MB of 29.3 MB (about 5 percent) | real, but small; the saving is review and drift, not size |
+| Engine code per reader | 80,357 bytes, byte-identical in 18; SupportScout 81,382 (+1,025, a migration) | the engine is already one program copied 19 times |
+| Copied engine bytes | about 1.5 MB of 27.8 MB (about 5 percent) | real, but small; the saving is review and drift, not size |
 | Ledger | 532 entries: 291 reject, 151 reference, 78 study, 9 adapt, 1 adopt, 2 unavailable | most resources are not for adoption |
 | Adopt or adapt | 10: 6 applied, 3 deferred, 1 noted | little new to install |
 
@@ -35,7 +35,7 @@ Reading: the largest real duplication is the study engine. Apps in other familie
 ## 4. Why the stated method (X) may not serve Y
 
 - Merging apps into fewer products puts more data under one origin and one failure, and breaks archived routes and backups. It does not reduce the code that exists, only where it sits.
-- A resource survey does not lower cost unless each resource is tied to a concrete change with an owner, a test and a rollback. A list of 523 entries is not that.
+- A resource survey does not lower cost unless each resource is tied to a concrete change with an owner, a test and a rollback. A list of 532 entries is not that.
 - Counting menu entries rewards the wrong move. The measures that match Y are: bytes of unique maintained code, number of places one fix must be made, number of gates that can fail, and time to add the next item of a category.
 
 ## 5. Options and decision
