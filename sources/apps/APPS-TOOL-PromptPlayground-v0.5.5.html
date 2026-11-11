@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-JKv4ddbr20K3SlNoTMhbuOkI6Cq1vpBjnlUWAwCxjFM=' 'sha256-wLiQqtpygpA4ZOH1duft4UBKMfXyKzDRQnPuQdL4+W4=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-t3gEoQpFQOHKkxIaX+TAQzZ1jyJ8uJiux+3qULdulHY=' 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-LJq2kyu/f2ePxnAe6MYYBQMRRWCC9y7KcW9LsZrCw8Q='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-JKv4ddbr20K3SlNoTMhbuOkI6Cq1vpBjnlUWAwCxjFM=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-t3gEoQpFQOHKkxIaX+TAQzZ1jyJ8uJiux+3qULdulHY=' 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-LJq2kyu/f2ePxnAe6MYYBQMRRWCC9y7KcW9LsZrCw8Q='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -2280,6 +2280,9 @@ function ascii(bytes) {
       && /^[A-Za-z0-9+/]+={0,2}$/.test(value);
   }
 
+  const KDF_ITERATIONS = 600000; // OWASP Password Storage Cheat Sheet: PBKDF2-HMAC-SHA256, 600,000
+  const KDF_RE = /^PBKDF2-SHA256-(210000|600000)$/; // 210000: vaults saved by earlier versions still open
+
   function sanitizeVault(vault, maxDataChars) {
     if (!vault || typeof vault !== "object" || Array.isArray(vault)) throw new Error("Invalid encrypted key vault.");
     const clean = {
@@ -2289,7 +2292,7 @@ function ascii(bytes) {
       iv: String(vault.iv || ""),
       data: String(vault.data || ""),
     };
-    if (clean.v !== 1 || clean.kdf !== "PBKDF2-SHA256-210000") throw new Error("Unsupported key vault.");
+    if (clean.v !== 1 || !KDF_RE.test(clean.kdf)) throw new Error("Unsupported key vault.");
     if (!isBoundedBase64(clean.salt, 256) || !isBoundedBase64(clean.iv, 256) || !isBoundedBase64(clean.data, maxDataChars)) {
       throw new Error("Invalid encrypted key vault.");
     }
@@ -2308,7 +2311,7 @@ function ascii(bytes) {
     return Uint8Array.from(decode(base64), (character) => character.charCodeAt(0));
   }
 
-  async function deriveKey(passphrase, salt, cryptoApi = global.crypto) {
+  async function deriveKey(passphrase, salt, cryptoApi = global.crypto, iterations = KDF_ITERATIONS) {
     const material = await cryptoApi.subtle.importKey(
       "raw",
       new TextEncoder().encode(passphrase),
@@ -2317,7 +2320,7 @@ function ascii(bytes) {
       ["deriveKey"],
     );
     return cryptoApi.subtle.deriveKey(
-      { name: "PBKDF2", salt, iterations: 210000, hash: "SHA-256" },
+      { name: "PBKDF2", salt, iterations, hash: "SHA-256" },
       material,
       { name: "AES-GCM", length: 256 },
       false,
@@ -2328,12 +2331,12 @@ function ascii(bytes) {
   async function encryptJson(payload, passphrase, cryptoApi = global.crypto) {
     const salt = cryptoApi.getRandomValues(new Uint8Array(16));
     const iv = cryptoApi.getRandomValues(new Uint8Array(12));
-    const key = await deriveKey(passphrase, salt, cryptoApi);
+    const key = await deriveKey(passphrase, salt, cryptoApi, KDF_ITERATIONS);
     const data = new TextEncoder().encode(JSON.stringify(payload));
     const encrypted = await cryptoApi.subtle.encrypt({ name: "AES-GCM", iv }, key, data);
     return {
       v: 1,
-      kdf: "PBKDF2-SHA256-210000",
+      kdf: "PBKDF2-SHA256-" + KDF_ITERATIONS,
       salt: bytesToBase64(salt),
       iv: bytesToBase64(iv),
       data: bytesToBase64(new Uint8Array(encrypted)),
@@ -2344,7 +2347,7 @@ function ascii(bytes) {
     const clean = sanitizeVault(vault, maxDataChars);
     const salt = base64ToBytes(clean.salt);
     const iv = base64ToBytes(clean.iv);
-    const key = await deriveKey(passphrase, salt, cryptoApi);
+    const key = await deriveKey(passphrase, salt, cryptoApi, Number(clean.kdf.split("-")[2]));
     const decrypted = await cryptoApi.subtle.decrypt({ name: "AES-GCM", iv }, key, base64ToBytes(clean.data));
     return JSON.parse(new TextDecoder().decode(decrypted));
   }
