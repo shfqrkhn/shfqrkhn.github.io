@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-7XcLxbET3jSszn6ijrbWck0sLyIdRMjt9Xq7zj36pv8='; style-src 'sha256-SPpPmmR/E9yZP3zx/J2CRJMUTvItR/VVFVshHUtUYs0='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-Rg5utR3vdK5593tLBLk9rRIjPUXV+ELdSeeGYc7YT2E='; style-src 'sha256-SPpPmmR/E9yZP3zx/J2CRJMUTvItR/VVFVshHUtUYs0='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -907,7 +907,7 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
                 let finalTotal = 0;
 
                 inputs.forEach(input => {
-                    const qty = parseInt(input.value) || 0;
+                    const qty = Math.min(Math.max(parseInt(input.value) || 0, 0), Number(input.max) || 0);
                     const mvpCostPerUnit = parseFloat(input.dataset.mvpCost) || 0;
                     const finalCostPerUnit = parseFloat(input.dataset.finalCost) || 0;
 
@@ -972,8 +972,8 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
             const calculateTdpBtn = document.getElementById('calculate-tdp');
 
             function calculateTotalTDP() {
-                const cpuTdp = parseInt(cpuTdpInput.value) || 0;
-                const gpuTdp = parseInt(gpuTdpInput.value) || 0;
+                const cpuTdp = Math.min(Math.max(parseInt(cpuTdpInput.value) || 0, 0), 1000);
+                const gpuTdp = Math.min(Math.max(parseInt(gpuTdpInput.value) || 0, 0), 1000);
 
                 // Get quantities from the cost estimator
                 const cpuQty = parseInt(document.getElementById('cpu-qty').value) || 0;

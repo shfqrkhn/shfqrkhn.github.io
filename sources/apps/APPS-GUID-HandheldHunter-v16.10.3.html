@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-app data-look="auto" style="--hue:348"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZRR0PidV+faZqA4C8tbmKZQQVD/IPiya9mwa7E2td6A=' 'sha256-WocZ8AXtamBg14/tB50i+a/ckn2l/5mv9yKaRBQ3LKo=' 'sha256-MNVYsIZjcqoeuchBycZxdanFqg8fSMVrS9Yo2JwK+p4='; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"><title>HandheldHunter PC Games: Handheld Game Finder</title>
+<html lang="en" data-app data-look="auto" style="--hue:348"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZRR0PidV+faZqA4C8tbmKZQQVD/IPiya9mwa7E2td6A=' 'sha256-sWHczIZWOXzAoXkv23IpDW7tLjjSYeT3O9Ji3ctBzx8=' 'sha256-MNVYsIZjcqoeuchBycZxdanFqg8fSMVrS9Yo2JwK+p4='; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"><title>HandheldHunter PC Games: Handheld Game Finder</title>
 <meta name="description" content="HandheldHunter PC Games is an offline finder for games that suit a docked handheld PC on a TV with controllers. Unofficial.">
 <!-- Standalone maintenance: export data in the footer before editing. Catalog JSON is inert, not executable code.
      Module roles and schema are documented in the footer. Coordinate schema changes with validation and saving. -->
@@ -1266,9 +1266,9 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
  const message=text=>{$('action-status').textContent=TextProfile.text(text);$('feedback').hidden=!text;};
  const notice=text=>{$('recovery-notice').textContent=TextProfile.text(text);$('recovery-notice').hidden=!text;};
  const SL_KEY='rog.shortlist.v1';
- const persistShortlist=()=>{try{if(state&&Array.isArray(state.saved))localStorage.setItem(SL_KEY,JSON.stringify(state.saved));}catch(e){}};
+ const persistShortlist=()=>{try{if(state&&Array.isArray(state.saved))localStorage.setItem(SL_KEY,JSON.stringify(state.saved));return true;}catch(e){return false;}};
  const readShortlist=()=>{try{const raw=localStorage.getItem(SL_KEY);if(raw===null)return null;const v=JSON.parse(raw);if(!Array.isArray(v))return null;const known=new Set(games.map(g=>g.steam)),seen=new Set(),out=[];for(const id of v){if(known.has(id)&&!seen.has(id)){seen.add(id);out.push(id);}}return out;}catch(e){return null;}};
- const markChanged=()=>{persistShortlist();editRevision++;$('save-status').textContent='Unsaved. Press Save HTML to keep.';};
+ const markChanged=()=>{const kept=persistShortlist();editRevision++;$('save-status').textContent=kept===false?'Unsaved. This browser could not remember your saved games; press Save HTML to keep them.':'Unsaved. Press Save HTML to keep.';};
  const copyState=()=>JSON.parse(JSON.stringify(state));
  const money=value=>value===null?'Price not recorded':'US$'+value.toFixed(2);
  const score=(value,suffix='')=>value===null?'Not recorded':String(value)+suffix;
@@ -1658,7 +1658,7 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
  });
  function renderFuzzyNote(){
   const q=state.filters.query.trim(),on=!!q&&Directory.needsFuzzy(games,q,g=>Decision.exclusionTags(g,data.evidence).map(t=>t.label),data.evidence);
-  $('fuzzy-note').hidden=!on;$('fuzzy-note').textContent=on?'No exact match for "'+q+'". Matches are close spellings.':'';
+  $('fuzzy-note').hidden=!on;$('fuzzy-note').textContent=on?'No exact match for "'+q+'". Showing close spellings, if any.':'';
  }
  function syncHash(){
   try{

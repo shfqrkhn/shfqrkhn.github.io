@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TranscriptTidy AI Exports converts Google AI Studio chat exports (JSON) to Markdown files in this browser tab. Nothing is uploaded.">
 <meta name="theme-color" content="#faf8f4">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5NfEp1Kh4roI7Q01Av4/eL7ugQX5L5BYc3QdQjPWjLA=' 'sha256-wgrW8gLmlMRhEGkagIiyerZPuZxoWtUyPjsp1cVArME=' 'sha256-GJA4UrwAgy69I8pA9QBg0V9QPYSq2qfkEmu3STR6tQg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5NfEp1Kh4roI7Q01Av4/eL7ugQX5L5BYc3QdQjPWjLA=' 'sha256-634FVdwVCdcK3rCHDov2wH49jMXKDiXQMa9VWenCL5o=' 'sha256-GJA4UrwAgy69I8pA9QBg0V9QPYSq2qfkEmu3STR6tQg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>TranscriptTidy AI Exports</title>
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null"),l=p&&p.look,o=null;if(["auto","paper","charcoal","black"].indexOf(l)<0){l=null;try{o=localStorage.getItem("aistudiocleaner.look")}catch(e){}if(["auto","paper","charcoal","black"].indexOf(o)>=0)l=o}if(l)r.setAttribute("data-look",l)}catch(e){}})()</script>
 <link rel="icon" href="data:,">
@@ -891,7 +891,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         hasOutput = true;
       }
       if (msg.content) {
-        parts.push("## ", msg.role, "\n\n", msg.content, "\n\n---\n\n");
+        parts.push("## ", msg.role, "\n\n", msg.content, ((msg.content.match(/^ {0,3}`{3}/gm) || []).length % 2 ? "\n```" : ""), "\n\n---\n\n");
         hasOutput = true;
       } else if (hasOutput) {
         parts.push("---\n\n");

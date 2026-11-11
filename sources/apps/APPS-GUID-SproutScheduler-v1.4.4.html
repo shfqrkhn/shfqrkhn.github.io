@@ -2,7 +2,7 @@
 <html lang="en-CA" data-app data-look="auto" data-theme="paper" style="--hue:93">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-ndiNGUKQ2Biqk9NwyluLEUlV/hQFasXuTQtKX6WLYQ4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-a48vT1DSWxnSBz3/7VFjdCsiDQOv1Bu+77h2xqC3AP4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- SproutScheduler 1.4.4 (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -1090,7 +1090,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!raw) return;
     try {
       var o = JSON.parse(raw), nb = { w: 4, h: 4, cells: {} };
-      if (!o || typeof o !== 'object' || o.w !== Math.floor(o.w) || o.h !== Math.floor(o.h) || o.w < 2 || o.w > 6 || o.h < 2 || o.h > 8) return;
+      if (!o || typeof o !== 'object' || o.w !== Math.floor(o.w) || o.h !== Math.floor(o.h) || o.w < 2 || o.w > 6 || o.h < 2 || o.h > 8) { say('Saved bed was not valid and was ignored.'); return; }
       nb.w = o.w; nb.h = o.h;
       var cs = o.cells && typeof o.cells === 'object' ? o.cells : {};
       Object.keys(cs).forEach(function (k) {

@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-gL+aw+52yi7t30S/D/rzFqnO7uS1Cmz0a1JefbOLXSY='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-IoaUg8hlLPZDqqDCpuMfVR26WswIN6xXmt2fmVufPc0='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- MeepleMentor 14.5.3 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
@@ -1397,8 +1397,9 @@ const App = () => {
   };
   const filtered = useMemo(() => {
     let data = filter === "SAVED" ? DATABASE.filter((g) => saved.includes(g.id)) : DATABASE;
-    if (!search) return data.sort((a, b) => a.name.localeCompare(b.name));
-    return data.filter((g) => g.name.toLowerCase().includes(search.toLowerCase()) || g.cat.toLowerCase().includes(search.toLowerCase()));
+    const q = search.trim().toLowerCase();
+    if (!q) return data.sort((a, b) => a.name.localeCompare(b.name));
+    return data.filter((g) => g.name.toLowerCase().includes(q) || g.cat.toLowerCase().includes(q));
   }, [search, saved, filter]);
   const parts = useMemo(() => {
     const m = {};
@@ -1465,7 +1466,7 @@ const App = () => {
             h("span", { className: "row-meta" }, "Time " + g.time + ", weight " + g.weight)))))
       )),
       filtered.length === 0 && h("div", { className: "empty" },
-        filter === "SAVED" && !search
+        filter === "SAVED" && !search.trim()
           ? h(React.Fragment, null, h("p", { className: "prose" }, h(Icon, { name: "mark" }), " Shelf empty. Open a game, tap Save."), h("button", { className: "btn", onClick: () => setFilter("ALL") }, "All"))
           : h(React.Fragment, null, h("p", { className: "prose" }, h(Icon, { name: "search" }), " No match."), h("button", { className: "btn", onClick: () => setSearch("") }, "Clear search")))));
   const recNote = recov && h("div", { className: "notice recov", role: "status" },

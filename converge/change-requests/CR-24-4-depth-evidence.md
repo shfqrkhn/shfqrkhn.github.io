@@ -43,3 +43,13 @@
 - SupportScout: fork migration. TranscriptTidy: non-text chunks dropped, unterminated fence, BOM. SproutScheduler: tender-crop frost margin, bad saved bed dropped silently, zone/city mismatch.
 - Also: deep-review the 8 restored apps; CR-24-7 deferred items; add PromptPantry to app-goals.json and v24-depth.json.
 - Consolidation candidates: BalanceBuddy + CashCrunch merge; MeepleMentor retire or cut; HandheldHunter vs AllyAce; GearGuardian vs SetupSherpa.
+
+## Fix record (2026-11-11, verified by quote, applied in one batch)
+- BuildBoss: quantity clamped to the input max and floor 0; CPU/GPU TDP clamped 0 to 1000. The "Final total equals default" claim was NOT REPRODUCED (defaults equal the MVP build).
+- DecisionDesk: startup-failure log is wrapped so the catch reaches the announce call when IndexedDB is blocked.
+- HandheldHunter: persistShortlist reports failure and the save status says so; fuzzy note no longer claims matches exist. The false "saved" claim was NOT REPRODUCED. Edit limit for 4-letter words left as is (more false matches).
+- MeepleMentor: search is trimmed. NestEggNinja: saved lab load moved after RULES (it threw and was swallowed); inflation 0 kept (null check). Import claim NOT REPRODUCED (validator is thorough).
+- StepSleuth: distance step "any". PennyPlanner: skipped-rows wording. PromptPlayground: function replacement so "$&" and "$$" stay literal. WorldCupWizard: duplicate clampNumber removed, one safe definition (empty goes to fallback).
+- MeetingMediator: Gemini key moved from URL to the x-goog-api-key header (2 calls). EggspressEats: egg salad keeps 3 to 5 days at 40 F or below (USDA FSIS figure, owner may re-verify). TranscriptTidy: unterminated code fence closed on export. SproutScheduler: ignored bad saved bed now says so. TrendTracker: CSV import rejects Infinity.
+- NOT REPRODUCED, no change: NoodleNudge export, TickleTodo repeat text, TranscriptTidy BOM, AuctionAcademy blurb and sessionStorage, MoralMap wording, SupportScout migration, SproutScheduler zone/city. Left for owner: StreamScholar "Modern Business Strategy" link (channel handle unverified); SproutScheduler bean/cucumber frost margin (+10 days, data choice).
+- Consolidation: BalanceBuddy + CashCrunch = KEEP BOTH and cross-link (CashCrunch has 12 calculators that BalanceBuddy lacks; BalanceBuddy has 11 more chapters). No archive.
