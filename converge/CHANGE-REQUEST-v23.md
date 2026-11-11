@@ -36,3 +36,18 @@ All changes are in this repository. Revert the commit that adds converge/v23_che
 ## 6. Risks and known gaps
 
 Receipts are self-reports. A PASS on CR-4 shows the engine data is internally consistent, not that the lessons are true. Browser tests depend on a local Chromium. A change of HEAD voids earlier results, so the check is re-run at the final commit.
+
+## 7. RepoRadar resources applied
+
+Source: `converge/reporadar-ledger.json` (the 10 adopt or adapt entries) and `converge/resource-map.json` (checked by `v23_check.py`). Where a resource is only noted, the ledger reason says why.
+
+| Resource | Verdict | Where it landed | Result |
+|---|---|---|---|
+| googlechrome/lighthouse | adopt | hand-run mobile audits at the final check | applied |
+| shadcn/improve | adapt | plan strong, execute cheap, in AGENTS.md; fresh read-only reviewers | applied |
+| hardikpandya/stop-slop | adapt | wording rules in `site/scripts/check_docs.py` | applied |
+| google-labs-code/design.md, voltagent/awesome-design-md | adapt | token note in FRAMEWORK; tokens already in `ui.css` | applied |
+| othneildrew/Best-README-Template, RichardLitt/standard-readme | adapt | README structure | applied |
+| cloudflare/security-audit-skill | adapt | receipt shape for the next Omni revision | deferred (Omni frozen) |
+| ayghri/i-have-adhd | adapt | terse-report rules for the next Omni revision | deferred (Omni frozen) |
+| mrbongoc/ai-iso-skill | adapt | no illustration needs it yet | noted |
