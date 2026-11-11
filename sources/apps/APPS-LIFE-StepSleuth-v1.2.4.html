@@ -2,7 +2,7 @@
 <html lang="en" data-app data-theme="paper" data-look="auto" style="--hue:73">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-MI6FNRjBXIQje76CEy+EId8z4ftgVRENMY2s4aLa6nU=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-faGQew+kck1sqHIRHjUHJuQefB38BIxq0WRgeJ4xunA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-MI6FNRjBXIQje76CEy+EId8z4ftgVRENMY2s4aLa6nU=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-/VJIt9R6O+bsW9aFhR9Q3N7Y5aFD7VYKN4A8jCaioTM='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- StepSleuth 1.2.4. Single file, offline, no network. Fira Sans (SIL OFL 1.1) embedded as subset woff2. Bootstrap and Bootstrap Icons removed in 1.1.0. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#faf8f4">
@@ -646,7 +646,7 @@ const UI = {
     },
     populateActivities(activities) {
         this.elements.activitySelect.innerHTML = '';
-        activities.sort((a, b) => a.name[Lang.current].localeCompare(b.name[Lang.current]));
+        activities.sort((a, b) => a.name[Lang.current].localeCompare(b.name[Lang.current], Lang.current === 'fr' ? 'fr-CA' : 'en-CA'));
         activities.forEach(activity => {
             const option = document.createElement('option');
             option.value = activity.id;
@@ -657,7 +657,7 @@ const UI = {
     populateSummaryTable(activities) {
         const tableBody = this.elements.summaryTableBody;
         tableBody.innerHTML = '';
-        activities.sort((a, b) => a.name[Lang.current].localeCompare(b.name[Lang.current]));
+        activities.sort((a, b) => a.name[Lang.current].localeCompare(b.name[Lang.current], Lang.current === 'fr' ? 'fr-CA' : 'en-CA'));
         activities.forEach(activity => {
             const row = tableBody.insertRow();
             const cell1 = row.insertCell();

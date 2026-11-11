@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" style="--hue:315">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-jva3389rY/NJJbGTn6eVtUQd9t8k4Vg7T5QJodC6aAM=' 'sha256-kJ6DjKSnwgLoBI2Qojb6j+V7uN58XurPavLagP8PoEE='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-jva3389rY/NJJbGTn6eVtUQd9t8k4Vg7T5QJodC6aAM=' 'sha256-pTzTM6XrqocYE//j1DITXo4DTn4ViO09S5jsI8xrJKc='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- Single-file build 1.1.4 (offline, no network on load). Font embedded as subset woff2 (Newsreader; SIL OFL 1.1, see Licences). No other external dependencies. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#faf8f4">
@@ -905,10 +905,11 @@ function renderChannels(data, searchTerm = '', sortOrder = 'none', filterCategor
     for (const category in filteredAndSortedData) {
         let channels = filteredAndSortedData[category];
         if (searchTerm) {
-            const q = searchTerm.toLowerCase();
+            const fold = (s) => { const l = String(s).toLowerCase(); try { return l.normalize('NFD').replace(/\p{M}/gu, ''); } catch (e) { return l; } };
+            const q = fold(searchTerm);
             channels = channels.filter(channel =>
-                channel.name.toLowerCase().includes(q) ||
-                (channel.description && channel.description.toLowerCase().includes(q))
+                fold(channel.name).includes(q) ||
+                (channel.description && fold(channel.description).includes(q))
             );
         }
         if (sortOrder !== 'none') {

@@ -649,8 +649,8 @@
                 </div>
 
                 <div class="cost-summary">
-                    <p>Estimated MVP Total Cost: <span id="mvp-total-cost">Calculating...</span></p>
-                    <p>Estimated Final Build Total Cost: <span id="final-total-cost">Calculating...</span></p>
+                    <p>Estimated MVP Total Cost: <span id="mvp-total-cost" role="status">Calculating...</span></p>
+                    <p>Estimated Final Build Total Cost: <span id="final-total-cost" role="status">Calculating...</span></p>
                 </div>
             </div>
 
@@ -857,7 +857,7 @@
                 <input type="number" id="cpu-tdp-input" value="120" min="0" aria-label="Input CPU Thermal Design Power in Watts">
                 <label for="gpu-tdp-input">GPU TDP (Watts per GPU):</label>
                 <input type="number" id="gpu-tdp-input" value="350" min="0" aria-label="Input GPU Thermal Design Power in Watts">
-                <div class="result">Estimated Total TDP: <span id="total-tdp">0W</span></div>
+                <div class="result">Estimated Total TDP: <span id="total-tdp" role="status">0W</span></div>
                 <button id="calculate-tdp" aria-label="Calculate Total TDP">Calculate TDP</button>
             </div>
         </div>
