@@ -2,7 +2,7 @@
 
 **Status:** step 1 done: 18 readers use `sources/engine/ENGN-KD-App-1.5.5.js` via a marker; all 19 pages and the whole site tree are byte-identical to the baseline; an engine edit changes exactly those 18 pages. SupportScout stays inline by decision: its script differs from the engine in six places (three insertions, a changed guard and a reworded message), so a module would need hooks in the shared engine and change the other 18 pages for one reader.
 
-**Problem (Y):** the same 80,359 byte program is copied into 18 reader sources, and SupportScout carries a 1,023 byte variant. A defect is fixed 19 times, and the copies can drift.
+**Problem (Y):** the same 80,357 byte program is copied into 18 reader sources, and SupportScout carries a 1,023 byte variant. A defect is fixed 19 times, and the copies can drift.
 
 **Change:** move the engine to one file under sources/ (for example sources/engine/kd-app-1.5.5.js). Each reader source keeps only its data block and shell. The builder inlines the engine at build time, so every published page stays one self-contained file. SupportScout's migration code becomes an optional engine module used only by that reader.
 

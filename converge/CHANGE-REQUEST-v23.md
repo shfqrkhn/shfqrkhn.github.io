@@ -12,7 +12,7 @@ Prove, at one exact commit, that the generated site, the registry, the RepoRadar
 |---|---|---|---|
 | CR-1 | Environment and identity: HEAD, Python, Playwright, registry and ledger SHA-256, site/ and sources/ tree hashes | 2, 6.1 | converge/v23_check.py prints and saves them |
 | CR-2 | Generated output matches registry: 41 pages (40 app sources plus the RepoRadar source), 8 archived | 2 | counts from registry.json against site/ |
-| CR-3 | Ledger reconciliation: 523 entries (507 catalogue plus 16 owner added), unique ids, disposition counts | 2, 6.3 | v23_check.py |
+| CR-3 | Ledger reconciliation: 532 entries (507 catalogue, 16 owner added, 9 added by the v24 radar update), unique ids, disposition counts | 2, 6.3 | v23_check.py |
 | CR-4 | Shared KD engine contract for the 19 readers: one engine version, unique reader (meta.id), chapter and activity ids, activity claims and chapter sources resolve, every check question has an answer | 3 | v23_check.py parses each data block |
 | CR-5 | Gate behavior: build, self-test (29), check_site, check_pwa, check_privacy, check_pages, check_docs, check_contrast, check_kit | 2, 6.1 | existing scripts, run alone |
 | CR-6 | Offline update safety: the worker keeps the old cache when an update fails | 2 PWA P0 | Playwright run against a local server (NOT_RUN if the browser cannot start) |
