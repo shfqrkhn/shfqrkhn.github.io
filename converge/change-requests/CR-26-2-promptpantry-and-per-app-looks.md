@@ -22,3 +22,7 @@ PromptPantry: recipe-card serif titles, a ruled index-card preview with a margin
 Studied, not copied: heydamir/unslop (CC BY 4.0, idea credit), pbakaus/impeccable, jakubkrehel/skills, Nutlope/hallmark, Leonxlnx/taste-skill, nextlevelbuilder/ui-ux-pro-max-skill, cathrynlavery/diagram-design, google-labs-code/design.md, frankxai/awesome-motion-design-agent-skills. Only landing pages were read; deeper rule files are unread. Ledger records already carry their dispositions.
 
 Owner items: confirm the app name and icon; decide on any glass or animation library (rights review first).
+
+## Rollout record
+
+- 2026-11-11, hub: Zen look (open ring mark, lowercase spaced name, no shadows, hairlines, slow fade-in under no-preference motion). Kit tokens only; all gates pass in 4 looks.

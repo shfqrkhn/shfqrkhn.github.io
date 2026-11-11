@@ -405,6 +405,17 @@ CSS += """
 #toast{position:fixed;left:50%;bottom:calc(var(--s4) + env(safe-area-inset-bottom));transform:translate(-50%,8px);max-width:calc(100vw - 2*var(--s4));padding:var(--s2) var(--s4);border-radius:var(--r);background:var(--fg);color:var(--bg);font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media(prefers-reduced-motion:reduce){#toast{transition:none}}
+/* Zen look (hub only): quiet space, hairlines, no shadow, an open enso ring by the name, slow fades. Kit tokens only. */
+header.bar{padding-top:var(--s6)}
+.brand b{font-weight:400;letter-spacing:.14em;text-transform:lowercase}
+.brand b::before{content:"";display:inline-block;width:.8em;height:.8em;margin-right:.6em;border:1.5px solid var(--acc);border-top-color:transparent;border-radius:50%;rotate:-30deg;vertical-align:-.05em}
+main.wrap{padding-top:var(--s4)}
+.tile,.card,.today{box-shadow:none;border-color:color-mix(in srgb,var(--line) 70%,transparent)}
+.tile{gap:var(--s2);padding:var(--s4) var(--s2);font-weight:400}
+a.tile:hover{border-color:var(--acc)}
+.sec{margin-top:var(--s6)}
+@media(prefers-reduced-motion:no-preference){main.wrap{animation:zenin .6s ease-out}@keyframes zenin{from{opacity:0}to{opacity:1}}.brand b::before{transition:rotate .8s ease}.brand:hover b::before{rotate:330deg}}
+@media(forced-colors:active){.brand b::before{border-color:CanvasText;border-top-color:transparent}}
 """
 
 JS = r'''(function(){"use strict";
