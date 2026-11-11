@@ -25,10 +25,10 @@ The count of apps is a proxy. Merging products is one way to cut cost, and often
 | Pages | 41 = 40 app sources plus the RepoRadar source; 8 archived | registry.json |
 | Source files | 40 HTML, 27.8 MB | sources/apps |
 | Study readers with the shared engine | 19 | data-kd template present |
-| Engine code per reader | 80,359 bytes inlined (80,357 in the engine file), byte-identical in 18; SupportScout 81,382 inlined (+1,023, a migration) | the engine is already one program copied 19 times |
+| Engine code per reader | 81,136 bytes inlined (81,134 in the engine file), byte-identical in 18; SupportScout 81,382 inlined (+246, a migration) | the engine is already one program copied 19 times |
 | Copied engine bytes | about 1.5 MB of 27.8 MB (about 5 percent) | real, but small; the saving is review and drift, not size |
 | Ledger | 532 entries: 291 reject, 151 reference, 78 study, 9 adapt, 1 adopt, 2 unavailable | most resources are not for adoption |
-| Adopt or adapt | 10: 6 applied, 3 deferred, 1 noted | little new to install |
+| Adopt or adapt | 10: 7 applied, 2 deferred, 1 noted | little new to install |
 
 Reading: the largest real duplication is the study engine. Apps in other families (money, games, guides, tools) share conventions but little code, so merging them would save little and widen the blast radius.
 
