@@ -1,6 +1,6 @@
 # CR-24-6: learning method review of the 19 study readers
 
-**Status:** step 1 done (audit receipt, local): retrieval, spacing, interleaving and feedback exist; three gaps are listed and not built, awaiting owner review.
+**Status:** step 1 done (audit receipt, local): retrieval, spacing, interleaving and feedback exist; three gaps were listed. One is built: a self-explanation prompt and a confidence rating (Guessing, Think so, Sure) before each answer, kept for the session only, with a calibration note after the mark. The mastery pre-test is not built.
 
 **Why:** the courses exist to teach. Whether the shared engine uses the best-supported methods (retrieval practice, spaced review, interleaving, worked examples, immediate feedback, mastery checks) is not measured here. Evidence for these methods is broad (for example the 2013 review "Improving Students' Learning With Effective Learning Techniques"); verify the current primary sources before relying on any claim.
 
