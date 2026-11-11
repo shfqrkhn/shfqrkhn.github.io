@@ -193,7 +193,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 | Gate | Checks | Runs |
 | --- | --- | --- |
 | Registry | required fields, forms, unique ids and addresses, blurb length, icons and topics exist | build |
-| Privacy | personal data patterns, keys, credit lines, private name list; also the registry, root documents, workflows and converge scripts, and the commit message in `publish.py` | build (sources, content, output), publish, CI |
+| Privacy | personal data patterns, keys, credit lines, private name list; also the registry, root documents, workflows and converge files, and the commit message in `publish.py` | build (sources, content, output), publish, CI |
 | Pages | doctype, lang, title, viewport (zoom allowed), meta description, one h1, heading order, unique ids, alt text, named controls, tab order, noopener, reduced motion, no outside requests, CSP (not 404), internal links, size budgets | build, CI |
 | PWA | manifest, icons at the stated sizes, maskable icon, iOS tags, worker shell and page table match the catalog, download budget | build, CI |
 | Site | files, worker, catalog and hashes agree; nothing unlisted; size limits | build, CI |

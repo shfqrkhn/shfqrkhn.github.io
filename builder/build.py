@@ -164,6 +164,34 @@ def tree_hash(d):
     return h.hexdigest()
 
 
+ENGINE_MARK = re.compile(rb"<script>\n@@KD-ENGINE ([A-Za-z0-9.+-]+)@@\n</script>")
+
+
+def inline_engine(raw, what=""):
+    """Study readers keep one shared program in sources/engine/ENGN-KD-<name>.js. A source holds a marker where the program goes;
+    the build puts the program back and recomputes the script pin, so the published page is the same as one with the program written out.
+    A source without a marker passes through unchanged."""
+    m = ENGINE_MARK.search(raw)
+    if not m:
+        assert b"@@KD-ENGINE" not in raw, ("malformed engine marker", what)
+        return raw
+    path = os.path.join(V, "engine", "ENGN-KD-" + m.group(1).decode() + ".js")
+    assert os.path.isfile(path), ("engine file not found", what, path)
+    body = open(path, "rb").read()
+    assert b"</script" not in body.lower(), ("engine text would end the script early", path)
+    out = raw[:m.start()] + b"<script>\n" + body + b"\n</script>" + raw[m.end():]
+    assert out.count(b"<script>") == 1 and b"@@KD-ENGINE" not in out, ("a reader must hold one inline script", what)
+    pin = base64.b64encode(hashlib.sha256((b"\n" + body + b"\n").replace(b"\r\n", b"\n")).digest())
+    sm = re.search(rb"script-src[^;]*?'sha256-[A-Za-z0-9+/=]+'", out)
+    assert sm, ("script-src pin not found", what)
+    head = re.sub(rb"'sha256-[A-Za-z0-9+/=]+'", b"'sha256-" + pin + b"'", sm.group(0))
+    return out[:sm.start()] + head + out[sm.end():]
+
+
+def read_source(path):
+    return inline_engine(open(path, "rb").read(), path)
+
+
 def resolve(src):
     """A registry source is a file under sources/ (the highest -vX.Y.Z wins when it has a * ) or an absolute path."""
     if os.path.isabs(src):
@@ -187,7 +215,8 @@ _root = os.path.dirname(OM)
 _staged = ["builder/registry.json", "builder/icons.json", "builder/topics.json", "builder/today_data.json", "builder/app-starter.html", "README.md", "AGENTS.md", "CLAUDE.md", "LICENSE",
            "CONTRIBUTING.md", "SECURITY.md", "requirements.txt", ".gitignore", ".github/pull_request_template.md", ".github/dependabot.yml", ".gitattributes", "builder/brand.json", "builder/sw.template.js"]
 _staged += [".github/workflows/" + _f for _f in sorted(os.listdir(os.path.join(_root, ".github", "workflows")))] if os.path.isdir(os.path.join(_root, ".github", "workflows")) else []
-_staged += ["converge/" + _f for _f in sorted(os.listdir(os.path.join(_root, "converge"))) if _f.endswith((".py", ".json"))] if os.path.isdir(os.path.join(_root, "converge")) else []
+_staged += ["converge/" + _f for _f in sorted(os.listdir(os.path.join(_root, "converge"))) if _f.endswith((".py", ".json", ".md"))] if os.path.isdir(os.path.join(_root, "converge")) else []
+_staged += ["converge/change-requests/" + _f for _f in sorted(os.listdir(os.path.join(_root, "converge", "change-requests"))) if _f.endswith(".md")] if os.path.isdir(os.path.join(_root, "converge", "change-requests")) else []
 _staged += ["builder/" + _f for _f in sorted(os.listdir(OM)) if _f.endswith(".py") and _f != "selftest.py"]  # builder code is scanned too (selftest.py plants fake data on purpose)
 _missing = [_r for _r in _staged if not os.path.exists(os.path.join(_root, *_r.split("/")))]
 if _missing and not os.environ.get("OMNEVUM_BUILDER"):  # a selftest copy of the builder has no repository around it
@@ -246,7 +275,7 @@ apps = []
 for a in APPS:
     m = META[a["id"]]
     if a["form"] == "single":
-        b = open(a["path"], "rb").read(); sha = hashlib.sha256(b).hexdigest(); size = len(b)
+        b = read_source(a["path"]); sha = hashlib.sha256(b).hexdigest(); size = len(b)
     elif a["form"] == "bundle":
         sha = tree_hash(a["path"]); size = sum(os.path.getsize(f) for _, f in tree_files(a["path"]))
     else:
@@ -282,7 +311,7 @@ for a in apps:
     a["kind"] = KIND[a["id"]]; a["dir"] = None if a["form"] == "remote" else a["kind"] + "/" + a["folder"]
     if a["form"] == "single":
         # the apps link home with href="../"; one folder deeper in the site, home is "../../". Sources stay untouched (flat use in the sources).
-        raw = open(a["path"], "rb").read()
+        raw = read_source(a["path"])
         assert raw.count(b'href="../"') == 1, ("expected exactly one home link", a["id"])
         a["bytes"] = personalize(raw.replace(b'href="../"', b'href="../../"'), a["blurb"])
         a["sha256"] = hashlib.sha256(a["bytes"]).hexdigest(); a["size"] = len(a["bytes"])

@@ -1,6 +1,6 @@
 # CR-24-1: one source for the study engine
 
-**Status:** planned (not started).
+**Status:** step 1 done: 18 readers use `sources/engine/ENGN-KD-App-1.5.5.js` via a marker; all 19 pages and the whole site tree are byte-identical to the baseline; an engine edit changes exactly those 18 pages. SupportScout (its own migration code) still inline, next.
 
 **Problem (Y):** the same 80,359 byte program is copied into 18 reader sources, and SupportScout carries a 1,023 byte variant. A defect is fixed 19 times, and the copies can drift.
 
