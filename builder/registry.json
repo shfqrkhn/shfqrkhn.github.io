@@ -113,7 +113,7 @@
    "icon": "ledgersuite",
    "lazy": false,
    "private": false,
-   "archived": true,
+   "archived": false,
    "former_names": [
     "LedgerSuite",
     "PonderPad",
@@ -139,7 +139,7 @@
    "icon": "commonground",
    "lazy": false,
    "private": false,
-   "archived": true,
+   "archived": false,
    "former_names": [
     "CommonGround",
     "HuddleHub",
@@ -165,7 +165,7 @@
    "icon": "done-depot",
    "lazy": true,
    "private": false,
-   "archived": true,
+   "archived": false,
    "former_names": [
     "Done Depot",
     "TickleTodo"
@@ -189,7 +189,7 @@
    "icon": "frugal-ferret",
    "lazy": true,
    "private": false,
-   "archived": true,
+   "archived": false,
    "former_names": [
     "Frugal Ferret",
     "PennyPounce",
@@ -215,7 +215,7 @@
    "icon": "nfire",
    "lazy": true,
    "private": false,
-   "archived": true,
+   "archived": false,
    "former_names": [
     "nFIRE",
     "NestEggNinja"
@@ -239,7 +239,7 @@
    "icon": "modeltab",
    "lazy": true,
    "private": false,
-   "archived": true,
+   "archived": false,
    "former_names": [
     "ModelTab",
     "PromptPlayground"
@@ -289,7 +289,7 @@
    "icon": "stepsleuth-steps",
    "lazy": true,
    "private": false,
-   "archived": true,
+   "archived": false,
    "former_names": [
     "StepSleuth"
    ],
@@ -311,7 +311,7 @@
    "icon": "fifa-wc-sim",
    "lazy": false,
    "private": false,
-   "archived": true,
+   "archived": false,
    "former_names": [
     "FIFA World Cup Sim",
     "GoalGuru",

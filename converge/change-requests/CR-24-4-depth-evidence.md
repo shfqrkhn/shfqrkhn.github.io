@@ -26,3 +26,5 @@
 - SproutScheduler: the place and zone messages now say "Not saved" when the browser blocks storage (put() helper) instead of always "Saved"; a restore file with a leading BOM is accepted.
 - DebtDial: the WACC equity-weight slider now stops at 100 percent (it ran to 130, which gave a negative debt weight).
 - BoonBuilder: the tick status says "Not saved" when the browser blocks storage (lsSet now reports success). The MeepleMentor "false saved" claim did not reproduce from the code (no saved message on a failed write), so no change. TrendTracker (minified bundle) is deferred.
+
+- Unarchived by owner instruction (2026-11-11): all eight archived pages (StepSleuth, PromptPlayground, WorldCupWizard, NestEggNinja, PennyPlanner, TickleTodo, DecisionDesk, MeetingMediator) are back in the main hub so every app gets equal consideration for consolidation and enhancement. Registry and FRAMEWORK table updated by archive.py; the Archive section is empty.
