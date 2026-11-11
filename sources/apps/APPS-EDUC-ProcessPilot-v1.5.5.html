@@ -32,7 +32,7 @@ must be established before making an unqualified MIT compliance claim.
 <meta name="referrer" content="no-referrer">
 <meta name="kd-app" content="kd-app/1.5.5">
 <link rel="icon" href="data:,">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-2u6ca2ZXPAUjyimXysMLMM3CpC0kGEJD/ezHpKLmRTI='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-Rk2oH6xzi7SapG2JgiVecIU5VouFRvlwR7h5q3OTbtg='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
 <title>ProcessPilot Operations and Projects Reader</title>
 <style>/* OMNEVUM KIT:BEGIN */
 :root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
@@ -151,6 +151,12 @@ p,li,dd{text-wrap:pretty}
 @media(forced-colors:active){.s0,.s1,.s2,.vc{stroke:CanvasText}.vc{fill:Canvas}}
 @media(prefers-contrast:more){button,select,input,.btn,.q,.note,.rule,details{border-width:2px}a{text-decoration:underline}}
 @media print{.q,.note,.rule,details,pre{break-inside:avoid}}
+/* look: ProcessPilot */
+/* flow chart: connector lines between steps, rounded process boxes */
+main h2{font-weight:700}
+.stack>*+*{position:relative;margin-top:22px}
+.stack>*+*::before{content:"";position:absolute;left:24px;top:-22px;height:22px;border-left:2px solid var(--acc);opacity:.7}
+.note,.rule,.ex{border-radius:10px;border:1px solid var(--line)}
 </style>
 </head>
 <body>

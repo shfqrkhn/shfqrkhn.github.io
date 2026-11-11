@@ -32,7 +32,7 @@ must be established before making an unqualified MIT compliance claim.
 <meta name="referrer" content="no-referrer">
 <meta name="kd-app" content="kd-app/1.5.5">
 <link rel="icon" href="data:,">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-UsdQNdYVU+fukD1g6rKjO+9jCWbEtguz70ctpKYk+Ew='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-6G6278QihzQTfGMuIJMEgy4qGsdFpx8XSPG72xB4bys='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
 <title>MoralMap Ethics and Career Guide</title>
 <style>/* OMNEVUM KIT:BEGIN */
 :root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
@@ -151,6 +151,12 @@ p,li,dd{text-wrap:pretty}
 @media(forced-colors:active){.s0,.s1,.s2,.vc{stroke:CanvasText}.vc{fill:Canvas}}
 @media(prefers-contrast:more){button,select,input,.btn,.q,.note,.rule,details{border-width:2px}a{text-decoration:underline}}
 @media print{.q,.note,.rule,details,pre{break-inside:avoid}}
+/* look: MoralMap */
+/* map: contour lines behind the header, serif titles, dotted routes */
+main h1,main h2{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-weight:600;letter-spacing:0}
+header{background-image:repeating-radial-gradient(circle at 90% 120%,transparent 0 14px,color-mix(in srgb,var(--line) 60%,transparent) 14px 15px)}
+.note,.rule{border-radius:2px;border-left:3px dotted var(--acc)}
+@media (forced-colors:active){header{background-image:none}}
 </style>
 </head>
 <body>

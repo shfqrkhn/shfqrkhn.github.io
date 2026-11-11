@@ -32,7 +32,7 @@ must be established before making an unqualified MIT compliance claim.
 <meta name="referrer" content="no-referrer">
 <meta name="kd-app" content="kd-app/1.5.5">
 <link rel="icon" href="data:,">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-/5phitcNIgqh8VSzND4vR3O4/SIpDNOh9yqjaz85ZDE='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-grjRIiUjVLBBIlwO6NmE4IOJi5FkYftuET4nSEKG9s4='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
 <title>StatSafari Data and BI Reader</title>
 <style>/* OMNEVUM KIT:BEGIN */
 :root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
@@ -151,6 +151,11 @@ p,li,dd{text-wrap:pretty}
 @media(forced-colors:active){.s0,.s1,.s2,.vc{stroke:CanvasText}.vc{fill:Canvas}}
 @media(prefers-contrast:more){button,select,input,.btn,.q,.note,.rule,details{border-width:2px}a{text-decoration:underline}}
 @media print{.q,.note,.rule,details,pre{break-inside:avoid}}
+/* look: StatSafari */
+/* field notebook: histogram bars under the title, rounded panels, tabular figures */
+main h1::after{content:"";display:block;height:14px;margin-top:6px;background:var(--acc);opacity:.6;clip-path:polygon(0 100%,0 60%,8% 60%,8% 100%,12% 100%,12% 30%,20% 30%,20% 100%,24% 100%,24% 0,44% 0,44% 100%,48% 100%,48% 40%,60% 40%,60% 100%,64% 100%,64% 70%,70% 70%,70% 100%)}
+.note,.rule,.ex{border-radius:16px}
+body{font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>

@@ -32,7 +32,7 @@ must be established before making an unqualified MIT compliance claim.
 <meta name="referrer" content="no-referrer">
 <meta name="kd-app" content="kd-app/1.5.5">
 <link rel="icon" href="data:,">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-VEulwQf3Ym+qyAOqVCWez1Bce9CuJjoqLX93cCr0OtQ='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-NnhoFEWs3X1nhCoqdShNtZI2Gt3YVldgSj+yfVFKjlU='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
 <title>CashCrunch Accounting Calculators</title>
 <style>/* OMNEVUM KIT:BEGIN */
 :root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
@@ -151,6 +151,12 @@ p,li,dd{text-wrap:pretty}
 @media(forced-colors:active){.s0,.s1,.s2,.vc{stroke:CanvasText}.vc{fill:Canvas}}
 @media(prefers-contrast:more){button,select,input,.btn,.q,.note,.rule,details{border-width:2px}a{text-decoration:underline}}
 @media print{.q,.note,.rule,details,pre{break-inside:avoid}}
+/* look: CashCrunch */
+/* calculator: display-style example panels, tabular readouts, key-like buttons */
+body{font-variant-numeric:tabular-nums}
+.ex{border-radius:6px;border:1px solid var(--line);border-bottom-width:4px;background:color-mix(in srgb,var(--acc) 6%,transparent)}
+main h1{font-weight:800;letter-spacing:.01em}
+button,.btn{border-radius:6px;border-bottom-width:3px}
 </style>
 </head>
 <body>

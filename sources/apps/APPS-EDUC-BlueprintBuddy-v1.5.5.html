@@ -33,7 +33,7 @@ must be established before making an unqualified MIT compliance claim.
 <meta name="kd-app" content="kd-app/1.5.5">
 <meta name="application-version" content="1.0.0-rc.2">
 <link rel="icon" href="data:,">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-4ieEAyRSwzMAmnup6/Myc6CAzHi6XgorjBFm/0fk3ME='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QHO9RZ0B/4ju8zDxYX9tTVWOek1CuT9c2TOS+xGgWfc='; style-src 'sha256-rF/P9hEfm5oCu8/DsHWU63G5tNZ65pZP9/ddLWebNVI='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
 <title>BlueprintBuddy Systems Design Lab</title>
 <style>/* OMNEVUM KIT:BEGIN */
 :root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
@@ -152,6 +152,12 @@ p,li,dd{text-wrap:pretty}
 @media(forced-colors:active){.s0,.s1,.s2,.vc{stroke:CanvasText}.vc{fill:Canvas}}
 @media(prefers-contrast:more){button,select,input,.btn,.q,.note,.rule,details{border-width:2px}a{text-decoration:underline}}
 @media print{.q,.note,.rule,details,pre{break-inside:avoid}}
+/* look: BlueprintBuddy */
+/* blueprint: drafting grid on the page, square corners, caps labels */
+main{background-image:linear-gradient(color-mix(in srgb,var(--line) 30%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--line) 30%,transparent) 1px,transparent 1px);background-size:24px 24px}
+.note,.rule,.ex,.q,.plan,.goal{border-radius:0}
+main h2{text-transform:uppercase;letter-spacing:.08em;font-size:.95em}
+@media (forced-colors:active){main{background-image:none}}
 </style>
 </head>
 <body>
