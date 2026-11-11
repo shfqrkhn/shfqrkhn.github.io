@@ -318,6 +318,12 @@ body:has(.nn-savebar.on) #toast-container{bottom:calc(5rem + env(safe-area-inset
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media print{.nn-nav,.ph{display:none!important}}
 
+/* look: NoodleNudge */
+/* ramen bowl: bowl-shaped cards, steam curl, warm rounded type */
+body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.sec,.card{border-radius:6px 6px 28px 28px;border-bottom:4px solid color-mix(in srgb,var(--acc) 70%,var(--line))}
+.ph h1{font-weight:700;letter-spacing:0}
+@media (prefers-reduced-motion:no-preference){.sec,.card{animation:nnd .25s ease-out both}@keyframes nnd{from{opacity:0;translate:0 5px}to{opacity:1;translate:0 0}}}
 </style>
 </head>
 <body>

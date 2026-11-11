@@ -314,6 +314,12 @@ dialog.sheet .form-actions{margin-top:var(--s-6)}
 .fz-pr-meta,.fz-pr-more,.fz-pr-date{color:var(--muted);font-size:var(--fs-s)}
 @media print{.omni-bar,.app-header,.app-footer,.global-notice,.ai-aid,.btn,#byoai-panel,#byoai-backdrop,dialog{display:none!important}html,body{background:#fff;color:#000}.card{border:0;padding:0;background:none}}
 @media print{@page{margin:14mm}html[data-cg-route=facilitate] body,html[data-cg-route=facilitate] #app{min-height:0!important}html[data-cg-route=facilitate] .page-container>:not(#fz-printwrap){display:none!important}html[data-cg-route=facilitate] .page-container{padding:0;display:block}#fz-printwrap{display:block!important;border:0;border-radius:0;padding:0;background:none;font:9.5pt/1.25 Georgia,serif;color:#000}#fz-printwrap *{color:#000!important;background:none!important}#fz-printwrap h2{font:700 16pt/1.2 Georgia,serif}#fz-printwrap h3{font:700 12pt/1.2 Georgia,serif;margin:8pt 0 2pt}.fz-pr-item{break-inside:avoid;border-top:1px solid #000;padding:2pt 0}}
+/* look: MeetingMediator */
+/* round table: circular motif, even spacing, calm weights */
+.ph h1{font-weight:600;letter-spacing:.02em}
+.sec,.card{border-radius:24px;border:1px solid var(--line)}
+.sec h2,.card h2{font-weight:600}
+@media (prefers-reduced-motion:no-preference){.sec,.card{animation:mmin .25s ease-out both}@keyframes mmin{from{opacity:0}to{opacity:1}}}
 </style>
     <!-- MeetingMediator v0.5.3 single-file build (0.5.3: date-only values read as local dates, owner shown in commitments, right saved status, calmer matter and facilitation screens, running session reopens after reload, how-to rewritten; 0.5.2: patch, content version/date/source shown, how-to-update in Help, AI panel and theme colour from tokens, text 16 px minimum, dead update code removed, clearer newer-database message; 0.5.1: patch, own-database-only AI context, own-app import check, first-run import, reflow fixes; 0.5.0: facilitation session mode; 0.4.1: reset scoped to this app, model labels) (interface overhaul from v0.3.0: deck concept, embedded fonts, AI control inside screens) (from LocalFirstApps apps/commonground v0.1.130). Service worker, Workbox, manifest, iOS splash images removed. -->
   </head>

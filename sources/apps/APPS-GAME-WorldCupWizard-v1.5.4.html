@@ -290,6 +290,13 @@ dialog .btn{margin-top:var(--s4)}
 .method.fold>p{max-width:68ch}
 .saveState{margin:calc(-1 * var(--s3)) 0 var(--s4);color:var(--muted);font-size:var(--fs-base);max-width:80ch}
 @media (max-width:760px){.glossaryList{grid-template-columns:1fr}.glossaryList dd{margin-bottom:var(--s2)}}
+/* look: WorldCupWizard */
+/* pitch: mown-grass stripe bands, chalk-line borders, scoreboard numerals */
+body{font-variant-numeric:tabular-nums}
+.ph h1{font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.sec,.card{border-radius:4px;border:2px solid color-mix(in srgb,var(--fg) 70%,transparent);background-image:repeating-linear-gradient(90deg,transparent 0 56px,color-mix(in srgb,var(--acc) 6%,transparent) 56px 112px);background-color:var(--card)}
+.sec h2,.card h2{font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:.95em}
+@media (forced-colors:active){.sec,.card{background-image:none;border-color:CanvasText}}
 </style>
 
 </head>
