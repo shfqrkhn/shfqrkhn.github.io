@@ -40,7 +40,7 @@ A report is a list of leads, never a change. The queries cover the app families 
 
 ## Per-app currency review
 
-Each app will get a row in `converge/receipts/v24-depth.json` (CR-24-4; created when that work runs; receipts are local and git-ignored): its goal, the ledger entries that apply, what was adopted, what was rejected and why, and the next check date. An app is reviewed again when the report names a lead for its query or when its pinned data goes stale. No app can be certified as using everything available; the review shows what was considered and why.
+Each app has a row in `converge/receipts/v24-depth.json` (CR-24-4; receipts are local and git-ignored): its goal, the ledger entries that apply, what was adopted, what was rejected and why, and the next check date. An app is reviewed again when the report names a lead for its query or when its pinned data goes stale. No app can be certified as using everything available; the review shows what was considered and why.
 
 ## Tune the queries
 

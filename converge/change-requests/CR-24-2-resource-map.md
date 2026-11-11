@@ -2,7 +2,7 @@
 
 **Status:** done for the 4 starting rows and the check; more rows are added when a change cites a resource.
 
-**Problem (Y):** the ledger has 523 verdicts, but nothing says which resource supports which change, so "use RepoRadar" is not checkable.
+**Problem (Y):** the ledger has 532 verdicts, but nothing says which resource supports which change, so "use RepoRadar" is not checkable.
 
 **Change:** add converge/resource-map.json: one row per use, with ledger id, role (IDEA, REFERENCE, ORACLE, AUTHORING, TEST, VENDORED_COMPONENT, RUNTIME), the CR it supports, the result (APPLIED, DEFERRED, REJECTED) and the reason. Extend converge/v23_check.py to fail when a row names an id not in the ledger, or a role not in the list.
 

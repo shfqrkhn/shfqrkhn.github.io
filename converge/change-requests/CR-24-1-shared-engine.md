@@ -15,7 +15,7 @@
 **Acceptance:**
 1. After the change the 19 built pages are byte-identical to the baseline, or each difference is listed and tested.
 2. build.py, self-test (29), check_pages, check_pwa, check_contrast, check_kit, v23_check.py pass.
-3. Changing one engine line changes all 19 pages and nothing else.
+3. Changing one engine line changes the 18 reader pages and nothing else.
 4. Pinned script hashes are computed by the builder after inlining, not by hand; a source without its engine is not expected to carry a final pin.
 
 **Rollback:** revert the commit; sources return to inline engines.
