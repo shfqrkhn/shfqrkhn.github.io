@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" data-spoilers="hidden" style="--hue:178">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-Pe8AcBIBHoP6dWPnfjrvP0OwESuD8liebZ9SeTSSi7k='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-HVdwuEt6rtwF7edbJMn6JQMapKU5X87x2oTKEO0SSA8='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F6F1E7">
 <meta name="app-version" content="1.1.4">
@@ -1098,7 +1098,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
     }
 
     function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-    function lsSet(k, v) { if (schemaLocked && k !== KV) { return; } try { localStorage.setItem(k, v); } catch (e) { /* storage blocked: the guide still works */ } }
+    function lsSet(k, v) { if (schemaLocked && k !== KV) { return false; } try { localStorage.setItem(k, v); return true; } catch (e) { return false; /* storage blocked: the guide still works */ } }
     // Schema key: no key = saved by an older version (1.1.2 or earlier); accept and stamp it.
     // A key higher than SCHEMA = saved by a newer version: refuse to read or change the saved choices.
     function migrate(oldVersion) {
@@ -1215,7 +1215,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         function saveTicks() {
             var o = {};
             document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { if (c.checked) { o[c.id] = 1; } });
-            lsSet(KT, JSON.stringify(o));
+            return lsSet(KT, JSON.stringify(o));
         }
 
         function partnerOf(c) {
@@ -1230,8 +1230,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             var p = partnerOf(c);
             if (p) { p.checked = c.checked; }
             updateBuildSummary();
-            saveTicks();
-            document.getElementById('checklist-status').textContent = schemaLocked ? 'Not saved: newer version.' : 'Saved.';
+            var okSave = saveTicks();
+            document.getElementById('checklist-status').textContent = schemaLocked ? 'Not saved: newer version.' : (okSave ? 'Saved.' : 'Not saved: this browser blocked storage.');
         });
 
         function clearTicks() {
