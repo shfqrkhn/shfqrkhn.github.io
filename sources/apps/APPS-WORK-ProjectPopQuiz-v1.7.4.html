@@ -366,6 +366,12 @@ kbd { font: 600 var(--t0)/1 var(--sans); border: 1px solid var(--ctl); border-ra
     .wrap { max-width: 100%; padding: 0; }
     * { color: var(--print-ink) !important; border-color: var(--print-line) !important; box-shadow: none !important; }
 }
+/* look: ProjectPopQuiz */
+/* exam paper: serif question text, answer bubbles, score as a stamp */
+.ph h1,.card h2,.card h3{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-weight:600;letter-spacing:0}
+.choice-btn{border-radius:999px}
+.big-score{font-family:Georgia,"Iowan Old Style",serif;border:3px double var(--acc);border-radius:10px;padding:var(--s2) var(--s4);display:inline-block;rotate:-2deg}
+@media (prefers-reduced-motion:reduce){.big-score{rotate:none}}
 </style>
     <meta name="description" content="ProjectPopQuiz Exams: project management exam practice in 8 papers. Timed or study mode, with explanations. Works offline.">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf8f4">

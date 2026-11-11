@@ -331,6 +331,10 @@ table{break-inside:auto}tr{break-inside:avoid}
 .ts-summ{min-height:44px}
 .ts-sumt{font-size:var(--fs-body);font-weight:600;color:var(--ink)}
 .ts-sumh{font-size:var(--fs-s);color:var(--muted)}
+/* look: TrendTracker */
+/* market ticker: sparkline under the title, tabular numerals, sharp panels */
+.ph h1::after{content:"";display:block;height:8px;margin-top:6px;background:var(--acc);opacity:.7;clip-path:polygon(0 100%,10% 70%,20% 85%,35% 40%,50% 60%,65% 20%,80% 45%,100% 0,100% 30%,80% 75%,65% 50%,50% 90%,35% 70%,20% 100%,10% 100%)}
+body{font-variant-numeric:tabular-nums}
 </style>
   </head>
   <body class="bg-bg text-text-primary antialiased">
