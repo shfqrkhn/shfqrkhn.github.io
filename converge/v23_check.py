@@ -73,7 +73,7 @@ led = json.load(open(led_p, encoding="utf-8"))
 ents = led["entries"]
 lid = [e["id"] for e in ents]
 cnt = collections.Counter(e["disposition"] for e in ents)
-rec("CR-3 ledger", len(ents) == 523 and len(lid) == len(set(lid)) and dict(cnt) == led["counts"],
+rec("CR-3 ledger", len(ents) == 532 and len(lid) == len(set(lid)) and dict(cnt) == led["counts"],
     "%d entries, ids unique=%s, counts match header=%s" % (len(ents), len(lid) == len(set(lid)), dict(cnt) == led["counts"]))
 
 # CR-4 shared study engine
