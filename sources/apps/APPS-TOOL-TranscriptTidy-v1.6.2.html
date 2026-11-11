@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TranscriptTidy AI Exports converts Google AI Studio chat exports (JSON) to Markdown files in this browser tab. Nothing is uploaded.">
 <meta name="theme-color" content="#faf8f4">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5NfEp1Kh4roI7Q01Av4/eL7ugQX5L5BYc3QdQjPWjLA=' 'sha256-fr59xNFdSiS6k1Ebuke3gBk+KZonlkKNLElv9h5RnM4=' 'sha256-Cs1A2JD5gYVSWUURWQCWvjgP8fKCM0e6CLIPQ/pSZqc='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5NfEp1Kh4roI7Q01Av4/eL7ugQX5L5BYc3QdQjPWjLA=' 'sha256-wgrW8gLmlMRhEGkagIiyerZPuZxoWtUyPjsp1cVArME=' 'sha256-GJA4UrwAgy69I8pA9QBg0V9QPYSq2qfkEmu3STR6tQg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>TranscriptTidy AI Exports</title>
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null"),l=p&&p.look,o=null;if(["auto","paper","charcoal","black"].indexOf(l)<0){l=null;try{o=localStorage.getItem("aistudiocleaner.look")}catch(e){}if(["auto","paper","charcoal","black"].indexOf(o)>=0)l=o}if(l)r.setAttribute("data-look",l)}catch(e){}})()</script>
 <link rel="icon" href="data:,">
@@ -448,16 +448,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           if ((t === void 0 || t === null) && typeof part.thought === "string") t = part.thought;
           var trimmed = (t !== void 0 && t !== null ? String(t) : "").trim();
           if (trimmed) thoughts.push(trimmed);
-        } else if (part.text !== void 0 && part.text !== null) {
-          contentParts.push(part.text);
+        } else if (typeof part.text === "string" || typeof part.text === "number") {
+          contentParts.push(String(part.text));
         }
       }
-    } else if (item.text !== void 0 && item.text !== null) {
+    } else if (typeof item.text === "string" || typeof item.text === "number") {
       if (item.isThought === true) {
         var tt = String(item.text).trim();
         if (tt) thoughts.push(tt);
       } else {
-        contentParts.push(item.text);
+        contentParts.push(String(item.text));
       }
     }
     var content = contentParts.join("").trim();
@@ -1541,14 +1541,20 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     var r = selRec();
     if (!r) return;
     var text = Core.fileMd(r, S.opts);
+    var done = true;
     try {
       await navigator.clipboard.writeText(text);
     } catch (err) {
       var t = document.createElement("textarea");
       t.value = text; t.setAttribute("aria-hidden", "true");
       document.body.appendChild(t); t.select();
-      try { document.execCommand("copy"); } catch (e2) { /* nothing more to try */ }
+      try { done = document.execCommand("copy") === true; } catch (e2) { done = false; }
       document.body.removeChild(t);
+    }
+    if (!done) {
+      setStatus("The browser blocked copying. Use Save instead, or select the preview and copy it yourself.", true);
+      $("copy").focus();
+      return;
     }
     S.copied = true;
     renderPreview();
