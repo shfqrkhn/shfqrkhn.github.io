@@ -319,6 +319,12 @@ main details{overflow-x:auto;max-width:calc(100vw - 32px)}
 @media screen{.btn,.linkbtn,.ctl select,.ctl input,.field select,.sq,.restore,.restore-box,.zonefb select{border-color:var(--bd)}}
 @media (max-width:380px){.omn-bar{padding-inline:8px;gap:4px}.omn-bar .omn-name{font-size:.95rem}}
 @media print{:root[data-look]{--bg:#fff;--fg:#000;--mut:#333;--card:#fff;--line:#666;--acc:#000;--on-acc:#fff}}
+/* look: SproutScheduler */
+/* garden calendar: seed-packet cards, soil-line rule, leaf corner */
+.ph h1{font-weight:700;letter-spacing:0}
+.sec,.card{border-radius:4px 28px 4px 28px;border:1px solid var(--line)}
+.sec h2,.card h2{font-weight:700;border-bottom:2px solid color-mix(in srgb,var(--acc) 60%,transparent);padding-bottom:2px}
+@media (prefers-reduced-motion:no-preference){.sec,.card{animation:spin .25s ease-out both}@keyframes spin{from{opacity:0;translate:0 4px}to{opacity:1;translate:0 0}}}
 </style>
 </head>
 <body id="top" tabindex="-1">

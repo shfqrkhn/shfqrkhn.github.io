@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-7XcLxbET3jSszn6ijrbWck0sLyIdRMjt9Xq7zj36pv8='; style-src 'sha256-APkIlL5HveD3AelKMMZNidNHzG5sWnrnEwmVHjZ5R+A='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-7XcLxbET3jSszn6ijrbWck0sLyIdRMjt9Xq7zj36pv8='; style-src 'sha256-SPpPmmR/E9yZP3zx/J2CRJMUTvItR/VVFVshHUtUYs0='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -521,7 +521,13 @@
             white-space: nowrap;
             border-width: 0;
         }
-    </style>
+    /* look: BuildBoss */
+/* workbench: blueprint grid paper, mono spec numbers, square parts */
+body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mix(in srgb,var(--line) 35%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--line) 35%,transparent) 1px,transparent 1px);background-size:24px 24px;background-attachment:fixed}
+.ph h1{font-weight:700;letter-spacing:.02em}
+.sec,.card{border-radius:2px;border:1px solid var(--fg);background:var(--card)}
+@media (forced-colors:active){body{background-image:none}}
+</style>
 <script>(function(){try{var p=JSON.parse(localStorage.getItem('hub.prefs.v1')||'{}');var v=p&&p.look;if(v==='paper'||v==='charcoal'||v==='black')document.documentElement.setAttribute('data-look',v)}catch(e){}})()</script>
 </head>
 <body>
