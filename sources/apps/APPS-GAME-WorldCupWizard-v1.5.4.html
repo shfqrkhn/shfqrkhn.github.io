@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-DQ95VMAPVr50J1HrgSeiyt5YK65mFPjLRXOCJ1/1Zt0=' 'sha256-nQ3OMeapnqOVpJ/4vhZ+hVuHkY/7Srjv2CJY/LssAb4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src https://en.wikipedia.org https://api.open-meteo.com; object-src 'none'; base-uri 'none'; form-action 'none'" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-DQ95VMAPVr50J1HrgSeiyt5YK65mFPjLRXOCJ1/1Zt0=' 'sha256-CkH59XAwNSXBIsVmk0bpQzVu0TG0I+t4O71pANGPwIE='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src https://en.wikipedia.org https://api.open-meteo.com; object-src 'none'; base-uri 'none'; form-action 'none'" />
 <!-- WorldCupWizard v1.5.4 single-file offline build (v1.5.4 stores each team name once in the content block, moves the how-to to the top of More with a worked example, adds a glossary, a saved-in-this-browser line and a not-a-Sim-file refusal, folds long Groups and Method text, one accent pair; v1.5.3 moves the data into the fifa-content block, groups the extra pages under More, adds a file-format check on import and a how-to-update note; v1.5.1 hardens import (wrong-app, oversize and unsafe-key files refused), adds scrollable table regions, field labels and active-tab printing; v1.3.1 model, simulator and data unchanged; v1.5.0 adds the regulations check note and footer source link; v1.4.1 fixed the Checks self-test, run button wording and font pairing). Optional, user-initiated network only: Prediction settings > Live data (needs internet) = On fetches the Wikipedia Annex C table and Open-Meteo weather before a run, with timeouts and the original offline fallbacks. -->
 <title>WorldCupWizard Predictions: World Cup 2026 Simulator</title>
 <meta name="description" content="WorldCupWizard Predictions is an unofficial offline-capable World Cup 2026 simulator with Monte Carlo projections, groups, bracket, chances, and transparent data health." />
@@ -730,7 +730,7 @@ function migrate(oldVersion,env){const v=Number(oldVersion); if(v>ENVELOPE_SCHEM
 const MORE_PAGES=['transparency','model','audit','maintenance','sources'];
 const MODEL_DEFAULTS=Object.freeze({ensembleRankWeight:.44,ensembleEloWeight:.18,ensemblePedigreeWeight:.14,ensembleFormWeight:.12,ensembleScoringWeight:.12,dixonColesRho:-.08,maxScorelineGoals:10});
 let DATA = hydrateModelDisclosure(loadData());
-let LAST = null, MC = null, WEATHER_CACHE = readStore('wc26_weather',{}), SCORELINE_CACHE = new Map();
+let LAST = null, MC = null, WEATHER_CACHE = readStore('wc26_weather',{}) || {}, SCORELINE_CACHE = new Map();
 const $ = sel => document.querySelector(sel);
 const $$ = sel => Array.from(document.querySelectorAll(sel));
 function clean(x){return String(x ?? '').replace(/\s*\u2014\s*/g,' - ').replace(/\u2013/g,'-').replace(/\u2026/g,'...').replace(/[\u2018\u2019]/g,"'").replace(/[\u201c\u201d]/g,'"');}

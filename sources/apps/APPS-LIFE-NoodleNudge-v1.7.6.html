@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="NoodleNudge Journal: A private space for reflection, a clear path for growth.">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-gQEavRcuXkqgwXIfdhQ1JH8efJHuern9he3SWXH0EMY=' 'sha256-tEmKjq5FpSsFRfzLqx/wvWxHWz7uRqULgLX0nZ1/c6Y=' 'sha256-lVjEb701VeF8B44TW1bsZHRxBEldhEkfuUSzF85UNyI=' 'sha256-7slzeMl5SpEO1Va36hvoVk3n08IbT/rVKhWE8CPkilE='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-gQEavRcuXkqgwXIfdhQ1JH8efJHuern9he3SWXH0EMY=' 'sha256-tEmKjq5FpSsFRfzLqx/wvWxHWz7uRqULgLX0nZ1/c6Y=' 'sha256-lVjEb701VeF8B44TW1bsZHRxBEldhEkfuUSzF85UNyI=' 'sha256-x0ZpWhr+TOl9VXHCFPr/0nAsU/O9JenxMyEeozpX+F4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <meta name="theme-color" content="#faf8f4">
     <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMic+PHJlY3QgeD0nNScgeT0nMycgd2lkdGg9JzIyJyBoZWlnaHQ9JzI2JyByeD0nMicgZmlsbD0nI0ZGRkNGNScgc3Ryb2tlPScjOEI0MTYwJyBzdHJva2Utd2lkdGg9JzInLz48cGF0aCBkPSdNMTIgM3YyNicgc3Ryb2tlPScjOEI0MTYwJyBzdHJva2Utd2lkdGg9JzInLz48L3N2Zz4=">
     <title>NoodleNudge Journal</title>
@@ -113,7 +113,7 @@ h1[tabindex],h2[tabindex],main[tabindex]{outline:none}
  .nn-margin{border-bottom:0;border-right:1px solid var(--line);padding:var(--s6) var(--s5)}
  .nn-body{padding:var(--s6) var(--s7) var(--s7) var(--s7)}
 }
-h1.nn-title{font-size:var(--fs-l);line-height:1.15}
+h2.nn-title{font-size:var(--fs-l);line-height:1.15}
 .nn-note{color:var(--muted)}
 .nn-small{font-size:var(--fs-s)}
 /* running head */
@@ -849,7 +849,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
             const updateNav = (activeNav) => { document.querySelectorAll('.main-nav a').forEach(a => { const s = a.dataset.nav === activeNav; a.classList.toggle('active', s); if (s) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); }); };
             const sheet = (marginNodes, bodyNodes) => { const s = createEl('div', { className: 'nn-sheet' }); const m = createEl('div', { className: 'nn-margin' }); m.append(...marginNodes); const b = createEl('div', { className: 'nn-body' }); b.append(...bodyNodes); s.append(m, b); return s; };
             const IC = (d) => '<svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false">' + d + '</svg>';
-            const title = (text) => createEl('h1', { className: 'nn-title', textContent: text });
+            const title = (text) => createEl('h2', { className: 'nn-title', textContent: text });
             const note = (html, cls = '') => createEl('p', { className: 'nn-note ' + cls, innerHTML: html });
             const emptyState = (heading, text, navTarget, navLabel) => { const d = createEl('div', { className: 'nn-empty' }); d.innerHTML = `<h2 class="nn-title" style="font-size:var(--fs-m)">${esc(heading)}</h2><p>${esc(text)}</p>`; if (navTarget) d.appendChild(createEl('button', { className: 'nn-btn', textContent: navLabel, 'data-nav': navTarget })); return d; };
 
@@ -872,7 +872,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
                 const dn = date.toLocaleDateString(undefined, { day: 'numeric' });
                 const my = date.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
 
-                const head = createEl('h1', { className: 'nn-date', innerHTML: `<span class="nn-wd">${esc(wd)}</span> <span class="nn-day">${esc(dn)}</span> <span class="nn-my">${esc(my)}</span>` });
+                const head = createEl('h2', { className: 'nn-date', innerHTML: `<span class="nn-wd">${esc(wd)}</span> <span class="nn-day">${esc(dn)}</span> <span class="nn-my">${esc(my)}</span>` });
                 const yearLen = ((y) => (y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)) ? 366 : 365);
                 const folio = createEl('p', { className: 'nn-folio', textContent: `Day ${dayIdx}/${yearLen(date.getFullYear())}` });
                 const turn = createEl('div', { className: 'nn-turn' });
