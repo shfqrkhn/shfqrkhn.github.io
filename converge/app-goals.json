@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10",
+ "generated": "2026-11-12",
  "method": "Goals are inferred from each page's registry tagline, blurb and kind. They are working statements for review; success measures are targets to test, not measured results. stable_edge_checks list what to evaluate against primary sources (browser Baseline data, MDN, research) before adopting; nothing is adopted until measured, tested and reversible. Every success measure begins with 'Target to test' because none has been measured.",
  "apps": [
   {
@@ -69,6 +69,7 @@
    "id": "ledgersuite",
    "title": "DecisionDesk Briefs",
    "kind": "apps",
+   "archived": false,
    "goal": "Turn a decision into a clear brief with options, evidence and a review date.",
    "success": "Target to test: A decision is fully written in one sitting and can be revisited on its review date.",
    "stable_edge_checks": [
@@ -83,6 +84,7 @@
    "id": "commonground",
    "title": "MeetingMediator Sessions",
    "kind": "apps",
+   "archived": false,
    "goal": "Help a facilitator run a fair session and capture agreements.",
    "success": "Target to test: every participant is heard, issues and agreements are recorded, and the record is shareable offline.",
    "stable_edge_checks": [
@@ -97,6 +99,7 @@
    "id": "done-depot",
    "title": "TickleTodo Tasks",
    "kind": "apps",
+   "archived": false,
    "goal": "Keep tasks and focus time in one simple place.",
    "success": "Target to test: capture in one tap; an Overdue view and count exist; the focus timer survives a reload (survival with the screen off is a target to test).",
    "stable_edge_checks": [
@@ -111,6 +114,7 @@
    "id": "frugal-ferret",
    "title": "PennyPlanner Budget",
    "kind": "apps",
+   "archived": false,
    "goal": "Show where money goes and keep spending within budgets, on the device.",
    "success": "Target to test: balances reconcile exactly (integer cents); a budget shows Over budget once exceeded (an early warning before overspend is a target to add); backup and restore exist.",
    "stable_edge_checks": [
@@ -125,6 +129,7 @@
    "id": "nfire",
    "title": "NestEggNinja Retirement",
    "kind": "apps",
+   "archived": false,
    "goal": "Let a person explore whether and when they can stop working, with assumptions in view.",
    "success": "Target to test: every result states its assumptions; side-by-side scenario comparison is not present yet and is a candidate; math is checked against known cases.",
    "stable_edge_checks": [
@@ -138,6 +143,7 @@
    "id": "modeltab",
    "title": "PromptPlayground AI Chat",
    "kind": "tools",
+   "archived": false,
    "goal": "Chat with an AI model using the user's own key while showing cost and endpoint.",
    "success": "Target to test: the key never leaves the device except to the chosen endpoint; cost is shown for models the user prices in Settings, computed exactly and labelled as from the user's figures.",
    "stable_edge_checks": [
@@ -168,6 +174,7 @@
    "id": "stepsleuth-steps",
    "title": "StepSleuth Step Counter",
    "kind": "tools",
+   "archived": false,
    "goal": "Estimate steps from distance and time, in English or French.",
    "success": "Target to test: estimates come with a stated error range (target: the app does not state one yet), checked against measured steps; the English and French switch is complete.",
    "stable_edge_checks": [
@@ -182,6 +189,7 @@
    "id": "fifa-wc-sim",
    "title": "WorldCupWizard Predictions",
    "kind": "games",
+   "archived": false,
    "goal": "Show each team's chances in the 2026 World Cup by repeated simulation.",
    "success": "Target to test: results stabilize with stated simulation count; ratings source is dated and cited.",
    "stable_edge_checks": [

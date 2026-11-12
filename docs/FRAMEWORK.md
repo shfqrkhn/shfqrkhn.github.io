@@ -313,6 +313,8 @@ Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 0 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-12: PromptPantry added; the 8 restored apps count equally; shared engine in `sources/engine/`; per-app looks; hub Zen look; small fixes (CR-24-4, CR-26-2).
+
 - 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; `llms.txt` is generated; the brand lives in `builder/brand.json`.
 
 - 2026-11-04, hub 1.4.3 and later: the builder runs on Windows, macOS and Linux (no hard-coded path separators; CI still builds on Windows); the method documents are now Omni 7.33.1, Resource Catalogue 2.0.1, Prompt Clipboard 1.0.1 and Knowledge Distiller 1.6.0 (the separate MIT edition is retired; 1.6.0 is the single release; it keeps a complete canonical knowledge record inside each app, separate from the teaching parts), with local paths replaced by neutral placeholders; `scan.py` now includes the governing Omni text in its keys wherever the repository keeps Omni.

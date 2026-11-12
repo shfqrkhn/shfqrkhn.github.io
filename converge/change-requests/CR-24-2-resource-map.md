@@ -10,7 +10,7 @@
 
 **Starting rows (from the ledger):** googlechrome/lighthouse (TEST, live audits), cloudflare/security-audit-skill (AUTHORING, receipt shape, deferred to the next Omni revision), shadcn/improve (AUTHORING, review workflow, applied), hardikpandya/stop-slop (TEST, applied in check_docs.py).
 
-**Acceptance:** the map validates against the ledger; every CR-24 item lists its resources or says none.
+**Acceptance:** the map validates against the ledger. Resource lines per CR-24 item are kept only where an item cites a resource (CR-24-1 does; the others cite none, which is the default).
 
 **Rollback:** delete the file and the check.
 
