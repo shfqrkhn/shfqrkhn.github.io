@@ -143,3 +143,7 @@ Routes, coverage, execution, MeepleMentor, BoonBuilder and NoodleNudge journal i
 ## Phase A pass 20 (frozen c426b03), decided
 
 Routes (51 pages, two widths), coverage, NoodleNudge, PromptPantry, FlexxFiles, MeepleMentor, DebtDial and TrendTracker imports clean. Fixed: a PennyPlanner backup whose rows held non-text names or descriptions, non-whole ids or empty rows was accepted and left a blank app (now rejected with a plain message; checked in a browser); a MeetingMediator export whose matter title or participant name was an object showed "[object Object]" (now rejected). Accepted wording only: PennyPlanner shows the stored-data message for wrong-typed settings values and an "change the date" message for duplicate ids. Partial, carried: MeetingMediator import after Factory Reset and deeper inner-field mutations, PennyPlanner other-table routes after import.
+
+## Phase A pass 21 (frozen c726087), decided
+
+Routes, coverage, MeetingMediator (67 mutated imports, Factory Reset import) and the PennyPlanner valid round trip clean. Fixed: a PennyPlanner backup with a goal that has no linked account, or a debt with no tag, imported and then blanked the Goals or Debts page (now rejected with a plain message; checked in a browser). Partial: a live MeetingMediator facilitation session on imported card data.
