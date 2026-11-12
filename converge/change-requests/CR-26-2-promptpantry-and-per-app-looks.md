@@ -1,6 +1,6 @@
 # CR-26-2: PromptPantry Library and per-app looks
 
-Status: PromptPantry applied; per-app looks started. Source: the owner's specification for a private prompt library (kept outside the repository) and two later requests: it must not look like generic AI output, and each app should get a look of its own while keeping a path back to the hub.
+Status: PromptPantry, the hub Zen look and all 40 other apps have their own looks (rollout batches 1 to 9). Source: the owner's specification for a private prompt library (kept outside the repository) and two later requests: it must not look like generic AI output, and each app should get a look of its own while keeping a path back to the hub.
 
 | Decision | Reason |
 | --- | --- |
@@ -17,7 +17,7 @@ Look system, applied per app on top of the shared kit (header, home link, looks,
 3. Motion respects reduced motion; nothing loops; hover effects sit behind a hover media query.
 4. Every look passes the contrast, page-quality, kit and PWA gates in all four looks.
 
-PromptPantry: recipe-card serif titles, a ruled index-card preview with a margin rule, dashed shelf rules, label tags with a punched hole, a shelf grid that follows its container width, a view transition between list and card, and a stamp on copy. Hub: a Zen look is planned. Other apps: one at a time, recorded here as done.
+PromptPantry: recipe-card serif titles, a ruled index-card preview with a margin rule, dashed shelf rules, label tags with a punched hole, a shelf grid that follows its container width, a view transition between list and card, and a stamp on copy. Hub: a Zen look (landed 2026-11-11). Other apps: recorded below as done.
 
 Studied, not copied: heydamir/unslop (CC BY 4.0, idea credit), pbakaus/impeccable, jakubkrehel/skills, Nutlope/hallmark, Leonxlnx/taste-skill, nextlevelbuilder/ui-ux-pro-max-skill, cathrynlavery/diagram-design, google-labs-code/design.md, frankxai/awesome-motion-design-agent-skills. Only landing pages were read; deeper rule files are unread. Ledger records already carry their dispositions.
 
