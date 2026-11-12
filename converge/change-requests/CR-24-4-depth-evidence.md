@@ -159,3 +159,7 @@ Routes and coverage clean. PennyPlanner import fixes: transactions need a finite
 ## Phase A pass 24
 
 Routes, coverage, PennyPlanner (275 payloads), FlexxFiles, DebtDial, PromptPantry, MeepleMentor, NoodleNudge (88) clean. TrendTracker partial (about 20 payloads, none bad). WorldCupWizard: object values where text or numbers belong showed [object Object]; its import now rejects any nested object where the built-in data holds a plain value. Re-run: 466 payloads, no defects, valid export still imports. Pass not counted clean (a fix was needed).
+
+## Phase A pass 25
+
+Not counted clean. Routes (100 loads) and coverage lenses were clean. Import lenses found: PennyPlanner accepted a non-list `tags` on transactions (blank view); NoodleNudge accepted `scores` null or missing and a missing `assessmentTitle` in saved results (blank view, "undefined"); WorldCupWizard showed "[object Object]" for objects inside text lists. All three are now refused on import with a plain message. Caps: TrendTracker 18 of 44 JSON and 0 of 12 CSV payloads, NoodleNudge and WorldCupWizard partly covered (agents hit time caps).
