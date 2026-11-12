@@ -66,3 +66,9 @@
 - Fixed: stale records (app-goals.json archived flags, v23_check.py CR-2 counts 42 and 0, CR-24-7 and CR-24-4 text, CHANGE-REQUEST-v23 row CR-2).
 - Documented in SECURITY.md: PromptPlayground wildcard Azure and any-port local hosts (needed for user-typed provider addresses); FlexxFiles same-origin update check.
 - Decided, no change: no sitemap or canonical links (the docs never promise them; llms.txt is the index; adding files is a deploy-surface change for the owner).
+
+## Phase A pass 2 (frozen 2d605e7), decided (2026-11-11)
+
+- Fixed: RepoRadar detail view had a "Check GitHub metadata now" button whose request the page CSP always blocks (no connect-src), an undocumented dead remote call. Removed the button and its handler; the page stays fully offline. Browser: detail view renders at 375 px, no overflow, 0 console errors.
+- Rejected, not a defect: execution lens reported NoodleNudge's Look select inert. Reproduced only in a browser context with blocked storage; in a fresh context NoodleNudge and TickleTodo switch to paper, charcoal and black correctly.
+- Routes and coverage lenses: clean.
