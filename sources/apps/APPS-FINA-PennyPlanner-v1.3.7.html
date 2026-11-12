@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PBMRCcBKv/BcrVqwCzEAK+BihmjAv67o/tbZKC0faZ8=' 'sha256-SqqOriJYiF/DTmiVe9mazI0PgHnYrc04pAhoPlu4r7k=' 'sha256-mm9C/sUh1dq65PJawtn39xKUFRq78ndOSgSiv0qlWCU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PBMRCcBKv/BcrVqwCzEAK+BihmjAv67o/tbZKC0faZ8=' 'sha256-lQlrUw9Fc4H9XAP3qSHDsbMlncBdBYxWEmmk81MiPI0=' 'sha256-mm9C/sUh1dq65PJawtn39xKUFRq78ndOSgSiv0qlWCU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'none'; form-action 'none'" />
     <meta name="version" content="1.3.7-single" />
     <meta name="theme-color" content="#faf8f4" />
     <!-- PennyPlanner 1.3.7-single (Add Transaction saves again, two identical rows in one CSV are both imported, a category made in the nested window is selected, Map Columns fills itself, clear dates; before that 1.3.5-single (a second identical entry is kept, plain words for storage errors, a tag made inside Add Transaction is attached, Enter on a closed list adds, toasts clear of dialogs, Scheduled in the bottom menu; before that 1.3.4-single (Enter on any quick-entry field, ask before discarding typed entries, toasts at the top on phones, Reports in the bottom menu, CA$ chart labels, glossary near the top; before that 1.3.3-single (plain-words fixes: default categories for new data, budget tag flow, Reports link, one accent pair, Help rewritten; before that 1.3.1-single (repairs: CSV thousands separators, reports without transfers and opening balances, 5 MB import limit, names, focus, contrast, reflow, print; on 1.3.0-single: quick entry row and a quieter exchange-rate note, on 1.2.0-single: exact money, envelope export and CSV, on 1.1.1-single; repair of 1.1.0-single, interface rebuild of 1.0.1-single): single-file offline build of the PennyPlanner docs/ (Vite build).
@@ -988,6 +988,8 @@ M.prep=x=>{
       if(t==="settings"&&typeof o.key!=="string")throw new Error(where+" has no key.");
       if(t==="goals"&&!Number.isInteger(o.linkedAccountId))throw new Error(where+" has no linked account.");
       if(t==="debts"&&!Number.isInteger(o.tagId))throw new Error(where+" has no tag.");
+      for(const f of DATEF)if(o[f]!=null&&typeof o[f]==="object"&&!(o[f] instanceof Date))throw new Error(where+": "+f+" is not a valid date.");
+      if(t==="scheduledTransactions"){if(typeof o.amount!=="number")throw new Error(where+" has no amount.");if(typeof o.frequency!=="string"||!o.frequency)throw new Error(where+" has no frequency.")}
       if(SPEC[t])for(const f in SPEC[t]){
         const v=o[f];
         if(v!==undefined&&v!==null&&(typeof v!=="number"||!isFinite(v)))throw new Error(where+": "+f+" is not a number.");

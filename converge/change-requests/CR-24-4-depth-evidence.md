@@ -147,3 +147,7 @@ Routes (51 pages, two widths), coverage, NoodleNudge, PromptPantry, FlexxFiles, 
 ## Phase A pass 21 (frozen c726087), decided
 
 Routes, coverage, MeetingMediator (67 mutated imports, Factory Reset import) and the PennyPlanner valid round trip clean. Fixed: a PennyPlanner backup with a goal that has no linked account, or a debt with no tag, imported and then blanked the Goals or Debts page (now rejected with a plain message; checked in a browser). Partial: a live MeetingMediator facilitation session on imported card data.
+
+## Phase A pass 22 (frozen 8dedf3a), decided
+
+Routes, coverage, MeetingMediator facilitation (23 of 126 planned payloads; the importer coerces every facilitation field, accepted) clean. Fixed: a PennyPlanner scheduled transaction with no amount, no frequency or an array date imported and then blanked the Scheduled page (now rejected; the valid sample round trip and the three repros checked in a browser). About 330 single-field payloads over ten tables found only these.
