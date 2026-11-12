@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-V7G6UUdVxdjVtI1b5y+jUf43MgfJkGHKqKgMcPP+r54='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-a8Cdg8dvsTvThkgciJKm9hV/w5r4Eia9L42pv6fSSCs='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.4">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -1231,7 +1231,7 @@ const DoneDepot = (() => {
     init() {
       this.loadData();
       const so = store.get(config.SORT_STORAGE_KEY) || 'default';
-      this.currentSortOrder = (so === 'default' || (so !== 'manual' && config.SORT_LABELS[so])) ? so : 'default';
+      this.currentSortOrder = (so === 'default' || (so !== 'manual' && Object.prototype.hasOwnProperty.call(config.SORT_LABELS, so))) ? so : 'default';
       const v = store.get(config.VIEW_STORAGE_KEY);
       this.currentView = ['all', 'today', 'upcoming', 'overdue'].indexOf(v) >= 0 ? v : 'all';
     },
