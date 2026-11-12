@@ -155,3 +155,7 @@ Routes, coverage, MeetingMediator facilitation (23 of 126 planned payloads; the 
 ## Phase A pass 23
 
 Routes and coverage clean. PennyPlanner import fixes: transactions need a finite amount and a date; accounts need a type and a three-letter currency; budgets, debts, goals and holdings need their amount fields as finite numbers; budget tag lists must hold whole numbers; ticker must be text. Each is a plain-message rejection. Verified: sample round trip imports and re-imports with no errors; 154 mutation payloads over budgets, debts, goals and holdings show no page error or raw engine text.
+
+## Phase A pass 24
+
+Routes, coverage, PennyPlanner (275 payloads), FlexxFiles, DebtDial, PromptPantry, MeepleMentor, NoodleNudge (88) clean. TrendTracker partial (about 20 payloads, none bad). WorldCupWizard: object values where text or numbers belong showed [object Object]; its import now rejects any nested object where the built-in data holds a plain value. Re-run: 466 payloads, no defects, valid export still imports. Pass not counted clean (a fix was needed).
