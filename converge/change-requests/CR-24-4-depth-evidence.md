@@ -78,3 +78,7 @@
 Routes, adversarial: clean. Coverage found six record defects; fixed in docs: RADAR.md depth-row description and CR list, CR-24-1 byte gap, v24 brief baseline labelled as baseline. Stale v23-execution.json is refreshed by `v23_check.py --save` at the final commit. BlueprintBuddy: the file name carries the study runtime (1.5.5) and the page states its file release as 1.0.0-rc.2 by design; no change.
 
 Pass 3 execution lens (2026-11-11/12): BuildBoss ignored the Look system (its own colour tokens were fixed); fixed in the source (tokens now follow the kit tokens, dark-look accents, always-dark tool card text), verified in 3 looks at 375/768/1024/1440 with no contrast failures or console errors. Decided, no change: per-app paper backgrounds differ by design (CR-26-2 per-app looks); 404.html is a redirect shim whose only visible content is the brand mark linking home, kept minimal on purpose.
+
+## Phase A pass 5 (frozen 341e119), decided
+
+Coverage found four record defects (FRAMEWORK missing sources/engine and a wrong "no version" note; CR-26-2 stale status; CR-24-1 inline script 81,382; a stale local learning receipt); all fixed in 5ea8ddf. Adversarial found one real defect: WorldCupWizard wrote an imported match number into innerHTML without escaping (HTML and link injection only; the CSP blocks script and exfiltration). Fixed with esc(m.no), checked in the browser at 375 and 1440 (escaped output, no console errors, no overflow). Service-worker message handler and unbounded navigation cache were noted as hardening only, no change.
