@@ -2,7 +2,7 @@
 <html lang="en" data-app data-theme="paper" data-look="auto" style="--hue:73">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-MI6FNRjBXIQje76CEy+EId8z4ftgVRENMY2s4aLa6nU=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-/VJIt9R6O+bsW9aFhR9Q3N7Y5aFD7VYKN4A8jCaioTM='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-MI6FNRjBXIQje76CEy+EId8z4ftgVRENMY2s4aLa6nU=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-e23TBLEV3SytCI9NM0xYJGunZyh59CXZL1lCi26+sjI='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- StepSleuth 1.2.4. Single file, offline, no network. Fira Sans (SIL OFL 1.1) embedded as subset woff2. Bootstrap and Bootstrap Icons removed in 1.1.0. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#faf8f4">
@@ -569,7 +569,7 @@ Object.assign(Lang.translations.en, {
     closeHelp: "Close", closeLic: "Close",
     footText: "v1.2.4. Nothing you enter is saved.",
     helpTitle: "Help",
-    helpBody: "<ol><li>Pick an activity, tap Next.</li><li>Enter time (and distance if asked), tap Next.</li><li>Read the steps. Print saves a copy.</li></ol><p>Factors lists every rate. Nothing you enter is saved; only Look is.</p>"
+    helpBody: "<ol><li>Pick an activity, tap Next.</li><li>Enter time (and distance if asked), tap Next.</li><li>Read the steps. Print opens your browser print dialog (choose Save as PDF to keep a copy).</li></ol><p>Factors lists every rate. Nothing you enter is saved; only Look is.</p>"
 });
 Object.assign(Lang.translations.fr, {
     lookLabel: "Look", helpBtn: "Aide", licencesBtn: "Licences", skip: "Passer", backHub: "Accueil Omnevum",
@@ -596,7 +596,7 @@ Object.assign(Lang.translations.fr, {
     closeHelp: "Fermer", closeLic: "Fermer",
     footText: "v1.2.4. Rien n'est enregistré.",
     helpTitle: "Aide",
-    helpBody: "<ol><li>Choisissez une activité, appuyez sur Suivant.</li><li>Entrez la durée (et la distance si demandée), appuyez sur Suivant.</li><li>Lisez les pas. Imprimer garde une copie.</li></ol><p>Facteurs liste tous les taux. Rien n'est enregistré, sauf Look.</p>"
+    helpBody: "<ol><li>Choisissez une activité, appuyez sur Suivant.</li><li>Entrez la durée (et la distance si demandée), appuyez sur Suivant.</li><li>Lisez les pas. Imprimer ouvre la boîte d'impression du navigateur (choisissez Enregistrer en PDF pour garder une copie).</li></ol><p>Facteurs liste tous les taux. Rien n'est enregistré, sauf Look.</p>"
 });
 
 const UI = {
@@ -752,7 +752,7 @@ const App = {
         document.getElementById('btn-print-factors').addEventListener('click', () => this.print());
         document.querySelectorAll('#rail button').forEach(b => b.addEventListener('click', () => {
             const n = Number(b.dataset.step);
-            if (n <= this.reached) this.goTo(n);
+            if (n <= this.reached) { if (n === 3 && this.step < 3 && !this.validateTime()) return; this.goTo(n); }
         }));
         document.getElementById('tab-estimate').addEventListener('click', () => this.showView('estimate'));
         document.getElementById('tab-factors').addEventListener('click', () => this.showView('factors'));
@@ -858,7 +858,7 @@ const App = {
         const timeOk = this.reached >= 2 && inpOk;
         const resOk = this.reached >= 3 && inpOk;
         const speed = activity.type === 'speed_based';
-        if (speed) set('slip-distance-v', timeOk ? `${inp.distance} ${UI.distanceUnit}` : no, !timeOk);
+        if (speed) set('slip-distance-v', timeOk ? `${UI.num(inp.distance)} ${UI.distanceUnit}` : no, !timeOk);
         set('slip-time-v', timeOk ? Lang.get('timeFmt').replace('{m}', inp.minutes).replace('{s}', inp.seconds) : no, !timeOk);
         const r = this.last;
         const have = resOk && !!r;

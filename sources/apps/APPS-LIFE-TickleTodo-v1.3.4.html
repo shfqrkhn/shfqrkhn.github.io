@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-GWvVPV5DILLSHlMeEQ/17rkGiEjF7R0MC0/7S9aTWL4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-V7G6UUdVxdjVtI1b5y+jUf43MgfJkGHKqKgMcPP+r54='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.4">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -902,7 +902,7 @@ const DoneDepot = (() => {
     s.trim().split(/\s+/).filter(Boolean).forEach(tok => {
       const l = tok.toLowerCase();
       let m;
-      if ((m = /^#([\w-]+)$/.exec(tok))) { if (!out.tags.includes(m[1])) out.tags.push(m[1]); return; }
+      if ((m = /^#([\p{L}\p{N}_-]+)$/u.exec(tok))) { if (!out.tags.includes(m[1])) out.tags.push(m[1]); return; }
       if (l === '!high' || l === '!low' || l === '!medium') { out.priority = l.slice(1); return; }
       if ((m = /^@(\S+)$/.exec(tok))) { out.section = m[1].replace(/_/g, ' '); return; }
       if (!out.dueDate) {
@@ -1431,6 +1431,7 @@ const DoneDepot = (() => {
         x.id = this.generateId();
         x.status = 'pending';
         x.completedTimestamp = null;
+        delete x.focusSeconds;
         if (x !== c && x.dueDate && deltaDays) {
           const d = parseISO(x.dueDate);
           if (d) x.dueDate = toISO(addDays(d, deltaDays));
@@ -2163,7 +2164,7 @@ const DoneDepot = (() => {
       }
     },
     scrollToItem(itemId, part) {
-      const itemElement = this.dom.checklistContainer.querySelector('.task[data-id="' + itemId + '"]');
+      const itemElement = this.dom.checklistContainer.querySelector('.task[data-id="' + CSS.escape(itemId) + '"]');
       if (!itemElement) {
         const first = this.dom.checklistContainer.querySelector('.task');
         if (first) first.focus({ preventScroll: true }); else if (this.dom.quickInput) this.dom.quickInput.focus();
@@ -2449,7 +2450,7 @@ const DoneDepot = (() => {
       if (siblings.length > 1) nextId = (siblings[itemPath.index + 1] || siblings[itemPath.index - 1]).id;
       else if (itemPath.fullPath.length > 1) nextId = itemPath.fullPath[itemPath.fullPath.length - 2].item.id;
       this.commit('Deleted: ' + text + '.', () => DataManager.deleteItem(itemId), { announce: 'Deleted: ' + text + '. Undo is available for 10 seconds.' });
-      const row = nextId && UIManager.dom.checklistContainer.querySelector('.task[data-id="' + nextId + '"]');
+      const row = nextId && UIManager.dom.checklistContainer.querySelector('.task[data-id="' + CSS.escape(nextId) + '"]');
       if (row) row.focus();
       else {
         const first = UIManager.dom.checklistContainer.querySelector('.task');
@@ -2511,7 +2512,7 @@ const DoneDepot = (() => {
         }, { newId: null });
         if (created) {
           // flash the new row without moving focus away from the quick add box
-          const row = D.checklistContainer.querySelector('.task[data-id="' + created.id + '"]');
+          const row = D.checklistContainer.querySelector('.task[data-id="' + CSS.escape(created.id) + '"]');
           if (row) {
             row.classList.add(config.CSS_CLASSES.ITEM_ADDED_FLASH);
             setTimeout(() => row.classList.remove(config.CSS_CLASSES.ITEM_ADDED_FLASH), config.ADD_ITEM_FLASH_DURATION);
