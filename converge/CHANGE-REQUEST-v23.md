@@ -27,7 +27,7 @@ Deploy, GitHub edits, dependency installs, data removal, remote crawling, and an
 1. converge/v23_check.py exits 0 and merges its results (CR-1 to CR-4) into converge/receipts/v23-execution.json; CR-5 to CR-7 outcomes come from the build, self-test and v23_offline.py runs and are added to the same file. Earlier keys are kept on each save.
 2. Self-test reports 29 passed, 0 failed, run alone.
 3. Any FAIL is either fixed with a reproduced test or listed with its reason.
-4. FRAMEWORK.md stays at or under 49,830 bytes (a working margin; the gate in check_docs.py allows 50,000).
+4. FRAMEWORK.md stays within its gate in check_docs.py (300,000 bytes since the owner raised it on 2026-11-12).
 
 ## 5. Rollback
 

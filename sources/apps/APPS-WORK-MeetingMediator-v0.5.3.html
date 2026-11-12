@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-048Z9yuWr7NkMouGkTL7/5feWTCpskG0gln+GKh6pcU=' 'sha256-sZIYNpsGvUf4OWAI+nSoiIjGUfTMW0kaQ6UChCoAq8o=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-048Z9yuWr7NkMouGkTL7/5feWTCpskG0gln+GKh6pcU=' 'sha256-ONsAwymC2DFLQGQvl8VWGFmgWOkzAPA0vQbv5US3S0E=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
     <meta name="description" content="MeetingMediator Sessions: a facilitator-first resolution suite. Resolve clearly." />
     <meta name="referrer" content="no-referrer" />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), fullscreen=(self)" />
@@ -2667,7 +2667,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
         provider,
         apiKey,
         model,
-        ...(customModel ? { custom: true } : {}),
+        ...(customModel || !(provider === 'gemini' ? GEMINI_MODELS : OPENAI_MODELS).some(x => x.id === model) ? { custom: true } : {}),
         ...(provider === 'openai' && endpoint ? { endpoint } : {}),
       });
 
