@@ -41,7 +41,7 @@
 - NoodleNudge: txt export trailing dashes and "Result: false". TickleTodo: duplicate repeat copy. MeetingMediator: Gemini key in URL query.
 - EggspressEats: no food-safety numbers. StreamScholar: "Modern Business Strategy" links to a search. AuctionAcademy: blurb and sessionStorage guard. MoralMap: board-diversity wording.
 - SupportScout: fork migration. TranscriptTidy: non-text chunks dropped, unterminated fence, BOM. SproutScheduler: tender-crop frost margin, bad saved bed dropped silently, zone/city mismatch.
-- Also: deep-review the 8 restored apps; CR-24-7 deferred items; add PromptPantry to app-goals.json and v24-depth.json.
+- Also: deep-review the 8 restored apps; CR-24-7 deferred items; PromptPantry rows in app-goals.json and v24-depth.json (done).
 - Consolidation candidates: BalanceBuddy + CashCrunch merge; MeepleMentor retire or cut; HandheldHunter vs AllyAce; GearGuardian vs SetupSherpa.
 
 ## Fix record (2026-11-11, verified by quote, applied in one batch)
@@ -59,3 +59,10 @@
 - Fixed: WorldCupWizard run count rounded, export file renamed and revoke delayed, save-state message no longer claims settings are saved. DecisionDesk failed import aborts its transaction, blob URLs revoked after a delay, backup file names use the app name, rating hint says 0 to 10. StepSleuth slip distance localised, Print help says it opens the print dialog, rail cannot skip time validation. TickleTodo ids escaped in selectors, non-ASCII tags, repeat copy no longer inherits focus time. PennyPlanner short CSV rows no longer add the word "undefined". PromptPlayground only real fetch failures are called network or CORS. MeetingMediator Enter during IME composition does not send.
 - Deferred with reason (larger or data decisions, each reported by one reviewer and not reproduced in a browser): MeetingMediator focus trap, retired model ids, empty or blocked reply handling, request timeouts, stale-reply races; PromptPlayground streaming re-render, partial reply loss, vault merge, markdown inside code spans, variable re-substitution; WorldCupWizard chaos setting, weather success flag, fair-play overrides; NestEggNinja coast year, fire number, pension 0 defaults, tax credits, OAS base, CPP start age; PennyPlanner dedupe after edit, monthly day drift, scenario year offset, day-first dates, CAD labels, CSV BOM; TickleTodo storage warning overwritten, reopen spawns copies, month-end drift, midnight refresh, unreadable data overwrite; DecisionDesk erase atomicity, OPFS copies, silent invalid ratings, empty-case view, whitespace titles, sensitivity above 100; StepSleuth heading and title, French Look label, Minutes hint.
 - Browser check: all 8 built pages load at 375 and 1440 with no console errors and no horizontal overflow.
+
+## Phase A pass 1 (frozen 379e294), fixed and decided (2026-11-11)
+
+- Fixed: RepoRadar header overflowed 16 px at 375 px (`.topmeta`); the 420 px rule now wraps it (CSS only, data and checksum-pinned records untouched; RADAR counts RepoRadar with the hub, not as a method document). Browser: no overflow at 375, 768, 1024, 1440; 0 console errors.
+- Fixed: stale records (app-goals.json archived flags, v23_check.py CR-2 counts 42 and 0, CR-24-7 and CR-24-4 text, CHANGE-REQUEST-v23 row CR-2).
+- Documented in SECURITY.md: PromptPlayground wildcard Azure and any-port local hosts (needed for user-typed provider addresses); FlexxFiles same-origin update check.
+- Decided, no change: no sitemap or canonical links (the docs never promise them; llms.txt is the index; adding files is a deploy-surface change for the owner).

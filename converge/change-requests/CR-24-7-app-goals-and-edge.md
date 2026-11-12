@@ -2,10 +2,10 @@
 
 Why: each app must use the best stable technology to meet and exceed its own goal. That needs the goal written down first.
 
-**Status:** goals done; all 41 apps have a depth record (local receipt); 8 apps gained stable features (persist, audio unlock, accent search, locale sort, PBKDF2 600000, status roles). The other candidates are deferred in the record. The 8 archived apps were assessed under CR-24-5 and stay archived: each is bundled, privacy-sensitive or superseded, and unarchiving adds blast radius without a goal gain. Revisit one only when its goal row is confirmed.
+**Status:** goals done; all 42 pages have a depth record (local receipt); 8 apps gained stable features (persist, audio unlock, accent search, locale sort, PBKDF2 600000, status roles). The other candidates are deferred in the record. The 8 archived apps were assessed under CR-24-5 and then unarchived by owner instruction (2026-11-11, recorded in CR-24-4); the registry has 0 archived.
 
 ## Part 1: goals (done, review only)
-`converge/app-goals.json` holds one row per registry page (41): goal, success measure, stable-edge checks. Goals are inferred from the registry tagline and blurb and are marked "inferred, owner to confirm". A check in `converge/v23_check.py` fails if any registry id lacks a row.
+`converge/app-goals.json` holds one row per registry page (42): goal, success measure, stable-edge checks. Goals are inferred from the registry tagline and blurb and are marked "inferred, owner to confirm". A check in `converge/v23_check.py` fails if any registry id lacks a row.
 
 ## Part 2: research, then build, one app at a time
 For each app, in this order (pilot: the recipe app, `apex-egg-salad`):
@@ -16,4 +16,4 @@ For each app, in this order (pilot: the recipe app, `apex-egg-salad`):
 5. Record in `converge/receipts/v24-depth.json`: ideas considered, adopted, rejected with reason, watch list, evidence.
 
 ## Limits
-No deploy and no GitHub edits on this request's authority; the owner publishes. Archived pages are treated like active ones (owner direction, 2026-11-10): assess each under CR-24-5, then unarchive the ones worth keeping with `python builder/archive.py`, merge or leave the rest archived, and record the reason. Unarchive one app per commit and update the archived count checked in `converge/v23_check.py` (CR-2) in the same commit. A recipe or guide fact changes only with a primary source.
+No deploy and no GitHub edits on this request's authority; the owner publishes. Archived pages are treated like active ones (owner direction, 2026-11-10): assess each under CR-24-5, then unarchive the ones worth keeping with `python builder/archive.py`, merge or leave the rest archived, and record the reason. Unarchive one app per commit and the archived count checked in `converge/v23_check.py` (CR-2) is now 0 (done). A recipe or guide fact changes only with a primary source.

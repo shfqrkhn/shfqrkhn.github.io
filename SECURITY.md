@@ -17,3 +17,5 @@ The live site (https://shfqrkhn.github.io) and the `main` branch. Every page is 
 - Branch protection on `main` is the owner's setting; when it is on, `main` blocks force-pushes and deletion.
 - The privacy gate (`builder/build.py`) runs on every build and in CI; see `docs/PRIVACY.md`.
 - Known trade-off: the shared look script (`personalize.js`, first-party and checked) runs from the site's own origin, so each app's `script-src` also allows `'self'`.
+- Known trade-off: PromptPlayground lets you type your own AI provider address, so its `connect-src` allows any Azure OpenAI tenant (`*.openai.azure.com`) and any local port (`localhost`, `127.0.0.1`). It sends your key only to the address you enter.
+- Known trade-off: FlexxFiles asks its own address (same origin, no personal data) whether a newer version exists, when opened, on return to the tab and when back online.
