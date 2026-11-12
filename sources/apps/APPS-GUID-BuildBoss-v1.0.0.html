@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-Rg5utR3vdK5593tLBLk9rRIjPUXV+ELdSeeGYc7YT2E='; style-src 'sha256-SPpPmmR/E9yZP3zx/J2CRJMUTvItR/VVFVshHUtUYs0='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-Rg5utR3vdK5593tLBLk9rRIjPUXV+ELdSeeGYc7YT2E='; style-src 'sha256-IqhF0FqJTbrO/1ET9JgOI23lNqTEcdpoE2eGP0Tvmzc='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -20,15 +20,28 @@
 
         /* CSS Custom Properties for Themed Styling */
         :root {
-            --background-color: #F8F9FA;
-            --surface-color: #FFFFFF;
-            --primary-text-color: #212529;
-            --secondary-text-color: #6C757D;
+            --background-color: var(--bg);
+            --surface-color: var(--card);
+            --primary-text-color: var(--fg);
+            --secondary-text-color: var(--mut);
             --accent-color-1: #0062CC; /* Vibrant Blue */
+            --on-accent: #FFFFFF;
+            --accent-end: #0056b3;
             --accent-color-2: #28A745; /* Green */
-            --border-color: #DEE2E6; /* Light Gray Border */
+            --border-color: var(--line);
             --shadow-color: rgba(0, 0, 0, 0.05);
             --focus-outline-color: #0056b3; /* Darker blue for focus */
+        }
+
+        :root[data-look=charcoal], :root[data-look=black] {
+            --accent-color-1: #8fb8e3;
+            --accent-color-2: #5fd47a;
+            --on-accent: #14110d;
+            --accent-end: #6a9fd0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root[data-look=auto] { --accent-color-1: #8fb8e3; --accent-color-2: #5fd47a; --on-accent: #14110d; --accent-end: #6a9fd0; }
         }
 
         /* Global Styles */
@@ -91,7 +104,7 @@
         button {
             font-family: 'Inter', sans-serif;
             background-color: var(--accent-color-1);
-            color: var(--surface-color);
+            color: var(--on-accent);
             border: none;
             padding: 0.75rem 1.25rem;
             border-radius: 8px;
@@ -150,8 +163,8 @@
 
         /* Banner Section */
         .banner {
-            background: linear-gradient(135deg, var(--accent-color-1), #0056b3);
-            color: var(--surface-color);
+            background: linear-gradient(135deg, var(--accent-color-1), var(--accent-end));
+            color: var(--on-accent);
             padding: 4rem 1rem;
             text-align: center;
             border-bottom-left-radius: 20px;
@@ -160,7 +173,7 @@
         }
 
         .banner h1 {
-            color: var(--surface-color);
+            color: var(--on-accent);
             font-size: 3.5rem;
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
@@ -406,7 +419,7 @@
             left: 0;
             width: 100%;
             background-color: var(--primary-text-color); /* Dark background for navbar */
-            color: var(--surface-color);
+            color: var(--on-accent);
             box-shadow: 0 -4px 8px var(--shadow-color);
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
@@ -425,7 +438,7 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: var(--accent-color-1);
-            color: var(--surface-color);
+            color: var(--on-accent);
             border-radius: 50%;
             width: 48px;
             height: 48px;
@@ -460,7 +473,7 @@
         }
 
         .navbar-content .nav-title {
-            color: var(--surface-color);
+            color: var(--on-accent);
             margin-top: 0;
             margin-bottom: 0.5rem;
             font-size: 1.2rem;
@@ -476,7 +489,7 @@
         .navbar-tool label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--secondary-text-color);
+            color: #ced4da;
             font-size: 0.9rem;
         }
 
@@ -487,7 +500,7 @@
 
         .navbar-tool .result {
             font-weight: 600;
-            color: var(--accent-color-2);
+            color: #5fd47a; /* the tool card is dark in every look */
             font-size: 1.1rem;
         }
 
