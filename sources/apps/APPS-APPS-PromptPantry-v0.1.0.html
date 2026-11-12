@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-hRr98QMaU8+QTInBXorZJ+5GmpSnYgiSa4GeNh9Q4jg='; style-src 'sha256-7Iat+ga11j/OCeiFZ3/Bvzs+y0VSRmmTFK9GT6JN4xk='; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-O2yruAnCKmqLE+kR8CiQKhWGmEFGFr7Ibk7dZ7c2/g4='; style-src 'sha256-7Iat+ga11j/OCeiFZ3/Bvzs+y0VSRmmTFK9GT6JN4xk='; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="Keep your own prompts: fill in the blanks, preview, copy, and back up. Stays on this device.">
 <meta name="application-version" content="0.1.0"> <!-- keep equal to the version in the file name; the build checks it -->
@@ -716,7 +716,7 @@ h1,.pi h3,#u-h,#e-h,#r-h{font-family:Georgia,"Iowan Old Style","Palatino Linotyp
   $("restore").addEventListener("click", function () { $("file").value = ""; $("file").click(); });
   $("file").addEventListener("change", function () { if ($("file").files[0]) readFile($("file").files[0]); });
   $("export").addEventListener("click", exportNow);
-  $("look").addEventListener("click", function () { look = LOOKS[(LOOKS.indexOf(look) + 1) % LOOKS.length]; var p = read(HUB) || { schemaVersion: 1 }; p.look = look; write(HUB, p); paint(); });
+  $("look").addEventListener("click", function () { look = LOOKS[(LOOKS.indexOf(look) + 1) % LOOKS.length]; var p = read(HUB); if (!p || typeof p !== "object" || Array.isArray(p)) p = { schemaVersion: 1 }; p.look = look; write(HUB, p); paint(); });
   $("u-copy").addEventListener("click", copyNow);
   $("u-back").addEventListener("click", function () { show("list"); paintList(); });
   $("u-edit").addEventListener("click", function () { openEdit(ui.cur); });

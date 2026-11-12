@@ -10,7 +10,7 @@
   "adopt": 1,
   "unavailable": 2
  },
- "depth_caveat": "519 readme-read (excerpt only), 2 metadata-only, 2 unavailable (HTTP 404). No repository was cloned or executed. Adopt/adapt entries are not yet verified against upstream code.",
+ "depth_caveat": "528 readme-read (excerpt only), 2 metadata-only, 2 unavailable (HTTP 404). No repository was cloned or executed. Adopt/adapt entries are not yet verified against upstream code.",
  "matrix": [
   {
    "theme": "Context economy and terse reports",
