@@ -46,8 +46,9 @@ Source: `converge/reporadar-ledger.json` (the 10 adopt or adapt entries) and `co
 | googlechrome/lighthouse | adopt | hand-run mobile audits at the final check | applied |
 | shadcn/improve | adapt | plan strong, execute cheap, in AGENTS.md; fresh read-only reviewers | applied |
 | hardikpandya/stop-slop | adapt | wording rules in `site/scripts/check_docs.py` | applied |
-| google-labs-code/design.md, voltagent/awesome-design-md | adapt | token note in FRAMEWORK; tokens already in `ui.css` | applied |
+| google-labs-code/design.md | adapt | token note in FRAMEWORK; tokens already in `ui.css` | applied |
+| voltagent/awesome-design-md | adapt | covered by the same token note; no new file | noted |
 | othneildrew/Best-README-Template, RichardLitt/standard-readme | adapt | README structure | applied |
 | cloudflare/security-audit-skill | adapt | receipt shape for the next Omni revision | deferred (Omni frozen) |
 | ayghri/i-have-adhd | adapt | terse-report rules for the next Omni revision | deferred (Omni frozen) |
-| mrbongoc/ai-iso-skill | adapt | no illustration needs it yet | noted |
+| mrbongoc/ai-iso-skill | adapt | no illustration needs it yet | deferred |

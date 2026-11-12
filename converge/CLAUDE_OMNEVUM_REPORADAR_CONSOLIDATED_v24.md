@@ -28,7 +28,7 @@ The count of apps is a proxy. Merging products is one way to cut cost, and often
 | Engine code per reader (at v24 start; the engine is 83,040 bytes now) | 82,948 bytes inlined (82,946 in the engine file), byte-identical in 18; SupportScout 81,382 inlined (1,566 smaller, a migration) | the engine is already one program copied 19 times |
 | Copied engine bytes (at v24 start) | about 1.5 MB of 27.8 MB (about 5 percent) | real, but small; the saving is review and drift, not size |
 | Ledger | 532 entries: 291 reject, 151 reference, 78 study, 9 adapt, 1 adopt, 2 unavailable | most resources are not for adoption |
-| Adopt or adapt | 10: 7 applied, 2 deferred, 1 noted | little new to install |
+| Adopt or adapt | 10: 6 applied, 3 deferred, 1 noted | little new to install |
 
 Reading: the largest real duplication is the study engine. Apps in other families (money, games, guides, tools) share conventions but little code, so merging them would save little and widen the blast radius.
 
