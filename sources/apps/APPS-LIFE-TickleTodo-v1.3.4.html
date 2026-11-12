@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-a8Cdg8dvsTvThkgciJKm9hV/w5r4Eia9L42pv6fSSCs='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-iZmt3l9vg5CSmgMFRLklSYevkgJ8Nmd07D0jU4AaRVo='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.4">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -1013,7 +1013,7 @@ const DoneDepot = (() => {
     } else if (json && typeof json === 'object') {
       if (json.app !== undefined || json.schemaVersion !== undefined || json.exportedAt !== undefined) {
         migrate(json.schemaVersion);
-        if (json.app !== APP_NAME) throw new Error('this file is an export from "' + String(json.app).slice(0, 40) + '", not from ' + APP_LABEL);
+        if (json.app !== APP_NAME) throw new Error('this file is an export from "' + (typeof json.app === 'string' ? json.app.slice(0, 40) : 'another app') + '", not from ' + APP_LABEL);
         if (typeof json.schemaVersion === 'number' && json.schemaVersion > SCHEMA_VERSION) throw new Error('the file was made by a newer version of ' + APP_LABEL);
         const d = json.data;
         if (Array.isArray(d)) list = d;
