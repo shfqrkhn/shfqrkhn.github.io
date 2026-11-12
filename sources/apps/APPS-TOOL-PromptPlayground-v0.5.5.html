@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-JKv4ddbr20K3SlNoTMhbuOkI6Cq1vpBjnlUWAwCxjFM=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-t3gEoQpFQOHKkxIaX+TAQzZ1jyJ8uJiux+3qULdulHY=' 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-iqjgCv3QfwcrcDnta8DkYDOzHuyrMbYVewBspq1jUDY='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-JKv4ddbr20K3SlNoTMhbuOkI6Cq1vpBjnlUWAwCxjFM=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-t3gEoQpFQOHKkxIaX+TAQzZ1jyJ8uJiux+3qULdulHY=' 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-GqQxy9dtpYpfsr/SQm9TdoJKvSyE7EAENLZTkp2OP64='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -5867,12 +5867,7 @@ function promptVariableFallback(name) {
 }
 
 function fillPromptVariables(template, values = {}) {
-  let output = String(template || "");
-  for (const name of templateVariables(output)) {
-    const value = values[name] ?? promptVariableFallback(name);
-    output = output.replace(new RegExp(`\\{\\{\\s*${escapeRegExp(name)}\\s*\\}\\}`, "g"), () => String(value));
-  }
-  return output;
+  return String(template || "").replace(/\{\{\s*([\w-]+)\s*\}\}/g, (_match, name) => String(values[name] ?? promptVariableFallback(name)));
 }
 
 function templateVariables(template) {
@@ -5994,9 +5989,23 @@ async function runAssistant(chat) {
   activeRequest = controller;
   renderMessages();
   try {
+    let frame = 0;
+    const paintStream = () => {
+      frame = 0;
+      if (activeRequest !== controller || activeConversation() !== chat) return;
+      const last = dom.messageList.lastElementChild;
+      const target = last && last.querySelector(".markdown");
+      if (!target || chat.messages[chat.messages.length - 1] !== assistant) {
+        renderMessages();
+        return;
+      }
+      target.innerHTML = renderMarkdown(assistant.content);
+      if (autoscrollPinned) dom.messageList.scrollTop = dom.messageList.scrollHeight;
+      updateScrollState();
+    };
     const onToken = (token) => {
       assistant.content += token;
-      renderMessages();
+      if (!frame) frame = requestAnimationFrame(paintStream);
     };
     const onUsage = (usage) => {
       const clean = ChatStateModule.normalizeUsage(usage);
@@ -6011,7 +6020,9 @@ async function runAssistant(chat) {
     if (!assistant.content.trim()) assistant.content = "(No text returned.)";
   } catch (error) {
     assistant.error = true;
-    assistant.content = error.name === "AbortError" ? `${assistant.content}\n\n[Stopped]`.trim() : explainFetchError(error, provider);
+    if (error.name === "AbortError") assistant.content = `${assistant.content}\n\n[Stopped]`.trim();
+    else if (assistant.content.trim()) assistant.content = `${assistant.content}\n\n[The reply ended early: ${explainFetchError(error, provider)}]`;
+    else assistant.content = explainFetchError(error, provider);
   } finally {
     activeRequest = null;
     chat.updatedAt = new Date().toISOString();
@@ -7496,12 +7507,16 @@ function renderTable(head, aligns, rows) {
 }
 
 function renderInline(text) {
-  let html = escapeHtml(text);
-  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
-  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-  html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-  return html;
+  return escapeHtml(text)
+    .split(/(`[^`]+`)/)
+    .map((part, position) => {
+      if (position % 2) return `<code>${part.slice(1, -1)}</code>`;
+      return part
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+        .replace(/\*([^*]+)\*/g, "<em>$1</em>")
+        .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    })
+    .join("");
 }
 
 function titleFrom(text) {

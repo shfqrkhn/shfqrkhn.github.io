@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-iZmt3l9vg5CSmgMFRLklSYevkgJ8Nmd07D0jU4AaRVo='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-FOMLCaFRKqV0LUKqYPhv5ESK9FRh/dbEiz7JIh8q4mA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.4">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -878,11 +878,19 @@ const DoneDepot = (() => {
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) { mem[k] = String(v); } }
   };
 
-  /* next due date for a repeating task: the first date after today on the old pattern */
-  function nextDue(due, repeat, today) {
+  const STORAGE_WARN = 'Not saved: browser storage full or blocked. Export JSON now.';
+  /* monthly step from the original day of the month, clamped to the length of the target month */
+  const addMonthsOn = (d, n, day) => {
+    const m = d.getMonth() + n;
+    const last = new Date(d.getFullYear(), m + 1, 0).getDate();
+    return new Date(d.getFullYear(), m, Math.min(day, last));
+  };
+  /* next due date for a repeating task: the first date after today on the old pattern (day = original day of month) */
+  function nextDue(due, repeat, today, day) {
     const t = parseISO(today) || new Date();
     const base = parseISO(due) || t;
-    const step = n => repeat === 'daily' ? addDays(base, n) : repeat === 'weekly' ? addDays(base, 7 * n) : addMonths(base, n);
+    const dom = (day >= 1 && day <= 31) ? Math.floor(day) : base.getDate();
+    const step = n => repeat === 'daily' ? addDays(base, n) : repeat === 'weekly' ? addDays(base, 7 * n) : addMonthsOn(base, n, dom);
     let n = 1, next = step(n);
     while (next <= t && n < 60000) { n++; next = step(n); }
     return toISO(next);
@@ -1239,8 +1247,10 @@ const DoneDepot = (() => {
       this._sampleDataLoadedDueToError = false;
       this._oldFormatMigrated = false;
       this.orderMode = 'derived';
+      let storedData = null;
+      this._unreadableKept = false;
       try {
-        const storedData = store.get(config.STORAGE_KEY);
+        storedData = store.get(config.STORAGE_KEY);
         if (storedData) {
           const parsedData = JSON.parse(storedData);
           if (findUnsafeKey(parsedData)) throw new Error('Unsafe key in stored data.');
@@ -1269,6 +1279,16 @@ const DoneDepot = (() => {
         this.checklistName = config.DEFAULT_CHECKLIST_NAME;
         this.checklistItems = [];
         this._sampleDataLoadedDueToError = true;
+        /* never lose unreadable data: keep the raw text under its own key (a second key if one is already held) */
+        if (typeof storedData === 'string' && storedData) {
+          try {
+            const k1 = config.STORAGE_KEY + '_unreadable_copy';
+            const held = localStorage.getItem(k1);
+            const k = (held === null || held === storedData) ? k1 : k1 + '_' + Date.now();
+            localStorage.setItem(k, storedData);
+            this._unreadableKept = localStorage.getItem(k) === storedData;
+          } catch (e2) { this._unreadableKept = false; }
+        }
       }
     },
     saveData() {
@@ -1277,12 +1297,15 @@ const DoneDepot = (() => {
         if (this.orderMode === 'manual') { dataToSave.schemaVersion = SCHEMA_VERSION; dataToSave.orderMode = 'manual'; }
         localStorage.setItem(config.STORAGE_KEY, JSON.stringify(dataToSave));
         localStorage.setItem(config.STORAGE_KEY + config.LAST_SAVED_TS_KEY_SUFFIX, Date.now().toString());
+        const wasFailed = this.saveFailed;
         this.saveFailed = false;
         this.firstRun = false;
+        if (wasFailed && UIManager.dom && UIManager.dom.footbar && UIManager.dom.footbar.textContent.indexOf(STORAGE_WARN) >= 0) UIManager.footbar.hide(true);
         if (UIManager.dom && UIManager.dom.lastSavedTimestamp) UIManager.updateLastSavedTimestamp();
       } catch (error) {
         this.saveFailed = true;
-        UIManager.showAlert('Not saved: browser storage full or blocked. Export JSON now.', 'danger');
+        UIManager._warnDismissed = false;
+        UIManager.showAlert(STORAGE_WARN, 'danger');
       }
     },
     snapshot() { return JSON.stringify({ n: this.checklistName, i: this.checklistItems, o: this.orderMode }); },
@@ -1447,10 +1470,21 @@ const DoneDepot = (() => {
       const it = path.item;
       if (!it.repeat) return null;
       const today = todayStr();
-      const nd = nextDue(it.dueDate, it.repeat, today);
+      /* keep the original day of month; trust a stored day only while it still matches the due date */
+      const bd = parseISO(it.dueDate);
+      let day = bd ? bd.getDate() : 0;
+      if (it.repeat === 'monthly' && bd && it.repeatDay >= 1 && it.repeatDay <= 31) {
+        const lastDay = new Date(bd.getFullYear(), bd.getMonth() + 1, 0).getDate();
+        if (bd.getDate() === Math.min(it.repeatDay, lastDay)) day = Math.floor(it.repeatDay);
+      }
+      const nd = nextDue(it.dueDate, it.repeat, today, day);
+      /* reopening and completing again must not add another copy: stop if the next one already exists */
+      const dup = path.list.some(o => o !== it && o.repeat === it.repeat && o.text === it.text && o.dueDate === nd && this.isOpen(o));
+      if (dup) return null;
       const base = parseISO(it.dueDate) || parseISO(today);
       const copy = this._cloneFresh(it, daysBetween(parseISO(nd), base));
       copy.dueDate = nd;
+      if (it.repeat === 'monthly' && day) copy.repeatDay = day;
       path.list.splice(path.index + 1, 0, copy);
       return copy;
     },
@@ -2112,6 +2146,10 @@ const DoneDepot = (() => {
       timer: null,
       show(opts) {
         const bar = UIManager.dom.footbar;
+        /* while a save is failing, every message carries the storage warning until a save works or the user dismisses it */
+        if (DataManager.saveFailed && !UIManager._warnDismissed && String(opts.message).indexOf(STORAGE_WARN) < 0 && String(opts.message).indexOf('Not saved') < 0) {
+          opts = Object.assign({}, opts, { message: opts.message + ' ' + STORAGE_WARN, type: 'danger' });
+        }
         const type = opts.type || 'info';
         clearTimeout(this.timer);
         bar.textContent = '';
@@ -2131,7 +2169,7 @@ const DoneDepot = (() => {
         } else if (type === 'danger' || type === 'warning') {
           const x = el('button', 'foot-dismiss', 'OK');
           x.type = 'button';
-          x.addEventListener('click', () => this.hide());
+          x.addEventListener('click', () => this.hide(true));
           bar.appendChild(x);
         }
         bar.hidden = false;
@@ -2145,11 +2183,13 @@ const DoneDepot = (() => {
           bar.addEventListener('focusout', () => { if (this._ms && !bar.hidden) { clearTimeout(this.timer); this.timer = setTimeout(() => this.hide(), this._ms); } });
         }
       },
-      hide() {
+      hide(dismiss) {
         clearTimeout(this.timer);
         UIManager._undoFn = null;
         UIManager.dom.footbar.hidden = true;
         UIManager.dom.footbar.textContent = '';
+        if (dismiss === true) UIManager._warnDismissed = true;
+        else if (DataManager.saveFailed && !UIManager._warnDismissed) this.show({ message: STORAGE_WARN, type: 'danger', duration: 0 });
       }
     },
     showAlert(message, type = 'success', duration) {
@@ -2388,9 +2428,13 @@ const DoneDepot = (() => {
       this.addEventListeners();
       this.refreshChecklistDisplay();
       Focus.init();
+      this._day = todayStr();
+      const dayCheck = () => { const d = todayStr(); if (d !== this._day) { this._day = d; this.refreshChecklistDisplay(); } };
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) dayCheck(); });
+      setInterval(dayCheck, 60000);
       if (UIManager._pendingAlert) { const a = UIManager._pendingAlert; UIManager._pendingAlert = null; UIManager.showAlert(a.message, a.type, a.duration); }
       else if (DataManager._sampleDataLoadedDueToError) {
-        UIManager.showAlert('Saved data unreadable. Showing an empty list. The old copy stays until you change something.', 'warning', 0);
+        UIManager.showAlert(DataManager._unreadableKept ? 'Saved data unreadable. Showing an empty list. A raw copy is kept in browser storage, but your next change replaces the main copy.' : 'Saved data unreadable. Showing an empty list. No copy could be kept, and your next change replaces the old data.', 'warning', 0);
       }
       if (!UIManager._pendingAlert && DataManager._oldFormatMigrated) {
         UIManager.showAlert('Data format updated. Nothing lost.', 'info');

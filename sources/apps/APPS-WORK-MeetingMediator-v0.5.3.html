@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-048Z9yuWr7NkMouGkTL7/5feWTCpskG0gln+GKh6pcU=' 'sha256-I1CulcYQTfE5O/rcHPwqN/tyZUrTLS7zpD2prIKcOB0=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-048Z9yuWr7NkMouGkTL7/5feWTCpskG0gln+GKh6pcU=' 'sha256-sZIYNpsGvUf4OWAI+nSoiIjGUfTMW0kaQ6UChCoAq8o=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
     <meta name="description" content="MeetingMediator Sessions: a facilitator-first resolution suite. Resolve clearly." />
     <meta name="referrer" content="no-referrer" />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), fullscreen=(self)" />
@@ -2084,8 +2084,19 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
   // -- Config ----------------------------------------------------------------
 
   function loadConfig() {
-    try { return JSON.parse(sessionStorage.getItem(CONFIG_KEY) || 'null'); }
+    let cfg = null;
+    try { cfg = JSON.parse(sessionStorage.getItem(CONFIG_KEY) || 'null'); }
     catch { return null; }
+    if (!cfg || typeof cfg !== 'object') return null;
+    // A saved model id that this app no longer offers falls back to the default.
+    const list = cfg.provider === 'gemini' ? GEMINI_MODELS : OPENAI_MODELS;
+    let ok = typeof cfg.model === 'string' && cfg.model !== ''
+      && (cfg.custom === true || list.some(m => m.id === cfg.model));
+    if (!ok && typeof cfg.model === 'string') {
+      for (const v of modelListCache.values()) { if (v.models.includes(cfg.model)) { ok = true; break; } }
+    }
+    if (!ok) cfg = { ...cfg, model: list[0].id };
+    return cfg;
   }
 
   function saveConfig(cfg) {
@@ -2301,6 +2312,21 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
 
   // -- AI API calls ----------------------------------------------------------
 
+  const REQUEST_TIMEOUT_MS = 60000;
+
+  async function timedFetch(url, init) {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      return await fetch(url, { ...init, signal: ctl.signal });
+    } catch (e) {
+      if (e && e.name === 'AbortError') throw new Error('The request timed out after 60 seconds. Try again.');
+      throw e;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   async function callGemini(cfg, messages) {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cfg.model)}:generateContent`;
 
@@ -2320,7 +2346,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
       generationConfig: { temperature: 0.7, maxOutputTokens: 2048 },
     };
 
-    const res = await fetch(url, {
+    const res = await timedFetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': cfg.apiKey },
       body: JSON.stringify(body),
@@ -2332,12 +2358,18 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     }
 
     const data = await res.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || '(no response)';
+    const cand = data.candidates?.[0];
+    const text = (cand?.content?.parts || []).map(p => (p && typeof p.text === 'string') ? p.text : '').join('').trim();
+    if (!text) {
+      const why = data.promptFeedback?.blockReason || cand?.finishReason;
+      throw new Error(why === 'STOP' || !why ? 'The AI returned an empty reply. Try again.' : 'The AI returned no text (' + why + '). The request may have been blocked. Try rewording.');
+    }
+    return text;
   }
 
   async function callOpenAI(cfg, messages) {
     const base = (cfg.endpoint || 'https://api.openai.com/v1').replace(/\/$/, '');
-    const res = await fetch(`${base}/chat/completions`, {
+    const res = await timedFetch(`${base}/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -2357,7 +2389,13 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     }
 
     const data = await res.json();
-    return data.choices?.[0]?.message?.content || '(no response)';
+    const msg = data.choices?.[0]?.message;
+    const text = typeof msg?.content === 'string' ? msg.content.trim() : '';
+    if (!text) {
+      const why = msg?.refusal || data.choices?.[0]?.finish_reason;
+      throw new Error(msg?.refusal ? 'The AI declined to answer. Try rewording.' : (why === 'content_filter' ? 'The reply was blocked by the provider. Try rewording.' : 'The AI returned an empty reply. Try again.'));
+    }
+    return text;
   }
 
   async function callAI(cfg, messages) {
@@ -2522,7 +2560,8 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     inpEndpointUrl.value = cfg.endpoint || 'https://api.openai.com/v1';
 
     function renderModelOptions(models, preferred) {
-      const prev = preferred || selModel.value;
+      let prev = preferred || selModel.value;
+      if (!models.some(m => (m.id || String(m)) === prev)) prev = '';
       selModel.innerHTML = '';
       for (const m of models) {
         const id = m.id || String(m);
@@ -2546,7 +2585,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
       let models;
       if (provider === 'gemini') {
         const url = `https://generativelanguage.googleapis.com/v1beta/models`;
-        const res = await fetch(url, { headers: { 'x-goog-api-key': apiKey } });
+        const res = await timedFetch(url, { headers: { 'x-goog-api-key': apiKey } });
         if (!res.ok) throw new Error(`Gemini model list error ${res.status}`);
         const data = await res.json();
         models = (data.models || [])
@@ -2555,7 +2594,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
           .filter(Boolean);
       } else {
         const base = (endpoint || 'https://api.openai.com/v1').replace(/\/$/, '');
-        const res = await fetch(`${base}/models`, {
+        const res = await timedFetch(`${base}/models`, {
           headers: { 'Authorization': `Bearer ${apiKey}` }
         });
         if (!res.ok) throw new Error(`OpenAI model list error ${res.status}`);
@@ -2628,11 +2667,13 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
         provider,
         apiKey,
         model,
+        ...(customModel ? { custom: true } : {}),
         ...(provider === 'openai' && endpoint ? { endpoint } : {}),
       });
 
       state.settingsOpen = false;
       state.history = [];
+      state.reqSeq++;
       renderChat();
       loadContextAndGreet();
     });
@@ -2758,12 +2799,14 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
 
     const route    = detectRoute();
     const matterId = detectMatterId();
+    const seq      = ++state.reqSeq;
 
     try {
       state.ctx = await gatherContext(matterId);
     } catch {
       state.ctx = null;
     }
+    if (seq !== state.reqSeq) return;
 
     const sysPrompt = buildSystemPrompt(state.ctx, route);
     state.history = [{ role: 'system', content: sysPrompt }];
@@ -2784,10 +2827,12 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
 
     try {
       const reply = await callAI(cfg, seed);
+      if (seq !== state.reqSeq) return;
       hideTyping();
       state.history.push({ role: 'assistant', content: reply });
       appendBubble('assistant', reply);
     } catch (e) {
+      if (seq !== state.reqSeq) return;
       hideTyping();
       appendBubble('assistant', `The AI provider could not be reached: ${e.message}\n\nYour records are unchanged. Check your API key and network connection in the settings view of this panel.`);
     }
@@ -2812,6 +2857,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     updateSendState();
 
     state.busy = true;
+    const seq = ++state.reqSeq;
     const sendBtn = document.getElementById('byoai-btn-send');
     if (sendBtn) sendBtn.disabled = true;
     showTyping();
@@ -2822,10 +2868,12 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
         ? [state.history[0], ...state.history.slice(-20)]
         : state.history;
       const reply = await callAI(cfg, msgs);
+      if (seq !== state.reqSeq) return;
       state.history.push({ role: 'assistant', content: reply });
       hideTyping();
       appendBubble('assistant', reply);
     } catch (e) {
+      if (seq !== state.reqSeq) return;
       state.history.pop(); // remove the unresponded user turn to keep history alternating
       hideTyping();
       appendBubble('assistant', `The reply did not arrive: ${e.message}. Your message was not saved.`);
@@ -2904,6 +2952,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     history:      [],  // { role, content }[]
     ctx:          null,
     busy:         false,
+    reqSeq:       0,
     key:          '',
   };
 
@@ -2925,7 +2974,8 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
 
   function trapFocus(e) {
     if (!state.open || !state.panelEl || e.key !== 'Tab') return;
-    const focusable = state.panelEl.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+    const focusable = Array.from(state.panelEl.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'))
+      .filter(x => !x.disabled && x.offsetParent !== null);
     if (!focusable.length) return;
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -3019,6 +3069,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     document.getElementById('byoai-btn-clear-chat').addEventListener('click', () => {
       if (!confirm('Clear this chat history?')) return;
       state.history = state.history.filter(m => m.role === 'system');
+      state.reqSeq++;
       renderChat();
       const inputEl = document.getElementById('byoai-input');
       inputEl?.focus();

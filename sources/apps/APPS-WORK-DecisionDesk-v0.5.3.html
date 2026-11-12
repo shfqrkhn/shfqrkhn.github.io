@@ -6,7 +6,7 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F1E7" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E1E1E" />
     <meta name="description" content="DecisionDesk Briefs: a decision briefing kept on this device. Question, ranked options, evidence, review and export." />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LZNcXVpvfuA+Nv77iot7TCcW7k3g4K0fe0A1EO2xR2w=' 'sha256-g0k9hlAQF2lWCyLYVxas5GHXqnzuXEavpWHPYi/JocM='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LZNcXVpvfuA+Nv77iot7TCcW7k3g4K0fe0A1EO2xR2w=' 'sha256-pFvdfrZAoq7nk93BVclLwLCBGskTg/lhK8DqCKZ2O9c='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
     <!-- Weight exception: this file is about 237 KB against a 100 KB tier. 41 KB is three embedded font subsets (headings and text, needed for the memo look), 7 KB is two icons, and the rest is the app and the two full licence texts. Recorded as an accepted exception; nothing was trimmed that would remove a licence text or a feature. -->
     <title>DecisionDesk Briefs</title>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAACHElEQVRYCWNgGOmAEVsATC+N7/zPwFAGk3OTPcigzPeAgQrgHmMCgzKyOUzIHBgbaLkijE1lWgndPCZ0AXrzMRxw9epVNnVnH2dhLSOGtx++0tw9GA74/+/rdx4+QQFBaQWGDyycVHeAfrvdUZdFLnIwg1lgDBj948cPxrPrF68B8kOVeTDcBxSmDP39x2D17y+LOdCUR0DMwAQikPGXL5+/yJq7uCOL0ZKN4QBRMQURLh6OP7RKAzXKXxis+L8LwDyF4QBapwEtrt8Mperf4amb7mng67d/DAw//wEJSBhghMCXz7RNAz+6mRg+bPuvBrGeATMRiorTNg0wAP3+ZS/TC5gDMKIAmgYY/jKxAcuBMwzCMJVUpJl+/v0FMw7DAbQuB/4z/P/H95/5Fk4HwNLA45N7YGqoSjudv8KMbCBGIqR5GkC2HcjGiAJ6pAGgvXCE4QBapwG4zVAGRhTA0gBUnuYUhgNG08BoGnBw8uYDFkI7aZ76oBZgZEOQ+IPn75wE+RDtwfefWRn+szEcB8mRjf8zsP37jVm1YHXAvefvTpVm13vCLPvPyPj3HBOjCYxPDv3//z8mnjvbgMXwBBTtWB3w+++/ryIiKPUgUCMDCKNoJpXzQ90DqIUIB4jwcz7ev3v3W6BqMFLg+sgmwvX7I5gDJIA9JwYGEAGs24FcCBvEAImBMJQNY4LUMv77zSnycN9vkNQoRg4BAGKX15ME57AJAAAAAElFTkSuQmCC" />
@@ -359,7 +359,7 @@ body{font-variant-numeric:tabular-nums}
           </div>
           <div class="blank" id="blank-case" hidden>
             <h2 id="blank-h"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,16V152h-28.7A15.86,15.86,0,0,0,168,156.69L148.69,176H107.31L88,156.69A15.86,15.86,0,0,0,76.69,152H48V48Zm0,160H48V168H76.69L96,187.31A15.86,15.86,0,0,0,107.31,192h41.38A15.86,15.86,0,0,0,160,187.31L179.31,168H208v40Z"/></svg> Empty case</h2>
-            <p>Write a question. Add 2 or more options.</p>
+            <p id="blank-msg">Write a question. Add 2 or more options.</p>
             <a class="btn" href="#question" id="blank-go"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg> Question</a>
           </div>
           <section class="part card" id="case" aria-labelledby="case-h">
@@ -1771,8 +1771,14 @@ function renderPrintableBrief(bundle) {
 async function loadCurrentCase() {
   const bundle = await getCurrentCaseBundle();
   if (!bundle || !bundle.caseFile) {
+    const emptyBox = document.getElementById("blank-case");
+    const emptyMsg = document.getElementById("blank-msg");
+    if (emptyMsg) emptyMsg.textContent = "There is no case yet. Add one with the Case button.";
+    if (emptyBox) emptyBox.hidden = false;
     return;
   }
+  const emptyMsg0 = document.getElementById("blank-msg");
+  if (emptyMsg0) emptyMsg0.textContent = "Write a question. Add 2 or more options.";
 
   applyMemo(bundle.caseFile, bundle.matrix, bundle.outcome, bundle.governance);
   renderList(elements.evidenceList, bundle.evidence, (row) => `${row.kind}: ${row.citation}`, "No evidence. Add one.");
@@ -2227,6 +2233,10 @@ async function saveMemo(event) {
   try {
     const existing = await getRecord("cases", appState.selectedCaseId);
     const payload = getMemoPayload();
+    if (!payload.title) {
+      announce("Enter a title. It cannot be only spaces.");
+      return;
+    }
     await putRecord("cases", {
       ...existing,
       ...payload,
@@ -2677,16 +2687,40 @@ async function resetLocalData() {
     return;
   }
 
-  for (const storeName of STORE_NAMES) {
-    await clearStore(storeName);
+  try {
+    const all = [...STORE_NAMES, "backups"];
+    const tx = appState.db.transaction(all, "readwrite");
+    for (const storeName of all) {
+      tx.objectStore(storeName).clear();
+    }
+    await txDone(tx);
+  } catch {
+    announce("Erase failed. Nothing was erased; your data is unchanged.");
+    return;
   }
-  await clearStore("backups");
+
+  let copiesGone = true;
+  try {
+    if (navigator.storage?.getDirectory) {
+      const root = await navigator.storage.getDirectory();
+      try {
+        await root.removeEntry("ledger-suite-exports", { recursive: true });
+      } catch (e) {
+        if (!e || e.name !== "NotFoundError") copiesGone = false;
+      }
+    }
+  } catch {
+    copiesGone = false;
+  }
+  elements.opfsStatus.textContent = copiesGone ? "" : "The private file copies in this browser could not be removed.";
 
   await ensureMetaAndMigrate();
   await ensureDefaultData();
   await logRecovery("local-reset", "User reset local data.");
   await refreshSelectorsAndCase();
-  announce("Erased. Backup downloaded.");
+  announce(copiesGone
+    ? "Erased. Backup downloaded."
+    : "Erased, and backup downloaded. The private file copies in this browser could not be removed.");
 }
 
 async function clearAppCache() {
@@ -3474,14 +3508,15 @@ function setRating(optId, critId, input) {
   const idx = cur.ratings.findIndex((r) => r.id === id);
   const text = input.value.trim();
   input.setCustomValidity("");
-  if (text === "" || !Number.isFinite(Number(text))) {
+  if (text === "") {
     if (idx >= 0) cur.ratings.splice(idx, 1);
     queueDelete("ratings", id);
     return;
   }
   const n = Number(text);
-  if (n < 0 || n > 10) {
+  if (!Number.isFinite(n) || n < 0 || n > 10) {
     input.setCustomValidity("Rating 0 to 10.");
+    announce("That rating was not saved. Enter a number from 0 to 10, or leave it empty.");
     return;
   }
   const value = Math.round(n * 10) / 10;
@@ -3504,11 +3539,13 @@ function setCriterionField(critId, input) {
   } else {
     const text = input.value.trim();
     const n = Number(text);
-    if (text === "" || !Number.isFinite(n) || n < 0 || n > 100) {
+    if (text === "" || !Number.isFinite(n)) {
       input.setCustomValidity("Weight 0 to 100.");
       return;
     }
-    c.weight = Math.round(n * 10) / 10;
+    const w = Math.max(0, Math.min(100, n));
+    if (w !== n) input.value = String(w);
+    c.weight = Math.round(w * 10) / 10;
   }
   queueWrite("criteria", c);
 }

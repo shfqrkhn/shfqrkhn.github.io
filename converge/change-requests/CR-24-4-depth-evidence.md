@@ -167,3 +167,14 @@ Not counted clean. Routes (100 loads) and coverage lenses were clean. Import len
 ## Phase A pass 26
 
 Not counted clean. Routes and coverage lenses were clean. Import lenses found: WorldCupWizard accepted text where a number belongs ("NaN") and absurd numbers (1e308); TrendTracker CSV accepted 1e400 (shown as Infinity, also in the preview table); NoodleNudge accepted saved scores with a missing or object value, an object title or an object interpretation. All are now refused or skipped with a plain message. The first NoodleNudge fix wrongly refused the app's own export (some score values are text or true/false), so it now refuses only missing, null, object or non-finite values. Caps: WorldCupWizard 248 of 800 payloads, NoodleNudge 237 without envelope keys, PennyPlanner 556 of 825, TrendTracker CSV past the column mapping untested. Testing was paused by the owner after this edit: the last NoodleNudge and TrendTracker preview edits were built once but not browser-checked.
+
+## Deferred defects fixed (2026-11-12, untested)
+
+Owner order: development first, tests last. Seven apps, one writer each, edits checked by `node --check` only; no build, browser or self-test has run on them, so every line below is unverified until testing resumes. CSP hashes repaired.
+
+- MeetingMediator: AI panel focus trap skips disabled and hidden buttons; a saved model no longer offered falls back to the default (custom ids carry an optional `custom:true`); empty, blocked or refused replies show a plain message; 60 second request timeout; stale replies dropped.
+- PromptPlayground: streaming repaints only the last message once per frame; a stream that ends early keeps its partial text with a note; markdown is not applied inside code spans; variables are filled in one pass.
+- TickleTodo: a storage warning stays until a save succeeds; reopening a repeat task makes no extra copy; monthly repeats keep the original day through an optional `repeatDay`; the day view re-renders after midnight; unreadable saved data is copied to a backup key and the user is told before any save.
+- DecisionDesk: erase is one transaction and removes the OPFS copies; invalid ratings, whitespace titles and an empty case say so plainly; criterion weight clamps to 0 to 100 (read as the sensitivity input). StepSleuth: heading and title agree, French Look label, Minutes hint.
+- PennyPlanner: duplicate check after an edit; monthly day 29 to 31 repeats keep the anchor day; day-first dates read or refused; BOM headers stripped. WorldCupWizard: weather counts as fresh only with a temperature; a hand-edited fair-play value survives a reload.
+- Skipped with reason: PennyPlanner CAD labels (already consistent); WorldCupWizard chaos (every path already uses it; changing it changes the model). NestEggNinja items stay with the owner (data choices).

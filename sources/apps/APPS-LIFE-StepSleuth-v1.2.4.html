@@ -2,7 +2,7 @@
 <html lang="en" data-app data-theme="paper" data-look="auto" style="--hue:73">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-MI6FNRjBXIQje76CEy+EId8z4ftgVRENMY2s4aLa6nU=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-e23TBLEV3SytCI9NM0xYJGunZyh59CXZL1lCi26+sjI='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-5jkxoBdbLIlhTmqTfm1G0Nf3vgrdw2Wd75fb+RNXItI=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-YWPdsImmwNpYA9GlQz06Pom/ZIK5IltVgguTAVwTtqU='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- StepSleuth 1.2.4. Single file, offline, no network. Fira Sans (SIL OFL 1.1) embedded as subset woff2. Bootstrap and Bootstrap Icons removed in 1.1.0. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#faf8f4">
@@ -442,7 +442,7 @@ dialog .btn{margin-top:var(--s5)}
             },
             translations: {
                 en: {
-                    mainTitle: "StepSleuth",
+                    mainTitle: "StepSleuth Step Counter",
                     mainSubtitle: "Activity to steps. Every stride leaves a clue.",
                     activityLabel: "Activity",
                     distanceLabel: "Distance",
@@ -460,7 +460,7 @@ dialog .btn{margin-top:var(--s5)}
                     unitKph: "km/h", unitStairsMin: "stairs/min", unitMetersMin: "m/min"
                 },
                 fr: {
-                    mainTitle: "StepSleuth",
+                    mainTitle: "StepSleuth Compteur de pas",
                     mainSubtitle: "Activité en pas. Chaque foulée laisse un indice.",
                     activityLabel: "Activité",
                     distanceLabel: "Distance",
@@ -556,7 +556,7 @@ Object.assign(Lang.translations.en, {
     factorSimple: "{n} steps/min",
     factorSpeed: "Steps/min by speed:",
     distanceHint: "Total for this time.",
-    minutesHint: "0 to 1440", exampleNote: "Example, edit.",
+    minutesHint: "Whole minutes, 0 to 1440", exampleNote: "Example, edit.",
     timeMin: "Minutes: 0 to 1440.", timeFrac: "Whole minutes only.", timeSec: "Seconds: 0 to 59.", timeMax: "Max 24 hours.",
     secondsHint: "0 to 59",
     contentVer: "Data {v}, {d}.", contentErr: "Activity list unreadable. Get a fresh copy of this file.",
@@ -572,7 +572,7 @@ Object.assign(Lang.translations.en, {
     helpBody: "<ol><li>Pick an activity, tap Next.</li><li>Enter time (and distance if asked), tap Next.</li><li>Read the steps. Print opens your browser print dialog (choose Save as PDF to keep a copy).</li></ol><p>Factors lists every rate. Nothing you enter is saved; only Look is.</p>"
 });
 Object.assign(Lang.translations.fr, {
-    lookLabel: "Look", helpBtn: "Aide", licencesBtn: "Licences", skip: "Passer", backHub: "Accueil Omnevum",
+    lookLabel: "Apparence", helpBtn: "Aide", licencesBtn: "Licences", skip: "Passer", backHub: "Accueil Omnevum",
     langGroup: "Langue", viewsGroup: "Vues", unitStairs: "marches", unitMeters: "mètres",
     zeroTime: "Durée 0.", zeroDist: "Distance 0.",
     tabEstimate: "Estimer", tabFactors: "Facteurs",
@@ -583,7 +583,7 @@ Object.assign(Lang.translations.fr, {
     factorSimple: "{n} pas/min",
     factorSpeed: "Pas/min selon la vitesse :",
     distanceHint: "Total pour cette durée.",
-    minutesHint: "0 à 1440", exampleNote: "Exemple, modifiez.",
+    minutesHint: "Minutes entières, 0 à 1440", exampleNote: "Exemple, modifiez.",
     timeMin: "Minutes : 0 à 1440.", timeFrac: "Minutes entières.", timeSec: "Secondes : 0 à 59.", timeMax: "Maximum 24 heures.",
     secondsHint: "0 à 59",
     contentVer: "Données {v}, {d}.", contentErr: "Liste illisible. Obtenez une copie neuve du fichier.",
@@ -625,7 +625,7 @@ const UI = {
     updateTexts() {
         document.documentElement.lang = Lang.current;
         const t = (id, key) => this.setText(id, key);
-        t('main-title', 'mainTitle'); t('main-subtitle', 'mainSubtitle');
+        t('main-title', 'mainTitle'); document.title = Lang.get('mainTitle'); t('main-subtitle', 'mainSubtitle');
         t('activity-label', 'activityLabel'); t('minutes-label', 'minutesLabel'); t('seconds-label', 'secondsLabel');
         t('steps-label', 'stepsLabel'); t('explanation-title', 'explanationTitle');
         t('summary-title', 'summaryTitle'); t('summary-activity-header', 'summaryActivityHeader'); t('summary-factor-header', 'summaryFactorHeader');
