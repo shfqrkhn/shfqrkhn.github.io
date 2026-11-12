@@ -2,11 +2,11 @@
 <html lang="en" data-app data-theme="paper" data-look="auto" style="--hue:73">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-5jkxoBdbLIlhTmqTfm1G0Nf3vgrdw2Wd75fb+RNXItI=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-YWPdsImmwNpYA9GlQz06Pom/ZIK5IltVgguTAVwTtqU='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- StepSleuth 1.2.4. Single file, offline, no network. Fira Sans (SIL OFL 1.1) embedded as subset woff2. Bootstrap and Bootstrap Icons removed in 1.1.0. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-CdqiWVn2m8Hbj7inP+BfLzYBsTKwFvZ3RHWEodN/7YA=' 'sha256-5jkxoBdbLIlhTmqTfm1G0Nf3vgrdw2Wd75fb+RNXItI=' 'sha256-impUQYnVaAKxTnVCIwnS1mnMjaLbHcTlAg0K8RxaCLk=' 'sha256-VuFeG/TqndERmRSSV+2r/3pucA7q11p+1O97Tx8Fx+s='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- StepSleuth 1.2.5. Single file, offline, no network. Fira Sans (SIL OFL 1.1) embedded as subset woff2. Bootstrap and Bootstrap Icons removed in 1.1.0. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#faf8f4">
-<meta name="application-version" content="1.2.4">
+<meta name="application-version" content="1.2.5">
 <meta name="description" content="StepSleuth Step Counter: turn an activity and its duration into an estimated step count.">
 <title>StepSleuth Step Counter</title>
 <script>(function(){var K="stepsleuth.look",H="hub.prefs.v1",r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null;function ok(v){return v==="auto"||v==="paper"||v==="charcoal"||v==="black"}function get(){try{var p=JSON.parse(localStorage.getItem(H)||"null");if(p&&ok(p.look))return p.look}catch(e){}try{var v=localStorage.getItem(K);return ok(v)?v:"auto"}catch(e){return"auto"}}function save(l){try{localStorage.setItem(K,l)}catch(e){}try{var p={};try{p=JSON.parse(localStorage.getItem(H)||"{}")||{}}catch(e){}p.schemaVersion=1;p.look=l;localStorage.setItem(H,JSON.stringify(p))}catch(e){}}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-theme",t);r.setAttribute("data-look",l);var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++){if(i===0){m[i].removeAttribute("media");m[i].setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t])}else m[i].remove()}}apply(get());mq&&mq.addEventListener&&mq.addEventListener("change",function(){get()==="auto"&&apply("auto")});function wire(){var s=document.getElementById("look");if(!s)return;s.value=get();s.addEventListener("change",function(){save(s.value);apply(s.value)})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",wire):wire()})();</script>
@@ -567,7 +567,7 @@ Object.assign(Lang.translations.en, {
     timeFmt: "{m} min {s} s",
     factorsLead: "Steps per minute.",
     closeHelp: "Close", closeLic: "Close",
-    footText: "v1.2.4. Nothing you enter is saved.",
+    footText: "v1.2.5. Nothing you enter is saved.",
     helpTitle: "Help",
     helpBody: "<ol><li>Pick an activity, tap Next.</li><li>Enter time (and distance if asked), tap Next.</li><li>Read the steps. Print opens your browser print dialog (choose Save as PDF to keep a copy).</li></ol><p>Factors lists every rate. Nothing you enter is saved; only Look is.</p>"
 });
@@ -594,7 +594,7 @@ Object.assign(Lang.translations.fr, {
     timeFmt: "{m} min {s} s",
     factorsLead: "Pas par minute.",
     closeHelp: "Fermer", closeLic: "Fermer",
-    footText: "v1.2.4. Rien n'est enregistré.",
+    footText: "v1.2.5. Rien n'est enregistré.",
     helpTitle: "Aide",
     helpBody: "<ol><li>Choisissez une activité, appuyez sur Suivant.</li><li>Entrez la durée (et la distance si demandée), appuyez sur Suivant.</li><li>Lisez les pas. Imprimer ouvre la boîte d'impression du navigateur (choisissez Enregistrer en PDF pour garder une copie).</li></ol><p>Facteurs liste tous les taux. Rien n'est enregistré, sauf Look.</p>"
 });

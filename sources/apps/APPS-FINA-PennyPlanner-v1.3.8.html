@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PBMRCcBKv/BcrVqwCzEAK+BihmjAv67o/tbZKC0faZ8=' 'sha256-kY1Ramjnfj8j9eaV2MlNAsGz8za4XyGfcUQJCMAoukA=' 'sha256-mm9C/sUh1dq65PJawtn39xKUFRq78ndOSgSiv0qlWCU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'none'; form-action 'none'" />
-    <meta name="version" content="1.3.7-single" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PBMRCcBKv/BcrVqwCzEAK+BihmjAv67o/tbZKC0faZ8=' 'sha256-WZZQ/dUrl+dVBUMpCZ6n3Vh6nnVNvCjoLzBbM+tVEJQ=' 'sha256-mm9C/sUh1dq65PJawtn39xKUFRq78ndOSgSiv0qlWCU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="version" content="1.3.8-single" />
     <meta name="theme-color" content="#faf8f4" />
-    <!-- PennyPlanner 1.3.7-single (Add Transaction saves again, two identical rows in one CSV are both imported, a category made in the nested window is selected, Map Columns fills itself, clear dates; before that 1.3.5-single (a second identical entry is kept, plain words for storage errors, a tag made inside Add Transaction is attached, Enter on a closed list adds, toasts clear of dialogs, Scheduled in the bottom menu; before that 1.3.4-single (Enter on any quick-entry field, ask before discarding typed entries, toasts at the top on phones, Reports in the bottom menu, CA$ chart labels, glossary near the top; before that 1.3.3-single (plain-words fixes: default categories for new data, budget tag flow, Reports link, one accent pair, Help rewritten; before that 1.3.1-single (repairs: CSV thousands separators, reports without transfers and opening balances, 5 MB import limit, names, focus, contrast, reflow, print; on 1.3.0-single: quick entry row and a quieter exchange-rate note, on 1.2.0-single: exact money, envelope export and CSV, on 1.1.1-single; repair of 1.1.0-single, interface rebuild of 1.0.1-single): single-file offline build of the PennyPlanner docs/ (Vite build).
+    <!-- PennyPlanner 1.3.8-single (Add Transaction saves again, two identical rows in one CSV are both imported, a category made in the nested window is selected, Map Columns fills itself, clear dates; before that 1.3.5-single (a second identical entry is kept, plain words for storage errors, a tag made inside Add Transaction is attached, Enter on a closed list adds, toasts clear of dialogs, Scheduled in the bottom menu; before that 1.3.4-single (Enter on any quick-entry field, ask before discarding typed entries, toasts at the top on phones, Reports in the bottom menu, CA$ chart labels, glossary near the top; before that 1.3.3-single (plain-words fixes: default categories for new data, budget tag flow, Reports link, one accent pair, Help rewritten; before that 1.3.1-single (repairs: CSV thousands separators, reports without transfers and opening balances, 5 MB import limit, names, focus, contrast, reflow, print; on 1.3.0-single: quick entry row and a quieter exchange-rate note, on 1.2.0-single: exact money, envelope export and CSV, on 1.1.1-single; repair of 1.1.0-single, interface rebuild of 1.0.1-single): single-file offline build of the PennyPlanner docs/ (Vite build).
          Bundled libraries are those of the original build: React 18.3.1 (MIT), React Router 6.30.0 / @remix-run/router 1.23.0 (MIT),
          Dexie 4.0.11 (Apache-2.0), Recharts (MIT), Radix UI (MIT), lucide-react 0.525.0 (ISC), zod (MIT), date-fns (MIT),
          PapaParse 5.x (MIT), @faker-js/faker (MIT), @google/generative-ai 0.24.1 (Apache-2.0).
@@ -383,7 +383,7 @@ nav.fixed.bottom-0 a span{overflow-wrap:normal!important;white-space:nowrap}
 }
 @media (max-width:359px){ nav.fixed.bottom-0 a span{font-size:.75rem!important} }
 
-/* ---------- 1.3.7 icons ---------- */
+/* ---------- 1.3.8 icons ---------- */
 .ff-ic{flex:none}
 .ff-big{display:flex;justify-content:center;color:var(--muted)}
 .ff-big svg{width:40px;height:40px}
@@ -399,7 +399,7 @@ nav.fixed.bottom-0 a .ff-ni svg{width:22px;height:22px}
 .ff-paypop [cmdk-list]{max-height:132px;overflow-y:auto}
 [role="dialog"] form>div:has(input[aria-label="Description"][aria-expanded="true"]){margin-bottom:144px}
 
-/* ---------- 1.3.7 fixes ---------- */
+/* ---------- 1.3.8 fixes ---------- */
 @media (max-width:1023px){
   [data-sonner-toaster][data-y-position="top"]{top:8px!important}
   [data-sonner-toaster] [data-sonner-toast]{max-height:60px;overflow:hidden}
@@ -765,7 +765,7 @@ const TABLES=["accounts","transactions","payees","categories","tags","rules","im
 const SPEC={transactions:{amount:100},scheduledTransactions:{amount:100},budgets:{amount:100},goals:{targetAmount:100},debts:{initialAmount:100,minimumPayment:100},holdings:{bookValue:100,quantity:1e8}};
 const RATE=1e8;
 const SCHEMA=12;
-const APPV="1.3.7";
+const APPV="1.3.8";
 const DATEF=["createdAt","date","targetDate","startDate","nextDueDate","endDate"];
 const ISO=/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
 const cap=n=>n.charAt(0).toUpperCase()+n.slice(1);
@@ -1180,14 +1180,14 @@ For more information, see https://radix-ui.com/primitives/docs/components/alert-
 </script>
 <script type="application/json" id="content-meta">
 {
- "dataVersion": "1.3.7",
+ "dataVersion": "1.3.8",
  "date": "2026-10-31",
  "source": "Content as shipped in this version: the starting categories for a new install (the block named ff-defaults: Groceries, Rent, Utilities, Transport, Eating out, Health, Fun, Income, Other) and the synthetic sample data (Settings, Backup and tools, Data), which has its own larger category set. The sample data lives in the app code; this block records the content version, date and source."
 }
 </script>
 <footer class="ff-foot" id="ff-footer">
   <div class="ff-foot-in">
-    <p><strong>PennyPlanner Budget 1.3.7.</strong> Prototype. Your data stays in this browser. Content <span id="ff-content-ver">1.3.7</span>, <span id="ff-content-date">2026-10-31</span>.</p>
+    <p><strong>PennyPlanner Budget 1.3.8.</strong> Prototype. Your data stays in this browser. Content <span id="ff-content-ver">1.3.8</span>, <span id="ff-content-date">2026-10-31</span>.</p>
     <button type="button" id="ff-help-open2" aria-haspopup="dialog">Help</button>
     <button type="button" id="ff-lic-open" aria-haspopup="dialog">Licences</button>
     <a href="https://shfqrkhn.github.io/" rel="noopener noreferrer" target="_blank" aria-label="Source (external site)">Source</a>
@@ -1225,7 +1225,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/alert-
 <dialog class="ff-dlg" id="ff-lic" aria-labelledby="ff-lic-h">
   <div class="ff-dlg-in">
     <h2 id="ff-lic-h">Licences</h2>
-    <p>Single-file build of PennyPlanner Budget 1.3.7. Inside:</p>
+    <p>Single-file build of PennyPlanner Budget 1.3.8. Inside:</p>
     <dl>
       <dt>Bitter 3.021 (font)</dt><dd>SIL Open Font License 1.1 (OFL-1.1). Copyright 2011 The Bitter Project Authors (https://github.com/solmatas/BitterPro). The original carries the Reserved Font Name "Bitter Pro", so the embedded subset is renamed "Subset Slab" inside the font file. Embedded as a Latin subset in two weights (600 to 700).</dd>
       <dt>Atkinson Hyperlegible Next 2.001 (font)</dt><dd>SIL Open Font License 1.1 (OFL-1.1). Copyright 2020-2024 The Atkinson Hyperlegible Next Project Authors (https://github.com/googlefonts/atkinson-hyperlegible-next). Embedded as a Latin subset (weights 400 to 700).</dd>

@@ -261,20 +261,20 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `8619dac0`, last changed 2026-11-11.
+Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `8d91c2e9`, last changed 2026-11-12.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
 | Page | Kind | Form | Topic | Version | Status | Licence | Address |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| DecisionDesk Briefs | apps | single | money | 0.5.3 | live | MIT | /apps/decisiondesk-briefs/ |
+| DecisionDesk Briefs | apps | single | money | 0.5.4 | live | MIT | /apps/decisiondesk-briefs/ |
 | FlexxFiles Workout Log | apps | single | health | 2.5.5 | live | MIT | /apps/flexxfiles-workout-log/ |
-| MeetingMediator Sessions | apps | single | work | 0.5.3 | live | MIT | /apps/meetingmediator-sessions/ |
+| MeetingMediator Sessions | apps | single | work | 0.5.4 | live | MIT | /apps/meetingmediator-sessions/ |
 | NestEggNinja Retirement | apps | single | money | 10.4.5 | live | MIT | /apps/nesteggninja-retirement/ |
 | NoodleNudge Journal | apps | single | health | 1.7.6 | live | MIT | /apps/noodlenudge-journal/ |
-| PennyPlanner Budget | apps | single | money | 1.3.7 | live | MIT | /apps/pennyplanner-budget/ |
+| PennyPlanner Budget | apps | single | money | 1.3.8 | live | MIT | /apps/pennyplanner-budget/ |
 | PromptPantry Library | apps | single | ai | 0.1.0 | live | MIT | /apps/promptpantry-library/ |
-| TickleTodo Tasks | apps | single | health | 1.3.4 | live | MIT | /apps/tickletodo-tasks/ |
+| TickleTodo Tasks | apps | single | health | 1.3.5 | live | MIT | /apps/tickletodo-tasks/ |
 | BalanceBuddy Accounting Reader | courses | single | money | 1.5.5 | live | MIT | /courses/balancebuddy-accounting/ |
 | BlueprintBuddy Systems Design | courses | single | work | 1.5.5 | live | MIT | /courses/blueprintbuddy-systems/ |
 | CashCrunch Accounting Calculators | courses | single | money | 1.5.5 | live | MIT | /courses/cashcrunch-accounting/ |
@@ -293,7 +293,7 @@ Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 0 a
 | WattWatcher Energy Audit | courses | single | home | 1.5.5 | live | MIT | /courses/wattwatcher-energy/ |
 | AuctionAcademy Classroom Game | games | single | games | 5.1.2 | live | MIT | /games/auctionacademy-game/ |
 | MeepleMentor Board Game Rules | games | single | games | 14.5.3 | live | MIT | /games/meeplementor-board-game-rules/ |
-| WorldCupWizard Predictions | games | single | games | 1.5.4 | live | MIT | /games/worldcupwizard-predictions/ |
+| WorldCupWizard Predictions | games | single | games | 1.5.5 | live | MIT | /games/worldcupwizard-predictions/ |
 | AllyAce Handheld Guide | guides | single | games | 1.5.5 | live | MIT | /guides/allyace-handheld/ |
 | BoonBuilder Hades Guide | guides | single | games | 1.1.4 | live | MIT | /guides/boonbuilder-hades-guide/ |
 | BuildBoss PC Workstation Guide | guides | single | home | 1.0.0 | live | MIT | /guides/buildboss-workstation/ |
@@ -305,8 +305,8 @@ Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 0 a
 | HandheldHunter PC Games | references | single | games | 16.10.3 | live | MIT | /references/handheldhunter-pc-games/ |
 | RepoRadar GitHub Catalogue | references | single | ai | 4.3.1 | live | MIT | /references/reporadar-github/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.4 | live | MIT | /references/streamscholar-youtube-channels/ |
-| PromptPlayground AI Chat | tools | single | ai | 0.5.5 | live | MIT | /tools/promptplayground-ai-chat/ |
-| StepSleuth Step Counter | tools | single | health | 1.2.4 | live | MIT | /tools/stepsleuth-step-counter/ |
+| PromptPlayground AI Chat | tools | single | ai | 0.5.6 | live | MIT | /tools/promptplayground-ai-chat/ |
+| StepSleuth Step Counter | tools | single | health | 1.2.5 | live | MIT | /tools/stepsleuth-step-counter/ |
 | TranscriptTidy AI Exports | tools | single | ai | 1.6.2 | live | MIT | /tools/transcripttidy-ai-exports/ |
 | TrendTracker Charts | tools | single | ai | 1.5.3 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
