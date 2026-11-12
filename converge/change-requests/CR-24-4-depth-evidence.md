@@ -163,3 +163,7 @@ Routes, coverage, PennyPlanner (275 payloads), FlexxFiles, DebtDial, PromptPantr
 ## Phase A pass 25
 
 Not counted clean. Routes (100 loads) and coverage lenses were clean. Import lenses found: PennyPlanner accepted a non-list `tags` on transactions (blank view); NoodleNudge accepted `scores` null or missing and a missing `assessmentTitle` in saved results (blank view, "undefined"); WorldCupWizard showed "[object Object]" for objects inside text lists. All three are now refused on import with a plain message. Caps: TrendTracker 18 of 44 JSON and 0 of 12 CSV payloads, NoodleNudge and WorldCupWizard partly covered (agents hit time caps).
+
+## Phase A pass 26
+
+Not counted clean. Routes and coverage lenses were clean. Import lenses found: WorldCupWizard accepted text where a number belongs ("NaN") and absurd numbers (1e308); TrendTracker CSV accepted 1e400 (shown as Infinity, also in the preview table); NoodleNudge accepted saved scores with a missing or object value, an object title or an object interpretation. All are now refused or skipped with a plain message. The first NoodleNudge fix wrongly refused the app's own export (some score values are text or true/false), so it now refuses only missing, null, object or non-finite values. Caps: WorldCupWizard 248 of 800 payloads, NoodleNudge 237 without envelope keys, PennyPlanner 556 of 825, TrendTracker CSV past the column mapping untested. Testing was paused by the owner after this edit: the last NoodleNudge and TrendTracker preview edits were built once but not browser-checked.

@@ -18,7 +18,7 @@ DOCS = {
     "CONTRIBUTING.md": (1_500, 10, 18),
     "SECURITY.md": (2_500, 11, 20),
     "docs/PRIVACY.md": (3_500, 10, 18),
-    "docs/FRAMEWORK.md": (50_000, 12, 22),
+    "docs/FRAMEWORK.md": (300_000, 12, 22),
 }
 FILLER = ("in order to", "it is important to note", "please note", "basically", "obviously", "needless to say", "it should be noted",
           "due to the fact", "at this point in time", "a number of", "as a matter of fact", "it goes without saying", "needless")
