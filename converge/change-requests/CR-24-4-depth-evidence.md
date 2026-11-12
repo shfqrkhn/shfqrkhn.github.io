@@ -82,3 +82,7 @@ Pass 3 execution lens (2026-11-11/12): BuildBoss ignored the Look system (its ow
 ## Phase A pass 5 (frozen 341e119), decided
 
 Coverage found four record defects (FRAMEWORK missing sources/engine and a wrong "no version" note; CR-26-2 stale status; CR-24-1 inline script 81,382; a stale local learning receipt); all fixed in 5ea8ddf. Adversarial found one real defect: WorldCupWizard wrote an imported match number into innerHTML without escaping (HTML and link injection only; the CSP blocks script and exfiltration). Fixed with esc(m.no), checked in the browser at 375 and 1440 (escaped output, no console errors, no overflow). Service-worker message handler and unbounded navigation cache were noted as hardening only, no change.
+
+## Phase A pass 6 (frozen 81e0d1f), decided
+
+Execution and adversarial were clean. Coverage: the CR-24-5 risk line now gives no measured byte figure (the FRAMEWORK margin changes with every edit; measure with wc -c), and the local v23 receipt was refreshed. Routes: the seven group pages (apps, tools, games, guides, recipes, references, courses) are not linked from the hub. Decided no change: the hub groups pages by topic with no group navigation (owner decision, FRAMEWORK topic note); group pages are generated, precached entry points reached by URL. Optional hardening noted, not done: a referrer meta on five app pages (links already use noreferrer).
