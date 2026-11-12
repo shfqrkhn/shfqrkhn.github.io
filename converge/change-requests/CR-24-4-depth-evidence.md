@@ -151,3 +151,7 @@ Routes, coverage, MeetingMediator (67 mutated imports, Factory Reset import) and
 ## Phase A pass 22 (frozen 8dedf3a), decided
 
 Routes, coverage, MeetingMediator facilitation (23 of 126 planned payloads; the importer coerces every facilitation field, accepted) clean. Fixed: a PennyPlanner scheduled transaction with no amount, no frequency or an array date imported and then blanked the Scheduled page (now rejected; the valid sample round trip and the three repros checked in a browser). About 330 single-field payloads over ten tables found only these.
+
+## Phase A pass 23
+
+Routes and coverage clean. PennyPlanner import fixes: transactions need a finite amount and a date; accounts need a type and a three-letter currency; budgets, debts, goals and holdings need their amount fields as finite numbers; budget tag lists must hold whole numbers; ticker must be text. Each is a plain-message rejection. Verified: sample round trip imports and re-imports with no errors; 154 mutation payloads over budgets, debts, goals and holdings show no page error or raw engine text.
