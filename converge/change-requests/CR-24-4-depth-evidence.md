@@ -21,7 +21,7 @@
 
 ## Fix record
 
-- 2026-11-11, shared study engine (14 reader apps): a wrong estimate no longer marks the activity done; the estimate tolerance allows float error (0.635 vs 0.625 at 0.01); a scenario end node that has a lesson but no text now renders (it was dropped, so ScopeScribe lost 2 activities and DrumDeck 2). Found by the deep reviews, confirmed by quoting the engine, re-checked in the browser (ScopeScribe shows 7 of 7 activities; ConfigCompass estimate 1007 not done, 7 done). SupportScout keeps its own fork and is not covered.
+- 2026-11-11, shared study engine (18 reader apps): a wrong estimate no longer marks the activity done; the estimate tolerance allows float error (0.635 vs 0.625 at 0.01); a scenario end node that has a lesson but no text now renders (it was dropped, so ScopeScribe lost 2 activities and DrumDeck 2). Found by the deep reviews, confirmed by quoting the engine, re-checked in the browser (ScopeScribe shows 7 of 7 activities; ConfigCompass estimate 1007 not done, 7 done). SupportScout keeps its own fork and is not covered.
 - 2026-11-11, TranscriptTidy: non-text chunk text is no longer written as "[object Object]"; a blocked clipboard now says so and does not show "Copied". Browser-checked with a hostile export and a blocked clipboard.
 - SproutScheduler: the place and zone messages now say "Not saved" when the browser blocks storage (put() helper) instead of always "Saved"; a restore file with a leading BOM is accepted.
 - DebtDial: the WACC equity-weight slider now stops at 100 percent (it ran to 130, which gave a negative debt weight).

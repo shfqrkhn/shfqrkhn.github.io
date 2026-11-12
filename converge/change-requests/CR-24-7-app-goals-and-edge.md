@@ -2,7 +2,7 @@
 
 Why: each app must use the best stable technology to meet and exceed its own goal. That needs the goal written down first.
 
-**Status:** goals done; all 42 pages have a depth record (local receipt); 8 apps gained stable features (persist, audio unlock, accent search, locale sort, PBKDF2 600000, status roles). The other candidates are deferred in the record. The 8 archived apps were assessed under CR-24-5 and then unarchived by owner instruction (2026-11-11, recorded in CR-24-4); the registry has 0 archived.
+**Status:** goals done; all 42 pages have a depth record (local receipt); 14 pages have recorded adoptions in the depth receipt (stable features such as persist, audio unlock, accent search, locale sort, PBKDF2 600000, status roles). The other candidates are deferred in the record. The 8 archived apps were assessed under CR-24-5 and then unarchived by owner instruction (2026-11-11, recorded in CR-24-4); the registry has 0 archived.
 
 ## Part 1: goals (done, review only)
 `converge/app-goals.json` holds one row per registry page (42): goal, success measure, stable-edge checks. Goals are inferred from the registry tagline and blurb and are marked "inferred, owner to confirm". A check in `converge/v23_check.py` fails if any registry id lacks a row.

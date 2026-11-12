@@ -10,4 +10,4 @@
 
 **Rollback:** revert the doc edit.
 
-**Risk:** FRAMEWORK sits within a few bytes of its 49,830 working margin (gate 50,000; measure with wc -c), so there is very little room. Mitigation: place it in sources/method or the change log, or trim another sentence of equal size.
+**Risk:** FRAMEWORK sits about 400 bytes under its 49,830 working margin (gate 50,000; measure with wc -c), so there is very little room. Mitigation: place it in sources/method or the change log, or trim another sentence of equal size.
