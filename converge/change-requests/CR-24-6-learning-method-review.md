@@ -7,7 +7,7 @@
 **Change (audit first, build second):**
 1. List which of those methods the engine already supports, quoting the code and data field for each, and which it lacks. Output: converge/receipts/v24-learning.json (created when this runs; receipts are local).
 2. For each gap, write the smallest engine feature with a test (for example review scheduling from stored results, mixed-topic practice, a pre-test that skips mastered chapters).
-3. Land engine changes once, in the shared engine (CR-24-1), so all 19 readers inherit them; no per-reader copies.
+3. Land engine changes once, in the shared engine (CR-24-1), so all 18 engine readers inherit them (SupportScout keeps its own inline script); no per-reader copies.
 
 **Not changing:** content truth, routes, storage keys of existing progress (new keys only add), the number of apps.
 

@@ -79,6 +79,10 @@ Routes, adversarial: clean. Coverage found six record defects; fixed in docs: RA
 
 Pass 3 execution lens (2026-11-11/12): BuildBoss ignored the Look system (its own colour tokens were fixed); fixed in the source (tokens now follow the kit tokens, dark-look accents, always-dark tool card text), verified in 3 looks at 375/768/1024/1440 with no contrast failures or console errors. Decided, no change: per-app paper backgrounds differ by design (CR-26-2 per-app looks); 404.html is a redirect shim whose only visible content is the brand mark linking home, kept minimal on purpose.
 
+## Phase A pass 4 (frozen 341e119 was its fix commit), decided
+
+Pass 4 found stale counts in three records (this file: 14 readers became 18; CR-24-5 risk line; CR-24-7: 14 pages have recorded adoptions); fixed in 341e119. The lens detail was not kept beyond that.
+
 ## Phase A pass 5 (frozen 341e119), decided
 
 Coverage found four record defects (FRAMEWORK missing sources/engine and a wrong "no version" note; CR-26-2 stale status; CR-24-1 inline script 81,382; a stale local learning receipt); all fixed in 5ea8ddf. Adversarial found one real defect: WorldCupWizard wrote an imported match number into innerHTML without escaping (HTML and link injection only; the CSP blocks script and exfiltration). Fixed with esc(m.no), checked in the browser at 375 and 1440 (escaped output, no console errors, no overflow). Service-worker message handler and unbounded navigation cache were noted as hardening only, no change.
@@ -90,3 +94,7 @@ Execution and adversarial were clean. Coverage: the CR-24-5 risk line now gives 
 ## Phase A pass 7 and 8 (frozen 4bf5731, 562cf34), decided
 
 Pass 7: three lenses clean; coverage found the engine byte rows in the v24 brief unlabelled (now marked as the start-of-v24 baseline) and the local v23 receipt tied to an old HEAD (refreshed only at the final commit, by design). Pass 8: routes and coverage clean. Execution found two h1 elements on NoodleNudge Journal (a hidden static h1 plus the rendered date or title): the rendered ones are now h2, same classes. Adversarial found two low defects by reproduction: NestEggNinja Lab accepted a prototype name such as constructor as the withdrawal rule (now an own-property check), and WorldCupWizard failed when the stored weather cache was JSON null (now falls back to an empty object). All three checked in the browser at 375 (one h1, no console errors, rule falls back to plan). Service-worker ignoreSearch returning the oldest query copy is noted with the accepted nav-cache item; no change.
+
+## Phase A pass 9 (frozen 8597fd0), decided
+
+Routes clean. Coverage: four record defects fixed (no pass 4 section added; CR-24-1 SupportScout difference worded as about a dozen places; CR-24-6 "18 engine readers"; local receipt wording). Execution: PennyPlanner and MeepleMentor each had two h1 (a hidden static one plus the rendered view title); the static one is now a hidden paragraph, so each page has one h1. Decided, no change: icon buttons named by visually hidden text (StepSleuth Help, PennyPlanner bottom nav) are valid accessible names; the Radix closed-popover aria-controls is library behaviour.
