@@ -6,7 +6,7 @@ Status: PromptPantry, the hub Zen look and all 40 other apps have their own look
 | --- | --- |
 | Build PromptPantry as one offline page on the kit, stored in localStorage with a read-back check | Same stack as every app; no new dependency; a failed save is shown, never hidden |
 | Do not vendor the glass-refraction or animation libraries the draft named | No installs; the same effects come from native CSS and the Web Animations API; licence and rights review stays an owner item |
-| Drop blur, body gradients, pill buttons and nested cards from the first draft | RepoRadar design studies (slop checklist, review vocabulary, gate tiers) and the owner's feedback; hairline borders, 4px grid, one accent, weights 400 to 500 |
+| Drop heavy blur, body gradients, pill buttons and nested cards from the first draft (a light blur stays only on the sticky dock, with a plain fallback; a small count badge is round) | RepoRadar design studies (slop checklist, review vocabulary, gate tiers) and the owner's feedback; hairline borders, 4px grid, one accent, weights 500 to 700 |
 | Starter prompts are six original ones; the owner's own sample stays out of the repository | Rights and privacy rule in the specification |
 | A look is chosen from the app's subject, then built from native features | Studied repositories pick palette, type and effects by subject; their web fonts are not allowed here, so system stacks are used |
 
