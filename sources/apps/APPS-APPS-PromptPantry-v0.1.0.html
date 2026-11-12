@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-O2yruAnCKmqLE+kR8CiQKhWGmEFGFr7Ibk7dZ7c2/g4='; style-src 'sha256-7Iat+ga11j/OCeiFZ3/Bvzs+y0VSRmmTFK9GT6JN4xk='; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ftiHSuk+j5JU43UWmmKHFp/yU7W5eG75Mf7cm8WHw1c='; style-src 'sha256-7Iat+ga11j/OCeiFZ3/Bvzs+y0VSRmmTFK9GT6JN4xk='; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="Keep your own prompts: fill in the blanks, preview, copy, and back up. Stays on this device.">
 <meta name="application-version" content="0.1.0"> <!-- keep equal to the version in the file name; the build checks it -->
@@ -684,7 +684,7 @@ h1,.pi h3,#u-h,#e-h,#r-h{font-family:Georgia,"Iowan Old Style","Palatino Linotyp
         if (o.prompts.length > 5000) throw new Error("The file holds more than 5000 prompts");
         list = o.prompts.map(function (p) { return clean(p, info); });
         var seen = {}; list.forEach(function (p) { if (has(seen, p.id)) throw new Error("Two prompts share one id"); seen[p.id] = 1; });
-      } catch (e) { say("Not restored: " + (e && e.message ? e.message : "the file could not be read") + ". Your library is unchanged.", true); return; }
+      } catch (e) { say("Not restored: " + (e instanceof SyntaxError ? "this file is not valid JSON" : e && e.message ? e.message : "the file could not be read") + ". Your library is unchanged.", true); return; }
       ui.pending = list;
       var ul = $("r-list"); ul.textContent = "";
       var arch = list.filter(function (p) { return p.archived; }).length, fr = list.filter(function (p) { return p.kind === "fragment"; }).length;
