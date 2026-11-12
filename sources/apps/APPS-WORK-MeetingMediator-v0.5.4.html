@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-5mFWy3yqIEzZJxTwVDFf2w6q8RPD5fiK15u/nKyRhpg=' 'sha256-AsHQ+C6RwZj7LGk5HTvecXSmUYhTFocpHx9uJvpQc5Y=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-5mFWy3yqIEzZJxTwVDFf2w6q8RPD5fiK15u/nKyRhpg=' 'sha256-IG8TOyOCNkfs4HeboDVfVZGeDt2b8KsW6lJTuTLABtk=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
     <meta name="description" content="MeetingMediator Sessions: a facilitator-first resolution suite. Resolve clearly." />
     <meta name="referrer" content="no-referrer" />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), fullscreen=(self)" />
@@ -2879,11 +2879,9 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
       hideTyping();
       appendBubble('assistant', `The reply did not arrive: ${e.message}. Your message was not saved.`);
     } finally {
-      if (seq === state.reqSeq) {
-        state.busy = false;
-        if (sendBtn) sendBtn.disabled = false;
-        updateSendState();
-      }
+      state.busy = false;
+      if (sendBtn) sendBtn.disabled = false;
+      updateSendState();
     }
   }
 
