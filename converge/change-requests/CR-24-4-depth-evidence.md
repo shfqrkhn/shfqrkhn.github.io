@@ -72,3 +72,7 @@
 - Fixed: RepoRadar detail view had a "Check GitHub metadata now" button whose request the page CSP always blocks (no connect-src), an undocumented dead remote call. Removed the button and its handler; the page stays fully offline. Browser: detail view renders at 375 px, no overflow, 0 console errors.
 - Rejected, not a defect: execution lens reported NoodleNudge's Look select inert. Reproduced only in a browser context with blocked storage; in a fresh context NoodleNudge and TickleTodo switch to paper, charcoal and black correctly.
 - Routes and coverage lenses: clean.
+
+## Phase A pass 3 (frozen e700c04), decided (2026-11-11)
+
+Routes, adversarial: clean. Coverage found six record defects; fixed in docs: RADAR.md depth-row description and CR list, CR-24-1 byte gap, v24 brief baseline labelled as baseline. Stale v23-execution.json is refreshed by `v23_check.py --save` at the final commit. BlueprintBuddy: the file name carries the study runtime (1.5.5) and the page states its file release as 1.0.0-rc.2 by design; no change.

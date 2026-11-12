@@ -40,7 +40,7 @@ A report is a list of leads, never a change. The queries cover the app families 
 
 ## Per-app currency review
 
-Each app has a row in `converge/receipts/v24-depth.json` (CR-24-4; receipts are local and git-ignored): its goal, the ledger entries that apply, what was adopted, what was rejected and why, and the next check date. An app is reviewed again when the report names a lead for its query or when its pinned data goes stale. No app can be certified as using everything available; the review shows what was considered and why.
+Each app has a row in `converge/receipts/v24-depth.json` (CR-24-4; receipts are local and git-ignored): what was adopted, considered, deferred and rejected (with reasons), what to watch, its source, and the facts to verify. An app is reviewed again when the report names a lead for its query or when its pinned data goes stale. No app can be certified as using everything available; the review shows what was considered and why.
 
 ## Tune the queries
 
@@ -72,7 +72,7 @@ Archived apps are in scope like any other (see CR-24-7).
 
 ## Files in converge/
 
-`radar_refresh.py`, `radar-queries.json`: the weekly refresh. `reporadar-ledger.json`: what was considered and why. `resource-map.json`: which entry supports which change (checked by `v23_check.py`). `dupes.py`: read-only report of exact code blocks shared by pages. `app-goals.json`: inferred goal per page. `change-requests/`: CR-24-1 to CR-24-7. `CHANGE-REQUEST-v23.md`, `CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v24.md`: the plan and its baseline. `v23_check.py`, `v23_offline.py`: baseline checks. `scan.py`, `omni_check.py`, `apply_edits.py`: review scripts. `fastgate.py`: before a commit, runs only the build, document gate and baseline checks when just documents changed, else says to run the full self-test. `receipts/`: local, git-ignored.
+`radar_refresh.py`, `radar-queries.json`: the weekly refresh. `reporadar-ledger.json`: what was considered and why. `resource-map.json`: which entry supports which change (checked by `v23_check.py`). `dupes.py`: read-only report of exact code blocks shared by pages. `app-goals.json`: inferred goal per page. `change-requests/`: CR-24-1 to CR-24-7 and CR-26-1, CR-26-2. `CHANGE-REQUEST-v23.md`, `CLAUDE_OMNEVUM_REPORADAR_CONSOLIDATED_v24.md`: the plan and its baseline. `v23_check.py`, `v23_offline.py`: baseline checks. `scan.py`, `omni_check.py`, `apply_edits.py`: review scripts. `fastgate.py`: before a commit, runs only the build, document gate and baseline checks when just documents changed, else says to run the full self-test. `receipts/`: local, git-ignored.
 
 ## The stable edge rule
 
