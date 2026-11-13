@@ -1,6 +1,6 @@
 # CR-24-1: one source for the study engine
 
-**Status:** step 1 done: 18 readers use `sources/engine/ENGN-KD-App-1.5.5.js` via a marker; at step 1 all 19 pages and the whole site tree were byte-identical to the baseline; since then the engine gained the CR-24-6 prompt, so an engine edit changes exactly those 18 pages. SupportScout stays inline by decision: its script differs from the engine in about a dozen places (insertions, changed guards, reworded messages, and several engine features it lacks), so a module would need hooks in the shared engine and change the other 18 pages for one reader.
+**Status:** step 1 done (2026-11-13: the 18 readers are packs in two family pages on `sources/engine/ENGN-KD-App-1.6.0.js`): 18 readers used `sources/engine/ENGN-KD-App-1.5.5.js` via a marker; at step 1 all 19 pages and the whole site tree were byte-identical to the baseline; since then the engine gained the CR-24-6 prompt, so an engine edit changes exactly those 18 pages. SupportScout stays inline by decision: its script differs from the engine in about a dozen places (insertions, changed guards, reworded messages, and several engine features it lacks), so a module would need hooks in the shared engine and change the other 18 pages for one reader.
 
 **Problem (Y):** the same program (about 80 KB when this was written) is copied into 18 reader sources, and SupportScout carries its own variant (engine 83,040 bytes now, SupportScout inline script 81,382). A defect is fixed 19 times, and the copies can drift.
 

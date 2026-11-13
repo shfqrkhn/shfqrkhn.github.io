@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `8d91c2e9`, last changed 2026-11-12.
+Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `050fe901`, last changed 2026-11-13.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -275,33 +275,17 @@ Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 0 a
 | PennyPlanner Budget | apps | single | money | 1.3.8 | live | MIT | /apps/pennyplanner-budget/ |
 | PromptPantry Library | apps | single | ai | 0.1.0 | live | MIT | /apps/promptpantry-library/ |
 | TickleTodo Tasks | apps | single | health | 1.3.5 | live | MIT | /apps/tickletodo-tasks/ |
-| BalanceBuddy Accounting Reader | courses | single | money | 1.5.5 | live | MIT | /courses/balancebuddy-accounting/ |
-| BlueprintBuddy Systems Design | courses | single | work | 1.5.5 | live | MIT | /courses/blueprintbuddy-systems/ |
-| CashCrunch Accounting Calculators | courses | single | money | 1.5.5 | live | MIT | /courses/cashcrunch-accounting/ |
-| ConfigCompass Change Control | courses | single | work | 1.5.5 | live | MIT | /courses/configcompass-change/ |
-| DealDojo Negotiation Guide | courses | single | work | 1.5.5 | live | MIT | /courses/dealdojo-negotiation/ |
-| DebtDial Capital Structure | courses | single | money | 1.5.5 | live | MIT | /courses/debtdial-capital/ |
-| GlobalGambit Strategy Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/globalgambit-strategy/ |
-| LeadLantern Leadership Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/leadlantern-leadership/ |
-| MoralMap Ethics Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/moralmap-ethics/ |
-| ProcessPilot Operations Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/processpilot-operations/ |
 | ProjectPopQuiz Exams | courses | single | learning | 1.7.4 | live | MIT | /courses/projectpopquiz-exams/ |
-| ScopeScribe Requirements Guide | courses | single | work | 1.5.5 | live | MIT | /courses/scopescribe-requirements/ |
-| StatSafari Data Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/statsafari-data/ |
+| StudyStack Courses | courses | single | learning | 1.6.0 | live | MIT | /courses/studystack-courses/ |
 | SupportScout Equipment Decisions | courses | single | work | 1.5.5 | live | MIT | /courses/supportscout-equipment/ |
-| SystemSage Information Systems | courses | single | learning | 1.5.5 | live | MIT | /courses/systemsage-info-systems/ |
-| WattWatcher Energy Audit | courses | single | home | 1.5.5 | live | MIT | /courses/wattwatcher-energy/ |
 | AuctionAcademy Classroom Game | games | single | games | 5.1.2 | live | MIT | /games/auctionacademy-game/ |
 | MeepleMentor Board Game Rules | games | single | games | 14.5.3 | live | MIT | /games/meeplementor-board-game-rules/ |
 | WorldCupWizard Predictions | games | single | games | 1.5.5 | live | MIT | /games/worldcupwizard-predictions/ |
-| AllyAce Handheld Guide | guides | single | games | 1.5.5 | live | MIT | /guides/allyace-handheld/ |
 | BoonBuilder Hades Guide | guides | single | games | 1.1.4 | live | MIT | /guides/boonbuilder-hades-guide/ |
 | BuildBoss PC Workstation Guide | guides | single | home | 1.0.0 | live | MIT | /guides/buildboss-workstation/ |
-| GearGuardian Care Guides | guides | single | home | 1.5.5 | live | MIT | /guides/gearguardian-care/ |
-| SetupSherpa Device Guides | guides | single | home | 1.5.5 | live | MIT | /guides/setupsherpa-devices/ |
+| GadgetGuild Guides | guides | single | home | 1.6.0 | live | MIT | /guides/gadgetguild-guides/ |
 | SproutScheduler Planting Calendar | guides | single | home | 1.4.4 | live | MIT | /guides/sproutscheduler-planting-calendar/ |
 | Eggspress Egg Salad | recipes | single | food | 1.3.3 | live | MIT | /recipes/eggspress-egg-salad/ |
-| DrumDeck Kit Reference | references | single | music | 1.5.5 | live | MIT | /references/drumdeck-kit/ |
 | HandheldHunter PC Games | references | single | games | 16.10.3 | live | MIT | /references/handheldhunter-pc-games/ |
 | RepoRadar GitHub Catalogue | references | single | ai | 4.3.1 | live | MIT | /references/reporadar-github/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.4 | live | MIT | /references/streamscholar-youtube-channels/ |
@@ -313,6 +297,7 @@ Hub 1.4.3. 42 pages in 7 groups: 42 single, 0 bundle, 0 remote, 0 generated; 0 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-13: families: 14 study readers are packs in StudyStack Courses, 4 hardware guides in GadgetGuild Guides (engine 1.6.0: `?pack=`, shelf, per-pack look; old addresses forward; `builder/merge_family.py`).
 - 2026-11-12: PromptPantry added; the 8 restored apps count equally; shared engine in `sources/engine/`; per-app looks; hub Zen look; small fixes (CR-24-4, CR-26-2).
 
 - 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; `llms.txt` is generated; the brand lives in `builder/brand.json`.

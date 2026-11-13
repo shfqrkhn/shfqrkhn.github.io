@@ -68,7 +68,7 @@
   {
    "id": "ledgersuite",
    "title": "DecisionDesk Briefs",
-   "kind": "apps",
+   "kind": "apps",
    "archived": false,
    "goal": "Turn a decision into a clear brief with options, evidence and a review date.",
    "success": "Target to test: A decision is fully written in one sitting and can be revisited on its review date.",
@@ -83,7 +83,7 @@
   {
    "id": "commonground",
    "title": "MeetingMediator Sessions",
-   "kind": "apps",
+   "kind": "apps",
    "archived": false,
    "goal": "Help a facilitator run a fair session and capture agreements.",
    "success": "Target to test: every participant is heard, issues and agreements are recorded, and the record is shareable offline.",
@@ -98,7 +98,7 @@
   {
    "id": "done-depot",
    "title": "TickleTodo Tasks",
-   "kind": "apps",
+   "kind": "apps",
    "archived": false,
    "goal": "Keep tasks and focus time in one simple place.",
    "success": "Target to test: capture in one tap; an Overdue view and count exist; the focus timer survives a reload (survival with the screen off is a target to test).",
@@ -113,7 +113,7 @@
   {
    "id": "frugal-ferret",
    "title": "PennyPlanner Budget",
-   "kind": "apps",
+   "kind": "apps",
    "archived": false,
    "goal": "Show where money goes and keep spending within budgets, on the device.",
    "success": "Target to test: balances reconcile exactly (integer cents); a budget shows Over budget once exceeded (an early warning before overspend is a target to add); backup and restore exist.",
@@ -128,7 +128,7 @@
   {
    "id": "nfire",
    "title": "NestEggNinja Retirement",
-   "kind": "apps",
+   "kind": "apps",
    "archived": false,
    "goal": "Let a person explore whether and when they can stop working, with assumptions in view.",
    "success": "Target to test: every result states its assumptions; side-by-side scenario comparison is not present yet and is a candidate; math is checked against known cases.",
@@ -142,7 +142,7 @@
   {
    "id": "modeltab",
    "title": "PromptPlayground AI Chat",
-   "kind": "tools",
+   "kind": "tools",
    "archived": false,
    "goal": "Chat with an AI model using the user's own key while showing cost and endpoint.",
    "success": "Target to test: the key never leaves the device except to the chosen endpoint; cost is shown for models the user prices in Settings, computed exactly and labelled as from the user's figures.",
@@ -173,7 +173,7 @@
   {
    "id": "stepsleuth-steps",
    "title": "StepSleuth Step Counter",
-   "kind": "tools",
+   "kind": "tools",
    "archived": false,
    "goal": "Estimate steps from distance and time, in English or French.",
    "success": "Target to test: estimates come with a stated error range (target: the app does not state one yet), checked against measured steps; the English and French switch is complete.",
@@ -188,7 +188,7 @@
   {
    "id": "fifa-wc-sim",
    "title": "WorldCupWizard Predictions",
-   "kind": "games",
+   "kind": "games",
    "archived": false,
    "goal": "Show each team's chances in the 2026 World Cup by repeated simulation.",
    "success": "Target to test: results stabilize with stated simulation count; ratings source is dated and cited.",
@@ -288,251 +288,200 @@
    "status": "inferred, owner to confirm"
   },
   {
-   "id": "cash-crunch",
-   "title": "CashCrunch Accounting Calculators",
+   "id": "studystack-courses",
+   "title": "StudyStack Courses",
    "kind": "courses",
    "archived": false,
-   "goal": "Teach accounting ratios through worked calculators.",
-   "success": "Target to test: every formula is correct and shown stepwise; practice numbers check themselves.",
+   "goal": "One shelf of business and tech study readers; each pack keeps its own goal below.",
+   "success": "Every pack meets its own target; progress per pack carries over from the old single pages.",
    "stable_edge_checks": [
+    "Shelf lists every pack; ?pack= opens it; old addresses forward",
     "Formula test suite",
-    "accessible math rendering"
-   ],
-   "basis": "inferred from registry tagline and blurb: Accounting ratio calculators",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "balance-buddy",
-   "title": "BalanceBuddy Accounting Reader",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Teach accounting basics with examples and checks.",
-   "success": "Target to test: the learner can pass the chapter checks after reading; misconceptions are addressed.",
-   "stable_edge_checks": [
+    "accessible math rendering",
     "Retrieval practice",
     "worked-example fading",
-    "shared engine inheritance"
-   ],
-   "basis": "inferred from registry tagline and blurb: Accounting study reader",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "debt-dial",
-   "title": "DebtDial Capital Structure",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Let a learner see how debt and equity mix changes cost of capital.",
-   "success": "Target to test: the model matches textbook results and shows the trade-off visually.",
-   "stable_edge_checks": [
-    "Interactive visualization with accessible text equivalent"
-   ],
-   "basis": "inferred from registry tagline and blurb: Debt and equity mix calculator",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "stat-safari",
-   "title": "StatSafari Data Reader",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Teach statistics and business intelligence concepts with checks.",
-   "success": "Target to test: the learner can interpret a result and choose a method after the course.",
-   "stable_edge_checks": [
+    "shared engine inheritance",
+    "Interactive visualization with accessible text equivalent",
     "Interactive simulations",
     "retrieval practice",
-    "error-aware explanations"
-   ],
-   "basis": "inferred from registry tagline and blurb: Statistics and BI reader",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "moral-map",
-   "title": "MoralMap Ethics Guide",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Prepare learners to reason about business ethics and career choices.",
-   "success": "Target to test: the learner can apply a framework to a new case and justify a choice.",
-   "stable_edge_checks": [
+    "error-aware explanations",
     "Case-based learning",
     "reflection prompts",
-    "retrieval practice"
-   ],
-   "basis": "inferred from registry tagline and blurb: Business ethics and career guide",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "system-sage",
-   "title": "SystemSage Information Systems",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Teach how firms manage information systems.",
-   "success": "Target to test: the learner can explain and apply core concepts to a described firm.",
-   "stable_edge_checks": [
-    "Retrieval practice",
     "case application",
-    "shared engine inheritance"
-   ],
-   "basis": "inferred from registry tagline and blurb: Information systems reader",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "deal-dojo",
-   "title": "DealDojo Negotiation Guide",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Prepare a person for a negotiation and let them practise.",
-   "success": "Target to test: A prepared plan with goals, limits and tactics; practice rounds give useful feedback.",
-   "stable_edge_checks": [
     "Scenario practice",
     "feedback on choices",
-    "deliberate practice loops"
-   ],
-   "basis": "inferred from registry tagline and blurb: Plan and practise negotiations",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "process-pilot",
-   "title": "ProcessPilot Operations Reader",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Teach operations, processes and project management.",
-   "success": "Target to test: the learner can map and improve a process and plan a project.",
-   "stable_edge_checks": [
+    "deliberate practice loops",
     "Worked examples",
     "practice scenarios",
-    "retrieval practice"
-   ],
-   "basis": "inferred from registry tagline and blurb: Operations and projects reader",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "lead-lantern",
-   "title": "LeadLantern Leadership Reader",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Teach perception, communication and leadership skills.",
-   "success": "Target to test: the learner can apply concepts to realistic situations.",
-   "stable_edge_checks": [
-    "Scenario practice",
     "spaced retrieval",
-    "reflection"
-   ],
-   "basis": "inferred from registry tagline and blurb: Leadership and communication reader",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "global-gambit",
-   "title": "GlobalGambit Strategy Reader",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Teach strategy, marketing and international business.",
-   "success": "Target to test: the learner can analyse a company and propose a justified strategy.",
-   "stable_edge_checks": [
+    "reflection",
     "Case analysis",
     "interleaved practice",
-    "retrieval"
-   ],
-   "basis": "inferred from registry tagline and blurb: Strategy and marketing reader",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "scope-scribe",
-   "title": "ScopeScribe Requirements Guide",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Help someone write a clear statement of work and evaluation criteria.",
-   "success": "Target to test: output is complete, unambiguous and checkable against a checklist.",
-   "stable_edge_checks": [
+    "retrieval",
     "Template validation",
     "plain-language checks",
-    "export to document"
+    "export to document",
+    "Templates and checklists",
+    "retrieval practice for concepts",
+    "Current efficiency data and tariffs with dates",
+    "printable checklists",
+    "templates",
+    "critique checklists"
    ],
-   "basis": "inferred from registry tagline and blurb: Write clear requirements",
+   "packs": [
+    {
+     "id": "cash-crunch",
+     "title": "CashCrunch Accounting Calculators",
+     "goal": "Teach accounting ratios through worked calculators.",
+     "success": "Target to test: every formula is correct and shown stepwise; practice numbers check themselves.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "balance-buddy",
+     "title": "BalanceBuddy Accounting Reader",
+     "goal": "Teach accounting basics with examples and checks.",
+     "success": "Target to test: the learner can pass the chapter checks after reading; misconceptions are addressed.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "debt-dial",
+     "title": "DebtDial Capital Structure",
+     "goal": "Let a learner see how debt and equity mix changes cost of capital.",
+     "success": "Target to test: the model matches textbook results and shows the trade-off visually.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "stat-safari",
+     "title": "StatSafari Data Reader",
+     "goal": "Teach statistics and business intelligence concepts with checks.",
+     "success": "Target to test: the learner can interpret a result and choose a method after the course.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "moral-map",
+     "title": "MoralMap Ethics Guide",
+     "goal": "Prepare learners to reason about business ethics and career choices.",
+     "success": "Target to test: the learner can apply a framework to a new case and justify a choice.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "system-sage",
+     "title": "SystemSage Information Systems",
+     "goal": "Teach how firms manage information systems.",
+     "success": "Target to test: the learner can explain and apply core concepts to a described firm.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "deal-dojo",
+     "title": "DealDojo Negotiation Guide",
+     "goal": "Prepare a person for a negotiation and let them practise.",
+     "success": "Target to test: A prepared plan with goals, limits and tactics; practice rounds give useful feedback.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "process-pilot",
+     "title": "ProcessPilot Operations Reader",
+     "goal": "Teach operations, processes and project management.",
+     "success": "Target to test: the learner can map and improve a process and plan a project.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "lead-lantern",
+     "title": "LeadLantern Leadership Reader",
+     "goal": "Teach perception, communication and leadership skills.",
+     "success": "Target to test: the learner can apply concepts to realistic situations.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "global-gambit",
+     "title": "GlobalGambit Strategy Reader",
+     "goal": "Teach strategy, marketing and international business.",
+     "success": "Target to test: the learner can analyse a company and propose a justified strategy.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "scope-scribe",
+     "title": "ScopeScribe Requirements Guide",
+     "goal": "Help someone write a clear statement of work and evaluation criteria.",
+     "success": "Target to test: output is complete, unambiguous and checkable against a checklist.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "config-compass",
+     "title": "ConfigCompass Change Control",
+     "goal": "Teach and support configuration management and change control.",
+     "success": "Target to test: A team can run a change request using the toolkit.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "watt-watcher",
+     "title": "WattWatcher Energy Audit",
+     "goal": "Help someone audit energy use and find savings.",
+     "success": "Target to test: A completed audit lists measured use and ranked savings.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "blueprint-buddy",
+     "title": "BlueprintBuddy Systems Design",
+     "goal": "Teach systems design through a lab with templates.",
+     "success": "Target to test: the learner produces a sound design for a described problem.",
+     "status": "inferred, owner to confirm"
+    }
+   ],
+   "basis": "merged from 14 single-guide pages, 2026-11-13",
    "status": "inferred, owner to confirm"
   },
   {
-   "id": "setup-sherpa",
-   "title": "SetupSherpa Device Guides",
+   "id": "gadgetguild-guides",
+   "title": "GadgetGuild Guides",
    "kind": "guides",
    "archived": false,
-   "goal": "Get a person through setting up a common device step by step.",
-   "success": "Target to test: A first-time user completes setup without outside help.",
+   "goal": "One shelf of device setup, care and kit guides; each pack keeps its own goal below.",
+   "success": "Every pack meets its own target; progress per pack carries over from the old single pages.",
    "stable_edge_checks": [
+    "Shelf lists every pack; ?pack= opens it; old addresses forward",
     "Step state saved offline",
     "device-specific variants",
-    "tested screenshots-free steps"
-   ],
-   "basis": "inferred from registry tagline and blurb: Step-by-step device setup",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "gear-guardian",
-   "title": "GearGuardian Care Guides",
-   "kind": "guides",
-   "archived": false,
-   "goal": "Keep everyday gear in good condition with clear care steps.",
-   "success": "Target to test: instructions match manufacturer guidance and are dated.",
-   "stable_edge_checks": [
+    "tested screenshots-free steps",
     "Maintenance reminders without a server",
-    "source citations"
-   ],
-   "basis": "inferred from registry tagline and blurb: Gear and care guides",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "ally-ace",
-   "title": "AllyAce Handheld Guide",
-   "kind": "guides",
-   "archived": false,
-   "goal": "Set up, tune and care for a handheld gaming PC.",
-   "success": "Target to test: settings advice matches current firmware and drivers and is dated.",
-   "stable_edge_checks": [
+    "source citations",
     "Version tagging",
-    "tested settings tables"
-   ],
-   "basis": "inferred from registry tagline and blurb: Handheld PC guide",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "drum-deck",
-   "title": "DrumDeck Kit Reference",
-   "kind": "references",
-   "archived": false,
-   "goal": "Give a drummer quick answers about an electronic kit.",
-   "success": "Target to test: any setting is found in a few taps and is correct for the model.",
-   "stable_edge_checks": [
+    "tested settings tables",
     "Quick search",
     "offline use",
     "verified against the maker's documentation"
    ],
-   "basis": "inferred from registry tagline and blurb: Electronic drum kit reference",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "config-compass",
-   "title": "ConfigCompass Change Control",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Teach and support configuration management and change control.",
-   "success": "Target to test: A team can run a change request using the toolkit.",
-   "stable_edge_checks": [
-    "Templates and checklists",
-    "retrieval practice for concepts"
+   "packs": [
+    {
+     "id": "setup-sherpa",
+     "title": "SetupSherpa Device Guides",
+     "goal": "Get a person through setting up a common device step by step.",
+     "success": "Target to test: A first-time user completes setup without outside help.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "gear-guardian",
+     "title": "GearGuardian Care Guides",
+     "goal": "Keep everyday gear in good condition with clear care steps.",
+     "success": "Target to test: instructions match manufacturer guidance and are dated.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "ally-ace",
+     "title": "AllyAce Handheld Guide",
+     "goal": "Set up, tune and care for a handheld gaming PC.",
+     "success": "Target to test: settings advice matches current firmware and drivers and is dated.",
+     "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "drum-deck",
+     "title": "DrumDeck Kit Reference",
+     "goal": "Give a drummer quick answers about an electronic kit.",
+     "success": "Target to test: any setting is found in a few taps and is correct for the model.",
+     "status": "inferred, owner to confirm"
+    }
    ],
-   "basis": "inferred from registry tagline and blurb: Configuration management toolkit",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "watt-watcher",
-   "title": "WattWatcher Energy Audit",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Help someone audit energy use and find savings.",
-   "success": "Target to test: A completed audit lists measured use and ranked savings.",
-   "stable_edge_checks": [
-    "Current efficiency data and tariffs with dates",
-    "printable checklists"
-   ],
-   "basis": "inferred from registry tagline and blurb: Energy audit field guide",
+   "basis": "merged from 4 single-guide pages, 2026-11-13",
    "status": "inferred, owner to confirm"
   },
   {
@@ -547,21 +496,6 @@
     "sensitivity display"
    ],
    "basis": "inferred from registry tagline and blurb: Decide how to support equipment",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "blueprint-buddy",
-   "title": "BlueprintBuddy Systems Design",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Teach systems design through a lab with templates.",
-   "success": "Target to test: the learner produces a sound design for a described problem.",
-   "stable_edge_checks": [
-    "Worked examples",
-    "templates",
-    "critique checklists"
-   ],
-   "basis": "inferred from registry tagline and blurb: Systems design lab",
    "status": "inferred, owner to confirm"
   },
   {

@@ -1,5 +1,5 @@
 (function(){'use strict';
-var APPV='1.5.5';
+var APPV='1.6.0';
 function $(s){return document.querySelector(s)}
 function h(t,a,k){var e=document.createElement(t),x;if(a)for(x in a){if(x==='text')e.textContent=a[x];else e.setAttribute(x,a[x])}(k||[]).forEach(function(c){if(c!=null&&c!=='')e.append(c)});return e}
 function arr(x){return Array.isArray(x)?x:[]}
@@ -16,8 +16,12 @@ var kd=function(x){return Array.isArray(x)?'a':(x==null?'u':(typeof x==='object'
 if(k==='levels'){if(!Array.isArray(v))return;objs(v).forEach(function(L){var t=objs(d.levels).filter(function(x){return String(x.id)===String(L.id)})[0];if(t)t.chapters=arr(t.chapters).concat(arr(L.chapters));else{d.levels=arr(d.levels);d.levels.push(L)}})}
 else if(Array.isArray(v))d[k]=arr(d[k]).concat(v);
 else if(v&&typeof v==='object'){if(!d[k]||typeof d[k]!=='object'||Array.isArray(d[k]))d[k]={};merge(d[k],v,n+1)}else if(v!=null&&typeof v!=='object'&&kd(d[k])==='u')d[k]=v})}
-var D=readTpl($('template[data-kd=base]'))||{};
-var mores=[];document.querySelectorAll('template[data-kd=more]').forEach(function(t){var m=readTpl(t);if(m)mores.push(m)});
+/* A family page holds several guides as packs: ?pack=<slug> opens one, no pack shows the shelf of all of them. */
+var PKS=[].slice.call(document.querySelectorAll('template[data-kd=pack]')),SH=null,SHELF=false,PACK='',PT=null;
+if(PKS.length){SH=readTpl($('template[data-kd=shelf]'))||{};var pq='';try{pq=new URLSearchParams(location.search).get('pack')||''}catch(e){}
+PT=PKS.filter(function(t){return t.getAttribute('data-pack')===pq})[0]||null;if(PT){PACK=pq;document.documentElement.setAttribute('data-pack',pq)}else SHELF=true}
+var D=SHELF?{meta:SH.meta&&typeof SH.meta==='object'?SH.meta:{}}:(readTpl(PT||$('template[data-kd=base]'))||{});
+var mores=[];document.querySelectorAll('template[data-kd=more]').forEach(function(t){if(PKS.length&&t.getAttribute('data-pack')!==PACK)return;var m=readTpl(t);if(m)mores.push(m)});
 var dupN=0,lastC=Object.create(null);mores.forEach(function(m){var n=Number(m.chunk)||0;if(n>0)lastC[n]=m});mores.sort(function(a,b){return(Number(a.chunk)||0)-(Number(b.chunk)||0)}).forEach(function(m){var n=Number(m.chunk)||0;if(n<1||lastC[n]!==m){dupN++;return}try{merge(D,m.more&&typeof m.more==='object'?m.more:m)}catch(e){dupN++}});
 var M=D.meta&&typeof D.meta==='object'?D.meta:{};var LB=M.labels&&typeof M.labels==='object'?M.labels:{};function lb(k,d){if(/^(start|unsure|me|help|about)$/.test(k))return d;var v=Object.prototype.hasOwnProperty.call(LB,k)&&typeof LB[k]==='string'?LB[k].trim():'';return v&&v.length<=60?v:d}var missN=[],tot=Math.min((typeof M.chunks==='number'||typeof M.chunks==='string'?Number(M.chunks):0)||0,200);for(var q0=2;q0<=tot;q0++)if(!lastC[q0])missN.push(q0);
 var ID=/^[\w-]{1,40}$/.test(str(M.id))?str(M.id):'g'+(function(t){var x=5381,i;for(i=0;i<t.length;i++)x=((x<<5)+x+t.charCodeAt(i))|0;return(x>>>0).toString(36)})(str(M.title));
@@ -46,7 +50,7 @@ pick(o.q,n.q,function(v){return v==='got'||v==='review'?v:undefined});
 pick(o.qd,n.qd,function(v){return v&&typeof v==='object'&&Number.isInteger(v.b)&&v.b>=1&&v.b<=5&&typeof v.d==='string'&&validDate(v.d)?{b:v.b,d:v.d}:undefined});
 Object.keys(n.q).forEach(function(k){if(n.q[k]==='got'&&!n.qd[k])n.qd[k]={b:2,d:addDays(n.first,3)}});
 n.rev=arr(o.rev).filter(function(d,i,a){return(d===1||d===3||d===7||d===21)&&a.indexOf(d)===i});return n}
-var S=null,loadNote='',damaged=sget(PK+'.damaged')!==null,volatile=false,noWrite=false,persist='not asked yet';
+var S=null,loadNote='',damaged=sget(PK+'.damaged')!==null,volatile=false,noWrite=SHELF,persist='not asked yet';
 
 (function(){var raw=sget(PK);if(raw!==null){var s=null;try{s=clean(JSON.parse(raw))}catch(e){}
 if(s)S=s;else{var dk=sget(PK+'.damaged')===null?'.damaged':(sget(PK+'.damaged2')===null?'.damaged2':null),kept=dk?sset(PK+dk,raw):false;damaged=damaged||kept;var l=null;try{l=clean(JSON.parse(sget(PK+'.last')))}catch(e){}
@@ -391,6 +395,7 @@ else if(id.indexOf('c-')===0){var c=CH.filter(function(x){return'c-'+x._id===id}
 else m.append(h('h1',{text:'Not found'}),h('p',null,[h('a',{href:'#start',text:'Go to Start Here'})]))}
 function render(route){var raw=location.hash.slice(1),id=dec(raw)||'start';if(raw.indexOf('s:')===0)id='s:'+raw.slice(2);
 var m=$('#main');m.replaceChildren();
+if(SHELF){shelf(m);document.title=str(M.title)||'Guides';if(route){m.focus();window.scrollTo(0,0)}return}
 if(bad)m.append(h('div',{'class':'note',text:'Part of this guide data could not be read ('+bad+' block'+(bad>1?'s':'')+'). Your saved progress is safe. Some content may be missing. If you just edited this file by hand, undo your last edit. Otherwise ask the AI that made this file to resend the missing chunk.'}));
 if(missN.length)m.append(h('div',{'class':'note',text:(missN.length>1?'Chunks '+missN.slice(0,10).join(', ')+(missN.length>10?' and '+(missN.length-10)+' more':'')+' are missing':'Chunk '+missN[0]+' is missing')+', so some content is not here yet. Ask the AI that made this file to resend '+(missN.length>1?'them':'it')+'.'}));if(dupN)m.append(h('div',{'class':'note',text:'A chunk was pasted more than once, or had no number. Only the last copy of a repeated chunk was used.'}));
 if(loadNote){m.append(h('div',{'class':'note',role:'status',text:loadNote}));loadNote=''}
@@ -421,5 +426,12 @@ if(d.id)nf=document.getElementById(d.id);else if(d.side)nf=d.href?document.query
 if(nf&&nf.focus)nf.focus()});
 window.addEventListener('beforeprint',function(){document.querySelectorAll('details,.ans').forEach(function(x){if(x.tagName==='DETAILS'){x.dataset.was=String(x.open);x.open=true}else{x.dataset.was=String(x.hidden);x.hidden=false}})});
 window.addEventListener('afterprint',function(){document.querySelectorAll('details,.ans').forEach(function(x){if(x.dataset.was===undefined)return;if(x.tagName==='DETAILS')x.open=x.dataset.was==='true';else x.hidden=x.dataset.was==='true';delete x.dataset.was})});
+function shelf(m){m.append(h('h1',{text:str(M.title)||'Guides'}));if(SH.what)m.append(h('p',{text:str(SH.what)}));
+var grp=null;PKS.forEach(function(t){var g=t.getAttribute('data-group')||'';if(g&&g!==grp){grp=g;m.append(h('h2',{text:g}))}
+var p=t.getAttribute('data-pack'),pr=null;try{pr=JSON.parse(sget(t.getAttribute('data-id')+'.progress'))}catch(e){}
+var dn=pr&&pr.done&&typeof pr.done==='object'?Object.keys(pr.done).filter(function(k){return pr.done[k]}).length:0;
+m.append(h('div',{'class':'card'},[h('h3',null,[h('a',{href:'?pack='+encodeURIComponent(p),text:t.getAttribute('data-title')||p})]),h('p',{text:t.getAttribute('data-blurb')||''}),dn?h('p',{'class':'mu',text:dn+' chapter'+(dn>1?'s':'')+' done'}):null]))})}
+if(SHELF){['#side','#menu','#bar','footer .links'].forEach(function(s){var e=$(s);if(e)e.style.display='none'});var fu=$('#ftU');if(fu&&fu.parentNode)fu.parentNode.textContent='Pick a guide. Your progress stays in this browser; nothing is sent anywhere.'}
+if(PACK){var sl=h('a',{'class':'back',href:'./',text:str(SH.label)||'All guides'});var bh=$('#back-to-hub');if(bh)bh.before(sl)}
 render(false);
 })();
