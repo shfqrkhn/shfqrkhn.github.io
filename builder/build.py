@@ -105,6 +105,8 @@ def check_registry():
         if p.get("hue") is not None and not (isinstance(p["hue"], int) and 0 <= p["hue"] <= 359): errs.append("%s: hue must be a whole number from 0 to 359" % who)
         for al in p.get("aliases", []):
             if not re.fullmatch(r"[a-z]+/[a-z0-9-]+", al): errs.append("%s: alias '%s' must look like kind/slug" % (who, al))
+        for al, pk in (p.get("alias_packs") or {}).items():
+            if al not in p.get("aliases", []) or not re.fullmatch(r"[a-z0-9-]+", str(pk)): errs.append("%s: alias_packs entry '%s' needs an alias of this page and a pack slug" % (who, al))
         if who in ids: errs.append("%s: id used twice" % who)
         if (p.get("kind"), p.get("slug")) in slugs: errs.append("%s: address %s/%s used twice" % (who, p.get("kind"), p.get("slug")))
         if p.get("source") and p.get("source") in sources: errs.append("%s: source used twice" % who)
@@ -236,7 +238,7 @@ for p in REG:
     form = p.get("form", "single")
     a = dict(id=p["id"], title=p["title"], folder=p["slug"], form=form, lazy=p.get("lazy", True), sensitive=p.get("private", False),
              own_pwa=bool(p.get("pwa")), license=p.get("license", "MIT"), url=p.get("url"), host=p.get("host"), wasm=bool(p.get("wasm")),
-             aliases=list(p.get("aliases", [])), hue=p.get("hue"), former_names=list(p.get("former_names", [])), tagline=p.get("tagline", ""), big=bool(p.get("big")))
+             aliases=list(p.get("aliases", [])), alias_packs=dict(p.get("alias_packs", {})), hue=p.get("hue"), former_names=list(p.get("former_names", [])), tagline=p.get("tagline", ""), big=bool(p.get("big")))
     if form == "single":
         a["path"] = resolve(p["source"]); m = re.search(r"-v(\d+\.\d+\.\d+)\.html$", os.path.basename(a["path"]))
         a["version"] = m.group(1) if m else p.get("version", "")
@@ -618,13 +620,14 @@ open(os.path.join(OUT, "manifest.webmanifest"), "w", encoding="utf-8", newline="
 NF = ('<!doctype html>\n<html lang="en" data-look="auto"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
       '<meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>@@BN@@</title><link rel="icon" href="/icon.svg" type="image/svg+xml">'
       '<style>@@CSS@@</style></head><body><div class="lost"><h1 class="vh">@@BN@@</h1><a href="/" aria-label="@@BN@@ home">@@HOME@@<b>@@BN@@</b></a></div>'
-      '<script>(function(){var m=@@MAP@@,h=Object.prototype.hasOwnProperty,s=location.pathname.split("/").filter(Boolean),k=s.slice(0,2).join("/"),t=h.call(m,k)?m[k]:h.call(m,s[0])?m[s[0]]:"";if(t)location.replace("/"+t+"/"+location.search+location.hash);'
+      '<script>(function(){var m=@@MAP@@,h=Object.prototype.hasOwnProperty,s=location.pathname.split("/").filter(Boolean),k=s.slice(0,2).join("/"),t=h.call(m,k)?m[k]:h.call(m,s[0])?m[s[0]]:"";if(t){var u=t.split("?");location.replace("/"+u[0]+"/"+(u[1]?"?"+u[1]+(location.search?"&"+location.search.slice(1):""):location.search)+location.hash)}'
       'try{var s=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null");if(s&&s.look)document.documentElement.setAttribute("data-look",s.look)}catch(e){}})();</script></body></html>\n')
 FWD = {a["folder"]: a["dir"] for a in apps if a["dir"]}  # the first flat address, from before pages were grouped
 for a in apps:
     for al in a.get("aliases", []):
         if a["dir"]:
-            FWD[al] = a["dir"]; FWD.setdefault(al.split("/")[-1], a["dir"])
+            tgt = a["dir"] + ("?pack=" + a["alias_packs"][al] if al in a.get("alias_packs", {}) else "")  # a merged page opens on the old page's pack
+            FWD[al] = tgt; FWD.setdefault(al.split("/")[-1], tgt)
 NF = NF.replace("@@BN@@", html.escape(BN)).replace("@@CSS@@", CSS).replace("@@HOME@@", svg(P("house"))).replace("@@MAP@@", json.dumps(FWD, separators=(",", ":")))
 open(os.path.join(OUT, "404.html"), "w", encoding="utf-8", newline="\n").write(NF)
 print("hub bytes", len(page.encode()), "tiles", len(apps), "shipped", len(ship), "archive", len(arch_items))
