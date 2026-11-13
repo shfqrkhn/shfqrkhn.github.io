@@ -32,6 +32,8 @@ if any(p["slug"] == slug for p in reg["pages"]):  # a slug is unique across all 
 
 tpl = open(os.path.join(OM, "app-starter.html"), encoding="utf-8").read()
 css = re.sub(r"\n\s*", "\n", re.sub(r"/\*.*?\*/", "", open(os.path.join(OUT, "scripts", "ui.css"), encoding="utf-8").read(), flags=re.S).strip())
+_l = css.split("\n"); _a = next(i for i, l in enumerate(_l) if l.startswith(":root[data-app]"))  # the shared core goes in by build marker
+css = "\n".join(["/* @@OMNEVUM-KIT-TOKENS@@ */"] + [l for l in _l[_a:] if not l.startswith(("@media(prefers-reduced-motion:reduce)", "@media(prefers-reduced-transparency", "@media(prefers-contrast:more)"))] + ["/* @@OMNEVUM-KIT-PREFS@@ */"])
 m = re.search(r"<script>(.*?)</script>", tpl, re.S)
 script_hash = csp_hash(m.group(1).replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)))
 def _icon(m):

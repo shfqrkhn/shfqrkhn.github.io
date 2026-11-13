@@ -14,14 +14,7 @@
 <script>(function(){var K="codex.look",r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null,ok={auto:1,paper:1,charcoal:1,black:1};function rd(k,h){try{var v=localStorage.getItem(k);if(h){v=JSON.parse(v);v=v&&v.look}return ok[v]===1?v:null}catch(e){return null}}function get(){return rd("hub.prefs.v1",1)||rd(K)||"auto"}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-look",l);r.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t])}function set(l){if(ok[l]!==1)return;try{localStorage.setItem(K,l)}catch(e){}try{var p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"{}");if(!p||typeof p!=="object"||Array.isArray(p))p={};p.schemaVersion=1;p.look=l;localStorage.setItem("hub.prefs.v1",JSON.stringify(p))}catch(e){}apply(l)}apply(get());if(mq&&mq.addEventListener)mq.addEventListener("change",function(){get()==="auto"&&apply("auto")});window.omnLook={get:get,set:set}})();</script>
 <style>
 /* OMNEVUM KIT:BEGIN */
-:root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
---r:16px;--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:40px;--shadow:0 1px 2px rgb(0 0 0/.06),0 1px 1px rgb(0 0 0/.04);
---app-s:55%;--app-l:28%;--app-on:#fff;color-scheme:light}
-:root[data-look=charcoal]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;color-scheme:dark}
-:root[data-look=black]{--bg:#000;--fg:#f2efe9;--mut:#a9a399;--card:#0d0d0d;--line:#2e2e2e;--acc:#8fb8e3;--on-acc:#000;--shadow:none;color-scheme:dark}
-:root[data-look=charcoal],:root[data-look=black]{--app-s:70%;--app-l:78%;--app-on:#14110d}
-@media(prefers-color-scheme:dark){:root[data-look=auto]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;
---app-s:70%;--app-l:78%;--app-on:#14110d;color-scheme:dark}}
+/* @@OMNEVUM-KIT-TOKENS@@ */
 :root[data-app]{--acc:hsl(var(--hue,215) var(--app-s) var(--app-l));--on-acc:var(--app-on)}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -35,9 +28,7 @@ button,input{font:inherit;color:inherit}
 .ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
 @media(prefers-reduced-motion:no-preference){.ib{transition:border-color .15s,transform .12s,box-shadow .15s}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-@media(prefers-reduced-transparency:reduce){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
-@media(prefers-contrast:more){*{text-shadow:none!important}:focus-visible{outline-width:3px!important;outline-offset:2px}}
+/* @@OMNEVUM-KIT-PREFS@@ */
 /* OMNEVUM KIT:END */
 /* MeepleMentor 14.5.3. Tokens by role; colours come from the Omnevum kit above. */
 html{--surface:var(--card);--ink:var(--fg);--muted:var(--mut);--accent:var(--acc);--accent-ink:var(--on-acc);--focus:var(--acc);--bd:color-mix(in srgb,var(--fg) 45%,var(--bg));--danger:#9B2C2C;--success:#2F6B3A;--warning:#7A4F00}

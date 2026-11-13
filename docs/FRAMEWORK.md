@@ -153,7 +153,7 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 
 **Back up:** GitHub is the primary copy of everything tracked, and its history is the project's history. `python builder/backup.py` also zips the tracked files plus the few local-only files (`builder/privacy_names.txt`, `converge/private-skip.txt`, `converge/receipts/`); keep that zip private and off this computer, and `--verify <zip>` rechecks it. Generated files are not stored: `python builder/build.py` rebuilds them and the deploy workflow does it on every push. The full icon pack is restored with `python builder/fetch_icons.py`. Make a backup after each release and test a restore once.
 
-**Re-skin the whole site:** edit tokens in `site/scripts/ui.css` (colours per look, radius, spacing, type), run the build. The contrast gate re-checks every colour pair for every accent hue; the kit file for the apps (`builder/kit.css`) regenerates; the hub, group pages, generated pages and the 404 follow at once. Hand-built apps follow the kit through their kit block (section 10); to push a token change into them, re-run the same copy step the owner or an assistant used (the kit block is delimited by `OMNEVUM KIT:BEGIN` and `OMNEVUM KIT:END`).
+**Re-skin the whole site:** edit tokens in `site/scripts/ui.css` (colours per look, radius, spacing, type), run the build. The contrast gate re-checks every colour pair for every accent hue; the kit file for the apps (`builder/kit.css`) regenerates; the hub, group pages, generated pages and the 404 follow at once. Hand-built apps follow too: their kit block (`OMNEVUM KIT:BEGIN` to `END`) holds two marker lines, `/* @@OMNEVUM-KIT-TOKENS@@ */` and `/* @@OMNEVUM-KIT-PREFS@@ */`, that the build fills from `ui.css` (the look tokens; the reduced-motion, reduced-transparency and more-contrast rules) and re-pins.
 
 **Update an app:** edit the file, bump the version in the file name and in the version meta, run the build. The hash changes, so installed copies fetch the new version.
 
@@ -187,7 +187,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 | Add an app, page, kind, topic | Section 8 recipes above; `registry.json`, `icons.json`, `topics.json` |
 | Scale | Pages are grouped by kind; a page over 5 MB takes `"big": true` and downloads on a tap; the budgets in rule 9 stay |
 
-**Fold a method document into the hub** (the Resource Catalogue is the example; it appears as RepoRadar): put the file in `sources/method`, add a registry entry whose `source` is `method/<glob>` with `"big": true` when it is large, copy the kit block from any app (`OMNEVUM KIT:BEGIN` to `END`) to the start of its `<style>`, set `data-app` on `<html>` and `:root[data-app]{--hue:N}`, add the icon-only home link (`id="back-to-hub"`, `href="../"` once, `aria-label` and `title` only; no words, so it works in every language), read and write `hub.prefs.v1` for the look, add the CSP meta, then recompute its hashes with `python builder/rename.py --repair-csp <file>` and check the script hash by hand when the page has a JSON data block. Its blurb stays one plain sentence.
+**Fold a method document into the hub** (the Resource Catalogue is the example; it appears as RepoRadar): put the file in `sources/method`, add a registry entry whose `source` is `method/<glob>` with `"big": true` when it is large, copy the kit block from any app (`OMNEVUM KIT:BEGIN` to `END`, with its two markers) to the start of its `<style>`, set `data-app` on `<html>` and `:root[data-app]{--hue:N}`, add the icon-only home link (`id="back-to-hub"`, `href="../"` once, `aria-label` and `title` only; no words, so it works in every language), read and write `hub.prefs.v1` for the look, add the CSP meta, then recompute its hashes with `python builder/rename.py --repair-csp <file>` and check the script hash by hand when the page has a JSON data block. Its blurb stays one plain sentence.
 
 **Hub layout rules:** a tile takes the colour of its topic (the page keeps its own accent inside); the Today card comes first, then the topic sections; the build also writes `llms.txt` (a plain list of live pages for assistants) (`robots.txt` is authored in `site/`). Topic labels live in `topics.json`.
 
@@ -300,6 +300,7 @@ Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-13: DRY: the kit core (look tokens, preference rules) is build-injected from `ui.css` by two markers in every app's kit block; 11 drifting copies gone, rendering unchanged (screens and computed tokens compared in two looks).
 - 2026-11-13: ProjectPopQuiz 1.7.5 and NoodleNudge 1.7.7 drop dead code (an unused fetch timer; an unused worker config).
 - 2026-11-13: DRY: `csp_hash`, `tree_files` and `tree_hash` live once in `builder/paths.py`; `site/scripts` keeps standalone copies (published); build output unchanged.
 - 2026-11-13: workspace: the repo and the Omni folder (`.docs/`, beside the repo) are the whole working set; the earlier note vault is retired.

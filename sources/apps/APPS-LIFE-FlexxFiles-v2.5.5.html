@@ -21,14 +21,7 @@
 <meta name="referrer" content="no-referrer">
 <style>
 /* OMNEVUM KIT:BEGIN */
-:root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
---r:16px;--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:40px;--shadow:0 1px 2px rgb(0 0 0/.06),0 1px 1px rgb(0 0 0/.04);
---app-s:55%;--app-l:28%;--app-on:#fff;color-scheme:light}
-:root[data-look=charcoal]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;color-scheme:dark}
-:root[data-look=black]{--bg:#000;--fg:#f2efe9;--mut:#a9a399;--card:#0d0d0d;--line:#2e2e2e;--acc:#8fb8e3;--on-acc:#000;--shadow:none;color-scheme:dark}
-:root[data-look=charcoal],:root[data-look=black]{--app-s:70%;--app-l:78%;--app-on:#14110d}
-@media(prefers-color-scheme:dark){:root[data-look=auto]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;
---app-s:70%;--app-l:78%;--app-on:#14110d;color-scheme:dark}}
+/* @@OMNEVUM-KIT-TOKENS@@ */
 :root[data-app]{--acc:hsl(var(--hue,215) var(--app-s) var(--app-l));--on-acc:var(--app-on)}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -42,9 +35,7 @@ button,input{font:inherit;color:inherit}
 .ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
 @media(prefers-reduced-motion:no-preference){.ib{transition:border-color .15s,transform .12s,box-shadow .15s}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-@media(prefers-reduced-transparency:reduce){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
-@media(prefers-contrast:more){*{text-shadow:none!important}:focus-visible{outline-width:3px!important;outline-offset:2px}}
+/* @@OMNEVUM-KIT-PREFS@@ */
 /* OMNEVUM KIT:END */
 /* Omnevum bar: same in every Omnevum app */
 .omni-bar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);min-height:60px;padding:var(--s2) max(var(--s4),env(safe-area-inset-right)) var(--s2) max(var(--s4),env(safe-area-inset-left));background:var(--bg);border-bottom:1px solid var(--line)}

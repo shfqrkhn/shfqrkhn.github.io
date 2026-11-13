@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ftiHSuk+j5JU43UWmmKHFp/yU7W5eG75Mf7cm8WHw1c='; style-src 'sha256-98aiKATry5NLgHxtRsRkKeuAamJWQnc0f3D33PjAdng='; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ftiHSuk+j5JU43UWmmKHFp/yU7W5eG75Mf7cm8WHw1c='; style-src 'sha256-WzIpOsMe+Cyb6o5Iy6fxBv/Jl0ajbikfJxH+5uP+CYg='; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="Keep your own prompts: fill in the blanks, preview, copy, and back up. Stays on this device.">
 <meta name="application-version" content="0.1.0"> <!-- keep equal to the version in the file name; the build checks it -->
@@ -11,14 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%232a5584' stroke-width='2'/%3E%3C/svg%3E">
 <style>
 /* OMNEVUM KIT:BEGIN */
-:root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
---r:16px;--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:40px;--shadow:0 1px 2px rgb(0 0 0/.06),0 1px 1px rgb(0 0 0/.04);
---ic-fg-s:55%;--ic-fg-l:30%;--ic-bg-s:60%;--ic-bg-l:91%;--sic-bg-l:90%;--app-s:55%;--app-l:28%;--app-on:#fff;color-scheme:light}
-:root[data-look=charcoal]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;color-scheme:dark}
-:root[data-look=black]{--bg:#000;--fg:#f2efe9;--mut:#a9a399;--card:#0d0d0d;--line:#2e2e2e;--acc:#8fb8e3;--on-acc:#000;--shadow:none;color-scheme:dark}
-:root[data-look=charcoal],:root[data-look=black]{--ic-fg-s:70%;--ic-fg-l:80%;--ic-bg-s:25%;--ic-bg-l:24%;--sic-bg-l:24%;--app-s:70%;--app-l:78%;--app-on:#14110d}
-@media(prefers-color-scheme:dark){:root[data-look=auto]{--bg:#26241f;--fg:#efebe4;--mut:#b3ac9f;--card:#322f29;--line:#4d4940;--acc:#8fb8e3;--on-acc:#14110d;--shadow:none;
---ic-fg-s:70%;--ic-fg-l:80%;--ic-bg-s:25%;--ic-bg-l:24%;--sic-bg-l:24%;--app-s:70%;--app-l:78%;--app-on:#14110d;color-scheme:dark}}
+/* @@OMNEVUM-KIT-TOKENS@@ */
 :root[data-app]{--acc:hsl(var(--hue,215) var(--app-s) var(--app-l));--on-acc:var(--app-on)}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -104,9 +97,7 @@ body{min-height:100vh;min-height:100dvh;overscroll-behavior-y:contain}
 .nt{margin:0;font-weight:700}.nb{margin:2px 0 0}.na{margin:2px 0 0;color:var(--mut)}
 .nudge p[hidden]{display:none}
 .today{min-height:23rem}@media(max-width:1023px){.today{min-height:24rem}}@media(max-width:767px){.today{min-height:27rem}}@media(max-width:480px){.today{min-height:33rem}}@media(max-width:380px){.today{min-height:34.5rem}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-@media(prefers-reduced-transparency:reduce){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
-@media(prefers-contrast:more){*{text-shadow:none!important}:focus-visible{outline-width:3px!important;outline-offset:2px}}
+/* @@OMNEVUM-KIT-PREFS@@ */
 /* OMNEVUM KIT:END */
 /* PromptPantry */
 :root[data-app]{--hue:28}
