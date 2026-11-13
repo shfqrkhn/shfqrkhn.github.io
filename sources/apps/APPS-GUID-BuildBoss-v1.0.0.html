@@ -866,7 +866,7 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
     </main>
 
     <div class="floating-navbar" role="navigation" aria-label="On-page tools">
-        <button class="navbar-toggle" aria-controls="navbar-content" aria-expanded="false" title="Toggle On-Page Tools">
+        <button type="button" class="navbar-toggle" aria-controls="navbar-content" aria-expanded="false" title="Toggle On-Page Tools">
             <span id="toggle-icon">+</span>
             <span class="sr-only">Toggle On-Page Tools</span>
         </button>
@@ -878,7 +878,7 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
                 <label for="gpu-tdp-input">GPU TDP (Watts per GPU):</label>
                 <input type="number" id="gpu-tdp-input" value="350" min="0" aria-label="Input GPU Thermal Design Power in Watts">
                 <div class="result">Estimated Total TDP: <span id="total-tdp" role="status">0W</span></div>
-                <button id="calculate-tdp" aria-label="Calculate Total TDP">Calculate TDP</button>
+                <button type="button" id="calculate-tdp" aria-label="Calculate Total TDP">Calculate TDP</button>
             </div>
         </div>
     </div>
