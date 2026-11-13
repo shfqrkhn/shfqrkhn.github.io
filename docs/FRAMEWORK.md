@@ -55,7 +55,7 @@ Honest limits: "self-healing" means detect, report, and regenerate; no part rewr
 ```text
 Repository (github.com/shfqrkhn/shfqrkhn.github.io): everything needed to rebuild, run and extend the project
   sources/apps/                        hand-built single-file apps, named <PREFIX>-<Name>-v<X.Y.Z>.html (a few keep older prefixes)
-  sources/engine/                      the shared reader engine, `ENGN-KD-App-<X.Y.Z>.js`, used by the reader apps
+  sources/engine/                      the shared reader engine, `ENGN-KD-App-<X.Y.Z>.js`, used by the family pages (one pack per guide)
   sources/method/                      the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue; one file each, `TECH-AINT-<Name>-v<X.Y.Z>.<ext>`, the latest version only (replace the old file when a new one arrives)
   docs/                                this note (FRAMEWORK.md, the source of truth) and PRIVACY.md
   builder/                             the framework tools
@@ -165,6 +165,8 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Delete a page for good:** `python builder/archive.py remove "<page>" --yes`. It leaves the registry (or deletes its content file) and moves its source file from `sources/apps` into the git-ignored `history/` (git history keeps it too) so a mistake is recoverable. The next build and publish remove it from the site; its old address then shows the 404 page.
 
+**Make or grow a family** (several guides on one page, one engine): list the family in a JSON file (`id`, `title`, `slug`, `kind`, `topic`, `icon`, `hue`, `tagline`, `blurb`, `label`, `what`, `out`, `members` as registry slugs) and run `python builder/merge_family.py <file>` (`--dry` reports only). Each member becomes a `<template data-kd="pack">` with its data, accent hue and look unchanged, so saved progress carries over; `?pack=<slug>` opens it, no pack shows the shelf, and the old address forwards through `alias_packs`. Then add the icon key, `git rm` the member sources, run `rename.py --repair-csp` on the new file and the build. To add a guide to an existing family, paste one more pack template into its source. Members must be study readers on the shared engine without `data-kd="more"` chunks.
+
 **Move a page to another kind:** change `kind` and add the old `kind/slug` to `aliases`; the 404 page forwards old links.
 
 **Add a topic or kind:** topics: add to `topics.json`, a colour (`HUE`) and an icon (`TOPIC_IC`) in `build.py`, and `TOPICS` in `build_pages.py`. Kind: add to `KINDS` in `build.py` (name and icon), to `KINDS` in `new_app.py`, its `site/<kind>/` folder to `.gitignore`, and to the allowed lists in `build_pages.py`, `check_pages.py` and `check_registry` in `build.py`.
@@ -236,6 +238,7 @@ Survey (`converge/reporadar-ledger.json`): anti-slop rubric (`check_docs.py`), p
 - Pages share one origin, so any page on the site could read another page's stored data. Pages here are all the owner's, and no page ships third-party scripts. A page that must be isolated should live on its own origin as a `remote` page.
 - The live repo's history was rewritten on 2026-11-02 to a single commit with a noreply author, so earlier content is gone from `main`. GitHub may still hold old pull request refs; only deleting and recreating the repo clears them (needs the owner's delete permission). `shfqrkhn.github.io` is the only repo; the five archived ones are deleted. Branch protection on `main` is off at the owner's choice and blocks force-pushes when on.
 - Some third-party licences name their authors in a copyright line that the licence requires; those lines are kept.
+- Open owner items (2026-11-13): accept Omni 8.4.0 and the 41 inferred goals in `converge/app-goals.json`; turn Issues on; RepoRadar queued records and the domain pass; rights review (glass and animation, diagram design, unslop); NestEggNinja data choices; PromptPantry CR-26-2. Next consolidation candidates: SupportScout onto engine 1.6.0 as a pack (it keeps its own engine fork), a game guide family (BoonBuilder, HandheldHunter, MeepleMentor), one multi-recipe page.
 - The self-test runs browser tests in headless Chromium; `test_mobile.py` (Chromium and Firefox) is run by hand. Real-device checks are manual.
 
 ## 11a. Lessons learned (read before building any new app)
