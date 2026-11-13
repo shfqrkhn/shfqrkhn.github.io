@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-krTDIg6fgCYNIS41BlxSMjjt6xazS48j96KPzYZ2oys='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-dKn+2UwbwBr9C22KWZ3lCY8RJLMRjM3R2p4RB/kO4R0='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.5">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -1282,12 +1282,12 @@ const DoneDepot = (() => {
         this.checklistName = config.DEFAULT_CHECKLIST_NAME;
         this.checklistItems = [];
         this._sampleDataLoadedDueToError = true;
-        /* never lose unreadable data: keep the raw text under its own key (a second key if one is already held) */
+        /* never lose unreadable data: keep the first raw text under its own key and the newest under a second key, so repeats cannot fill storage */
         if (typeof storedData === 'string' && storedData) {
           try {
             const k1 = config.STORAGE_KEY + '_unreadable_copy';
             const held = localStorage.getItem(k1);
-            const k = (held === null || held === storedData) ? k1 : k1 + '_' + Date.now();
+            const k = (held === null || held === storedData) ? k1 : k1 + '_latest';
             localStorage.setItem(k, storedData);
             this._unreadableKept = localStorage.getItem(k) === storedData;
           } catch (e2) { this._unreadableKept = false; }

@@ -6,7 +6,7 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F1E7" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E1E1E" />
     <meta name="description" content="DecisionDesk Briefs: a decision briefing kept on this device. Question, ranked options, evidence, review and export." />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LZNcXVpvfuA+Nv77iot7TCcW7k3g4K0fe0A1EO2xR2w=' 'sha256-eKemH/AUePtFRbAFIvyyHT8pYGWETgkA1GpQf9VCPVo='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LZNcXVpvfuA+Nv77iot7TCcW7k3g4K0fe0A1EO2xR2w=' 'sha256-owIPKDi5GtRDmWtTlze2z/CXtq43LJuByJf4ZO+VCrY='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
     <!-- Weight exception: this file is about 237 KB against a 100 KB tier. 41 KB is three embedded font subsets (headings and text, needed for the memo look), 7 KB is two icons, and the rest is the app and the two full licence texts. Recorded as an accepted exception; nothing was trimmed that would remove a licence text or a feature. -->
     <title>DecisionDesk Briefs</title>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAACHElEQVRYCWNgGOmAEVsATC+N7/zPwFAGk3OTPcigzPeAgQrgHmMCgzKyOUzIHBgbaLkijE1lWgndPCZ0AXrzMRxw9epVNnVnH2dhLSOGtx++0tw9GA74/+/rdx4+QQFBaQWGDyycVHeAfrvdUZdFLnIwg1lgDBj948cPxrPrF68B8kOVeTDcBxSmDP39x2D17y+LOdCUR0DMwAQikPGXL5+/yJq7uCOL0ZKN4QBRMQURLh6OP7RKAzXKXxis+L8LwDyF4QBapwEtrt8Mperf4amb7mng67d/DAw//wEJSBhghMCXz7RNAz+6mRg+bPuvBrGeATMRiorTNg0wAP3+ZS/TC5gDMKIAmgYY/jKxAcuBMwzCMJVUpJl+/v0FMw7DAbQuB/4z/P/H95/5Fk4HwNLA45N7YGqoSjudv8KMbCBGIqR5GkC2HcjGiAJ6pAGgvXCE4QBapwG4zVAGRhTA0gBUnuYUhgNG08BoGnBw8uYDFkI7aZ76oBZgZEOQ+IPn75wE+RDtwfefWRn+szEcB8mRjf8zsP37jVm1YHXAvefvTpVm13vCLPvPyPj3HBOjCYxPDv3//z8mnjvbgMXwBBTtWB3w+++/ryIiKPUgUCMDCKNoJpXzQ90DqIUIB4jwcz7ev3v3W6BqMFLg+sgmwvX7I5gDJIA9JwYGEAGs24FcCBvEAImBMJQNY4LUMv77zSnycN9vkNQoRg4BAGKX15ME57AJAAAAAElFTkSuQmCC" />
@@ -4123,7 +4123,7 @@ function wireNewEvents() {
   });
   $("criteria-list").addEventListener("change", (ev) => {
     const t = ev.target;
-    if (t.dataset && t.dataset.field === "weight" && !t.checkValidity()) {
+    if (t.dataset && t.dataset.field === "weight") { // show what was stored: rounded, or the last good value
       const c = appState.cur.criteria.find((x) => x.id === t.dataset.crit);
       if (c) t.value = String(c.weight);
       t.setCustomValidity("");

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-5mFWy3yqIEzZJxTwVDFf2w6q8RPD5fiK15u/nKyRhpg=' 'sha256-Y0hXN0vdYemIIavipbbNiQqHFT6OPP1kE2iEWfzsNQA=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-5mFWy3yqIEzZJxTwVDFf2w6q8RPD5fiK15u/nKyRhpg=' 'sha256-7baYYbvgGBfhN5Udv4ypZVFOzEdmsiPPRDe0jPlzajY=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
     <meta name="description" content="MeetingMediator Sessions: a facilitator-first resolution suite. Resolve clearly." />
     <meta name="referrer" content="no-referrer" />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), fullscreen=(self)" />
@@ -2697,7 +2697,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     body.innerHTML = '';
 
     for (const msg of state.history) {
-      if (msg.role !== 'system') appendBubble(msg.role, msg.content, false);
+      if (msg.role !== 'system' && !msg.hidden) appendBubble(msg.role, msg.content, false);
     }
     renderQuickPrompts();
 
@@ -2707,7 +2707,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
   }
 
   function renderQuickPrompts() {
-    if (state.history.some(m => m.role === 'user')) return;
+    if (state.history.some(m => m.role === 'user' && !m.hidden)) return;
     const body = document.getElementById('byoai-body');
     if (!body) return;
     const wrap = document.createElement('div');
@@ -2805,6 +2805,8 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     const route    = detectRoute();
     const matterId = detectMatterId();
     const seq      = ++state.reqSeq;
+    state.busy = false; // a new screen supersedes any reply still in flight
+    updateSendState();
 
     try {
       state.ctx = await gatherContext(matterId);
@@ -2834,7 +2836,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
       const reply = await callAI(cfg, seed);
       if (seq !== state.reqSeq) return;
       hideTyping();
-      state.history.push({ role: 'assistant', content: reply });
+      state.history.push({ ...seed[1], hidden: true }, { role: 'assistant', content: reply }); // keep the seed question so turns alternate
       appendBubble('assistant', reply);
     } catch (e) {
       if (seq !== state.reqSeq) return;
@@ -2872,7 +2874,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
       const msgs = state.history.length > 21
         ? [state.history[0], ...state.history.slice(-20)]
         : state.history;
-      const reply = await callAI(cfg, msgs);
+      const reply = await callAI(cfg, msgs.map(m => ({ role: m.role, content: m.content })));
       if (seq !== state.reqSeq) return;
       state.history.push({ role: 'assistant', content: reply });
       hideTyping();
@@ -2883,9 +2885,11 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
       hideTyping();
       appendBubble('assistant', `The reply did not arrive: ${e.message}. Your message was not saved.`);
     } finally {
-      state.busy = false;
-      if (sendBtn) sendBtn.disabled = false;
-      updateSendState();
+      if (seq === state.reqSeq) { // a stale reply must not unlock a newer request
+        state.busy = false;
+        if (sendBtn) sendBtn.disabled = false;
+        updateSendState();
+      }
     }
   }
 
