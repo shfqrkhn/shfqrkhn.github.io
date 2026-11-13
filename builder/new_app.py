@@ -3,11 +3,11 @@
 Kinds: apps, tools, games, guides, recipes, courses, references.  Topics: see topics.json.
 Creates sources/apps/<APPS|TOOL|GAME|GUID|RECI|COUR|REFE>-<first word of Title>-v0.1.0.html (the design system and the CSP hash are filled in), adds a registry entry
 (published by the next build; set "archived" or "private" first if it should not be), and tells you the next step."""
-import base64, hashlib, json, os, re, sys
+import json, os, re, sys
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
-from paths import OUT, APPS_DIR
+from paths import OUT, APPS_DIR, csp_hash
 KINDS = ("apps", "tools", "games", "guides", "recipes", "courses", "references")
 
 
@@ -33,7 +33,7 @@ if any(p["slug"] == slug for p in reg["pages"]):  # a slug is unique across all 
 tpl = open(os.path.join(OM, "app-starter.html"), encoding="utf-8").read()
 css = re.sub(r"\n\s*", "\n", re.sub(r"/\*.*?\*/", "", open(os.path.join(OUT, "scripts", "ui.css"), encoding="utf-8").read(), flags=re.S).strip())
 m = re.search(r"<script>(.*?)</script>", tpl, re.S)
-script_hash = "sha256-" + base64.b64encode(hashlib.sha256(m.group(1).replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)).encode()).digest()).decode()
+script_hash = csp_hash(m.group(1).replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)))
 def _icon(m):
     f = os.path.join(OM, "icons", "phosphor", "regular", m.group(1) + ".svg")
     return re.search(r"<svg[^>]*>(.*)</svg>", open(f, encoding="utf-8").read(), re.S).group(1)
@@ -43,7 +43,7 @@ tpl = re.sub(r"@@ICON:([a-z-]+)@@", _icon, tpl)
 page = (tpl.replace("@@UI_CSS@@", "/* OMNEVUM KIT:BEGIN */\n" + css + "\n/* OMNEVUM KIT:END */").replace("@@STORAGE_KEY@@", "omn.%s.%s.v1" % (kind, slug)).replace("@@SCRIPT_HASH@@", script_hash)
         .replace("@@TITLE@@", __import__("html").escape(title)).replace("@@BLURB@@", __import__("html").escape(blurb)))
 _st = re.search(r"<style>(.*?)</style>", page, re.S).group(1)
-page = page.replace("@@STYLE_HASH@@", "sha256-" + base64.b64encode(hashlib.sha256(_st.encode()).digest()).decode())
+page = page.replace("@@STYLE_HASH@@", csp_hash(_st))
 fname = "APPS-%s-%s-v0.1.0.html" % (kind[:4].upper(), re.sub(r"[^A-Za-z0-9]", "", (title.split() or ["App"])[0]) or "App")  # the stem is the pun, the first word (house naming; rename.py --file-stem expects it)
 dest = os.path.join(APPS_DIR, fname)
 if os.path.exists(dest):

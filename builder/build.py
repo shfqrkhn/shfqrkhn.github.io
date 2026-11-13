@@ -3,11 +3,11 @@ Reads this folder (registry.json = every hand-built page, icons.json, topics.jso
 site/content (content/<kind>/<slug>.json), and the single-file apps in sources/apps.
 Writes the hub, group pages, worker, manifest and 404 into site, then runs the privacy gate on sources and output.
 Rules and how to extend it: docs/FRAMEWORK.md."""
-import os, sys, re, json, hashlib, base64, html, glob
+import os, sys, re, json, hashlib, html, glob
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
-from paths import OUT, V, APPS_DIR, SUP, DOCS
+from paths import OUT, V, APPS_DIR, SUP, DOCS, csp_hash, tree_files, tree_hash
 VERSION = "1.4.3"
 REG = json.load(open(os.path.join(OM, "registry.json"), encoding="utf-8"))["pages"]
 TOPICS = json.load(open(os.path.join(OM, "topics.json"), encoding="utf-8"))
@@ -149,23 +149,6 @@ FOSS = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "MPL-2.0", "
         "LGPL-3.0-or-later", "AGPL-3.0-only", "AGPL-3.0-or-later", "Unlicense", "CC0-1.0", "CC-BY-4.0", "CC-BY-SA-4.0", "OFL-1.1", "Zlib"}
 
 
-def tree_files(d):
-    out = []
-    for dp, dn, fn in os.walk(d):
-        dn[:] = sorted(x for x in dn if x not in (".git", "__pycache__", "node_modules"))
-        for f in sorted(fn):
-            full = os.path.join(dp, f); out.append((os.path.relpath(full, d).replace(os.sep, "/"), full))
-    return sorted(out)
-
-
-def tree_hash(d):
-    """Same algorithm as scripts/check_site.py: sha256 over 'path NUL file-sha256' lines, sorted by path."""
-    h = hashlib.sha256()
-    for rel, full in tree_files(d):
-        h.update((rel + chr(0) + hashlib.sha256(open(full, "rb").read()).hexdigest() + chr(10)).encode())
-    return h.hexdigest()
-
-
 ENGINE_MARK = re.compile(rb"<script>\n@@KD-ENGINE ([A-Za-z0-9.+-]+)@@\n</script>")
 
 
@@ -183,10 +166,10 @@ def inline_engine(raw, what=""):
     assert b"</script" not in body.lower(), ("engine text would end the script early", path)
     out = raw[:m.start()] + b"<script>\n" + body + b"\n</script>" + raw[m.end():]
     assert out.count(b"<script>") == 1 and b"@@KD-ENGINE" not in out, ("a reader must hold one inline script", what)
-    pin = base64.b64encode(hashlib.sha256((b"\n" + body + b"\n").replace(b"\r\n", b"\n")).digest())
+    pin = csp_hash(b"\n" + body + b"\n").encode()
     sm = re.search(rb"script-src[^;]*?'sha256-[A-Za-z0-9+/=]+'", out)
     assert sm, ("script-src pin not found", what)
-    head = re.sub(rb"'sha256-[A-Za-z0-9+/=]+'", b"'sha256-" + pin + b"'", sm.group(0))
+    head = re.sub(rb"'sha256-[A-Za-z0-9+/=]+'", b"'" + pin + b"'", sm.group(0))
     return out[:sm.start()] + head + out[sm.end():]
 
 
@@ -497,8 +480,7 @@ if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostnam
 })();'''
 
 GJS = """(function(){try{var s=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null");if(s&&["auto","paper","charcoal","black"].indexOf(s.look)>=0)document.documentElement.setAttribute("data-look",s.look)}catch(e){}})();"""
-def sri(s): return "sha256-" + base64.b64encode(hashlib.sha256(s.encode()).digest()).decode()
-csp = "default-src 'none'; script-src 'self' '%s'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'" % sri(JS)
+csp = "default-src 'none'; script-src 'self' '%s'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'" % csp_hash(JS)
 I = lambda n: svg(n)
 NUDGES = "".join(
     '<article class="nudge" style="--h:%d"><span class="nic">%s</span><div>%s</div></article>' % (h, svg(P(n, "fill")), body) for h, n, body in (
@@ -590,7 +572,7 @@ for k, t, ic in present:
           '<meta name="color-scheme" content="light dark"><meta name="description" content="%s: small offline pages on ' + BN + '."><title>%s - ' + BN + '</title>'
           '<link rel="icon" href="../icon.svg" type="image/svg+xml"><style>%s</style></head><body>'
           '<main class="wrap"><div class="ph"><a class="ib" href="../" aria-label="' + BN + ' home" title="' + BN + '">%s</a><h1>%s</h1></div>%s</main>'
-          '<script>%s</script></body></html>\n') % (sri(GJS), E(t), E(t), CSS, svg(P("house")), E(t), body, GJS)
+          '<script>%s</script></body></html>\n') % (csp_hash(GJS), E(t), E(t), CSS, svg(P("house")), E(t), body, GJS)
     open(os.path.join(OUT, k, "index.html"), "w", encoding="utf-8", newline="\n").write(re.sub(r' data-k="[^"]*"', "", gp))
 BIG = 5_000_000  # pages over 5 MB download only when the owner taps (mobile data)
 PAGES = {}

@@ -3,12 +3,12 @@ Run:  python builder/selftest.py
 Checks: (1) the build is idempotent (two builds, identical output), (2) a broken registry is refused with a plain message,
 (3) the privacy gate catches planted personal data, (4) the page generator renders valid pages, (5) every gate passes on the real site,
 (6) archive and restore, rename, bundle and remote forms, and the converge scripts' planted defects, (7) the browser tests pass when Playwright is installed. The code numbers its checks 1 to 6 with sub-steps."""
-import hashlib, json, os, re, shutil, subprocess, sys, tempfile
+import json, os, re, shutil, subprocess, sys, tempfile
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
 os.environ["OMNEVUM_BUILDER"] = OM
-from paths import OUT
+from paths import OUT, tree_hash as _tree_hash
 PY = [sys.executable, "-B"]
 results = []
 
@@ -23,15 +23,7 @@ def run(args, cwd=None):
 
 
 def tree_hash(root):
-    h = hashlib.sha256()
-    for dp, dn, fn in os.walk(root):
-        dn[:] = sorted(d for d in dn if d not in (".git", "__pycache__"))
-        for f in sorted(fn):
-            p = os.path.join(dp, f)
-            if os.path.relpath(p, root).replace(os.sep, "/") == "docs/FRAMEWORK.md":
-                continue  # a generated copy of the framework note; it carries a date that moves with the calendar
-            h.update(os.path.relpath(p, root).encode()); h.update(open(p, "rb").read())
-    return h.hexdigest()
+    return _tree_hash(root, skip={"docs/FRAMEWORK.md"})  # a generated copy of the framework note; it carries a date that moves with the calendar
 
 
 # 1. idempotent build

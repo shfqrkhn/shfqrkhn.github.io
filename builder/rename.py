@@ -23,7 +23,7 @@ import glob, json, os, re, subprocess, sys
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
-from paths import V
+from paths import V, csp_hash
 REG = os.path.join(OM, "registry.json")
 ATTRS = ("aria-label", "title", "alt", "placeholder")
 META_NAMES = {"description", "application-name", "apple-mobile-web-app-title", "og:title", "og:site_name", "twitter:title", "og:description"}
@@ -32,12 +32,11 @@ TOKEN = re.compile(r"(<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>|<!--
 
 def fix_csp(before, after):
     """After editing inline scripts or styles, recompute the sha256 of each one that changed and update the page's policy."""
-    import base64, hashlib
     rx = re.compile(r"<(script|style)\b[^>]*>(.*?)</\1>", re.S | re.I)
     a, b = [m.group(2) for m in rx.finditer(before)], [m.group(2) for m in rx.finditer(after)]
     if len(a) != len(b):
         return after
-    h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")).digest()).decode()
+    h = csp_hash
     for old, new in zip(a, b):
         if old != new and ("'" + h(old) + "'") in after:
             after = after.replace("'" + h(old) + "'", "'" + h(new) + "'")
@@ -88,8 +87,7 @@ def repair_csp(html):
 
 
 def _repair_one(html, csp):
-    import base64, hashlib
-    h = lambda x: "sha256-" + base64.b64encode(hashlib.sha256(x.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")).digest()).decode()
+    h = csp_hash
     fixed = 0
     for directive, tag in (("script-src", "script"), ("style-src", "style")):
         d = re.search(r"(?<![\w-])" + directive + r"\s+([^;]*)", csp, re.I) or re.search(r"(?<![\w-])default-src\s+([^;]*)", csp, re.I)  # an unset directive falls back to default-src

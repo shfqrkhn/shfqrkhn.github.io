@@ -60,7 +60,7 @@ Repository (github.com/shfqrkhn/shfqrkhn.github.io): everything needed to rebuil
   docs/                                this note (FRAMEWORK.md, the source of truth) and PRIVACY.md
   builder/                             the framework tools
     build.py                           THE command: validate, gate, build, check
-    paths.py                           where everything lives (the one place a folder name is set)
+    paths.py                           where everything lives (the one place a folder name is set); shared csp_hash and tree_hash
     registry.json                      every hand-built page (one entry each), icons.json topics.json today_data.json
     icons/phosphor/                    the icons in use (Phosphor Icons, MIT) with the licence; fetch_icons.py restores the full pack
     privacy_names.txt                  PRIVATE list of names that must never appear (local only, git-ignored, never committed)
@@ -210,7 +210,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 - Run the executed checks first: `build.py` (all gates), `selftest.py`, `site/scripts/test_mobile.py`, `site/scripts/test_personalize.py`. They are free and decide most questions.
 - For reading and coverage use the cheapest sufficient model: haiku agents, or Codex with the text passed in the prompt and low or medium effort (`codex exec -s read-only -c model_reasoning_effort="low"`). Keep a strong model for adversarial passes and for applying edits. Converge is the owner's convergence method (Omni section 8), run with the Prompt Clipboard blocks ConvergeOmni, ConvergeWork and ConvergeLibrary. Verify every reported defect by exact quote before acting; most reports from weaker models are false positives.
-- The Converge tooling lives in `converge/` (`scan.py` (from the repo root, `--root .` covers the whole repository; it finds Omni under any folder), `omni_check.py`, `apply_edits.py`; receipts stay local and git-ignored because they list private file names). A receipt counts as a baseline only when its run ended ASSURED_CONVERGED (Omni 8.4).
+- The Converge tooling lives in `converge/` (`scan.py` (from the repo root, `--root .` covers the whole repository; it finds Omni under any folder; Omni and its experts sit outside the repo in the sibling `.docs/` folder, so `--root ..` covers them), `omni_check.py`, `apply_edits.py`; receipts stay local and git-ignored because they list private file names). A receipt counts as a baseline only when its run ended ASSURED_CONVERGED (Omni 8.4).
 
 ## 10. Design system
 
@@ -264,7 +264,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `050fe901`, last changed 2026-11-13.
+Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `02cf48ca`, last changed 2026-11-13.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -274,11 +274,11 @@ Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 a
 | FlexxFiles Workout Log | apps | single | health | 2.5.5 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.4 | live | MIT | /apps/meetingmediator-sessions/ |
 | NestEggNinja Retirement | apps | single | money | 10.4.5 | live | MIT | /apps/nesteggninja-retirement/ |
-| NoodleNudge Journal | apps | single | health | 1.7.6 | live | MIT | /apps/noodlenudge-journal/ |
+| NoodleNudge Journal | apps | single | health | 1.7.7 | live | MIT | /apps/noodlenudge-journal/ |
 | PennyPlanner Budget | apps | single | money | 1.3.8 | live | MIT | /apps/pennyplanner-budget/ |
 | PromptPantry Library | apps | single | ai | 0.1.0 | live | MIT | /apps/promptpantry-library/ |
 | TickleTodo Tasks | apps | single | health | 1.3.5 | live | MIT | /apps/tickletodo-tasks/ |
-| ProjectPopQuiz Exams | courses | single | learning | 1.7.4 | live | MIT | /courses/projectpopquiz-exams/ |
+| ProjectPopQuiz Exams | courses | single | learning | 1.7.5 | live | MIT | /courses/projectpopquiz-exams/ |
 | StudyStack Courses | courses | single | learning | 1.6.0 | live | MIT | /courses/studystack-courses/ |
 | SupportScout Equipment Decisions | courses | single | work | 1.5.5 | live | MIT | /courses/supportscout-equipment/ |
 | AuctionAcademy Classroom Game | games | single | games | 5.1.2 | live | MIT | /games/auctionacademy-game/ |
@@ -300,6 +300,9 @@ Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-13: ProjectPopQuiz 1.7.5 and NoodleNudge 1.7.7 drop dead code (an unused fetch timer; an unused worker config).
+- 2026-11-13: DRY: `csp_hash`, `tree_files` and `tree_hash` live once in `builder/paths.py`; `site/scripts` keeps standalone copies (published); build output unchanged.
+- 2026-11-13: workspace: the repo and the Omni folder (`.docs/`, beside the repo) are the whole working set; the earlier note vault is retired.
 - 2026-11-13: families: 14 study readers are packs in StudyStack Courses, 4 hardware guides in GadgetGuild Guides (engine 1.6.0: `?pack=`, shelf, per-pack look; old addresses forward; `builder/merge_family.py`).
 - 2026-11-12: PromptPantry added; the 8 restored apps count equally; shared engine in `sources/engine/`; per-app looks; hub Zen look; small fixes (CR-24-4, CR-26-2).
 
