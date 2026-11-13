@@ -100,3 +100,7 @@ body{min-height:100vh;min-height:100dvh;overscroll-behavior-y:contain}
 .nudge p[hidden]{display:none}
 /* the Today card sits near the top; its space is reserved (about the median height per width) so filling it in moves the tiles very little */
 .today{min-height:23rem}@media(max-width:1023px){.today{min-height:24rem}}@media(max-width:767px){.today{min-height:27rem}}@media(max-width:480px){.today{min-height:33rem}}@media(max-width:380px){.today{min-height:34.5rem}}
+/* Comfort settings: motion, transparency and contrast follow the reader's system choice (reduced-motion-first, RepoRadar survey). */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-transparency:reduce){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
+@media(prefers-contrast:more){*{text-shadow:none!important}:focus-visible{outline-width:3px!important;outline-offset:2px}}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ftiHSuk+j5JU43UWmmKHFp/yU7W5eG75Mf7cm8WHw1c='; style-src 'sha256-7Iat+ga11j/OCeiFZ3/Bvzs+y0VSRmmTFK9GT6JN4xk='; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ftiHSuk+j5JU43UWmmKHFp/yU7W5eG75Mf7cm8WHw1c='; style-src 'sha256-98aiKATry5NLgHxtRsRkKeuAamJWQnc0f3D33PjAdng='; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="Keep your own prompts: fill in the blanks, preview, copy, and back up. Stays on this device.">
 <meta name="application-version" content="0.1.0"> <!-- keep equal to the version in the file name; the build checks it -->
@@ -104,6 +104,9 @@ body{min-height:100vh;min-height:100dvh;overscroll-behavior-y:contain}
 .nt{margin:0;font-weight:700}.nb{margin:2px 0 0}.na{margin:2px 0 0;color:var(--mut)}
 .nudge p[hidden]{display:none}
 .today{min-height:23rem}@media(max-width:1023px){.today{min-height:24rem}}@media(max-width:767px){.today{min-height:27rem}}@media(max-width:480px){.today{min-height:33rem}}@media(max-width:380px){.today{min-height:34.5rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-transparency:reduce){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
+@media(prefers-contrast:more){*{text-shadow:none!important}:focus-visible{outline-width:3px!important;outline-offset:2px}}
 /* OMNEVUM KIT:END */
 /* PromptPantry */
 :root[data-app]{--hue:28}

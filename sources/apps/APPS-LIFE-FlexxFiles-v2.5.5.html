@@ -42,6 +42,9 @@ button,input{font:inherit;color:inherit}
 .ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
 @media(prefers-reduced-motion:no-preference){.ib{transition:border-color .15s,transform .12s,box-shadow .15s}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-transparency:reduce){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
+@media(prefers-contrast:more){*{text-shadow:none!important}:focus-visible{outline-width:3px!important;outline-offset:2px}}
 /* OMNEVUM KIT:END */
 /* Omnevum bar: same in every Omnevum app */
 .omni-bar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);min-height:60px;padding:var(--s2) max(var(--s4),env(safe-area-inset-right)) var(--s2) max(var(--s4),env(safe-area-inset-left));background:var(--bg);border-bottom:1px solid var(--line)}

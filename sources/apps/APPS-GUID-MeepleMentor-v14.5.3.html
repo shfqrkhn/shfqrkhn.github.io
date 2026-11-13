@@ -35,6 +35,9 @@ button,input{font:inherit;color:inherit}
 .ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
 @media(prefers-reduced-motion:no-preference){.ib{transition:border-color .15s,transform .12s,box-shadow .15s}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-transparency:reduce){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
+@media(prefers-contrast:more){*{text-shadow:none!important}:focus-visible{outline-width:3px!important;outline-offset:2px}}
 /* OMNEVUM KIT:END */
 /* MeepleMentor 14.5.3. Tokens by role; colours come from the Omnevum kit above. */
 html{--surface:var(--card);--ink:var(--fg);--muted:var(--mut);--accent:var(--acc);--accent-ink:var(--on-acc);--focus:var(--acc);--bd:color-mix(in srgb,var(--fg) 45%,var(--bg));--danger:#9B2C2C;--success:#2F6B3A;--warning:#7A4F00}
