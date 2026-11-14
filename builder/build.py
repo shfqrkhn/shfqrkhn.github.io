@@ -19,9 +19,9 @@ BN = BRAND["name"]
 ARCHIVED = {p["id"] for p in REG if p.get("archived")}
 
 
-def _hide(text):
+def _hide(text, _om=OM):  # OM bound now: __file__ can be gone when the crash hook runs
     """In CI the log is public: replace every private name (case-insensitive) before anything is printed."""
-    names_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "privacy_names.txt")
+    names_file = os.path.join(_om, "privacy_names.txt")
     if not os.environ.get("CI") or not os.path.exists(names_file):
         return text
     for n in sorted({l.strip() for l in open(names_file, encoding="utf-8-sig") if l.strip() and not l.startswith("#")}, key=len, reverse=True):

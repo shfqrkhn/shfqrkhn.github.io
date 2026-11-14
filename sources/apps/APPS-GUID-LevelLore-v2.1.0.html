@@ -2,13 +2,13 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" data-spoilers="hidden" style="--hue:178">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-JScDsSyaZLuRlfW9vQIP+o1+6hkj/iCZzC84z7bOsIE='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-hnZ8QsMW6PZfCEFHIAtEA0l12kDVY2y4daWulXLnjFY='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F6F1E7">
-<meta name="app-version" content="2.0.0">
+<meta name="app-version" content="2.1.0">
 <meta name="description" content="LevelLore Game Guides: offline field guides to video games, starting with a Hades build. Pick a game, tick steps, back up progress. Unofficial, one file.">
 <title>LevelLore Game Guides | Video game guides</title>
-<!-- Single-file build 2.0.0 (offline, no network on load). 2.0.0 turns the single Hades guide into a multi-game guide app: guides are data (id, game, subtitle, sections), ?game=<id> opens one, backup export and import added; saved keys are unchanged. Fonts embedded: see Licences. -->
+<!-- Single-file build 2.1.0 (offline, no network on load). 2.0.0 turned the single Hades guide into a multi-game guide app: guides are data (id, game, subtitle, sections), ?game=<id> opens one, backup export and import added; saved keys are unchanged. 2.1.0: tools are modules a guide opts into by name in its data (checklist, lookup, ladder, hades-eris); with one guide the app opens it directly. Fonts embedded: see Licences. -->
 <script>(function(){var K="hades-eris-protocol.look",r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null,ok={auto:1,paper:1,charcoal:1,black:1};function rd(k,h){try{var v=localStorage.getItem(k);if(h){v=JSON.parse(v);v=v&&v.look}return ok[v]===1?v:null}catch(e){return null}}function get(){return rd("hub.prefs.v1",1)||rd(K)||"auto"}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-look",l);r.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t])}function set(l){if(ok[l]!==1)return;try{localStorage.setItem(K,l)}catch(e){}try{var p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"{}");if(!p||typeof p!=="object"||Array.isArray(p))p={};p.schemaVersion=1;p.look=l;localStorage.setItem("hub.prefs.v1",JSON.stringify(p))}catch(e){}apply(l)}apply(get());try{r.setAttribute("data-spoilers",localStorage.getItem("hades-eris-protocol.spoilers")==="shown"?"shown":"hidden")}catch(e){r.setAttribute("data-spoilers","hidden")}if(mq&&mq.addEventListener)mq.addEventListener("change",function(){get()==="auto"&&apply("auto")});window.omnLook={get:get,set:set}})();function wire(){var s=document.getElementById("look");if(!s)return;s.value=omnLook.get();s.addEventListener("change",function(){omnLook.set(s.value)})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",wire):wire();</script>
 <style>
 /* OMNEVUM KIT:BEGIN */
@@ -493,7 +493,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
   </main>
 </div>
 <footer class="foot">
-  <p>v<span class="js-av">2.0.0</span><span id="foot-data"></span></p>
+  <p>v<span class="js-av">2.1.0</span><span id="foot-data"></span></p>
   <p>Data stays on this device.</p>
   <div class="links"><a href="#help">Help</a><a href="#licences">Licences</a><a href="#main" aria-label="Top"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-up2"/></svg>Top</a><a href="https://shfqrkhn.github.io/">Source</a></div>
 </footer>
@@ -510,16 +510,38 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
   <div id="tools-body"></div>
 </aside>
 
+<!--
+Guides data: one JSON object per guide in "guides". Adding a guide is adding one object here; no code changes.
+Fields:
+  id          a-z, 0-9, dash (max 40). Opens with ?game=<id> (?pack=<id> also works). Ticks save to
+              hades-eris-protocol.ticks.<id>; only the Hades guide sets "legacyTicks": true (original key).
+  game        game name, shown on the shelf and in the title. platform: where it runs (shelf, optional).
+  subtitle    one line under the name. blurb: one or two plain sentences for the shelf card.
+  title       [line1, line2] for the guide masthead. deck: one line under it. plate: [[label, value]] (optional).
+  sections    [{id, label, group "main" or "ref", html [lines]}]. Page HTML; checkboxes with ids save as ticks.
+  spoilers    words hidden until the reader shows spoilers (optional). facts: {name: value} for {{fact:name}}.
+  credit      trademark line for Licences. date, dataVersion: shown in the footer.
+  modules     tools the guide opts into, in order: [{"use": <module name>, ...that module's data}]. Names:
+    checklist   {token, summary, items [[group, text with **bold**, id starting tool-]]}. A page checkbox
+                <id> and the Tools item tool-<id> stay in step. {{<token>:<id>}} prints an item (token default item).
+    lookup      {id, title, label, button, empty, options [[value, label, text]]}: pick one, show its text.
+    ladder      {id, title, unit, units, button, noPlan, min, plans {number: text}}: a number shows the plan for
+                the nearest step at or above it. {{<id>:max}} prints the top step.
+    hades-eris  Hades only. {id, title, button, levels {level: {seconds, titanBlood}}}. {{<id>:<level|max>:duration|seconds|cost}}.
+  Text in tools may use {{fact:name}}. Unknown module names are skipped; a guide without a valid id, game,
+  title and sections is skipped.
+-->
 <script type="application/json" id="guides-data">
 {
- "dataVersion": 1,
- "note": "Add a game by adding one object to guides. Required: id (a-z, 0-9, dash), game, subtitle, summary, title [line1, line2], deck, sections [{id, label, group main or ref, html [lines]}]. Optional: plate, checklist [[group, text with **bold**, id starting tool-]], facts, tools, spoilers, credit, date, dataVersion. Saved ticks use the key hades-eris-protocol.ticks.\u003cid>; the Hades guide keeps the original key.",
+ "dataVersion": 2,
+ "note": "See the comment above this block for how to add a guide.",
  "guides": [
   {
    "id": "hades",
    "game": "Hades",
+   "platform": "PC, Mac, Nintendo Switch, PlayStation, Xbox",
    "subtitle": "Hades: Adamant Rail, Aspect of Eris build",
-   "summary": "Build order, boons, Heat plans and farming routes for one low luck, high Heat build.",
+   "blurb": "Build order, boons, Heat plans and farming routes for one low luck, high Heat build.",
    "legacyTicks": true,
    "credit": "Hades: names, items and mechanics belong to Supergiant Games.",
    "title": [
@@ -559,122 +581,194 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
     "styxDiamondObols": 1000,
     "brokerAmbrosia": 1
    },
-   "checklist": [
-    [
-     "Tartarus",
-     "Zeus Attack: **Lightning Strike**",
-     "tool-tartarus-zeus-attack"
-    ],
-    [
-     "Tartarus",
-     "Zeus Boon: **Static Discharge**",
-     "tool-tartarus-static-discharge"
-    ],
-    [
-     "Asphodel",
-     "Poseidon Dash: **Tidal Dash**",
-     "tool-asphodel-poseidon-dash"
-    ],
-    [
-     "Asphodel",
-     "Duo Boon: **Sea Storm**",
-     "tool-asphodel-sea-storm"
-    ],
-    [
-     "Elysium",
-     "Aphrodite Special: **Heartbreak Flourish**",
-     "tool-elysium-aphrodite-special"
-    ],
-    [
-     "Elysium",
-     "Hermes Combo: **Hyper Sprint + Rush Delivery**",
-     "tool-elysium-hermes-combo"
-    ],
-    [
-     "Elysium",
-     "Zeus Boons: **Double Strike/Splitting Bolt**",
-     "tool-elysium-zeus-lux"
-    ],
-    [
-     "General",
-     "Daedalus Hammer: **Cluster Bomb**",
-     "tool-cluster-bomb"
-    ],
-    [
-     "General",
-     "Daedalus Hammer: **Rocket Bomb**",
-     "tool-rocket-bomb"
-    ],
-    [
-     "General",
-     "Daedalus Hammer: **Triple Bomb**",
-     "tool-triple-bomb"
-    ],
-    [
-     "General",
-     "Eris Aspect Investment (Maxed)",
-     "tool-eris-aspect-max"
-    ],
-    [
-     "General",
-     "Artemis Boons (Pressure Points, Support Fire)",
-     "tool-artemis"
-    ],
-    [
-     "General",
-     "Chosen Call (Aphrodite/Zeus Aid)",
-     "tool-call"
-    ]
-   ],
-   "keepsakes": {
-    "tartarus": "Thunder Signet (Zeus): to force Lightning Strike and Static Discharge.",
-    "asphodel": "Conch Shell (Poseidon): to force Tidal Dash and Sea Storm.",
-    "elysium": "Pom Blossom (Persephone): if strong, to level boons. Evergreen Acorn (Eurydice): if defensive, for boss safety.",
-    "styx": "Evergreen Acorn (Eurydice): highly recommended for the final boss fight. Pom Blossom (Persephone): if you need more boon levels and feel very confident."
-   },
-   "heat": {
-    "0": "No Heat active. Focus on learning mechanics and gaining permanent upgrades.",
-    "1": "Start with Forced Overtime (Rank 1).",
-    "2": "Forced Overtime (Rank 1), Damage Control (Rank 1).",
-    "3": "Forced Overtime (Rank 1), Damage Control (Rank 1), Extreme Measures (Rank 1, Furies).",
-    "6": "Forced Overtime (Rank 2), Damage Control (Rank 1), Extreme Measures (Rank 1). Adds more speed.",
-    "8": "Forced Overtime (Rank 2), Damage Control (Rank 2), Extreme Measures (Rank 1). Or add Extreme Measures (Rank 2, Hydra).",
-    "10": "Consider Tight Deadline (Rank 1 or 2) if you're fast. Extreme Measures (Rank 3, Theseus and Asterius) is a good challenge.",
-    "15": "Continue with Forced Overtime, Damage Control, Extreme Measures (up to 3). Add Underworld Customs if comfortable.",
-    "20": "Bounties cap here. You'll need most of the 'free' Heat pacts. Focus on perfecting execution."
-   },
-   "heatNoPlan": "The guide has no plan written for this Heat yet.",
-   "heatNote": "Each entry covers the Heats from the previous entry up to its own number. The calculator offers 0 up to the highest entry.",
-   "eris": {
-    "1": {
-     "seconds": 4,
-     "titanBlood": 0
+   "scope": "Facts and tool data. Page text shows facts through markers such as {{eris:5:duration}}, {{heat:max}}, {{boon:cluster-bomb}} or {{fact:buffBonus}}. Guide text, boon tables and the run route are page text (HTML) in sections.",
+   "modules": [
+    {
+     "use": "checklist",
+     "token": "boon",
+     "summary": "Current build",
+     "items": [
+      [
+       "Tartarus",
+       "Zeus Attack: **Lightning Strike**",
+       "tool-tartarus-zeus-attack"
+      ],
+      [
+       "Tartarus",
+       "Zeus Boon: **Static Discharge**",
+       "tool-tartarus-static-discharge"
+      ],
+      [
+       "Asphodel",
+       "Poseidon Dash: **Tidal Dash**",
+       "tool-asphodel-poseidon-dash"
+      ],
+      [
+       "Asphodel",
+       "Duo Boon: **Sea Storm**",
+       "tool-asphodel-sea-storm"
+      ],
+      [
+       "Elysium",
+       "Aphrodite Special: **Heartbreak Flourish**",
+       "tool-elysium-aphrodite-special"
+      ],
+      [
+       "Elysium",
+       "Hermes Combo: **Hyper Sprint + Rush Delivery**",
+       "tool-elysium-hermes-combo"
+      ],
+      [
+       "Elysium",
+       "Zeus Boons: **Double Strike/Splitting Bolt**",
+       "tool-elysium-zeus-lux"
+      ],
+      [
+       "General",
+       "Daedalus Hammer: **Cluster Bomb**",
+       "tool-cluster-bomb"
+      ],
+      [
+       "General",
+       "Daedalus Hammer: **Rocket Bomb**",
+       "tool-rocket-bomb"
+      ],
+      [
+       "General",
+       "Daedalus Hammer: **Triple Bomb**",
+       "tool-triple-bomb"
+      ],
+      [
+       "General",
+       "Eris Aspect Investment (Maxed)",
+       "tool-eris-aspect-max"
+      ],
+      [
+       "General",
+       "Artemis Boons (Pressure Points, Support Fire)",
+       "tool-artemis"
+      ],
+      [
+       "General",
+       "Chosen Call (Aphrodite/Zeus Aid)",
+       "tool-call"
+      ]
+     ]
     },
-    "2": {
-     "seconds": 5,
-     "titanBlood": 1
+    {
+     "use": "lookup",
+     "id": "keepsake",
+     "title": "Keepsake",
+     "label": "Biome",
+     "button": "Show keepsake",
+     "empty": "No specific suggestion for this biome.",
+     "options": [
+      [
+       "tartarus",
+       "Tartarus",
+       "Thunder Signet (Zeus): to force Lightning Strike and Static Discharge."
+      ],
+      [
+       "asphodel",
+       "Asphodel",
+       "Conch Shell (Poseidon): to force Tidal Dash and Sea Storm."
+      ],
+      [
+       "elysium",
+       "Elysium",
+       "Pom Blossom (Persephone): if strong, to level boons. Evergreen Acorn (Eurydice): if defensive, for boss safety."
+      ],
+      [
+       "styx",
+       "Temple of Styx",
+       "Evergreen Acorn (Eurydice): highly recommended for the final boss fight. Pom Blossom (Persephone): if you need more boon levels and feel very confident."
+      ]
+     ]
     },
-    "3": {
-     "seconds": 6,
-     "titanBlood": 2
+    {
+     "use": "ladder",
+     "id": "heat",
+     "title": "Heat",
+     "unit": "Heat",
+     "units": "Heats",
+     "button": "Show Heat plan",
+     "noPlan": "The guide has no plan written for this Heat yet.",
+     "note": "Each entry covers the Heats from the previous entry up to its own number. The calculator offers 0 up to the highest entry.",
+     "plans": {
+      "0": "No Heat active. Focus on learning mechanics and gaining permanent upgrades.",
+      "1": "Start with Forced Overtime (Rank 1).",
+      "2": "Forced Overtime (Rank 1), Damage Control (Rank 1).",
+      "3": "Forced Overtime (Rank 1), Damage Control (Rank 1), Extreme Measures (Rank 1, Furies).",
+      "6": "Forced Overtime (Rank 2), Damage Control (Rank 1), Extreme Measures (Rank 1). Adds more speed.",
+      "8": "Forced Overtime (Rank 2), Damage Control (Rank 2), Extreme Measures (Rank 1). Or add Extreme Measures (Rank 2, Hydra).",
+      "10": "Consider Tight Deadline (Rank 1 or 2) if you're fast. Extreme Measures (Rank 3, Theseus and Asterius) is a good challenge.",
+      "15": "Continue with Forced Overtime, Damage Control, Extreme Measures (up to 3). Add Underworld Customs if comfortable.",
+      "20": "Bounties cap here. You'll need most of the 'free' Heat pacts. Focus on perfecting execution."
+     }
     },
-    "4": {
-     "seconds": 7,
-     "titanBlood": 3
+    {
+     "use": "hades-eris",
+     "id": "eris",
+     "title": "Eris level",
+     "button": "Show Eris buff",
+     "levels": {
+      "1": {
+       "seconds": 4,
+       "titanBlood": 0
+      },
+      "2": {
+       "seconds": 5,
+       "titanBlood": 1
+      },
+      "3": {
+       "seconds": 6,
+       "titanBlood": 2
+      },
+      "4": {
+       "seconds": 7,
+       "titanBlood": 3
+      },
+      "5": {
+       "seconds": 8,
+       "titanBlood": 4
+      }
+     }
     },
-    "5": {
-     "seconds": 8,
-     "titanBlood": 4
+    {
+     "use": "lookup",
+     "id": "resource",
+     "title": "Farming",
+     "label": "Resource",
+     "button": "Show farming route",
+     "options": [
+      [
+       "titan-blood",
+       "Titan Blood",
+       "Primary: defeat the first and last boss on new Heat levels with each weapon. Also: Prophecies, Wretched Broker ({{fact:brokerAmbrosia}} Ambrosia), Styx Shop ({{fact:styxTitanBloodObols}} Obols), fishing (final boss area)."
+      ],
+      [
+       "diamonds",
+       "Diamonds",
+       "Primary: defeat the Bone Hydra (second boss) on new Heat levels with each weapon. Also: Prophecies, Broker or Styx Shop ({{fact:styxDiamondObols}} Obols), fishing (surface)."
+      ],
+      [
+       "ambrosia",
+       "Ambrosia",
+       "Primary: defeat Theseus and Asterius (third boss) on new Heat levels with each weapon. Also: first-time clears, Fated List Prophecies. Avoid trading for Titan Blood unless you have a surplus."
+      ],
+      [
+       "darkness",
+       "Darkness",
+       "Primary: rooms with Darkness rewards, bosses (especially at low Heat). Also: Poseidon's Ocean's Bounty, Chaos boons for resource gains, Infernal Troves. Use the Dark Thirst weapon."
+      ],
+      [
+       "gems",
+       "Gemstones",
+       "Primary: rooms with Gemstone rewards. Also: Poseidon's Ocean's Bounty, Chaos boons for resource gains, Infernal Troves. Use the Dark Thirst weapon."
+      ]
+     ]
     }
-   },
-   "resourceTips": {
-    "titan-blood": "Primary: defeat the first and last boss on new Heat levels with each weapon. Also: Prophecies, Wretched Broker ({{fact:brokerAmbrosia}} Ambrosia), Styx Shop ({{fact:styxTitanBloodObols}} Obols), fishing (final boss area).",
-    "diamonds": "Primary: defeat the Bone Hydra (second boss) on new Heat levels with each weapon. Also: Prophecies, Broker or Styx Shop ({{fact:styxDiamondObols}} Obols), fishing (surface).",
-    "ambrosia": "Primary: defeat Theseus and Asterius (third boss) on new Heat levels with each weapon. Also: first-time clears, Fated List Prophecies. Avoid trading for Titan Blood unless you have a surplus.",
-    "darkness": "Primary: rooms with Darkness rewards, bosses (especially at low Heat). Also: Poseidon's Ocean's Bounty, Chaos boons for resource gains, Infernal Troves. Use the Dark Thirst weapon.",
-    "gems": "Primary: rooms with Gemstone rewards. Also: Poseidon's Ocean's Bounty, Chaos boons for resource gains, Infernal Troves. Use the Dark Thirst weapon."
-   },
-   "scope": "Facts, checklist and field tools data. Page text shows facts through markers such as {{eris:5:duration}} or {{fact:buffBonus}}. Guide text, boon tables and the run route are page text (HTML) in sections.",
+   ],
    "sections": [
     {
      "id": "glance",
@@ -1186,39 +1280,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
       "\u003c/section>"
      ]
     }
-   ],
-   "tools": [
-    "  \u003cdiv class=\"tool\">",
-    "    \u003ch3>Keepsake\u003c/h3>",
-    "    \u003clabel for=\"biome-select\">Biome\u003c/label>",
-    "    \u003cselect id=\"biome-select\">\u003coption value=\"tartarus\">Tartarus\u003c/option>\u003coption value=\"asphodel\">Asphodel\u003c/option>\u003coption value=\"elysium\">Elysium\u003c/option>\u003coption value=\"styx\">Temple of Styx\u003c/option>\u003c/select>",
-    "    \u003cbutton type=\"button\" class=\"btn\" id=\"get-keepsake-suggestion\" aria-label=\"Show keepsake\">\u003csvg class=\"i\" aria-hidden=\"true\" focusable=\"false\">\u003cuse href=\"#i-search\"/>\u003c/svg>Show\u003c/button>",
-    "    \u003cdiv id=\"keepsake-output\" class=\"tool-output\" role=\"status\" aria-live=\"polite\">\u003c/div>",
-    "  \u003c/div>",
-    "",
-    "  \u003cdiv class=\"tool\">",
-    "    \u003ch3>Heat\u003c/h3>",
-    "    \u003clabel for=\"desired-heat\">Heat (0-{{heat:max}})\u003c/label>",
-    "    \u003cinput type=\"number\" id=\"desired-heat\" min=\"0\" max=\"20\" value=\"0\" step=\"1\" inputmode=\"numeric\">",
-    "    \u003cbutton type=\"button\" class=\"btn\" id=\"calculate-heat\" aria-label=\"Show Heat plan\">\u003csvg class=\"i\" aria-hidden=\"true\" focusable=\"false\">\u003cuse href=\"#i-search\"/>\u003c/svg>Show\u003c/button>",
-    "    \u003cdiv id=\"heat-output\" class=\"tool-output\" role=\"status\" aria-live=\"polite\">\u003c/div>",
-    "  \u003c/div>",
-    "",
-    "  \u003cdiv class=\"tool\">",
-    "    \u003ch3>Eris level\u003c/h3>",
-    "    \u003clabel for=\"eris-aspect-level\">Level (1-{{eris:max}})\u003c/label>",
-    "    \u003cinput type=\"number\" id=\"eris-aspect-level\" min=\"1\" max=\"5\" value=\"1\" inputmode=\"numeric\">",
-    "    \u003cbutton type=\"button\" class=\"btn\" id=\"get-eris-buff-info\" aria-label=\"Show Eris buff\">\u003csvg class=\"i\" aria-hidden=\"true\" focusable=\"false\">\u003cuse href=\"#i-search\"/>\u003c/svg>Show\u003c/button>",
-    "    \u003cdiv id=\"eris-buff-output\" class=\"tool-output\" role=\"status\" aria-live=\"polite\">\u003c/div>",
-    "  \u003c/div>",
-    "",
-    "  \u003cdiv class=\"tool\">",
-    "    \u003ch3>Farming\u003c/h3>",
-    "    \u003clabel for=\"resource-type\">Resource\u003c/label>",
-    "    \u003cselect id=\"resource-type\">\u003coption value=\"titan-blood\">Titan Blood\u003c/option>\u003coption value=\"diamonds\">Diamonds\u003c/option>\u003coption value=\"ambrosia\">Ambrosia\u003c/option>\u003coption value=\"darkness\">Darkness\u003c/option>\u003coption value=\"gems\">Gemstones\u003c/option>\u003c/select>",
-    "    \u003cbutton type=\"button\" class=\"btn\" id=\"get-resource-tip\" aria-label=\"Show farming route\">\u003csvg class=\"i\" aria-hidden=\"true\" focusable=\"false\">\u003cuse href=\"#i-search\"/>\u003c/svg>Show\u003c/button>",
-    "    \u003cdiv id=\"resource-tip-output\" class=\"tool-output\" role=\"status\" aria-live=\"polite\">\u003c/div>",
-    "  \u003c/div>"
    ]
   }
  ]
@@ -1234,53 +1295,172 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
     var KL = APP_ID + '.look';
     var KV = APP_ID + '.schema';
     var SCHEMA = 1;
-    var APP_VERSION = '2.0.0';
+    var APP_VERSION = '2.1.0';
     var LOOKS = ['auto', 'paper', 'charcoal', 'black'];
     var ID_RE = /^[a-z0-9-]{1,40}$/;
     var TICK_RE = /^[A-Za-z0-9_-]{1,80}$/;
     var DATA = JSON.parse(document.getElementById('guides-data').textContent);
-    var GUIDES = DATA.guides;
-    var G = null;            // the open guide, or null on the home list
+    var G = null;            // the open guide, or null on the shelf
+    var GM = [];             // modules the open guide uses, in order: { m: data, k: module }
     var schemaLocked = false;
     var root = document.documentElement;
-    var SPOILER_RE = null, ERIS_LV = [], ERIS_MAX = 0, HEAT_KEYS = [], HEAT_MAX = 0;
+    var SPOILER_RE = null;
 
     function $(id) { return document.getElementById(id); }
+    function own(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+    function secs(n) { return n + (n === 1 ? ' second' : ' seconds'); }
+    function sortedNums(o) { return Object.keys(o || {}).map(Number).filter(function (n) { return isFinite(n); }).sort(function (a, b) { return a - b; }); }
+    // **bold** in data text becomes <strong>, everything else stays text
+    function boldInto(el, text) {
+        String(text).split(/\*\*(.+?)\*\*/).forEach(function (seg, i) {
+            if (!seg) { return; }
+            if (i % 2 === 1) { var b = document.createElement('strong'); b.textContent = seg; el.appendChild(b); }
+            else { el.appendChild(document.createTextNode(seg)); }
+        });
+    }
+    function mk(tag, attrs, text) {
+        var e = document.createElement(tag);
+        Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+        if (text !== undefined) { e.textContent = text; }
+        return e;
+    }
+    function showBtn(id, aria) {
+        var b = mk('button', { type: 'button', 'class': 'btn', id: id, 'aria-label': aria || 'Show' });
+        b.innerHTML = '<svg class="i" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>Show';
+        return b;
+    }
+    function toolBox(m, title) {
+        var d = mk('div', { 'class': 'tool' });
+        d.appendChild(mk('h3', {}, title));
+        return d;
+    }
+    function outBox(id) { return mk('div', { id: id, 'class': 'tool-output', role: 'status', 'aria-live': 'polite' }); }
+
+    // --- Modules: a guide opts in by name in its "modules" list; each entry carries the module's data ---
+    // checklist (generic): ticks shared by the Tools list and the page; tokens {{<token>:<id>}} print an item.
+    // lookup (generic): pick an option, show its text. ladder (generic): a number shows the plan for the
+    // nearest step at or above it. hades-eris (Hades only): Aspect of Eris level, buff time and cost.
+    var MODULES = {
+        checklist: {
+            prefix: function (m) { return m.token || 'item'; },
+            item: function (m, id) {
+                var list = m.items || [];
+                for (var i = 0; i < list.length; i++) { if (list[i][2] === 'tool-' + id) { return list[i]; } }
+                return null;
+            }
+        },
+        lookup: {
+            render: function (m, n) {
+                var d = toolBox(m, m.title), sid = 'm' + n + '-in';
+                d.appendChild(mk('label', { 'for': sid }, m.label || 'Pick one'));
+                var sel = mk('select', { id: sid });
+                (m.options || []).forEach(function (o) { sel.appendChild(mk('option', { value: o[0] }, o[1])); });
+                d.appendChild(sel);
+                d.appendChild(showBtn('m' + n + '-go', m.button));
+                d.appendChild(outBox('m' + n + '-out'));
+                return d;
+            },
+            run: function (m, n) {
+                var v = $('m' + n + '-in').value, text = null;
+                (m.options || []).forEach(function (o) { if (o[0] === v) { text = o[2]; } });
+                setOut($('m' + n + '-out'), fillTokens(text || m.empty || 'Nothing written for this choice.'));
+            }
+        },
+        ladder: {
+            init: function (m) { m._k = sortedNums(m.plans); m._max = m._k.length ? m._k[m._k.length - 1] : 0; m._min = typeof m.min === 'number' ? m.min : 0; },
+            token: function (m, p) { return p[1] === 'max' && p.length === 2 ? String(m._max) : null; },
+            render: function (m, n) {
+                var d = toolBox(m, m.title), iid = 'm' + n + '-in';
+                d.appendChild(mk('label', { 'for': iid }, (m.unit || m.title) + ' (' + m._min + '-' + m._max + ')'));
+                d.appendChild(mk('input', { type: 'number', id: iid, min: String(m._min), max: String(m._max), value: String(m._min), step: '1', inputmode: 'numeric' }));
+                d.appendChild(showBtn('m' + n + '-go', m.button));
+                d.appendChild(outBox('m' + n + '-out'));
+                return d;
+            },
+            run: function (m, n) {
+                var out = $('m' + n + '-out'), raw = parseFloat($('m' + n + '-in').value), u = m.unit || m.title, K = m._k;
+                if (isNaN(raw) || !isFinite(raw) || raw < m._min || raw > 1000000) { setOut(out, 'Enter ' + m._min + ' to ' + m._max + '.', true); return; }
+                var h = Math.floor(raw), note = h !== raw ? 'Rounded to ' + h + '. ' : '';
+                if (h > m._max) { setOut(out, note + (m.noPlan || 'No plan written for this yet.') + ' The guide has plans for ' + u + ' ' + m._min + ' to ' + m._max + '.'); return; }
+                var hi = K[0], lo = m._min;
+                for (var i = 0; i < K.length; i++) {
+                    if (h <= K[i]) { hi = K[i]; lo = i === 0 ? m._min : K[i - 1] + 1; break; }
+                }
+                var span = lo === hi ? ': ' : ' (plan written for ' + (m.units || u + 's') + ' ' + lo + ' to ' + hi + '): ';
+                setOut(out, note + u + ' ' + h + span + fillTokens(m.plans[hi]));
+            }
+        },
+        'hades-eris': {
+            init: function (m) { m._lv = sortedNums(m.levels); m._max = m._lv.length ? m._lv[m._lv.length - 1] : 0; },
+            total: function (m) { var t = 0; m._lv.forEach(function (l) { t += m.levels[l].titanBlood; }); return t; },
+            cost: function (m, l) {
+                var x = MODULES['hades-eris'];
+                return m.levels[l].titanBlood + ' Titan Blood' + (l === m._lv[0] ? ' (first purchase)' : '') + (l === m._max ? ' (total ' + x.total(m) + ' Titan Blood to max)' : '');
+            },
+            token: function (m, p) {
+                var x = MODULES['hades-eris'], lv;
+                if (p[1] === 'max' && p.length === 2) { return String(m._max); }
+                if (p[1] === 'total' && p.length === 2) { return String(x.total(m)); }
+                lv = p[1] === 'max' ? m._max : p[1];
+                if (!own(m.levels, lv)) { return null; }
+                if (p[2] === 'seconds') { return String(m.levels[lv].seconds); }
+                if (p[2] === 'duration') { return secs(m.levels[lv].seconds); }
+                if (p[2] === 'cost') { return x.cost(m, Number(lv)); }
+                return null;
+            },
+            render: function (m, n) {
+                var d = toolBox(m, m.title || 'Eris level'), iid = 'm' + n + '-in', lo = m._lv.length ? m._lv[0] : 0;
+                d.appendChild(mk('label', { 'for': iid }, 'Level (' + lo + '-' + m._max + ')'));
+                d.appendChild(mk('input', { type: 'number', id: iid, min: String(lo), max: String(m._max), value: String(lo), inputmode: 'numeric' }));
+                d.appendChild(showBtn('m' + n + '-go', m.button));
+                d.appendChild(outBox('m' + n + '-out'));
+                return d;
+            },
+            run: function (m, n) {
+                var x = MODULES['hades-eris'], out = $('m' + n + '-out'), raw = parseFloat($('m' + n + '-in').value), level = Math.floor(raw);
+                if (!isNaN(raw) && isFinite(raw) && level >= m._lv[0] && level <= m._max && own(m.levels, level)) {
+                    var note = level !== raw ? 'Rounded to ' + level + '. ' : '';
+                    var next = level < m._max ? ' Next upgrade to Level ' + (level + 1) + ' costs: ' + x.cost(m, level + 1) + '.' : ' Aspect is maxed.';
+                    setOut(out, note + 'At Level ' + level + ', the Eris buff lasts ' + secs(m.levels[level].seconds) + '. Cost to reach this level: ' + x.cost(m, level) + '.' + next);
+                } else {
+                    setOut(out, 'Enter ' + m._lv[0] + ' to ' + m._max + '.', true);
+                }
+            }
+        }
+    };
+    // A guide is kept only if its id and required fields are sound; unknown module names are skipped.
+    function validGuide(g) {
+        return g && typeof g === 'object' && typeof g.id === 'string' && ID_RE.test(g.id) && typeof g.game === 'string' &&
+            Array.isArray(g.sections) && Array.isArray(g.title);
+    }
+    var GUIDES = [];
+    (DATA.guides || []).forEach(function (g) {
+        if (validGuide(g) && !GUIDES.some(function (x) { return x.id === g.id; })) {
+            g.modules = (Array.isArray(g.modules) ? g.modules : []).filter(function (m) { return m && typeof m === 'object' && own(MODULES, m.use); });
+            GUIDES.push(g);
+        }
+    });
     function guideById(id) { for (var i = 0; i < GUIDES.length; i++) { if (GUIDES[i].id === id) { return GUIDES[i]; } } return null; }
     function tickKey(g) { return g.legacyTicks ? KT : KT + '.' + g.id; }
+    function modOf(g, use) { var l = g.modules || []; for (var i = 0; i < l.length; i++) { if (l[i].use === use) { return l[i]; } } return null; }
+    function checklistItems(g) { var c = modOf(g, 'checklist'); return c && Array.isArray(c.items) ? c.items : []; }
 
     // --- Per guide facts live in its data; page text shows them through {{markers}} ---
     function setGuide(g) {
         G = g;
-        var eris = g.eris || {}, heat = g.heat || {};
-        ERIS_LV = Object.keys(eris).map(Number).sort(function (a, b) { return a - b; });
-        ERIS_MAX = ERIS_LV.length ? ERIS_LV[ERIS_LV.length - 1] : 0;
-        HEAT_KEYS = Object.keys(heat).map(Number).sort(function (a, b) { return a - b; });
-        HEAT_MAX = HEAT_KEYS.length ? HEAT_KEYS[HEAT_KEYS.length - 1] : 0;
+        GM = g.modules.map(function (m) { var k = MODULES[m.use]; if (k.init) { k.init(m); } return { m: m, k: k }; });
         var sp = (g.spoilers || []).slice().sort(function (a, b) { return b.length - a.length; })
             .map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); });
         SPOILER_RE = sp.length ? new RegExp('(' + sp.join('|') + ')') : null;
     }
-    function secs(n) { return n + (n === 1 ? ' second' : ' seconds'); }
-    function erisTotal() { var t = 0; ERIS_LV.forEach(function (l) { t += G.eris[l].titanBlood; }); return t; }
-    function erisCost(l) {
-        var n = G.eris[l].titanBlood;
-        return n + ' Titan Blood' + (l === ERIS_LV[0] ? ' (first purchase)' : '') + (l === ERIS_MAX ? ' (total ' + erisTotal() + ' Titan Blood to max)' : '');
-    }
+    // token prefix of a module: checklist uses its own; others use their data id, else the module name
+    function prefixOf(x) { return x.k.prefix ? x.k.prefix(x.m) : (x.m.id || x.m.use); }
     function resolveKey(key) {
-        var p = key.split(':'), lv;
-        if (p[0] === 'eris' && G.eris) {
-            if (p[1] === 'max' && p.length === 2) { return String(ERIS_MAX); }
-            if (p[1] === 'total' && p.length === 2) { return String(erisTotal()); }
-            lv = p[1] === 'max' ? ERIS_MAX : p[1];
-            if (!G.eris[lv]) { return null; }
-            if (p[2] === 'seconds') { return String(G.eris[lv].seconds); }
-            if (p[2] === 'duration') { return secs(G.eris[lv].seconds); }
-            if (p[2] === 'cost') { return erisCost(Number(lv)); }
-            return null;
+        var p = key.split(':');
+        if (p[0] === 'fact') { return G.facts && own(G.facts, p[1]) ? String(G.facts[p[1]]) : null; }
+        for (var i = 0; i < GM.length; i++) {
+            if (GM[i].k.token && prefixOf(GM[i]) === p[0]) { return GM[i].k.token(GM[i].m, p); }
         }
-        if (p[0] === 'heat' && p[1] === 'max' && G.heat) { return String(HEAT_MAX); }
-        if (p[0] === 'fact' && G.facts && Object.prototype.hasOwnProperty.call(G.facts, p[1])) { return String(G.facts[p[1]]); }
         return null;
     }
     function fillTokens(str) {
@@ -1289,12 +1469,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             return v === null ? '[missing: ' + k + ']' : v;
         });
     }
-    function boonItem(id) {
-        var list = G.checklist || [];
-        for (var i = 0; i < list.length; i++) { if (list[i][2] === 'tool-' + id) { return list[i]; } }
-        return null;
+    function checkItem(id) {
+        var c = modOf(G, 'checklist');
+        return c ? MODULES.checklist.item(c, id) : null;
     }
     function renderTokens(scope) {
+        var c = modOf(G, 'checklist'), cp = c ? MODULES.checklist.prefix(c) + ':' : null;
         var w = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT, {
             acceptNode: function (n) {
                 var t = n.parentNode && n.parentNode.nodeName;
@@ -1308,23 +1488,21 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             t.nodeValue.split(/(\{\{[A-Za-z0-9:_-]+\}\})/).forEach(function (part) {
                 var m = /^\{\{([A-Za-z0-9:_-]+)\}\}$/.exec(part);
                 if (!m) { if (part) { frag.appendChild(document.createTextNode(part)); } return; }
-                if (m[1].indexOf('boon:') === 0) {
-                    var it = boonItem(m[1].slice(5));
+                if (cp && m[1].indexOf(cp) === 0) {
+                    var it = checkItem(m[1].slice(cp.length));
                     if (!it) { frag.appendChild(document.createTextNode('[missing: ' + m[1] + ']')); return; }
-                    it[1].split(/\*\*(.+?)\*\*/).forEach(function (seg, i) {
-                        if (!seg) { return; }
-                        if (i % 2 === 1) { var b = document.createElement('strong'); b.textContent = seg; frag.appendChild(b); }
-                        else { frag.appendChild(document.createTextNode(seg)); }
-                    });
+                    var holder = document.createElement('span');
+                    boldInto(holder, it[1]);
+                    while (holder.firstChild) { frag.appendChild(holder.firstChild); }
                 } else {
                     frag.appendChild(document.createTextNode(fillTokens(part)));
                 }
             });
             t.parentNode.replaceChild(frag, t);
         });
-        scope.querySelectorAll('.acquisition-item input[type="checkbox"]').forEach(function (c) {
-            var it = boonItem(c.id);
-            if (it) { c.dataset.boon = it[1].replace(/\*\*/g, ''); }
+        scope.querySelectorAll('.acquisition-item input[type="checkbox"]').forEach(function (cb) {
+            var it = checkItem(cb.id);
+            if (it) { cb.dataset.boon = it[1].replace(/\*\*/g, ''); }
         });
     }
 
@@ -1334,7 +1512,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
     function lsDel(k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } }
     // Schema key: no key = saved by an older version (1.1.2 or later 1.x); accept and stamp it.
     // A key higher than SCHEMA = saved by a newer version: refuse to read or change the saved choices.
-    // 2.0.0 keeps every 1.x key and its shape, so there is nothing to convert.
+    // 2.x keeps every 1.x key and its shape, so there is nothing to convert.
     function migrate(oldVersion) {
         if (oldVersion > SCHEMA) { return false; }
         lsSet(KV, String(SCHEMA));
@@ -1418,11 +1596,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
     }
     function updateBuildSummary() {
         buildSummary = $('build-summary');
-        var got = [];
-        document.querySelectorAll('.interactive-centerpiece .acquisition-item input[type="checkbox"]').forEach(function (c) {
-            if (c.checked) { got.push(c.dataset.boon); }
+        var got = [], c = G ? modOf(G, 'checklist') : null;
+        document.querySelectorAll('.interactive-centerpiece .acquisition-item input[type="checkbox"]').forEach(function (cb) {
+            if (cb.checked) { got.push(cb.dataset.boon); }
         });
-        if (buildSummary) { buildSummary.textContent = got.length ? 'Current build: ' + got.join(', ') + '.' : 'Nothing ticked.'; }
+        if (buildSummary) { buildSummary.textContent = got.length ? ((c && c.summary) || 'Ticked') + ': ' + got.join(', ') + '.' : 'Nothing ticked.'; }
         updateStations();
     }
     function applyTicks(o) {
@@ -1435,9 +1613,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         return $(id);
     }
     function populateChecklist() {
-        var box = $('build-checklist-container');
+        var box = $('build-checklist-container'), items = checklistItems(G);
         box.innerHTML = '';
-        (G.checklist || []).forEach(function (r) {
+        items.forEach(function (r) {
             var div = document.createElement('div');
             div.className = 'acquisition-item';
             var input = document.createElement('input');
@@ -1447,16 +1625,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             var label = document.createElement('label');
             label.htmlFor = r[2];
             label.appendChild(document.createTextNode('(' + r[0] + ') '));
-            r[1].split(/\*\*(.+?)\*\*/).forEach(function (seg, i) {
-                if (!seg) { return; }
-                if (i % 2 === 1) { var b = document.createElement('strong'); b.textContent = seg; label.appendChild(b); }
-                else { label.appendChild(document.createTextNode(seg)); }
-            });
+            boldInto(label, r[1]);
             div.appendChild(input);
             div.appendChild(label);
             box.appendChild(div);
         });
-        $('tool-checklist').hidden = !(G.checklist && G.checklist.length);
+        $('tool-checklist').hidden = !items.length;
+    }
+    function renderTools() {
+        var body = $('tools-body');
+        body.textContent = '';
+        GM.forEach(function (x, n) { if (x.k.render) { body.appendChild(x.k.render(x.m, n)); } });
+        renderTokens(body);
+        return body.children.length;
     }
 
     // --- Views ---
@@ -1486,9 +1667,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         views.home.hidden = name !== 'home';
         views.guide.hidden = name !== 'guide';
         document.querySelectorAll('.guide-only').forEach(function (e) { e.hidden = name !== 'guide'; });
+        // with one guide there is no shelf to go back to
+        $('back-to-guides').hidden = name !== 'guide' || GUIDES.length < 2;
     }
     function buildToc(entries, refEntries) {
-        var html = '';
         function ol(list) {
             var o = document.createElement('ol');
             list.forEach(function (e) {
@@ -1497,7 +1679,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             });
             return o;
         }
-        tocBody.textContent = html;
+        tocBody.textContent = '';
         if (entries.length) { tocBody.appendChild(ol(entries)); }
         var p = document.createElement('p'); p.className = 'grp'; p.textContent = 'Reference';
         tocBody.appendChild(p);
@@ -1517,6 +1699,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
 
     function openHome(missing) {
         G = null;
+        GM = [];
         setToolsOpen(false, true);
         setView('home');
         var list = $('glist');
@@ -1526,15 +1709,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             a.className = 'card gcard';
             a.href = '?game=' + g.id;
             a.setAttribute('data-nav', '');
-            var n = document.createElement('span'); n.className = 'g-name'; n.textContent = g.game;
-            var s = document.createElement('span'); s.className = 'g-sub'; s.textContent = g.subtitle;
-            var m = document.createElement('span'); m.className = 'g-sum'; m.textContent = g.summary;
-            a.appendChild(n); a.appendChild(s); a.appendChild(m);
-            var total = (g.checklist || []).length;
+            a.appendChild(mk('span', { 'class': 'g-name' }, g.game));
+            if (g.platform) { a.appendChild(mk('span', { 'class': 'g-sub' }, g.platform)); }
+            if (g.subtitle) { a.appendChild(mk('span', { 'class': 'g-sub' }, g.subtitle)); }
+            if (g.blurb) { a.appendChild(mk('span', { 'class': 'g-sum' }, g.blurb)); }
+            var total = checklistItems(g).length;
             if (total) {
                 var t = Object.keys(readTicks(g)).filter(function (k) { return k.indexOf('tool-') === 0; }).length;
-                var x = document.createElement('span'); x.className = 'g-meta'; x.textContent = t + ' of ' + total + ' ticked';
-                a.appendChild(x);
+                a.appendChild(mk('span', { 'class': 'g-meta' }, t + ' of ' + total + ' ticked'));
             }
             li.appendChild(a);
             list.appendChild(li);
@@ -1556,7 +1738,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         $('g-game').textContent = g.game + ' guide';
         $('g-t1').textContent = g.title[0];
         $('g-t2').textContent = g.title[1] || '';
-        $('g-deck').textContent = g.deck;
+        $('g-deck').textContent = g.deck || '';
         var plate = $('g-plate');
         plate.textContent = '';
         (g.plate || []).forEach(function (r) {
@@ -1565,16 +1747,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         });
         plate.hidden = !(g.plate && g.plate.length);
         var body = $('guide-body');
-        body.innerHTML = g.sections.map(function (s) { return s.html.join('\n'); }).join('\n');
-        $('tools-body').innerHTML = (g.tools || []).join('\n');
+        body.innerHTML = g.sections.map(function (s) { return (s.html || []).join('\n'); }).join('\n');
         renderTokens(body);
-        renderTokens($('tools-body'));
         populateChecklist();
-        var hasTools = !!((g.checklist && g.checklist.length) || (g.tools && g.tools.length));
+        var hasTools = renderTools() > 0 || checklistItems(g).length > 0;
         document.querySelectorAll('.js-open-tools, #navbar-toggle').forEach(function (b) { b.hidden = !hasTools; });
-        document.querySelectorAll('.rail-actions .js-open-tools').forEach(function (b) { b.hidden = !hasTools; });
-        var di = $('desired-heat'); if (di) { di.max = String(HEAT_MAX); }
-        var ei = $('eris-aspect-level'); if (ei) { ei.max = String(ERIS_MAX); }
         var ticks = readTicks(g);
         Object.keys(ticks).forEach(function (id) {
             var c = $(id);
@@ -1586,7 +1763,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         ref.push(['help', 'Help'], ['licences', 'Licences']);
         buildToc(main, ref);
         $('g-gloss').hidden = !$('words');
-        setFootData(' / ' + g.dataVersion + ', ' + g.date);
+        setFootData(g.date ? ' / ' + (g.dataVersion || 1) + ', ' + g.date : '');
         document.title = g.game + ' guide | LevelLore Game Guides';
         toc.open = wide.matches;
         applySpoilers(currentSpoilers());
@@ -1600,6 +1777,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         var p, id = '';
         try { p = new URLSearchParams(window.location.search); id = p.get('game') || p.get('pack') || ''; } catch (e) { id = ''; }
         var g = id && ID_RE.test(id) ? guideById(id) : null;
+        if (!g && !id && GUIDES.length === 1) { g = GUIDES[0]; }
         if (g) { openGuide(g); } else { openHome(id); }
         if (keepScroll) { return; }
         var h = window.location.hash;
@@ -1618,7 +1796,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         }
         var b = t.closest ? t.closest('button') : null;
         if (!b) { return; }
-        if (b.id === 'navbar-toggle') {
+        var mm = /^m(\d+)-go$/.exec(b.id);
+        if (mm && GM[+mm[1]] && GM[+mm[1]].k.run) {
+            GM[+mm[1]].k.run(GM[+mm[1]].m, +mm[1]);
+        } else if (b.id === 'navbar-toggle') {
             if (!toolsPanel.classList.contains('open')) { lastOpener = b; }
             setToolsOpen(!toolsPanel.classList.contains('open'));
         } else if (b.classList.contains('js-open-tools')) {
@@ -1629,14 +1810,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             var next = currentSpoilers() === 'shown' ? 'hidden' : 'shown';
             lsSet(KS, next);
             applySpoilers(next);
-        } else if (b.id === 'get-keepsake-suggestion') {
-            setOut($('keepsake-output'), fillTokens(G.keepsakes[$('biome-select').value] || 'No specific suggestion for this biome.'));
-        } else if (b.id === 'calculate-heat') {
-            calcHeat();
-        } else if (b.id === 'get-eris-buff-info') {
-            erisInfo();
-        } else if (b.id === 'get-resource-tip') {
-            setOut($('resource-tip-output'), fillTokens(G.resourceTips[$('resource-type').value]));
         } else if (b.id === 'reset-checklist') {
             clearSnap = snapTicks();
             applyTicks({});
@@ -1665,29 +1838,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         if (st) { st.textContent = schemaLocked ? 'Not saved: newer version.' : (okSave ? 'Saved.' : 'Not saved: this browser blocked storage.'); }
     });
     window.addEventListener('popstate', function () { if (window.location.search !== lastSearch) { route(); } });
-
-    function calcHeat() {
-        var out = $('heat-output'), raw = parseFloat($('desired-heat').value);
-        if (isNaN(raw) || !isFinite(raw) || raw < 0 || raw > 1000000) { setOut(out, 'Enter 0 to ' + HEAT_MAX + '.', true); return; }
-        var h = Math.floor(raw), note = h !== raw ? 'Rounded to ' + h + '. ' : '';
-        if (h > HEAT_MAX) { setOut(out, note + G.heatNoPlan + ' The guide has plans for Heat 0 to ' + HEAT_MAX + '.'); return; }
-        var hi = HEAT_KEYS[0], lo = 0;
-        for (var i = 0; i < HEAT_KEYS.length; i++) {
-            if (h <= HEAT_KEYS[i]) { hi = HEAT_KEYS[i]; lo = i === 0 ? 0 : HEAT_KEYS[i - 1] + 1; break; }
-        }
-        var span = lo === hi ? ': ' : ' (plan written for Heats ' + lo + ' to ' + hi + '): ';
-        setOut(out, note + 'Heat ' + h + span + G.heat[hi]);
-    }
-    function erisInfo() {
-        var out = $('eris-buff-output'), raw = parseFloat($('eris-aspect-level').value), level = Math.floor(raw);
-        if (!isNaN(raw) && isFinite(raw) && level >= ERIS_LV[0] && level <= ERIS_MAX && G.eris[level]) {
-            var note = level !== raw ? 'Rounded to ' + level + '. ' : '';
-            var next = level < ERIS_MAX ? ' Next upgrade to Level ' + (level + 1) + ' costs: ' + erisCost(level + 1) + '.' : ' Aspect is maxed.';
-            setOut(out, note + 'At Level ' + level + ', the Eris buff lasts ' + secs(G.eris[level].seconds) + '. Cost to reach this level: ' + erisCost(level) + '.' + next);
-        } else {
-            setOut(out, 'Enter ' + ERIS_LV[0] + ' to ' + ERIS_MAX + '.', true);
-        }
-    }
 
     // --- Contents: collapse on phones, position marker ---
     function syncToc() { toc.open = wide.matches; }
@@ -1746,6 +1896,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
     window.addEventListener('hashchange', function () { focusTarget(window.location.hash); });
 
     // --- Help: backup export and import, delete saved ---
+    // Backup format (schema 1) is unchanged: { app, schema 1, version, exported, data: { look, spoilers, ticks: { <guide id>: { <tick id>: 1 } } } }.
     function fullState() {
         var ticks = {};
         GUIDES.forEach(function (g) { ticks[g.id] = (G && G === g) ? snapTicks() : readTicks(g); });

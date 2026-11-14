@@ -559,8 +559,8 @@
    "slug": "gadgetguild-guides",
    "source": "apps/APPS-TECH-GadgetGuild-v*.html",
    "topic": "home",
-   "blurb": "One guide per device: Meta Quest, Chromecast, Android sync, Windows, RAV4 battery, Canon M50, LatteGo, ROG Ally, Roland TD-4.",
-   "keywords": "device setup guide phone computer steps setupsherpa guides gear care maintenance cleaning repair gearguardian handheld pc gaming tuning allyace drum electronic kit reference settings pads drumdeck meta quest sideloading adb chromecast google tv stremio android sd card music sync sambalite windows snapshot toyota rav4 car battery canon eos m50 mark ii philips lattego espresso care rog ally roland td-4",
+   "blurb": "Ten device guides: PC workstation, Meta Quest, Chromecast, Android, Windows, RAV4, Canon M50, LatteGo, ROG Ally, Roland drums.",
+   "keywords": "device setup guide phone computer steps setupsherpa guides gear care maintenance cleaning repair gearguardian handheld pc gaming tuning allyace drum electronic kit reference settings pads drumdeck meta quest sideloading adb chromecast google tv stremio android sd card music sync sambalite windows snapshot toyota rav4 car battery canon eos m50 mark ii philips lattego espresso care rog ally roland td-4 pc workstation build parts xeon server gpu undervolt buildboss",
    "icon": "gadget-guild",
    "lazy": false,
    "private": false,
@@ -571,40 +571,25 @@
     "AllyAce Handheld Guide",
     "DrumDeck Kit Reference",
     "SetupSherpa Device Setup Guides",
-    "GearGuardian Gear and Care Guides"
+    "GearGuardian Gear and Care Guides",
+    "BuildBoss PC Workstation Guide"
    ],
    "aliases": [
     "guides/setupsherpa-devices",
     "guides/gearguardian-care",
     "guides/allyace-handheld",
-    "references/drumdeck-kit"
+    "references/drumdeck-kit",
+    "guides/buildboss-workstation"
    ],
    "alias_packs": {
     "guides/setupsherpa-devices": "quest-sideloading",
     "guides/gearguardian-care": "rav4-battery",
     "guides/allyace-handheld": "allyace-handheld",
-    "references/drumdeck-kit": "drumdeck-kit"
+    "references/drumdeck-kit": "drumdeck-kit",
+    "guides/buildboss-workstation": "pc-workstation"
    },
    "hue": 95,
    "tagline": "Setup and care guides, one per device"
-  },
-  {
-   "id": "build-boss",
-   "title": "BuildBoss PC Workstation Guide",
-   "kind": "guides",
-   "slug": "buildboss-workstation",
-   "source": "apps/APPS-GUID-BuildBoss-v*.html",
-   "topic": "home",
-   "blurb": "Plans a quiet AI, gaming and media workstation from used server parts, with costs and a power estimate.",
-   "keywords": "pc workstation build parts guide",
-   "icon": "build-boss",
-   "lazy": false,
-   "private": false,
-   "archived": false,
-   "hue": 31,
-   "tagline": "Workstation from used server parts",
-   "former_names": [],
-   "aliases": []
   },
   {
    "id": "auction-academy",

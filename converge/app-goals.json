@@ -481,24 +481,16 @@
      "goal": "Give a drummer quick answers about an electronic kit.",
      "success": "Target to test: any setting is found in a few taps and is correct for the model.",
      "status": "inferred, owner to confirm"
+    },
+    {
+     "id": "pc-workstation",
+     "title": "PC Workstation Build Guide",
+     "goal": "Help plan a high-throughput PC workstation build from used server parts.",
+     "success": "Target to test: the plan's parts are compatible and fit the goal, with dated prices and sources.",
+     "status": "inferred, owner to confirm"
     }
    ],
    "basis": "merged from 4 single-guide pages, 2026-11-13",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "build-boss",
-   "title": "BuildBoss PC Workstation Guide",
-   "kind": "guides",
-   "archived": false,
-   "goal": "Help plan a high-throughput PC workstation build.",
-   "success": "Target to test: the plan's parts are compatible and fit the goal, with dated prices and sources.",
-   "stable_edge_checks": [
-    "Compatibility rules as data",
-    "dated references",
-    "power and thermal checks"
-   ],
-   "basis": "inferred from registry tagline and blurb: Plan a workstation build",
    "status": "inferred, owner to confirm"
   },
   {

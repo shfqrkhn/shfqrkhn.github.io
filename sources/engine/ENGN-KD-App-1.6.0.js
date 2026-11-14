@@ -428,7 +428,7 @@ if(d.id)nf=document.getElementById(d.id);else if(d.side)nf=d.href?document.query
 if(nf&&nf.focus)nf.focus()});
 window.addEventListener('beforeprint',function(){document.querySelectorAll('details,.ans').forEach(function(x){if(x.tagName==='DETAILS'){x.dataset.was=String(x.open);x.open=true}else{x.dataset.was=String(x.hidden);x.hidden=false}})});
 window.addEventListener('afterprint',function(){document.querySelectorAll('details,.ans').forEach(function(x){if(x.dataset.was===undefined)return;if(x.tagName==='DETAILS')x.open=x.dataset.was==='true';else x.hidden=x.dataset.was==='true';delete x.dataset.was})});
-function shelf(m){m.append(h('h1',{text:str(M.title)||'Guides'}));if(SH.what)m.append(h('p',{text:str(SH.what)}));
+function shelf(m){m.append(h('h1',{'class':'sr',text:str(M.title)||'Guides'}));/* the header already shows the name; keep the h1 for screen readers only */if(SH.what)m.append(h('p',{text:str(SH.what)}));
 var grp=null;PKS.forEach(function(t){var g=t.getAttribute('data-group')||'';if(g&&g!==grp){grp=g;m.append(h('h2',{text:g}))}
 var p=t.getAttribute('data-pack'),pr=null;try{pr=JSON.parse(sget(t.getAttribute('data-id')+'.progress'))}catch(e){}
 var dn=pr&&pr.done&&typeof pr.done==='object'?Object.keys(pr.done).filter(function(k){return pr.done[k]}).length:0;

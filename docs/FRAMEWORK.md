@@ -238,7 +238,7 @@ Survey (`converge/reporadar-ledger.json`): anti-slop rubric (`check_docs.py`), p
 - Pages share one origin, so any page on the site could read another page's stored data. Pages here are all the owner's, and no page ships third-party scripts. A page that must be isolated should live on its own origin as a `remote` page.
 - The live repo's history was rewritten on 2026-11-02 to a single commit with a noreply author, so earlier content is gone from `main`. GitHub may still hold old pull request refs; only deleting and recreating the repo clears them (needs the owner's delete permission). `shfqrkhn.github.io` is the only repo; the five archived ones are deleted. Branch protection on `main` is off at the owner's choice and blocks force-pushes when on.
 - Some third-party licences name their authors in a copyright line that the licence requires; those lines are kept.
-- Open owner items (2026-11-13): accept Omni 8.4.0 and the 41 inferred goals in `converge/app-goals.json`; turn Issues on; RepoRadar queued records and the domain pass; rights review (glass and animation, diagram design, unslop); NestEggNinja data choices; PromptPantry CR-26-2. Next consolidation candidates: MeepleMentor into LevelLore, BuildBoss into GadgetGuild, a second recipe and a second game guide (owner content).
+- Open owner items (2026-11-13): accept Omni 8.4.0 and the 41 inferred goals in `converge/app-goals.json`; turn Issues on; RepoRadar queued records and the domain pass; rights review (glass and animation, diagram design, unslop); NestEggNinja data choices; PromptPantry CR-26-2. Next content (owner): a second recipe and a second game guide (one data block in LevelLore).
 - The self-test runs browser tests in headless Chromium; `test_mobile.py` (Chromium and Firefox) is run by hand. Real-device checks are manual.
 
 ## 11a. Lessons learned (read before building any new app)
@@ -264,7 +264,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 24 pages in 7 groups: 24 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `df2e92de`, last changed 2026-11-13.
+Hub 1.4.3. 23 pages in 7 groups: 23 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `a3ee83a8`, last changed 2026-11-14.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -282,15 +282,14 @@ Hub 1.4.3. 24 pages in 7 groups: 24 single, 0 bundle, 0 remote, 0 generated; 0 a
 | AuctionAcademy Classroom Game | games | single | games | 5.1.2 | live | MIT | /games/auctionacademy-game/ |
 | MeepleMentor Board Game Rules | games | single | games | 14.5.3 | live | MIT | /games/meeplementor-board-game-rules/ |
 | WorldCupWizard Predictions | games | single | games | 1.5.5 | live | MIT | /games/worldcupwizard-predictions/ |
-| BuildBoss PC Workstation Guide | guides | single | home | 1.1.0 | live | MIT | /guides/buildboss-workstation/ |
 | GadgetGuild Guides | guides | single | home | 1.6.0 | live | MIT | /guides/gadgetguild-guides/ |
-| LevelLore Game Guides | guides | single | games | 2.0.0 | live | MIT | /guides/levellore-game-guides/ |
+| LevelLore Game Guides | guides | single | games | 2.1.0 | live | MIT | /guides/levellore-game-guides/ |
 | SproutScheduler Planting Calendar | guides | single | home | 1.4.4 | live | MIT | /guides/sproutscheduler-planting-calendar/ |
 | Eggspress Recipe Box | recipes | single | food | 2.0.0 | live | MIT | /recipes/eggspress-recipe-box/ |
 | HandheldHunter PC Games | references | single | games | 16.10.3 | live | MIT | /references/handheldhunter-pc-games/ |
 | RepoRadar GitHub Catalogue | references | single | ai | 4.3.1 | live | MIT | /references/reporadar-github/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.4 | live | MIT | /references/streamscholar-youtube-channels/ |
-| PromptPantry AI Workbench | tools | single | ai | 1.0.0 | live | MIT | /tools/promptpantry-ai-workbench/ |
+| PromptPantry AI Workbench | tools | single | ai | 1.1.0 | live | MIT | /tools/promptpantry-ai-workbench/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.5 | live | MIT | /tools/stepsleuth-step-counter/ |
 | TranscriptTidy AI Exports | tools | single | ai | 1.6.2 | live | MIT | /tools/transcripttidy-ai-exports/ |
 | TrendTracker Charts | tools | single | ai | 1.5.3 | live | MIT | /tools/trendtracker-charts/ |
@@ -298,6 +297,7 @@ Hub 1.4.3. 24 pages in 7 groups: 24 single, 0 bundle, 0 remote, 0 generated; 0 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-14: Families: BuildBoss is the GadgetGuild pack `pc-workstation` (old address forwards; no saved progress to move); LevelLore 2.1.0 holds guides as data (a new game is one data block, game tools are opt-in modules; saved Hades data unchanged); PromptPantry AI Workbench 1.1.0 imports the chat prompt list once into the Library, one store, old key kept. Engine shelf title shown once (the h1 stays for screen readers). `publish.py` fetches before the ahead guard, decodes UTF-8 and follows the deploy run; `bump.py` refuses engine hosts.
 - 2026-11-13: Families: SupportScout is a StudyStack course; GadgetGuild's two multi-device packs became seven one-device guides (engine `migrate` template carries progress); BoonBuilder grew into LevelLore Game Guides 2.0.0 and Eggspress into Eggspress Recipe Box 2.0.0 (check state keyed by id, fixes #8; backup added, fixes #6); PromptPantry and PromptPlayground merged into PromptPantry AI Workbench 1.0.0. BuildBoss 1.1.0 uses the Omnevum header and looks. Narrow headers fixed in 12 apps; taglines say what each app does. New tools: `bump.py`, `preview.py`, `inline.py`.
 - 2026-11-13: DRY: the kit core (look tokens, preference rules) is build-injected from `ui.css` by two markers in every app's kit block; 11 drifting copies gone, rendering unchanged (screens and computed tokens compared in two looks).
 - 2026-11-13: ProjectPopQuiz 1.7.5 and NoodleNudge 1.7.7 drop dead code (an unused fetch timer; an unused worker config).

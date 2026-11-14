@@ -14,6 +14,8 @@ a, b, c = map(int, m.groups())
 new = {"patch": (a, b, c + 1), "minor": (a, b + 1, 0), "major": (a + 1, 0, 0)}[part]
 old_s, new_s = "%d.%d.%d" % (a, b, c), "%d.%d.%d" % new
 t = open(src, encoding="utf-8", newline="").read()
+if "@@KD-ENGINE " in t:  # an engine host is named after the engine version, not its own
+    print("Refused: %s is an engine host; its name carries the engine version. Edit it in place and run the build." % src); sys.exit(2)
 pat = re.compile(r"(?<![\d.])" + re.escape(old_s) + r"(?![\d.]*\d)")
 for ln in t.splitlines():
     if pat.search(ln):

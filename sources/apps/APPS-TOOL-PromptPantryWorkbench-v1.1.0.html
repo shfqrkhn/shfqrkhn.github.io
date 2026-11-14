@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-twYW6JG9kGmgCm7CdYmBH1G+Po+jrAAKA1V3gIPgmEQ=' 'sha256-DoKNZIxpsh6xmjQpqX0SItd0tj1pCjyYsDUb9w3D2uQ=' 'sha256-JKv4ddbr20K3SlNoTMhbuOkI6Cq1vpBjnlUWAwCxjFM=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-t3gEoQpFQOHKkxIaX+TAQzZ1jyJ8uJiux+3qULdulHY=' 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-9redbzqAKWytza58VqGKSS+AmQrwXW6I92C25ugsw+A='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-yNd0q2iA03FzWLRMz5u/KWZ/1lQ28OXA5AF+wSCKI1M=' 'sha256-vBKDdA3o/SznTRt+ubPf0um5Xt3oxMJJbzHazsNdYhQ=' 'sha256-JKv4ddbr20K3SlNoTMhbuOkI6Cq1vpBjnlUWAwCxjFM=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-t3gEoQpFQOHKkxIaX+TAQzZ1jyJ8uJiux+3qULdulHY=' 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-9redbzqAKWytza58VqGKSS+AmQrwXW6I92C25ugsw+A='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPantry AI Workbench keeps your prompts with fill-in blanks and chats with your own key, on one page."
     />
     <meta name="application-name" content="PromptPantry AI Workbench" />
-    <meta name="version" content="1.0.0-single" />
+    <meta name="version" content="1.1.0-single" />
     <meta name="apple-mobile-web-app-title" content="PromptPantry AI Workbench" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -395,7 +395,7 @@ input[type="checkbox"] { width: 24px; height: 24px; accent-color: var(--accent);
 .settings-details { margin-top: var(--s2); padding: 0; border: 0; }
 .settings-card-collapsible > .settings-details-body { padding: var(--s2) 0 var(--s4); }
 .settings-details > .settings-details-body { padding-top: var(--s2); }
-#promptLibrarySelect, #workspaceFileSelect { height: auto; min-height: 132px; padding: var(--s2); }
+#workspaceFileSelect { height: auto; min-height: 132px; padding: var(--s2); }
 .section-title { justify-content: space-between; }
 .section-title h3 { margin: 0; font-size: var(--fs-ui); }
 .control-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
@@ -1034,55 +1034,6 @@ dialog::backdrop { background: var(--scrim); }
             </div>
           </details>
 
-          <details id="promptLibrarySettingsDetails" class="settings-card settings-card-collapsible">
-            <summary>Prompt library</summary>
-            <div class="settings-details-body">
-            <div class="section-title">
-              <button id="promptNewBtn" class="small-btn ic i-plus" type="button">New</button>
-            </div>
-            <label>
-              Search
-              <input id="promptSearchInput" type="search" placeholder="Search" autocomplete="off" />
-            </label>
-            <label>
-              Prompts
-              <select id="promptLibrarySelect" size="6"></select>
-            </label>
-            <div class="control-grid">
-              <label>
-                Name
-                <input id="promptNameInput" autocomplete="off" />
-              </label>
-              <label>
-                Type
-                <select id="promptKindInput">
-                  <option value="prompt">Prompt</option>
-                  <option value="system">System prompt</option>
-                </select>
-              </label>
-            </div>
-            <label>
-              Tags
-              <input id="promptTagsInput" autocomplete="off" placeholder="writing, code, analysis" />
-            </label>
-            <label>
-              Content
-              <textarea id="promptContentInput" rows="7" placeholder="Use {{topic}} for blanks"></textarea>
-            </label>
-            <label class="check-row">
-              <input id="promptFavoriteInput" type="checkbox" />
-              Favorite
-            </label>
-            <div class="button-row">
-              <button id="promptInsertBtn" class="small-btn ic i-plus" type="button">Insert</button>
-              <button id="promptApplySystemBtn" class="small-btn" type="button">Use as system</button>
-              <button id="promptSaveBtn" class="primary-btn ic i-check" type="button">Save</button>
-              <button id="promptDeleteBtn" class="danger-btn ic i-trash" type="button">Delete</button>
-            </div>
-            <p class="hint">Type / in the message box.</p>
-            </div>
-          </details>
-
           <details id="chatSettingsDetails" class="settings-card settings-card-collapsible">
             <summary>This chat</summary>
             <div class="settings-details-body">
@@ -1374,7 +1325,7 @@ dialog::backdrop { background: var(--scrim); }
     <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="false"></div>
 
     <footer class="kit-footer">
-      <span><span class="wide">PromptPantry AI Workbench </span>1.0.0</span>
+      <span><span class="wide">PromptPantry AI Workbench </span>1.1.0</span>
       <span class="wide">Keys stay on this device.</span>
       <span id="contentStamp" class="wide">Provider list version 8, checked 2026-07-04</span>
       <span class="push"><button id="helpFootBtn" class="link-btn" type="button">Help</button><button id="licenceBtn" class="link-btn" type="button">Licences</button><a class="link-btn" href="https://shfqrkhn.github.io/" rel="noopener noreferrer">Source</a></span>
@@ -2420,6 +2371,7 @@ const Pantry = (function () {
       var o = JSON.parse(raw);
       if (!plainObj(o) || o.schema !== 1 || !Array.isArray(o.prompts)) throw new Error("schema");
       data.prompts = o.prompts.map(function (p) { return clean(p); });
+      if (o.chatImported === true) data.chatImported = true;
     } catch (e) { locked = true; data.prompts = []; }
   }
   function byId(id) { for (var i = 0; i < data.prompts.length; i++) if (data.prompts[i].id === id) return data.prompts[i]; return null; }
@@ -2758,7 +2710,36 @@ const Pantry = (function () {
   });
   window.addEventListener("beforeunload", function (e) { if (!$("v-edit").hidden && ui.dirty) { e.preventDefault(); e.returnValue = ""; } });
 
+  // ---- one-time import of the chat runner's old prompt list (modeltab-state-v1, field promptLibrary).
+  // The old key is only read, never changed. The flag lives in this store as chatImported.
+  function importChat() {
+    if (locked || !storageOk || data.chatImported === true) return false;
+    var src = null;
+    try { src = JSON.parse(localStorage.getItem("modeltab-state-v1") || "null"); } catch (e) { return false; }
+    if (!plainObj(src)) return false;
+    var texts = {};
+    data.prompts.forEach(function (p) { try { texts[compile(p, p.labels).trim()] = 1; } catch (e) {} });
+    (Array.isArray(src.promptLibrary) ? src.promptLibrary : []).forEach(function (it) {
+      try {
+        if (!plainObj(it) || (it.builtin === true && it.updatedAt === "builtin")) return;
+        var text = typeof it.content === "string" ? it.content.trim() : "", name = typeof it.name === "string" ? it.name.trim() : "";
+        if (!text || !name || texts[text]) return;
+        var tags = (typeof it.tags === "string" ? it.tags.split(",") : Array.isArray(it.tags) ? it.tags : []).filter(function (t) { return typeof t === "string"; }).map(function (t) { return t.trim().slice(0, 30); }).filter(Boolean).slice(0, 17);
+        if (it.kind === "system") tags.push("system");
+        tags.push("from chat");
+        var id = typeof it.id === "string" && it.id ? "chat-" + it.id.slice(0, 60) : "";
+        if (!id || byId(id)) id = uid();
+        data.prompts.push(clean({ id: id, title: name.slice(0, 120), kind: "freeform", body: text, tags: tags, favorite: it.favorite === true, created: Date.parse(it.createdAt), updated: Date.parse(it.updatedAt) }));
+        texts[text] = 1;
+      } catch (e) {}
+    });
+    data.chatImported = true;
+    return true;
+  }
+  var imported = importChat();
+
   paintList();
+  if (imported) save();
   if (locked) { setSave("bad", "Not saved"); say("The stored library could not be read. It was left untouched. Restore a copy to continue.", true); }
   else if (!storageOk) { setSave("bad", "Storage unavailable"); say("Prompts will not be kept after you close this page. Use Save a copy.", true); }
   else if (raw == null) { save(); } else setSave("ok", "Saved");
@@ -2766,6 +2747,17 @@ const Pantry = (function () {
     onSend: function (fn) { hooks.send = fn; },
     refresh: function () { if (!$("v-edit").hidden || !$("v-use").hidden || !$("v-restore").hidden) return; paintList(); },
     isEditing: function () { return !$("v-edit").hidden && ui.dirty; },
+    items: function () {
+      return data.prompts.filter(function (p) { return !p.archived; }).sort(function (a, b) { return (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0) || b.updated - a.updated; }).map(function (p) {
+        var c = ""; try { c = compile(p, p.labels); } catch (e) {}
+        return { id: p.id, name: p.title, tags: p.tags.join(", "), content: c, kind: p.tags.indexOf("system") >= 0 ? "system" : "prompt", favorite: p.favorite };
+      }).filter(function (x) { return x.content.trim(); });
+    },
+    addPrompt: function (title, text, tags, fav) {
+      if (locked) return false;
+      var q; try { q = clean({ title: String(title).slice(0, 120), kind: "freeform", body: String(text), tags: tags || [], favorite: fav === true }); } catch (e) { return false; }
+      data.prompts.push(q); var ok = save(); if ($("v-list").hidden === false) paintList(); return ok;
+    },
     addFromChat: function (text) {
       if (locked) { say("The stored library could not be read, so nothing was written. Restore a copy to continue.", true); return false; }
       openEdit(null);
@@ -3678,22 +3670,9 @@ const dom = {
   newChatBtn: $("newChatBtn"),
   newFolderBtn: $("newFolderBtn"),
   nextActions: $("nextActions"),
-  promptApplySystemBtn: $("promptApplySystemBtn"),
-  promptContentInput: $("promptContentInput"),
-  promptDeleteBtn: $("promptDeleteBtn"),
-  promptFavoriteInput: $("promptFavoriteInput"),
   promptInput: $("promptInput"),
-  promptInsertBtn: $("promptInsertBtn"),
-  promptKindInput: $("promptKindInput"),
   promptLibraryBtn: $("promptLibraryBtn"),
-  promptLibrarySelect: $("promptLibrarySelect"),
-  promptLibrarySettingsDetails: $("promptLibrarySettingsDetails"),
-  promptNameInput: $("promptNameInput"),
-  promptNewBtn: $("promptNewBtn"),
   promptQuickPanel: $("promptQuickPanel"),
-  promptSaveBtn: $("promptSaveBtn"),
-  promptSearchInput: $("promptSearchInput"),
-  promptTagsInput: $("promptTagsInput"),
   providerBaseInput: $("providerBaseInput"),
   providerAdvancedDetails: $("providerAdvancedDetails"),
   recentTurnsInput: $("recentTurnsInput"),
@@ -3897,13 +3876,6 @@ function registerEvents() {
       setStatus("Memory cleared.");
     }, dom.clearMemoryBtn);
   });
-  dom.promptSearchInput.addEventListener("input", renderPromptLibrary);
-  dom.promptLibrarySelect.addEventListener("change", syncPromptForm);
-  dom.promptNewBtn.addEventListener("click", newPromptDraft);
-  dom.promptSaveBtn.addEventListener("click", savePromptFromForm);
-  dom.promptDeleteBtn.addEventListener("click", deleteSelectedPrompt);
-  dom.promptInsertBtn.addEventListener("click", insertSelectedPrompt);
-  dom.promptApplySystemBtn.addEventListener("click", applySelectedSystemPrompt);
   dom.saveControlsBtn.addEventListener("click", saveControls);
   dom.unlockVaultBtn.addEventListener("click", unlockVault);
   dom.saveVaultBtn.addEventListener("click", saveVault);
@@ -3926,9 +3898,10 @@ function registerEvents() {
   dom.cancelEditBtn.addEventListener("click", cancelEdit);
   dom.messageList.addEventListener("click", handleCodeCopy);
   dom.chatSystemPresetSelect.addEventListener("change", () => {
-    const item = state.promptLibrary.find((entry) => entry.id === dom.chatSystemPresetSelect.value);
+    const item = libraryPrompts().find((entry) => entry.id === dom.chatSystemPresetSelect.value);
     if (item) dom.chatSystemInput.value = item.content;
   });
+  dom.chatSystemPresetSelect.addEventListener("focus", fillSystemPresets);
   dom.saveChatOverridesBtn.addEventListener("click", saveChatOverrides);
   dom.clearChatOverridesBtn.addEventListener("click", clearChatOverrides);
   dom.savePriceBtn.addEventListener("click", savePrice);
@@ -4397,7 +4370,6 @@ function renderAll() {
   renderConversationList();
   renderMessages();
   restoreActiveDraft();
-  renderPromptLibrary();
   renderMeta();
   renderAttachments();
   renderRuntimeNotice();
@@ -4628,57 +4600,6 @@ function modelSuggestionsFromPreset(preset) {
 
 function uniqueStrings(values) {
   return [...new Set(values.filter(Boolean).map(String))];
-}
-
-function renderPromptLibrary() {
-  const query = dom.promptSearchInput.value.trim().toLowerCase();
-  const prompts = filteredPromptLibrary(query);
-  dom.promptLibrarySelect.innerHTML = prompts
-    .map((item) => `<option value="${escapeAttr(item.id)}">${escapeHtml(promptLibraryLabel(item))}</option>`)
-    .join("");
-  if (!prompts.some((item) => item.id === dom.promptLibrarySelect.value) && prompts[0]) {
-    dom.promptLibrarySelect.value = prompts[0].id;
-  }
-  syncPromptForm();
-}
-
-function filteredPromptLibrary(query) {
-  const items = query
-    ? state.promptLibrary.filter((item) => `${item.name} ${item.kind} ${item.tags} ${item.content}`.toLowerCase().includes(query))
-    : state.promptLibrary;
-  return [...items].sort(promptSort);
-}
-
-function syncPromptForm() {
-  const item = selectedPrompt();
-  if (!item) {
-    dom.promptNameInput.value = "";
-    dom.promptKindInput.value = "prompt";
-    dom.promptTagsInput.value = "";
-    dom.promptContentInput.value = "";
-    dom.promptFavoriteInput.checked = false;
-    return;
-  }
-  dom.promptNameInput.value = item.name;
-  dom.promptKindInput.value = item.kind;
-  dom.promptTagsInput.value = item.tags || "";
-  dom.promptContentInput.value = item.content;
-  dom.promptFavoriteInput.checked = Boolean(item.favorite);
-}
-
-function selectedPrompt() {
-  return state.promptLibrary.find((item) => item.id === dom.promptLibrarySelect.value) || null;
-}
-
-function promptLibraryLabel(item) {
-  const marker = item.kind === "system" ? "System" : "Prompt";
-  return `${item.favorite ? "Favorite: " : ""}${marker} - ${item.name}${item.tags ? ` (${item.tags})` : ""}`;
-}
-
-function promptSort(a, b) {
-  return Number(Boolean(b.favorite)) - Number(Boolean(a.favorite))
-    || String(b.updatedAt || "").localeCompare(String(a.updatedAt || ""))
-    || a.name.localeCompare(b.name);
 }
 
 function normalizeEndpointUrl(value) {
@@ -6261,17 +6182,8 @@ function saveInstructions({ silent = false } = {}) {
 }
 
 function openPromptLibrary() {
-  openSettingsSection(dom.promptLibrarySettingsDetails, dom.promptSearchInput);
-}
-
-function newPromptDraft() {
-  dom.promptLibrarySelect.value = "";
-  dom.promptNameInput.value = "";
-  dom.promptKindInput.value = "prompt";
-  dom.promptTagsInput.value = "";
-  dom.promptContentInput.value = dom.promptInput.value.trim();
-  dom.promptFavoriteInput.checked = false;
-  dom.promptNameInput.focus();
+  if (SETTINGS_OVERLAY_MEDIA.matches) closeSettings();
+  document.getElementById("tab-lib")?.click();
 }
 
 function saveDraftAsPrompt() {
@@ -6281,82 +6193,9 @@ function saveDraftAsPrompt() {
     focusPromptInput();
     return;
   }
-  openPromptLibrary();
-  dom.promptLibrarySelect.value = "";
-  dom.promptNameInput.value = compact(firstLine(draft), 64) || "Saved Prompt";
-  dom.promptKindInput.value = "prompt";
-  dom.promptTagsInput.value = "saved";
-  dom.promptContentInput.value = draft;
-  dom.promptFavoriteInput.checked = true;
-  savePromptFromForm();
-}
-
-function savePromptFromForm() {
-  const name = dom.promptNameInput.value.trim();
-  const content = dom.promptContentInput.value.trim();
-  if (!name || !content) {
-    setStatus("Name and content needed.", true);
-    return;
-  }
-  const now = new Date().toISOString();
-  const id = dom.promptLibrarySelect.value || uid();
-  const existing = state.promptLibrary.find((item) => item.id === id);
-  const item = {
-    id,
-    name,
-    kind: dom.promptKindInput.value === "system" ? "system" : "prompt",
-    tags: normalizeTags(dom.promptTagsInput.value),
-    content,
-    favorite: dom.promptFavoriteInput.checked,
-    builtin: Boolean(existing?.builtin),
-    createdAt: existing?.createdAt || now,
-    updatedAt: now
-  };
-  if (existing) {
-    Object.assign(existing, item);
-  } else {
-    state.promptLibrary.unshift(item);
-  }
-  saveState();
-  dom.promptSearchInput.value = "";
-  renderPromptLibrary();
-  dom.promptLibrarySelect.value = id;
-  syncPromptForm();
-  setStatus("Prompt saved.");
-}
-
-function deleteSelectedPrompt() {
-  const item = selectedPrompt();
-  if (!item) return;
-  requireSecondClick(`delete-prompt-${item.id}`, `Click delete again to remove prompt "${item.name}".`, () => {
-    state.promptLibrary = state.promptLibrary.filter((prompt) => prompt.id !== item.id);
-    if (!state.promptLibrary.length) state.promptLibrary = defaultPromptLibrary();
-    saveState();
-    renderPromptLibrary();
-    setStatus(`Prompt deleted: ${item.name}`);
-  });
-}
-
-function insertSelectedPrompt() {
-  const item = selectedPrompt();
-  if (!item) return;
-  if (item.kind === "system") {
-    applySystemPrompt(item);
-    return;
-  }
-  insertPromptItem(item);
-}
-
-function applySelectedSystemPrompt() {
-  const item = selectedPrompt();
-  if (!item) return;
-  applySystemPrompt(item);
-}
-
-function applySystemPrompt(item) {
-  dom.systemPromptInput.value = item.content;
-  saveInstructions({ silent: true });
-  setStatus(`Applied system prompt: ${item.name}`);
+  let saved = false;
+  try { saved = Pantry.addPrompt(compact(firstLine(draft), 64) || "Saved Prompt", draft, ["saved"], true); } catch (error) { saved = false; }
+  setStatus(saved ? "Prompt saved to the Library." : "Prompt not saved. Open the Library tab to see why.", !saved);
 }
 
 function insertPromptItem(item) {
@@ -6389,7 +6228,7 @@ function insertQuickPrompt(event) {
   }
   const id = event.target?.closest?.("[data-prompt-id]")?.dataset?.promptId;
   if (!id) return;
-  const item = state.promptLibrary.find((prompt) => prompt.id === id);
+  const item = libraryPrompts().find((prompt) => prompt.id === id);
   if (!item) return;
   closePromptQuickPanel();
   if (slashPromptQuery() !== null) dom.promptInput.value = "";
@@ -6513,7 +6352,7 @@ function renderPromptQuickPanel() {
     closePromptQuickPanel();
     return;
   }
-  const matches = state.promptLibrary
+  const matches = libraryPrompts()
     .filter((item) => item.kind === "prompt")
     .filter((item) => `${item.name} ${item.tags}`.toLowerCase().includes(query))
     .slice(0, 6);
@@ -7085,11 +6924,21 @@ function renderPriceList() {
   )).join("");
 }
 
+function libraryPrompts() {
+  try { return Pantry.items(); } catch (error) { return []; }
+}
+
+function fillSystemPresets() {
+  const keep = dom.chatSystemPresetSelect.value;
+  const presets = libraryPrompts().filter((item) => item.kind === "system");
+  dom.chatSystemPresetSelect.innerHTML = `<option value="">Choose a preset</option>${presets.map((item) => `<option value="${escapeAttr(item.id)}">${escapeHtml(item.name)}</option>`).join("")}`;
+  if (presets.some((item) => item.id === keep)) dom.chatSystemPresetSelect.value = keep;
+}
+
 function renderChatSettings() {
   const chat = activeConversation();
   const own = chat?.overrides || {};
-  const presets = state.promptLibrary.filter((item) => item.kind === "system");
-  dom.chatSystemPresetSelect.innerHTML = `<option value="">Choose a preset</option>${presets.map((item) => `<option value="${escapeAttr(item.id)}">${escapeHtml(item.name)}</option>`).join("")}`;
+  fillSystemPresets();
   dom.chatSystemInput.value = own.systemPrompt || "";
   dom.chatModelInput.value = own.model || "";
   dom.chatTempInput.value = own.temperature ?? "";
