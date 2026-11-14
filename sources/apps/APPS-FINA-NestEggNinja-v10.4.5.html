@@ -1269,6 +1269,9 @@ html .shadow-\[0_0_15px_rgba\(0\,240\,255\,0\.3\)\]{--tw-shadow:0 0 15px color-m
 @media (max-width:420px){.nf-bar .top{gap:var(--s1);padding-left:var(--s3);padding-right:var(--s3)}}
 @media (max-width:359px){.nf-bar .top>svg.appic{display:none}}
 .nf-head{padding-top:0}
+
+/* narrow header: icons on one row, the app name on its own row below, broken only between words */
+@media (max-width:519px){.nf-bar .top{flex-wrap:wrap;row-gap:0}.nf-bar .top>.ttl{order:9;flex:1 0 100%;margin:4px 0 0;font-size:1.25rem;line-height:1.2;overflow-wrap:break-word;word-break:normal;white-space:normal;max-width:none}.nf-bar .top>.ttl+*{margin-left:auto}}
 </style>
   <script>if(location.hostname!=='localhost'){const n=()=>{};console.log=n;console.warn=n;console.error=n;}</script>  <script>document.addEventListener('DOMContentLoaded',()=>{new MutationObserver(()=>document.querySelectorAll('svg:not([aria-hidden]):not([aria-label]):not([role])').forEach(s=>{s.setAttribute('aria-hidden','true');s.setAttribute('focusable','false')})).observe(document.body,{childList:true,subtree:true})});</script></head>
   <body>

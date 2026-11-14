@@ -366,6 +366,9 @@ kbd { font: 600 var(--t0)/1 var(--sans); border: 1px solid var(--ctl); border-ra
 .choice-btn{border-radius:999px}
 .big-score{font-family:Georgia,"Iowan Old Style",serif;border:3px double var(--acc);border-radius:10px;padding:var(--s2) var(--s4);display:inline-block;rotate:-2deg}
 @media (prefers-reduced-motion:reduce){.big-score{rotate:none}}
+
+/* narrow header: icons on one row, the app name on its own row below, broken only between words */
+@media (max-width:519px){header.top{flex-wrap:wrap;row-gap:0}header.top>h1{order:9;flex:1 0 100%;margin:4px 0 0;font-size:1.25rem;line-height:1.2;overflow-wrap:break-word;word-break:normal;white-space:normal;max-width:none}header.top>h1+*{margin-left:auto}}
 </style>
     <meta name="description" content="ProjectPopQuiz Exams: project management exam practice in 8 papers. Timed or study mode, with explanations. Works offline.">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf8f4">

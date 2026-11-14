@@ -36,6 +36,8 @@ var PK=ID+'.progress',LK=ID+'.look';
 function sget(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function sset(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
 function sdel(k){try{localStorage.removeItem(k)}catch(e){}}
+/* split-pack migration: copy an old pack's progress into each new pack it became, filtered to that pack's ids; never deletes */
+(function(){var t=$('template[data-kd=migrate]'),M=t?readTpl(t):null;if(!M)return;Object.keys(M).forEach(function(o){var raw=sget(o+'.progress'),s=null;if(raw===null)return;try{s=JSON.parse(raw)}catch(e){}if(!s||typeof s!=='object')return;objs(M[o]).forEach(function(p){var k=str(p.id)+'.progress';if(!/^[\w-]{1,40}$/.test(str(p.id))||sget(k)!==null)return;var ids=Object.create(null);arr(p.ch).concat(arr(p.ac)).forEach(function(c){ids[str(c)]=1});function f(m,q){var r={};if(m&&typeof m==='object'&&!Array.isArray(m))Object.keys(m).forEach(function(i){if(ids[q?i.split(':')[0]:i])r[i]=m[i]});return r}sset(k,JSON.stringify({v:s.v,first:s.first,done:f(s.done),act:f(s.act),q:f(s.q,1),qd:f(s.qd,1),rev:Array.isArray(s.rev)?s.rev:[]}))})})})();
 function p2(n){return(n<10?'0':'')+n}
 function fmt(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())}
 function today(){return fmt(new Date())}

@@ -122,7 +122,7 @@ for p in pages:
                   bad.append("%s: chapter %s has an empty question or answer" % (p["slug"], c.get("id")))
 if len(set(mids)) != len(mids):
     bad.append("duplicate meta.id across readers")
-rec("CR-4 shared engine", not bad and n == 19 and len(engines) <= 2,
+rec("CR-4 shared engine", not bad and n == 24 and len(engines) <= 2,
     "%d readers, engine %s, %d problems %s" % (n, sorted(engines), len(bad), bad[:5]))
 
 siteonly = [q for q in glob.glob(os.path.join(ROOT, "site", "*", "*", "index.html")) if os.path.relpath(os.path.dirname(q), os.path.join(ROOT, "site")).replace(os.sep, "/") not in {x["kind"] + "/" + x["slug"] for x in pages}]

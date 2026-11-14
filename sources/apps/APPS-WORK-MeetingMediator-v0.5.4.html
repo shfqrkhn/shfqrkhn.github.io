@@ -314,6 +314,9 @@ dialog.sheet .form-actions{margin-top:var(--s-6)}
 .sec,.card{border-radius:24px;border:1px solid var(--line)}
 .sec h2,.card h2{font-weight:600}
 @media (prefers-reduced-motion:no-preference){.sec,.card{animation:mmin .25s ease-out both}@keyframes mmin{from{opacity:0}to{opacity:1}}}
+
+/* narrow header: icons on one row, the app name on its own row below, broken only between words */
+@media (max-width:519px){.omni-bar{flex-wrap:wrap;row-gap:0}.omni-bar>.omni-title{order:9;flex:1 0 100%;margin:4px 0 0;font-size:1.25rem;line-height:1.2;overflow-wrap:break-word;word-break:normal;white-space:normal;max-width:none}.omni-bar>.omni-title+*{margin-left:auto}}
 </style>
     <!-- MeetingMediator v0.5.4 single-file build (0.5.4: date-only values read as local dates, owner shown in commitments, right saved status, calmer matter and facilitation screens, running session reopens after reload, how-to rewritten; 0.5.2: patch, content version/date/source shown, how-to-update in Help, AI panel and theme colour from tokens, text 16 px minimum, dead update code removed, clearer newer-database message; 0.5.1: patch, own-database-only AI context, own-app import check, first-run import, reflow fixes; 0.5.0: facilitation session mode; 0.4.1: reset scoped to this app, model labels) (interface overhaul from v0.3.0: deck concept, embedded fonts, AI control inside screens) (from LocalFirstApps apps/commonground v0.1.130). Service worker, Workbox, manifest, iOS splash images removed. -->
   </head>

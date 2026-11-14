@@ -140,19 +140,21 @@
    "status": "inferred, owner to confirm"
   },
   {
-   "id": "modeltab",
-   "title": "PromptPlayground AI Chat",
+   "id": "promptpantry-workbench",
+   "title": "PromptPantry AI Workbench",
    "kind": "tools",
    "archived": false,
-   "goal": "Chat with an AI model using the user's own key while showing cost and endpoint.",
-   "success": "Target to test: the key never leaves the device except to the chosen endpoint; cost is shown for models the user prices in Settings, computed exactly and labelled as from the user's figures.",
+   "goal": "Keep a person's own prompts reusable on their device and chat with an AI model using their own key, showing cost and endpoint.",
+   "success": "Target to test: a saved prompt is found, filled and sent to chat in under 30 seconds; the key never leaves the device except to the chosen endpoint; prompts export and restore.",
    "stable_edge_checks": [
     "Streaming responses",
     "current model price data",
     "key storage safety",
-    "CSP connect rules"
+    "CSP connect rules",
+    "prompt export and restore",
+    "variable fill without corrupting special characters"
    ],
-   "basis": "inferred from registry tagline and blurb: Chat with AI, your key",
+   "basis": "merged from PromptPlayground AI Chat and PromptPantry Library goals",
    "status": "inferred, owner to confirm"
   },
   {
@@ -232,31 +234,31 @@
   },
   {
    "id": "apex-egg-salad",
-   "title": "Eggspress Egg Salad",
+   "title": "Eggspress Recipe Box",
    "kind": "recipes",
    "archived": false,
-   "goal": "Make egg salad in an Instant Pot with correct servings and timing.",
+   "goal": "Cook any recipe in the box at any batch size, with timers and ticks kept per recipe.",
    "success": "Target to test: scaled quantities and times are correct; usable one-handed in a kitchen.",
    "stable_edge_checks": [
     "Wake lock",
     "timers that survive screen off",
     "food-safety timing from primary sources"
    ],
-   "basis": "inferred from registry tagline and blurb: Instant Pot egg salad",
+   "basis": "updated when Eggspress Egg Salad became Eggspress Recipe Box",
    "status": "inferred, owner to confirm"
   },
   {
    "id": "hades-eris-protocol",
-   "title": "BoonBuilder Hades Guide",
+   "title": "LevelLore Game Guides",
    "kind": "guides",
    "archived": false,
-   "goal": "Guide a player through one Hades build in order.",
+   "goal": "Guide players through video games, one guide per game, with ticks and a backup that survive offline.",
    "success": "Target to test: build order and boon choices carry a game-version stamp (none present yet) so they can be checked against the current version.",
    "stable_edge_checks": [
     "Version tagging of game patches",
     "quick-glance layout"
    ],
-   "basis": "inferred from registry tagline and blurb: Hades build guide",
+   "basis": "updated when BoonBuilder became LevelLore Game Guides",
    "status": "inferred, owner to confirm"
   },
   {
@@ -485,20 +487,6 @@
    "status": "inferred, owner to confirm"
   },
   {
-   "id": "support-scout",
-   "title": "SupportScout Equipment Decisions",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Help decide how to support equipment (repair, replace, contract).",
-   "success": "Target to test: the decision is justified with cost and risk shown.",
-   "stable_edge_checks": [
-    "Decision analysis methods",
-    "sensitivity display"
-   ],
-   "basis": "inferred from registry tagline and blurb: Decide how to support equipment",
-   "status": "inferred, owner to confirm"
-  },
-  {
    "id": "build-boss",
    "title": "BuildBoss PC Workstation Guide",
    "kind": "guides",
@@ -541,21 +529,6 @@
     "search relevance tests"
    ],
    "basis": "inferred from registry tagline and blurb: GitHub projects for AI builders",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "promptpantry-library",
-   "title": "PromptPantry Library",
-   "kind": "apps",
-   "archived": false,
-   "goal": "Keep a person's own prompts findable, reusable and private on their device.",
-   "success": "Target to test: A saved prompt is found and filled in under 30 seconds; data never leaves the device and can be exported and restored.",
-   "stable_edge_checks": [
-    "Local-first storage durability (persistent storage)",
-    "export and restore",
-    "variable fill without corrupting special characters"
-   ],
-   "basis": "inferred from registry tagline and blurb: Your own prompts, kept on this device",
    "status": "inferred, owner to confirm"
   }
  ]

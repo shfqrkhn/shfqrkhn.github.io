@@ -292,6 +292,9 @@ body{font-variant-numeric:tabular-nums}
 .sec,.card{border-radius:4px;border:2px solid color-mix(in srgb,var(--fg) 70%,transparent);background-image:repeating-linear-gradient(90deg,transparent 0 56px,color-mix(in srgb,var(--acc) 6%,transparent) 56px 112px);background-color:var(--card)}
 .sec h2,.card h2{font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:.95em}
 @media (forced-colors:active){.sec,.card{background-image:none;border-color:CanvasText}}
+
+/* narrow header: icons on one row, the app name on its own row below, broken only between words */
+@media (max-width:519px){.lfa-bar{flex-wrap:wrap;row-gap:0}.lfa-bar>h1{order:9;flex:1 0 100%;margin:4px 0 0;font-size:1.25rem;line-height:1.2;overflow-wrap:break-word;word-break:normal;white-space:normal;max-width:none}.lfa-bar>h1+*{margin-left:auto}}
 </style>
 
 </head>

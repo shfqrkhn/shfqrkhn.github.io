@@ -22,7 +22,7 @@ button,input{font:inherit;color:inherit}
 .skip{position:absolute;left:var(--s4);top:-60px;padding:var(--s2) var(--s4);background:var(--acc);color:var(--on-acc);border-radius:var(--r);z-index:9;text-decoration:none;font-weight:600}
 .skip:focus{top:var(--s2)}
 .ph{display:flex;align-items:center;gap:var(--s2);padding:var(--s4) 0 var(--s2)}
-.ph h1{margin:0 auto 0 var(--s1);font-size:clamp(1.25rem,4.5vw,1.6rem);line-height:1.2;letter-spacing:-.01em;overflow-wrap:anywhere}
+.ph h1{margin:0 auto 0 var(--s1);font-size:clamp(1.25rem,4.5vw,1.6rem);line-height:1.2;letter-spacing:-.01em;overflow-wrap:break-word}
 .ib{flex:none;display:inline-grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--card);color:inherit;cursor:pointer;text-decoration:none;box-shadow:var(--shadow)}
 .ib svg{width:24px;height:24px}
 .ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}
@@ -63,7 +63,7 @@ h1,h2,h3,p,ul,dl,dd{margin:0}
 /* top bar (Omnevum chrome) */
 .ph{max-width:1180px;margin:0 auto;padding-inline:var(--s4);width:100%}
 .ph .appic{color:var(--acc);width:28px;height:28px;margin-left:var(--s1)}
-.ph h1{margin:0 auto 0 0;min-width:0;overflow-wrap:anywhere;line-height:1.15}
+.ph h1{margin:0 auto 0 0;min-width:0;overflow-wrap:break-word;line-height:1.15}
 .lookib{position:relative}
 .lookib select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;min-height:0;padding:0;border-radius:50%}
 .lookib:focus-within{outline:3px solid var(--acc);outline-offset:2px}
@@ -211,6 +211,8 @@ details.rules>summary:focus-visible{outline:3px solid var(--focus);outline-offse
 .mono,.cardhead,.fileshead{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .btn{border-radius:4px}
 @media (forced-colors:active){.card,.zone,.stage{border-top-width:1px}}
+/* narrow header: icons on one row, the title on its own row below */
+@media (max-width:519px){.ph{flex-wrap:wrap;row-gap:0}.ph>h1,.ph>.nn-brand{order:9;flex:1 0 100%;margin:var(--s1) 0 0;font-size:1.35rem}.ph>h1+*,.ph>.nn-brand+*{margin-left:auto}}
 </style>
 </head>
 <body>

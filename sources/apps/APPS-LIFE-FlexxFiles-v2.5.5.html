@@ -317,6 +317,9 @@ body{font-variant-numeric:tabular-nums}
 .sec,.card{border-radius:4px;border:1px solid var(--line);border-left:8px solid var(--acc)}
 button{text-transform:uppercase;letter-spacing:.05em;font-weight:700}
 @media (prefers-reduced-motion:no-preference){button:active{scale:.97}}
+
+/* narrow header: icons on one row, the app name on its own row below, broken only between words */
+@media (max-width:519px){.omni-bar{flex-wrap:wrap;row-gap:0}.omni-bar>.omni-title{order:9;flex:1 0 100%;margin:4px 0 0;font-size:1.25rem;line-height:1.2;overflow-wrap:break-word;word-break:normal;white-space:normal;max-width:none}.omni-bar>.omni-title+*{margin-left:auto}}
 </style>
 </head>
 <body>

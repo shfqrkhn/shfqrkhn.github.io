@@ -15,7 +15,7 @@
    "private": false,
    "archived": false,
    "hue": 0,
-   "tagline": "Daily reflection journal",
+   "tagline": "Daily reflection and private journal",
    "former_names": [
     "NoodleNudge"
    ],
@@ -47,7 +47,7 @@
     "tools/trendtracker"
    ],
    "hue": 138,
-   "tagline": "Chart your own CSV data"
+   "tagline": "Line charts from your own CSV files"
   },
   {
    "id": "pmquiz",
@@ -71,7 +71,7 @@
     "courses/projectpopquiz"
    ],
    "hue": 275,
-   "tagline": "Project management practice exams"
+   "tagline": "Project management exam practice"
   },
   {
    "id": "strength-tracker",
@@ -99,7 +99,7 @@
     "apps/flexxfiles"
    ],
    "hue": 53,
-   "tagline": "Workout and plate log"
+   "tagline": "Strength workout log and plate maths"
   },
   {
    "id": "ledgersuite",
@@ -125,7 +125,7 @@
     "apps/decisiondesk"
    ],
    "hue": 190,
-   "tagline": "Write up a decision"
+   "tagline": "Write a decision brief with options"
   },
   {
    "id": "commonground",
@@ -151,7 +151,7 @@
     "apps/meetingmediator"
    ],
    "hue": 328,
-   "tagline": "Run fair group sessions"
+   "tagline": "Run fair group meetings to agreement"
   },
   {
    "id": "done-depot",
@@ -175,7 +175,7 @@
     "apps/tickletodo"
    ],
    "hue": 105,
-   "tagline": "Tasks with a focus timer"
+   "tagline": "To-do list with a focus timer"
   },
   {
    "id": "frugal-ferret",
@@ -201,7 +201,7 @@
     "apps/pennyplanner"
    ],
    "hue": 243,
-   "tagline": "Accounts and budgets"
+   "tagline": "Personal budget and account tracker"
   },
   {
    "id": "nfire",
@@ -225,31 +225,37 @@
     "apps/nesteggninja"
    ],
    "hue": 20,
-   "tagline": "Retirement scenario planner"
+   "tagline": "Early retirement (FIRE) planner"
   },
   {
-   "id": "modeltab",
-   "title": "PromptPlayground AI Chat",
+   "id": "promptpantry-workbench",
+   "title": "PromptPantry AI Workbench",
    "kind": "tools",
-   "slug": "promptplayground-ai-chat",
-   "source": "apps/APPS-TOOL-PromptPlayground-v*.html",
+   "slug": "promptpantry-ai-workbench",
+   "source": "apps/APPS-TOOL-PromptPantryWorkbench-v*.html",
    "topic": "ai",
-   "blurb": "A chat window for AI models that uses your own key and shows the cost and endpoint.",
-   "keywords": "ai chat llm api key prompt assistant conversation model endpoint cost bring your own key",
+   "blurb": "Keep prompts with blanks, send them to an AI chat on your own key, and save the good ones.",
+   "keywords": "ai chat llm api key prompt library prompts fill in blanks template assistant conversation model endpoint cost bring your own key backup promptpantry promptplayground",
    "icon": "modeltab",
    "lazy": true,
    "private": false,
    "archived": false,
+   "license": "MIT",
    "former_names": [
-    "ModelTab",
-    "PromptPlayground"
+    "PromptPantry Library",
+    "PromptPantry",
+    "PromptPlayground AI Chat",
+    "PromptPlayground",
+    "ModelTab"
    ],
    "aliases": [
+    "apps/promptpantry-library",
+    "tools/promptplayground-ai-chat",
     "tools/modeltab",
     "tools/promptplayground"
    ],
    "hue": 158,
-   "tagline": "Chat with AI, your key"
+   "tagline": "Prompt library and AI chat, your own key"
   },
   {
    "id": "ai-studio-cleaner",
@@ -275,7 +281,7 @@
     "tools/transcripttidy"
    ],
    "hue": 295,
-   "tagline": "AI chats to Markdown"
+   "tagline": "Google AI Studio chats to Markdown"
   },
   {
    "id": "stepsleuth-steps",
@@ -297,7 +303,7 @@
     "tools/stepsleuth"
    ],
    "hue": 73,
-   "tagline": "Steps from distance and time"
+   "tagline": "Estimate steps from distance and time"
   },
   {
    "id": "fifa-wc-sim",
@@ -323,7 +329,7 @@
     "games/worldcupwizard"
    ],
    "hue": 210,
-   "tagline": "World Cup predictions"
+   "tagline": "2026 World Cup odds simulator"
   },
   {
    "id": "rog-game-finder",
@@ -347,7 +353,7 @@
     "references/handheldhunter"
    ],
    "hue": 348,
-   "tagline": "PC games for handhelds"
+   "tagline": "Find PC games that suit a handheld"
   },
   {
    "id": "codex-ludus",
@@ -371,41 +377,43 @@
     "games/meeplementor"
    ],
    "hue": 263,
-   "tagline": "Board game rules"
+   "tagline": "Rules and strategy for board games"
   },
   {
    "id": "apex-egg-salad",
-   "title": "Eggspress Egg Salad",
+   "title": "Eggspress Recipe Box",
    "kind": "recipes",
-   "slug": "eggspress-egg-salad",
-   "source": "apps/APPS-GUID-EggspressEats-v*.html",
+   "slug": "eggspress-recipe-box",
+   "source": "apps/APPS-GUID-EggspressRecipeBox-v*.html",
    "topic": "food",
-   "blurb": "A recipe card for egg salad made in an Instant Pot, with a servings stepper and timers.",
-   "keywords": "recipe food cooking egg salad instant pot ingredients servings timer kitchen meal lunch sandwich eggs",
+   "blurb": "A recipe box with scalable recipes, timers and checklists. Egg salad first, more to come.",
+   "keywords": "recipe food cooking egg salad instant pot ingredients servings timer kitchen meal lunch sandwich eggs recipe box recipes collection scale batch checklist",
    "icon": "apex-egg-salad",
    "lazy": true,
    "private": false,
    "archived": false,
    "former_names": [
     "Apex Egg Salad",
-    "EggspressEats"
+    "EggspressEats",
+    "Eggspress Egg Salad"
    ],
    "aliases": [
     "recipes/apexeggsalad",
-    "recipes/eggspresseats"
+    "recipes/eggspresseats",
+    "recipes/eggspress-egg-salad"
    ],
    "hue": 40,
-   "tagline": "Instant Pot egg salad"
+   "tagline": "Recipe box with scaling and timers"
   },
   {
    "id": "hades-eris-protocol",
-   "title": "BoonBuilder Hades Guide",
+   "title": "LevelLore Game Guides",
    "kind": "guides",
-   "slug": "boonbuilder-hades-guide",
-   "source": "apps/APPS-GUID-BoonBuilder-v*.html",
+   "slug": "levellore-game-guides",
+   "source": "apps/APPS-GUID-LevelLore-v*.html",
    "topic": "games",
-   "blurb": "A field guide to one build in the game Hades: build order, resources and boons.",
-   "keywords": "hades eris video game guide boons build walkthrough roguelike adamant rail underworld",
+   "blurb": "Offline field guides to video games, starting with a Hades build. Tick steps, back up progress.",
+   "keywords": "video game guides levellore hades eris video game guide boons build walkthrough roguelike adamant rail underworld walkthrough builds boons roguelike field guide offline",
    "icon": "hades-eris-protocol",
    "lazy": true,
    "private": false,
@@ -414,16 +422,18 @@
     "Hades Eris Protocol",
     "TartarusTactics",
     "BoonBuilder",
-    "BoonBuilder Hades II Guide"
+    "BoonBuilder Hades II Guide",
+    "BoonBuilder Hades Guide"
    ],
    "aliases": [
     "guides/hadeserisprotocol",
     "guides/tartarustactics",
     "guides/boonbuilder",
-    "guides/boonbuilder-hades-ii-guide"
+    "guides/boonbuilder-hades-ii-guide",
+    "guides/boonbuilder-hades-guide"
    ],
    "hue": 178,
-   "tagline": "Hades build guide"
+   "tagline": "Video game guides, starting with Hades"
   },
   {
    "id": "youtube-subscriptions",
@@ -449,7 +459,7 @@
     "references/streamscholar"
    ],
    "hue": 315,
-   "tagline": "Learning video channels"
+   "tagline": "YouTube channels for learning, by topic"
   },
   {
    "id": "canadian-eco-garden",
@@ -473,7 +483,7 @@
     "guides/sproutscheduler"
    ],
    "hue": 93,
-   "tagline": "Canadian planting calendar"
+   "tagline": "When to plant in 56 Canadian places"
   },
   {
    "id": "studystack-courses",
@@ -482,8 +492,8 @@
    "slug": "studystack-courses",
    "source": "apps/APPS-EDUC-StudyStack-v*.html",
    "topic": "learning",
-   "blurb": "Fourteen study readers in one place: accounting, finance, data, ethics, systems, operations, strategy, negotiation, requirements and energy.",
-   "keywords": "accounting ratios calculator statements depreciation inventory practice cashcrunch calculators reader balance sheet income statement study notes quiz balancebuddy capital structure debt equity wacc leverage cases debtdial energy audit field guide checklist efficiency wattwatcher statistics data business intelligence regression probability statsafari ethics career decisions moralmap information systems management it strategy systemsage operations projects process processpilot leadership communication perception teams leadlantern marketing international globalgambit negotiation preparation batna tactics dealdojo of work requirements evaluation criteria procurement scopescribe configuration change control toolkit baseline configcompass design engineering lab templates blueprintbuddy",
+   "blurb": "Fifteen self-paced courses: accounting, finance, data, ethics, systems, operations, strategy, negotiation, requirements, energy and equipment support.",
+   "keywords": "accounting ratios calculator statements depreciation inventory practice cashcrunch calculators reader balance sheet income statement study notes quiz balancebuddy capital structure debt equity wacc leverage cases debtdial energy audit field guide checklist efficiency wattwatcher statistics data business intelligence regression probability statsafari ethics career decisions moralmap information systems management it strategy systemsage operations projects process processpilot leadership communication perception teams leadlantern marketing international globalgambit negotiation preparation batna tactics dealdojo of work requirements evaluation criteria procurement scopescribe configuration change control toolkit baseline configcompass design engineering lab templates blueprintbuddy supportscout equipment support decisions maintenance lifecycle",
    "icon": "study-stack",
    "lazy": false,
    "private": false,
@@ -502,7 +512,8 @@
     "DealDojo Negotiation Guide",
     "ScopeScribe Requirements Guide",
     "ConfigCompass Change Control",
-    "BlueprintBuddy Systems Design"
+    "BlueprintBuddy Systems Design",
+    "SupportScout Equipment Decisions"
    ],
    "aliases": [
     "courses/cashcrunch-accounting",
@@ -518,7 +529,8 @@
     "courses/dealdojo-negotiation",
     "courses/scopescribe-requirements",
     "courses/configcompass-change",
-    "courses/blueprintbuddy-systems"
+    "courses/blueprintbuddy-systems",
+    "courses/supportscout-equipment"
    ],
    "alias_packs": {
     "courses/cashcrunch-accounting": "cashcrunch-accounting",
@@ -534,10 +546,11 @@
     "courses/dealdojo-negotiation": "dealdojo-negotiation",
     "courses/scopescribe-requirements": "scopescribe-requirements",
     "courses/configcompass-change": "configcompass-change",
-    "courses/blueprintbuddy-systems": "blueprintbuddy-systems"
+    "courses/blueprintbuddy-systems": "blueprintbuddy-systems",
+    "courses/supportscout-equipment": "supportscout-equipment"
    },
    "hue": 48,
-   "tagline": "Business and tech study readers"
+   "tagline": "Self-paced business and tech courses"
   },
   {
    "id": "gadgetguild-guides",
@@ -546,8 +559,8 @@
    "slug": "gadgetguild-guides",
    "source": "apps/APPS-TECH-GadgetGuild-v*.html",
    "topic": "home",
-   "blurb": "Device setup, gear care, handheld console and drum kit guides on one shelf, each with its own progress.",
-   "keywords": "device setup guide phone computer steps setupsherpa guides gear care maintenance cleaning repair gearguardian handheld pc gaming tuning allyace drum electronic kit reference settings pads drumdeck",
+   "blurb": "One guide per device: Meta Quest, Chromecast, Android sync, Windows, RAV4 battery, Canon M50, LatteGo, ROG Ally, Roland TD-4.",
+   "keywords": "device setup guide phone computer steps setupsherpa guides gear care maintenance cleaning repair gearguardian handheld pc gaming tuning allyace drum electronic kit reference settings pads drumdeck meta quest sideloading adb chromecast google tv stremio android sd card music sync sambalite windows snapshot toyota rav4 car battery canon eos m50 mark ii philips lattego espresso care rog ally roland td-4",
    "icon": "gadget-guild",
    "lazy": false,
    "private": false,
@@ -556,7 +569,9 @@
     "SetupSherpa Device Guides",
     "GearGuardian Care Guides",
     "AllyAce Handheld Guide",
-    "DrumDeck Kit Reference"
+    "DrumDeck Kit Reference",
+    "SetupSherpa Device Setup Guides",
+    "GearGuardian Gear and Care Guides"
    ],
    "aliases": [
     "guides/setupsherpa-devices",
@@ -565,31 +580,13 @@
     "references/drumdeck-kit"
    ],
    "alias_packs": {
-    "guides/setupsherpa-devices": "setupsherpa-devices",
-    "guides/gearguardian-care": "gearguardian-care",
+    "guides/setupsherpa-devices": "quest-sideloading",
+    "guides/gearguardian-care": "rav4-battery",
     "guides/allyace-handheld": "allyace-handheld",
     "references/drumdeck-kit": "drumdeck-kit"
    },
    "hue": 95,
-   "tagline": "Device setup, care and kit guides"
-  },
-  {
-   "id": "support-scout",
-   "title": "SupportScout Equipment Decisions",
-   "kind": "courses",
-   "slug": "supportscout-equipment",
-   "source": "apps/APPS-EDUC-SupportScout-v*.html",
-   "topic": "work",
-   "blurb": "Decision aid for equipment support options.",
-   "keywords": "equipment support decisions maintenance lifecycle",
-   "icon": "support-scout",
-   "lazy": false,
-   "private": false,
-   "archived": false,
-   "hue": 317,
-   "tagline": "Decide how to support equipment",
-   "former_names": [],
-   "aliases": []
+   "tagline": "Setup and care guides, one per device"
   },
   {
    "id": "build-boss",
@@ -598,14 +595,14 @@
    "slug": "buildboss-workstation",
    "source": "apps/APPS-GUID-BuildBoss-v*.html",
    "topic": "home",
-   "blurb": "A guide to planning a high-throughput PC workstation build.",
+   "blurb": "Plans a quiet AI, gaming and media workstation from used server parts, with costs and a power estimate.",
    "keywords": "pc workstation build parts guide",
    "icon": "build-boss",
    "lazy": false,
    "private": false,
    "archived": false,
    "hue": 31,
-   "tagline": "Plan a workstation build",
+   "tagline": "Workstation from used server parts",
    "former_names": [],
    "aliases": []
   },
@@ -616,14 +613,14 @@
    "slug": "auctionacademy-game",
    "source": "apps/APPS-GAME-AuctionAcademy-v*.html",
    "topic": "games",
-   "blurb": "A classroom auction game for learning bidding strategy.",
+   "blurb": "A classroom game where students bid in auctions and learn how bidding strategy works.",
    "keywords": "auction game classroom bidding strategy",
    "icon": "auction-academy",
    "lazy": false,
    "private": false,
    "archived": false,
    "hue": 125,
-   "tagline": "Classroom auction game",
+   "tagline": "Classroom game to learn bidding",
    "former_names": [],
    "aliases": []
   },
@@ -641,29 +638,12 @@
    "private": false,
    "archived": false,
    "hue": 200,
-   "tagline": "GitHub projects for AI builders",
+   "tagline": "GitHub projects for building with AI",
    "former_names": [
     "GitHub Omni Resource Catalogue"
    ],
    "aliases": [],
    "big": true
-  },
-  {
-   "id": "promptpantry-library",
-   "title": "PromptPantry Library",
-   "kind": "apps",
-   "slug": "promptpantry-library",
-   "source": "apps/APPS-APPS-PromptPantry-v*.html",
-   "topic": "ai",
-   "blurb": "Keep your own prompts: fill in the blanks, preview, copy, and back up. Stays on this device.",
-   "keywords": "promptpantry library keep your own prompts fill in the blanks preview copy and back up stays on this device",
-   "icon": "promptpantry-library",
-   "hue": 28,
-   "tagline": "Your own prompts, kept on this device",
-   "lazy": true,
-   "private": false,
-   "archived": false,
-   "license": "MIT"
   }
  ]
 }

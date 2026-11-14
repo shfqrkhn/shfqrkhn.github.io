@@ -315,6 +315,9 @@ a, button, input, textarea, select, summary { touch-action: manipulation; }
 .sec h2,.card h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
 .sec,.card{border-radius:3px;border-left:4px solid var(--acc)}
 body{font-variant-numeric:tabular-nums}
+
+/* narrow header: icons on one row, the app name on its own row below, broken only between words */
+@media (max-width:519px){.omni-bar{flex-wrap:wrap;row-gap:0}.omni-bar>.omni-title{order:9;flex:1 0 100%;margin:4px 0 0;font-size:1.25rem;line-height:1.2;overflow-wrap:break-word;word-break:normal;white-space:normal;max-width:none}.omni-bar>.omni-title+*{margin-left:auto}}
 </style>
   </head>
   <body>

@@ -209,6 +209,9 @@ details.lic pre:focus-visible{outline:3px solid var(--focus)}
 .sec,.card{border-radius:6px;border:1px solid var(--line);border-bottom:3px solid var(--acc)}
 .ph h1{font-weight:700;letter-spacing:.01em}
 .sec h2,.card h2{font-weight:600;letter-spacing:.02em}
+
+/* narrow header: icons on one row, the app name on its own row below, broken only between words */
+@media (max-width:519px){header.top{flex-wrap:wrap;row-gap:0}header.top>h1{order:9;flex:1 0 100%;margin:4px 0 0;font-size:1.25rem;line-height:1.2;overflow-wrap:break-word;word-break:normal;white-space:normal;max-width:none}header.top>h1+*{margin-left:auto}}
 </style>
 </head>
 <body id="top">

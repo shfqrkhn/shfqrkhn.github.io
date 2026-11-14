@@ -91,7 +91,7 @@ Published site (the site/ folder, served at the site root)
 ## 5. Hard rules
 
 1. **Privacy gate.** No page, doc or registry text may carry personal information in any form: names of real people (owner, household, authors, designers, developers, players, creators), emails, phone numbers, addresses, government or account numbers, usernames or handles (the owner's GitHub handle in site and repository addresses is the one allowed handle), IP addresses, keys, tokens, local paths, credit lines naming a person (pattern-checked; names need the private list). Allowed: attributed historical quotes; copyright lines in third-party licences that the licence requires; the public site address; names of organisations, products, places and fictional characters. Sample data uses neutral labels ("Person A"). Nothing published may reveal who the owner is or where they work: no detail of the owner's employment or workplace, and no handle beyond the owner's GitHub handle in the site and repository addresses. These terms go in the private list (`builder/privacy_names.txt`), so the public repository never spells them out. Content must come from public sources, never from work material, internal training or client data. The public credit an open-data licence requires is allowed. If something identifying ever reaches the repository, deleting it in a later commit is not enough because history keeps it: scrub the sources, then replace the history with one clean commit (needs branch protection off for the push) and, to clear old pull request refs, recreate the repository. Suspicion alone is enough: when in doubt about a historical trail, delete the repository, recreate it, scrub the sources, and upload them again as one commit (the clean re-upload). Never wait for proof.
-2. **No network.** A page makes no request unless the user starts it. Four apps that use an AI or data service (PromptPlayground, PennyPlanner, MeetingMediator, WorldCupWizard) list that service's hosts (PromptPlayground also local addresses, for a model on the user's own machine) in their Content-Security-Policy `connect-src` and FlexxFiles allows its own origin only; no other host is allowed, and `check_pages.py` inspects resource attributes (`src`, `srcset`, `imagesrcset`, `background`, `href`, `xlink:href`, `action`, `formaction`, `poster`, `data`, `ping`, the `to`, `from` and `values` of svg `set` and `animate`, an iframe's `srcdoc`, a meta refresh) and stylesheet `url()`, `image-set()` and `@import`, not `connect-src`. No analytics, no external fonts, scripts or styles. The hub and generated pages ship a strict Content-Security-Policy.
+2. **No network.** A page makes no request unless the user starts it. Four apps that use an AI or data service (PromptPantry AI Workbench, PennyPlanner, MeetingMediator, WorldCupWizard) list that service's hosts (the Workbench also local addresses, for a model on the user's own machine) in their Content-Security-Policy `connect-src` and FlexxFiles allows its own origin only; no other host is allowed, and `check_pages.py` inspects resource attributes (`src`, `srcset`, `imagesrcset`, `background`, `href`, `xlink:href`, `action`, `formaction`, `poster`, `data`, `ping`, the `to`, `from` and `values` of svg `set` and `animate`, an iframe's `srcdoc`, a meta refresh) and stylesheet `url()`, `image-set()` and `@import`, not `connect-src`. No analytics, no external fonts, scripts or styles. The hub and generated pages ship a strict Content-Security-Policy.
 3. **Local-first.** Everything the user enters stays on the device (localStorage or IndexedDB). Every page that stores data offers export and restore. Storage keys are never renamed. Schemas carry a version and are validated on read.
 4. **Offline.** Every page works with the network off. The hub saves all pages in the background after the first visit (large ones on a tap), tries the network first, falls back to the saved copy after 3.5 seconds, refreshes saved pages when the network answers in time, and installs a new worker only when the person taps update. A page with its own PWA (bundle with `pwa: true`) brings its own worker and scope.
 5. **Home link.** Every single-file page has one link `href="../"` (the source file), which the build rewrites to `../../` on the site. Bundles write `../../` themselves. Remote pages link out and are labelled.
@@ -155,7 +155,7 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 
 **Re-skin the whole site:** edit tokens in `site/scripts/ui.css` (colours per look, radius, spacing, type), run the build. The contrast gate re-checks every colour pair for every accent hue; the kit file for the apps (`builder/kit.css`) regenerates; the hub, group pages, generated pages and the 404 follow at once. Hand-built apps follow too: their kit block (`OMNEVUM KIT:BEGIN` to `END`) holds two marker lines, `/* @@OMNEVUM-KIT-TOKENS@@ */` and `/* @@OMNEVUM-KIT-PREFS@@ */`, that the build fills from `ui.css` (the look tokens; the reduced-motion, reduced-transparency and more-contrast rules) and re-pins.
 
-**Update an app:** edit the file, bump the version in the file name and in the version meta, run the build. The hash changes, so installed copies fetch the new version.
+**Update an app:** edit the file, run `python builder/bump.py <file> [patch|minor|major]` (renames the file, rewrites the exact version strings it prints, repairs the CSP; not for engine hosts, whose name carries the engine version), run the build. `python builder/preview.py <file> [out]` writes the inlined page for a browser test. The hash changes, so installed copies fetch the new version.
 
 **Archive or restore a page** (move its icon to or from the Archive section at the bottom of the hub). Say "archive X" or "restore X" and run:
 - `python builder/archive.py list` shows what is on the main hub and what is archived.
@@ -165,7 +165,7 @@ One rule places every page, archived or not: its topic picks the section, then i
 
 **Delete a page for good:** `python builder/archive.py remove "<page>" --yes`. It leaves the registry (or deletes its content file) and moves its source file from `sources/apps` into the git-ignored `history/` (git history keeps it too) so a mistake is recoverable. The next build and publish remove it from the site; its old address then shows the 404 page.
 
-**Make or grow a family** (several guides on one page, one engine): list the family in a JSON file (`id`, `title`, `slug`, `kind`, `topic`, `icon`, `hue`, `tagline`, `blurb`, `label`, `what`, `out`, `members` as registry slugs) and run `python builder/merge_family.py <file>` (`--dry` reports only). Each member becomes a `<template data-kd="pack">` with its data, accent hue and look unchanged, so saved progress carries over; `?pack=<slug>` opens it, no pack shows the shelf, and the old address forwards through `alias_packs`. Then add the icon key, `git rm` the member sources, run `rename.py --repair-csp` on the new file and the build. To add a guide to an existing family, paste one more pack template into its source. Members must be study readers on the shared engine without `data-kd="more"` chunks.
+**Make or grow a family** (several guides on one page, one engine): list the family in a JSON file (`id`, `title`, `slug`, `kind`, `topic`, `icon`, `hue`, `tagline`, `blurb`, `label`, `what`, `out`, `members` as registry slugs) and run `python builder/merge_family.py <file>` (`--dry` reports only). Each member becomes a `<template data-kd="pack">` with its data, accent hue and look unchanged, so saved progress carries over; `?pack=<slug>` opens it, no pack shows the shelf, and the old address forwards through `alias_packs`. Then add the icon key, `git rm` the member sources, run `rename.py --repair-csp` on the new file and the build. To add a guide to an existing family, paste one more pack template into its source. To split a pack, add a data-only `<template data-kd="migrate">` mapping `oldId` to `[{id, ch, ac}]`; the engine copies the old progress into each new pack, filtered to its chapter and activity ids, and never deletes the old key. Members must be study readers on the shared engine without `data-kd="more"` chunks.
 
 **Move a page to another kind:** change `kind` and add the old `kind/slug` to `aliases`; the 404 page forwards old links.
 
@@ -238,7 +238,7 @@ Survey (`converge/reporadar-ledger.json`): anti-slop rubric (`check_docs.py`), p
 - Pages share one origin, so any page on the site could read another page's stored data. Pages here are all the owner's, and no page ships third-party scripts. A page that must be isolated should live on its own origin as a `remote` page.
 - The live repo's history was rewritten on 2026-11-02 to a single commit with a noreply author, so earlier content is gone from `main`. GitHub may still hold old pull request refs; only deleting and recreating the repo clears them (needs the owner's delete permission). `shfqrkhn.github.io` is the only repo; the five archived ones are deleted. Branch protection on `main` is off at the owner's choice and blocks force-pushes when on.
 - Some third-party licences name their authors in a copyright line that the licence requires; those lines are kept.
-- Open owner items (2026-11-13): accept Omni 8.4.0 and the 41 inferred goals in `converge/app-goals.json`; turn Issues on; RepoRadar queued records and the domain pass; rights review (glass and animation, diagram design, unslop); NestEggNinja data choices; PromptPantry CR-26-2. Next consolidation candidates: SupportScout onto engine 1.6.0 as a pack (it keeps its own engine fork), a game guide family (BoonBuilder, HandheldHunter, MeepleMentor), one multi-recipe page.
+- Open owner items (2026-11-13): accept Omni 8.4.0 and the 41 inferred goals in `converge/app-goals.json`; turn Issues on; RepoRadar queued records and the domain pass; rights review (glass and animation, diagram design, unslop); NestEggNinja data choices; PromptPantry CR-26-2. Next consolidation candidates: MeepleMentor into LevelLore, BuildBoss into GadgetGuild, a second recipe and a second game guide (owner content).
 - The self-test runs browser tests in headless Chromium; `test_mobile.py` (Chromium and Firefox) is run by hand. Real-device checks are manual.
 
 ## 11a. Lessons learned (read before building any new app)
@@ -253,8 +253,8 @@ Each line is a mistake that happened once. A new page should never repeat it.
 - A dependency that points at a repository must be checked to exist before it is shipped (a page once depended on a repository that was never created).
 - Test on a phone viewport (390 and 320 px) and offline; scrollbar gutters, shrinking flex children and below-the-fold primary controls only show there.
 - Test fixtures must track required registry keys; when a key becomes required, update the self-test in the same change.
-- Naming scales: a page name is `<Pun> <Subject>` where the subject says exactly what this one page is (`Eggspress Egg Salad`, `BoonBuilder Hades Guide`), never only the kind. With many recipes or guides, a bare pun cannot tell them apart. The address is the same words in lowercase with dashes. Check the subject is true (a Hades guide is not a Hades II guide) before naming.
-- Long names must wrap, not push buttons off screen: never `white-space:nowrap` on a header title; the kit rule (`overflow-wrap:anywhere`, `min-width:0`) already handles it. After any rename, run the mobile audit at 320 px for horizontal overflow, tap targets under 36 px and console errors.
+- Naming scales: a page name is `<Pun> <Subject>` where the subject says exactly what this one page is (`Eggspress Egg Salad`, `LevelLore Game Guides`), never only the kind. With many recipes or guides, a bare pun cannot tell them apart. The address is the same words in lowercase with dashes. Check the subject is true (a Hades guide is not a Hades II guide) before naming.
+- Long names must wrap, not push buttons off screen: never `white-space:nowrap` on a header title, and never `overflow-wrap:anywhere` in a nowrap bar (names broke mid-word in 12 apps). Below 520 px the icons keep one row and the name takes its own row below, broken only between words (`.ph` in `ui.css`). After any rename, run the mobile audit at 320 px for horizontal overflow, tap targets under 36 px and console errors.
 - Pages seen on a phone may be an older cached copy; judge a screenshot against the current build before fixing.
 - Knowledge Distiller changes need a cold re-run and fresh reviewers; never claim convergence from the author's own pass.
 - Put the control the user needs next, directly under the primary action (FlexxFiles had its reps-in-reserve buttons below the fold until they were moved under Complete set).
@@ -264,7 +264,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `02cf48ca`, last changed 2026-11-13.
+Hub 1.4.3. 24 pages in 7 groups: 24 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `df2e92de`, last changed 2026-11-13.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -276,23 +276,21 @@ Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 a
 | NestEggNinja Retirement | apps | single | money | 10.4.5 | live | MIT | /apps/nesteggninja-retirement/ |
 | NoodleNudge Journal | apps | single | health | 1.7.7 | live | MIT | /apps/noodlenudge-journal/ |
 | PennyPlanner Budget | apps | single | money | 1.3.8 | live | MIT | /apps/pennyplanner-budget/ |
-| PromptPantry Library | apps | single | ai | 0.1.0 | live | MIT | /apps/promptpantry-library/ |
-| TickleTodo Tasks | apps | single | health | 1.3.5 | live | MIT | /apps/tickletodo-tasks/ |
+| TickleTodo Tasks | apps | single | health | 1.3.6 | live | MIT | /apps/tickletodo-tasks/ |
 | ProjectPopQuiz Exams | courses | single | learning | 1.7.5 | live | MIT | /courses/projectpopquiz-exams/ |
 | StudyStack Courses | courses | single | learning | 1.6.0 | live | MIT | /courses/studystack-courses/ |
-| SupportScout Equipment Decisions | courses | single | work | 1.5.5 | live | MIT | /courses/supportscout-equipment/ |
 | AuctionAcademy Classroom Game | games | single | games | 5.1.2 | live | MIT | /games/auctionacademy-game/ |
 | MeepleMentor Board Game Rules | games | single | games | 14.5.3 | live | MIT | /games/meeplementor-board-game-rules/ |
 | WorldCupWizard Predictions | games | single | games | 1.5.5 | live | MIT | /games/worldcupwizard-predictions/ |
-| BoonBuilder Hades Guide | guides | single | games | 1.1.4 | live | MIT | /guides/boonbuilder-hades-guide/ |
-| BuildBoss PC Workstation Guide | guides | single | home | 1.0.0 | live | MIT | /guides/buildboss-workstation/ |
+| BuildBoss PC Workstation Guide | guides | single | home | 1.1.0 | live | MIT | /guides/buildboss-workstation/ |
 | GadgetGuild Guides | guides | single | home | 1.6.0 | live | MIT | /guides/gadgetguild-guides/ |
+| LevelLore Game Guides | guides | single | games | 2.0.0 | live | MIT | /guides/levellore-game-guides/ |
 | SproutScheduler Planting Calendar | guides | single | home | 1.4.4 | live | MIT | /guides/sproutscheduler-planting-calendar/ |
-| Eggspress Egg Salad | recipes | single | food | 1.3.3 | live | MIT | /recipes/eggspress-egg-salad/ |
+| Eggspress Recipe Box | recipes | single | food | 2.0.0 | live | MIT | /recipes/eggspress-recipe-box/ |
 | HandheldHunter PC Games | references | single | games | 16.10.3 | live | MIT | /references/handheldhunter-pc-games/ |
 | RepoRadar GitHub Catalogue | references | single | ai | 4.3.1 | live | MIT | /references/reporadar-github/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.4 | live | MIT | /references/streamscholar-youtube-channels/ |
-| PromptPlayground AI Chat | tools | single | ai | 0.5.6 | live | MIT | /tools/promptplayground-ai-chat/ |
+| PromptPantry AI Workbench | tools | single | ai | 1.0.0 | live | MIT | /tools/promptpantry-ai-workbench/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.5 | live | MIT | /tools/stepsleuth-step-counter/ |
 | TranscriptTidy AI Exports | tools | single | ai | 1.6.2 | live | MIT | /tools/transcripttidy-ai-exports/ |
 | TrendTracker Charts | tools | single | ai | 1.5.3 | live | MIT | /tools/trendtracker-charts/ |
@@ -300,6 +298,7 @@ Hub 1.4.3. 26 pages in 7 groups: 26 single, 0 bundle, 0 remote, 0 generated; 0 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-13: Families: SupportScout is a StudyStack course; GadgetGuild's two multi-device packs became seven one-device guides (engine `migrate` template carries progress); BoonBuilder grew into LevelLore Game Guides 2.0.0 and Eggspress into Eggspress Recipe Box 2.0.0 (check state keyed by id, fixes #8; backup added, fixes #6); PromptPantry and PromptPlayground merged into PromptPantry AI Workbench 1.0.0. BuildBoss 1.1.0 uses the Omnevum header and looks. Narrow headers fixed in 12 apps; taglines say what each app does. New tools: `bump.py`, `preview.py`, `inline.py`.
 - 2026-11-13: DRY: the kit core (look tokens, preference rules) is build-injected from `ui.css` by two markers in every app's kit block; 11 drifting copies gone, rendering unchanged (screens and computed tokens compared in two looks).
 - 2026-11-13: ProjectPopQuiz 1.7.5 and NoodleNudge 1.7.7 drop dead code (an unused fetch timer; an unused worker config).
 - 2026-11-13: DRY: `csp_hash`, `tree_files` and `tree_hash` live once in `builder/paths.py`; `site/scripts` keeps standalone copies (published); build output unchanged.

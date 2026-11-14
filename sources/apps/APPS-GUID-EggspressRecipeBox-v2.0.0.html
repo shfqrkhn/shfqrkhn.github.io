@@ -2,52 +2,311 @@
 <html lang="en" data-app data-look="auto" data-theme="auto" style="--hue:40">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-X7apsIodKrAk0VmUNsao4D1b4QIkaHzH7/NDEl8PpMc='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- Single-file build 1.3.3-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-temrJG0mG8tcxtdiT0kCBGDpJrgRTJmIjAthJRMatp0='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- Single-file build 2.0.0-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="An Instant Pot egg salad recipe with ingredients, a method and a timer.">
-<meta name="application-version" content="1.3.3">
-<title>Eggspress Egg Salad: Instant Pot recipe</title>
+<meta name="description" content="Recipes you can scale and time, with checklists. Works offline.">
+<meta name="application-version" content="2.0.0">
+<title>Eggspress Recipe Box: recipes</title>
 <script>
 (function(){var K="eggsalad.look",r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null,ok={auto:1,paper:1,charcoal:1,black:1};function rd(k,h){try{var v=localStorage.getItem(k);if(h){v=JSON.parse(v);v=v&&v.look}return ok[v]===1?v:null}catch(e){return null}}function get(){return rd("hub.prefs.v1",1)||rd(K)||"auto"}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-look",l);r.setAttribute("data-theme",l);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t])}function set(l){if(ok[l]!==1)return;try{localStorage.setItem(K,l)}catch(e){}try{var p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"{}");if(!p||typeof p!=="object"||Array.isArray(p))p={};p.schemaVersion=1;p.look=l;localStorage.setItem("hub.prefs.v1",JSON.stringify(p))}catch(e){}apply(l)}apply(get());if(mq&&mq.addEventListener)mq.addEventListener("change",function(){get()==="auto"&&apply("auto")});window.omnLook={get:get,set:set}})();
 </script>
-<script type="application/json" id="recipe-content">
+<script type="application/json" id="recipes-content">
 {
-"dataVersion":"1.1.0",
-"date":"2026-10-31",
-"source":"Recipe text as shipped in app version 1.3.3 (content as shipped in this version). The four Sources links open web searches; sources are search links, not citations.",
-"covers":"Title, tagline, ingredients, method steps with timers, background, myths and FAQ, action plan. The search links stay in the page.",
-"title":"Instant Pot Egg Salad",
-"tagline":"Crack on: lunch at express speed.",
-"ingredientsHeading":"Ingredients",
-"methodHeading":"The Method, Step by Step",
-"ingredients":[
-  {"id":"eggs","amt":"6","unit":"large egg","units":"large eggs","name":"","short":"large eggs"},
-  {"id":"mayo","amt":"1/3","unit":"cup","units":"cups","name":"full-fat, high-quality mayonnaise","short":"full-fat mayonnaise"},
-  {"id":"creme","amt":"1","unit":"tablespoon","units":"tablespoons","name":"crème fraîche or full-fat Greek yogurt"},
-  {"id":"mustard","amt":"2","unit":"teaspoon","units":"teaspoons","name":"Dijon mustard"},
-  {"id":"lemon","amt":"1.5","unit":"teaspoon","units":"teaspoons","name":"fresh lemon juice"},
-  {"id":"worcestershire","amt":"2-3","unit":"dash","units":"dashes","name":"Worcestershire sauce"},
-  {"id":"paprika","amt":"1/8","unit":"teaspoon","units":"teaspoons","name":"smoked paprika"},
-  {"id":"cayenne","lead":"A pinch of","name":"cayenne pepper"},
-  {"id":"salt","amt":"1/2","unit":"teaspoon","units":"teaspoons","name":"kosher salt"},
-  {"id":"pepper","lead":"Freshly ground","name":"black pepper"},
-  {"id":"celery","amt":"1","unit":"large rib","units":"large ribs","name":"of celery, with leaves, very finely minced (about {{amt:1/3|cup|cups}})","short":"celery"},
-  {"id":"scallions","amt":"2","unit":"scallion","units":"scallions","name":"white and green parts, thinly sliced","short":"scallions"},
-  {"id":"dill","amt":"1.5","unit":"tablespoon","units":"tablespoons","name":"finely chopped fresh dill","short":"fresh dill"}
-],
-"steps":[
-  {"title":"Cook the Eggs (Instant Pot Method)","text":"Place the trivet in your Instant Pot and add 1 cup of water. Carefully place {{qty:eggs}} on the trivet. Secure the lid and set the vent to sealing. Select \"Manual\" or \"Pressure Cook\" and set the time to **5 minutes on High Pressure**. Once cooking is complete, let the pressure drop on its own for **5 minutes** (this is the Natural Pressure Release). Then use the Quick Release to let out any remaining pressure.","timers":[{"sec":300,"name":"High pressure, 5 minutes"},{"sec":300,"name":"Natural pressure release, 5 minutes"}],"why":"The Instant Pot provides consistent, gentle heat, yielding perfectly cooked eggs with tender whites and yolks, and significantly eases peeling, making it a highly efficient method."},
-  {"title":"Chill and Peel","text":"Immediately transfer the cooked eggs to a large bowl of ice water and let them cool for at least **5 minutes**. This rapid cooling helps prevent the unappealing greenish-grey ring around the yolk and makes the eggs incredibly easy to peel.","timers":[{"sec":300,"name":"Ice bath, at least 5 minutes"}],"why":"The ice bath halts the cooking process to prevent overcooked, green yolks and firms the egg, causing it to pull away from the shell for easier peeling."},
-  {"title":"Get the Ingredients Ready","text":"While the eggs cool, prepare the other components. Finely mince {{qty:celery}} of {{ing:celery}} (with leaves) and place it in a paper towel. Squeeze gently to remove excess moisture. Finely chop {{qty:dill}} of {{ing:dill}} and thinly slice {{qty:scallions}} (white and green parts).","why":"Prepping all ingredients ensures they are ready for gentle mixing. Removing excess water from the celery is a critical step to prevent a watery salad."},
-  {"title":"Create the \"Yolk-naise\"","text":"Peel the cooled eggs. Slice them in half and gently remove the yolks, placing them in a medium mixing bowl. Set the whites aside. Using a fork, mash the yolks until they are a fine crumble. Add {{qty:mayo}} {{ing:mayo}}, {{qty:creme}} {{ing:creme}}, {{qty:mustard}} {{ing:mustard}}, {{qty:lemon}} {{ing:lemon}}, {{qty:worcestershire}} {{ing:worcestershire}}, {{qty:paprika}} {{ing:paprika}}, a pinch of {{ing:cayenne}}, and {{qty:salt}} {{ing:salt}} (plus more to taste) and several grinds of freshly ground {{ing:pepper}}. Mix until the dressing is completely smooth and creamy.","why":"This \"deviled egg\" technique is the secret to an ultra-creamy, lump-free dressing. It ensures the dry yolks are perfectly emulsified into the binder before the textured components are added."},
-  {"title":"Chop and Fold","text":"Coarsely chop the reserved egg whites into your desired size (1/4 to 1/2-inch pieces are ideal). Add the chopped whites, dried {{ing:celery}}, sliced {{ing:scallions}}, and {{ing:dill}} to the bowl with the yolk dressing. Use a flexible spatula to gently fold everything together until just combined.","why":"Folding, rather than vigorous stirring, preserves the distinct, tender chunks of egg white and prevents the salad from becoming a uniform paste."},
-  {"title":"Chill and Final Seasoning","text":"Cover the bowl and refrigerate for at least 30 minutes, and up to an hour. Before serving, taste the chilled salad and adjust seasoning as needed with more salt, pepper, or a tiny splash of lemon juice.","timers":[{"sec":1800,"name":"Chill, at least 30 minutes"}],"why":"Chilling allows the flavors to meld and deepen. Cold food numbs the palate slightly, so it often requires a final adjustment of seasoning to taste perfect when served."}
-],
-"intro":{"heading":"About this recipe","paras":["Creamy, savory, bright egg salad. The Instant Pot makes the eggs easy to peel."]},
-"deep":{"heading":"Deep Dive Modules","items":[{"h":"The Instant Pot Advantage","p":"While traditional steaming methods yield good results, the Instant Pot gives the most consistent results and ease for cooking eggs. The controlled pressure environment ensures uniform cooking, leading to perfectly set whites and creamy yolks every time. Crucially, the rapid pressure change often makes the eggs incredibly easy to peel, saving significant time and frustration compared to stovetop methods. The \"5-5-5\" rule (5 minutes high pressure, 5 minutes natural release, 5 minutes ice bath) is a widely acclaimed technique for achieving ideal hard-cooked eggs for egg salad."},{"h":"Binder Brilliance: Why Full-Fat Reigns","p":"The binder is the soul of your egg salad. Full-fat mayonnaise is non-negotiable because it forms a stable emulsion, creating the desired thick, creamy mouthfeel. Low-fat alternatives, laden with water and starches, lead to watery, unstable salads prone to breaking down. Augmenting with a touch of {{ing:creme}} adds a sophisticated, cultured tang that lifts the flavor, cutting through richness with nuance."},{"h":"Flavor Foundations: Acidity, Alliums, and Crunch","p":"Beyond richness, balance is key. {{ing:mustard}} provides a sharp, complex acidity, while an additional splash of {{ing:lemon}} \"lifts\" the entire dish, preventing cloying heaviness. Scallions offer a mild, fresh onion bite without the harshness of raw bulb onions, and finely minced celery provides essential textural contrast. Remember to squeeze excess moisture from celery to maintain the salad's creamy integrity."}]},
-"faq":{"heading":"Myths and Advanced FAQ","groups":[{"h":"MythBusting","items":[{"q":"Myth: Egg Salad is Always Watery","a":"**Debunked:** Watery egg salad is a symptom of using low-fat binders or not properly preparing ingredients like celery. By using full-fat mayonnaise and squeezing excess moisture from vegetables, you ensure a stable, creamy emulsion that holds its texture."},{"q":"Myth: Boiling is Best for Eggs","a":"**Debunked:** While common, direct boiling can lead to rubbery whites and green-tinged, chalky yolks. Steaming (or using an Instant Pot) provides more consistent, gentle heat, resulting in tender eggs that are significantly easier to peel due to the rapid setting of the albumen."},{"q":"Myth: Low-Fat Mayo is Healthier and Fine","a":"**Debunked:** From a culinary science perspective, low-fat mayonnaise replaces essential fats with water, starches, and gums, creating a weak emulsion. This leads to a runny, unstable salad with an inferior texture and often an unpleasant aftertaste, compromising the overall quality of the dish."}]},{"h":"Advanced FAQ","items":[{"q":"Can I make this egg salad ahead of time?","a":"Yes, egg salad benefits from chilling for at least 30 minutes for flavors to meld. It can be made ahead and stored in an airtight container in the refrigerator. Hard-cooked egg salad keeps up to 3 to 5 days in the refrigerator at 40 F (4 C) or below. Discard it after that. Note that the crunch from the celery may soften slightly over time."},{"q":"How should I store leftovers, and for how long?","a":"Store leftover egg salad in an airtight container in the refrigerator. Hard-cooked egg salad keeps up to 3 to 5 days in the refrigerator at 40 F (4 C) or below. Discard it after that. It is not recommended to freeze egg salad, as the texture of the eggs and mayonnaise will change upon thawing, becoming watery and unappetizing."},{"q":"What are good substitutions if I don't like dill?","a":"If dill isn't to your taste, fresh parsley is an excellent neutral alternative that still provides freshness. Chives offer a delicate oniony-herbaceous note. You could also try a mix of parsley and chives for a balanced flavor."}]}]},
-"plan":{"heading":"Graduated Action Plan","groups":[{"h":"First batches","items":["Master the Instant Pot egg cooking technique for consistently perfect eggs.","Follow this recipe exactly to understand the foundational flavor balance.","Focus on the \"yolk-naise\" method for the creamiest texture."]},{"h":"Deepening Your Understanding","items":["Experiment with variations (e.g., adding capers or {{ing:paprika}}).","Pay attention to the textural contributions of each ingredient.","Refine your seasoning by tasting and adjusting before serving."]},{"h":"Mastering the Craft","items":["Try different bread types and moisture barrier techniques for sandwiches.","Consider making your own mayonnaise for an even richer flavor.","Develop your own unique variations while maintaining the core principles of balance and texture."]}]}
+ "dataVersion": "2.0.0",
+ "date": "2026-11-13",
+ "source": "Recipe text as shipped in app version 2.0.0. The Sources links open web searches; they are search links, not citations.",
+ "covers": "A list of recipes. Each has title, dish, ingredients and steps with stable ids, timers, background, FAQ, action plan and links. Add a recipe by adding an object to recipes.",
+ "recipes": [
+  {
+   "id": "egg-salad",
+   "title": "Instant Pot Egg Salad",
+   "dish": "Egg salad, Instant Pot method",
+   "tagline": "Crack on: lunch at express speed.",
+   "servings": {
+    "ing": "eggs"
+   },
+   "ingredientsHeading": "Ingredients",
+   "methodHeading": "The Method, Step by Step",
+   "ingredients": [
+    {
+     "id": "eggs",
+     "amt": "6",
+     "unit": "large egg",
+     "units": "large eggs",
+     "name": "",
+     "short": "large eggs"
+    },
+    {
+     "id": "mayo",
+     "amt": "1/3",
+     "unit": "cup",
+     "units": "cups",
+     "name": "full-fat, high-quality mayonnaise",
+     "short": "full-fat mayonnaise"
+    },
+    {
+     "id": "creme",
+     "amt": "1",
+     "unit": "tablespoon",
+     "units": "tablespoons",
+     "name": "crème fraîche or full-fat Greek yogurt"
+    },
+    {
+     "id": "mustard",
+     "amt": "2",
+     "unit": "teaspoon",
+     "units": "teaspoons",
+     "name": "Dijon mustard"
+    },
+    {
+     "id": "lemon",
+     "amt": "1.5",
+     "unit": "teaspoon",
+     "units": "teaspoons",
+     "name": "fresh lemon juice"
+    },
+    {
+     "id": "worcestershire",
+     "amt": "2-3",
+     "unit": "dash",
+     "units": "dashes",
+     "name": "Worcestershire sauce"
+    },
+    {
+     "id": "paprika",
+     "amt": "1/8",
+     "unit": "teaspoon",
+     "units": "teaspoons",
+     "name": "smoked paprika"
+    },
+    {
+     "id": "cayenne",
+     "lead": "A pinch of",
+     "name": "cayenne pepper"
+    },
+    {
+     "id": "salt",
+     "amt": "1/2",
+     "unit": "teaspoon",
+     "units": "teaspoons",
+     "name": "kosher salt"
+    },
+    {
+     "id": "pepper",
+     "lead": "Freshly ground",
+     "name": "black pepper"
+    },
+    {
+     "id": "celery",
+     "amt": "1",
+     "unit": "large rib",
+     "units": "large ribs",
+     "name": "of celery, with leaves, very finely minced (about {{amt:1/3|cup|cups}})",
+     "short": "celery"
+    },
+    {
+     "id": "scallions",
+     "amt": "2",
+     "unit": "scallion",
+     "units": "scallions",
+     "name": "white and green parts, thinly sliced",
+     "short": "scallions"
+    },
+    {
+     "id": "dill",
+     "amt": "1.5",
+     "unit": "tablespoon",
+     "units": "tablespoons",
+     "name": "finely chopped fresh dill",
+     "short": "fresh dill"
+    }
+   ],
+   "steps": [
+    {
+     "title": "Cook the Eggs (Instant Pot Method)",
+     "text": "Place the trivet in your Instant Pot and add 1 cup of water. Carefully place {{qty:eggs}} on the trivet. Secure the lid and set the vent to sealing. Select \"Manual\" or \"Pressure Cook\" and set the time to **5 minutes on High Pressure**. Once cooking is complete, let the pressure drop on its own for **5 minutes** (this is the Natural Pressure Release). Then use the Quick Release to let out any remaining pressure.",
+     "timers": [
+      {
+       "sec": 300,
+       "name": "High pressure, 5 minutes"
+      },
+      {
+       "sec": 300,
+       "name": "Natural pressure release, 5 minutes"
+      }
+     ],
+     "why": "The Instant Pot provides consistent, gentle heat, yielding perfectly cooked eggs with tender whites and yolks, and significantly eases peeling, making it a highly efficient method.",
+     "id": "cook"
+    },
+    {
+     "title": "Chill and Peel",
+     "text": "Immediately transfer the cooked eggs to a large bowl of ice water and let them cool for at least **5 minutes**. This rapid cooling helps prevent the unappealing greenish-grey ring around the yolk and makes the eggs incredibly easy to peel.",
+     "timers": [
+      {
+       "sec": 300,
+       "name": "Ice bath, at least 5 minutes"
+      }
+     ],
+     "why": "The ice bath halts the cooking process to prevent overcooked, green yolks and firms the egg, causing it to pull away from the shell for easier peeling.",
+     "id": "chill"
+    },
+    {
+     "title": "Get the Ingredients Ready",
+     "text": "While the eggs cool, prepare the other components. Finely mince {{qty:celery}} of {{ing:celery}} (with leaves) and place it in a paper towel. Squeeze gently to remove excess moisture. Finely chop {{qty:dill}} of {{ing:dill}} and thinly slice {{qty:scallions}} (white and green parts).",
+     "why": "Prepping all ingredients ensures they are ready for gentle mixing. Removing excess water from the celery is a critical step to prevent a watery salad.",
+     "id": "prep"
+    },
+    {
+     "title": "Create the \"Yolk-naise\"",
+     "text": "Peel the cooled eggs. Slice them in half and gently remove the yolks, placing them in a medium mixing bowl. Set the whites aside. Using a fork, mash the yolks until they are a fine crumble. Add {{qty:mayo}} {{ing:mayo}}, {{qty:creme}} {{ing:creme}}, {{qty:mustard}} {{ing:mustard}}, {{qty:lemon}} {{ing:lemon}}, {{qty:worcestershire}} {{ing:worcestershire}}, {{qty:paprika}} {{ing:paprika}}, a pinch of {{ing:cayenne}}, and {{qty:salt}} {{ing:salt}} (plus more to taste) and several grinds of freshly ground {{ing:pepper}}. Mix until the dressing is completely smooth and creamy.",
+     "why": "This \"deviled egg\" technique is the secret to an ultra-creamy, lump-free dressing. It ensures the dry yolks are perfectly emulsified into the binder before the textured components are added.",
+     "id": "mix"
+    },
+    {
+     "title": "Chop and Fold",
+     "text": "Coarsely chop the reserved egg whites into your desired size (1/4 to 1/2-inch pieces are ideal). Add the chopped whites, dried {{ing:celery}}, sliced {{ing:scallions}}, and {{ing:dill}} to the bowl with the yolk dressing. Use a flexible spatula to gently fold everything together until just combined.",
+     "why": "Folding, rather than vigorous stirring, preserves the distinct, tender chunks of egg white and prevents the salad from becoming a uniform paste.",
+     "id": "fold"
+    },
+    {
+     "title": "Chill and Final Seasoning",
+     "text": "Cover the bowl and refrigerate for at least 30 minutes, and up to an hour. Before serving, taste the chilled salad and adjust seasoning as needed with more salt, pepper, or a tiny splash of lemon juice.",
+     "timers": [
+      {
+       "sec": 1800,
+       "name": "Chill, at least 30 minutes"
+      }
+     ],
+     "why": "Chilling allows the flavors to meld and deepen. Cold food numbs the palate slightly, so it often requires a final adjustment of seasoning to taste perfect when served.",
+     "id": "rest"
+    }
+   ],
+   "intro": {
+    "heading": "About this recipe",
+    "paras": [
+     "Creamy, savory, bright egg salad. The Instant Pot makes the eggs easy to peel."
+    ]
+   },
+   "deep": {
+    "heading": "Deep Dive Modules",
+    "items": [
+     {
+      "h": "The Instant Pot Advantage",
+      "p": "While traditional steaming methods yield good results, the Instant Pot gives the most consistent results and ease for cooking eggs. The controlled pressure environment ensures uniform cooking, leading to perfectly set whites and creamy yolks every time. Crucially, the rapid pressure change often makes the eggs incredibly easy to peel, saving significant time and frustration compared to stovetop methods. The \"5-5-5\" rule (5 minutes high pressure, 5 minutes natural release, 5 minutes ice bath) is a widely acclaimed technique for achieving ideal hard-cooked eggs for egg salad."
+     },
+     {
+      "h": "Binder Brilliance: Why Full-Fat Reigns",
+      "p": "The binder is the soul of your egg salad. Full-fat mayonnaise is non-negotiable because it forms a stable emulsion, creating the desired thick, creamy mouthfeel. Low-fat alternatives, laden with water and starches, lead to watery, unstable salads prone to breaking down. Augmenting with a touch of {{ing:creme}} adds a sophisticated, cultured tang that lifts the flavor, cutting through richness with nuance."
+     },
+     {
+      "h": "Flavor Foundations: Acidity, Alliums, and Crunch",
+      "p": "Beyond richness, balance is key. {{ing:mustard}} provides a sharp, complex acidity, while an additional splash of {{ing:lemon}} \"lifts\" the entire dish, preventing cloying heaviness. Scallions offer a mild, fresh onion bite without the harshness of raw bulb onions, and finely minced celery provides essential textural contrast. Remember to squeeze excess moisture from celery to maintain the salad's creamy integrity."
+     }
+    ]
+   },
+   "faq": {
+    "heading": "Myths and Advanced FAQ",
+    "groups": [
+     {
+      "h": "MythBusting",
+      "items": [
+       {
+        "q": "Myth: Egg Salad is Always Watery",
+        "a": "**Debunked:** Watery egg salad is a symptom of using low-fat binders or not properly preparing ingredients like celery. By using full-fat mayonnaise and squeezing excess moisture from vegetables, you ensure a stable, creamy emulsion that holds its texture."
+       },
+       {
+        "q": "Myth: Boiling is Best for Eggs",
+        "a": "**Debunked:** While common, direct boiling can lead to rubbery whites and green-tinged, chalky yolks. Steaming (or using an Instant Pot) provides more consistent, gentle heat, resulting in tender eggs that are significantly easier to peel due to the rapid setting of the albumen."
+       },
+       {
+        "q": "Myth: Low-Fat Mayo is Healthier and Fine",
+        "a": "**Debunked:** From a culinary science perspective, low-fat mayonnaise replaces essential fats with water, starches, and gums, creating a weak emulsion. This leads to a runny, unstable salad with an inferior texture and often an unpleasant aftertaste, compromising the overall quality of the dish."
+       }
+      ]
+     },
+     {
+      "h": "Advanced FAQ",
+      "items": [
+       {
+        "q": "Can I make this egg salad ahead of time?",
+        "a": "Yes, egg salad benefits from chilling for at least 30 minutes for flavors to meld. It can be made ahead and stored in an airtight container in the refrigerator. Hard-cooked egg salad keeps up to 3 to 5 days in the refrigerator at 40 F (4 C) or below. Discard it after that. Note that the crunch from the celery may soften slightly over time."
+       },
+       {
+        "q": "How should I store leftovers, and for how long?",
+        "a": "Store leftover egg salad in an airtight container in the refrigerator. Hard-cooked egg salad keeps up to 3 to 5 days in the refrigerator at 40 F (4 C) or below. Discard it after that. It is not recommended to freeze egg salad, as the texture of the eggs and mayonnaise will change upon thawing, becoming watery and unappetizing."
+       },
+       {
+        "q": "What are good substitutions if I don't like dill?",
+        "a": "If dill isn't to your taste, fresh parsley is an excellent neutral alternative that still provides freshness. Chives offer a delicate oniony-herbaceous note. You could also try a mix of parsley and chives for a balanced flavor."
+       }
+      ]
+     }
+    ]
+   },
+   "plan": {
+    "heading": "Graduated Action Plan",
+    "groups": [
+     {
+      "h": "First batches",
+      "items": [
+       "Master the Instant Pot egg cooking technique for consistently perfect eggs.",
+       "Follow this recipe exactly to understand the foundational flavor balance.",
+       "Focus on the \"yolk-naise\" method for the creamiest texture."
+      ]
+     },
+     {
+      "h": "Deepening Your Understanding",
+      "items": [
+       "Experiment with variations (e.g., adding capers or {{ing:paprika}}).",
+       "Pay attention to the textural contributions of each ingredient.",
+       "Refine your seasoning by tasting and adjusting before serving."
+      ]
+     },
+     {
+      "h": "Mastering the Craft",
+      "items": [
+       "Try different bread types and moisture barrier techniques for sandwiches.",
+       "Consider making your own mayonnaise for an even richer flavor.",
+       "Develop your own unique variations while maintaining the core principles of balance and texture."
+      ]
+     }
+    ]
+   },
+   "links": [
+    {
+     "t": "Top egg salad recipes",
+     "url": "https://www.google.com/search?q=best+egg+salad+recipes"
+    },
+    {
+     "t": "Instant Pot egg tips",
+     "url": "https://www.google.com/search?q=Instant+Pot+egg+cooking+tips"
+    },
+    {
+     "t": "Egg salad variations",
+     "url": "https://www.google.com/search?q=creative+egg+salad+variations"
+    }
+   ],
+   "sources": [
+    {
+     "t": "Serious Eats: The Best Egg Salad Sandwich",
+     "url": "https://www.google.com/search?q=Serious+Eats+egg+salad"
+    },
+    {
+     "t": "Food Network: The Best Egg Salad",
+     "url": "https://www.google.com/search?q=Food+Network+egg+salad"
+    },
+    {
+     "t": "Bon Appétit: The Perfect Egg Salad",
+     "url": "https://www.google.com/search?q=Bon+Appetit+egg+salad"
+    },
+    {
+     "t": "Instant Pot community",
+     "url": "https://www.google.com/search?q=Instant+Pot+egg+5-5-5+rule"
+    }
+   ]
+  }
+ ]
 }
 </script>
 <style>
@@ -306,18 +565,28 @@ body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif
 .sec,.card{border-radius:36px 36px 20px 20px / 28px 28px 20px 20px}
 .ph h1{font-weight:700;letter-spacing:0}
 .sec h2,.card h2{font-weight:700;border-bottom:2px dotted var(--acc);padding-bottom:2px}
+/* recipe box: list and view */
+.crumb{margin:var(--s4) 0 0}
+.rlist{list-style:none;margin:0 0 var(--s4);padding:0;display:grid;gap:var(--s3)}
+.rcard{display:flex;flex-direction:column;gap:var(--s1);min-height:44px;padding:var(--s4);background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--acc);border-radius:var(--r-card);text-decoration:none;color:var(--ink)}
+.rcard:hover{border-color:var(--ink)}
+.rc-t{font-family:var(--serif);font-size:var(--t-md);font-weight:600;line-height:1.2}
+.rc-d{font-family:var(--sans);color:var(--muted)}
+.rc-m{font-family:var(--sans);font-size:var(--t-sm);color:var(--muted)}
+#list-h:focus,#app-title:focus{outline:none}
+@media print{.crumb{display:none}}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-home" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol><symbol id="i-theme" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,16.37a86.4,86.4,0,0,1,16,3V212.67a86.4,86.4,0,0,1-16,3Zm32,9.26a87.81,87.81,0,0,1,16,10.54V195.83a87.81,87.81,0,0,1-16,10.54ZM40,128a88.11,88.11,0,0,1,80-87.63V215.63A88.11,88.11,0,0,1,40,128Zm160,50.54V77.46a87.82,87.82,0,0,1,0,101.08Z"/></symbol><symbol id="i-help" viewBox="0 0 256 256"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol><symbol id="i-reset" viewBox="0 0 256 256"><path d="M224,128a96,96,0,0,1-94.71,96H128A95.38,95.38,0,0,1,62.1,197.8a8,8,0,0,1,11-11.63A80,80,0,1,0,71.43,71.39a3.07,3.07,0,0,1-.26.25L44.59,96H72a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V56a8,8,0,0,1,16,0V85.8L60.25,60A96,96,0,0,1,224,128Z"/></symbol><symbol id="i-screen" viewBox="0 0 256 256"><path d="M208,40H48A24,24,0,0,0,24,64V176a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm-48,48a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,224Z"/></symbol><symbol id="i-down" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></symbol><symbol id="i-up" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0ZM93.66,77.66,120,51.31V144a8,8,0,0,0,16,0V51.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,77.66Z"/></symbol><symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol><symbol id="i-play" viewBox="0 0 256 256"><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></symbol><symbol id="i-pause" viewBox="0 0 256 256"><path d="M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z"/></symbol><symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol><symbol id="i-minus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"/></symbol><symbol id="i-note" viewBox="0 0 256 256"><path d="M88,96a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,96Zm8,40h64a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16Zm32,16H96a8,8,0,0,0,0,16h32a8,8,0,0,0,0-16ZM224,48V156.69A15.86,15.86,0,0,1,219.31,168L168,219.31A15.86,15.86,0,0,1,156.69,224H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H152V160a8,8,0,0,1,8-8h48V48H48Zm120-40v28.7L196.69,168Z"/></symbol><symbol id="i-timer" viewBox="0 0 256 256"><path d="M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm0,176a80,80,0,1,1,80-80A80.09,80.09,0,0,1,128,216ZM173.66,90.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32l40-40A8,8,0,0,1,173.66,90.34ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z"/></symbol><symbol id="i-info" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></symbol><symbol id="i-list" viewBox="0 0 256 256"><path d="M80,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H88A8,8,0,0,1,80,64Zm136,56H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm0,64H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM44,52A12,12,0,1,0,56,64,12,12,0,0,0,44,52Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,116Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,180Z"/></symbol><symbol id="i-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol></defs></svg>
-<a class="skip" href="#recipe">Skip</a>
+<a class="skip" href="#top">Skip</a>
 
 <div id="live" class="sr" role="status" aria-live="polite"></div>
 
 <header class="omn-bar">
   <a class="ib" id="back-to-hub" href="../" aria-label="Omnevum home"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg></a>
   <svg class="omn-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M186.66,59.56C168.47,32.29,146.54,16,128,16S87.53,32.29,69.34,59.56C50.7,87.54,40,121.23,40,152a88,88,0,0,0,176,0C216,121.23,205.3,87.54,186.66,59.56ZM128,224a72.08,72.08,0,0,1-72-72c0-27.69,9.72-58.15,26.66-83.56C97.19,46.64,115.41,32,128,32s30.81,14.64,45.34,36.44C190.28,93.85,200,124.31,200,152A72.08,72.08,0,0,1,128,224Z"/></svg>
-  <p class="omn-name">Eggspress Egg Salad</p>
+  <p class="omn-name">Eggspress Recipe Box</p>
   <button class="ib" type="button" id="help-open" aria-label="Help"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#i-help"/></svg></button>
   <label class="ib" title="Look"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#i-theme"/></svg>
     <select id="look" aria-label="Look">
@@ -327,10 +596,26 @@ body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif
       <option value="black">Black</option>
     </select></label>
 </header>
-<main class="page" id="top">
+<main class="page" id="top" tabindex="-1">
+  <section id="list-view" aria-labelledby="list-h">
+    <header class="head">
+      <h1 id="list-h">Recipe box</h1>
+      <p class="tag">Recipes you can scale and time</p>
+    </header>
+    <p class="rc-problems" id="rc-problems" role="alert"></p>
+    <p class="note" id="list-note" role="status"></p>
+    <ul class="rlist" id="rlist"></ul>
+    <p class="note">Ticks, batch size and notes stay on this device.</p>
+  </section>
+  <section id="recipe-view" hidden></section>
+</main>
+
+<template id="tpl-recipe">
+  <div class="view">
+  <p class="crumb"><a class="btn" href="?" data-go=""><svg class="i" aria-hidden="true" focusable="false"><use href="#i-list"/></svg>All recipes</a></p>
   <header class="head">
-    <h1 id="app-title">Instant Pot Egg Salad</h1>
-    <p class="tag" id="tagline">Crack on: lunch at express speed.</p>
+    <h1 id="app-title" tabindex="-1"></h1>
+    <p class="tag" id="tagline"></p>
   </header>
 
   <nav class="toc" aria-label="Contents">
@@ -347,30 +632,30 @@ body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif
     </details>
   </nav>
 
-  <article class="recipe" id="recipe" tabindex="-1" aria-labelledby="h-ing">
+  <article class="recipe" id="recipe" aria-labelledby="h-ing">
       <section aria-labelledby="h-ing">
         <h2 id="h-ing"></h2>
         <div class="dock" id="dock" role="group" aria-label="Batch size">
           <span class="lbl" id="batch-lbl">Batch</span>
-          <button class="btn" type="button" id="b-dn" aria-label="Smaller batch" aria-describedby="batch-lbl"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-minus"/></svg></button>
-          <output class="val" id="b-val" for="b-dn b-up" aria-live="polite">1x</output>
-          <button class="btn" type="button" id="b-up" aria-label="Larger batch" aria-describedby="batch-lbl"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button>
-          <span class="eggs" id="b-eggs">6 large eggs</span>
+          <button class="btn b-dn" type="button" aria-label="Smaller batch" aria-describedby="batch-lbl"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-minus"/></svg></button>
+          <output class="val b-val" aria-live="polite">1x</output>
+          <button class="btn b-up" type="button" aria-label="Larger batch" aria-describedby="batch-lbl"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button>
+          <span class="eggs b-eggs"></span>
           <span class="dock-t" id="dock-t" aria-hidden="true"></span>
         </div>
         <ul class="ing" id="ing"></ul>
-        <p class="rc-problems" id="rc-problems" role="alert"></p>
-        <p class="note" id="batch-note">1x = recipe as written.</p>
+        <p class="rc-problems v-problems" role="alert"></p>
+        <p class="note">1x = recipe as written.</p>
         <div class="card-tools">
-          <button class="btn" type="button" id="reset-open"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-reset"/></svg>Reset</button>
-          <div class="confirm" id="reset-confirm" role="group" aria-labelledby="reset-msg" hidden>
-            <p id="reset-msg">Clear ticks and set batch to 1x? Notes stay.</p>
+          <button class="btn reset-open" type="button"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-reset"/></svg>Reset</button>
+          <div class="confirm reset-confirm" role="group" aria-label="Confirm reset" hidden>
+            <p class="reset-msg"></p>
             <div class="row">
-              <button class="btn danger" type="button" id="reset-yes"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>Clear</button>
-              <button class="btn" type="button" id="reset-no"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-x"/></svg>Cancel</button>
+              <button class="btn danger reset-yes" type="button"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>Clear</button>
+              <button class="btn reset-no" type="button"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-x"/></svg>Cancel</button>
             </div>
           </div>
-          <button class="btn" type="button" id="wake" aria-pressed="false" hidden><svg class="i" aria-hidden="true" focusable="false"><use href="#i-screen"/></svg>Screen on</button>
+          <button class="btn wake" type="button" aria-pressed="false" hidden><svg class="i" aria-hidden="true" focusable="false"><use href="#i-screen"/></svg>Screen on</button>
         </div>
       </section>
 
@@ -384,10 +669,10 @@ body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif
         <h2 id="h-free"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-timer"/></svg>Timer</h2>
         <div class="reading">
           <div class="free">
-            <label>Min<input type="number" id="timer-minutes" value="5" min="0" max="60" inputmode="numeric"></label>
-            <label>Sec<input type="number" id="timer-seconds" value="0" min="0" max="59" inputmode="numeric"></label>
+            <label>Min<input type="number" class="t-min" value="5" min="0" max="60" inputmode="numeric"></label>
+            <label>Sec<input type="number" class="t-sec" value="0" min="0" max="59" inputmode="numeric"></label>
           </div>
-          <div class="timer" id="free-timer" data-free="1" data-name="Timer"></div>
+          <div class="timer free-timer" data-free="1" data-name="Timer"></div>
         </div>
       </section>
 
@@ -395,8 +680,8 @@ body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif
         <h2 id="h-notes"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-note"/></svg>Notes</h2>
         <div class="reading">
           <label class="field-label" for="user-notes">Notes</label>
-          <textarea id="user-notes" placeholder="Write here"></textarea>
-          <p class="note" id="notes-state">Saved on this device.</p>
+          <textarea id="user-notes" class="user-notes" placeholder="Write here"></textarea>
+          <p class="note notes-state">Saved on this device.</p>
         </div>
       </section>
 
@@ -418,35 +703,28 @@ body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif
           <h2 id="h-plan"></h2>
           <div class="reading" id="plan-body"></div>
         </section>
-      <section class="sec" id="resources" aria-labelledby="h-res">
-        <h2 id="h-res">Links</h2>
-        <div class="reading">
-          <p>Opens a web search.</p>
-          <ul class="links">
-            <li><a href="https://www.google.com/search?q=best+egg+salad+recipes" target="_blank" rel="noopener noreferrer">Top egg salad recipes</a></li>
-            <li><a href="https://www.google.com/search?q=Instant+Pot+egg+cooking+tips" target="_blank" rel="noopener noreferrer">Instant Pot egg tips</a></li>
-            <li><a href="https://www.google.com/search?q=creative+egg+salad+variations" target="_blank" rel="noopener noreferrer">Egg salad variations</a></li>
-          </ul>
-        </div>
+        <section class="sec" id="resources" aria-labelledby="h-res">
+          <h2 id="h-res">Links</h2>
+          <div class="reading">
+            <p>Opens a web search.</p>
+            <ul class="links" id="links-body"></ul>
+          </div>
         </section>
       </details>
 
       <section class="sec" id="sources" aria-labelledby="h-src">
         <h2 id="h-src">Sources</h2>
         <div class="reading">
-          <ul class="links">
-            <li><a href="https://www.google.com/search?q=Serious+Eats+egg+salad" target="_blank" rel="noopener noreferrer">Serious Eats: The Best Egg Salad Sandwich</a></li>
-            <li><a href="https://www.google.com/search?q=Food+Network+egg+salad" target="_blank" rel="noopener noreferrer">Food Network: The Best Egg Salad</a></li>
-            <li><a href="https://www.google.com/search?q=Bon+Appetit+egg+salad" target="_blank" rel="noopener noreferrer">Bon Appétit: The Perfect Egg Salad</a></li>
-            <li><a href="https://www.google.com/search?q=Instant+Pot+egg+5-5-5+rule" target="_blank" rel="noopener noreferrer">Instant Pot community</a></li>
-          </ul>
+          <ul class="links" id="sources-body"></ul>
         </div>
       </section>
-</main>
+  </div>
+</template>
+
 
 <footer class="page foot">
   <dl>
-    <dt>Version</dt><dd>1.3.3</dd>
+    <dt>Version</dt><dd>2.0.0</dd>
     <dt>Content</dt><dd class="cv">-</dd>
     <dt>Data</dt><dd>Stays on this device.</dd>
     <dt>Source</dt><dd><a href="https://shfqrkhn.github.io/">shfqrkhn.github.io</a></dd>
@@ -460,7 +738,7 @@ body{font-family:ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif
 <dialog id="help" aria-labelledby="help-t">
   <div class="dlg">
     <h2 id="help-t"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-help"/></svg>Help</h2>
-    <ul class="hl"><li>Tick items as you go.</li><li>Batch: + and -.</li><li>Timed steps have a timer.</li><li>Everything stays on this device.</li></ul>
+    <ul class="hl"><li>Pick a recipe from the list.</li><li>Tick items as you go.</li><li>Batch: + and -, per recipe.</li><li>Timed steps have a timer.</li><li>Everything stays on this device.</li></ul>
     <p class="cvl"></p>
     <div class="row">
       <button class="btn" type="button" id="exp"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-down"/></svg>Export</button>
@@ -596,23 +874,24 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre>
 <script>
 (function(){
 'use strict';
-var APP_VERSION='1.3.3';
+var APP_VERSION='2.0.0',APP_ID='apex-egg-salad',SKEY='recipebox.v2',SCHEMA=2;
 var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function own(o,k){return Object.prototype.hasOwnProperty.call(o,k);}
 
 /* ---------- storage (never throws) ---------- */
 var mem={},blocked=false;
-function sget(k){try{var v=localStorage.getItem(k);return v;}catch(e){blocked=true;return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null;}}
+function sget(k){try{var v=localStorage.getItem(k);return v;}catch(e){blocked=true;return own(mem,k)?mem[k]:null;}}
 function sset(k,v){try{localStorage.setItem(k,String(v));}catch(e){blocked=true;mem[k]=String(v);notify('Saving blocked. Data lasts until you close the page.');}}
 function sdel(k){try{localStorage.removeItem(k);}catch(e){blocked=true;}delete mem[k];}
 var live=$('#live');
-function notify(m){live.textContent='';setTimeout(function(){live.textContent=m;},30);var n=$('#notes-state');if(n&&/blocked/.test(m)){n.textContent=m;}}
+function notify(m){live.textContent='';setTimeout(function(){live.textContent=m;},30);}
 
 /* ---------- scaling: exact rational arithmetic ---------- */
 function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=a%b;a=b;b=t;}return a||1;}
 function frac(s){var p=String(s).split('/');var n=parseInt(p[0],10),d=p.length>1?parseInt(p[1],10):1;var g=gcd(n,d);return [n/g,d/g];}
 function mulFrac(a,b){var n=a[0]*b[0],d=a[1]*b[1],g=gcd(n,d);return [n/g,d/g];}
-function fmtFrac(f){var n=f[0],d=f[1];var w=Math.floor(n/d),r=n-w*d;if(r===0){return String(w);}if(w===0){return r+'/'+d;}return w+' '+r+'/'+d;}
+function fmtFrac(f){var n=f[0],d=f[1];var w=Math.floor(n/d),r=n-w*d;if(r===0){return String(w);}if(w===0){return r+'/'+d;}return w+' '+r+'/'+d;}
 function fmtQty(spec,mult,post){ /* spec: "6", "1/3", "2-3"; mult: [n,d] */
   var parts=spec.split('-').map(function(x){var f=mulFrac(frac(x),mult);return post?post(f):f;});
   return {text:parts.map(fmtFrac).join(' to '),max:parts[parts.length-1][0]/parts[parts.length-1][1]};
@@ -627,13 +906,13 @@ function qText(el,mult){
   if(el.getAttribute('data-s')==='cup'&&el.getAttribute('data-q').indexOf('-')<0&&r.max<0.25){out+=' ('+fmtFrac(mulFrac(mulFrac(frac(el.getAttribute('data-q')),mult),[16,1]))+' tablespoons)';}
   return out;
 }
-window.__eggScale={frac:frac,mulFrac:mulFrac,fmtFrac:fmtFrac,fmtQty:fmtQty};
 
-/* ---------- recipe: built from the recipe-content block (one place for every recipe word) ---------- */
+/* ---------- recipe data: one list of recipe objects, rendered by the code below ---------- */
 var problems=[];
 function bad(m){if(problems.indexOf(m)<0){problems.push(m);}}
 function T(t){return document.createTextNode(t);}
 function E(tag,cls,txt){var e=document.createElement(tag);if(cls){e.className=cls;}if(txt!=null){e.textContent=txt;}return e;}
+var ID_RE=/^[a-z][a-z0-9-]{0,40}$/;
 function amtToQ(a){ /* "1.5" -> "3/2", "1 1/2" -> "3/2", "2-3" stays a range */
   return String(a).trim().split('-').map(function(x){
     x=x.trim();var n,d=1,m;
@@ -654,132 +933,77 @@ function qSpan(amt,unit,units){
   var src=String(amt).trim()+' '+(big?units:unit);
   e.setAttribute('data-src',src);e.textContent=src;return e;
 }
-var byId={};
-function rich(parent,text){
+function rich(parent,text,byId,rid){
   String(text==null?'':text).split(/(\{\{[^}]*\}\}|\*\*[^*]+\*\*)/).forEach(function(part){
     if(!part){return;}
     var m;
     if((m=/^\{\{(ing|qty):([\w-]+)\}\}$/.exec(part))){
-      var it=byId[m[2]];
-      if(!it){bad('unknown ingredient id "'+m[2]+'"');parent.appendChild(T('[?'+m[2]+']'));}
+      var it=own(byId,m[2])?byId[m[2]]:null;
+      if(!it){bad(rid+': unknown ingredient id "'+m[2]+'"');parent.appendChild(T('[?'+m[2]+']'));}
       else if(m[1]==='ing'){parent.appendChild(T(it.short||it.name||''));}
       else if(it.amt==null){parent.appendChild(T(it.lead||''));}
-      else{try{parent.appendChild(qSpan(it.amt,it.unit,it.units));}catch(e){bad('ingredient "'+m[2]+'": '+e.message);}}
+      else{try{parent.appendChild(qSpan(it.amt,it.unit,it.units));}catch(e){bad(rid+': ingredient "'+m[2]+'": '+e.message);}}
     }else if((m=/^\{\{amt:([^|}]+)\|([^|}]+)\|([^|}]+)\}\}$/.exec(part))){
       try{parent.appendChild(qSpan(m[1],m[2],m[3]));}catch(e){bad(e.message);}
     }else if(/^\*\*[^*]+\*\*$/.test(part)){parent.appendChild(E('strong',null,part.slice(2,-2)));}
     else{parent.appendChild(T(part));}
   });
 }
-function renderRecipe(){
-  var c;
-  try{c=JSON.parse($('#recipe-content').textContent);}catch(e){c=null;}
-  if(!c||!Array.isArray(c.ingredients)||!Array.isArray(c.steps)){
-    $('#rc-problems').textContent='Recipe unreadable.';
-    return false;
-  }
-  if(typeof c.title==='string'){$('#app-title').textContent=c.title;document.title='EggspressEats: '+c.title;}
-  if(typeof c.tagline==='string'){$('#tagline').textContent=c.tagline;}
-  if(typeof c.ingredientsHeading==='string'){$('#h-ing').textContent=c.ingredientsHeading;}
-  if(typeof c.methodHeading==='string'){$('#h-method').textContent=c.methodHeading;}
-  c.ingredients.forEach(function(it){if(it&&typeof it.id==='string'){if(byId[it.id]){bad('two ingredients share the id "'+it.id+'"');}byId[it.id]=it;}});
-  var ul=$('#ing');
-  c.ingredients.forEach(function(it,i){
-    var li=E('li'),lb=E('label'),cb=E('input'),qty=E('span','qty'),nm=E('span','nm');
-    lb.setAttribute('for','ingredient-'+i);cb.type='checkbox';cb.id='ingredient-'+i;
-    if(it.amt!=null){try{qty.appendChild(qSpan(it.amt,it.unit,it.units));}catch(e){bad('ingredient "'+(it.id||i+1)+'": '+e.message);}}
-    else if(it.lead){qty.textContent=it.lead;}
-    rich(nm,it.name);
-    lb.appendChild(cb);lb.appendChild(qty);lb.appendChild(nm);li.appendChild(lb);ul.appendChild(li);
+var DATA=null,RECIPES=[],byRecipe={};
+(function(){
+  try{DATA=JSON.parse($('#recipes-content').textContent);}catch(e){DATA=null;}
+  if(!DATA||!Array.isArray(DATA.recipes)){bad('Recipes unreadable.');return;}
+  DATA.recipes.forEach(function(r,i){
+    if(!r||typeof r.id!=='string'||!ID_RE.test(r.id)){bad('recipe '+(i+1)+' has no usable id');return;}
+    if(own(byRecipe,r.id)){bad('two recipes share the id "'+r.id+'"');return;}
+    if(!Array.isArray(r.ingredients)||!Array.isArray(r.steps)||typeof r.title!=='string'){bad(r.id+': title, ingredients or steps missing');return;}
+    var seen={},ok=true;
+    r.ingredients.concat(r.steps).forEach(function(x){if(!x||typeof x.id!=='string'||!ID_RE.test(x.id)){ok=false;}});
+    if(!ok){bad(r.id+': every ingredient and step needs an id');return;}
+    r.ingredients.forEach(function(x){if(own(seen,x.id)){bad(r.id+': two ingredients share the id "'+x.id+'"');}seen[x.id]=1;});
+    seen={};r.steps.forEach(function(x){if(own(seen,x.id)){bad(r.id+': two steps share the id "'+x.id+'"');}seen[x.id]=1;});
+    byRecipe[r.id]=r;RECIPES.push(r);
   });
-  var ol=$('#steps');
-  c.steps.forEach(function(st,i){
-    var n=i+1,li=E('li','step'),head=E('div','step-head'),h3=E('h3'),num=E('span','n',String(n)),ttl=E('span');
-    li.id='step-'+n;num.setAttribute('aria-hidden','true');rich(ttl,st.title);h3.appendChild(num);h3.appendChild(ttl);
-    var lb=E('label','done'),cb=E('input'),sp=E('span');
-    lb.setAttribute('for','checkbox-step-'+n);cb.type='checkbox';cb.id='checkbox-step-'+n;
-    sp.appendChild(T('Done'));sp.appendChild(E('span','sr',' with step '+n));lb.appendChild(cb);lb.appendChild(sp);
-    head.appendChild(h3);head.appendChild(lb);li.appendChild(head);
-    var p=E('p');rich(p,st.text);li.appendChild(p);
-    if(Array.isArray(st.timers)&&st.timers.length){
-      var tw=E('div','timers');
-      st.timers.forEach(function(t){
-        var sec=parseInt(t.sec,10);if(!(sec>0)){bad('step '+n+': timer "sec" must be a number above 0');return;}
-        var d=E('div','timer');d.setAttribute('data-sec',String(sec));d.setAttribute('data-name',String(t.name||'Timer'));d.setAttribute('data-step',String(n));tw.appendChild(d);
-      });
-      li.appendChild(tw);
-    }
-    if(st.why){var dt=E('details'),sm=E('summary','','Why this works'),wp=E('p');rich(wp,st.why);dt.appendChild(sm);dt.appendChild(wp);li.appendChild(dt);}
-    ol.appendChild(li);
-  });
-  function head2(id,o){var h=$('#'+id);if(h&&o&&typeof o.heading==='string'){h.textContent=o.heading;}}
-  head2('h-intro',c.intro);head2('h-deep',c.deep);head2('h-faq',c.faq);head2('h-plan',c.plan);
-  if(c.intro&&Array.isArray(c.intro.paras)){c.intro.paras.forEach(function(t){var p=E('p');rich(p,t);$('#intro-body').appendChild(p);});}
-  if(c.deep&&Array.isArray(c.deep.items)){c.deep.items.forEach(function(it){var h=E('h3');rich(h,it.h);var p=E('p');rich(p,it.p);$('#deep-body').appendChild(h);$('#deep-body').appendChild(p);});}
-  if(c.faq&&Array.isArray(c.faq.groups)){c.faq.groups.forEach(function(g){
-    var h=E('h3');rich(h,g.h);$('#faq-body').appendChild(h);
-    (g.items||[]).forEach(function(it){var dt=E('details'),sm=E('summary'),p=E('p');rich(sm,it.q);rich(p,it.a);dt.appendChild(sm);dt.appendChild(p);$('#faq-body').appendChild(dt);});
-  });}
-  if(c.plan&&Array.isArray(c.plan.groups)){c.plan.groups.forEach(function(g){
-    var h=E('h3','sub');rich(h,g.h);var ul2=E('ul');(g.items||[]).forEach(function(t){var li=E('li');rich(li,t);ul2.appendChild(li);});
-    $('#plan-body').appendChild(h);$('#plan-body').appendChild(ul2);
-  });}
-  var he=$('#help-eggs'),first=$('#ing .q');if(he&&first){he.textContent=first.getAttribute('data-src');}
-  if(problems.length){$('#rc-problems').textContent='Recipe error: '+problems.join('; ');}
-  return true;
-}
-renderRecipe();
+})();
 
-/* batch state: integer halves, 1..8 (0.5x to 4x), default 2 (=1x) */
-var halves=2;
-function applyBatch(){
-  var mult=frac(halves+'/2');
-  $$('.q').forEach(function(el){el.textContent=qText(el,mult);});
-  var label=fmtFrac(mult)+'x';
-  $('#b-val').textContent=label;
-  var eggs=$('#ing .q');
-  $('#b-eggs').textContent=eggs?eggs.textContent:'';
-  $('#b-dn').disabled=halves<=1;
-  $('#b-up').disabled=halves>=8;
-  sset('egg-salad-batch',halves);
+/* ---------- saved state: one record per recipe, keyed by recipe id, ingredient id and step id ---------- */
+var state=null;
+function newRec(){return {halves:2,ing:{},steps:{},notes:''};}
+function isObj(o){return !!o&&typeof o==='object'&&!Array.isArray(o);}
+/* legacy (versions 1.x): one recipe, ticks keyed by position. The id lists below freeze the 1.x order so later edits to the data cannot change what old ticks mean. */
+var LEGACY={recipe:'egg-salad',
+  ing:['eggs','mayo','creme','mustard','lemon','worcestershire','paprika','cayenne','salt','pepper','celery','scallions','dill'],
+  steps:['cook','chill','prep','mix','fold','rest']};
+/* migrateLegacy(st, get): copy 1.x keys into st for the egg salad. Reads only; never deletes the old keys. */
+function migrateLegacy(st,get){
+  if(own(st.recipes,LEGACY.recipe)){return false;}
+  var r=newRec(),any=false,b=parseInt(get('egg-salad-batch'),10);
+  if(b>=1&&b<=8){r.halves=b;any=true;}
+  LEGACY.ing.forEach(function(id,i){if(get('ingredient-'+i+'-checked')==='true'){r.ing[id]=true;any=true;}});
+  var a=null;try{a=JSON.parse(get('egg-salad-steps-done')||'[]');}catch(e){a=null;}
+  if(Array.isArray(a)){a.forEach(function(k){if(typeof k==='number'&&k>=0&&k<LEGACY.steps.length&&Math.floor(k)===k){r.steps[LEGACY.steps[k]]=true;any=true;}});}
+  var n=get('egg-salad-user-notes');if(typeof n==='string'&&n){r.notes=n.slice(0,100000);any=true;}
+  if(any){st.recipes[LEGACY.recipe]=r;}
+  return any;
 }
-function loadBatch(){var v=parseInt(sget('egg-salad-batch'),10);if(v>=1&&v<=8){halves=v;}}
-$('#b-dn').addEventListener('click',function(){if(halves>1){halves--;applyBatch();}});
-$('#b-up').addEventListener('click',function(){if(halves<8){halves++;applyBatch();}});
-
-/* ---------- checklist state ---------- */
-var ingBoxes=$$('#ing input[type=checkbox]');
-var stepBoxes=$$('.step .done input');
-function saveSteps(){var a=[];stepBoxes.forEach(function(b,i){if(b.checked)a.push(i);});sset('egg-salad-steps-done',JSON.stringify(a));}
-function paintSteps(){stepBoxes.forEach(function(b){b.closest('.step').classList.toggle('is-done',b.checked);});}
-function loadTicks(){
-  ingBoxes.forEach(function(b,i){b.checked=sget('ingredient-'+i+'-checked')==='true';});
-  var a=[];try{a=JSON.parse(sget('egg-salad-steps-done')||'[]');}catch(e){a=[];}
-  stepBoxes.forEach(function(b,i){b.checked=Array.isArray(a)&&a.indexOf(i)>-1;});
-  paintSteps();
+function loadState(){
+  var o=null;try{o=JSON.parse(sget(SKEY));}catch(e){o=null;}
+  if(!isObj(o)||!isObj(o.recipes)){o={schemaVersion:SCHEMA,recipes:{},migrated:0};}
+  if(!o.migrated){migrateLegacy(o,sget);o.migrated=1;o.schemaVersion=SCHEMA;sset(SKEY,JSON.stringify(o));}
+  return o;
 }
-ingBoxes.forEach(function(b,i){b.addEventListener('change',function(){sset('ingredient-'+i+'-checked',b.checked);});});
-stepBoxes.forEach(function(b){b.addEventListener('change',function(){saveSteps();paintSteps();});});
-var rc=$('#reset-confirm');
-$('#reset-open').addEventListener('click',function(){
-  var n=ingBoxes.filter(function(b){return b.checked;}).length+stepBoxes.filter(function(b){return b.checked;}).length;
-  var bs=halves!==2;
-  if(n===0&&!bs){notify('Nothing to clear.');$('#reset-msg').textContent='Nothing to clear.';}
-  else{$('#reset-msg').textContent='Clear '+n+' tick'+(n===1?'':'s')+(bs?' and reset batch ('+fmtFrac(frac(halves+'/2'))+'x)':'')+'? Notes stay.';}
-  rc.hidden=false;$('#reset-no').focus();try{rc.scrollIntoView({block:'nearest'});}catch(e){}
-});
-$('#reset-no').addEventListener('click',function(){rc.hidden=true;$('#reset-open').focus();});
-$('#reset-yes').addEventListener('click',function(){
-  ingBoxes.forEach(function(b,i){b.checked=false;sdel('ingredient-'+i+'-checked');});
-  stepBoxes.forEach(function(b){b.checked=false;});saveSteps();paintSteps();
-  halves=2;applyBatch();
-  rc.hidden=true;notify('Cleared.');$('#reset-open').focus();
-});
-
-/* ---------- notes ---------- */
-var notes=$('#user-notes');
-var sv=sget('egg-salad-user-notes');if(sv){notes.value=sv;}
-notes.addEventListener('input',function(){sset('egg-salad-user-notes',notes.value);});
+function saveState(){sset(SKEY,JSON.stringify(state));}
+function rs(rid){
+  if(!own(state.recipes,rid)||!isObj(state.recipes[rid])){state.recipes[rid]=newRec();}
+  var r=state.recipes[rid];
+  if(!isObj(r.ing)){r.ing={};}if(!isObj(r.steps)){r.steps={};}
+  if(typeof r.notes!=='string'){r.notes='';}
+  if(typeof r.halves!=='number'||r.halves<1||r.halves>8||Math.floor(r.halves)!==r.halves){r.halves=2;}
+  return r;
+}
+function ticked(rec){var r=own(state.recipes,rec.id)?rs(rec.id):newRec();return rec.ingredients.filter(function(x){return r.ing[x.id]===true;}).length;}
+window.__recipeBox={frac:frac,mulFrac:mulFrac,fmtFrac:fmtFrac,fmtQty:fmtQty,migrateLegacy:migrateLegacy,LEGACY:LEGACY,
+  state:function(){return state;},recipes:function(){return RECIPES;}};
 
 /* ---------- look ---------- */
 var lookSel=$('#look');
@@ -792,8 +1016,9 @@ function unlockAudio(){try{var C=window.AudioContext||window.webkitAudioContext;
 function beep(){try{var C=window.AudioContext||window.webkitAudioContext;if(!C)return;audioCtx=audioCtx||new C();var o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=880;g.gain.value=.15;o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.5);}catch(e){}if(navigator.vibrate){try{navigator.vibrate([200,100,200]);}catch(e){}}}
 var baseTitle=document.title;
 function mmss(s){s=Math.max(0,Math.ceil(s));var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r;}
-function Timer(el){
-  var self=this;this.el=el;this.free=el.hasAttribute('data-free');this.name=el.getAttribute('data-name');
+var cur=null; /* the view on screen */
+function Timer(el,view){
+  var self=this;this.el=el;this.view=view;this.free=el.hasAttribute('data-free');this.name=el.getAttribute('data-name');
   this.total=parseInt(el.getAttribute('data-sec'),10)||0;this.left=this.total;this.end=0;this.run=false;this.iv=null;
   el.innerHTML='<span class="tl"></span><output role="timer" aria-label="Time left"></output><button type="button" class="btn go t-go"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-play"/></svg>Start</button><button type="button" class="btn t-reset"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-reset"/></svg>Reset</button><span class="msg" role="status" hidden></span>';
   this.lbl=$('.tl',el);this.out=$('output',el);this.go=$('.t-go',el);this.rs=$('.t-reset',el);this.msg=$('.msg',el);
@@ -803,17 +1028,18 @@ function Timer(el){
   this.rs.addEventListener('click',function(){self.reset();});
   this.paint();
 }
+Timer.prototype.mins=function(){var m=parseInt($('.t-min',this.view.root).value,10)||0,s=parseInt($('.t-sec',this.view.root).value,10)||0;return m*60+s;};
 Timer.prototype.paint=function(){
   this.out.textContent=mmss(this.left);
   this.el.classList.toggle('is-run',this.run);
   this.go.innerHTML=(this.run?'<svg class="i" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg>Pause':'<svg class="i" aria-hidden="true" focusable="false"><use href="#i-play"/></svg>Start');
   this.go.setAttribute('aria-label',(this.run?'Pause timer: ':'Start timer: ')+this.name);
-  dockUpdate();
+  dockUpdate(this.view);
 };
 Timer.prototype.toggle=function(){
   var self=this;
   if(this.run){this.left=(this.end-Date.now())/1000;this.run=false;clearInterval(this.iv);this.paint();return;}
-  if(this.free){var m=parseInt($('#timer-minutes').value,10)||0,s=parseInt($('#timer-seconds').value,10)||0;if(this.left<=0||!this.started){this.total=m*60+s;this.left=this.total;}}
+  if(this.free){if(this.left<=0||!this.started){this.total=this.mins();this.left=this.total;}}
   if(this.left<=0){this.msg.hidden=false;this.msg.textContent='Set a time.';return;}
   this.started=true;this.msg.hidden=true;this.el.classList.remove('is-done');
   this.run=true;this.end=Date.now()+this.left*1000;
@@ -826,51 +1052,227 @@ Timer.prototype.tick=function(){
   this.paint();
 };
 Timer.prototype.finish=function(){
+  var r=this.view.rec.title+': '+this.name;
   this.el.classList.add('is-done');this.msg.hidden=false;this.msg.textContent='Done: '+this.name;
-  notify('Done: '+this.name);beep();document.title='Done - '+baseTitle;
+  notify('Done: '+r);beep();document.title='Done - '+baseTitle;
 };
 Timer.prototype.reset=function(){
   clearInterval(this.iv);this.run=false;this.started=false;this.el.classList.remove('is-done');this.msg.hidden=true;
-  if(this.free){var m=parseInt($('#timer-minutes').value,10)||0,s=parseInt($('#timer-seconds').value,10)||0;this.total=m*60+s;}
+  if(this.free){this.total=this.mins();}
   this.left=this.total;this.paint();document.title=baseTitle;
 };
 var dockForce=false;
-function dockVis(){var d=document.getElementById('dock'),r=document.getElementById('recipe');if(!d||!r)return;var started=r.getBoundingClientRect().top<window.innerHeight-d.offsetHeight;var running=!!document.querySelector('.timer.is-run');d.classList.toggle('off',!(started||running||dockForce));}
-function dockUpdate(){
+function dockVis(){var v=cur;if(!v||!v.dock)return;var d=v.dock,r=v.card;var started=r.getBoundingClientRect().top<window.innerHeight-d.offsetHeight;var running=!!$('.timer.is-run',v.root);d.classList.toggle('off',!(started||running||dockForce));}
+function dockUpdate(v){
+  if(!v||v!==cur){return;}
   dockVis();
-  var d=document.getElementById('dock-t');if(!d)return;
+  var d=$('#dock-t',v.root);if(!d)return;
   var best=null,bs=1e9;
-  $$('.timer.is-run').forEach(function(t){var p=$('output',t).textContent.split(':');var v=(+p[0])*60+(+p[1]);if(v<bs){bs=v;best=t;}});
+  $$('.timer.is-run',v.root).forEach(function(t){var p=$('output',t).textContent.split(':');var x=(+p[0])*60+(+p[1]);if(x<bs){bs=x;best=t;}});
   d.textContent=best?($('output',best).textContent+' '+best.getAttribute('data-name')):'';
 }
-var dockEl=document.getElementById('dock');
-dockEl.addEventListener('focusin',function(){dockForce=true;dockVis();});
-dockEl.addEventListener('focusout',function(){dockForce=false;dockVis();});
-var timers=$$('.timer').map(function(el){return new Timer(el);});
-window.addEventListener('focus',function(){document.title=baseTitle;});
-['timer-minutes','timer-seconds'].forEach(function(id){$('#'+id).addEventListener('change',function(){var t=timers[timers.length-1];if(!t.run){t.reset();}});});
-(function(){var t=timers[timers.length-1];var m=parseInt($('#timer-minutes').value,10)||0;t.total=m*60;t.left=t.total;t.paint();})();
 
 /* ---------- optional wake lock ---------- */
-var wl=null,wlBtn=$('#wake'),wlOff=false;
+var wl=null,wlOff=false;
 try{wlOff=localStorage.getItem('eggs.awake')==='off'}catch(e){}
-function wlGet(){if(wl||wlOff||document.visibilityState!=='visible')return;navigator.wakeLock.request('screen').then(function(l){wl=l;wlBtn.setAttribute('aria-pressed','true');l.addEventListener('release',function(){wl=null;wlBtn.setAttribute('aria-pressed','false');});}).catch(function(){wlBtn.setAttribute('aria-pressed','false');});}
+function wakePaint(){var b=cur?$('.wake',cur.root):null;if(b){b.setAttribute('aria-pressed',wl?'true':'false');}}
+function wlGet(){if(!('wakeLock' in navigator)||wl||wlOff||document.visibilityState!=='visible'||!cur)return;navigator.wakeLock.request('screen').then(function(l){wl=l;wakePaint();l.addEventListener('release',function(){wl=null;wakePaint();});}).catch(function(){wakePaint();});}
+function wakeOnClick(){
+  if(wl){wlOff=true;wl.release();wl=null;wakePaint();}else{wlOff=false;wlGet();}
+  try{localStorage.setItem('eggs.awake',wlOff?'off':'on')}catch(e){}
+}
 if('wakeLock' in navigator){
-  wlBtn.hidden=false;
-  wlBtn.addEventListener('click',function(){
-    if(wl){wlOff=true;wl.release();wl=null;wlBtn.setAttribute('aria-pressed','false');}else{wlOff=false;wlGet();}
-    try{localStorage.setItem('eggs.awake',wlOff?'off':'on')}catch(e){}
-  });
   document.addEventListener('visibilitychange',wlGet);
   document.addEventListener('pointerdown',wlGet);
-  wlGet();
 }
+
+/* ---------- one recipe view (built once, kept so running timers survive a trip to the list) ---------- */
+var views={};
+function buildView(rec){
+  var root=document.importNode($('#tpl-recipe').content,true).firstElementChild;
+  var st=rs(rec.id),byId={},rid=rec.id;
+  var v={rec:rec,root:root,dock:$('#dock',root),card:$('#recipe',root),timers:[],ingBoxes:[],stepBoxes:[]};
+  rec.ingredients.forEach(function(it){byId[it.id]=it;});
+  $('#app-title',root).textContent=rec.title;
+  $('#tagline',root).textContent=rec.tagline||rec.dish||'';
+  $('#h-ing',root).textContent=rec.ingredientsHeading||'Ingredients';
+  $('#h-method',root).textContent=rec.methodHeading||'Method';
+  var ul=$('#ing',root),pr=[];
+  function bv(m){if(pr.indexOf(m)<0){pr.push(m);}bad(m);}
+  rec.ingredients.forEach(function(it){
+    var li=E('li'),lb=E('label'),cb=E('input'),qty=E('span','qty'),nm=E('span','nm'),cid=rid+'-i-'+it.id;
+    lb.setAttribute('for',cid);cb.type='checkbox';cb.id=cid;cb.checked=st.ing[it.id]===true;
+    if(it.amt!=null){try{qty.appendChild(qSpan(it.amt,it.unit,it.units));}catch(e){bv(rid+': ingredient "'+it.id+'": '+e.message);}}
+    else if(it.lead){qty.textContent=it.lead;}
+    rich(nm,it.name,byId,rid);
+    cb.addEventListener('change',function(){var s=rs(rid);if(cb.checked){s.ing[it.id]=true;}else{delete s.ing[it.id];}saveState();});
+    lb.appendChild(cb);lb.appendChild(qty);lb.appendChild(nm);li.appendChild(lb);ul.appendChild(li);v.ingBoxes.push(cb);
+  });
+  var ol=$('#steps',root);
+  rec.steps.forEach(function(sp,i){
+    var n=i+1,li=E('li','step'),head=E('div','step-head'),h3=E('h3'),num=E('span','n',String(n)),ttl=E('span'),cid=rid+'-s-'+sp.id;
+    li.id=rid+'-step-'+n;num.setAttribute('aria-hidden','true');rich(ttl,sp.title,byId,rid);h3.appendChild(num);h3.appendChild(ttl);
+    var lb=E('label','done'),cb=E('input'),s2=E('span');
+    lb.setAttribute('for',cid);cb.type='checkbox';cb.id=cid;cb.checked=st.steps[sp.id]===true;
+    s2.appendChild(T('Done'));s2.appendChild(E('span','sr',' with step '+n));lb.appendChild(cb);lb.appendChild(s2);
+    li.classList.toggle('is-done',cb.checked);
+    cb.addEventListener('change',function(){var s=rs(rid);if(cb.checked){s.steps[sp.id]=true;}else{delete s.steps[sp.id];}li.classList.toggle('is-done',cb.checked);saveState();});
+    head.appendChild(h3);head.appendChild(lb);li.appendChild(head);
+    var p=E('p');rich(p,sp.text,byId,rid);li.appendChild(p);
+    if(Array.isArray(sp.timers)&&sp.timers.length){
+      var tw=E('div','timers');
+      sp.timers.forEach(function(t){
+        var sec=parseInt(t.sec,10);if(!(sec>0)){bv(rid+' step '+n+': timer "sec" must be a number above 0');return;}
+        var d=E('div','timer');d.setAttribute('data-sec',String(sec));d.setAttribute('data-name',String(t.name||'Timer'));tw.appendChild(d);
+      });
+      li.appendChild(tw);
+    }
+    if(sp.why){var dt=E('details'),sm=E('summary','','Why this works'),wp=E('p');rich(wp,sp.why,byId,rid);dt.appendChild(sm);dt.appendChild(wp);li.appendChild(dt);}
+    ol.appendChild(li);v.stepBoxes.push(cb);
+  });
+  function head2(id,o){var h=$('#'+id,root);if(h&&o&&typeof o.heading==='string'){h.textContent=o.heading;}}
+  head2('h-intro',rec.intro);head2('h-deep',rec.deep);head2('h-faq',rec.faq);head2('h-plan',rec.plan);
+  var ib=$('#intro-body',root),db=$('#deep-body',root),fb=$('#faq-body',root),pb=$('#plan-body',root);
+  if(rec.intro&&Array.isArray(rec.intro.paras)){rec.intro.paras.forEach(function(t){var p=E('p');rich(p,t,byId,rid);ib.appendChild(p);});}
+  if(rec.deep&&Array.isArray(rec.deep.items)){rec.deep.items.forEach(function(it){var h=E('h3');rich(h,it.h,byId,rid);var p=E('p');rich(p,it.p,byId,rid);db.appendChild(h);db.appendChild(p);});}
+  if(rec.faq&&Array.isArray(rec.faq.groups)){rec.faq.groups.forEach(function(g){
+    var h=E('h3');rich(h,g.h,byId,rid);fb.appendChild(h);
+    (g.items||[]).forEach(function(it){var dt=E('details'),sm=E('summary'),p=E('p');rich(sm,it.q,byId,rid);rich(p,it.a,byId,rid);dt.appendChild(sm);dt.appendChild(p);fb.appendChild(dt);});
+  });}
+  if(rec.plan&&Array.isArray(rec.plan.groups)){rec.plan.groups.forEach(function(g){
+    var h=E('h3','sub');rich(h,g.h,byId,rid);var u=E('ul');(g.items||[]).forEach(function(t){var li=E('li');rich(li,t,byId,rid);u.appendChild(li);});
+    pb.appendChild(h);pb.appendChild(u);
+  });}
+  function linkList(id,arr){
+    var u=$('#'+id,root);
+    (Array.isArray(arr)?arr:[]).forEach(function(l){
+      if(!l||typeof l.t!=='string'||!/^https:\/\//.test(String(l.url))){return;}
+      var li=E('li'),a=E('a',null,l.t);a.href=l.url;a.target='_blank';a.rel='noopener noreferrer';li.appendChild(a);u.appendChild(li);
+    });
+    if(!u.children.length){var s=u.closest('section');if(s){s.hidden=true;}}
+  }
+  linkList('links-body',rec.links);linkList('sources-body',rec.sources);
+  if(pr.length){$('.v-problems',root).textContent='Recipe error: '+pr.join('; ');}
+
+  /* batch: integer halves, 1..8 (0.5x to 4x), default 2 (=1x) */
+  var dn=$('.b-dn',root),up=$('.b-up',root);
+  function applyBatch(save){
+    var s=rs(rid),mult=frac(s.halves+'/2');
+    $$('.q',root).forEach(function(el){el.textContent=qText(el,mult);});
+    $('.b-val',root).textContent=fmtFrac(mult)+'x';
+    var hid=rec.servings&&rec.servings.ing,hq=null;
+    if(hid&&own(byId,hid)){var hi=rec.ingredients.indexOf(byId[hid]);hq=$('.q',ul.children[hi]);}
+    if(!hq){hq=$('.q',ul);}
+    $('.b-eggs',root).textContent=hq?hq.textContent:'';
+    dn.disabled=s.halves<=1;up.disabled=s.halves>=8;
+    if(save){saveState();}
+  }
+  dn.addEventListener('click',function(){var s=rs(rid);if(s.halves>1){s.halves--;applyBatch(true);}});
+  up.addEventListener('click',function(){var s=rs(rid);if(s.halves<8){s.halves++;applyBatch(true);}});
+  v.applyBatch=applyBatch;applyBatch(false);
+
+  /* reset */
+  var rc=$('.reset-confirm',root),ro=$('.reset-open',root);
+  ro.addEventListener('click',function(){
+    var s=rs(rid),n=Object.keys(s.ing).length+Object.keys(s.steps).length,bs=s.halves!==2;
+    $('.reset-msg',root).textContent=(n===0&&!bs)?'Nothing to clear.':'Clear '+n+' tick'+(n===1?'':'s')+(bs?' and reset batch ('+fmtFrac(frac(s.halves+'/2'))+'x)':'')+'? Notes stay.';
+    rc.hidden=false;$('.reset-no',root).focus();try{rc.scrollIntoView({block:'nearest'});}catch(e){}
+  });
+  $('.reset-no',root).addEventListener('click',function(){rc.hidden=true;ro.focus();});
+  $('.reset-yes',root).addEventListener('click',function(){
+    var s=rs(rid);s.ing={};s.steps={};s.halves=2;saveState();
+    v.ingBoxes.forEach(function(b){b.checked=false;});
+    v.stepBoxes.forEach(function(b){b.checked=false;b.closest('.step').classList.remove('is-done');});
+    applyBatch(false);rc.hidden=true;notify('Cleared.');ro.focus();
+  });
+  root.addEventListener('keydown',function(e){if(e.key==='Escape'&&!rc.hidden&&rc.contains(document.activeElement)){e.preventDefault();rc.hidden=true;ro.focus();}});
+
+  /* notes */
+  var notes=$('.user-notes',root);notes.value=st.notes;
+  notes.addEventListener('input',function(){rs(rid).notes=notes.value;saveState();});
+
+  /* timers */
+  v.timers=$$('.timer',root).map(function(el){return new Timer(el,v);});
+  var ft=v.timers[v.timers.length-1];
+  ['.t-min','.t-sec'].forEach(function(q){$(q,root).addEventListener('change',function(){if(!ft.run){ft.reset();}});});
+  ft.total=(parseInt($('.t-min',root).value,10)||0)*60;ft.left=ft.total;ft.paint();
+
+  /* wake lock button, dock focus, contents */
+  var wb=$('.wake',root);
+  if('wakeLock' in navigator){wb.hidden=false;wb.addEventListener('click',wakeOnClick);}
+  v.dock.addEventListener('focusin',function(){dockForce=true;dockVis();});
+  v.dock.addEventListener('focusout',function(){dockForce=false;dockVis();});
+  $$('.toc a',root).forEach(function(a){a.addEventListener('click',function(){$('#toc-d',root).removeAttribute('open');});});
+  $$('a[href^="#"]',root).forEach(function(a){a.addEventListener('click',function(){var t=null;try{t=$(a.getAttribute('href'),root);}catch(e){}var d=t&&t.closest?t.closest('details'):null;if(d&&!d.open){d.open=true;}});});
+  return v;
+}
+
+/* ---------- list, recipe, routes ---------- */
+var listView=$('#list-view'),recView=$('#recipe-view'),rlist=$('#rlist');
+function setTitle(t){baseTitle=t;document.title=t;}
+function renderList(){
+  rlist.textContent='';
+  RECIPES.forEach(function(rec){
+    var li=E('li'),a=E('a','rcard'),n=ticked(rec),tot=rec.ingredients.length;
+    a.href='?recipe='+rec.id;a.setAttribute('data-go',rec.id);
+    a.appendChild(E('span','rc-t',rec.title));
+    if(rec.dish){a.appendChild(E('span','rc-d',rec.dish));}
+    a.appendChild(E('span','rc-m',tot+' ingredients, '+rec.steps.length+' steps'+(n?'. '+n+' of '+tot+' ticked.':'')));
+    li.appendChild(a);rlist.appendChild(li);
+  });
+  $('#rc-problems').textContent=problems.length?'Recipe error: '+problems.join('; '):'';
+}
+function showList(msg){
+  cur=null;recView.hidden=true;listView.hidden=false;
+  renderList();
+  $('#list-note').textContent=msg||'';
+  setTitle('Eggspress Recipe Box: recipes');
+  $('#list-h').setAttribute('tabindex','-1');
+}
+function showRecipe(rec){
+  if(!own(views,rec.id)){views[rec.id]=buildView(rec);}
+  var v=views[rec.id];
+  recView.textContent='';recView.appendChild(v.root);
+  listView.hidden=true;recView.hidden=false;cur=v;
+  setTitle('Eggspress Recipe Box: '+rec.title);
+  wakePaint();wlGet();
+  v.timers.forEach(function(t){t.paint();});
+  onScroll();
+}
+function routeId(){
+  var m=/[?&](?:recipe|pack)=([^&#]*)/.exec(location.search||'');
+  if(!m){return '';}
+  try{return decodeURIComponent(m[1]);}catch(e){return '';}
+}
+function route(moved){
+  var id=routeId(),rec=id&&own(byRecipe,id)?byRecipe[id]:null;
+  if(rec){showRecipe(rec);}else{showList(id?'That recipe was not found.':'');}
+  if(moved){
+    window.scrollTo(0,0);
+    var h=rec?$('#app-title',cur.root):$('#list-h');
+    if(h){try{h.focus({preventScroll:true});}catch(e){}}
+    notify(rec?rec.title:'Recipe box');
+  }
+}
+function go(id){
+  var url=location.pathname+(id?'?recipe='+encodeURIComponent(id):'');
+  try{history.pushState({},'',url);}catch(e){location.href=url;return;}
+  route(true);
+}
+document.addEventListener('click',function(e){
+  var a=e.target.closest?e.target.closest('a[data-go]'):null;
+  if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey){return;}
+  e.preventDefault();go(a.getAttribute('data-go'));
+});
+window.addEventListener('popstate',function(){route(true);});
+$('.skip').addEventListener('click',function(e){e.preventDefault();var t=$('#top');t.focus({preventScroll:true});t.scrollIntoView();});
 
 /* ---------- dialogs ---------- */
 var modal=null,opener=null,escHandled=false;
 var BEHIND=['main','footer','.skip'];
 function setInert(on){BEHIND.forEach(function(q){var e=$(q);if(e){e.inert=on;}});}
 function focusables(d){return $$('a[href],button,input,select,textarea,summary,[tabindex]',d).filter(function(e){return !e.disabled&&e.getAttribute('tabindex')!=='-1'&&!e.closest('[hidden]')&&e.offsetParent!==null;});}
+var impData=null;
 function bindDialog(id,openers){
   var d=$('#'+id);
   openers.forEach(function(o){var b=$('#'+o);b.addEventListener('click',function(){opener=b;if(d.showModal){d.showModal();}else{d.setAttribute('open','');}modal=d;setInert(true);});});
@@ -896,52 +1298,65 @@ function bindDialog(id,openers){
   });
 }
 document.addEventListener('focusin',function(e){if(modal&&modal.open&&!modal.contains(e.target)){var f=focusables(modal);if(f.length){f[0].focus();}}});
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!rc.hidden&&rc.contains(document.activeElement)){e.preventDefault();rc.hidden=true;$('#reset-open').focus();}});
 bindDialog('help',['help-open','help-open2']);
 bindDialog('lic',['lic-open']);
 
-/* ---------- export / delete ---------- */
-var SCHEMA=1;
-/* migrate(o): bring an older export up to SCHEMA. Schema 1 is the first, so nothing to convert yet.
-   Add one step per future schema here, oldest first. A NEWER schema is refused in checkBackup. */
+/* ---------- export / restore / delete ---------- */
+/* Schema 1 (versions 1.x): one recipe, ticks as arrays by position. Schema 2: per recipe id, ticks as lists of ingredient and step ids. */
 function migrate(o){
-  var v=o.schemaVersion;
-  /* if(v<2){ ...convert o.data to schema 2...; v=2; } */
+  var d=o.data;
+  if(o.schemaVersion<2){
+    if(!isObj(d)||!Array.isArray(d.ingredientsChecked)||!Array.isArray(d.stepsDone)){return null;}
+    var okA=function(a,n){return a.length===n&&a.every(function(x){return typeof x==='boolean';});};
+    if(!okA(d.ingredientsChecked,LEGACY.ing.length)||!okA(d.stepsDone,LEGACY.steps.length)){return null;}
+    var r={batchHalves:d.batchHalves,
+      ingredientsChecked:LEGACY.ing.filter(function(id,i){return d.ingredientsChecked[i];}),
+      stepsDone:LEGACY.steps.filter(function(id,i){return d.stepsDone[i];}),
+      notes:d.notes};
+    var rs2={};rs2[LEGACY.recipe]=r;
+    o.data={recipes:rs2,look:d.look};
+  }
   o.schemaVersion=SCHEMA;
   return o;
 }
-window.__eggSchema={SCHEMA:SCHEMA,migrate:migrate};
-var KEYS=['egg-salad-batch','egg-salad-steps-done','egg-salad-user-notes','eggsalad.look'];
+window.__recipeBox.migrate=migrate;
+var KEYS=['egg-salad-batch','egg-salad-steps-done','egg-salad-user-notes','eggsalad.look',SKEY];
 function allKeys(){var k=KEYS.slice();for(var i=0;i<60;i++){k.push('ingredient-'+i+'-checked');}return k;}
 function buildExport(){
-  return {app:'apex-egg-salad',appVersion:APP_VERSION,schemaVersion:SCHEMA,exportedAt:new Date().toISOString(),data:{
-    batchHalves:halves,
-    ingredientsChecked:ingBoxes.map(function(b){return b.checked;}),
-    stepsDone:stepBoxes.map(function(b){return b.checked;}),
-    notes:notes.value,
-    look:lookSel.value}};
+  var out={};
+  RECIPES.forEach(function(rec){
+    if(!own(state.recipes,rec.id)){return;}
+    var s=rs(rec.id);
+    out[rec.id]={batchHalves:s.halves,
+      ingredientsChecked:rec.ingredients.filter(function(x){return s.ing[x.id]===true;}).map(function(x){return x.id;}),
+      stepsDone:rec.steps.filter(function(x){return s.steps[x.id]===true;}).map(function(x){return x.id;}),
+      notes:s.notes};
+  });
+  return {app:APP_ID,appVersion:APP_VERSION,schemaVersion:SCHEMA,exportedAt:new Date().toISOString(),data:{recipes:out,look:lookSel.value}};
 }
-window.__eggExport=buildExport;
+window.__recipeBox.buildExport=buildExport;
 $('#exp').addEventListener('click',function(){
   var st=$('#help-status');
   try{
     var blob=new Blob([JSON.stringify(buildExport(),null,2)],{type:'application/json'});
-    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='eggspresseats-export.json';
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='eggspress-recipe-box-export.json';
     document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
-    st.textContent='Saved: eggspresseats-export.json';
+    st.textContent='Saved: eggspress-recipe-box-export.json';
   }catch(e){st.textContent='Export failed. Try again.';}
 });
-var dc=$('#del-confirm');
+function resetViews(){
+  Object.keys(views).forEach(function(k){views[k].timers.forEach(function(t){clearInterval(t.iv);});});
+  views={};cur=null;route(false);
+}
+var dc=$('#del-confirm'),ic=$('#imp-confirm'),ifile=$('#imp-file'),hst=$('#help-status');
 $('#del-open').addEventListener('click',function(){ic.hidden=true;impData=null;dc.hidden=false;$('#del-no').focus();});
 $('#del-no').addEventListener('click',function(){dc.hidden=true;$('#del-open').focus();});
 $('#del-yes').addEventListener('click',function(){
   allKeys().forEach(sdel);
-  ingBoxes.forEach(function(b){b.checked=false;});stepBoxes.forEach(function(b){b.checked=false;});paintSteps();
-  notes.value='';halves=2;lookSel.value=omnLook.get();applyBatchNoSave();
-  dc.hidden=true;$('#help-status').textContent='Deleted.';
+  state={schemaVersion:SCHEMA,recipes:{},migrated:1};
+  lookSel.value=omnLook.get();resetViews();
+  dc.hidden=true;hst.textContent='Deleted.';
 });
-/* ---------- restore from backup: validate, preview, confirm, then commit ---------- */
-var impData=null,ic=$('#imp-confirm'),ifile=$('#imp-file'),hst=$('#help-status');
 var UNSAFE=['__proto__','constructor','prototype'];
 function unsafeKey(o,depth){
   if(depth>8){return true;}
@@ -951,22 +1366,31 @@ function unsafeKey(o,depth){
   }
   return false;
 }
-function allBool(a,n){return Array.isArray(a)&&a.length===n&&a.every(function(x){return typeof x==='boolean';});}
+function idList(a,known){return Array.isArray(a)&&a.length<=200&&a.every(function(x){return typeof x==='string'&&known.indexOf(x)>-1;});}
 function checkBackup(o){
-  if(!o||typeof o!=='object'||Array.isArray(o)||typeof o.app!=='string'){return 'Wrong file.';}
-  if(o.app!=='apex-egg-salad'){return 'Wrong app.';}
+  if(!isObj(o)||typeof o.app!=='string'){return 'Wrong file.';}
+  if(o.app!==APP_ID){return 'Wrong app.';}
   if(typeof o.appVersion!=='string'||typeof o.schemaVersion!=='number'||Math.floor(o.schemaVersion)!==o.schemaVersion||o.schemaVersion<1||typeof o.exportedAt!=='string'){return 'Bad header.';}
   if(o.schemaVersion>SCHEMA){return 'Backup is newer than this app.';}
   o=migrate(o);
+  if(!o){return 'Bad ticks.';}
   var d=o.data;
-  if(!d||typeof d!=='object'||Array.isArray(d)){return 'No data.';}
-  if(typeof d.batchHalves!=='number'||Math.floor(d.batchHalves)!==d.batchHalves||d.batchHalves<1||d.batchHalves>8){return 'Bad batch.';}
-  if(!allBool(d.ingredientsChecked,ingBoxes.length)){return 'Bad ticks.';}
-  if(!allBool(d.stepsDone,stepBoxes.length)){return 'Bad steps.';}
-  if(typeof d.notes!=='string'||d.notes.length>100000){return 'Bad notes.';}
+  if(!isObj(d)||!isObj(d.recipes)){return 'No data.';}
   if(d.look!==undefined&&typeof d.look!=='string'){return 'Bad colour.';}
+  var ids=Object.keys(d.recipes);
+  for(var i=0;i<ids.length;i++){
+    var rec=own(byRecipe,ids[i])?byRecipe[ids[i]]:null,r=d.recipes[ids[i]];
+    if(!rec){continue;}
+    if(!isObj(r)){return 'No data.';}
+    if(typeof r.batchHalves!=='number'||Math.floor(r.batchHalves)!==r.batchHalves||r.batchHalves<1||r.batchHalves>8){return 'Bad batch.';}
+    if(!idList(r.ingredientsChecked,rec.ingredients.map(function(x){return x.id;}))){return 'Bad ticks.';}
+    if(!idList(r.stepsDone,rec.steps.map(function(x){return x.id;}))){return 'Bad steps.';}
+    if(typeof r.notes!=='string'||r.notes.length>100000){return 'Bad notes.';}
+  }
+  impData=d;
   return null;
 }
+window.__recipeBox.checkBackup=function(o){impData=null;var e=checkBackup(o);var d=impData;impData=null;return {err:e,data:d};};
 function refuse(msg){impData=null;ic.hidden=true;hst.textContent='Refused: '+msg;}
 $('#imp-open').addEventListener('click',function(){ifile.value='';ifile.click();});
 ifile.addEventListener('change',function(){
@@ -984,9 +1408,9 @@ ifile.addEventListener('change',function(){
     if(unsafeKey(o,0)){refuse('the file contains a key that is not allowed.');return;}
     var err=checkBackup(o);
     if(err){refuse(err);return;}
-    impData=o.data;
-    var n=impData.stepsDone.filter(Boolean).length;
-    $('#imp-msg').textContent='Backup: batch '+fmtFrac(frac(impData.batchHalves+'/2'))+'x, '+n+' step'+(n===1?'':'s')+' done, notes '+(impData.notes?'yes':'no')+'. Replace current data?';
+    var ids=Object.keys(impData.recipes).filter(function(k){return own(byRecipe,k);});
+    var n=0;ids.forEach(function(k){n+=impData.recipes[k].stepsDone.length;});
+    $('#imp-msg').textContent='Backup: '+ids.length+' recipe'+(ids.length===1?'':'s')+', '+n+' step'+(n===1?'':'s')+' done. Replace current data?';
     hst.textContent='Confirm or cancel.';
     ic.hidden=false;$('#imp-no').focus();
   };
@@ -995,32 +1419,32 @@ ifile.addEventListener('change',function(){
 $('#imp-no').addEventListener('click',function(){impData=null;ic.hidden=true;hst.textContent='Cancelled.';$('#imp-open').focus();});
 $('#imp-yes').addEventListener('click',function(){
   var d=impData;if(!d){ic.hidden=true;return;}
-  ingBoxes.forEach(function(b,i){b.checked=d.ingredientsChecked[i];sset('ingredient-'+i+'-checked',b.checked);});
-  stepBoxes.forEach(function(b,i){b.checked=d.stepsDone[i];});saveSteps();paintSteps();
-  notes.value=d.notes;sset('egg-salad-user-notes',d.notes);
-  halves=d.batchHalves;applyBatch();
+  var recs={};
+  Object.keys(d.recipes).forEach(function(k){
+    if(!own(byRecipe,k)){return;}
+    var r=d.recipes[k],s=newRec();
+    s.halves=r.batchHalves;r.ingredientsChecked.forEach(function(x){s.ing[x]=true;});r.stepsDone.forEach(function(x){s.steps[x]=true;});s.notes=r.notes;
+    recs[k]=s;
+  });
+  state={schemaVersion:SCHEMA,recipes:recs,migrated:1};saveState();
+  resetViews();
   impData=null;ic.hidden=true;
   hst.textContent='Restored.';
   $('#imp-open').focus();
 });
-function applyBatchNoSave(){var save=sset;sset=function(){};applyBatch();sset=save;}
 
 /* ---------- contents marker and reading progress ---------- */
-var tocLinks=$$('.toc a');
-var secs=tocLinks.map(function(a){return $(a.getAttribute('href'));});
 function onScroll(){
   dockVis();
-  var cur=0,y=window.innerHeight*0.3;
-  secs.forEach(function(s,i){if(!s){return;}var r=s.getBoundingClientRect();if(r.height===0&&r.width===0){return;}if(r.top<=y){cur=i;}});
-  tocLinks.forEach(function(a,i){if(i===cur){a.setAttribute('aria-current','location');}else{a.removeAttribute('aria-current');}});
+  if(!cur){return;}
+  var tocLinks=$$('.toc a',cur.root),secs=tocLinks.map(function(a){return $(a.getAttribute('href'),cur.root);});
+  var c=0,y=window.innerHeight*0.3;
+  secs.forEach(function(s,i){if(!s){return;}var r=s.getBoundingClientRect();if(r.height===0&&r.width===0){return;}if(r.top<=y){c=i;}});
+  tocLinks.forEach(function(a,i){if(i===c){a.setAttribute('aria-current','location');}else{a.removeAttribute('aria-current');}});
 }
 var tick=false;window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){tick=false;onScroll();});}},{passive:true});
 window.addEventListener('resize',onScroll);
-$$('.toc a').forEach(function(a){a.addEventListener('click',function(){$('#toc-d').removeAttribute('open');});});
-/* a link that points inside the closed fold opens it first */
-$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(){var t=null;try{t=$(a.getAttribute('href'));}catch(e){}var d=t&&t.closest?t.closest('details'):null;if(d&&!d.open){d.open=true;}});});
-/* skip link moves focus to the recipe (tabindex -1 target) */
-$('.skip').addEventListener('click',function(e){e.preventDefault();var t=$('#recipe');t.scrollIntoView();t.focus({preventScroll:true});});
+window.addEventListener('focus',function(){document.title=baseTitle;});
 
 /* ---------- print: open all details, then restore ---------- */
 var opened=[];
@@ -1030,18 +1454,14 @@ window.addEventListener('afterprint',function(){opened.forEach(function(d){d.ope
 /* ---------- content block: version and date shown in footer and Help ---------- */
 (function(){
   var short='-',long_=short;
-  try{
-    var c=JSON.parse($('#recipe-content').textContent);
-    if(!c||typeof c.dataVersion!=='string'||typeof c.date!=='string'||typeof c.source!=='string'){throw new Error('shape');}
-    short=c.dataVersion+', '+c.date;
-    long_='v'+c.dataVersion+', '+c.date;
-  }catch(e){}
+  if(DATA&&typeof DATA.dataVersion==='string'&&typeof DATA.date==='string'){short=DATA.dataVersion+', '+DATA.date;long_='v'+DATA.dataVersion+', '+DATA.date;}
   $$('.cv').forEach(function(e){e.textContent=short;});
   $$('.cvl').forEach(function(e){e.textContent=long_;});
 })();
 
 /* ---------- init ---------- */
-loadBatch();applyBatch();loadTicks();onScroll();
+state=loadState();
+route(false);
 if(blocked){notify('Saving blocked. Data lasts until you close the page.');}
 })();
 </script>

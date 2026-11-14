@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" data-look="paper" data-app>
+<html lang="en" data-look="auto" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-Rg5utR3vdK5593tLBLk9rRIjPUXV+ELdSeeGYc7YT2E='; style-src 'sha256-IyuWeQmMnQ7JIdPw03IFQDSlPE3Ti8GVxR77Xfreapg='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-    <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-jxyyuU1DQHbmFXBD4s3/K+zdHZxfG82faDjfFBb05MM='; style-src 'sha256-gwXWHbwTAmhIW2hazeg2VfpZzAourozKB8gGGcdXUDk='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <!-- Single-file build 1.1.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
     <style>/* OMNEVUM KIT:BEGIN */
 /* @@OMNEVUM-KIT-TOKENS@@ */
+:root[data-app]{--acc:hsl(var(--hue,215) var(--app-s) var(--app-l));--on-acc:var(--app-on)}
+.top,.ph{display:flex;align-items:center;gap:var(--s2)}
+.ph{padding:var(--s4) 0 var(--s2)}
+.ph h1{margin:0 auto 0 var(--s1);font-size:clamp(1.25rem,4.5vw,1.6rem);line-height:1.2;letter-spacing:-.01em;overflow-wrap:break-word}
+@media(max-width:519px){.ph:has(>h1+*){flex-wrap:wrap;row-gap:0}.ph:has(>h1+*)>h1{order:9;flex:1 0 100%;margin:var(--s1) 0 0;font-size:1.35rem}.ph>h1+*{margin-left:auto}} /* narrow header: title on its own row */
+.ib{flex:none;display:inline-grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--card);color:inherit;cursor:pointer;text-decoration:none;box-shadow:var(--shadow)}
+.ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}
+.ib.sm{width:36px;height:36px;border:0;background:none;box-shadow:none}
+.ib{position:relative}.ib svg{width:22px;height:22px}.ib select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;appearance:none;-webkit-appearance:none;border:0}.ib:focus-within{outline:2px solid var(--acc);outline-offset:2px}
 /* @@OMNEVUM-KIT-PREFS@@ */
 /* OMNEVUM KIT:END */
 :root[data-app]{--hue:31}
@@ -18,24 +27,21 @@
             --surface-color: var(--card);
             --primary-text-color: var(--fg);
             --secondary-text-color: var(--mut);
-            --accent-color-1: #0062CC; /* Vibrant Blue */
-            --on-accent: #FFFFFF;
-            --accent-end: #0056b3;
+            --accent-color-1: var(--acc); /* the kit accent from --hue, right in every look */
+            --on-accent: var(--on-acc);
+            --accent-end: var(--acc);
             --accent-color-2: #28A745; /* Green */
             --border-color: var(--line);
             --shadow-color: rgba(0, 0, 0, 0.05);
-            --focus-outline-color: #0056b3; /* Darker blue for focus */
+            --focus-outline-color: var(--acc);
         }
 
         :root[data-look=charcoal], :root[data-look=black] {
-            --accent-color-1: #8fb8e3;
             --accent-color-2: #5fd47a;
-            --on-accent: #14110d;
-            --accent-end: #6a9fd0;
         }
 
         @media (prefers-color-scheme: dark) {
-            :root[data-look=auto] { --accent-color-1: #8fb8e3; --accent-color-2: #5fd47a; --on-accent: #14110d; --accent-end: #6a9fd0; }
+            :root[data-look=auto] { --accent-color-2: #5fd47a; }
         }
 
         /* Global Styles */
@@ -45,7 +51,7 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-bottom: 7rem; /* keeps a focused item clear of the fixed bottom bar */
+            scroll-padding-top: 1rem;
         }
 
         body {
@@ -156,42 +162,14 @@
             border: 1px solid var(--border-color);
         }
 
-        /* Banner Section */
-        .banner {
-            background: linear-gradient(135deg, var(--accent-color-1), var(--accent-end));
-            color: var(--on-accent);
-            padding: 4rem 1rem;
-            text-align: center;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            margin-bottom: 2rem;
-        }
+        .card > h2:first-child { margin-top: 0; }
+        .main-content-grid > .card { margin-bottom: 0; }
+        @media (max-width: 519px) { .card { padding: 1rem; } .main-content-grid { gap: 1rem; } }
 
-        .banner h1 {
-            color: var(--on-accent);
-            font-size: 3.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .banner p {
-            font-size: 1.25rem;
-            max-width: 800px;
-            margin: 0.5rem auto 0;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 768px) {
-            .banner {
-                padding: 3rem 1rem;
-            }
-            .banner h1 {
-                font-size: 2.5rem;
-            }
-            .banner p {
-                font-size: 1rem;
-            }
-        }
+        /* Page head */
+        .page-head { padding-bottom: 0; }
+        .page-head .tagline { margin: 0.25rem 0 0; font-weight: 600; color: var(--primary-text-color); }
+        .page-head .banner-description { margin: 0.25rem 0 0; color: var(--secondary-text-color); max-width: 60rem; }
 
         /* Main Content Grid */
         .main-content-grid {
@@ -407,84 +385,16 @@
             height: 100% !important;
         }
 
-        /* Floating Navbar */
-        .floating-navbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--primary-text-color); /* Dark background for navbar */
-            color: var(--on-accent);
-            box-shadow: 0 -4px 8px var(--shadow-color);
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-            z-index: 1000;
-            transform: translateY(calc(100% - 48px)); /* Collapsed by default, show toggle button */
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .floating-navbar.expanded {
-            transform: translateY(0);
-        }
-
-        .navbar-toggle {
-            position: absolute;
-            top: -48px; /* Position above the navbar */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--accent-color-1);
-            color: var(--on-accent);
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            line-height: 1;
-            border: 3px solid var(--surface-color);
-            box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-            z-index: 1001;
-        }
-
-        .navbar-toggle:hover {
-            background-color: var(--focus-outline-color);
-            transform: translateX(-50%) scale(1.05);
-        }
-
-        .navbar-toggle:focus-visible {
-            outline: 2px solid var(--focus-outline-color);
-            outline-offset: 4px;
-            border-radius: 50%;
-        }
-
-        .navbar-content {
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .navbar-content .nav-title {
-            color: var(--on-accent);
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
         .navbar-tool {
-            background-color: #343A40; /* Slightly lighter dark for tool cards */
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid #495057;
+            display: grid;
+            gap: 0.25rem;
+            max-width: 28rem;
         }
 
         .navbar-tool label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #ced4da;
+            color: var(--secondary-text-color);
             font-size: 0.9rem;
         }
 
@@ -495,7 +405,7 @@
 
         .navbar-tool .result {
             font-weight: 600;
-            color: #5fd47a; /* the tool card is dark in every look */
+            color: var(--primary-text-color);
             font-size: 1.1rem;
         }
 
@@ -539,13 +449,14 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
 <script>(function(){try{var p=JSON.parse(localStorage.getItem('hub.prefs.v1')||'{}');var v=p&&p.look;if(v==='paper'||v==='charcoal'||v==='black')document.documentElement.setAttribute('data-look',v)}catch(e){}})()</script>
 </head>
 <body>
-    <header class="banner">
-        <div class="container">
-            <p><a href="../" id="back-to-hub" aria-label="Omnevum home" title="Omnevum home"><svg aria-hidden="true" width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg></a></p>
+    <header class="container page-head">
+        <div class="ph">
+            <a class="ib" href="../" id="back-to-hub" aria-label="Omnevum home" title="Omnevum home"><svg aria-hidden="true" width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg></a>
             <h1>BuildBoss PC Workstation Guide</h1>
-            <p class="tagline">High performance from used server parts</p>
-            <p class="banner-description">Explore a two-stage blueprint for a high-performance workstation optimized for AI/ML, 4K gaming, virtualization, and media serving, prioritizing efficiency and quiet operation.</p>
+            <label class="ib" for="look" title="Look"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg><select id="look" aria-label="Look"><option value="auto">Auto</option><option value="paper">Paper</option><option value="charcoal">Charcoal</option><option value="black">Black</option></select></label>
         </div>
+        <p class="tagline">High performance from used server parts</p>
+        <p class="banner-description">Explore a two-stage blueprint for a high-performance workstation optimized for AI/ML, 4K gaming, virtualization, and media serving, prioritizing efficiency and quiet operation.</p>
     </header>
 
     <main class="container">
@@ -832,6 +743,17 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
                 </ul>
             </div>
 
+            <div class="card full-width">
+                <h2>Power Estimate</h2>
+                <div class="navbar-tool">
+                <label for="cpu-tdp-input">CPU TDP (Watts per CPU):</label>
+                <input type="number" id="cpu-tdp-input" value="120" min="0" aria-label="Input CPU Thermal Design Power in Watts">
+                <label for="gpu-tdp-input">GPU TDP (Watts per GPU):</label>
+                <input type="number" id="gpu-tdp-input" value="350" min="0" aria-label="Input GPU Thermal Design Power in Watts">
+                <div class="result">Estimated Total TDP: <span id="total-tdp" role="status">0W</span></div>
+                <button type="button" id="calculate-tdp" aria-label="Calculate Total TDP">Calculate TDP</button>
+            </div>
+            </div>
             <div class="card sources-section full-width">
                 <h2>Sources</h2>
                 <ul>
@@ -859,24 +781,6 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
         </section>
     </main>
 
-    <div class="floating-navbar" role="navigation" aria-label="On-page tools">
-        <button type="button" class="navbar-toggle" aria-controls="navbar-content" aria-expanded="false" title="Toggle On-Page Tools">
-            <span id="toggle-icon">+</span>
-            <span class="sr-only">Toggle On-Page Tools</span>
-        </button>
-        <div class="navbar-content" id="navbar-content">
-            <p class="nav-title">On-Page Tools</p>
-            <div class="navbar-tool">
-                <label for="cpu-tdp-input">CPU TDP (Watts per CPU):</label>
-                <input type="number" id="cpu-tdp-input" value="120" min="0" aria-label="Input CPU Thermal Design Power in Watts">
-                <label for="gpu-tdp-input">GPU TDP (Watts per GPU):</label>
-                <input type="number" id="gpu-tdp-input" value="350" min="0" aria-label="Input GPU Thermal Design Power in Watts">
-                <div class="result">Estimated Total TDP: <span id="total-tdp" role="status">0W</span></div>
-                <button type="button" id="calculate-tdp" aria-label="Calculate Total TDP">Calculate TDP</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Chart.js library -->
     <!-- Embedded: Chart.js 3.7.0 (MIT) -->
     <script>
@@ -902,7 +806,7 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
             initializeCostEstimator();
             initializeTDPCalculator();
             initializeCharts();
-            initializeNavbarToggle();
+            initializeLook();
         }
 
         function initializeCostEstimator() {
@@ -1159,30 +1063,16 @@ body{font-variant-numeric:tabular-nums;background-image:linear-gradient(color-mi
             });
         }
 
-        function initializeNavbarToggle() {
-            const navbar = document.querySelector('.floating-navbar');
-            const toggleButton = document.querySelector('.navbar-toggle');
-            const toggleIcon = document.getElementById('toggle-icon');
-            const navbarContent = document.getElementById('navbar-content');
-
-            // Set initial aria-expanded state based on CSS transform
-            const isExpanded = navbar.classList.contains('expanded');
-            toggleButton.setAttribute('aria-expanded', isExpanded);
-            toggleIcon.textContent = isExpanded ? '-' : '+';
-
-            toggleButton.addEventListener('click', () => {
-                const currentlyExpanded = navbar.classList.toggle('expanded');
-                toggleButton.setAttribute('aria-expanded', currentlyExpanded);
-                toggleIcon.textContent = currentlyExpanded ? '-' : '+';
-            });
-
-            // Close navbar if clicking outside (optional, but good for UX)
-            document.addEventListener('click', (event) => {
-                if (!navbar.contains(event.target) && !toggleButton.contains(event.target)) {
-                    navbar.classList.remove('expanded');
-                    toggleButton.setAttribute('aria-expanded', 'false');
-                    toggleIcon.textContent = '+';
-                }
+        function initializeLook() {
+            const sel = document.getElementById('look'), key = 'hub.prefs.v1';
+            let prefs = {};
+            try { prefs = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch (e) { prefs = {}; }
+            sel.value = ['auto', 'paper', 'charcoal', 'black'].includes(prefs.look) ? prefs.look : 'auto';
+            sel.addEventListener('change', () => {
+                prefs.schemaVersion = prefs.schemaVersion || 1; prefs.look = sel.value;
+                try { localStorage.setItem(key, JSON.stringify(prefs)); } catch (e) { /* storage blocked: the look still applies */ }
+                document.documentElement.setAttribute('data-look', sel.value);
+                location.reload(); // the charts read their colours once, at start
             });
         }
     </script>
