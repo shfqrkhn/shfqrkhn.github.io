@@ -1,0 +1,168 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Use conflicting exam descriptions"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can choose a study plan despite dated exam descriptions."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Use the newer confirmed subject outline, but verify exam logistics separately."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Illustrative scenario: One older guide says 140 questions. A newer guide says 120 questions."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Treat 140 as guaranteed The 2018 count conflicts with the 2021 count."
+    ],
+    [
+     "Study 12 subjects and verify exam details This separates subject preparation from current exam logistics."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "You notice the documents come from different dates. What next?"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Check the official candidate instructions Current official rules are the appropriate source for a booked sitting."
+    ],
+    [
+     "Use the oldest paper as binding An old snapshot cannot establish present exam rules."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "Your broad study list is separated from current sitting instructions."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Use dated guides for study topics, not unconditional examination promises."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The required exam logistics remain uncertain."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Check the controlling current candidate documents."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Historical practice files do not set current test rules."
+   ]
+  }
+ ],
+ "data": {
+  "claims": [
+   "exam-sources"
+  ],
+  "done": "Historical practice files do not set current test rules.",
+  "goal": "After this you can choose a study plan despite dated exam descriptions.",
+  "hint": "Use the newer confirmed subject outline, but verify exam logistics separately.",
+  "id": "exam-editions",
+  "nodes": [
+   {
+    "choices": [
+     {
+      "label": "Treat 140 as guaranteed",
+      "next": "warn",
+      "say": "The 2018 count conflicts with the 2021 count."
+     },
+     {
+      "label": "Study 12 subjects and verify exam details",
+      "next": "good",
+      "say": "This separates subject preparation from current exam logistics."
+     }
+    ],
+    "id": "entry",
+    "text": "Illustrative scenario: One older guide says 140 questions. A newer guide says 120 questions."
+   },
+   {
+    "choices": [
+     {
+      "label": "Check the official candidate instructions",
+      "next": "good",
+      "say": "Current official rules are the appropriate source for a booked sitting."
+     },
+     {
+      "label": "Use the oldest paper as binding",
+      "next": "endwarn",
+      "say": "An old snapshot cannot establish present exam rules."
+     }
+    ],
+    "id": "warn",
+    "text": "You notice the documents come from different dates. What next?"
+   },
+   {
+    "id": "good",
+    "lesson": "Use dated guides for study topics, not unconditional examination promises.",
+    "text": "Your broad study list is separated from current sitting instructions."
+   },
+   {
+    "id": "endwarn",
+    "lesson": "Check the controlling current candidate documents.",
+    "text": "The required exam logistics remain uncertain."
+   }
+  ],
+  "start": "entry",
+  "title": "Use conflicting exam descriptions",
+  "type": "scenario"
+ },
+ "id": "act-exam-editions",
+ "kind": "activity",
+ "title": "Use conflicting exam descriptions"
+}

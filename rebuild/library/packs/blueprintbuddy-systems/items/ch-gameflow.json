@@ -1,0 +1,139 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Play the workshop auction"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Follow the design-auction learning cycle."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Participants work in teams representing competing platform suppliers. They choose a design approach and buy offered cards. They total card effects, then present a priced offer and explain their choices. Cards stand for equipment, additions, and engineering work. The workshop exercise groups these activities into four broad phases and gives teams six possible missions."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Read the assigned mission limits and extra-score rules. You should see: A list of minimums and rewards. If not: Do not assume missions share the same limits."
+    ],
+    [
+     "Set goals and acceptable prices. You should see: A ranked purchase plan. If not: Use market estimates as guides, not caps."
+    ],
+    [
+     "Buy cards through the auction. You should see: A record of cards and actual paid prices. If not: Only the assigned bidder places bids."
+    ],
+    [
+     "Add signed capability effects. You should see: A completed design total. If not: Include negative effects rather than discarding them."
+    ],
+    [
+     "Check compliance, score, and price. You should see: A compliant or noncompliant result with a reason. If not: Fix missing required fields before considering efficiency."
+    ],
+    [
+     "Explain trade-offs, risks, and one process purchase. You should see: A reasoned team presentation. If not: Use evidence, not only a total score."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Mission choices: Protection Priority, Long-Range Survey, People Transport, Mobile Coordination, Equipment Recovery, and Hazard Clearance."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Classroom cycle"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The original exercise moves from planning through purchases and design review to a debrief."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Plan: Choose needs and prices"
+    ],
+    [
+     "Purchase: Bid on displayed cards"
+    ],
+    [
+     "Build: Total all effects"
+    ],
+    [
+     "Discuss: Explain the bid"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Work backward from your mission's minimum capability before spending on attractive extras."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A full inventory is not useful when a required field remains short."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-gameflow-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-gameflow-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-gameflow",
+ "kind": "doc",
+ "title": "Play the workshop auction"
+}

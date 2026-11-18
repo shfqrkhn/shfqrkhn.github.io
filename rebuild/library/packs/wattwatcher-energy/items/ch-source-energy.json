@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Use source factors carefully"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can apply a historical teaching factor without treating it as a current standard."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "One older Canadian teaching exercise applies a factor of 1.98 to purchased electricity; an appendix in the same workbook reports a Canadian grid value of 1.96. It also includes historic ratios of 1.01 for natural gas and 1.0 for certain on-site generation. These numbers belong to their stated examples or historical reference context. Source EUI adds an upstream-energy perspective; none of these older ratios is confirmed for a current project."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: With a historical factor of 1.98, 100 GJ of purchased electricity becomes 198 GJ on that exercise’s source-energy basis, not necessarily any present-day basis."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Record the factor, basis, and as-of year beside every result."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Different factor methods and revisions can make comparisons invalid."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-source-energy-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-source-energy-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-source-energy",
+ "kind": "doc",
+ "title": "Use source factors carefully"
+}

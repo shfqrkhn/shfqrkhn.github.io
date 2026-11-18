@@ -1,0 +1,14 @@
+{
+ "answerKey": "Scope, evidence, findings, decisions, conditions, actions and their status.",
+ "explain": [
+  "Section: Close issues only with proof"
+ ],
+ "id": "q-close-findings-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What belongs in the final audit record?"
+ ],
+ "source": "configcompass-change"
+}

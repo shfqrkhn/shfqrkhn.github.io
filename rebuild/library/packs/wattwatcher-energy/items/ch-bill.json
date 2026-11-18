@@ -1,0 +1,99 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Read energy bills"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can identify each billing component and explain how it is calculated."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Examine a bill as separate quantities: consumption, measured maximum demand, fixed fees, and time-dependent prices. Electricity demand is commonly calculated from an average over a specified meter interval, not one instantaneous peak. Power factor compares real power with apparent power; load factor compares average demand with peak demand. The time when electricity is used may affect the bill even when total kWh stays unchanged."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Record each billed quantity and its unit. You should see: A monthly list of energy and peak demand. If not: Check that demand is not labelled kWh."
+    ],
+    [
+     "Copy each rate and fixed fee. You should see: Energy, demand, and other charge categories. If not: Ask the utility for the tariff rules."
+    ],
+    [
+     "Check multiplication and billed periods. You should see: A subtotal that matches the tariff logic. If not: Record differences without assuming billing error."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: Energy charges are 30,000 kWh × $0.08 = $2,400. Demand charges are 90 kW × $12 = $1,080. The combined amount is $3,480 before fixed charges and taxes."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Separate kWh savings from kW savings."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A charge might have ratchets, minimums, or variable time periods."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-bill-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-bill-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-bill",
+ "kind": "doc",
+ "title": "Read energy bills"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "An operating or measurement change worth investigating, not proof of its cause.",
+ "explain": [
+  "Section: Model baselines and changes"
+ ],
+ "id": "q-data-analysis-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What might a continuing deviation from the baseline indicate?"
+ ],
+ "source": "wattwatcher-energy"
+}

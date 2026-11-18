@@ -1,0 +1,14 @@
+{
+ "answerKey": "No; the excluded units must be addressed or disclosed.",
+ "explain": [
+  "Section: Read reports with limits in mind"
+ ],
+ "id": "q-csa-reports-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A filter omits units without status codes. Can its completion percentage represent all units?"
+ ],
+ "source": "configcompass-change"
+}

@@ -1,0 +1,1773 @@
+{
+  "app": "library",
+  "version": "0.0.0",
+  "sourceDateEpoch": 1795016132,
+  "release": true,
+  "flags": [],
+  "files": [
+    {
+      "path": "THIRD-PARTY-NOTICES.txt",
+      "sha256": "6e829f3d08cf8bf16958ebf370b57c23909f957d63351c6f4148886ac105dcad"
+    },
+    {
+      "path": "apple-touch-icon.png",
+      "sha256": "83a9ba609d01ebda7cced2c3d2903669e1e1033e9c32374f7e1931c6f611a7af"
+    },
+    {
+      "path": "assets/pictograms/books.svg",
+      "sha256": "2e27d282f5b3fdbb78353bd169ba40f70b7ae3c66c15ae083df894ac6c778927"
+    },
+    {
+      "path": "assets/pictograms/dice.svg",
+      "sha256": "e471e2aef89c4cd731a4a0644118ecfa6eb23575a90afc76e695cdab4f220337"
+    },
+    {
+      "path": "assets/pictograms/error.svg",
+      "sha256": "db4c9e5195ef20467958018f49daa10173cf66eda25c997d0e52884345d6f948"
+    },
+    {
+      "path": "assets/pictograms/fire.svg",
+      "sha256": "91b3c47c883d41055b8fa1cc1488e6e98b3468a6307cd57478b6c55178d9bcfe"
+    },
+    {
+      "path": "assets/pictograms/info.svg",
+      "sha256": "688b32a60051dc1f52c7ab1143533d6d3a5c9bbf71cf6de0281906c0000439a1"
+    },
+    {
+      "path": "assets/pictograms/lock-open.svg",
+      "sha256": "e597db8fa1fc2bdf14e478275a9f453b6fa2e31b368722dd6f2fe2646b97b71b"
+    },
+    {
+      "path": "assets/pictograms/money.svg",
+      "sha256": "00e17aacf5634ae62242f17b75991dd4d27cf1a963b11052402c49426ff269cc"
+    },
+    {
+      "path": "assets/pictograms/mood-1.svg",
+      "sha256": "79c8cdc5009b238dbe244ae2a0e118b1e1d1be93413bfcde9472ea9d086b79b0"
+    },
+    {
+      "path": "assets/pictograms/mood-2.svg",
+      "sha256": "902f5a1d8d4c0673998fa0f74e1a357a7738c421a8081ddc8cdc7eb471454d10"
+    },
+    {
+      "path": "assets/pictograms/mood-3.svg",
+      "sha256": "03fdeb25e70e66f4200e7052d3bcd13d063abcd9a22d5ff6e71234f1acf5b6b1"
+    },
+    {
+      "path": "assets/pictograms/mood-4.svg",
+      "sha256": "84a2e5f44fbc57024a9ad98bc95324e930341cdad0f0538f9d4f1d2deb5be687"
+    },
+    {
+      "path": "assets/pictograms/mood-5.svg",
+      "sha256": "d2d6b1a1caa92df531d6a8cbac55ac285663e42226e51f0be58d4ea22227940f"
+    },
+    {
+      "path": "assets/pictograms/ok.svg",
+      "sha256": "558fde80fa655011dc1e7f90ceaa02845413c9bb88f4c6b174f3b264c6074316"
+    },
+    {
+      "path": "assets/pictograms/party.svg",
+      "sha256": "c27a0185f142c94f389429c22cb7632d900fd08eb9259f75566f3888b5d53551"
+    },
+    {
+      "path": "assets/pictograms/seedling.svg",
+      "sha256": "0d45f7f42154c900500579fe1816dfd35776b7b5e843b15476c0b3f2dd7353ac"
+    },
+    {
+      "path": "assets/pictograms/sleep.svg",
+      "sha256": "18c95facac03b518f75c4e5f1a3bc9ae91642770f662c02c69ed72acb7aac735"
+    },
+    {
+      "path": "assets/pictograms/target.svg",
+      "sha256": "253cc7fdb3625d98a104f6b9d7bddd02b2de829bf3e0df4143b9644d93ee3d2b"
+    },
+    {
+      "path": "assets/pictograms/trophy.svg",
+      "sha256": "0d4c7fec9a8e162b6581732454f4d1eb68945aa2fe078b5275c47a8456e7cfee"
+    },
+    {
+      "path": "assets/pictograms/walk.svg",
+      "sha256": "6184db610d0754065ed1b9f0384929fd809d5267e85339bed1a4e8e17c34c7b9"
+    },
+    {
+      "path": "assets/pictograms/warning.svg",
+      "sha256": "2f03dfa1f206b2378bb8c039f3026926e26e186d3583c5702a289ce8a24ad8ff"
+    },
+    {
+      "path": "chunks/boundary-GQX3QIHC.js",
+      "sha256": "37ee33bbcd0896c5efaaa6e4e16970a092372c771d074b177ecc2dc8fd623708"
+    },
+    {
+      "path": "chunks/chunk-2NUHJYXJ.js",
+      "sha256": "90e0fdb90c4f6c468ab8edd41641cfc65a7ba313daf07627ef745755771cefd7"
+    },
+    {
+      "path": "chunks/chunk-35EZOO5P.js",
+      "sha256": "c136c937f38015f305dd155a7939089814f9212290092079c11a2c0092c6412d"
+    },
+    {
+      "path": "chunks/chunk-B4RO7AVD.js",
+      "sha256": "62eb96b970de5d28e122107f33fe94931e220e622318eae1380a0a2853a6a17a"
+    },
+    {
+      "path": "chunks/chunk-B56HKZZE.js",
+      "sha256": "5243460e9d3bd630b91369a903f22df7ae122ae137273df257a4a9fd0127ec45"
+    },
+    {
+      "path": "chunks/chunk-D7YO5AFL.js",
+      "sha256": "1e39b3447afce084285b6b8f975322100db7eb59b4e6f19218e070bc7b217bdb"
+    },
+    {
+      "path": "chunks/chunk-GPONHFON.js",
+      "sha256": "e368805059cf83d384f97eff7d026901312a5705db625c7efc52b67551a85a47"
+    },
+    {
+      "path": "chunks/chunk-GRCX4XS4.js",
+      "sha256": "05ee47ff8fe40cb6c8b4a3da44bb1adad4bda7054a9d162d4f11bc85e223347b"
+    },
+    {
+      "path": "chunks/chunk-SKWWQQW2.js",
+      "sha256": "eb35699a4af69fadad2e401a209b6ce76e64d862e180a1c09239ff1248c7bb65"
+    },
+    {
+      "path": "chunks/chunk-SXDWEQ2S.js",
+      "sha256": "96806e2b4ac02157fdb0d8cb54fef144284d25e11303a89e424213991ba4ae5b"
+    },
+    {
+      "path": "chunks/chunk-T7Y4YQ4A.js",
+      "sha256": "07ece29ce8bb82e8d90117c1f70685775f13a9741aa259b6c799396f892b3d5a"
+    },
+    {
+      "path": "chunks/chunk-WOCR2CMX.js",
+      "sha256": "cfe419ed6aa707ffef584fdb82ba56761ee65afc58a8c634545292d1ad81370e"
+    },
+    {
+      "path": "chunks/chunk-WVEGUYH2.js",
+      "sha256": "8a9d71efaefdc2ac3cb471728f6df9f63efcf434fcade141a87fe9f1007de2bc"
+    },
+    {
+      "path": "chunks/chunk-Z5B4GESO.js",
+      "sha256": "3fe6fc746f6634b3fde71ad6802c532143bf9188910144d5f14ae4b6e3d3cb2a"
+    },
+    {
+      "path": "chunks/fsrs-3-5IZSB6IF.js",
+      "sha256": "4862f91e613023a26496fbbcae90d99cf5280d647b7b79bf6b7e38754d97b676"
+    },
+    {
+      "path": "chunks/fsrs-4-K3AZAZHU.js",
+      "sha256": "ac5682840e41666b4425a6341a59a2010186595d10dff28aecb02730637b6547"
+    },
+    {
+      "path": "chunks/fsrs-4dot5-DHJKSAT5.js",
+      "sha256": "9e8bf3d46763b5a6f36e91c4c13bd17a97740809477c3e8930498db38046a2bd"
+    },
+    {
+      "path": "chunks/fsrs-5-PCKOJIRP.js",
+      "sha256": "0daba63ab755699ebbf421f9e0ed53bc38e9adec781704358aef413d7786ccd3"
+    },
+    {
+      "path": "chunks/fsrs-6-X2A76ZJA.js",
+      "sha256": "15f022659db02d05b2f59c2207dc94498d5d31e5bebdb05c694c7647102a3e7a"
+    },
+    {
+      "path": "chunks/fsrs-7-CWNRX4GF.js",
+      "sha256": "9ac4efd479ea88c6a56a0ce95757e3009a188303543cccce17c3f01f771dc98a"
+    },
+    {
+      "path": "chunks/legacy-H7WWUMI6.js",
+      "sha256": "cb6ddccf0d6b611cf27325de80603a53c9d2b9fe6c65b9c2f9042e3d0bb17a00"
+    },
+    {
+      "path": "chunks/pack-ONYX66LX.js",
+      "sha256": "61b6a51ae7220861af0fee68b2f6d340c4c25edb8a1d0ec139d4c71c272c91ff"
+    },
+    {
+      "path": "chunks/reviewLog-ZUOIACLD.js",
+      "sha256": "5124b923bc68fbcdd0a6a8ff0872d64fea7c6aea788e5cb3662178d472aed211"
+    },
+    {
+      "path": "chunks/temporal-polyfill-HKQHLL6T.js",
+      "sha256": "cb6a6c4a3fcd4bc713a98c787f1bda483290f081f31fec486e249a641c4d8900"
+    },
+    {
+      "path": "chunks/uPlot.esm-LV2QAMB4.js",
+      "sha256": "8e016e0626043ba223732a1171772cdbec4e5698652fbb4c3a34535a9f8150fb"
+    },
+    {
+      "path": "games-AB7NO35D.css",
+      "sha256": "23733a2341805c30b8671226290e796aa2e019e549a52d2ce5809cc19a6569cf"
+    },
+    {
+      "path": "icon-192.png",
+      "sha256": "3e300be8463a1f0be613029d21bdb2d0ca5d4ccee3e6194a31602fea929747cb"
+    },
+    {
+      "path": "icon-512.png",
+      "sha256": "4272d9ef2aa7d6580c1bda912d58ce3f7ee3f1bddc989447483f3899d028c8e8"
+    },
+    {
+      "path": "icon-maskable-512.png",
+      "sha256": "9450d4f74e0407c6614786466835f7fd555af00e47acd2729ede649ee77e4039"
+    },
+    {
+      "path": "icon.svg",
+      "sha256": "2bc0f4da3bf448981069b11e69fcbce586bcdf3e31d3d09dad59654550a8d63d"
+    },
+    {
+      "path": "index.html",
+      "sha256": "ca00138daac631e4551e88e8766211bf3e24386f445cfc206900d2042776e5cb"
+    },
+    {
+      "path": "library-COOSXPNF.css",
+      "sha256": "df24b0bb1d3f3685dd5de97f6574835877694813b309e809cb2a1b71dbf31791"
+    },
+    {
+      "path": "licenses/fluent-emoji.txt",
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    },
+    {
+      "path": "licenses/tabler-icons.txt",
+      "sha256": "b740a1d46122672da62833e97f7e7c8a13fa85cbc7445b584b297cc00dde93db"
+    },
+    {
+      "path": "main-7UJMOHRM.js",
+      "sha256": "e8fa732ffcb89dee42480be866656fd049e1bcfbc41fa51adfce699aa794c5c5"
+    },
+    {
+      "path": "main-KQARZV72.css",
+      "sha256": "268e2b703d296ba925254eb672cb115a16ccc617bf5989d33ffc65c1a7c9a8a1"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "60d0360a12efd740166b2045c5aa3233fb39d8c3eff0d39129296c005e9330cb"
+    },
+    {
+      "path": "odds.worker.js",
+      "sha256": "a97a6271a39aa4ecfbb755ee50d249f55848b462e27442b2732cb821e1e29171"
+    },
+    {
+      "path": "packs/INDEX.json",
+      "sha256": "85cdd8f8b2249fe5979eadc1d37b10654f11af75a89e4144a49534eb452e0b43"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/act-activity-auth.json",
+      "sha256": "4816f847cecba9dbefcc307525f39683dc40c1b26368466590291f9f738ec4b5"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/act-activity-award.json",
+      "sha256": "ba56740d2aca3f147377963a135146574abe8c2a1a39dbd362fea9741c8cc2ec"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/act-activity-gate.json",
+      "sha256": "dd4676708ef4c1bda84de45f85af339e266b3f7fea67e0f64f7237b423004b21"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/act-activity-inc.json",
+      "sha256": "50e6706066ecf567514b7311ebc16a5ce0830da87cd9034e8b38b0f21b79fe61"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/act-activity-needs.json",
+      "sha256": "a5b65a8e39b51fdb76ef4ad1260b7c6ab7c9387852f7f219f9276a108a1846b2"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/act-activity-options.json",
+      "sha256": "6a055bf27003180f571c14d46bb09a8882603108e1bcfda29e03156336203ba6"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/act-activity-profit.json",
+      "sha256": "e762694ecc29bbc503e44fa1c26de22742b5c8c7a817bf05fb51b2a241b27993"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/act-activity-v.json",
+      "sha256": "a8992a3726fc85581e079b14427147ba1dd50762698ec65aaf9d0d104ed24342"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-access.json",
+      "sha256": "2215d3a32024ccb219bf1e4c1eb9a3caab5f16c352248332941cd088d3d7fe8b"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-award.json",
+      "sha256": "e532c3c2fa34e57ad28365b888f2a40b8668b6ebc5dc9aef9f7dc99b193147fb"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-balance.json",
+      "sha256": "6912a7d4dd5ae9af6512ad77bfc9c0d971a87745eabf6da6c82b90909b89d4c2"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-bounds.json",
+      "sha256": "d6118d58c73fe2df296e8d48fb62d403fdca3fef76172e2324bbe57721344ee2"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-capabilities.json",
+      "sha256": "0bcfdf0b5d9d7e3c8db52c0c28668a85c3063e01fb2c8e8a3d37d301bceaf012"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-continuity.json",
+      "sha256": "fd95a6f3904b3acbf7e6362929642db695e3266eac4eec358446a4346ebc771a"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-control.json",
+      "sha256": "d24f519a558af109ed2bba7e12021e18d7ec2428d48fa2a1e75bbca40c13ad33"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-dataaudit.json",
+      "sha256": "f733fbf5f89dcc8cc550bd6b3fd33d7a8a3d081dda5a4f838ec32e640101d53b"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-debrief.json",
+      "sha256": "40323331e0d830ac55a20c9a4ce25430f0b4cd04659fc26bf76fa5e1d969b4be"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-digitalrules.json",
+      "sha256": "e9d009b4d7c15930bfa4bd1902b127ac96205ed6bff90a79ce23155e83cd0899"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-evidencemethods.json",
+      "sha256": "f7226bc7dff0dd41f000fa5bf60698da756cd543a6f910e18081f40cafbd5e3d"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-examples.json",
+      "sha256": "a991642bbe551601711bb4e59ae44a98a9133b16c07d1991821dbe08a908fb61"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-exerciseuse.json",
+      "sha256": "917078b328ab53625566dba295a7e69b1a485c575e67f8a251fd33b3b454f678"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-gameflow.json",
+      "sha256": "20bac907bc91964d9eaefbb55320a69452b4be54e3e419140860722808616b5b"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-history.json",
+      "sha256": "8a03d948fe5ab02d8fbf15581f08cfa3df5658dfb1b29fb900c55b5641df0540"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-lifecycle.json",
+      "sha256": "5c0bfc361735b4887612dec50ec055e007b4131c8c3becc60b7cc9870e25bae4"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-market.json",
+      "sha256": "e74808a3f54f76d2b0b3a419f5a4e8e1e9b264864daf807dd91c35f2b08f9114"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-missions.json",
+      "sha256": "6cb05992a5e4366ef54fafc54719278de6d196546884f091265f2af2077d334c"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-models.json",
+      "sha256": "f578e5d508cf41398af952db053fdd3868b5b44edf3a4566bc4c77ce72b60165"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-multiplayer.json",
+      "sha256": "7a4c4e8132a815a06386992b095b8aeb1ed53080ba30587a07529aa7845dd13a"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-needs.json",
+      "sha256": "f5ce63ec45b372e758d692be7f29052b31aa4bd85c0ccfa4328eade8e5b8f627"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-plansroles.json",
+      "sha256": "9923d1562f5a81288300483c3283dec6005b388404ef00252f53db6ebeaa55d8"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-processmap.json",
+      "sha256": "9bfdf8bbab30a0154fa60b3f7bb55a19a0f90c87f57f27c47f222a3c86b9a60c"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-quality.json",
+      "sha256": "e0fc788cce4e700f9f4e46273701ecdc0c49d1bbc99bdf3ff90297166db8e6ba"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-release.json",
+      "sha256": "5a1f3eb362c132d9f2e8e0e38bb7e34c05b431123e99f36bc316f0f6fb0a65ee"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-reqqualities.json",
+      "sha256": "4f8ee6387d1dfeda23bd5620a31655326e2451de2ba6714cca23c45feb71333d"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-reviews.json",
+      "sha256": "d9bf3bdda12c125b4806c08c48d0ae976037cefa57baf5542bc791cd7f2151bc"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-roomprotocol.json",
+      "sha256": "5131e23372db36a948d26a4e07e878ded01f19104b8198d62ee771c6511c8229"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-security.json",
+      "sha256": "e0c7a3395cbceb9899ea5340df433faf5162bcf70a47929e34576f1eea6d7049"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-sos.json",
+      "sha256": "649587ca3627a16e76085be9b4b42a8aa9c06a7985ffbdb4f5835737ab0e8bf2"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-state.json",
+      "sha256": "3e0895ad304d1ba273489a527c1d8a19c197edc4e8c71e5019949136a7b0aa9e"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-sys.json",
+      "sha256": "b9156914528fee772ab5d9374bc76da9508cf448a481536f7aacb6734f822fb8"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-trades.json",
+      "sha256": "f100d5d14317487411acacdc11f8a023782002684fe41dc7beeddb8e9a471ec2"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-vmodel.json",
+      "sha256": "2ec467f10da2bad87e76bd6a418acb01e4b5e6495d249b659004e8d0afd3b9cc"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/ch-zero.json",
+      "sha256": "07efea85ef8c019783c4f3f260e345211fbdfcb3df87944633ce107cbec64067"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/glossary.json",
+      "sha256": "285161cbb0f35213644c133bd59e7d4788344e8c3dcf0bbde3ad7f2c898fd87b"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/meta.json",
+      "sha256": "2442fbc2c8a06863aab758ca0862f37234b715b623fa9e7f3243fec49140bd34"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/overview.json",
+      "sha256": "62453fc8becb1c6600645fff1b0629a1fcb37b3ac78077e73e43f8f073936ac3"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-access-1.json",
+      "sha256": "224068758a2e29f2ac78066e1dc82dcfbf33e312feff9e3e4ff88b9a7ab312b5"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-access-2.json",
+      "sha256": "24d752a08fa8c53f5b1d4e2ad0e35b20def853ab1f823496f81eb54d231cb4bd"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-award-1.json",
+      "sha256": "5867d1f529c43480cea91e93afe37b6f9d323ac958a96bf1dfa9be5d2a5afda3"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-award-2.json",
+      "sha256": "217448d8d234f0378d98f20e6cd63d8ae6b83fa0903e21301ae457b2dc028a56"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-award-3.json",
+      "sha256": "0200e607704335a8ea8c96ca92381d278e0fa357080759d05517bcd8ea853a32"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-balance-1.json",
+      "sha256": "cd1084e6bc15fd796a86afff3a9f6892b40a66a3be3796acf04810ea28f60322"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-balance-2.json",
+      "sha256": "e125f101b7c48dd365cf30a76a27a3e9d619215a37b19314fec74be52d31b746"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-bounds-1.json",
+      "sha256": "2ea5015ef6a289cc5ea1daf8c34558e487d3021122d198a242d57168e7042b4c"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-bounds-2.json",
+      "sha256": "58bd63fcb33aec7255c58389ffc273a28589667834a7b61d8cffb601393b3b78"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-capabilities-1.json",
+      "sha256": "831bbfc4083723ea38757031f3cb1b0dadd087ff70b0500131870b697fac3aac"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-capabilities-2.json",
+      "sha256": "0fa4f73341f0310bf2bfceb60399c6d8c1a17da94af4089b50cca2e9e30f16e1"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-continuity-1.json",
+      "sha256": "55f56918efafb1d7b7bc87a3134681b9eb0085d2c3101a485efb5edb5b40ad5d"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-continuity-2.json",
+      "sha256": "5de4d5f6afe98434db5f05e8b56f23ad1ba11263c65e3b988ff4baa9ab041259"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-control-1.json",
+      "sha256": "1d2a03a613947fa555a4e556aee6b8037ca19502502e87c9e249e95c7ec7cb6e"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-control-2.json",
+      "sha256": "36d604cee9dc20194bb97f3d38d6b4e2a1b9262757ac566120857e6e3e026ab1"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-dataaudit-1.json",
+      "sha256": "6a4fe491173280b8248a708505c55c2b66c5dd1cc6151cf3813e14b0a503f5eb"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-dataaudit-2.json",
+      "sha256": "f82c98de27c7bb6681302cf8c54ff7438b8078a97dd835d16c980232a133f7ad"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-debrief-1.json",
+      "sha256": "b99a4957519819ab18b142c770b8ae44810a2f73cfa2cf3785fff994c717199d"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-debrief-2.json",
+      "sha256": "6de9fce533e92088b8ea9af9e314c99712dfa5b440d0313334b5e75b3f95f751"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-digitalrules-1.json",
+      "sha256": "6ad0c3e4e606145b0ab9d2e7712abaae7207cdbc5a1e06d0176481038f8344fa"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-digitalrules-2.json",
+      "sha256": "62b873f0d52c4242c2e8db2a99df11b4195b3658723209a22143a2847124c36b"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-evidencemethods-1.json",
+      "sha256": "ffc94bd4c5d6fd4bbaf5426a5da5d595107a9fcb330088d444f6ed3e572bb389"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-evidencemethods-2.json",
+      "sha256": "c555bc0e2bba802f0315d1df7e290e0917e8a25289c1156c02f40899338d755d"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-examples-1.json",
+      "sha256": "a3b44ea2701bbb3732aa68701d73fba1aa91ec87690170248a14743a2a72e106"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-examples-2.json",
+      "sha256": "117c4e278d3676ca0678558681abcbde4322aeaa09a46f1c3d54bf493f311d34"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-exerciseuse-1.json",
+      "sha256": "0ff0dbd3fe4688407895cbdef5b6aabc5a81a4451a6269f2bf727377833e0622"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-exerciseuse-2.json",
+      "sha256": "ba28479f7207f5eec88d39a67af00fdc05d5f19b44177b182bad64840f0fd1ea"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-gameflow-1.json",
+      "sha256": "e0e09a55ec2747408808a4270c1ace099846ab653a0343741a216c3e7755b962"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-gameflow-2.json",
+      "sha256": "84cec49be634eff7a5176681257ca696f191ec73906229f49db74f482915d18d"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-history-1.json",
+      "sha256": "fb26a9de6e29642f2eada35c6226ce0499febe3c9b1f63feed0d2c2743f5c03f"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-history-2.json",
+      "sha256": "74e75dc9519df87664d7c073745ae9861247789b82dab18183e3394d65c8615d"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-lifecycle-1.json",
+      "sha256": "fa791e1a44d6ad9d18884a78580549a6f77bf1eb5861a091ec0decfad9c9d933"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-lifecycle-2.json",
+      "sha256": "e4705db558a5330ca387d3bc8dca56eec0cbfc028495d70017368d0b57f00753"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-market-1.json",
+      "sha256": "02bc35bb9489f05ee08a33c1f52f182015a90e4504b8f7f3e0bf6a75f442f567"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-market-2.json",
+      "sha256": "f468036c713c7d6f9a1e45915ef11c75ce11a02c1fcb8e94cb60340c25a3ba88"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-missions-1.json",
+      "sha256": "e3b1041916d9c3e2453b7f3c37bbe9c2f363a53b994132d5afc63da387c66224"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-missions-2.json",
+      "sha256": "fb35bc152c6ef90884480b74bff7a969d4874ab08e5dece4b5dba7af5e1af9cf"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-models-1.json",
+      "sha256": "b2f57c41263f9c81a65bcc10954008c498588c1097eb129b7383ac0be9e4fc5c"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-models-2.json",
+      "sha256": "c376bb8584c22660e5725ec125dc8ffa6721d8af82f609f906fbdaf75b62e0c2"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-multiplayer-1.json",
+      "sha256": "59ef315c0756004282ee5999e54e838cf03121b51bc1c40c059b318c2d1e2baf"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-multiplayer-2.json",
+      "sha256": "b53cfcf32fba4c1695dacd42789a8a14feaca2bc9fdded2383c21432068e9703"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-needs-1.json",
+      "sha256": "1c03bbf7c5aff72eb5d6fa7d9b0e9d32d0075e746a2ada45621a5f9bd7e5e4e7"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-needs-2.json",
+      "sha256": "dbd19ced5cbc4b817a809b91c3b2cabdc052a89c1dbcc26d6ba62485e0b3537b"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-plansroles-1.json",
+      "sha256": "62cce1a50420c6d30f52abd685e9520a8e765a5db307ce6eca4021667cd7997b"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-plansroles-2.json",
+      "sha256": "f95a327b40c5afded222512168a8638a9a54cb398475f4f1fa10680711660a0b"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-processmap-1.json",
+      "sha256": "3d47fa75f7e0a5de517cf52c093f0fba16b9ce1903704b4ee3b3cda09bc224f1"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-processmap-2.json",
+      "sha256": "afd446e243dca17eb87d3a11ccfc1d32979471b5b9c51d3e6c33f4814cca840a"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-quality-1.json",
+      "sha256": "3a3f370b40ee30e9cbaf226c5c32bd59956856a4a36042278c46546848472c7c"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-quality-2.json",
+      "sha256": "5cb2b26f7e23640486c6339a9c09a63526b155de627d1a2c692c959c2c89f460"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-release-1.json",
+      "sha256": "8ad6195dda2bec8b6d5b61097b46e3ac67d1f03d5d9175be7711de3cefe0d822"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-release-2.json",
+      "sha256": "543fe8f07ea421cb7a2439fdc1d1d05af604ba3b9ba98cf65b95955948334693"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-reqqualities-1.json",
+      "sha256": "05af138b6009aa26cb641e8d104278e0c5d2a9bab0f4dec745b925959708163f"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-reqqualities-2.json",
+      "sha256": "f0854fb95dafc99af0a6454730ed6db6f5f633dc4acc45d1cfe7077b47ec632c"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-reviews-1.json",
+      "sha256": "b8c20b93793b5bde87809535c3e081d182e621086db48464b9de1a2eebf7ed15"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-reviews-2.json",
+      "sha256": "3b4bfcaeadcf32f317ae5450bef78757d618860ffd5ad24fe9dc1b9e0ef6adc6"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-roomprotocol-1.json",
+      "sha256": "055dfaf30c28c91e594762b06906cd10f429ca96d7507d64f54073078cea97ff"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-roomprotocol-2.json",
+      "sha256": "a3fac8f36b5d88a68195b03a3f036e0a97ceae4e0c8490ed104a7eade567dde3"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-security-1.json",
+      "sha256": "e85542944dca8edec3c6816a55dd29d139d0f2e56f518636a304c8e101f5d848"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-security-2.json",
+      "sha256": "de62d5e323148bbaa2fe624afcda4deabb7a21adb0956fc3aeb319b8601dfc11"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-sos-1.json",
+      "sha256": "f356f3180d119e46e0a4fdb077a66b9025814e5a1574e4bd10f0a3e621571839"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-sos-2.json",
+      "sha256": "9edec7431c7d167eb27e4b0a2978666addc2819731fab0e5d31311817749d124"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-state-1.json",
+      "sha256": "555eab2c72bf9cb07e3d9b7310593c9053d83d47913d63324d6b83bf4f8241b4"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-state-2.json",
+      "sha256": "baa6282515907aa9b33a82f581791faf4ab7caf29f8a5889655b8331a89c9bc7"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-sys-1.json",
+      "sha256": "32fd8231fcb595f78a2a1f4c212cde31ed3c268a2608864acdfa8a4561ab43ee"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-sys-2.json",
+      "sha256": "8c87415502037abe9f85490007a6d5d08b8288f8154c0045f7b0a1d43dc7f622"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-trades-1.json",
+      "sha256": "80ea9eb703359152f65b4b59014ce9692c8010916851b810d6dc59e1e7df1ca7"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-trades-2.json",
+      "sha256": "0d07a63386c273c5bc6ff407b9ad9846df4dc3a9692ce46904a35ddf5dbd5807"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-vmodel-1.json",
+      "sha256": "c01c48dcbd23c7ad0a291b38d07791125c5ef2e5180099e75bb79a252ca71252"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-vmodel-2.json",
+      "sha256": "9fa4818239b5c028a445a1357ee17e5db390014b72356f0723b21748e5c94000"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-zero-1.json",
+      "sha256": "6f74a7c58ef5ed9c9f78144e1dbe5c0aaf560e071f62ae44648575639931dd3c"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/q-zero-2.json",
+      "sha256": "55eb6ea3e63de25a12d4a5de446cd0b9ed55d30451f78f19cfaeb594a8d6d3d0"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/items/reference.json",
+      "sha256": "9b5abaf6edaa88c3889e7ff704526e5653f39698907d0f06eb0eb41e614b3909"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/pack.json",
+      "sha256": "d6862a81507d67b92dea93c6a6b23aa704bc5898e71fbbce59e6b00df4a08539"
+    },
+    {
+      "path": "packs/blueprintbuddy-systems/rights.json",
+      "sha256": "aff17d55de299c72f94bd0e305f7c4e3afe9976079ca225b1cd25c1e9c4f784c"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-estimate-pending.json",
+      "sha256": "b920ac5a39ac451efea43bbfd3e4b8adff1d75532f7c8876da180d1d7ab37588"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-match-audit.json",
+      "sha256": "048ce16dcf9edb8269e3dea46118b8bebd176b46f5ef2a9e3d42b93ed186fdcc"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-match-baselines.json",
+      "sha256": "0fc56ff0e008dfc60d6892bf344cc5bbb20f36a1710893a94832556c82ec90a2"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-order-audit.json",
+      "sha256": "0061bf33be85cd1abbf7a4048d3d68ad8e9e96deec1d9cbae3dd7d743ee1458c"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-order-ecp.json",
+      "sha256": "3877ee3ae36ab5a7e7216fbb7c7c933551c3ce1f9fb06f22fc0659d58e077d82"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-scenario-audit.json",
+      "sha256": "4326106e65ec024dc665442b662b5f49d839cdf78305695045ea8f22f3ee2f0e"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-scenario-authority.json",
+      "sha256": "81f9d1d5231dcd6fd38c49f28e0fd7221078e688d5df8a81ab6edfca591f7236"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-sim-status.json",
+      "sha256": "b651b988d6766a6b7fdbb70ba91bd9a3a4f9ef5dd73d8b07023297a6ade6825a"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-sort-change-states.json",
+      "sha256": "d65bbf182ef136d3a198543512c4b5f87cf92a130e439ce97a842ec8f794edb7"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-sort-data.json",
+      "sha256": "334bbf3bf544949ce7ff4bc99195aec7fcac837b2f399324c733a5d26b0282b8"
+    },
+    {
+      "path": "packs/configcompass-change/items/act-sort-ebs-wbs.json",
+      "sha256": "5cdca24a0c06787950816f13ee284b3ebbc0a5466ce5e95620f68e7f6ff5848f"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-audit-plan.json",
+      "sha256": "a998ebb9f4e1eaa771030272c13ebda6d0af8ebc0152222a908a6a30959050d1"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-audit-purpose.json",
+      "sha256": "6e061e89da643a7297b6aba3435d71db267bcd1d9da4ee048af64f3e4dd5b932"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-baseline-control.json",
+      "sha256": "19d39c9692ae7c5120a680e4b3bb1f0bff92f448f0592e3fc44748eafc1cb6c3"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-ccb-followup.json",
+      "sha256": "5a2d3111fb27cdd2f42586a1590d767c7362a9c2b29b3c2607b24c1362b00281"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-chair-audit.json",
+      "sha256": "81f96fcdf69bd463cdd3819627e9b6b8be138440730193258d3ac9f695b36104"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-change-path.json",
+      "sha256": "4c7dd2c31dc9bedb968de074b932dd8fb51202995a6e900f2f194cb824781369"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-choose-ci.json",
+      "sha256": "3dc7dad3a0959bc897243e765be705af301af34e0489d0acf3f5b4eb95ca1924"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-close-findings.json",
+      "sha256": "aa3e8a321b6761a73429f7552bace73ef2f406f6a66db675b8299cb55c2f2977"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-cm-overview.json",
+      "sha256": "aae5a41fc4b0d9ee87a26839ad24645e8d8ebba7bbe701627063bc9667c0b16f"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-csa-fields.json",
+      "sha256": "67f3b132f18b1927102bfef29c221d7cd08b140293323c0f79fab9cd591fd36e"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-csa-reports.json",
+      "sha256": "a43cd3e47d548714fbedf4cf16de6e608815bba6f136221876a9306a5fb28b74"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-ebs-map.json",
+      "sha256": "4f4fc03c6095ed3720e71c97a726aba3b3a1f5869fdc079c17a27fb40019e20a"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-ecp-content.json",
+      "sha256": "59b7d2ffe97fc5d88eb075daee3ccd7e2cd4ff1fe4595ea7757dc5127025ab41"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-expert-impact.json",
+      "sha256": "fa3ea3c8df0d18d803d800ba5d317b735a01f350a5e7edfbdda1614970da847f"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-fca-check.json",
+      "sha256": "12ae19bae7be6cc054fcccac0e04e01c5750c0783f5c6f7b6490677e7d9e2414"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-mark-identifiers.json",
+      "sha256": "59c4d841249f81b081fb59d3e05517ec09fb3369defa253e1db853cd2c3637b5"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-pca-check.json",
+      "sha256": "3aa08559859fc44ec93d0d942e00e1e64be6c67018eabc349bd9718f21d28d1d"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-process-sample.json",
+      "sha256": "2a809a68c1445e61bfc639c56c0fae7974645de14f72809576e72696496e57db"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-status-record.json",
+      "sha256": "508ffcc4de1031c02ec007acd4beabdfec5405be8a6e9d423d2ea5e93cf896cf"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-tdp-release.json",
+      "sha256": "ae5dc8696ad2d56fff752e63207d582935aafe848f69a62c266ae935fc67e0ca"
+    },
+    {
+      "path": "packs/configcompass-change/items/ch-write-cmp.json",
+      "sha256": "b2c7d87012dd88661f4e8e6f8f8a4243fa0890e92518a7fb0b7d9d05418b6494"
+    },
+    {
+      "path": "packs/configcompass-change/items/glossary.json",
+      "sha256": "f1512dcff06a076d61b8acf2bc6d9962b7f77f9481a1c4d551dc3506c5584447"
+    },
+    {
+      "path": "packs/configcompass-change/items/meta.json",
+      "sha256": "c9708ee7bbebb4ea936975715f45067dfe2c1f81f1ed17ca0a58dd0208ab2776"
+    },
+    {
+      "path": "packs/configcompass-change/items/overview.json",
+      "sha256": "54b756718b910ff6aa2ea073cf82ab306f5416f0741492575da4bc5357d87ddd"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-audit-plan-1.json",
+      "sha256": "91e25ec32ddb389781136e6652247d8475bb98d3773eb59b522437a11fcb6473"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-audit-plan-2.json",
+      "sha256": "bafe130103881fafdfa458503307d7131fb3c39b88d21db490a5964a560f6dad"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-audit-purpose-1.json",
+      "sha256": "ebec2ff767ce4d97ed08ad23baa39077840bd2e310253471dad4e2299c7b61fa"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-audit-purpose-2.json",
+      "sha256": "14f3f432bfd530fbf5a5ecae27f2392cef902bb7a7fb493f3720c3b801e9a163"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-baseline-control-1.json",
+      "sha256": "03c34d70fc30da76882e210798a285a572a6978eea27ed30cbf8994922208d06"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-baseline-control-2.json",
+      "sha256": "85385d6b65089b1cc82b1c8f55a4b7893a4a335896ff2dbeac4b88213e4a2c09"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-ccb-followup-1.json",
+      "sha256": "3276a26d90309ee923a3b944e8e49a327f6c2632f10ac504cc1b2baf446a3fee"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-ccb-followup-2.json",
+      "sha256": "8373f06666559162ac64e8d94a25a5e2ae3fdf41425cf76ab02233f02c2ed2a5"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-chair-audit-1.json",
+      "sha256": "b1c5211927ad193082f0380b2564116ff62aa1233690c334d175f01b56fc8c2b"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-chair-audit-2.json",
+      "sha256": "fbb04b682cb22a5b6532f1a576ed0e5e3893d2a35e0089e893d8377ac819c985"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-change-path-1.json",
+      "sha256": "b78c8296224682e62cf04ba4e55a1e8d79210f8a3646d78ebdb4df606744c6c9"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-change-path-2.json",
+      "sha256": "448602b2703b1891c52eb66d9ec2f8dca2a3ecbb4178bf7c9e68ba3a4df303c7"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-choose-ci-1.json",
+      "sha256": "364bdbf33da14e835ef7db0f001dfc7267634d434740a7e50dfafa6944f7a85b"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-choose-ci-2.json",
+      "sha256": "287b7164253d161f29d0167cab474112bf127cfbc6bd3a7ef2b20bc047789b6c"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-close-findings-1.json",
+      "sha256": "41333eb0820c745e8fe51bf03d51efb80f453ea7575f702901e489a332df9ac8"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-close-findings-2.json",
+      "sha256": "eac9818d0d863d2c5b9e3a5ba246babc5cd942d704814690ae1ae09d2ea37319"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-cm-overview-1.json",
+      "sha256": "949e1080ad2da6d909a2aaecbfdaaf6038ae5e9baf28c90d15057176aee29c76"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-cm-overview-2.json",
+      "sha256": "880d581757633fbc8d8d67ad9540717ea7720cf8d15d69771713c7a15e304bd3"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-csa-fields-1.json",
+      "sha256": "db37d2664f4cb14e18e1ee055c6cb635e13d5c2708bc67d0c11bde2a414209fb"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-csa-fields-2.json",
+      "sha256": "d2512a39a620ba7cadf68e68ec48aae9706ad21b262c99804365c498cc415824"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-csa-reports-1.json",
+      "sha256": "26b1ffb705ab5a2a8025610938f0acf6edc5d6895ac6fe30cb64542769b04608"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-csa-reports-2.json",
+      "sha256": "95ae0d5bb4b011012213c07287bfc6b7c6b5493454be962d9334a92564ca8dfb"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-ebs-map-1.json",
+      "sha256": "7e5b7996e897beb776561b7a8164f67489bfa75c80f0722c8b867b76bab3ef94"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-ebs-map-2.json",
+      "sha256": "985b693b377ffeb01d427dc6d01d332268264159717e83057709c686d6fd0339"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-ecp-content-1.json",
+      "sha256": "3a90fc338bd2b8a4b91480547f1581d4154ae51b8a075c4254e6083f09692edd"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-ecp-content-2.json",
+      "sha256": "dce791c55a12800b153241bd77e2370add092bf3a2a4a96a3e73272a437ebb5c"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-expert-impact-1.json",
+      "sha256": "7042396defaf33afe372c575fe5051a13bcad4df78b7fff23e3fdcd178a51608"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-expert-impact-2.json",
+      "sha256": "d28406682c413b535341161d60b41a44ace6f06a0d2f69eb59bf843d0ff95b85"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-fca-check-1.json",
+      "sha256": "7346cfc2eb9a26150a74acfbb3cd876685787235a81788dad4400f5dec2dbfb0"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-fca-check-2.json",
+      "sha256": "07b4669a88cebc9048ff772b602ca49e9f54440b1093fdb59eacdec94556229d"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-mark-identifiers-1.json",
+      "sha256": "ce255117471c7ece6a53858ef12c585e4819d2a758dff156fb5f8408c70c702f"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-mark-identifiers-2.json",
+      "sha256": "812e3ea0b5526e30771f5b5764c8e5a3ab1a4e200f42b71a80aafedadbb2eb3e"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-pca-check-1.json",
+      "sha256": "b3b8e8f10e93af08bfffb9d80d2daad323cc6f5687f5edfa4a9c3dfb96419577"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-pca-check-2.json",
+      "sha256": "26e248c23f98c8e4d7b02003bf00212b239a969a9e12bb7ec3e4aa0e9d7695d6"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-process-sample-1.json",
+      "sha256": "2b3ea522d92bdf41ed4be0c37e53fa2cfcf1a5c6a077a77355bb2e8809b286c5"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-process-sample-2.json",
+      "sha256": "8c29f0736a168c6eccf7478e0dd71dda37c99281c1e5c363fd6750eeb10bebdc"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-status-record-1.json",
+      "sha256": "1d2d257d7f874d2a3fb9f5b7dc2dbe5463e5ea9dc79628cfcf6699dedef54b96"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-status-record-2.json",
+      "sha256": "850412d4664d6cbd3a5671bd160ed97ee39b93dcd0ef52efc039c8d4f10e8aa7"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-tdp-release-1.json",
+      "sha256": "4e94f0b2af54654f5393f8cb91830dbdf9f13da468eb3cd965b8b95b6e9ec38b"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-tdp-release-2.json",
+      "sha256": "e62c95c821696eda658297a4dd23409dab9879ec49d1e8493424b1fc3ccec00c"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-write-cmp-1.json",
+      "sha256": "419bd6d765cea256b44f28a0f2f215a696b7abcfabd16160f751f24769fd3979"
+    },
+    {
+      "path": "packs/configcompass-change/items/q-write-cmp-2.json",
+      "sha256": "70069aefd6605a8b90360cbfdee7c8ee5dcf61c94c29b5f525a00897d5a4b249"
+    },
+    {
+      "path": "packs/configcompass-change/items/reference.json",
+      "sha256": "72f03cafc872945ecd78bea9da9c97fd09dbbedca3c0a1cf3f24b3ce3cbf539f"
+    },
+    {
+      "path": "packs/configcompass-change/pack.json",
+      "sha256": "4af8f21d962b00f8036cf1506a3087d6737e2d527dba94c403530024289813b8"
+    },
+    {
+      "path": "packs/configcompass-change/rights.json",
+      "sha256": "125936d834c88b4a41e10b38708fa37b85abc52882247667ff3588843008a017"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/act-capacity-sim.json",
+      "sha256": "d3427ee231d7d0549a86f99b87fb461b2e493ed41115239681acf5ff275f9d44"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/act-four-principles.json",
+      "sha256": "7a98bcfd1647a05d4e87fc456e50c6bc801059784f0f3208d676885e05d16ac1"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/act-gap-estimate.json",
+      "sha256": "795b7beee8bcb28c0c5265b4e1bd644c9e09b62a62195f03003a1ee648f07cd1"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/act-gap-story.json",
+      "sha256": "69ba810ea5c062f68314438f10b3e423b246242e47b79a33ae241b10edefcd00"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/act-oa-order.json",
+      "sha256": "cdeda4b1a84fb2c9f1995d6a3c1774f611ec6cff1a04a54d04cd870494c8ad28"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/act-phase-match.json",
+      "sha256": "caaf82edbafbd7849e819a7ae7453e33ad52fbf8f0b4bfb6e52abcdb9e044956"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/act-stream-story.json",
+      "sha256": "5c20c1124282027b39c08372a578829da410b069d4c2face106d7a1eac786f76"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-details.json",
+      "sha256": "f412cccbfd65cbf75f3c51afb6e4c02d1adc69484f486934f42828ed69f2c263"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-division.json",
+      "sha256": "35fc6b7803b2645089b66fd8e6ee936f685226785a50abb2b834ae60c262e49c"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-engagement.json",
+      "sha256": "78841aa3cd5cb0e81c183751cd0068e0de74f62124dcaa460901b7872a839d48"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-framework.json",
+      "sha256": "ced7a5ba41612f989886373c975beac66dd18d631707b8781afe9a81b3cf2e08"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-gaps.json",
+      "sha256": "f02a7729b47a7557efdc6d21331e79e8045e47bab842c66fe1689d6abc0ec2d2"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-governance.json",
+      "sha256": "227a5ac4e2ea968823cf483c4acaa25d145d37a12f4e1458449723cd40d58cbb"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-initiation.json",
+      "sha256": "ff9a61020bbd77235ea5e1bcd14154ced352bf851c2d2fe6c96592ed11c4eb65"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-monitor.json",
+      "sha256": "032ca1dac8ecdea5a48e5945d63f0d93502a5d4153abcfa973e21590fcd0aab3"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-outcomes.json",
+      "sha256": "b849e0a3f7a7f73a6d5e35aadcc6f6f128c221e2f50828c1695117c411a307ea"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-phasegate.json",
+      "sha256": "b5377dedd41ad82938577bae9bfbd85c743b94c7f8b5c4b3ed4743c6c82156f7"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-pricing.json",
+      "sha256": "8e69d2fbb05913bba9c72b414f7e1aece8c8db0be1c44ac8792baba8650e70aa"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-principles.json",
+      "sha256": "7d7b4a1bc35381bdd5c1d91b98024a458363ee8b2680362faefa11d9de10f786"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-purpose.json",
+      "sha256": "e61b8cb2c71830bfccf1a3e9858bb648394f6367809fafe01fb92701da725cdb"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-requirements.json",
+      "sha256": "d63df7ec3ea0e8868b1cff4b4a12ec1bf6acc0f06a909a627520490dbe3a9774"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-riskbenefits.json",
+      "sha256": "9afe066761684f7146ad06c590fd384c737a57d982958b34169cbf3c5bb34b67"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-scope.json",
+      "sha256": "860c4741d1f2eadf9f2edb095e34ee1eb056895ee04a49f895771e2f33d1a476"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-sixsteps.json",
+      "sha256": "e4f26ee9bb68b34e6ad3b2b298cea8ecfe48ab7262d71f4e8dc297177ccf0e4e"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-strategy.json",
+      "sha256": "ad4a8c9b07238250c63c6cd25e920ba1e215764797bc4931779d30de653d0d83"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/ch-usage.json",
+      "sha256": "27c99b3ee8641b911d214dd5efab2ec24924b621fb70e98bd7bffc1122cd5df1"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/glossary.json",
+      "sha256": "3262a7660e7b51cfc4be9fef7caeb824193a16311a3bf2bc8e173828a5acbdc1"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/meta.json",
+      "sha256": "e484f07762ef1274e5260f22d09ef8b1d0f4df477e2204a7a7bd1cc27f16320b"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/overview.json",
+      "sha256": "0b3a468a34567bfa6f4fc96e229d83366040b2f285ed3867871fe8e76a3bb585"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-details-1.json",
+      "sha256": "edabde9eeb79dff5e4cd76093f5e607857ba6a234a263ef1acae7cae61fbb5c8"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-details-2.json",
+      "sha256": "daa3554ffbb1c48aa14e3dadbb0016b4fbb52152825748cc6fd366adbc4ac785"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-division-1.json",
+      "sha256": "75e2fea08a565a4fb3d09a0d873948bbf09d0aab8ba999cd6a13fb188c96d0c5"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-division-2.json",
+      "sha256": "e3fa078e209efad18d904f5dad973163b2f5f9203412f1feed6365e4923d1acb"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-engagement-1.json",
+      "sha256": "512c572bf6f17c5170ec947fba346700c7378b1d3a3bd023c8053f1e699c88f3"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-engagement-2.json",
+      "sha256": "ffea04a708d585cb67e347c5437a41c91a7b923229014c588e62846d5480104f"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-framework-1.json",
+      "sha256": "7ec86912ed58e8ad7e2fafcf30cddd4dc2ba9a6cbca8bd182d1d5e8e80d11da2"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-framework-2.json",
+      "sha256": "45c16821064d2bbad6cc6f4d6770e65dc761101d13b620398d547763b96fe524"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-gaps-1.json",
+      "sha256": "8c45297ad37055220ae8bb798e384873e69b076e2aee581bd788121575e90bed"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-gaps-2.json",
+      "sha256": "f62cabbb885ddc7dea44b4bdc4826b430d29c5a8d692de8b0972a14678890ec0"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-governance-1.json",
+      "sha256": "9c1f5a1555c52290373f460a897e015ce561dde80ad8a135e97c3a62048b0897"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-governance-2.json",
+      "sha256": "318d40876c46264f0e02705add8c86ab1884e1886afa2960417ac107272381d7"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-initiation-1.json",
+      "sha256": "cba466604b091ca076463a645ab9a96e29ac988586fac9a4abbaf5c952b97978"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-initiation-2.json",
+      "sha256": "463c71cacc18e8aea388404b02fdcccdafe7e502698e7c6b6398310efadf4aad"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-monitor-1.json",
+      "sha256": "82fd2335b9f02f3e980312fdf94bb5347ec26afdaec8998768ab2a52775e111d"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-monitor-2.json",
+      "sha256": "7dbcf958f389c2ae79dcd4535b49ce05ba91b05d4ff058cf354fcf6eb406d7f0"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-outcomes-1.json",
+      "sha256": "a2bd87ed7720fcb5465b77a087c204cf6dc415cc82f7950e46b948269fa7e893"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-outcomes-2.json",
+      "sha256": "3d9af5ee3159213f3eb46cc3f6f89dddb2033169a6715befbe98afdff524b944"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-phasegate-1.json",
+      "sha256": "d4521622411cba638fb33c743bcfcf810f740a247ffdb6931d6cf27fe398485c"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-phasegate-2.json",
+      "sha256": "c118353ba1e0d3b805acaed51023ed08aa283fe138a077d494140515206a6d09"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-pricing-1.json",
+      "sha256": "59d84a811ac25abf8991dd194e2b96265d48043c5854bdac08fdeb888adcceae"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-pricing-2.json",
+      "sha256": "bd146375bfbecc050c7eda8264384a4e42754eb2611bcde69f0b87454869c91d"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-principles-1.json",
+      "sha256": "b7d4feb3e66d33e1cdb4c5bc54c780b010d192dc58aea91cf2f21a44989b3738"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-principles-2.json",
+      "sha256": "cd98ce186124caba5e47504fee64b3b6c7a01603703be0bbfe51c8521ca90575"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-purpose-1.json",
+      "sha256": "26875410abd1a700071816f0582daf5d932997ae1dd64bdbcd80e5bc9cfa3aab"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-purpose-2.json",
+      "sha256": "69ed5aea61d1d2b32a062c09cd87da89f9b98d7ddb6a5f7bc97d5f5e055ca1d8"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-requirements-1.json",
+      "sha256": "ad95b0410096c7f04f10a6f03188b277c20079c6f5f7b5c3985973d4857fd03f"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-requirements-2.json",
+      "sha256": "8e6f0eac2915813711a88713ebfbfe3947e4b9b21b18cf17e151a78424a039f3"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-riskbenefits-1.json",
+      "sha256": "ef697579b68189b64c5f4906e8afdaaee44011867c6dcbe17cf71b51759e6f1c"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-riskbenefits-2.json",
+      "sha256": "82f96a969875bb1caa023220810623b4bc89bc2613229605e3bfba190023f39e"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-scope-1.json",
+      "sha256": "dd0b6bb445879bef4b9ae6ae0f7da9447d6e23cc6b2ab3564d9e1d02ae1ccb50"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-scope-2.json",
+      "sha256": "c57cef2e7d36b78248cd34d279472d2fe6b892c71d9ad1893d19d7de562a1fdb"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-sixsteps-1.json",
+      "sha256": "a6ab87eee1f5b5b115804a80cd162a76de30f91a78b06c256f42f7e06d3e2a7d"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-sixsteps-2.json",
+      "sha256": "651ead91724f021389d3e75561897d26f80ec2e9537a3f904db7c8c08a381a5c"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-strategy-1.json",
+      "sha256": "898e4533f60b40483cff5e2b23bf0fe95f4ca4784896a803377d53a7cdebec5b"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-strategy-2.json",
+      "sha256": "d8e30143ae9c44e474e737284dbbcb3e0204d01af444487e0a0ced1db35732ce"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-usage-1.json",
+      "sha256": "f01e3df5689728e62a0588dee22f782af2e63d10beeb6d472974e6dc505cabd0"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/q-usage-2.json",
+      "sha256": "b5a83d9c80df1d3c8d151858fa8f115185c5c019d8c4fd22cc489bd7642d33b2"
+    },
+    {
+      "path": "packs/supportscout-equipment/items/reference.json",
+      "sha256": "79c51509e8bdff4f62997de7a9f82f792611fbca042af0cc41cfa882efe4e52d"
+    },
+    {
+      "path": "packs/supportscout-equipment/pack.json",
+      "sha256": "effe671810892f8f356ceb14742d04846961476852a5c5a5c25515bf1789964d"
+    },
+    {
+      "path": "packs/supportscout-equipment/rights.json",
+      "sha256": "e64b3c0d65f4f3c9b74cfddf243fdcbc0e2c60bf0916ed9f08f4f30e72472b43"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-audit-order.json",
+      "sha256": "7153dd5db85a0fa3022171ab2ba22deb72a766e01727744f3d0238007314573d"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-building-eui.json",
+      "sha256": "7e6d35952132de598ce4649f03cd2afcce86c1556aa1f397f6d1ab901132ee1f"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-exam-editions.json",
+      "sha256": "9d74820e6f1a93b0a7ad3f985d6eb1a4e36ccb919b715bb2359fd176f4fc9ab2"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-load-factor-est.json",
+      "sha256": "529169c74d0644dfd200e7984d2f59345fd14c6012f57b1ccb70e08faa876b56"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-power-hours.json",
+      "sha256": "0a6f1564edbc6eeb00f06e1a0af8506af73d0c6dbc6f184438134466f95a924f"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-runtime-profile.json",
+      "sha256": "2fd6363ec1ecaaafdace7f443a2f0198d97d081ac427604d819dc4a9cee846ea"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-simple-payback.json",
+      "sha256": "2efd6dd263dc6ddee9229accd219697e4e35a3f1840269e22f84cfe28dd127a6"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-systems-match.json",
+      "sha256": "e708e1ee403c7002ae49c86be0dbc3c3a6188f541a92b993dc03421303bd8e95"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-terms-match.json",
+      "sha256": "e29f6b8d3666fc896ab58f290b77f893c035a89d2c033219ee6efec6550ebb89"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-uncertain-claim.json",
+      "sha256": "89349e163e18b9e4c6d29edc7b4a31f2254ce6b3aebdacb5e47272d3070441f8"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/act-where-to-gather.json",
+      "sha256": "6b74ac9f7cf1e761cb0ddc2802a0ad493fd67e99d0f267f176306a01d01d9943"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-audit-plan.json",
+      "sha256": "c47135499f10b34c88083543379ae96b2cdc570488af448930c16ea5d9196459"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-benchmark.json",
+      "sha256": "9c1b9945b5a4b7b268f67d54e18b24a28871d9d3ecfe482b640c146af2ac435f"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-bill.json",
+      "sha256": "54a0be6bc5589621da7cb18019373c4ac09ffb75418b5100cb896630687956cb"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-compressed-air.json",
+      "sha256": "94a2dbda558debae73a18c784c97518816311a9b00de8ce897cb6b152492202f"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-controls.json",
+      "sha256": "d7b05e577147d64ab25d636a3124c216f6a507aa455616032f9362efabcc521f"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-cost-decisions.json",
+      "sha256": "c638ab35e8f3ab1fb1b30dabc293e6c0456ad7edd61217b714fe439cc0b88e9c"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-data-analysis.json",
+      "sha256": "e7ce8d93913c9973cce004cc8d117f1e25eeaeba69d1001dc1d0dad18ee34e87"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-decision-tradeoffs.json",
+      "sha256": "edc154b8a7e8a12af1e1762f9270b708a132f51d555643743ec9328647b68172"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-electrical.json",
+      "sha256": "551745b54a9161e0428c9f4d90f65160b2972e3edbaa5587cde474c4a390837f"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-envelope.json",
+      "sha256": "38759de0de51829363b7f0ca119c0c49c9234c8752b6db5a606e67a6e99ad19e"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-evidence-report.json",
+      "sha256": "750a4f572ad2371f21d19ab7373cf73924c8111df500b91446d56e23f5548ae3"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-exam-sources.json",
+      "sha256": "17bca2d6a4dc2d48145e75ded0679cf38557fb9dff46e6d03fc79d9a756124c3"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-fan-pump.json",
+      "sha256": "ab6ccafb4104a8f174cc499a26424ab44b82cff7b53622ae13869059c391467a"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-field-safety.json",
+      "sha256": "4633a0d7103daf614123e6141b90af21f4fb89ca1d7f659acd52b2b399d95139"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-finance-risk.json",
+      "sha256": "ba76bef853c2ec6a84bd8e5423eb67e13b01659c6b86ad3e615e92110e6d0233"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-generation.json",
+      "sha256": "e52a80c9f7b0753e9b4250b4ab037bc20fc0adce482e5516e7a6b3c7348f17ba"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-heat-pumps.json",
+      "sha256": "b709daf0391b9c0430af4ebaade6f2f807665294f0476a0df06a2577af82b825"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-heating.json",
+      "sha256": "b89cbc50e35087462e0672c14a9344733b5ea508591596c167abe814c619ef09"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-hvac.json",
+      "sha256": "509c9c40af5cd78fb5e08c58d60e7f3bab5df3dc94ebc092a9632ab21f72c4da"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-lighting.json",
+      "sha256": "7f83d490fcf5187f9a1d36ea86f3edbfbb62fa380ff7dd324c86cf94d99a6348"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-measurement.json",
+      "sha256": "5a615c292c6716b72a5491e68577bddb7d351adeb764e6719c027901ff1be126"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-motors.json",
+      "sha256": "6a10baa4f33f3577081abaee1a701511d7a12bba2ac28d3c518a2939a1210ba6"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-savings.json",
+      "sha256": "3f81308e0111bb5ff76e6dba8f3e11a247a2620a61c5f7df1558b348d6e3e4a3"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-schedule.json",
+      "sha256": "bc323a632be0d608bf3ae5b4c51522a1577c56205d793279a9e945e01d6ea796"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-source-energy.json",
+      "sha256": "be2ee54ce1fd3f17f8ecdde8d232da61b287c1048fa2eff6bd111f435bb22def"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-thermal.json",
+      "sha256": "1ef537d0e7192d8ce0e61559ba4956a09c9fb0a85b65e233d21f7cb428d53ea0"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-transport.json",
+      "sha256": "1b6ab47bf11f873565e2ee5caae19d5bcdfecc06ffb3e077cd64a828f165a80e"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-units.json",
+      "sha256": "433aaa5dea5a42b752da4dfe7c09bb88d6cb4b2be8a31d4736749bdf4ecd5e00"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-ventilation.json",
+      "sha256": "64f281e725994968c76856e66e2d79882d67382aa4c156561ca93d889dd3ccce"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/ch-water.json",
+      "sha256": "ee5df868ea57bb1e851efbd90825bd3762402ab93b2b21575591e20a58271029"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/glossary.json",
+      "sha256": "5f4f7ad6cfdcb01eda9688b781b9ae49a16fc4f514e9dd1647429f3cf3b1514a"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/meta.json",
+      "sha256": "11ea69fc3625f1cf70af4ef7257071303c316d373b2386480e675a67b33006ea"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/overview.json",
+      "sha256": "b60365420be5b878465c9d08df453a2ae724eee7ea76866c20ad800c1f69ddd5"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-audit-plan-1.json",
+      "sha256": "cefc4ff0085464ee7c375c0738b5165c950867cf2260e12dd13c035d6b5db874"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-audit-plan-2.json",
+      "sha256": "cf8568d1367e4d5bfdfaaea02cf49097acd0990fca70f323291d5cfe87e96112"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-benchmark-1.json",
+      "sha256": "bb8e2f53c4bed33ab478f53de455e93c21d669c4a6005d5233e1f6669640dda5"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-benchmark-2.json",
+      "sha256": "068ab0c6d70bdeb0677bc819894112adfdc0cc5f61b68c784c9f896aed8ecc82"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-bill-1.json",
+      "sha256": "e6e5f2e750285e1e151f673a0784d0addd1b5f50192136c25c1a22c7dcc2b49f"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-bill-2.json",
+      "sha256": "4f772c61f18087adf16cede2812433ff86dcbb52458aca7de9deed186859cd6c"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-compressed-air-1.json",
+      "sha256": "36f096aaea83e19ab5085b2a0e1fac23270f000571a72a9188cd44a9b996fcac"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-compressed-air-2.json",
+      "sha256": "ecad19bc771ed51b653bf36624574ccf0c26dfde4c90dc06ecf7d7e4fba555ef"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-controls-1.json",
+      "sha256": "4c9dcfd7fe505e3c308b6d5379e78ef18c81a5a3dc65f1b0a5b79848f108dda5"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-controls-2.json",
+      "sha256": "3e3e6d05d59b1536bb8a66e876aea358e5171e748bd42e8f3ecad9230bad7d07"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-cost-decisions-1.json",
+      "sha256": "ec19b0b6fb42ba9076a48bd897b742f1b5df5e114240277faecacde87ccce1a9"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-cost-decisions-2.json",
+      "sha256": "1b1a6cbf1534c61a98aaf265604796a064f9e6675ede0adf21d4ff049b088a16"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-data-analysis-1.json",
+      "sha256": "fccc8f380620787484fb2f94a0444980f59d03e7ff2d1740fff3a89e331bf66c"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-data-analysis-2.json",
+      "sha256": "5bfe8292c361984bb736fba50b032f8146e33ca7eaf9d8cf1793ab0be6f0988c"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-decision-tradeoffs-1.json",
+      "sha256": "8b68d56b7c292ae5f2339ebf4997f0a17724f248ce6ffb4571a0d84dace4adc9"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-decision-tradeoffs-2.json",
+      "sha256": "903e0f57ce3f4e81ae81c41be97a1201f8dee51ed4c2a005390ebf1ab878e7b5"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-electrical-1.json",
+      "sha256": "6b90c73528b92ab4998f092c346645493912479a607da1a93ac3fb41d661de9e"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-electrical-2.json",
+      "sha256": "8bda627b648eb441a6c6f75738fc4966d3cb9244b78f7f7d89daf306d11447bf"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-envelope-1.json",
+      "sha256": "e209b17b9738a296b0de2a952ee1ecfea874261cd64ca2cad4ee1a8e4b4dd464"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-envelope-2.json",
+      "sha256": "4cc5a50b2b1472acddcef550b0005f592375fbab6faaabfbf0e3d6e437afc42c"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-evidence-report-1.json",
+      "sha256": "7847d865749f43d49dec2ba7d46b6bd15333b76767973271cf31fbbee37491d1"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-evidence-report-2.json",
+      "sha256": "1d100a9f2fbe52cc852390f05b5ed844c1f6720d093bfb585c2b4a45865e6ba0"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-exam-sources-1.json",
+      "sha256": "87e242a6351ed1aa08ea89e2d2cc3e15666c9011c7dd0e82e610b743bde3bc31"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-exam-sources-2.json",
+      "sha256": "9830500d848114e8912e588d0e9682a1fb4beabf9b98f5e65128ae9484a4c912"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-fan-pump-1.json",
+      "sha256": "bf6d34775bbac2b08398c6728deeb84cd52d6149edb62bed0d8f80aab5ec66e2"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-fan-pump-2.json",
+      "sha256": "81d3437a3587ad539e5a659bff972fb3e8cdebd9ab695ab933ccd9bcae390b24"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-field-safety-1.json",
+      "sha256": "5d78b9bb28b2806bc600738fa6ff9bf3317473a0fcdb4ea598a6ca428798a574"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-field-safety-2.json",
+      "sha256": "fd45c13d0c0fcd940970ffc0dc92a3af5afd997b72037c2eda0ca6df1f191ac5"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-finance-risk-1.json",
+      "sha256": "aff13e7a7c96b7eaf0ec805e8ec9fada8ab33c665f003018e2b04cf5e7def1dd"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-finance-risk-2.json",
+      "sha256": "aee24d11fa3819d9d5725809c3123edd741af004edd92da8656ba8b63dccfb8b"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-generation-1.json",
+      "sha256": "36602aae438956b8b8a2e40d028f96fd0242b0333b8786e94335ef43cec6ba16"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-generation-2.json",
+      "sha256": "124edc638128a2f7bc498a722793d2fa7ddc8d24dc84107d1889fa5b85b2f78b"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-heat-pumps-1.json",
+      "sha256": "e64e3b901738288bd58fdc142b34bfa4bbff50f0d53fb207c990c33489d081b8"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-heat-pumps-2.json",
+      "sha256": "42c7096910c0abb427f9747f66ff40d139fab6731ed1eaaefc99902f43a4ec96"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-heating-1.json",
+      "sha256": "549a5f9b85f693c90a05452bdbfafa3a9533f918a60fbb21bfd9e17092504a5f"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-heating-2.json",
+      "sha256": "8c23459116a58cf77d3a61726dfaa014ef017fb8fff44edaa6cebb578768f774"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-hvac-1.json",
+      "sha256": "57ec2c9de39b23a26dd2be666ce3621206523cb5024886ede7d458f10fa2a52d"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-hvac-2.json",
+      "sha256": "b9cc9aa2622100562ffd876ff310f08abf1e17b2545ed373c4c63752a7389975"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-lighting-1.json",
+      "sha256": "12e598818616092cbb51b4d780e4e8ecd0dab6bd8721462c71dad632a9ca5698"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-lighting-2.json",
+      "sha256": "0854ac053f2fad0d53cdc4977f3e38619cdc22803884ab735c4e7d6c35615ab4"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-measurement-1.json",
+      "sha256": "2afb4adac518ed0d33fd8ce55580e56f46e3fcba69093ab47a4d7af4b898fba6"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-measurement-2.json",
+      "sha256": "d3f05feffca676d40861a1a0be8f54362d61821f1f1f11b9d791d41f7ce1537c"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-motors-1.json",
+      "sha256": "7e3e4b6409997779c55c42fd1c3ca034e7ca9dcfe9692690b0bdafc1d5b6abd7"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-motors-2.json",
+      "sha256": "e11dfc186ce01d90f061b0835666b825d9dc915c7e9b1fe8c9d17f47c3df16a6"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-savings-1.json",
+      "sha256": "a4f9124b5b075dda5920d384189c55d81b11aa562049424f6c68a6644262e8d1"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-savings-2.json",
+      "sha256": "efbb9e4fbd7b4ae40490d50bde8d0903f0a66d10166cc70e060e39a5b2e98492"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-schedule-1.json",
+      "sha256": "28fe9e7354e324dc0299f7852132a87949621b60dce10ddc22a870f1c0bc1268"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-schedule-2.json",
+      "sha256": "8b8bb2d42c6a4215f7de5972eb3478c34324b9037924ed338f29faae5a1739ab"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-source-energy-1.json",
+      "sha256": "f96dcfd9b42436bbda95e24005904fed566252acc178b9f9fefe95b2883b1222"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-source-energy-2.json",
+      "sha256": "42fdfaf6e3e8e5119e7280b5af4fa585aaa8f3360cfffac6ec6561c459d55722"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-thermal-1.json",
+      "sha256": "2a2e496b433eab7ace7552be3b670d3adaf0b7d7beb5f68497c70bd8b92adde3"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-thermal-2.json",
+      "sha256": "c04b5786d6551ef0caab836f82799bf582fa3d081ee54548df8702bc1acbac2b"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-transport-1.json",
+      "sha256": "b6f8ab9f9e8218322bc45ab0abf68dd1edf6312e5ef307d4a9a1ebe7762d124d"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-transport-2.json",
+      "sha256": "5f1dbe910e115fe0217d308195f05d7b4ce2b7f7491cc110b942004d96f64e54"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-units-1.json",
+      "sha256": "5e1c3bdb20d64bf91b99b7e7a235e2e11e2a96786cc1602c1024b5c21bfd93d0"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-units-2.json",
+      "sha256": "bc63d6e6f3effbe8d2b504b17e9ad310bb2f2da4b4117bdbc9f567800e5014eb"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-ventilation-1.json",
+      "sha256": "bcecc8c9e7b0f350434d47ffcf23fc561d85cb658d21fcfaffbeeb7afc995572"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-ventilation-2.json",
+      "sha256": "fdedaffc303c00ebb07b316d7947227494deed9a4d3e8aec2f51219ca84b58b1"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-water-1.json",
+      "sha256": "9d852a26a604f9bffc32b6da41ca79b4a726259fbedfd808c390721f83952b04"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/q-water-2.json",
+      "sha256": "f9de55cf7a519deb7986a7e7877a77066283133ed12e534c496c8f658e28944b"
+    },
+    {
+      "path": "packs/wattwatcher-energy/items/reference.json",
+      "sha256": "d3c44b9b34e71f92ce6527604e871502dacd56bd17601a8f3f22d94b9888c596"
+    },
+    {
+      "path": "packs/wattwatcher-energy/pack.json",
+      "sha256": "718dbcb7e91004275d9e82dfb5bbb8a03e00f8126b577dc714757b9cd340b43c"
+    },
+    {
+      "path": "packs/wattwatcher-energy/rights.json",
+      "sha256": "6bd9d4ce23e82892329ba7dae3b766619c3c4c1d814b44e08064c5e597d65411"
+    },
+    {
+      "path": "print-THX5MWKY.css",
+      "sha256": "7fa4118c4b3ab6358775d12998d029ce30631d4f1bb0c6163d0d9b8ed015450d"
+    },
+    {
+      "path": "sw.js",
+      "sha256": "a16e890213bd126ac1c1aeae19673d387de0e2f9e2d54d6467f5aa2877de8cf1"
+    },
+    {
+      "path": "tokens-EELACCMY.css",
+      "sha256": "208fffcc3b2724d8d08ab09dda10ca8feb3f599389a5a6f7874333cc92ae2adb"
+    }
+  ]
+}

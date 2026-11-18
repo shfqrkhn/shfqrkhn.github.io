@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Select a proof method"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can select suitable evidence for a technical claim."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The reference course teaches six ways to establish compliance. Inspection observes features without special test arrangements. Analysis reasons from models or calculations. Demonstration shows operation. Test measures behavior under controlled conditions. Certification relies on recognized independent conformity evidence. Description with evidence uses documents and records to support a claim."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Identify exactly what the requirement asserts. You should see: A feature, behavior, calculated result, or independent compliance claim. If not: Rewrite vague wording before choosing proof."
+    ],
+    [
+     "Select a method that can directly address that assertion. You should see: A reason why the evidence would settle the question. If not: Use more than one method where a single one is insufficient."
+    ],
+    [
+     "Record results against the approved requirement and configuration. You should see: An auditable pass or gap with the relevant version. If not: Collect missing records or repeat the check."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Inspect an identification mark; demonstrate a control sequence; test the measured speed. These are different claims, so they need different kinds of proof."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Select proof from the claim and the level of uncertainty."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A descriptive document cannot replace direct measurement when measurement is required."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Using a drawing as evidence of actual performance. The drawing represents intent, not measured behavior. Fix: Test or analyze the relevant performance claim."
+    ],
+    [
+     "Treating an inspection as validation of real use. Inspection may show conformance without showing that the intended need is met. Fix: Plan a relevant intended-use evaluation."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-evidencemethods-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-evidencemethods-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-evidencemethods",
+ "kind": "doc",
+ "title": "Select a proof method"
+}

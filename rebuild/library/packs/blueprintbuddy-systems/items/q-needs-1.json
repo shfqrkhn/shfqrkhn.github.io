@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. A mandatory shortfall makes it noncompliant.",
+ "explain": [
+  "Section: Turn needs into requirements"
+ ],
+ "id": "q-needs-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: A platform exceeds its radio target but misses required protection. Is it eligible?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

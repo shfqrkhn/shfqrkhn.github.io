@@ -1,0 +1,14 @@
+{
+ "answerKey": "Changes can affect spare parts, instructions, training and serviceability.",
+ "explain": [
+  "Section: Look beyond the design desk"
+ ],
+ "id": "q-expert-impact-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why include maintenance in a design change review?"
+ ],
+ "source": "configcompass-change"
+}

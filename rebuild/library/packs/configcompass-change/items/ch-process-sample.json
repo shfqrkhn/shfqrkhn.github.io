@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Look for repeatable controls"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can evaluate whether the change process itself is being followed."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Product evidence and process evidence answer different questions. A correct item can result despite skipped reviews. A tidy procedure can still produce a nonconforming item. A process check samples requests, decisions, releases and closures. It tests whether the stated controls were followed. Trace a few examples end to end, including one rejected or pending request."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Choose a small set of change records with different outcomes. You should see: The sample includes more than successful approvals. If not: Include unusual or delayed cases where useful."
+    ],
+    [
+     "Follow each request from entry to current state. You should see: Review, decision and release evidence can be connected. If not: Record breaks in the trail."
+    ],
+    [
+     "Compare actual steps with the agreed process. You should see: Skipped or ambiguous controls are visible. If not: Ask whether a documented exception applies."
+    ],
+    [
+     "Report the process risk and needed correction. You should see: The finding names a condition and supporting example. If not: Avoid claiming the sample proves every transaction is identical."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "In one sample, a software update could have a signed decision but no revised user instruction. That indicates a release-process gap even if the software works."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Test the process with actual records, not assurances that a process exists."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A small sample gives limited confidence about overall frequency."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Equating an approved plan with proof of compliance The real workflow may differ. Fix: Trace completed transactions and exceptions."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-process-sample-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-process-sample-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-process-sample",
+ "kind": "doc",
+ "title": "Look for repeatable controls"
+}

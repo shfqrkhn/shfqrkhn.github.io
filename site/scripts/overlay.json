@@ -1,0 +1,4 @@
+{
+  "apps": ["omnevum", "hub", "library", "ai"],
+  "skip": ["stubs", "root"]
+}

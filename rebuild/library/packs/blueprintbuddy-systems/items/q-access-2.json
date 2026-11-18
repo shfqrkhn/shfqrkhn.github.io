@@ -1,0 +1,14 @@
+{
+ "answerKey": "It locates a session but does not prove instructor authority.",
+ "explain": [
+  "Section: Protect rooms and roles"
+ ],
+ "id": "q-access-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why is a visible room code insufficient for instructor equipment recovery?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

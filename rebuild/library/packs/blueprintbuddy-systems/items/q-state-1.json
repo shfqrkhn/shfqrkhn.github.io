@@ -1,0 +1,14 @@
+{
+ "answerKey": "A stable command identity, durable receipt, and idempotent handling.",
+ "explain": [
+  "Section: Keep one authoritative auction record"
+ ],
+ "id": "q-state-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: A client resends an acknowledged bid. What protects the room from a second purchase?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

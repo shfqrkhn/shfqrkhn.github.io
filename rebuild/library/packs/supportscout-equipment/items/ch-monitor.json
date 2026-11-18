@@ -1,0 +1,99 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Monitor service and improve"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can describe how the enterprise is managed after the choice is implemented."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For education only; this is not legal, purchasing, financial or safety advice. After implementation, collect reliable operating results and compare them with agreed expectations. Look at availability, repair histories, workloads, costs and the reasons for exceptions. Distinguish temporary noise from repeated deficiencies. Update responsibilities, capacity or the agreement only through the appropriate change process, keeping the evidence trail intact. Revisit both the target and the measurement method if operations change; do not quietly rewrite past results."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Start the approved delivery arrangements. You should see: Responsibilities and interfaces operate as planned. If not: Resolve implementation gaps with the accountable teams."
+    ],
+    [
+     "Gather agreed performance and cost information. You should see: Results can be compared over reporting periods. If not: Check data quality and collection definitions."
+    ],
+    [
+     "Investigate shortfalls and update plans where justified. You should see: Changes are based on documented needs and results. If not: Escalate decisions that exceed the team’s authority."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A monthly review compares service results with an agreed target. It assigns corrective actions and a date to check again."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Manage based on actual enterprise results, not the fact that a contract was signed."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Incomplete data or changing demand can make a comparison misleading."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-monitor-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-monitor-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-monitor",
+ "kind": "doc",
+ "title": "Monitor service and improve"
+}

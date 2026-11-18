@@ -1,0 +1,135 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Tell a measured gap from a proposed fix"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can separate evidence of a shortfall from a proposed remedy."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " A deficiency is expressed as observed performance compared with a target."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Inferred: The required number of ready units is eight, but records show six. Which statement reports the deficiency?"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Readiness is two units below the target This records the measured deficiency, with its size."
+    ],
+    [
+     "Order additional spare parts immediately This proposes a solution before identifying the cause."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "The shortfall has been recorded in comparable units."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Next, assess impact and evidence before comparing possible repairs."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A possible fix is not the same as the gap."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Record the requirement, actual result and consequence first."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Write the shortfall before assessing possible fixes."
+   ]
+  }
+ ],
+ "data": {
+  "claims": [
+   "gaps",
+   "requirements"
+  ],
+  "done": "Write the shortfall before assessing possible fixes.",
+  "goal": "After this you can separate evidence of a shortfall from a proposed remedy.",
+  "hint": "A deficiency is expressed as observed performance compared with a target.",
+  "id": "gap_story",
+  "nodes": [
+   {
+    "choices": [
+     {
+      "label": "Readiness is two units below the target",
+      "next": "correct",
+      "say": "This records the measured deficiency, with its size."
+     },
+     {
+      "label": "Order additional spare parts immediately",
+      "next": "retry",
+      "say": "This proposes a solution before identifying the cause."
+     }
+    ],
+    "id": "start",
+    "text": "Inferred: The required number of ready units is eight, but records show six. Which statement reports the deficiency?"
+   },
+   {
+    "id": "correct",
+    "lesson": "Next, assess impact and evidence before comparing possible repairs.",
+    "text": "The shortfall has been recorded in comparable units."
+   },
+   {
+    "id": "retry",
+    "lesson": "Record the requirement, actual result and consequence first.",
+    "text": "A possible fix is not the same as the gap."
+   }
+  ],
+  "start": "start",
+  "title": "Tell a measured gap from a proposed fix",
+  "type": "scenario"
+ },
+ "id": "act-gap-story",
+ "kind": "activity",
+ "title": "Tell a measured gap from a proposed fix"
+}

@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Recognize systems of systems"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Spot independent systems that cooperate."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A system of systems is formed when separately useful systems interact to deliver a capability beyond their individual contributions. Members may remain under different management and be located far apart. The arrangement can change over time and show effects that cannot be assigned to a single member. Distance and evolution are often present, but neither is a universal requirement."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Illustration: A sensing service, a coordination centre and a response organization each perform their own work. Together they can support a coordinated detection-and-response outcome."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Check for independent member purposes and a distinct outcome created by cooperation."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Several components under one manager are not automatically a system of systems."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-sos-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-sos-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-sos",
+ "kind": "doc",
+ "title": "Recognize systems of systems"
+}

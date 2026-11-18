@@ -1,0 +1,14 @@
+{
+ "answerKey": "Applicable ventilation requirements, actual occupancy, process needs, and indoor conditions.",
+ "explain": [
+  "Section: Check ventilation demand"
+ ],
+ "id": "q-ventilation-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What conditions must be confirmed before reducing ventilation overnight?"
+ ],
+ "source": "wattwatcher-energy"
+}

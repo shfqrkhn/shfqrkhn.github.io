@@ -1,0 +1,14 @@
+{
+ "answerKey": "The issue, assigned role, required evidence or outcome and status.",
+ "explain": [
+  "Section: Run a clear evidence meeting"
+ ],
+ "id": "q-chair-audit-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What should an action entry identify?"
+ ],
+ "source": "configcompass-change"
+}

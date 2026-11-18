@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Separate review and approval"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can explain the purpose of governance checkpoints without assuming they grant approval."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For education only; this is not legal, purchasing, financial or safety advice. Review, recommendation and approval are different actions. A team can compile evidence and suggest a route, while a designated decision owner determines whether it may proceed. Document the authority, decision being sought, required checks and record of approval at each checkpoint. Do not assume the illustrative stages in this guide define real legal authority."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A study team recommends an approach. A separately authorized owner records a go-or-stop decision before any commitment is made."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Identify the decision maker and authorization required at each checkpoint."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " The active governance system may differ from the illustrative examples."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-governance-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-governance-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-governance",
+ "kind": "doc",
+ "title": "Separate review and approval"
+}

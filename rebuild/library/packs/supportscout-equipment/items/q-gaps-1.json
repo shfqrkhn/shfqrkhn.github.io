@@ -1,0 +1,14 @@
+{
+ "answerKey": "Observed results compared with the relevant approved targets.",
+ "explain": [
+  "Section: Measure unmet needs"
+ ],
+ "id": "q-gaps-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What evidence is central to gap analysis?"
+ ],
+ "source": "supportscout-equipment"
+}

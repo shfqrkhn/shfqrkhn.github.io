@@ -1,0 +1,206 @@
+{
+ "blocks": [
+  {
+   "level": 1,
+   "t": "heading",
+   "text": [
+    "ConfigCompass Configuration Management Toolkit"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Generic configuration management for products and software"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Reader:"
+     ]
+    },
+    " Adult beginner, no previous configuration management knowledge"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "What:"
+     ]
+    },
+    " Guide v1.0.2 (runtime 1.5.5). Private-study candidate; redistribution rights remain unverified. A standalone, offline learning guide for controlling product descriptions and changes. The examples are invented; this is not an official procedure. Inferred: means an invented example. Not verified: means a claim lacks a supporting check. [Added context] means information supplied beyond the study material."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Who:"
+     ]
+    },
+    " Adult beginners responsible for equipment, software, records or design revisions."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "You need:"
+     ]
+    },
+    " A browser. You do not need a login, internet access or engineering software."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "You gain:"
+     ]
+    },
+    " Identify controlled parts, accept reference versions, review proposed changes, track real installations and check audit evidence."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Time:"
+     ]
+    },
+    " About one hour for Level 1. Further lessons and practice are self-paced; there is no timer."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "How to use:"
+     ]
+    },
+    " Read Level 1 in order, answer the questions, and try Practice and Play. Each file has its own guide version and does not check for updates. In MAJOR.MINOR.PATCH, major may require migration, minor adds compatible features, and patch makes compatible corrections. Before switching files, select My Progress, then Save progress file in the old version. Select Restore progress file in the new version and confirm your chapter count before removing the old file. Browser storage may vary by file location."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Ground rules"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Check the exact item and its identifier before comparing versions."
+    ],
+    [
+     "Use an explicitly accepted reference rather than an unapproved draft."
+    ],
+    [
+     "A request, a decision and a completed installation are different states."
+    ],
+    [
+     "When a version changes, update every affected technical record."
+    ],
+    [
+     "Report unknown states as unknown, not as confirmed."
+    ],
+    [
+     "Draw conclusions only from evidence that actually answers the question."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "The one idea:"
+     ]
+    },
+    " Always identify the item, its accepted description, the decision role, affected interfaces and proof of completed work."
+   ]
+  },
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Big picture"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A configuration is the identified set of product parts, software and technical information that belongs to a specified version. Managing it means agreeing on reference descriptions, recording authorized decisions, and checking what was actually built or installed. Identification, change review, status tracking and audits are linked activities: each provides evidence the next relies on."
+   ]
+  },
+  {
+   "items": [
+    [
+     "State the product boundary and assign control responsibilities"
+    ],
+    [
+     "Identify important elements and accept reference versions"
+    ],
+    [
+     "Review a proposed difference before authorized work proceeds"
+    ],
+    [
+     "Record decisions separately from real-world completion"
+    ],
+    [
+     "Verify requirements, actual build and closure evidence"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Assumptions"
+   ]
+  },
+  {
+   "items": [
+    [
+     "This guide is an independent study aid using original explanations based on the study inputs; it is not endorsed by their owners, and names and brands belong to their owners."
+    ],
+    [
+     "All product examples and quantities are fictional and do not define real equipment."
+    ],
+    [
+     "Local policies, contracts and safety requirements govern operational decisions."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Not verified for:"
+     ]
+    },
+    " binding organizational procedures, safety-critical decisions, complete annex coverage, independent human accessibility acceptance, local-file automatic storage across browsers, or unrestricted MIT redistribution; source-derived rights remain unverified."
+   ]
+  }
+ ],
+ "id": "overview",
+ "kind": "doc",
+ "title": "ConfigCompass Configuration Management Toolkit"
+}

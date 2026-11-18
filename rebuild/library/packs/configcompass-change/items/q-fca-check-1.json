@@ -1,0 +1,14 @@
+{
+ "answerKey": "Requirement to test method to result, with the tested configuration identified.",
+ "explain": [
+  "Section: Verify required behavior"
+ ],
+ "id": "q-fca-check-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What is the key evidence relationship in functional review?"
+ ],
+ "source": "configcompass-change"
+}

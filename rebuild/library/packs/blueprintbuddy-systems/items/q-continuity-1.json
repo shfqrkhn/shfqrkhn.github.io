@@ -1,0 +1,14 @@
+{
+ "answerKey": "The same committed room result as all other authorized participants.",
+ "explain": [
+  "Section: Plan facilitation and recovery"
+ ],
+ "id": "q-continuity-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What should a reconnecting participant see?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

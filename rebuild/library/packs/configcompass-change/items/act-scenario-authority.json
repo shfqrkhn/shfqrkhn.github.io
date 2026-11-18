@@ -1,0 +1,169 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "A shortcut before approval"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can respond to a proposed modification while preserving decision authority."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " A proposed design should not become a new product state without the proper decision."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Inferred: A project team wants to substitute a different electronics module. Nobody has reviewed its interfaces yet."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Install the board and fill out forms later That creates an uncontrolled version and hides potential interface problems."
+    ],
+    [
+     "Document the change and request an impact review The team can identify affected hardware, software and instructions."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "The technical review is complete, but the proposed decision exceeds the group's assigned authority."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Sign it anyway to keep the schedule A meeting does not create authority it was not given."
+    ],
+    [
+     "Refer the request to the correct decision role The decision path remains accountable."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "The item must not be described as an accepted new version."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Return to the defined decision process and record the issue."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The proposal can proceed through the responsible authority."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Keep the eventual decision separate from any later installation evidence."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Keep the request and later unit state separately recorded."
+   ]
+  }
+ ],
+ "data": {
+  "claims": [
+   "change-path",
+   "ccb-followup"
+  ],
+  "done": "Keep the request and later unit state separately recorded.",
+  "goal": "After this you can respond to a proposed modification while preserving decision authority.",
+  "hint": "A proposed design should not become a new product state without the proper decision.",
+  "id": "scenario-authority",
+  "nodes": [
+   {
+    "choices": [
+     {
+      "label": "Install the board and fill out forms later",
+      "next": "stop",
+      "say": "That creates an uncontrolled version and hides potential interface problems."
+     },
+     {
+      "label": "Document the change and request an impact review",
+      "next": "review",
+      "say": "The team can identify affected hardware, software and instructions."
+     }
+    ],
+    "id": "start",
+    "text": "Inferred: A project team wants to substitute a different electronics module. Nobody has reviewed its interfaces yet."
+   },
+   {
+    "choices": [
+     {
+      "label": "Sign it anyway to keep the schedule",
+      "next": "stop",
+      "say": "A meeting does not create authority it was not given."
+     },
+     {
+      "label": "Refer the request to the correct decision role",
+      "next": "pass",
+      "say": "The decision path remains accountable."
+     }
+    ],
+    "id": "review",
+    "text": "The technical review is complete, but the proposed decision exceeds the group's assigned authority."
+   },
+   {
+    "id": "stop",
+    "lesson": "Return to the defined decision process and record the issue.",
+    "text": "The item must not be described as an accepted new version."
+   },
+   {
+    "id": "pass",
+    "lesson": "Keep the eventual decision separate from any later installation evidence.",
+    "text": "The proposal can proceed through the responsible authority."
+   }
+  ],
+  "start": "start",
+  "title": "A shortcut before approval",
+  "type": "scenario"
+ },
+ "id": "act-scenario-authority",
+ "kind": "activity",
+ "title": "A shortcut before approval"
+}

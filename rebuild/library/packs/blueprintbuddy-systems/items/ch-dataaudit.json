@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Version the rules and evidence"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can distinguish program rules, data and recorded outcomes."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Proposed digital rooms should use named rule versions and separately versioned card and mission definitions. Store the committed purchases and decisions needed to reconstruct results. Validate every room against its intended deck and role configuration before opening. A passed calculation check is not evidence of balanced learning or safe deployment."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Identify the rule version and the card-data version. You should see: A stable definition of what the room can do. If not: Refuse an ambiguous or mixed definition."
+    ],
+    [
+     "Check card supply against the planned round schedule. You should see: Enough valid instances for every required offering. If not: Change the plan before the session, not during an auction."
+    ],
+    [
+     "Record committed events without exposing private team edits. You should see: An auditable result with role-based access. If not: Separate public scores from restricted planning."
+    ],
+    [
+     "Review fairness, outcomes and security before release. You should see: A list of independent evidence and approval gates. If not: Keep the service labelled a proposal until verified."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A changed card quantity requires a new data version and another whole-room feasibility test."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Version definitions before trusting results."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Checks cannot establish ownership rights or educational effectiveness."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Replacing a running deck without recording its version. Later calculations may no longer reproduce the result. Fix: Freeze the approved data for each session."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-dataaudit-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-dataaudit-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-dataaudit",
+ "kind": "doc",
+ "title": "Version the rules and evidence"
+}

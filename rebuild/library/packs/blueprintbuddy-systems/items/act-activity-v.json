@@ -1,0 +1,96 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Arrange a requirement-to-proof path"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Practice how to put the main technical reasoning stages in order."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Begin with the user problem and finish by checking intended use."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Name the stakeholder need: Example: The purpose comes before a detailed technical answer."
+    ],
+    [
+     "Write measurable requirements: Requirements turn the need into checkable demands."
+    ],
+    [
+     "Implement the chosen design: Implementation uses the requirements and design decisions."
+    ],
+    [
+     "Verify against requirements: Verification checks the implemented result against its conditions."
+    ],
+    [
+     "Validate intended use: Validation checks whether the outcome serves stakeholders."
+    ]
+   ],
+   "ordered": true,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Requirements guide implementation and evidence closes the reasoning loop."
+   ]
+  }
+ ],
+ "data": {
+  "claims": [
+   "vmodel"
+  ],
+  "done": "Requirements guide implementation and evidence closes the reasoning loop.",
+  "goal": "Practice how to put the main technical reasoning stages in order.",
+  "hint": "Begin with the user problem and finish by checking intended use.",
+  "id": "activity-v",
+  "items": [
+   {
+    "label": "Name the stakeholder need",
+    "why": "Example: The purpose comes before a detailed technical answer."
+   },
+   {
+    "label": "Write measurable requirements",
+    "why": "Requirements turn the need into checkable demands."
+   },
+   {
+    "label": "Implement the chosen design",
+    "why": "Implementation uses the requirements and design decisions."
+   },
+   {
+    "label": "Verify against requirements",
+    "why": "Verification checks the implemented result against its conditions."
+   },
+   {
+    "label": "Validate intended use",
+    "why": "Validation checks whether the outcome serves stakeholders."
+   }
+  ],
+  "title": "Arrange a requirement-to-proof path",
+  "type": "order"
+ },
+ "id": "act-activity-v",
+ "kind": "activity",
+ "title": "Arrange a requirement-to-proof path"
+}

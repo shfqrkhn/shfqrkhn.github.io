@@ -1,0 +1,14 @@
+{
+ "answerKey": "A designated authority must make the required decision through the current process.",
+ "explain": [
+  "Section: Separate review and approval"
+ ],
+ "id": "q-governance-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why is a recommendation not the same as an approval?"
+ ],
+ "source": "supportscout-equipment"
+}

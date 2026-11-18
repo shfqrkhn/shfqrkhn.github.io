@@ -1,0 +1,14 @@
+{
+ "answerKey": "Measured water demand and the heater or circulation energy pattern.",
+ "explain": [
+  "Section: Audit water heating and use"
+ ],
+ "id": "q-water-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What evidence is needed to assess a hot-water conservation proposal?"
+ ],
+ "source": "wattwatcher-energy"
+}

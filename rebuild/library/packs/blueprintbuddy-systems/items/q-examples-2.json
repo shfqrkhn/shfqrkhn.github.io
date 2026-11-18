@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. Those effects were not fully recorded.",
+ "explain": [
+  "Section: Interpret scored examples safely"
+ ],
+ "id": "q-examples-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Does the one visible protection card prove all its other capability effects are zero?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

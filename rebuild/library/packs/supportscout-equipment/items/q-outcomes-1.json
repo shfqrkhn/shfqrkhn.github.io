@@ -1,0 +1,14 @@
+{
+ "answerKey": "It describes the result sought, regardless of which activity produces it.",
+ "explain": [
+  "Section: Define whole-system outcomes"
+ ],
+ "id": "q-outcomes-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why is an enterprise outcome not the same as a task?"
+ ],
+ "source": "supportscout-equipment"
+}

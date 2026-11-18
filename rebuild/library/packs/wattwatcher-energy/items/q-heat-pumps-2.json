@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. Humidity changes also carry latent heat.",
+ "explain": [
+  "Section: Read refrigeration performance"
+ ],
+ "id": "q-heat-pumps-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Can temperature readings alone show all cooling duty in humid air?"
+ ],
+ "source": "wattwatcher-energy"
+}

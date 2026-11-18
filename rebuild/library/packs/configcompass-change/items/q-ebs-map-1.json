@@ -1,0 +1,14 @@
+{
+ "answerKey": "The first describes the product and its parts; the second describes planned work.",
+ "explain": [
+  "Section: Show what belongs to the system"
+ ],
+ "id": "q-ebs-map-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What distinguishes an equipment tree from a work breakdown?"
+ ],
+ "source": "configcompass-change"
+}

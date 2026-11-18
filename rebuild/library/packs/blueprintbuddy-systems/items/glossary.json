@@ -1,0 +1,580 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Glossary"
+   ]
+  },
+  {
+   "head": [
+    [
+     "Term"
+    ],
+    [
+     "Meaning"
+    ],
+    [
+     "Example"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "System"
+     ],
+     [
+      "An interacting collection organized to achieve a defined outcome."
+     ],
+     [
+      "A platform and its support."
+     ]
+    ],
+    [
+     [
+      "System boundary"
+     ],
+     [
+      "A chosen separation between the subject being designed and its surroundings."
+     ],
+     [
+      "A platform versus a remote network."
+     ]
+    ],
+    [
+     [
+      "Interface"
+     ],
+     [
+      "The point or relationship across which elements transfer material, energy or information."
+     ],
+     [
+      "A radio data link."
+     ]
+    ],
+    [
+     [
+      "Decomposition"
+     ],
+     [
+      "Organizing a large problem into related smaller elements."
+     ],
+     [
+      "Platform, power, communications."
+     ]
+    ],
+    [
+     [
+      "System of systems"
+     ],
+     [
+      "A collaboration among individually purposeful systems that provides additional capability."
+     ],
+     [
+      "Detection and response organizations."
+     ]
+    ],
+    [
+     [
+      "Stakeholder"
+     ],
+     [
+      "Someone whose needs or work may be affected by the solution."
+     ],
+     [
+      "An operator or maintainer."
+     ]
+    ],
+    [
+     [
+      "Requirement"
+     ],
+     [
+      "A stated condition that can be assessed against an identified need."
+     ],
+     [
+      "A capacity minimum."
+     ]
+    ],
+    [
+     [
+      "Mandatory"
+     ],
+     [
+      "Required for acceptance."
+     ],
+     [
+      "A protection threshold."
+     ]
+    ],
+    [
+     [
+      "Desirable"
+     ],
+     [
+      "An extra feature that can earn value."
+     ],
+     [
+      "Mobility beyond the minimum."
+     ]
+    ],
+    [
+     [
+      "Traceability"
+     ],
+     [
+      "Links between a need, requirement, design, and proof."
+     ],
+     [
+      "A requirement with its test record."
+     ]
+    ],
+    [
+     [
+      "Verification"
+     ],
+     [
+      "An assessment of whether the specified requirements were satisfied."
+     ],
+     [
+      "A measured speed check."
+     ]
+    ],
+    [
+     [
+      "Validation"
+     ],
+     [
+      "An assessment of usefulness for the intended task and context."
+     ],
+     [
+      "A user completing the task."
+     ]
+    ],
+    [
+     [
+      "V model"
+     ],
+     [
+      "A view linking definition and design to implementation and testing."
+     ],
+     [
+      "Need through system checking."
+     ]
+    ],
+    [
+     [
+      "Integration"
+     ],
+     [
+      "Joining elements so they work as a system."
+     ],
+     [
+      "Radio and power working together."
+     ]
+    ],
+    [
+     [
+      "Architecture"
+     ],
+     [
+      "A description of functions, components, and their connections."
+     ],
+     [
+      "A functional or physical view."
+     ]
+    ],
+    [
+     [
+      "Model"
+     ],
+     [
+      "A purposeful simplification used to reason about selected aspects of a system."
+     ],
+     [
+      "A mobility calculation."
+     ]
+    ],
+    [
+     [
+      "Simulation"
+     ],
+     [
+      "Running a model under defined conditions to explore its predicted behaviour."
+     ],
+     [
+      "Changing weight assumptions."
+     ]
+    ],
+    [
+     [
+      "Baseline"
+     ],
+     [
+      "An accepted version of technical information used as a reference for later changes."
+     ],
+     [
+      "A reviewed design configuration."
+     ]
+    ],
+    [
+     [
+      "Life cycle"
+     ],
+     [
+      "Stages from initial need to retirement."
+     ],
+     [
+      "Development, use, and disposal."
+     ]
+    ],
+    [
+     [
+      "Systems Engineering Manager"
+     ],
+     [
+      "Person who coordinates technical work across the system."
+     ],
+     [
+      "A manager linking design and evidence."
+     ]
+    ],
+    [
+     [
+      "Project Manager"
+     ],
+     [
+      "Person who coordinates delivery scope, cost, time, and work."
+     ],
+     [
+      "A manager tracking schedule."
+     ]
+    ],
+    [
+     [
+      "Integrated Logistics Support"
+     ],
+     [
+      "Planning and supplying maintenance, training, spares, and support."
+     ],
+     [
+      "Repair supplies for a fleet."
+     ]
+    ],
+    [
+     [
+      "Situational Awareness"
+     ],
+     [
+      "Ways a system gains and uses information about its setting."
+     ],
+     [
+      "An awareness capability in the game."
+     ]
+    ],
+    [
+     [
+      "Equipment Recovery"
+     ],
+     [
+      "Game count of ways a platform can retrieve another."
+     ],
+     [
+      "An equipment-recovery accessory."
+     ]
+    ],
+    [
+     [
+      "Hazard Clearance"
+     ],
+     [
+      "Game count of ways a platform can clear a route."
+     ],
+     [
+      "A clearing attachment."
+     ]
+    ],
+    [
+     [
+      "Compliance"
+     ],
+     [
+      "Meeting all specified mandatory thresholds."
+     ],
+     [
+      "Every mission minimum passes."
+     ]
+    ],
+    [
+     [
+      "Rated points"
+     ],
+     [
+      "Score from a mission's specified desirable improvements."
+     ],
+     [
+      "Extra score for added capability."
+     ]
+    ],
+    [
+     [
+      "Cost per point"
+     ],
+     [
+      "Final bid divided by positive eligible rated score."
+     ],
+     [
+      "Dollars for each rated point."
+     ]
+    ],
+    [
+     [
+      "Auction-paid cost"
+     ],
+     [
+      "The actual price a team spent to win a card."
+     ],
+     [
+      "A $500,000 accepted bid."
+     ]
+    ],
+    [
+     [
+      "Profit"
+     ],
+     [
+      "Amount the team chooses above purchased costs."
+     ],
+     [
+      "A $100,000 addition."
+     ]
+    ],
+    [
+     [
+      "Recorded workshop rule"
+     ],
+     [
+      "A mechanic supported by original workshop materials."
+     ],
+     [
+      "Two purchases per round."
+     ]
+    ],
+    [
+     [
+      "Digital decision"
+     ],
+     [
+      "A newly chosen rule for the proposed networked version."
+     ],
+     [
+      "A $50,000 raise step."
+     ]
+    ],
+    [
+     [
+      "Release gate"
+     ],
+     [
+      "A condition requiring evidence or authority before use."
+     ],
+     [
+      "Proven rights to publish assets."
+     ]
+    ],
+    [
+     [
+      "Bidder lease"
+     ],
+     [
+      "Temporary authority for one team representative to bid."
+     ],
+     [
+      "An active designated bidder."
+     ]
+    ],
+    [
+     [
+      "Room"
+     ],
+     [
+      "One isolated multiplayer workshop session."
+     ],
+     [
+      "Two separate classes use separate rooms."
+     ]
+    ],
+    [
+     [
+      "Requirement quality"
+     ],
+     [
+      "A set of checks for clarity, need, feasibility, scope and testability."
+     ],
+     [
+      "Separate a mixed requirement before accepting it."
+     ]
+    ],
+    [
+     [
+      "Certification"
+     ],
+     [
+      "Evidence of conformity against a recognized standard through the required certifying process."
+     ],
+     [
+      "A recognized laboratory confirms a stated attribute."
+     ]
+    ],
+    [
+     [
+      "Description with evidence"
+     ],
+     [
+      "A documented explanation supported by appropriate records."
+     ],
+     [
+      "A specification and inspection record support the stated feature."
+     ]
+    ],
+    [
+     [
+      "Technical review"
+     ],
+     [
+      "A formal examination of evidence and remaining risk at an agreed decision point."
+     ],
+     [
+      "A readiness review checks whether tests can proceed."
+     ]
+    ],
+    [
+     [
+      "Trade study"
+     ],
+     [
+      "A structured comparison of choices using requirements, evidence, risks and costs."
+     ],
+     [
+      "Compare two alternatives against the same mandatory needs."
+     ]
+    ],
+    [
+     [
+      "Decision rationale"
+     ],
+     [
+      "A record of why an option was selected."
+     ],
+     [
+      "Record which evidence justified a purchase."
+     ]
+    ],
+    [
+     [
+      "Life-cycle process"
+     ],
+     [
+      "An activity needed while defining, making, using or retiring a system."
+     ],
+     [
+      "Maintenance is considered during design."
+     ]
+    ],
+    [
+     [
+      "Technical lead"
+     ],
+     [
+      "The role coordinating requirements, design and proof."
+     ],
+     [
+      "A technical lead reviews a qualification plan."
+     ]
+    ],
+    [
+     [
+      "Project lead"
+     ],
+     [
+      "The role coordinating delivery resources, schedule and commitments."
+     ],
+     [
+      "A project lead revises a delivery plan."
+     ]
+    ],
+    [
+     [
+      "Configuration plan"
+     ],
+     [
+      "A plan for identifying and approving changes to controlled items."
+     ],
+     [
+      "Keep an approved requirement version."
+     ]
+    ],
+    [
+     [
+      "Room authority"
+     ],
+     [
+      "The trusted service that decides shared auction state."
+     ],
+     [
+      "Only committed bids update team ownership."
+     ]
+    ],
+    [
+     [
+      "Room revision"
+     ],
+     [
+      "A version number for the shared auction state."
+     ],
+     [
+      "A stale bid references an earlier room revision."
+     ]
+    ],
+    [
+     [
+      "Committed event"
+     ],
+     [
+      "An accepted action recorded as part of the shared result."
+     ],
+     [
+      "A completed purchase cannot be duplicated by retrying."
+     ]
+    ],
+    [
+     [
+      "Deck feasibility"
+     ],
+     [
+      "Whether the planned card supply can support the chosen event rules."
+     ],
+     [
+      "Test supply for every auction category."
+     ]
+    ],
+    [
+     [
+      "Recovery plan"
+     ],
+     [
+      "A prepared method for resuming or safely pausing interrupted work."
+     ],
+     [
+      "Restore participants from the common event record."
+     ]
+    ]
+   ],
+   "t": "table"
+  }
+ ],
+ "id": "glossary",
+ "kind": "doc",
+ "title": "Glossary"
+}

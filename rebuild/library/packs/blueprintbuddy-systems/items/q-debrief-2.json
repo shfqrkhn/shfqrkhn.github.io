@@ -1,0 +1,14 @@
+{
+ "answerKey": "Explaining requirements, trade-offs, risks, and engineering-process value.",
+ "explain": [
+  "Section: Explain the result and its risks"
+ ],
+ "id": "q-debrief-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Which part of the discussion tests understanding beyond arithmetic?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

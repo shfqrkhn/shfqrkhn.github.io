@@ -1,0 +1,14 @@
+{
+ "answerKey": "The first describes what the user needs to do; the second identifies the support needed to make that possible.",
+ "explain": [
+  "Section: Turn usage into support demand"
+ ],
+ "id": "q-usage-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "How is an user need different from a service requirement?"
+ ],
+ "source": "supportscout-equipment"
+}

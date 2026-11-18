@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Audit lighting and controls"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can evaluate lighting changes without ignoring the required lighting service."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Assess light delivered as well as electricity consumed. Luminous efficacy is lumens divided by watts, and lighting power density is installed lighting power per area. Record fixture characteristics, hours, control behaviour, illumination needs, and output decline over time. Occupancy and daylight controls may matter as much as lamp efficiency. Verify that an energy-saving design still provides suitable visibility and lighting conditions."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: Fifty existing 120 W fixtures are replaced with 80 W models. The connected load falls by 2 kW, equivalent to 4,000 kWh at 2,000 annual hours."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Measure watts and hours, then review light service."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Fixture substitutions can alter light levels and controls."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-lighting-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-lighting-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-lighting",
+ "kind": "doc",
+ "title": "Audit lighting and controls"
+}

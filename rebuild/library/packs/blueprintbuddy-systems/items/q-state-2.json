@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. Server acceptance time must still be before the stored deadline.",
+ "explain": [
+  "Section: Keep one authoritative auction record"
+ ],
+ "id": "q-state-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: A countdown reads zero, but the close alarm runs late. Can late bids be accepted?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

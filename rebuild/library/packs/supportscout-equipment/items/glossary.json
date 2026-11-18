@@ -1,0 +1,272 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Glossary"
+   ]
+  },
+  {
+   "head": [
+    [
+     "Term"
+    ],
+    [
+     "Meaning"
+    ],
+    [
+     "Example"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Support analysis"
+     ],
+     [
+      "A structured study of practical ways to keep assets and services ready for use."
+     ],
+     [
+      "A team compares repair and supply arrangements before choosing one."
+     ]
+    ],
+    [
+     [
+      "Support"
+     ],
+     [
+      "Work and resources that allow an asset to remain usable over time."
+     ],
+     [
+      "Inspection, servicing and replacement components are support activities."
+     ]
+    ],
+    [
+     [
+      "Support system"
+     ],
+     [
+      "All people, processes, facilities, tools and agreements contributing to delivery."
+     ],
+     [
+      "An internal team, an outside repair shop and a parts provider work together."
+     ]
+    ],
+    [
+     [
+      "Equipment user"
+     ],
+     [
+      "The person or group that relies on the asset to complete a task."
+     ],
+     [
+      "An operations team explains when a machine must be available."
+     ]
+    ],
+    [
+     [
+      "Decision owner"
+     ],
+     [
+      "The role authorized to accept a choice or require further analysis."
+     ],
+     [
+      "The owner reviews evidence before an arrangement begins."
+     ]
+    ],
+    [
+     [
+      "Stakeholder"
+     ],
+     [
+      "A party affected by, delivering, or providing evidence for a decision."
+     ],
+     [
+      "Users and maintainers describe different constraints."
+     ]
+    ],
+    [
+     [
+      "Stage"
+     ],
+     [
+      "A manageable portion of the study workflow, not a mandatory legal phase."
+     ],
+     [
+      "One stage records needs; a later stage compares options."
+     ]
+    ],
+    [
+     [
+      "Requirement"
+     ],
+     [
+      "A testable condition or result that a service needs to meet."
+     ],
+     [
+      "A repair must be completed within an agreed period."
+     ]
+    ],
+    [
+     [
+      "Metric"
+     ],
+     [
+      "The observation used to measure how well something works."
+     ],
+     [
+      "Hours from a request to a completed repair."
+     ]
+    ],
+    [
+     [
+      "Target"
+     ],
+     [
+      "The desired value or state against which results are assessed."
+     ],
+     [
+      "The service reaches an agreed response time."
+     ]
+    ],
+    [
+     [
+      "Gap"
+     ],
+     [
+      "The difference between a required result and an observed one."
+     ],
+     [
+      "Only six of the eight needed devices are available."
+     ]
+    ],
+    [
+     [
+      "Outcome"
+     ],
+     [
+      "The benefit or operating result the system is expected to deliver."
+     ],
+     [
+      "The needed equipment is ready when work starts."
+     ]
+    ],
+    [
+     [
+      "Options analysis"
+     ],
+     [
+      "A comparison of practical choices using relevant and consistent criteria."
+     ],
+     [
+      "A team reviews two repair approaches using the same service measures."
+     ]
+    ],
+    [
+     [
+      "Work breakdown structure"
+     ],
+     [
+      "A structured list of distinct activities and their interfaces."
+     ],
+     [
+      "Inspection, parts ordering and component repair are separate entries."
+     ]
+    ],
+    [
+     [
+      "Internal delivery"
+     ],
+     [
+      "Work carried out by the organization’s own people or assets."
+     ],
+     [
+      "An in-house team completes regular servicing."
+     ]
+    ],
+    [
+     [
+      "External delivery"
+     ],
+     [
+      "Work assigned to a separate provider under a defined arrangement."
+     ],
+     [
+      "A specialist shop repairs a component."
+     ]
+    ],
+    [
+     [
+      "Partner delivery"
+     ],
+     [
+      "Work shared with an allied organization under an agreed role."
+     ],
+     [
+      "Two organizations coordinate specialist equipment testing."
+     ]
+    ],
+    [
+     [
+      "Resilience"
+     ],
+     [
+      "Ability to keep operating or recover after interruption."
+     ],
+     [
+      "An alternative parts route limits the impact of a closure."
+     ]
+    ],
+    [
+     [
+      "Flexibility"
+     ],
+     [
+      "Ability to adjust when demand, conditions or constraints change."
+     ],
+     [
+      "Capacity can increase temporarily during busy periods."
+     ]
+    ],
+    [
+     [
+      "Performance framework"
+     ],
+     [
+      "Linked outcomes, measures, owners and review actions."
+     ],
+     [
+      "A service lead reviews delays monthly and investigates causes."
+     ]
+    ],
+    [
+     [
+      "Wider stakeholder effects"
+     ],
+     [
+      "Relevant effects beyond direct service delivery, such as inclusion or environmental impact."
+     ],
+     [
+      "A choice is evaluated for accessibility and waste reduction."
+     ]
+    ],
+    [
+     [
+      "Cost-effectiveness"
+     ],
+     [
+      "The relationship among useful results, full costs and accepted risks."
+     ],
+     [
+      "The lowest quoted price may not provide the best long-term result."
+     ]
+    ]
+   ],
+   "t": "table"
+  }
+ ],
+ "id": "glossary",
+ "kind": "doc",
+ "title": "Glossary"
+}

@@ -1,0 +1,18 @@
+[
+ {
+  "approval": "owner-declared 2026-11-14",
+  "attribution": "Written by the repository owner; declared MIT on 2026-11-14. Pack text restates owner notes in new words (KD template).",
+  "author": "Repository owner",
+  "expiryOrReviewAt": null,
+  "id": "wattwatcher-energy-owner",
+  "licence": "MIT",
+  "retrievedAt": "2026-11-14T00:00:00Z",
+  "rightsBasis": "OWNER-DECLARED-MIT",
+  "sourceURL": null,
+  "status": "cleared",
+  "transformations": [
+   "html→blocks v1"
+  ],
+  "version": "1.5.5"
+ }
+]

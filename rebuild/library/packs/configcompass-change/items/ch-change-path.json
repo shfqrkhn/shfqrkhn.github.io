@@ -1,0 +1,155 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Take a change through review"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can route a proposed modification without treating a request as permission."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A requested improvement, correction or replacement begins as a proposal. It should explain what would change, why, and which items and documents could be affected. Appropriate reviewers evaluate consequences before an authorized person or group decides. Approval allows the next controlled work; it does not by itself mean the modification has been installed. Rejection and deferral also matter because later readers need to know what happened."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Describe the problem and proposed end state. You should see: The request is understandable without a meeting. If not: Ask the requester for the missing objective."
+    ],
+    [
+     "Identify affected items and supporting records. You should see: Reviewers can locate the impact boundary. If not: Trace adjacent interfaces and dependent documents."
+    ],
+    [
+     "Gather technical and operational impact comments. You should see: Advantages and risks appear in one decision package. If not: Keep the request pending while material questions remain."
+    ],
+    [
+     "Obtain a decision from the proper authority. You should see: The outcome and conditions are recorded. If not: Escalate when authority is unclear or insufficient."
+    ],
+    [
+     "Release and verify approved work. You should see: Records show what was changed and where. If not: Do not mark a unit complete without evidence."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "A proposal to substitute a module model may affect connectors, control settings, maintenance instructions and spare-parts stock. Assessing only purchase price would miss those links."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "One change path"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Describe; then Assess; then Decide; then Release; then Verify"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Describe:"
+    ],
+    [
+     "Assess:"
+    ],
+    [
+     "Decide:"
+    ],
+    [
+     "Release:"
+    ],
+    [
+     "Verify:"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "A proposal, an authorization and a completed change are three different states."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Emergency procedures may differ; they still require an accountable authorization trail."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Installing a replacement to save review time It can create an unrecorded version that others cannot support. Fix: Use the defined exception or change route."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-change-path-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-change-path-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-change-path",
+ "kind": "doc",
+ "title": "Take a change through review"
+}

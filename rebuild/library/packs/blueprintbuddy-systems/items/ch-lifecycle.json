@@ -1,0 +1,112 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Plan across the life cycle"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Account for the entire service life."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "An engineered system moves through early planning and design, realization, service and support, and eventual withdrawal. Different management frameworks attach different names to those portions of work, and many engineering activities continue across several stages. Design decisions can shape later costs for training, spares, maintenance, improvements and end-of-life handling."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Illustration: Maintenance training needs to be developed before the system enters use and supported after it becomes operational."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Life-cycle view"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Planning, acquisition, service, and retirement connect across the system life cycle."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Plan: Needs and options"
+    ],
+    [
+     "Develop: Design and test"
+    ],
+    [
+     "Produce: Make and deploy"
+    ],
+    [
+     "Support: Use and maintain"
+    ],
+    [
+     "Retire: Dispose and learn"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Consider future operation and retirement while meaningful design alternatives remain."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A single fixed sequence does not replace overlapping technical processes."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-lifecycle-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-lifecycle-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-lifecycle",
+ "kind": "doc",
+ "title": "Plan across the life cycle"
+}

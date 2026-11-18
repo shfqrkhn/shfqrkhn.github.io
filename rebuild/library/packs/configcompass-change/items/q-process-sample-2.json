@@ -1,0 +1,14 @@
+{
+ "answerKey": "An evidence gap in the approval trail, subject to checking any authorized exception.",
+ "explain": [
+  "Section: Look for repeatable controls"
+ ],
+ "id": "q-process-sample-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A released change has no reviewer record. What should the process audit report?"
+ ],
+ "source": "configcompass-change"
+}

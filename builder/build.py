@@ -7,7 +7,8 @@ import os, sys, re, json, hashlib, html, glob
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
-from paths import OUT, V, APPS_DIR, SUP, DOCS, csp_hash, tree_files, tree_hash
+from paths import OUT, V, APPS_DIR, SUP, DOCS, REBUILD, csp_hash, tree_files, tree_hash
+import overlay
 VERSION = "1.4.3"
 REG = json.load(open(os.path.join(OM, "registry.json"), encoding="utf-8"))["pages"]
 TOPICS = json.load(open(os.path.join(OM, "topics.json"), encoding="utf-8"))
@@ -532,6 +533,12 @@ for a in ship:
             dest = os.path.join(d, *rel.split("/")); os.makedirs(os.path.dirname(dest), exist_ok=True); shutil.copyfile(full, dest)
     else:
         open(os.path.join(d, "index.html"), "wb").write(a["bytes"])
+OVERLAY_APPS, OVERLAY_SKIP = overlay.names(OUT)  # the one list (site/scripts/overlay.json): here, in the worker and in the gates
+try:  # the rebuild overlay runs last on purpose: after the pruning above and the app copy, so a name clash is seen and nothing prunes it; a no-op without rebuild/
+    overlaid = overlay.apply(REBUILD, OUT, OVERLAY_APPS, OVERLAY_SKIP)
+except ValueError as _e:
+    fail(["rebuild overlay: " + x for x in str(_e).split("\n")])
+if overlaid: print("rebuild overlay: " + ", ".join(overlaid))
 for k, t, ic in present:
     items = [a for a in apps if a["kind"] == k and not a["sensitive"]]
     key = lambda x: x["title"].lower()
@@ -559,7 +566,7 @@ for a in ship:
     if a["size"] > BIG or a.get("big"): ent["big"] = True  # or the registry says so (big: true), for a large page that should wait for a tap
     PAGES[a["dir"]] = ent
 SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg", "./today.json", "./404.html", "./scripts/personalize.js", "./icons/icon-192.png", "./icons/icon-512.png"] + ["./%s/" % k for k, t, ic in present]
-sw = open(os.path.join(OM, "sw.template.js"), encoding="utf-8").read().replace("@@VERSION@@", VERSION).replace("@@SHELL@@", json.dumps(SHELL)).replace("@@PAGES@@", json.dumps(PAGES, indent=1))
+sw = open(os.path.join(OM, "sw.template.js"), encoding="utf-8").read().replace("@@VERSION@@", VERSION).replace("@@SHELL@@", json.dumps(SHELL)).replace("@@PAGES@@", json.dumps(PAGES, indent=1)).replace("@@OVERLAY@@", json.dumps(OVERLAY_APPS))
 open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8", newline="\n").write(sw)
 # install icons: rendered once by make_icons.py, copied here byte for byte
 os.makedirs(os.path.join(OUT, "icons"), exist_ok=True)

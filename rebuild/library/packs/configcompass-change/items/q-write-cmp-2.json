@@ -1,0 +1,14 @@
+{
+ "answerKey": "The scope of its authority and the escalation path.",
+ "explain": [
+  "Section: Write rules the team can follow"
+ ],
+ "id": "q-write-cmp-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A plan lists a board but not its decision limits. What is missing?"
+ ],
+ "source": "configcompass-change"
+}

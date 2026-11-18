@@ -1,0 +1,121 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Read reports with limits in mind"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can tell what a status report can and cannot establish."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A status report is a view of the underlying register at a particular moment. It can show which changes remain under review, which units have completed work and where inconsistencies need investigation. It cannot prove facts that were never captured. Before acting on counts or trends, inspect the report date, filters, missing records and how completion was verified. An apparently tidy chart may conceal a data-quality problem."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "State the report question and reporting date. You should see: The requested population and period are explicit. If not: Avoid an unspecified \"latest\" view."
+    ],
+    [
+     "Check inclusion rules and empty fields. You should see: Known omissions are visible. If not: Add unknown or not-recorded categories."
+    ],
+    [
+     "Trace a sample row to its supporting record. You should see: Counts and states can be explained. If not: Correct incorrect mappings or stale entries."
+    ],
+    [
+     "Communicate findings with limitations. You should see: Readers know what the report does not establish. If not: Do not make a deployment claim from incomplete evidence."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A report lists 18 completed changes. Trust the total only when every entry uses the same definition and evidence."
+    ],
+    [
+     "Inferred: A second report lists 18 affected items. Eleven are verified, so seven still require verification. The count does not prove any remaining item is complete."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "A report inherits both the strengths and gaps of its source records."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Large totals can hide one critical unmatched unit."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Treating an empty record as \"not affected\" Silence may reflect a missed update. Fix: Count missing data separately."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-csa-reports-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-csa-reports-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-csa-reports",
+ "kind": "doc",
+ "title": "Read reports with limits in mind"
+}

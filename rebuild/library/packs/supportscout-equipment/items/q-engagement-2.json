@@ -1,0 +1,14 @@
+{
+ "answerKey": "Treat it as information to check, while protecting fairness and following the approved engagement process.",
+ "explain": [
+  "Section: Collect relevant evidence"
+ ],
+ "id": "q-engagement-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: A potential bidder recommends its own solution. How should that input be handled?"
+ ],
+ "source": "supportscout-equipment"
+}

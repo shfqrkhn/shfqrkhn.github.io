@@ -1,0 +1,14 @@
+{
+ "answerKey": "4.0 m2-K/W, assuming layers are in series.",
+ "explain": [
+  "Section: Inspect the building enclosure"
+ ],
+ "id": "q-envelope-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Two series layers have R-values 1.5 and 2.5 m²·K/W. Calculate the combined R."
+ ],
+ "source": "wattwatcher-energy"
+}

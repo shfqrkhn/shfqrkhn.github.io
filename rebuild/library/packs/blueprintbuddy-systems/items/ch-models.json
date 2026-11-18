@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Use architecture and models wisely"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Choose models for the decision at hand."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Functional architecture describes the work a system needs to perform. Physical architecture describes the items and links intended to perform it. A model represents selected aspects of reality; a simulation explores what that representation predicts under chosen conditions. Model-based practice connects models with requirements and evidence so changes can be traced."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Illustration: Evaluate alternative platform arrangements to understand a possible speed-and-protection trade-off before committing to a purchase."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Make a model no more elaborate than the decision requires, and state what it cannot demonstrate."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A tidy diagram is not proof that its assumptions match reality."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-models-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-models-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-models",
+ "kind": "doc",
+ "title": "Use architecture and models wisely"
+}

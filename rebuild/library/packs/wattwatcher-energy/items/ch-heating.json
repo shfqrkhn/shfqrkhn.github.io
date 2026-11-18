@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Inspect boilers and heat losses"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can translate useful heating needs into fuel input using an efficiency estimate."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Fuel-fired equipment supplies useful heat after conversion and other losses. Efficiency is the useful heating energy divided by fuel input on a consistent basis. Losses can also occur in distribution piping, ducts, traps, and poorly insulated sections. Examine burners, controls, maintenance, leakage, and required process or ventilation loads. Base savings on the heat actually needed and credible efficiency values, not nameplate assumptions alone."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: Delivering 70 GJ of useful heat requires 100 GJ of fuel at 70% efficiency or about 77.78 GJ at 90%. The difference is about 22.22 GJ."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Compare equal useful heat delivery when estimating improved efficiency."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Changed loads or heating conditions can distort a simple efficiency comparison."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-heating-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-heating-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-heating",
+ "kind": "doc",
+ "title": "Inspect boilers and heat losses"
+}

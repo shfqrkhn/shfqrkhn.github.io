@@ -1,0 +1,14 @@
+{
+ "answerKey": "The actual measured shortage or delay, its cause if known, and the operating consequence.",
+ "explain": [
+  "Section: Measure unmet needs"
+ ],
+ "id": "q-gaps-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: The team writes “purchase more parts” as the problem. What should it record?"
+ ],
+ "source": "supportscout-equipment"
+}

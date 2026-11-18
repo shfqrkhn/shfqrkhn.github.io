@@ -1,0 +1,14 @@
+{
+ "answerKey": "Who is responsible for delivery and how their responsibilities connect.",
+ "explain": [
+  "Section: Assign delivery responsibility"
+ ],
+ "id": "q-division-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: A supplier and a internal depot both participate. What must still be decided?"
+ ],
+ "source": "supportscout-equipment"
+}

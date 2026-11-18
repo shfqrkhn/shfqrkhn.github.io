@@ -1,0 +1,14 @@
+{
+ "answerKey": "A defined measure of repair time and a justified performance threshold.",
+ "explain": [
+  "Section: Write measurable requirements"
+ ],
+ "id": "q-requirements-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: A draft calls for quick repairs. What must be added?"
+ ],
+ "source": "supportscout-equipment"
+}

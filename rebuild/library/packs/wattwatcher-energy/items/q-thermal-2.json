@@ -1,0 +1,14 @@
+{
+ "answerKey": "Mass flow and fluid properties are needed to determine thermal power.",
+ "explain": [
+  "Section: Link thermal measurements to loads"
+ ],
+ "id": "q-thermal-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Temperatures are known but cooling flow is not. Which missing data prevent a heat-rate estimate?"
+ ],
+ "source": "wattwatcher-energy"
+}

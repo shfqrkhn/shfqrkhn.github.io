@@ -1,0 +1,14 @@
+{
+ "answerKey": "Inspect each external connection for failure or incompatibility.",
+ "explain": [
+  "Section: Draw boundaries and risks"
+ ],
+ "id": "q-bounds-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What is the first risk check on a boundary diagram?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

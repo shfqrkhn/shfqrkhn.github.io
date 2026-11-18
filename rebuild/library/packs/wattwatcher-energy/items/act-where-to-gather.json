@@ -1,0 +1,178 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Sort audit evidence"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can place evidence in a sensible collection stage."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Decide whether each item is usually requested early or observed at the site."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Item"
+    ],
+    [
+     "Group"
+    ],
+    [
+     "Why"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Utility bills"
+     ],
+     [
+      "Ask before site visit"
+     ],
+     [
+      "Request bills early to study usage before arrival."
+     ]
+    ],
+    [
+     [
+      "Building plans"
+     ],
+     [
+      "Ask before site visit"
+     ],
+     [
+      "Existing layout and equipment plans can guide an inspection."
+     ]
+    ],
+    [
+     [
+      "Operating schedule records"
+     ],
+     [
+      "Ask before site visit"
+     ],
+     [
+      "Ask for reported schedules before checking them onsite."
+     ]
+    ],
+    [
+     [
+      "Equipment nameplate reading"
+     ],
+     [
+      "Gather or verify onsite"
+     ],
+     [
+      "Confirm installed equipment details while inspecting it."
+     ]
+    ],
+    [
+     [
+      "Observed control state"
+     ],
+     [
+      "Gather or verify onsite"
+     ],
+     [
+      "Compare actual control operation with written schedules."
+     ]
+    ],
+    [
+     [
+      "Condition of duct insulation"
+     ],
+     [
+      "Gather or verify onsite"
+     ],
+     [
+      "Inspect physical distribution conditions at the facility."
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Before-site data makes the visit more focused."
+   ]
+  }
+ ],
+ "data": {
+  "buckets": [
+   {
+    "id": "before",
+    "label": "Ask before site visit"
+   },
+   {
+    "id": "onsite",
+    "label": "Gather or verify onsite"
+   }
+  ],
+  "claims": [
+   "audit-plan",
+   "evidence-report"
+  ],
+  "done": "Before-site data makes the visit more focused.",
+  "goal": "After this you can place evidence in a sensible collection stage.",
+  "hint": "Decide whether each item is usually requested early or observed at the site.",
+  "id": "where-to-gather",
+  "items": [
+   {
+    "bucket": "before",
+    "label": "Utility bills",
+    "why": "Request bills early to study usage before arrival."
+   },
+   {
+    "bucket": "before",
+    "label": "Building plans",
+    "why": "Existing layout and equipment plans can guide an inspection."
+   },
+   {
+    "bucket": "before",
+    "label": "Operating schedule records",
+    "why": "Ask for reported schedules before checking them onsite."
+   },
+   {
+    "bucket": "onsite",
+    "label": "Equipment nameplate reading",
+    "why": "Confirm installed equipment details while inspecting it."
+   },
+   {
+    "bucket": "onsite",
+    "label": "Observed control state",
+    "why": "Compare actual control operation with written schedules."
+   },
+   {
+    "bucket": "onsite",
+    "label": "Condition of duct insulation",
+    "why": "Inspect physical distribution conditions at the facility."
+   }
+  ],
+  "title": "Sort audit evidence",
+  "type": "sort"
+ },
+ "id": "act-where-to-gather",
+ "kind": "activity",
+ "title": "Sort audit evidence"
+}

@@ -1,0 +1,170 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "A mismatch found at audit"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can choose how to handle unexplained differences during review."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Passing a performance test does not establish every physical detail."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Inferred: An audited controller passes its timing test, but its assembly marking differs from the accepted build record."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Ignore the assembly marking because the test passed The test does not establish a match to the accepted build."
+    ],
+    [
+     "Open a build-conformity finding and investigate The difference can now be explained or corrected with evidence."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "The team has permission to release conditionally while a labeling issue is corrected."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Delete the issue from the final report That would hide a condition affecting the release."
+    ],
+    [
+     "Retain the condition and verify the correction The audit record stays accurate until closure is justified."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "The file does not explain the discrepancy."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Record the unresolved item and the missing evidence."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The disposition is visible and closure has a verification requirement."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " An audit conclusion is only as strong as its documented evidence."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Discrepancies need a visible disposition and closure evidence."
+   ]
+  }
+ ],
+ "data": {
+  "claims": [
+   "audit-plan",
+   "chair-audit",
+   "close-findings"
+  ],
+  "done": "Discrepancies need a visible disposition and closure evidence.",
+  "goal": "After this you can choose how to handle unexplained differences during review.",
+  "hint": "Passing a performance test does not establish every physical detail.",
+  "id": "scenario-audit",
+  "nodes": [
+   {
+    "choices": [
+     {
+      "label": "Ignore the assembly marking because the test passed",
+      "next": "endbad",
+      "say": "The test does not establish a match to the accepted build."
+     },
+     {
+      "label": "Open a build-conformity finding and investigate",
+      "next": "second",
+      "say": "The difference can now be explained or corrected with evidence."
+     }
+    ],
+    "id": "first",
+    "text": "Inferred: An audited controller passes its timing test, but its assembly marking differs from the accepted build record."
+   },
+   {
+    "choices": [
+     {
+      "label": "Delete the issue from the final report",
+      "next": "endbad",
+      "say": "That would hide a condition affecting the release."
+     },
+     {
+      "label": "Retain the condition and verify the correction",
+      "next": "endgood",
+      "say": "The audit record stays accurate until closure is justified."
+     }
+    ],
+    "id": "second",
+    "text": "The team has permission to release conditionally while a labeling issue is corrected."
+   },
+   {
+    "id": "endbad",
+    "lesson": "Record the unresolved item and the missing evidence.",
+    "text": "The file does not explain the discrepancy."
+   },
+   {
+    "id": "endgood",
+    "lesson": "An audit conclusion is only as strong as its documented evidence.",
+    "text": "The disposition is visible and closure has a verification requirement."
+   }
+  ],
+  "start": "first",
+  "title": "A mismatch found at audit",
+  "type": "scenario"
+ },
+ "id": "act-scenario-audit",
+ "kind": "activity",
+ "title": "A mismatch found at audit"
+}

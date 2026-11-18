@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. Use a qualified, authorized person and a site-approved safe procedure.",
+ "explain": [
+  "Section: Select instruments and work safely"
+ ],
+ "id": "q-field-safety-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Can an untrained visitor open an electrical cabinet to gather missing data?"
+ ],
+ "source": "wattwatcher-energy"
+}

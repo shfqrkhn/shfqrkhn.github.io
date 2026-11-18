@@ -1,0 +1,14 @@
+{
+ "answerKey": "To expose scarce parts, dominant choices, and cases where compliance becomes impossible.",
+ "explain": [
+  "Section: Check deck feasibility and model limits"
+ ],
+ "id": "q-balance-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why run several strategies and random markets?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

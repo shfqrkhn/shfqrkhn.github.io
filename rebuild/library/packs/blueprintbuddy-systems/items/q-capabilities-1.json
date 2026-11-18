@@ -1,0 +1,14 @@
+{
+ "answerKey": "4 persons.",
+ "explain": [
+  "Section: Read the platform totals"
+ ],
+ "id": "q-capabilities-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: Capacity changes by +5, then -2, then +1 persons. What is the total?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

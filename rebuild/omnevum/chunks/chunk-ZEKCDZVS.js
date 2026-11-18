@@ -1,0 +1,1 @@
+import{a}from"./chunk-BNCCD3GR.js";a();function m(t){let[r,e,n]=t.split("-").map(Number);return Math.round((Date.UTC(r,e-1,n)-Date.UTC(r,0,1))/864e5)+1}function o(t){return(t-1)%36+1}function p(t=new Date){let r=(e,n=2)=>String(e).padStart(n,"0");return`${r(t.getFullYear(),4)}-${r(t.getMonth()+1)}-${r(t.getDate())}`}export{m as a,o as b,p as c};

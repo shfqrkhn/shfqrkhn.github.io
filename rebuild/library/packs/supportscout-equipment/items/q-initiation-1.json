@@ -1,0 +1,14 @@
+{
+ "answerKey": "The trigger, study boundary, roles, schedule, information needs and major risks.",
+ "explain": [
+  "Section: Organize the decision work"
+ ],
+ "id": "q-initiation-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What must the initiating team settle early?"
+ ],
+ "source": "supportscout-equipment"
+}

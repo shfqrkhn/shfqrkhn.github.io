@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Inspect cooling and air systems"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can relate HVAC useful output, energy input, and operating controls."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Heating, ventilation, and air conditioning systems serve both thermal comfort and air-supply needs. Coefficient of performance (COP) compares useful heating or cooling output with input power; energy efficiency ratio (EER) is another performance measure. Inspect chillers, heat pumps, fans, pumps, filters, ducts, controls, and hours. Record actual conditions rather than equating rated capacity with power drawn. Cooling output and electrical input are different quantities."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: A 300 kW cooling duty served at COP 5 requires 60 kW input (300 ÷ 5)."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Keep cooling output separate from electrical input."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Rated COP may not match the observed part-load condition."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-hvac-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-hvac-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-hvac",
+ "kind": "doc",
+ "title": "Inspect cooling and air systems"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "Identify runtime as missing evidence and qualify the estimate.",
+ "explain": [
+  "Section: Turn findings into a decision"
+ ],
+ "id": "q-evidence-report-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A saving estimate omits equipment runtime. How should the report handle this?"
+ ],
+ "source": "wattwatcher-energy"
+}

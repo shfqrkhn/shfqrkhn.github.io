@@ -1,0 +1,275 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Try a fictional demand curve"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can see how a staged requirement differs from full surge capacity."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Change the elapsed years and annual increase to explore a fictional workload pattern."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Input"
+    ],
+    [
+     "Min"
+    ],
+    [
+     "Max"
+    ],
+    [
+     "Step"
+    ],
+    [
+     "Default"
+    ],
+    [
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Years after start"
+     ],
+     [
+      "0"
+     ],
+     [
+      "8"
+     ],
+     [
+      "1"
+     ],
+     [
+      "2"
+     ],
+     [
+      "years"
+     ]
+    ],
+    [
+     [
+      "Planned yearly increase"
+     ],
+     [
+      "25"
+     ],
+     [
+      "100"
+     ],
+     [
+      "25"
+     ],
+     [
+      "50"
+     ],
+     [
+      "units/year"
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "head": [
+    [
+     "Output"
+    ],
+    [
+     "Formula"
+    ],
+    [
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Projected annual usage"
+     ],
+     [
+      {
+       "code": "min(800+year*rise,1200)"
+      }
+     ],
+     [
+      "units/year"
+     ]
+    ],
+    [
+     [
+      "Additional surge above plan"
+     ],
+     [
+      {
+       "code": "1350-planned"
+      }
+     ],
+     [
+      "units/year"
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    "Inferred: These fictional activity units show how planned growth may reach a cap while emergency capacity remains separate. They do not describe an actual asset group."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Planning can distinguish a sustained workload from temporary extra demand."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " A stable demand forecast and a surge need should be stated separately."
+   ]
+  }
+ ],
+ "data": {
+  "chart": {
+   "kind": "line",
+   "title": "Illustrative use profile",
+   "x": "year",
+   "y": [
+    "planned",
+    "surgegap"
+   ]
+  },
+  "checks": [
+   {
+    "in": {
+     "rise": 25,
+     "year": 0
+    },
+    "out": {
+     "planned": 800,
+     "surgegap": 550
+    },
+    "tol": 0
+   },
+   {
+    "in": {
+     "rise": 50,
+     "year": 2
+    },
+    "out": {
+     "planned": 900,
+     "surgegap": 450
+    },
+    "tol": 0
+   },
+   {
+    "in": {
+     "rise": 100,
+     "year": 4
+    },
+    "out": {
+     "planned": 1200,
+     "surgegap": 150
+    },
+    "tol": 0
+   },
+   {
+    "in": {
+     "rise": 50,
+     "year": 8
+    },
+    "out": {
+     "planned": 1200,
+     "surgegap": 150
+    },
+    "tol": 0
+   }
+  ],
+  "claims": [
+   "usage"
+  ],
+  "done": "A stable demand forecast and a surge need should be stated separately.",
+  "goal": "After this you can see how a staged requirement differs from full surge capacity.",
+  "hint": "Change the elapsed years and annual increase to explore a fictional workload pattern.",
+  "id": "capacity_sim",
+  "inputs": [
+   {
+    "control": "slider",
+    "default": 2,
+    "id": "year",
+    "label": "Years after start",
+    "max": 8,
+    "min": 0,
+    "step": 1,
+    "unit": "years"
+   },
+   {
+    "control": "stepper",
+    "default": 50,
+    "id": "rise",
+    "label": "Planned yearly increase",
+    "max": 100,
+    "min": 25,
+    "step": 25,
+    "unit": "units/year"
+   }
+  ],
+  "notice": [
+   "Inferred: These fictional activity units show how planned growth may reach a cap while emergency capacity remains separate. They do not describe an actual asset group.",
+   "Planning can distinguish a sustained workload from temporary extra demand."
+  ],
+  "outputs": [
+   {
+    "digits": 0,
+    "formula": "min(800+year*rise,1200)",
+    "id": "planned",
+    "label": "Projected annual usage",
+    "unit": "units/year"
+   },
+   {
+    "digits": 0,
+    "formula": "1350-planned",
+    "id": "surgegap",
+    "label": "Additional surge above plan",
+    "unit": "units/year"
+   }
+  ],
+  "predict": {
+   "ask": "If the elapsed years increases to four, does the planned usage increase, decrease or stay unchanged?",
+   "input": "year",
+   "output": "planned",
+   "to": 4
+  },
+  "title": "Try a fictional demand curve",
+  "type": "sim"
+ },
+ "id": "act-capacity-sim",
+ "kind": "activity",
+ "title": "Try a fictional demand curve"
+}

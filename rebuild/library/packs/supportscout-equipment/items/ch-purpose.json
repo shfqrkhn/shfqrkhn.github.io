@@ -1,0 +1,109 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Define the support decision"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can explain what a support decision study should decide and deliver."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For education only; this is not legal, purchasing, financial or safety advice. This lesson uses support analysis to answer a practical question: which arrangement can keep equipment usable for the tasks that matter? Begin with the result users need, not a preferred supplier. The study considers people, spare parts, facilities, information, costs and agreements as one system. It ends in an explained recommendation, subject to the real decision owner’s approval."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A group needs a set of devices ready for daily operations. The decision is how to maintain usable devices, not whether to select one named supplier."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "A decision pathway"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Establish the need, measure current support, compare alternatives, then select a recommended model."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Needs: Requirements"
+    ],
+    [
+     "Gaps: Compare current support"
+    ],
+    [
+     "Options: Test alternatives"
+    ],
+    [
+     "Solution: One recommendation"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Define the needed result before favouring a delivery partner."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A mandatory constraint can narrow the choices; it should still be made explicit."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-purpose-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-purpose-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-purpose",
+ "kind": "doc",
+ "title": "Define the support decision"
+}

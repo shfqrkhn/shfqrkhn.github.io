@@ -1,0 +1,349 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Simple payback estimate"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can connect saved power, annual hours, and initial cost."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Begin with saved kilowatts, then vary the installed cost."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Input"
+    ],
+    [
+     "Min"
+    ],
+    [
+     "Max"
+    ],
+    [
+     "Step"
+    ],
+    [
+     "Default"
+    ],
+    [
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Power avoided"
+     ],
+     [
+      "1"
+     ],
+     [
+      "20"
+     ],
+     [
+      "1"
+     ],
+     [
+      "5"
+     ],
+     [
+      "kW"
+     ]
+    ],
+    [
+     [
+      "Hours saved yearly"
+     ],
+     [
+      "500"
+     ],
+     [
+      "4000"
+     ],
+     [
+      "500"
+     ],
+     [
+      "2000"
+     ],
+     [
+      "hours"
+     ]
+    ],
+    [
+     [
+      "Installed cost"
+     ],
+     [
+      "1000"
+     ],
+     [
+      "20000"
+     ],
+     [
+      "1000"
+     ],
+     [
+      "6000"
+     ],
+     [
+      "$"
+     ]
+    ],
+    [
+     [
+      "Electricity rate"
+     ],
+     [
+      "0.05"
+     ],
+     [
+      "0.2"
+     ],
+     [
+      "0.05"
+     ],
+     [
+      "0.1"
+     ],
+     [
+      "$/kWh"
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "head": [
+    [
+     "Output"
+    ],
+    [
+     "Formula"
+    ],
+    [
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Electricity avoided"
+     ],
+     [
+      {
+       "code": "savedkw*hours"
+      }
+     ],
+     [
+      "kWh"
+     ]
+    ],
+    [
+     [
+      "Annual energy savings"
+     ],
+     [
+      {
+       "code": "kwh*rate"
+      }
+     ],
+     [
+      "$"
+     ]
+    ],
+    [
+     [
+      "Simple payback"
+     ],
+     [
+      {
+       "code": "cost/annual"
+      }
+     ],
+     [
+      "years"
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    "Illustrative example: This example leaves out changing rates, repairs, and demand-charge savings."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "It is a screening calculation, not investment advice."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Payback is cost divided by annual net savings."
+   ]
+  }
+ ],
+ "data": {
+  "chart": {
+   "kind": "line",
+   "title": "Payback by project cost",
+   "x": "cost",
+   "y": [
+    "payback"
+   ]
+  },
+  "checks": [
+   {
+    "in": {
+     "cost": 1000,
+     "hours": 500,
+     "rate": 0.05,
+     "savedkw": 1
+    },
+    "out": {
+     "annual": 25.0,
+     "kwh": 500.0,
+     "payback": 40.0
+    },
+    "tol": 0.005
+   },
+   {
+    "in": {
+     "cost": 6000,
+     "hours": 2000,
+     "rate": 0.1,
+     "savedkw": 5
+    },
+    "out": {
+     "annual": 1000.0,
+     "kwh": 10000.0,
+     "payback": 6.0
+    },
+    "tol": 0.005
+   },
+   {
+    "in": {
+     "cost": 20000,
+     "hours": 4000,
+     "rate": 0.2,
+     "savedkw": 20
+    },
+    "out": {
+     "annual": 16000.0,
+     "kwh": 80000.0,
+     "payback": 1.25
+    },
+    "tol": 0.005
+   }
+  ],
+  "claims": [
+   "savings",
+   "cost-decisions"
+  ],
+  "done": "Payback is cost divided by annual net savings.",
+  "goal": "After this you can connect saved power, annual hours, and initial cost.",
+  "hint": "Begin with saved kilowatts, then vary the installed cost.",
+  "id": "simple-payback",
+  "inputs": [
+   {
+    "default": 5,
+    "id": "savedkw",
+    "label": "Power avoided",
+    "max": 20,
+    "min": 1,
+    "step": 1,
+    "unit": "kW"
+   },
+   {
+    "default": 2000,
+    "id": "hours",
+    "label": "Hours saved yearly",
+    "max": 4000,
+    "min": 500,
+    "step": 500,
+    "unit": "hours"
+   },
+   {
+    "default": 6000,
+    "id": "cost",
+    "label": "Installed cost",
+    "max": 20000,
+    "min": 1000,
+    "step": 1000,
+    "unit": "$"
+   },
+   {
+    "default": 0.1,
+    "id": "rate",
+    "label": "Electricity rate",
+    "max": 0.2,
+    "min": 0.05,
+    "step": 0.05,
+    "unit": "$/kWh"
+   }
+  ],
+  "notice": [
+   "Illustrative example: This example leaves out changing rates, repairs, and demand-charge savings.",
+   "It is a screening calculation, not investment advice."
+  ],
+  "outputs": [
+   {
+    "digits": 0,
+    "formula": "savedkw*hours",
+    "id": "kwh",
+    "label": "Electricity avoided",
+    "unit": "kWh"
+   },
+   {
+    "digits": 2,
+    "formula": "kwh*rate",
+    "id": "annual",
+    "label": "Annual energy savings",
+    "unit": "$"
+   },
+   {
+    "digits": 2,
+    "formula": "cost/annual",
+    "id": "payback",
+    "label": "Simple payback",
+    "unit": "years"
+   }
+  ],
+  "predict": {
+   "ask": "When cost rises with savings fixed, what happens to payback time?",
+   "input": "cost",
+   "output": "payback",
+   "to": 12000
+  },
+  "title": "Simple payback estimate",
+  "type": "sim"
+ },
+ "id": "act-simple-payback",
+ "kind": "activity",
+ "title": "Simple payback estimate"
+}

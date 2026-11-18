@@ -1,0 +1,169 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Choose the next audit action"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can handle a tempting savings claim with missing evidence."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Look for the option that identifies the missing observation."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Illustrative scenario: A proposal claims overnight fans are unnecessary. The site has only a controller schedule."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Accept the full savings claim The controller schedule does not prove fan power or safe shutdown."
+    ],
+    [
+     "Request a trend and required-air review This checks actual fan operation and required services before calculating savings."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "The claim lacks measurements and operating constraints. What would repair it?"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Measure actual fan operation A measured baseline improves the savings estimate."
+    ],
+    [
+     "Repeat the claim without a qualifier Repeating a claim does not supply evidence."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "You can now compare needed service with measured fan hours."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Check operation and constraints before publishing savings."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The report still cannot support the promised reduction."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " State missing evidence and return for measurement."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " A qualified estimate makes its limits visible."
+   ]
+  }
+ ],
+ "data": {
+  "claims": [
+   "evidence-report",
+   "controls"
+  ],
+  "done": "A qualified estimate makes its limits visible.",
+  "goal": "After this you can handle a tempting savings claim with missing evidence.",
+  "hint": "Look for the option that identifies the missing observation.",
+  "id": "uncertain-claim",
+  "nodes": [
+   {
+    "choices": [
+     {
+      "label": "Accept the full savings claim",
+      "next": "caution",
+      "say": "The controller schedule does not prove fan power or safe shutdown."
+     },
+     {
+      "label": "Request a trend and required-air review",
+      "next": "verify",
+      "say": "This checks actual fan operation and required services before calculating savings."
+     }
+    ],
+    "id": "start",
+    "text": "Illustrative scenario: A proposal claims overnight fans are unnecessary. The site has only a controller schedule."
+   },
+   {
+    "choices": [
+     {
+      "label": "Measure actual fan operation",
+      "next": "verify",
+      "say": "A measured baseline improves the savings estimate."
+     },
+     {
+      "label": "Repeat the claim without a qualifier",
+      "next": "endbad",
+      "say": "Repeating a claim does not supply evidence."
+     }
+    ],
+    "id": "caution",
+    "text": "The claim lacks measurements and operating constraints. What would repair it?"
+   },
+   {
+    "id": "verify",
+    "lesson": "Check operation and constraints before publishing savings.",
+    "text": "You can now compare needed service with measured fan hours."
+   },
+   {
+    "id": "endbad",
+    "lesson": "State missing evidence and return for measurement.",
+    "text": "The report still cannot support the promised reduction."
+   }
+  ],
+  "start": "start",
+  "title": "Choose the next audit action",
+  "type": "scenario"
+ },
+ "id": "act-uncertain-claim",
+ "kind": "activity",
+ "title": "Choose the next audit action"
+}

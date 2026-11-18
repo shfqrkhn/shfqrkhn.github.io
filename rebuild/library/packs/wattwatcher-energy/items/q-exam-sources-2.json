@@ -1,0 +1,14 @@
+{
+ "answerKey": "Auditing process, energy analysis, economic evaluation, and major building-system skills.",
+ "explain": [
+  "Section: Interpret exam-source editions"
+ ],
+ "id": "q-exam-sources-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Which core skills appear across the historical exam outlines?"
+ ],
+ "source": "wattwatcher-energy"
+}

@@ -9,6 +9,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_FILES = {"index.html", "404.html", "sw.js", "manifest.webmanifest", "icon.svg", "today.json", "robots.txt", "llms.txt", "LICENSE", "README.md", ".gitignore", ".gitattributes", ".nojekyll"}
 ROOT_DIRS = {"docs", "scripts", "content", "templates", "icons", ".github"}
 errors = []
+# The rebuilt apps (builder/overlay.py) are copied to site/<name>/ and are not hub pages: they are not in the catalog or the hub worker, and the
+# page-quality gate does not walk them. The names come from the one list, scripts/overlay.json. The allowance below is exactly those names, and only
+# as folders that hold an index.html with its own policy meta; every file in them is still read by the privacy gate.
+OVERLAY = json.load(open(os.path.join(ROOT, "scripts", "overlay.json"), encoding="utf-8"))["apps"]
 
 
 def fail(msg):
@@ -104,6 +108,12 @@ for name in sorted(os.listdir(ROOT)):
                     fail("unlisted entry in " + name + "/: " + sub)
             if not os.path.isfile(os.path.join(full, "index.html")):
                 fail("missing group page " + name + "/index.html")
+        elif name in OVERLAY:
+            _ix = os.path.join(full, "index.html")
+            if not os.path.isfile(_ix):
+                fail("rebuild app " + name + "/ has no index.html")
+            elif not re.search(rb"http-equiv\s*=\s*[\"']?Content-Security-Policy", open(_ix, "rb").read(), re.I):
+                fail("rebuild app " + name + "/index.html carries no Content-Security-Policy meta")
         elif name not in ROOT_DIRS:
             fail("unlisted folder at root: " + name)
     elif name not in ROOT_FILES:
@@ -111,11 +121,13 @@ for name in sorted(os.listdir(ROOT)):
 
 # ROOT is the published tree, so ".github" and "templates" are normally absent and their scan is a no-op kept as a guard if one ever appears there.
 WEB_OK = {os.path.join("scripts", "personalize.js")}  # the only page or script files allowed in the folders the page gate does not walk
-for _d in ("docs", "scripts", "content", "templates", "icons", ".github"):
+if set(OVERLAY) & (set(expected) | ROOT_DIRS | {"apps", "tools", "games", "guides", "recipes", "courses", "references"}):
+    fail("overlay.json names a folder the site already owns: " + ", ".join(sorted(set(OVERLAY) & (set(expected) | ROOT_DIRS | {"apps", "tools", "games", "guides", "recipes", "courses", "references"}))))
+for _d in ("docs", "scripts", "content", "templates", "icons", ".github") + tuple(OVERLAY):
     for dp, dn, fn in os.walk(os.path.join(ROOT, _d)):
         for f in fn:
             rel = os.path.relpath(os.path.join(dp, f), ROOT)
-            if os.path.splitext(f)[1].lower() in (".html", ".htm", ".xhtml", ".xht", ".shtml", ".xml", ".xsl", ".xslt", ".mht", ".mhtml", ".js", ".mjs", ".cjs", ".svg", ".svgz") and rel not in WEB_OK:
+            if _d not in OVERLAY and os.path.splitext(f)[1].lower() in (".html", ".htm", ".xhtml", ".xht", ".shtml", ".xml", ".xsl", ".xslt", ".mht", ".mhtml", ".js", ".mjs", ".cjs", ".svg", ".svgz") and rel not in WEB_OK:
                 fail("page or script file in a folder the page gate does not check: " + rel)
             if os.path.splitext(f)[1].lower() in (".zip", ".gz", ".tgz", ".bz2", ".xz", ".7z", ".rar", ".tar", ".docx", ".xlsx", ".pptx", ".pdf", ".db", ".sqlite", ".sqlite3", ".zst", ".lz4", ".cab", ".iso", ".dmg", ".jar", ".war", ".apk", ".epub", ".odt", ".ods", ".odp", ".rtf", ".mdb", ".parquet"):
                 fail("compressed or document file the privacy gate cannot read: " + rel)

@@ -1,0 +1,62 @@
+{
+ "data": {
+  "asOf": "2018-11-07",
+  "group": null,
+  "levels": [
+   {
+    "chapters": [
+     "audit-plan",
+     "field-safety",
+     "units",
+     "bill",
+     "benchmark",
+     "schedule",
+     "savings",
+     "evidence-report"
+    ],
+    "id": 1,
+    "name": "Essentials"
+   },
+   {
+    "chapters": [
+     "cost-decisions",
+     "lighting",
+     "hvac",
+     "heat-pumps",
+     "heating",
+     "ventilation",
+     "water",
+     "motors",
+     "fan-pump",
+     "compressed-air",
+     "envelope",
+     "controls"
+    ],
+    "id": 2,
+    "name": "Core building systems"
+   },
+   {
+    "chapters": [
+     "data-analysis",
+     "electrical",
+     "thermal",
+     "finance-risk",
+     "measurement",
+     "generation",
+     "transport",
+     "exam-sources",
+     "source-energy",
+     "decision-tradeoffs"
+    ],
+    "id": 3,
+    "name": "Detailed decisions and edge cases"
+   }
+  ],
+  "title": "WattWatcher Energy Audit Field Guide",
+  "topic": "Energy auditing: practical foundations and certification-oriented study",
+  "updated": "2026-11-03"
+ },
+ "id": "meta",
+ "kind": "record",
+ "title": "Pack metadata"
+}

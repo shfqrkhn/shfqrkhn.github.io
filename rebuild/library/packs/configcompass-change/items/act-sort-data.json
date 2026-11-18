@@ -1,0 +1,146 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Supported claim or missing proof?"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can separate reportable facts from statements needing evidence."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " A missing field should never be treated as a positive result."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Item"
+    ],
+    [
+     "Group"
+    ],
+    [
+     "Why"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "A verified software release is stored with the unit identifier"
+     ],
+     [
+      "Supported by a checked record"
+     ],
+     [
+      "Inferred: The record directly supports the reported release."
+     ]
+    ],
+    [
+     [
+      "The accepted drawing revision is recorded and dated"
+     ],
+     [
+      "Supported by a checked record"
+     ],
+     [
+      "An approved source value is available."
+     ]
+    ],
+    [
+     [
+      "No completion date appears, so the unit must be finished"
+     ],
+     [
+      "Needs more evidence"
+     ],
+     [
+      "Silence is not confirmation of work."
+     ]
+    ],
+    [
+     [
+      "The installed module model was never recorded"
+     ],
+     [
+      "Needs more evidence"
+     ],
+     [
+      "The actual component is unknown."
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " A report should reveal unknown states, not hide them."
+   ]
+  }
+ ],
+ "data": {
+  "buckets": [
+   {
+    "id": "supported",
+    "label": "Supported by a checked record"
+   },
+   {
+    "id": "missing",
+    "label": "Needs more evidence"
+   }
+  ],
+  "claims": [
+   "csa-fields",
+   "csa-reports"
+  ],
+  "done": "A report should reveal unknown states, not hide them.",
+  "goal": "After this you can separate reportable facts from statements needing evidence.",
+  "hint": "A missing field should never be treated as a positive result.",
+  "id": "sort-data",
+  "items": [
+   {
+    "bucket": "supported",
+    "label": "A verified software release is stored with the unit identifier",
+    "why": "Inferred: The record directly supports the reported release."
+   },
+   {
+    "bucket": "supported",
+    "label": "The accepted drawing revision is recorded and dated",
+    "why": "An approved source value is available."
+   },
+   {
+    "bucket": "missing",
+    "label": "No completion date appears, so the unit must be finished",
+    "why": "Silence is not confirmation of work."
+   },
+   {
+    "bucket": "missing",
+    "label": "The installed module model was never recorded",
+    "why": "The actual component is unknown."
+   }
+  ],
+  "title": "Supported claim or missing proof?",
+  "type": "sort"
+ },
+ "id": "act-sort-data",
+ "kind": "activity",
+ "title": "Supported claim or missing proof?"
+}

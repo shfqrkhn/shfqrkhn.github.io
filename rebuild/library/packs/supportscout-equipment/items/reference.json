@@ -1,0 +1,622 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Rules of thumb"
+   ]
+  },
+  {
+   "head": [
+    [
+     "Rule"
+    ],
+    [
+     "Works when"
+    ],
+    [
+     "Fails when"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Define the user result before designing the delivery model."
+     ],
+     [
+      "When workload and needs are being established."
+     ],
+     [
+      "When future demand is uncertain, describe cases and assumptions."
+     ]
+    ],
+    [
+     [
+      "Give each important need a test and a threshold."
+     ],
+     [
+      "When writing a service requirement."
+     ],
+     [
+      "If evidence cannot support a number, explain the uncertainty."
+     ]
+    ],
+    [
+     [
+      "Measure deficiencies before selecting remedies."
+     ],
+     [
+      "When reviewing an existing service."
+     ],
+     [
+      "When there is no credible baseline, do not invent one."
+     ]
+    ],
+    [
+     [
+      "Use suitable common criteria for every option."
+     ],
+     [
+      "When comparing delivery arrangements."
+     ],
+     [
+      "When options have unequal scope, align the scope first."
+     ]
+    ],
+    [
+     [
+      "Include all relevant evaluation dimensions."
+     ],
+     [
+      "When choices have competing advantages."
+     ],
+     [
+      "If a dimension is irrelevant, explain why."
+     ]
+    ],
+    [
+     [
+      "A recommendation does not grant approval."
+     ],
+     [
+      "Before commitments or material changes."
+     ],
+     [
+      "The actual approval route belongs to the organization."
+     ]
+    ],
+    [
+     [
+      "Review service evidence after implementation."
+     ],
+     [
+      "During operating management."
+     ],
+     [
+      "Poor-quality data can hide both problems and successes."
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Decide"
+   ]
+  },
+  {
+   "head": [
+    [
+     "If"
+    ],
+    [
+     "Then"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "The assets or tasks being studied are unclear."
+     ],
+     [
+      "Use Stage A to confirm the decision, boundary and roles."
+     ]
+    ],
+    [
+     [
+      "Users can describe the task but not the needed support."
+     ],
+     [
+      "In Stage B, turn usage into measurable service requirements."
+     ]
+    ],
+    [
+     [
+      "Targets and actual results are known."
+     ],
+     [
+      "Use Stage C to record the gap, its impact and uncertainty."
+     ]
+    ],
+    [
+     [
+      "The major gaps are understood."
+     ],
+     [
+      "Select and justify the scope of the next review."
+     ]
+    ],
+    [
+     [
+      "Several methods could deliver the service."
+     ],
+     [
+      "Use Stage D to compare feasible arrangements."
+     ]
+    ],
+    [
+     [
+      "The delivery pattern has been selected."
+     ],
+     [
+      "Define oversight in Stage E and details in Stage F."
+     ]
+    ],
+    [
+     [
+      "The arrangement is already operating."
+     ],
+     [
+      "Measure outcomes, investigate differences and revise if justified."
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Otherwise:"
+     ]
+    },
+    " If you cannot tell what comes next, find the latest agreed requirement and the evidence or approval that is still missing."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Illustrative workflow and outputs"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Stage A: purpose, owners, study boundary and plan."
+    ],
+    [
+     "Stage B: demand, service requirements, measures and targets."
+    ],
+    [
+     "Stage C: shortfalls, their consequences and next-review decision."
+    ],
+    [
+     "Stage D: work allocation, alternatives and delivery strategy."
+    ],
+    [
+     "Stage E: measurable accountability and oversight."
+    ],
+    [
+     "Stage F: implementable roles, terms and delivery documents."
+    ],
+    [
+     "Operation: evidence collection, review and adjustment."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "A six-step comparison"
+   ]
+  },
+  {
+   "items": [
+    [
+     "State the specific decision."
+    ],
+    [
+     "Collect evidence and constraints."
+    ],
+    [
+     "Identify realistic alternatives."
+    ],
+    [
+     "Set relevant assessment criteria."
+    ],
+    [
+     "Apply criteria consistently."
+    ],
+    [
+     "Document the selected option and trade-offs."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Check a requirement"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Does it describe an outcome rather than a preferred method?"
+    ],
+    [
+     "Are volume, location, configuration and timing stated where needed?"
+    ],
+    [
+     "Are units and measurement rules clear?"
+    ],
+    [
+     "Is the target supported by evidence?"
+    ],
+    [
+     "Is the reason for the threshold traceable?"
+    ],
+    [
+     "Are uncertainty and dependencies visible?"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Before a real commitment"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Check current organizational, safety and legal requirements."
+    ],
+    [
+     "Confirm approval, purchasing and information-handling authority."
+    ],
+    [
+     "Use suitably qualified reviewers where consequences warrant it."
+    ],
+    [
+     "Verify all licences and redistribution rights for any included material."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Next"
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Actions"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Read the essential chapters in order."
+    ],
+    [
+     "Try at least one decision activity and review its feedback."
+    ],
+    [
+     "Use the Self-Test to identify topics needing another look."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Practice"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Describe the expected output of a non-sensitive service."
+    ],
+    [
+     "Work out a fictional result gap using consistent units."
+    ],
+    [
+     "Compare two possible delivery methods against the same criteria."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Go deeper"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Check the actual rules for a real organization before using the method."
+    ],
+    [
+     "Request specialist review for purchases, obligations and safety-critical work."
+    ],
+    [
+     "Obtain permission for material you did not create before redistributing it."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "What is uncertain"
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Gaps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "This lesson explains a general method. It does not include specialist requirements for every field or organization."
+    ],
+    [
+     "Completing the exercises does not establish authority to approve work, enter agreements, or certify compliance."
+    ],
+    [
+     "The six study stages are instructional labels rather than a prescribed universal procedure."
+    ],
+    [
+     "Real project limits, operating conditions and delegated authority are not included."
+    ],
+    [
+     "The supplied reference collection is extensive. This compact study guide does not reproduce or validate each specialist rule, form, annex or procedure in it."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Added"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Exercises, choices and arithmetic values are made up solely to practise a method."
+    ],
+    [
+     "Inferred: The workload simulation is a capped illustrative plan and separate surge case; it is not a real forecast."
+    ],
+    [
+     "The four assessment dimensions are an educational structure; each actual project must choose its relevant criteria."
+    ],
+    [
+     "Inferred: The short chapter examples are hypothetical workflows, not measured cases, procurement instructions or standards."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Unverified"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Not verified: Whether any particular organization accepts the illustrated stages and evaluation factors."
+    ],
+    [
+     "Not verified: The technical, commercial, financial, legal and safety controls for a specific project."
+    ],
+    [
+     "Not verified: Ownership and licensing permissions for the earlier source materials and inherited template code."
+    ],
+    [
+     "Not verified: The completeness of this introductory model against every specialist document in the source collection."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Recheck"
+   ]
+  },
+  {
+   "items": [
+    [
+     "For practical work, confirm the relevant technical, financial, legal, safety and approval rules."
+    ],
+    [
+     "Before open-source redistribution, confirm rights to any inherited code, writing, visuals and other protected expression."
+    ],
+    [
+     "Reconfirm changing factual claims with suitable current evidence before acting."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Conflict: Does the lesson’s illustrative workflow control a real decision?"
+   ]
+  },
+  {
+   "items": [
+    [
+     "These stages are a learning sequence suitable for the example."
+    ],
+    [
+     "Organizations may use different required stages, criteria and authorities."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Better reading:"
+     ]
+    },
+    " For live work, the organization’s controlling rules and approvals govern."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Why:"
+     ]
+    },
+    " A general study model does not establish legal or delegated authority."
+   ]
+  },
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Freshness"
+   ]
+  },
+  {
+   "head": [
+    [
+     "What"
+    ],
+    [
+     "As of"
+    ],
+    [
+     "Recheck"
+    ],
+    [
+     "Source"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "General workflow and stage applicability"
+     ],
+     [
+      "Illustrative model, 2026-11-03"
+     ],
+     [
+      "Before any live decision"
+     ],
+     []
+    ],
+    [
+     [
+      "Approval, safety and purchasing authority"
+     ],
+     [
+      "Not established by this guide"
+     ],
+     [
+      "Before committing resources"
+     ],
+     []
+    ],
+    [
+     [
+      "Assessment criteria"
+     ],
+     [
+      "Educational principles, 2026-11-03"
+     ],
+     [
+      "When adopting a local decision framework"
+     ],
+     []
+    ],
+    [
+     [
+      "Source and software licensing"
+     ],
+     [
+      "Provisional MIT-licensing review, 2026-11-03"
+     ],
+     [
+      "Before public licensing or redistribution"
+     ],
+     []
+    ],
+    [
+     [
+      "Locally opened file progress storage"
+     ],
+     [
+      "Browser-dependent guidance checked 2026-11-03"
+     ],
+     [
+      "When browser storage requirements or export behaviour change"
+     ],
+     []
+    ]
+   ],
+   "t": "table"
+  }
+ ],
+ "id": "reference",
+ "kind": "doc",
+ "title": "Reference and uncertainty"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "100 x 30 / 1000 = 3 kW.",
+ "explain": [
+  "Section: Audit lighting and controls"
+ ],
+ "id": "q-lighting-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "One hundred fixtures fall from 90 W each to 60 W each. What is the total kW reduction?"
+ ],
+ "source": "wattwatcher-energy"
+}

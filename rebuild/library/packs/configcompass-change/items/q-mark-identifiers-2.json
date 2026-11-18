@@ -1,0 +1,14 @@
+{
+ "answerKey": "No; preserve both identities and the replacement relationship.",
+ "explain": [
+  "Section: Keep identities unambiguous"
+ ],
+ "id": "q-mark-identifiers-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A replaced device carries a different serial. Should its history be silently merged into the old unit?"
+ ],
+ "source": "configcompass-change"
+}

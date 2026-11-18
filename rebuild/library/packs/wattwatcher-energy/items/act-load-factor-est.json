@@ -1,0 +1,84 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Estimate a billing load factor"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can divide use by the maximum possible energy at billed peak."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Compute peak kW times every hour in the billing period."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Illustrative calculation: A site uses 36,000 kWh in 30 days. Peak demand is 80 kW. Estimate load factor as a decimal."
+   ]
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Answer: 0.625 ratio (tolerance 0.01)."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      "30 days x 24 hours = 720 hours. Maximum possible energy is 80 x 720 = 57,600 kWh. Divide 36,000 by 57,600 = 0.625."
+     ]
+    }
+   ],
+   "kind": "spoiler",
+   "t": "callout"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Load factor compares average demand with billed peak demand."
+   ]
+  }
+ ],
+ "data": {
+  "answer": 0.625,
+  "ask": "Illustrative calculation: A site uses 36,000 kWh in 30 days. Peak demand is 80 kW. Estimate load factor as a decimal.",
+  "claims": [
+   "bill"
+  ],
+  "done": "Load factor compares average demand with billed peak demand.",
+  "goal": "After this you can divide use by the maximum possible energy at billed peak.",
+  "high": "Load factor cannot exceed 1 if the maximum demand and time base match.",
+  "hint": "Compute peak kW times every hour in the billing period.",
+  "id": "load-factor-est",
+  "low": "Check whether you used all 720 hours of the 30-day billing period.",
+  "reasoning": "30 days x 24 hours = 720 hours. Maximum possible energy is 80 x 720 = 57,600 kWh. Divide 36,000 by 57,600 = 0.625.",
+  "title": "Estimate a billing load factor",
+  "tol": 0.01,
+  "type": "estimate",
+  "unit": "ratio"
+ },
+ "id": "act-load-factor-est",
+ "kind": "activity",
+ "title": "Estimate a billing load factor"
+}

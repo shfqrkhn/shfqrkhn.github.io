@@ -1,0 +1,51 @@
+{
+ "data": {
+  "asOf": "2026-11-03",
+  "group": null,
+  "levels": [
+   {
+    "chapters": [
+     "purpose",
+     "principles",
+     "scope",
+     "initiation",
+     "usage",
+     "requirements",
+     "gaps"
+    ],
+    "id": 1,
+    "name": "Essentials"
+   },
+   {
+    "chapters": [
+     "outcomes",
+     "phasegate",
+     "division",
+     "sixsteps",
+     "strategy",
+     "engagement",
+     "framework"
+    ],
+    "id": 2,
+    "name": "Core Practice"
+   },
+   {
+    "chapters": [
+     "pricing",
+     "riskbenefits",
+     "details",
+     "governance",
+     "monitor"
+    ],
+    "id": 3,
+    "name": "Advanced Decisions"
+   }
+  ],
+  "title": "SupportScout Equipment Support Decisions",
+  "topic": "A general method for assessing equipment support options",
+  "updated": "2026-11-03"
+ },
+ "id": "meta",
+ "kind": "record",
+ "title": "Pack metadata"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "Verify its identity and history, then record and assess the difference before assuming it is wrong.",
+ "explain": [
+  "Section: Keep one dependable description"
+ ],
+ "id": "q-cm-overview-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A unit has older software than its latest drawing. What should happen first?"
+ ],
+ "source": "configcompass-change"
+}

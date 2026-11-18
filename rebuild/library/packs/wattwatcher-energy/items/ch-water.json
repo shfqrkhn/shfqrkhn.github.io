@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Audit water heating and use"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can identify evidence for water and hot-water savings without reducing safeguards."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Water heating involves the heater, stored volume, distribution pipework, and any recirculation. Quantify draw volume, temperature rise, circulation hours, and standing losses before estimating energy savings. Water-use reviews also examine leaks, equipment, fixtures, and irrigation. Heating efficiency affects fuel input for the same delivered hot-water service. Do not alter temperature or sanitation safeguards on the strength of this learning example."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative case: A recirculation pump runs around the clock even though service demand is limited. First obtain consumption measurements and review health-related operating requirements."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Measure water and heater energy together."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Water quality, hygiene, and service needs limit changes to temperature and circulation."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-water-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-water-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-water",
+ "kind": "doc",
+ "title": "Audit water heating and use"
+}

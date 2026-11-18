@@ -1,0 +1,359 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Explore a change-status report"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can explain why a change applied to some items does not prove completion for all items."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Adjust the number of affected items, verified completions and unknown states."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Input"
+    ],
+    [
+     "Min"
+    ],
+    [
+     "Max"
+    ],
+    [
+     "Step"
+    ],
+    [
+     "Default"
+    ],
+    [
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Items affected"
+     ],
+     [
+      "12"
+     ],
+     [
+      "24"
+     ],
+     [
+      "1"
+     ],
+     [
+      "12"
+     ],
+     [
+      "items"
+     ]
+    ],
+    [
+     [
+      "Items verified"
+     ],
+     [
+      "0"
+     ],
+     [
+      "8"
+     ],
+     [
+      "1"
+     ],
+     [
+      "7"
+     ],
+     [
+      "items"
+     ]
+    ],
+    [
+     [
+      "Items with unknown status"
+     ],
+     [
+      "0"
+     ],
+     [
+      "4"
+     ],
+     [
+      "1"
+     ],
+     [
+      "2"
+     ],
+     [
+      "items"
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "head": [
+    [
+     "Output"
+    ],
+    [
+     "Formula"
+    ],
+    [
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Verified"
+     ],
+     [
+      {
+       "code": "verified"
+      }
+     ],
+     [
+      "items"
+     ]
+    ],
+    [
+     [
+      "Unknown"
+     ],
+     [
+      {
+       "code": "unknown"
+      }
+     ],
+     [
+      "items"
+     ]
+    ],
+    [
+     [
+      "Still pending"
+     ],
+     [
+      {
+       "code": "total-verified-unknown"
+      }
+     ],
+     [
+      "items"
+     ]
+    ],
+    [
+     [
+      "Verified share"
+     ],
+     [
+      {
+       "code": "100*verified/total"
+      }
+     ],
+     [
+      "%"
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    "Inferred: These item counts are fictional and illustrate status arithmetic."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A verified share is only a descriptive fraction. It does not authorize changes."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " A verified rate can be calculated, while unknown and pending states must remain separate."
+   ]
+  }
+ ],
+ "data": {
+  "chart": {
+   "kind": "bar",
+   "title": "Separate report states",
+   "y": [
+    "done",
+    "unsure",
+    "pending"
+   ]
+  },
+  "checks": [
+   {
+    "in": {
+     "total": 12,
+     "unknown": 2,
+     "verified": 7
+    },
+    "out": {
+     "done": 7,
+     "pending": 3,
+     "rate": 58.3333333333,
+     "unsure": 2
+    },
+    "tol": 0.01
+   },
+   {
+    "in": {
+     "total": 24,
+     "unknown": 4,
+     "verified": 8
+    },
+    "out": {
+     "done": 8,
+     "pending": 12,
+     "rate": 33.3333333333,
+     "unsure": 4
+    },
+    "tol": 0.01
+   },
+   {
+    "in": {
+     "total": 12,
+     "unknown": 0,
+     "verified": 0
+    },
+    "out": {
+     "done": 0,
+     "pending": 12,
+     "rate": 0,
+     "unsure": 0
+    },
+    "tol": 0.01
+   },
+   {
+    "in": {
+     "total": 18,
+     "unknown": 3,
+     "verified": 5
+    },
+    "out": {
+     "done": 5,
+     "pending": 10,
+     "rate": 27.7777777778,
+     "unsure": 3
+    },
+    "tol": 0.01
+   }
+  ],
+  "claims": [
+   "status-record",
+   "csa-fields",
+   "csa-reports"
+  ],
+  "done": "A verified rate can be calculated, while unknown and pending states must remain separate.",
+  "goal": "After this you can explain why a change applied to some items does not prove completion for all items.",
+  "hint": "Adjust the number of affected items, verified completions and unknown states.",
+  "id": "sim-status",
+  "inputs": [
+   {
+    "control": "stepper",
+    "default": 12,
+    "id": "total",
+    "label": "Items affected",
+    "max": 24,
+    "min": 12,
+    "step": 1,
+    "unit": "items"
+   },
+   {
+    "control": "stepper",
+    "default": 7,
+    "id": "verified",
+    "label": "Items verified",
+    "max": 8,
+    "min": 0,
+    "step": 1,
+    "unit": "items"
+   },
+   {
+    "control": "stepper",
+    "default": 2,
+    "id": "unknown",
+    "label": "Items with unknown status",
+    "max": 4,
+    "min": 0,
+    "step": 1,
+    "unit": "items"
+   }
+  ],
+  "notice": [
+   "Inferred: These item counts are fictional and illustrate status arithmetic.",
+   "A verified share is only a descriptive fraction. It does not authorize changes."
+  ],
+  "outputs": [
+   {
+    "digits": 0,
+    "formula": "verified",
+    "id": "done",
+    "label": "Verified",
+    "unit": "items"
+   },
+   {
+    "digits": 0,
+    "formula": "unknown",
+    "id": "unsure",
+    "label": "Unknown",
+    "unit": "items"
+   },
+   {
+    "digits": 0,
+    "formula": "total-verified-unknown",
+    "id": "pending",
+    "label": "Still pending",
+    "unit": "items"
+   },
+   {
+    "digits": 1,
+    "formula": "100*verified/total",
+    "id": "rate",
+    "label": "Verified share",
+    "unit": "%"
+   }
+  ],
+  "predict": {
+   "ask": "What happens to the verified share if the verified count rises to eight?",
+   "input": "verified",
+   "output": "rate",
+   "to": 8
+  },
+  "title": "Explore a change-status report",
+  "type": "sim"
+ },
+ "id": "act-sim-status",
+ "kind": "activity",
+ "title": "Explore a change-status report"
+}

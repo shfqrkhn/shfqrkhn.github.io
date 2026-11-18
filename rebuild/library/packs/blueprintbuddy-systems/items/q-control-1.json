@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. The newer configuration needs applicable evidence.",
+ "explain": [
+  "Section: Keep configurations and plans aligned"
+ ],
+ "id": "q-control-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: A passed test belongs to an earlier design revision. Can it automatically approve the newer one?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

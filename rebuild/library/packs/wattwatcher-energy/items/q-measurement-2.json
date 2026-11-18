@@ -1,0 +1,14 @@
+{
+ "answerKey": "Baseline, measurement boundary, data method, expected changes, and adjustment rules.",
+ "explain": [
+  "Section: Verify observed savings"
+ ],
+ "id": "q-measurement-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What should a measurement and verification plan specify?"
+ ],
+ "source": "wattwatcher-energy"
+}

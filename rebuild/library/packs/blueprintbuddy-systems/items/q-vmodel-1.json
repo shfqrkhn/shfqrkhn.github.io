@@ -1,0 +1,14 @@
+{
+ "answerKey": "Validation against the intended operating need.",
+ "explain": [
+  "Section: Use the V model"
+ ],
+ "id": "q-vmodel-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: Every listed test passes, yet operators cannot finish a task. What is missing?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

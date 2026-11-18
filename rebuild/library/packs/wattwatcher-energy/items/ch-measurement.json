@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Verify observed savings"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can plan a before-and-after comparison that accounts for changing conditions."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Measurement and verification (M&V) determines whether performance changed relative to an agreed baseline. Specify what is inside the measurement boundary, which readings will be collected, and how independent drivers will be handled. Routine adjustments account for normal effects such as weather; non-routine adjustments address unusual site changes. A retrofit coinciding with another operational change requires separate treatment before savings are credited."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative case: A process retrofit and an operating schedule revision occur together. Separate the effect of the schedule before attributing meter changes to the retrofit."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Separate the measure from unrelated operating changes."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Without a valid baseline, measured reductions may not be attributable."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-measurement-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-measurement-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-measurement",
+ "kind": "doc",
+ "title": "Verify observed savings"
+}

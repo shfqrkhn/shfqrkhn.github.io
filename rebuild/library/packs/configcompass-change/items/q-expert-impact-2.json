@@ -1,0 +1,14 @@
+{
+ "answerKey": "Both findings and the required support action.",
+ "explain": [
+  "Section: Look beyond the design desk"
+ ],
+ "id": "q-expert-impact-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A supplier says a new part fits, but maintenance reports a tool change. What should the decision record include?"
+ ],
+ "source": "configcompass-change"
+}

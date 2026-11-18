@@ -1,0 +1,14 @@
+{
+ "answerKey": "Air movement and heat conduction are different routes for energy loss.",
+ "explain": [
+  "Section: Inspect the building enclosure"
+ ],
+ "id": "q-envelope-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why does an air-leak survey examine something different from an insulation test?"
+ ],
+ "source": "wattwatcher-energy"
+}

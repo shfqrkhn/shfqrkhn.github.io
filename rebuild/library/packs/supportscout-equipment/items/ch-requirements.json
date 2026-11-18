@@ -1,0 +1,99 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Write measurable requirements"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can write a support outcome with a measurement and a defensible threshold."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For education only; this is not legal, purchasing, financial or safety advice. Define requirements as observable outcomes, not vague qualities. A metric explains what is measured, and a target defines the result to achieve. State the location, timing, volume, conditions and units when they matter. Explain the evidence behind the chosen threshold. When evidence is weak, report uncertainty instead of inventing precision. Write down who collects each metric, the counting method and how disputed observations are handled."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "State the outcome the support system must deliver. You should see: The result can be recognized independently of the method used. If not: Return to the user need to clarify the expected outcome."
+    ],
+    [
+     "Specify how to observe the result and its units. You should see: Different observers could collect comparable results. If not: Define precisely when the observation begins and ends."
+    ],
+    [
+     "Set a defensible target and relevant time period. You should see: The requirement has a clear success condition. If not: Identify missing evidence and who must provide it."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A readiness requirement could count how many units are usable at a particular time. The required count should be established from the operating need."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Define the measure, required result and period of assessment."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " If the evidence does not support a numeric threshold, record the uncertainty rather than guessing."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-requirements-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-requirements-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-requirements",
+ "kind": "doc",
+ "title": "Write measurable requirements"
+}

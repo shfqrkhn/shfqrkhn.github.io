@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Explain the result and its risks"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Explain the trade-offs, not just the winning number."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The exercise is meant to prompt an engineering conversation. Teams show compliance, priorities and actual costs. They also report their chosen profit and remaining risks. They also discuss the contribution of an engineering-process purchase. A convincing explanation connects numerical results with stakeholder needs and whole-system consequences."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Illustration: A team could pay more for speed while protecting another required attribute. It should explain the trade-off."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Pair every design advantage with the limitation, cost or uncertainty it may introduce."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A winning cost ratio alone says little about future reliability or maintainability."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-debrief-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-debrief-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-debrief",
+ "kind": "doc",
+ "title": "Explain the result and its risks"
+}

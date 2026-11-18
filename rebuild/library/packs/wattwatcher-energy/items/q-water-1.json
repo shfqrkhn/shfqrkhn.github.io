@@ -1,0 +1,14 @@
+{
+ "answerKey": "1,000 - 750 = 250 litres per day.",
+ "explain": [
+  "Section: Audit water heating and use"
+ ],
+ "id": "q-water-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Daily water consumption drops from 1,000 to 750 litres. Find the reduction."
+ ],
+ "source": "wattwatcher-energy"
+}

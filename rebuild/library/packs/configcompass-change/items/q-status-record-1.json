@@ -1,0 +1,14 @@
+{
+ "answerKey": "One decision can apply to many units at different completion stages.",
+ "explain": [
+  "Section: Separate decisions from installed reality"
+ ],
+ "id": "q-status-record-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why keep approval and installation in separate fields?"
+ ],
+ "source": "configcompass-change"
+}

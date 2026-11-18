@@ -1,0 +1,115 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Coordinate technical and project work"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can assign responsibilities across the project and technical teams."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Project management coordinates delivery scope, time, staffing, resources and procurement. Technical leadership coordinates requirements, design, integration, evidence and support. Their duties overlap in risks, decisions, change control and stakeholder outcomes. Planning documents record who owns each technical obligation and how changes reach decision makers."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Name the delivery decision and the technical decision. You should see: Two related responsibilities with named owners. If not: Identify one owner for each approval."
+    ],
+    [
+     "Record the plans needed for scope and risk. You should see: Plans for technical work, configuration, information, risk and quality. If not: Scale the number of plans to project size and risk."
+    ],
+    [
+     "Review changes jointly before committing. You should see: Updated cost, technical evidence and delivery impact. If not: Escalate an unresolved difference to the decision owner."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A schedule change affects qualification testing. The delivery lead and technical lead revise the plan together."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Keep delivery and technical plans connected."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " One person can hold both roles on smaller work, when responsibilities stay clear."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Leaving technical choices only with the delivery lead. Evidence and integration effects may be missed. Fix: Request technical evaluation before approval."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-plansroles-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-plansroles-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-plansroles",
+ "kind": "doc",
+ "title": "Coordinate technical and project work"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "So reconnects and disputes can use the same authoritative history.",
+ "explain": [
+  "Section: Recognize the future multiplayer design"
+ ],
+ "id": "q-multiplayer-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why preserve one record of accepted bid events?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "Savings depend on the load, system curve, control method, and required flow.",
+ "explain": [
+  "Section: Assess motors and drives"
+ ],
+ "id": "q-motors-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why does installing a variable speed drive not always reduce energy use?"
+ ],
+ "source": "wattwatcher-energy"
+}

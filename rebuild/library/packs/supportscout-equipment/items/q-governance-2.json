@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. It must verify that the necessary formal approval and purchasing authority exist.",
+ "explain": [
+  "Section: Separate review and approval"
+ ],
+ "id": "q-governance-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: A team receives positive feedback in a workshop. Can it execute a contract?"
+ ],
+ "source": "supportscout-equipment"
+}

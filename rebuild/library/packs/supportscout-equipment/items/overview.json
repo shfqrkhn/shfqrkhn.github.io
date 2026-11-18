@@ -1,0 +1,218 @@
+{
+ "blocks": [
+  {
+   "level": 1,
+   "t": "heading",
+   "text": [
+    "SupportScout Equipment Support Decisions"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A general method for assessing equipment support options"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Reader:"
+     ]
+    },
+    " Adult beginner; no previous decision-analysis experience required"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "What:"
+     ]
+    },
+    " This single offline file teaches a general way to plan and improve equipment support. It is an independent learning exercise, not an official standard or a permission to enter agreements. “Inferred:” marks invented examples; “Not verified:” marks a point that needs external confirmation. See What We Are Not Sure About for limits."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Who:"
+     ]
+    },
+    " First-time learners planning the support of equipment, services or other operating assets."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "You need:"
+     ]
+    },
+    " A modern browser. No account, internet connection or installation is needed. Save progress files because browser storage is not guaranteed for locally opened files."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "You gain:"
+     ]
+    },
+    " Describe a needed result, define a measurable requirement, identify a shortfall, compare ways to deliver support, and monitor the outcome."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Time:"
+     ]
+    },
+    " Allow about two to four hours for reading and practice. Your pace can differ."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "How to use:"
+     ]
+    },
+    " Read Level 1 first, answer the short checks, then use Practice decisions. Level 1 teaches the central method. My Progress can export a portable backup; automatic browser saving can vary for a local file."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Ground rules"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Describe the task and desired outcome before choosing a service model."
+    ],
+    [
+     "For every essential requirement, define how success will be measured."
+    ],
+    [
+     "Document a shortfall before proposing a remedy."
+    ],
+    [
+     "Compare effectiveness, flexibility, cost and wider effects."
+    ],
+    [
+     "Assess feasible choices against a consistent set of criteria."
+    ],
+    [
+     "Separate a recommendation from a formal approval."
+    ],
+    [
+     "Review operating results and correct the model when evidence changes."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "The one idea:"
+     ]
+    },
+    " State the user outcome, measure the current gap, compare realistic support choices, and document the reason for the selected approach."
+   ]
+  },
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Big picture"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Begin with what equipment users must accomplish. Translate that into observable support outcomes and compare those outcomes with current results. Evaluate feasible delivery choices against common criteria, then define responsibilities and measures. Once the choice is implemented, use performance evidence to adjust it. The six study stages below are illustrative labels, not a universal procedure."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Stage A — clarify purpose, scope, responsibilities and evidence"
+    ],
+    [
+     "Stage B — describe user demand and measurable requirements"
+    ],
+    [
+     "Stage C — assess gaps, impacts and the next decision"
+    ],
+    [
+     "Stage D — compare delivery choices and allocate work"
+    ],
+    [
+     "Stage E — define oversight and performance accountability"
+    ],
+    [
+     "Stage F — prepare detailed implementation arrangements"
+    ],
+    [
+     "In operation — measure, learn and improve"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Assumptions"
+   ]
+  },
+  {
+   "items": [
+    [
+     "This guide is an independent educational model. It does not claim sponsorship, authority or approval."
+    ],
+    [
+     "The named study stages describe an example sequence, not a mandatory procedure."
+    ],
+    [
+     "Exercise values, conditions and sample choices are fictional and cannot determine real equipment needs."
+    ],
+    [
+     "Only material whose rights are controlled by the distributor can be offered under an open-source licence; any earlier material with unresolved rights is excluded from the licence grant."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Not verified for:"
+     ]
+    },
+    " This is a general learning aid, not a complete technical manual, formal accessibility audit, licence clearance or approved legal, purchasing, financial or safety procedure."
+   ]
+  }
+ ],
+ "id": "overview",
+ "kind": "doc",
+ "title": "SupportScout Equipment Support Decisions"
+}

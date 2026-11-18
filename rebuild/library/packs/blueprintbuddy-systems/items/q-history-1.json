@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. The specification labels it as a digital decision.",
+ "explain": [
+  "Section: Separate recovered rules from new choices"
+ ],
+ "id": "q-history-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: A developer chooses a $50,000 bid increment. Is that proven original?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

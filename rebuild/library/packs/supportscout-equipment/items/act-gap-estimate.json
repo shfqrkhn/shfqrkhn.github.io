@@ -1,0 +1,85 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Compute a service quantity gap"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can subtract an observed count from the required count."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Find how many units fewer were recorded than required."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Inferred: Twelve usable units are required, and only nine are available. How large is the deficit?"
+   ]
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Answer: 3 units (tolerance 0)."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      "Required minus observed gives the deficiency: 12 minus 9 equals 3 units."
+     ]
+    }
+   ],
+   "kind": "spoiler",
+   "t": "callout"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " A quantity gap can be calculated before identifying its cause."
+   ]
+  }
+ ],
+ "data": {
+  "answer": 3,
+  "ask": "Inferred: Twelve usable units are required, and only nine are available. How large is the deficit?",
+  "claims": [
+   "gaps",
+   "requirements"
+  ],
+  "done": "A quantity gap can be calculated before identifying its cause.",
+  "goal": "After this you can subtract an observed count from the required count.",
+  "high": "You may have overstated the difference. Compare the same reporting time.",
+  "hint": "Find how many units fewer were recorded than required.",
+  "id": "gap_estimate",
+  "low": "You may have understated the difference. Subtract 9 from 12.",
+  "reasoning": "Required minus observed gives the deficiency: 12 minus 9 equals 3 units.",
+  "title": "Compute a service quantity gap",
+  "tol": 0,
+  "type": "estimate",
+  "unit": "units"
+ },
+ "id": "act-gap-estimate",
+ "kind": "activity",
+ "title": "Compute a service quantity gap"
+}

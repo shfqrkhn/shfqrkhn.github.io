@@ -1,0 +1,14 @@
+{
+ "answerKey": "Consequential design commitments can restrict later changes and increase rework.",
+ "explain": [
+  "Section: Compare options with trade-offs"
+ ],
+ "id": "q-trades-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why examine options early?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

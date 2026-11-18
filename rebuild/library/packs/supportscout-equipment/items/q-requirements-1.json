@@ -1,0 +1,14 @@
+{
+ "answerKey": "The metric specifies what is observed; the target establishes the required result.",
+ "explain": [
+  "Section: Write measurable requirements"
+ ],
+ "id": "q-requirements-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "How do a metric and a target differ?"
+ ],
+ "source": "supportscout-equipment"
+}

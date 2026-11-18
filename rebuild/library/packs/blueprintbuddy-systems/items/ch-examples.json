@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Interpret scored examples safely"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Read sample outcomes without treating them as a complete deck."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "One recorded fictional design earned a high diagnostic rating but failed two required capability thresholds. This illustrates why eligibility must be checked independently of optional score. A different worked design met its minimums and received a positive rating at its submitted price. Neither case reconstructs every available option card."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "An example card might cost $100,000 and reduce capacity by two people. It reduces speed by 10 km/h and increases resilience by two points. Other values must be specified, not guessed."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Treat a purchase record as evidence about that purchase, not as a complete definition of every card."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Repeated card IDs and different auction prices prevent reliable deck reconstruction from worksheets."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-examples-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-examples-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-examples",
+ "kind": "doc",
+ "title": "Interpret scored examples safely"
+}

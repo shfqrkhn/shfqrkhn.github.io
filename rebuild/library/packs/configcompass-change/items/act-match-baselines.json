@@ -1,0 +1,119 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Which description answers this?"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can select the appropriate baseline description for a question."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Behavior, allocation and build detail answer different questions."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Left"
+    ],
+    [
+     "Right"
+    ],
+    [
+     "Why"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "What must the full system do?"
+     ],
+     [
+      "Functional description"
+     ],
+     [
+      "Inferred: This is about expected overall behavior."
+     ]
+    ],
+    [
+     [
+      "Which assembly must handle timing?"
+     ],
+     [
+      "Allocated description"
+     ],
+     [
+      "This assigns a requirement to a lower-level element."
+     ]
+    ],
+    [
+     [
+      "Which controller and cable versions belong in this build?"
+     ],
+     [
+      "Product description"
+     ],
+     [
+      "This asks for the accepted detailed build."
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Each reference level has a different job, but all need a recognized status."
+   ]
+  }
+ ],
+ "data": {
+  "claims": [
+   "baseline-control"
+  ],
+  "done": "Each reference level has a different job, but all need a recognized status.",
+  "goal": "After this you can select the appropriate baseline description for a question.",
+  "hint": "Behavior, allocation and build detail answer different questions.",
+  "id": "match-baselines",
+  "pairs": [
+   {
+    "left": "What must the full system do?",
+    "right": "Functional description",
+    "why": "Inferred: This is about expected overall behavior."
+   },
+   {
+    "left": "Which assembly must handle timing?",
+    "right": "Allocated description",
+    "why": "This assigns a requirement to a lower-level element."
+   },
+   {
+    "left": "Which controller and cable versions belong in this build?",
+    "right": "Product description",
+    "why": "This asks for the accepted detailed build."
+   }
+  ],
+  "title": "Which description answers this?",
+  "type": "match"
+ },
+ "id": "act-match-baselines",
+ "kind": "activity",
+ "title": "Which description answers this?"
+}

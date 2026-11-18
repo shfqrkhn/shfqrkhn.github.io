@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. The controlled reference changes only when the change is accepted and released.",
+ "explain": [
+  "Section: Know which version is agreed"
+ ],
+ "id": "q-baseline-control-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A team changes an unreleased drawing. Has the approved product baseline changed?"
+ ],
+ "source": "configcompass-change"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "Record the disagreement, confirm the applicable baseline and keep the issue open until resolved.",
+ "explain": [
+  "Section: Run a clear evidence meeting"
+ ],
+ "id": "q-chair-audit-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Two reviewers disagree about which drawing applies. What should the chair do?"
+ ],
+ "source": "configcompass-change"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "A result can only be reproduced using the exact definitions in force.",
+ "explain": [
+  "Section: Version the rules and evidence"
+ ],
+ "id": "q-dataaudit-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why keep rule and card versions together?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

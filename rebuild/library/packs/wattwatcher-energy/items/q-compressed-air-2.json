@@ -1,0 +1,14 @@
+{
+ "answerKey": "Storage and air treatment affect pressure, air quality, and control behaviour.",
+ "explain": [
+  "Section: Find compressed-air waste"
+ ],
+ "id": "q-compressed-air-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why inspect receivers and air dryers during an audit?"
+ ],
+ "source": "wattwatcher-energy"
+}

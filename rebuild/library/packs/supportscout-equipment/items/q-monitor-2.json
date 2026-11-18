@@ -1,0 +1,14 @@
+{
+ "answerKey": "Check the measurements and causes before changing the arrangement.",
+ "explain": [
+  "Section: Monitor service and improve"
+ ],
+ "id": "q-monitor-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: Readiness drops after the support model begins. What should the manager do first?"
+ ],
+ "source": "supportscout-equipment"
+}

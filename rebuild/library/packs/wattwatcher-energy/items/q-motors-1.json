@@ -1,0 +1,14 @@
+{
+ "answerKey": "18 / 0.9 = 20 kW.",
+ "explain": [
+  "Section: Assess motors and drives"
+ ],
+ "id": "q-motors-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A motor supplies 18 kW at 90% efficiency. What electrical power does it need?"
+ ],
+ "source": "wattwatcher-energy"
+}

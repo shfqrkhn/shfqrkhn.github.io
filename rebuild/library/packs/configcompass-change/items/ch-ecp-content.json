@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Make a proposal reviewable"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can write a change request with enough detail for a decision."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A reviewable change proposal makes both the present condition and the desired condition explicit. It identifies affected items, the issue, proposed work and alternatives. It explains the consequences of acting or declining. It also states what evidence would show implementation worked. The exact form depends on the organization; completeness matters more than a particular acronym."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Describe the observed issue or intended improvement. You should see: The reason for change is explicit. If not: Separate symptoms from guesses about causes."
+    ],
+    [
+     "Define the before and after states. You should see: Reviewers can see the exact technical difference. If not: Attach a drawing or version comparison where useful."
+    ],
+    [
+     "Identify affected products, interfaces and support work. You should see: The proposal has a bounded scope. If not: Include fielded units and documentation."
+    ],
+    [
+     "State evidence, risks and decisions required. You should see: Reviewers know what approval would authorize. If not: Leave the proposal open until missing impacts are addressed."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A request to adjust an input threshold names the old and new settings. It also lists affected versions, user effects and a test plan."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "A good proposal allows someone who was absent to understand the decision."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Very small edits may use a lighter route when the controlling plan permits it."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Writing only a solution name It hides the reason, scope and tests. Fix: Add the problem, changed state and acceptance evidence."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-ecp-content-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-ecp-content-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-ecp-content",
+ "kind": "doc",
+ "title": "Make a proposal reviewable"
+}

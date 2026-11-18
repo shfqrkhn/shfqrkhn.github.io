@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Rank and defend opportunities"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can explain and defend the next measurement or conservation action."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A high consumption intensity is a reason to investigate, not proof of a large feasible reduction. Rank possible measures after considering schedules, fuel mix, condition, service constraints, tariff effects, and cost. Two changes affecting the same operating hours or equipment cannot simply claim the same savings independently. When the ranking hinges on a missing value, collect the smallest measurement that would make the decision credible."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative case: A facility consumes much more gas than electricity. Examine heating schedules and distribution losses before ranking lighting work from total EUI alone."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Rank testable opportunities, not just large annual bills."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " An unsafe or poorly supported action should not be prioritised by apparent savings alone."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-decision-tradeoffs-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-decision-tradeoffs-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-decision-tradeoffs",
+ "kind": "doc",
+ "title": "Rank and defend opportunities"
+}

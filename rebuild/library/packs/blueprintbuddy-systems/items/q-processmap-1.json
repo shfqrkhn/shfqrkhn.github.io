@@ -1,0 +1,14 @@
+{
+ "answerKey": "Requirements control and risk management both continue as the design changes.",
+ "explain": [
+  "Section: Connect life-cycle processes"
+ ],
+ "id": "q-processmap-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Name two activities that continue across life-cycle stages."
+ ],
+ "source": "blueprintbuddy-systems"
+}

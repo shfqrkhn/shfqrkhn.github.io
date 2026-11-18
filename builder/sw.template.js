@@ -6,13 +6,16 @@
    - pages over 5 MB wait for the owner's tap (mobile data), everything else downloads by itself
    - every page has its own cache (app-<slug>-v<version>-<hash>), so an update replaces only that page
    - requests try the network first, but fall back to the saved copy after 3.5 s (slow networks), and straight away when offline
-   - a new worker waits until the page sends "skip-waiting": nothing swaps silently under someone mid-task */
+   - a new worker waits until the page sends "skip-waiting": nothing swaps silently under someone mid-task
+   - the rebuilt apps at /<name>/ (OVERLAY, from site/scripts/overlay.json) have their own worker and caches: this worker never answers, stores or redirects them */
 const HUB = "hub-shell-v@@VERSION@@";
 const SHELL = @@SHELL@@;
 const PAGES = @@PAGES@@;
 const KEEP = new Set([HUB].concat(Object.keys(PAGES).map(function (k) { return PAGES[k].cache; })));
 const BASE = new URL("./", self.location.href).pathname;
 const SLOW = 3500;
+const OVERLAY = @@OVERLAY@@;
+function overlaid(url) { return OVERLAY.indexOf(url.pathname.slice(BASE.length).split("/")[0]) >= 0; }  // a path under a rebuilt app: not ours
 
 // Fill a cache from the network, never from the browser HTTP cache (Pages sends max-age=600), so a new version never stores old bytes; nothing is stored unless every file is ok.
 function fill(c, urls) { return Promise.all(urls.map(function (u) { return fetch(new Request(u, { cache: "reload" })).then(function (r) { if (!r.ok) throw new Error(u); return r; }); })).then(function (rs) { return Promise.all(rs.map(function (r, i) { return c.put(urls[i], r); })); }); }  // all or nothing, like addAll
@@ -25,6 +28,8 @@ self.addEventListener("activate", function (e) {
   e.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.filter(function (k) { return !KEEP.has(k) && /^(hub-shell-|app-)/.test(k); }).map(function (k) { return caches.delete(k); }));
+    }).then(function () {
+      return caches.open(HUB).then(function (c) { return c.keys().then(function (reqs) { return Promise.all(reqs.filter(function (r) { return overlaid(new URL(r.url)); }).map(function (r) { return c.delete(r); })); }); });  // drop any rebuilt-app page an older worker saved
     }).then(function () { return self.clients.claim(); })
   );
 });
@@ -47,6 +52,7 @@ self.addEventListener("fetch", function (e) {
   if (req.method !== "GET") return;
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  if (overlaid(url)) return;  // no respondWith: the browser goes to the network untouched
   var name = cacheFor(url);
   e.respondWith(caches.open(name).then(function (cache) {
     return cache.match(req, { ignoreSearch: req.mode === "navigate" }).then(function (cached) {

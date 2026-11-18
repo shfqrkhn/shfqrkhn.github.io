@@ -1,0 +1,14 @@
+{
+ "answerKey": "Equipment Recovery capability at least 3 ways.",
+ "explain": [
+  "Section: Read the six mission thresholds"
+ ],
+ "id": "q-missions-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What specialist minimum must the Equipment Recovery mission meet?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

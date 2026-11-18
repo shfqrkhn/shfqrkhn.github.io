@@ -1,0 +1,146 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Know which version is agreed"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can distinguish a working draft from an accepted configuration."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A baseline is a specific description that has been reviewed and accepted for further work. It is a reference point, not a promise that nothing can ever change. Teams may agree on overall functions, assigned requirements and detailed instructions for building a particular version. These are often called functional, allocated and product baselines. Their labels are useful only when their owners, approval status and revision are clear."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Ask which decision the reference must support. You should see: The needed level of detail is clear. If not: Separate overall behavior from build instructions."
+    ],
+    [
+     "Locate the approved revision and its owner. You should see: The reference has identifiable approval evidence. If not: Treat an unlabeled copy as unconfirmed."
+    ],
+    [
+     "Compare the proposal against that reference. You should see: The changed requirement or component is explicit. If not: Find the prior accepted state first."
+    ],
+    [
+     "Record the new baseline only after authorized release. You should see: Old and new states remain distinguishable. If not: Keep the earlier revision available for traceability."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: An example unit operates on a set interval. Software controls timing. The build record specifies hardware and program versions. Those are different descriptive levels."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Levels of description"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Required behavior; then Assigned requirements; then Build definition"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Required behavior:"
+    ],
+    [
+     "Assigned requirements:"
+    ],
+    [
+     "Build definition:"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Name the baseline and revision before arguing about a change."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A baseline label alone does not show that a given unit has been modified."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Calling the latest file the baseline A recently edited file may still be under review. Fix: Check the approval record and release date."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-baseline-control-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-baseline-control-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-baseline-control",
+ "kind": "doc",
+ "title": "Know which version is agreed"
+}

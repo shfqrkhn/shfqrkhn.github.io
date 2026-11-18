@@ -1,0 +1,274 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Explore profit and final offers"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Practice how to calculate a final workshop bid from card costs and chosen profit."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " The purchase cost stays fixed while the selected addition changes."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Input"
+    ],
+    [
+     "Min"
+    ],
+    [
+     "Max"
+    ],
+    [
+     "Step"
+    ],
+    [
+     "Default"
+    ],
+    [
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Purchased card cost"
+     ],
+     [
+      "1000000"
+     ],
+     [
+      "6000000"
+     ],
+     [
+      "500000"
+     ],
+     [
+      "3000000"
+     ],
+     [
+      "$"
+     ]
+    ],
+    [
+     [
+      "Markup on cost"
+     ],
+     [
+      "0"
+     ],
+     [
+      "20"
+     ],
+     [
+      "5"
+     ],
+     [
+      "10"
+     ],
+     [
+      "%"
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "head": [
+    [
+     "Output"
+    ],
+    [
+     "Formula"
+    ],
+    [
+     "Unit"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Chosen profit"
+     ],
+     [
+      {
+       "code": "cost*markup/100"
+      }
+     ],
+     [
+      "$"
+     ]
+    ],
+    [
+     [
+      "Final contract bid"
+     ],
+     [
+      {
+       "code": "cost+profit"
+      }
+     ],
+     [
+      "$"
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    "Example: These are teaching numbers, not historical auction prices."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The game lets teams choose profit; 10% is only a worksheet example."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Changing profit changes the price without changing any capability."
+   ]
+  }
+ ],
+ "data": {
+  "chart": {
+   "kind": "line",
+   "title": "Bid versus profit markup",
+   "x": "markup",
+   "y": [
+    "bid"
+   ]
+  },
+  "checks": [
+   {
+    "in": {
+     "cost": 1000000,
+     "markup": 0
+    },
+    "out": {
+     "bid": 1000000,
+     "profit": 0
+    },
+    "tol": 0
+   },
+   {
+    "in": {
+     "cost": 3000000,
+     "markup": 10
+    },
+    "out": {
+     "bid": 3300000,
+     "profit": 300000
+    },
+    "tol": 0
+   },
+   {
+    "in": {
+     "cost": 4000000,
+     "markup": 15
+    },
+    "out": {
+     "bid": 4600000,
+     "profit": 600000
+    },
+    "tol": 0
+   },
+   {
+    "in": {
+     "cost": 6000000,
+     "markup": 20
+    },
+    "out": {
+     "bid": 7200000,
+     "profit": 1200000
+    },
+    "tol": 0
+   }
+  ],
+  "claims": [
+   "award"
+  ],
+  "done": "Changing profit changes the price without changing any capability.",
+  "goal": "Practice how to calculate a final workshop bid from card costs and chosen profit.",
+  "hint": "The purchase cost stays fixed while the selected addition changes.",
+  "id": "activity-profit",
+  "inputs": [
+   {
+    "control": "slider",
+    "default": 3000000,
+    "id": "cost",
+    "label": "Purchased card cost",
+    "max": 6000000,
+    "min": 1000000,
+    "step": 500000,
+    "unit": "$"
+   },
+   {
+    "control": "stepper",
+    "default": 10,
+    "id": "markup",
+    "label": "Markup on cost",
+    "max": 20,
+    "min": 0,
+    "step": 5,
+    "unit": "%"
+   }
+  ],
+  "notice": [
+   "Example: These are teaching numbers, not historical auction prices.",
+   "The game lets teams choose profit; 10% is only a worksheet example."
+  ],
+  "outputs": [
+   {
+    "digits": 0,
+    "formula": "cost*markup/100",
+    "id": "profit",
+    "label": "Chosen profit",
+    "unit": "$"
+   },
+   {
+    "digits": 0,
+    "formula": "cost+profit",
+    "id": "bid",
+    "label": "Final contract bid",
+    "unit": "$"
+   }
+  ],
+  "predict": {
+   "ask": "If markup rises from 10% to 15%, what happens to the final bid?",
+   "input": "markup",
+   "output": "bid",
+   "to": 15
+  },
+  "title": "Explore profit and final offers",
+  "type": "sim"
+ },
+ "id": "act-activity-profit",
+ "kind": "activity",
+ "title": "Explore profit and final offers"
+}

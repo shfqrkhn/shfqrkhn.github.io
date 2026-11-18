@@ -18,8 +18,8 @@ def ok(name, cond, detail=""):
     print(("PASS " if cond else "FAIL ") + name + (("  " + detail) if detail and not cond else ""))
 
 
-def run(args, cwd=None):
-    return subprocess.run(PY + args, capture_output=True, text=True, cwd=cwd)
+def run(args, cwd=None, env=None):
+    return subprocess.run(PY + args, capture_output=True, text=True, cwd=cwd, env=env)
 
 
 def tree_hash(root):
@@ -68,7 +68,7 @@ ok("rename is repeatable (a second run changes nothing)", again == out_html and 
 # 2. a broken registry is refused, before anything is written
 tmp = tempfile.mkdtemp()
 try:
-    for f in ("build.py", "paths.py", "inline.py", "icons.json", "topics.json", "brand.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
+    for f in ("build.py", "paths.py", "inline.py", "icons.json", "topics.json", "brand.json", "today_data.json", "privacy_names.txt", "sw.template.js", "overlay.py"):
         if os.path.exists(os.path.join(OM, f)):  # privacy_names.txt is local, or written in CI from the PRIVACY_NAMES secret
             shutil.copy(os.path.join(OM, f), tmp)
     for d in ("icons", "pwa-icons"):
@@ -91,7 +91,7 @@ try:
         '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\' \'wasm-unsafe-eval\'"><meta name="description" content="A bundle test page."><title>Wasm test</title></head>'
         '<body><a href="../../" aria-label="Omnevum home">home</a><p>test</p></body></html>')
     open(os.path.join(bund, "pkg", "m.wasm"), "wb").write(bytes([0, 97, 115, 109, 1, 0, 0, 0]))
-    for f in ("build.py", "paths.py", "inline.py", "icons.json", "topics.json", "brand.json", "today_data.json", "privacy_names.txt", "sw.template.js"):
+    for f in ("build.py", "paths.py", "inline.py", "icons.json", "topics.json", "brand.json", "today_data.json", "privacy_names.txt", "sw.template.js", "overlay.py"):
         if os.path.exists(os.path.join(OM, f)):  # privacy_names.txt is local, or written in CI from the PRIVACY_NAMES secret
             shutil.copy(os.path.join(OM, f), tmp)
     for d in ("icons", "pwa-icons"):
@@ -106,11 +106,73 @@ try:
     ok("bundle with WebAssembly builds and verifies", r.returncode == 0 and wasm_ok and re.search(r"(?<!\d)1 remote", r.stdout) is not None, (r.stdout + r.stderr)[-400:])
     ok("remote page is listed, not copied", not os.path.exists(os.path.join(OUT, "apps", "zzremote")) and 'href="https://example.org/app/"' in open(os.path.join(OUT, "index.html"), encoding="utf-8").read())
     ok("own-PWA bundle stays out of the hub worker", "zzwasm" not in open(os.path.join(OUT, "sw.js"), encoding="utf-8").read())
+    # 2c (end to end). a staged app with personal data in a text file stops the build: the privacy gate scans the overlay
+    _rb = tempfile.mkdtemp(); _oname = json.load(open(os.path.join(OUT, "scripts", "overlay.json"), encoding="utf-8"))["apps"][0]
+    os.makedirs(os.path.join(_rb, _oname))
+    open(os.path.join(_rb, _oname, "index.html"), "w", encoding="utf-8").write("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>Demo</title></head><body><p>Demo</p></body></html>")
+    open(os.path.join(_rb, _oname, "notes.txt"), "w", encoding="utf-8").write("Mail jane.doe@gmail.com for details.")
+    r = run([os.path.join(tmp, "build.py")], env=dict(os.environ, OMNEVUM_REBUILD=_rb))
+    ok("overlay: the privacy gate scans staged app text and stops the build", r.returncode != 0 and "privacy gate failed in output" in r.stdout and "email" in r.stdout and "notes.txt" in r.stdout, (r.stdout + r.stderr)[-400:])
+    shutil.rmtree(_rb, ignore_errors=True)
 finally:
     shutil.rmtree(tmp, ignore_errors=True); shutil.rmtree(bund, ignore_errors=True)
     run([os.path.join(OM, "build.py")])  # restore the real site
     if _note_before is not None and open(_notep, "rb").read() != _note_before:
         open(_notep, "wb").write(_note_before)  # keep the tracked note exactly as it was
+
+# 2c. the rebuild overlay (builder/overlay.py): staged apps in rebuild/<app>/ are copied over site/<app>/, and only then
+import overlay as _ov
+_t = tempfile.mkdtemp()
+try:
+    _rb, _st = os.path.join(_t, "rebuild"), os.path.join(_t, "site")
+    os.makedirs(os.path.join(_st, "apps")); open(os.path.join(_st, "apps", "keep.txt"), "w").write("legacy")
+    _names, _skip = ["omnevum", "hub", "library", "ai"], ["stubs", "root"]
+    ok("overlay: no rebuild folder is a no-op", _ov.apply(_rb, _st, _names, _skip) == [] and sorted(os.listdir(_st)) == ["apps"])
+    def _put(rel, data=b"x"):
+        f = os.path.join(_rb, *rel.split("/")); os.makedirs(os.path.dirname(f), exist_ok=True); open(f, "wb").write(data)
+    _put("demo/index.html"); _put("hub/index.html", b"<p>hub</p>"); _put("hub/assets/a-1b2c.js", b"let a=1"); _put("hub/sw.js", b"//w")
+    _put("stubs/hub/index.html"); _put("root/index.html"); _put("receipts.json", b"{}")
+    try:
+        _ov.apply(_rb, _st, _names, _skip); _unlisted = False
+    except ValueError as e:
+        _unlisted = "demo" in str(e) and "overlay.json" in str(e)
+    os.remove(os.path.join(_rb, "demo", "index.html")); os.rmdir(os.path.join(_rb, "demo"))
+    ok("overlay: a folder not on the list stops the build", _unlisted and sorted(os.listdir(_st)) == ["apps"])
+    _done = _ov.apply(_rb, _st, _names, _skip)
+    ok("overlay: a listed folder is copied byte for byte, with its assets", _done == ["hub"] and open(os.path.join(_st, "hub", "index.html"), "rb").read() == b"<p>hub</p>" and open(os.path.join(_st, "hub", "assets", "a-1b2c.js"), "rb").read() == b"let a=1")
+    ok("overlay: stubs, root and top-level files are skipped", sorted(os.listdir(_st)) == ["apps", "hub"])
+    _before = tree_hash(_st); shutil.rmtree(os.path.join(_st, "hub")); _ov.apply(_rb, _st, _names, _skip)  # the build prunes the last copy of a published folder first, so a second run starts clean
+    ok("overlay: running it again changes nothing", tree_hash(_st) == _before)
+    _put("ai/index.html"); _put("library/index.html")
+    shutil.copytree(os.path.join(_rb, "ai"), os.path.join(_rb, "apps"))  # a staged folder named like a legacy folder
+    _n2 = _names + ["apps"]
+    try:
+        _ov.apply(_rb, _st, _n2, _skip); _clash = False
+    except ValueError as e:
+        _clash = "clashes with site/apps" in str(e)
+    ok("overlay: a name clash with a site folder fails and copies nothing", _clash and not os.path.exists(os.path.join(_st, "ai")) and open(os.path.join(_st, "apps", "keep.txt")).read() == "legacy")
+    shutil.rmtree(os.path.join(_rb, "apps")); os.remove(os.path.join(_rb, "ai", "index.html"))
+    try:
+        _ov.apply(_rb, _st, _names, _skip); _noidx = False
+    except ValueError as e:
+        _noidx = "no index.html" in str(e)
+    ok("overlay: a folder with no index.html fails", _noidx)
+    _put("ai/index.html")
+    try:
+        os.symlink(os.path.join(_rb, "hub", "sw.js"), os.path.join(_rb, "ai", "link.js")); _sl = True
+    except (OSError, NotImplementedError, AttributeError):
+        _sl = False  # this machine may not allow symlinks; the check below then covers the folder-level rule only
+    _symfail = False
+    if _sl:
+        try:
+            _ov.apply(_rb, _st, _names, _skip)
+        except ValueError as e:
+            _symfail = "symlink" in str(e)
+    else:
+        print("note: symlinks are not allowed here, so the symlink case is not exercised")
+    ok("overlay: a symlink fails (passes untested where symlinks are not allowed)", _symfail or not _sl)
+finally:
+    shutil.rmtree(_t, ignore_errors=True)
 
 # 3. the privacy gate catches planted personal data (and lets the allowed things through)
 tmp = tempfile.mkdtemp()

@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Show what belongs to the system"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can draw an equipment tree without mixing it with a work schedule."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "An equipment breakdown structure is a map of what makes up a system. It starts with a complete product and branches to assemblies and parts. It is different from a work breakdown structure, which groups tasks and deliverables. The equipment map shows each item, its parent assembly and nearby affected parts. Record enough detail for actual decisions. Uncontrolled minor parts do not need separate branches."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Write the system name at the top. You should see: There is one clear root. If not: Agree what is inside and outside the boundary."
+    ],
+    [
+     "Group its major assemblies underneath. You should see: Each group has a meaningful parent. If not: Ask which assembly would be responsible for the part."
+    ],
+    [
+     "Add subassemblies where separate tracing matters. You should see: Important replaceable or interface elements are visible. If not: Stop before the diagram becomes a duplicate inventory."
+    ],
+    [
+     "Check the map with a second person. You should see: No important assembly is missing or counted twice. If not: Correct overlaps before using the map for change analysis."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "For a fictional product, the top row might split into operating hardware, inputs, control electronics and user interface. \"Schedule training\" belongs on a work plan instead."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Put physical or logical product elements in the equipment tree and activities in the work plan."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Some services are not physical parts; define the boundary explicitly."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Putting a testing meeting under a replaceable module assembly The meeting is work, not part of the replaceable module. Fix: Keep the meeting in the project task list."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-ebs-map-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-ebs-map-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-ebs-map",
+ "kind": "doc",
+ "title": "Show what belongs to the system"
+}

@@ -1,0 +1,145 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Compare options in six steps"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can carry a support decision through six explicit analysis steps."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For education only; this is not legal, purchasing, financial or safety advice. Compare delivery alternatives in a traceable order: define the choice, collect reliable facts, identify workable options, select relevant evaluation criteria, assess each option on a common basis, then explain the preferred choice and its trade-offs. Repeat the affected comparison if material constraints or evidence change. Check whether the result still holds when uncertain inputs move within plausible ranges. A preference that reverses needs to be shown as conditional."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "State the choice that needs to be made. You should see: The comparison has one defined purpose. If not: Narrow or restate an unclear decision."
+    ],
+    [
+     "Collect evidence, constraints and relevant assumptions. You should see: The basis for judging choices is documented. If not: Identify any material evidence still missing."
+    ],
+    [
+     "Form realistic alternatives. You should see: Each option could plausibly achieve the required task. If not: Remove unworkable choices or document what is needed to test them."
+    ],
+    [
+     "Select the requirements that will be used in the comparison. You should see: The evaluation criteria relate to the defined decision. If not: Explain why a proposed test is relevant."
+    ],
+    [
+     "Assess each option under the same suitable criteria. You should see: Results can be compared and trade-offs seen. If not: Revisit inconsistent scope or missing evidence."
+    ],
+    [
+     "Record a preferred option and its rationale. You should see: The recommendation can be traced to the comparison. If not: Document unresolved trade-offs for the decision authority."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Two feasible service choices may rank differently when demand doubles. Record the original comparison, change only the demand assumption, and note whether the preferred choice changes."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "The six decision steps"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Every options analysis proceeds from a decision question to a documented choice."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Question: What is being decided"
+    ],
+    [
+     "Considerations: Evidence and constraints"
+    ],
+    [
+     "Options: Feasible choices"
+    ],
+    [
+     "Requirements: Basis for comparison"
+    ],
+    [
+     "Analysis: Compare against needs"
+    ],
+    [
+     "Recommendation: Select with reasons"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Judge all realistic choices against the same relevant tests."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A material change to the problem or available evidence can require a new assessment."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-sixsteps-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-sixsteps-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-sixsteps",
+ "kind": "doc",
+ "title": "Compare options in six steps"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "Running the model under specified conditions to observe behavior.",
+ "explain": [
+  "Section: Use architecture and models wisely"
+ ],
+ "id": "q-models-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What extra step makes a model a simulation?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. Failing any mandatory minimum blocks the bid.",
+ "explain": [
+  "Section: Calculate a qualifying bid"
+ ],
+ "id": "q-award-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: A noncompliant design has 240 diagnostic points. Can it win?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

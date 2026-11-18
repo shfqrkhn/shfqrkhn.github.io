@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Compare transport energy"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can use a suitable energy indicator to compare transport operations."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Study fleet and transport energy in relation to the work performed. Record vehicle types, fuel or electricity, distances, route profiles, loads, maintenance, and operating practice. A change in payload or route can distort a simple before-and-after fuel comparison. Select an indicator that reflects useful transport service and investigate measured consumption rather than relying solely on published vehicle performance figures."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative case: Delivery runs differ in length and payload. Compare energy per distance and equivalent delivery service, not merely fuel totals."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Use a transport indicator tied to the service performed."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Distance alone may omit load, route, or operating changes."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-transport-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-transport-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-transport",
+ "kind": "doc",
+ "title": "Compare transport energy"
+}

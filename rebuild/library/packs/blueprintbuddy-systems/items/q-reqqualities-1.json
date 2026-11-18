@@ -1,0 +1,14 @@
+{
+ "answerKey": "A link upward to its need and links downward to design and proof.",
+ "explain": [
+  "Section: Check requirement quality"
+ ],
+ "id": "q-reqqualities-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What two kinds of links make a requirement traceable?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

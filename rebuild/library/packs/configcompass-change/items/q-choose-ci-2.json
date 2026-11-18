@@ -1,0 +1,14 @@
+{
+ "answerKey": "Yes, because its functional effect may justify separate identification and change review.",
+ "explain": [
+  "Section: Choose what needs its own controls"
+ ],
+ "id": "q-choose-ci-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "An inexpensive embedded control component can change activation timing. Should it be assessed for control?"
+ ],
+ "source": "configcompass-change"
+}

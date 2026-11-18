@@ -1,0 +1,14 @@
+{
+ "answerKey": "The organization cannot consistently determine whether the promised service was delivered.",
+ "explain": [
+  "Section: Connect measures and owners"
+ ],
+ "id": "q-framework-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: A contract says “maintain excellent service” without an observable measure. What is the weakness?"
+ ],
+ "source": "supportscout-equipment"
+}

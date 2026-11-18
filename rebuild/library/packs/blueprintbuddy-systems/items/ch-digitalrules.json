@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Explain proposed digital auction rules"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Understand the proposed online auction procedure."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The proposed networked version uses ten fixed category positions and a finite supply of cards. Seven positions correspond to capability or accessory areas and three correspond to engineering-process cards. An initial bidding preset begins at a card's listed opening amount and uses $50,000 increases. These specifics belong to the proposed digital version."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "The proposed online flow limits each team to two purchases per round. It excludes resale, automatic raises and unbought-card recycling."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Publish the selected rules and their revision before participants begin bidding."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Do not assume the earlier workshop exercise used these particular tie or bid rules."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-digitalrules-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-digitalrules-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-digitalrules",
+ "kind": "doc",
+ "title": "Explain proposed digital auction rules"
+}

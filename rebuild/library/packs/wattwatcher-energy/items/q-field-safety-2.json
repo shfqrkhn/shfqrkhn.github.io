@@ -1,0 +1,14 @@
+{
+ "answerKey": "Units, operating condition, time, and the instrument or data source.",
+ "explain": [
+  "Section: Select instruments and work safely"
+ ],
+ "id": "q-field-safety-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What belongs beside every field reading?"
+ ],
+ "source": "wattwatcher-energy"
+}

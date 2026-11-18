@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. Its negative effect remains in the platform total.",
+ "explain": [
+  "Section: Read the platform totals"
+ ],
+ "id": "q-capabilities-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A card reduces mobility by 10 km/h. Should it be ignored when totaling?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

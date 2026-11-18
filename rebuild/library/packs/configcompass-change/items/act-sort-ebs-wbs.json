@@ -1,0 +1,177 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Part or project task?"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can separate system elements from activities needed to develop them."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " The product tree contains things in the system; the task tree contains work to do."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Item"
+    ],
+    [
+     "Group"
+    ],
+    [
+     "Why"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Replaceable operating module"
+     ],
+     [
+      "System element"
+     ],
+     [
+      "Inferred: It is part of the product."
+     ]
+    ],
+    [
+     [
+      "Electronics module"
+     ],
+     [
+      "System element"
+     ],
+     [
+      "It is a system element."
+     ]
+    ],
+    [
+     [
+      "Input component"
+     ],
+     [
+      "System element"
+     ],
+     [
+      "This component provides input to the controller."
+     ]
+    ],
+    [
+     [
+      "Schedule a review"
+     ],
+     [
+      "Project activity"
+     ],
+     [
+      "Scheduling is an activity."
+     ]
+    ],
+    [
+     [
+      "Write the test plan"
+     ],
+     [
+      "Project activity"
+     ],
+     [
+      "This is work undertaken by a team."
+     ]
+    ],
+    [
+     [
+      "Prepare technician training"
+     ],
+     [
+      "Project activity"
+     ],
+     [
+      "Training preparation belongs in a work plan."
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " A component and the work performed on it need different maps."
+   ]
+  }
+ ],
+ "data": {
+  "buckets": [
+   {
+    "id": "equipment",
+    "label": "System element"
+   },
+   {
+    "id": "work",
+    "label": "Project activity"
+   }
+  ],
+  "claims": [
+   "ebs-map"
+  ],
+  "done": "A component and the work performed on it need different maps.",
+  "goal": "After this you can separate system elements from activities needed to develop them.",
+  "hint": "The product tree contains things in the system; the task tree contains work to do.",
+  "id": "sort-ebs-wbs",
+  "items": [
+   {
+    "bucket": "equipment",
+    "label": "Replaceable operating module",
+    "why": "Inferred: It is part of the product."
+   },
+   {
+    "bucket": "equipment",
+    "label": "Electronics module",
+    "why": "It is a system element."
+   },
+   {
+    "bucket": "equipment",
+    "label": "Input component",
+    "why": "This component provides input to the controller."
+   },
+   {
+    "bucket": "work",
+    "label": "Schedule a review",
+    "why": "Scheduling is an activity."
+   },
+   {
+    "bucket": "work",
+    "label": "Write the test plan",
+    "why": "This is work undertaken by a team."
+   },
+   {
+    "bucket": "work",
+    "label": "Prepare technician training",
+    "why": "Training preparation belongs in a work plan."
+   }
+  ],
+  "title": "Part or project task?",
+  "type": "sort"
+ },
+ "id": "act-sort-ebs-wbs",
+ "kind": "activity",
+ "title": "Part or project task?"
+}

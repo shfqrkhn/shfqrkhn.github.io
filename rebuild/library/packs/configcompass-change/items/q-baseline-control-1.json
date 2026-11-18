@@ -1,0 +1,14 @@
+{
+ "answerKey": "A defined review and acceptance decision.",
+ "explain": [
+  "Section: Know which version is agreed"
+ ],
+ "id": "q-baseline-control-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What makes a version a baseline rather than a working draft?"
+ ],
+ "source": "configcompass-change"
+}

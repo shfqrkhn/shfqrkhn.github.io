@@ -1,0 +1,14 @@
+{
+ "answerKey": "Net present value or another discounted-cash-flow method.",
+ "explain": [
+  "Section: Compare longer-term costs"
+ ],
+ "id": "q-cost-decisions-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Name an evaluation method that discounts future cash flows."
+ ],
+ "source": "wattwatcher-energy"
+}

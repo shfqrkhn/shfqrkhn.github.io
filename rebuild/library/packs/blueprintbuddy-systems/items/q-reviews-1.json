@@ -1,0 +1,14 @@
+{
+ "answerKey": "A controlled test with documented results.",
+ "explain": [
+  "Section: Choose evidence and review points"
+ ],
+ "id": "q-reviews-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: You need a measured top speed. Which method gives direct numeric evidence?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Look beyond the design desk"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can assess a change across connected functions."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A change can improve a product technically while creating new problems elsewhere. An impact review brings in people who understand operations, procurement, testing, service, training, software, safety and schedule as applicable. Include people whose decisions or work would be affected. You do not need every department to review every small edit. Record uncertainties instead of silently treating them as zero impact."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Identify who uses, builds, tests and supports the affected item. You should see: The relevant reviewers are named. If not: Trace the product life cycle rather than relying on one team."
+    ],
+    [
+     "Ask each reviewer for consequences and dependencies. You should see: Costs, effort, interfaces and risks become visible. If not: Request evidence for material unknowns."
+    ],
+    [
+     "Compare feasible options and unchanged-state risks. You should see: Decision makers can see the trade-offs. If not: Keep different assumptions explicit."
+    ],
+    [
+     "Consolidate comments and open issues. You should see: The proposal shows whether it is ready for decision. If not: Escalate unresolved conflicts rather than averaging them."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "A new replaceable module may save energy but need a different mounting bracket and replacement stock. Those are engineering and support impacts of one proposal."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Ask who must change their work if this proposal is accepted."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A specialist review cannot replace approval authority or required testing."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Equating no comment with no impact A reviewer may not have received adequate information. Fix: Confirm the scope and record explicit responses."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-expert-impact-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-expert-impact-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-expert-impact",
+ "kind": "doc",
+ "title": "Look beyond the design desk"
+}

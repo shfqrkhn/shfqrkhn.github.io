@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Collect relevant evidence"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can distinguish valid input from an unsupported preference."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For education only; this is not legal, purchasing, financial or safety advice. Different participants reveal different risks. Users explain demand, maintainers describe technical constraints, finance or purchasing teams test resource assumptions, and prospective providers may offer feasibility information. Ask precise questions and record the evidence received. For a competitive purchase, follow the applicable fairness and confidentiality rules; a vendor preference is not independent proof."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "An effective consultation asks participants targeted questions whose answers may change feasibility, cost or risk assessment."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Request verifiable information rather than expressions of preference."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A participant with a commercial interest may provide biased or incomplete evidence."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-engagement-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-engagement-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-engagement",
+ "kind": "doc",
+ "title": "Collect relevant evidence"
+}

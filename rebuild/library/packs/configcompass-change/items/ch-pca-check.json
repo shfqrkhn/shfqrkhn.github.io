@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Verify the build that actually exists"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can compare installed hardware and software with accepted build records."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A physical audit compares the actual item with the detailed description that applies to its version. A reviewer may examine labels, parts, assembly records, software versions, deviations and change history. It is a correspondence check, not simply a count of parts. When a unit differs, establish whether a valid change or approved exception explains it; otherwise record the mismatch."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Confirm the serial number, product revision and relevant build record. You should see: The unit and the expected description are unambiguous. If not: Resolve identity discrepancies before comparing details."
+    ],
+    [
+     "Inspect a representative set of controlled features. You should see: Markings, versions and components can be matched. If not: Expand the inspection when unexplained differences appear."
+    ],
+    [
+     "Compare changes and approved exceptions. You should see: Allowed departures are distinguished from unknown ones. If not: Require the actual approval evidence."
+    ],
+    [
+     "Document differences and closure evidence. You should see: A reviewer can see the final disposition. If not: Keep unsupported claims open."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "A controller can bear the correct housing label but contain a different assembly revision. Checking both identifies a mismatch a label-only review would miss."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Compare the actual unit with the version explicitly applicable to it."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A physical inspection alone does not establish all functional performance."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Assuming a matching model name proves full conformity Products with one name may have different internal revisions. Fix: Check selected critical identifiers and records."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-pca-check-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-pca-check-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-pca-check",
+ "kind": "doc",
+ "title": "Verify the build that actually exists"
+}

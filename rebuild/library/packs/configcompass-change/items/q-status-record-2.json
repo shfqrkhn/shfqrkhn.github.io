@@ -1,0 +1,14 @@
+{
+ "answerKey": "No; the software version has not been established.",
+ "explain": [
+  "Section: Separate decisions from installed reality"
+ ],
+ "id": "q-status-record-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A software-version field is empty. Can a report assert the unit uses the old release?"
+ ],
+ "source": "configcompass-change"
+}

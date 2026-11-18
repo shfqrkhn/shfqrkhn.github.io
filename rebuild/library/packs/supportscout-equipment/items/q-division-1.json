@@ -1,0 +1,14 @@
+{
+ "answerKey": "An accountable delivery path for each defined support activity.",
+ "explain": [
+  "Section: Assign delivery responsibility"
+ ],
+ "id": "q-division-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What does allocating the work establish?"
+ ],
+ "source": "supportscout-equipment"
+}

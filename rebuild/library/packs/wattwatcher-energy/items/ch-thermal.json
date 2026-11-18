@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Link thermal measurements to loads"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can calculate a basic fluid heat-transfer rate from flow and temperature."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A temperature reading needs additional information before it can show thermal power. For a fluid, heat-transfer rate comes from mass flow multiplied by specific heat and temperature change. Boiler efficiency and chiller COP use different useful-output and input definitions. More advanced audits may call for degree-day analysis, psychrometric relationships, or refrigeration-cycle data. Confirm fluid properties and flow measurements before using those methods."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: A mass flow of 2 kg/s with a 5°C change and assumed 4.2 kJ/(kg·°C) heat capacity transfers 42 kW."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Match flow, property, and temperature units."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Changing fluid composition or phase invalidates a simple water assumption."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-thermal-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-thermal-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-thermal",
+ "kind": "doc",
+ "title": "Link thermal measurements to loads"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "Eligibility, value, and application conditions can change.",
+ "explain": [
+  "Section: Assess generation and storage"
+ ],
+ "id": "q-generation-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why must incentive assumptions be checked independently?"
+ ],
+ "source": "wattwatcher-energy"
+}

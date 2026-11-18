@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. The 2021 file differs, and current exam arrangements were not confirmed.",
+ "explain": [
+  "Section: Interpret exam-source editions"
+ ],
+ "id": "q-exam-sources-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "An older exam outline lists 140 questions. Is that enough to establish your current exam format?"
+ ],
+ "source": "wattwatcher-energy"
+}

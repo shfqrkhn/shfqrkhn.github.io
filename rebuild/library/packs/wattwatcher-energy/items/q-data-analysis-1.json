@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. Check energy per production unit and other relevant conditions.",
+ "explain": [
+  "Section: Model baselines and changes"
+ ],
+ "id": "q-data-analysis-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A factory doubles its output while energy rises 20%. Can raw kWh reveal efficiency?"
+ ],
+ "source": "wattwatcher-energy"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "Real static pressure, controls, system resistance, and efficiency do not necessarily remain alike.",
+ "explain": [
+  "Section: Evaluate fans and pumps"
+ ],
+ "id": "q-fan-pump-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why can the ideal cubic estimate overstate savings?"
+ ],
+ "source": "wattwatcher-energy"
+}

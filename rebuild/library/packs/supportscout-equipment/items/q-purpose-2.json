@@ -1,0 +1,14 @@
+{
+ "answerKey": "The team has not yet defined the result or examined feasible alternatives.",
+ "explain": [
+  "Section: Define the support decision"
+ ],
+ "id": "q-purpose-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: Why is naming a contractor before establishing the need premature?"
+ ],
+ "source": "supportscout-equipment"
+}

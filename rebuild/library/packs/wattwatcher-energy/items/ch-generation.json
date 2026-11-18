@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Assess generation and storage"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can screen distributed energy and storage options using measured load data."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "On-site production, combined heat and power, renewable supply, and energy storage should be screened against the actual load pattern. Investigate output availability, timing, efficiency, dispatch restrictions, installation conditions, and integration with existing systems. Only then apply the relevant financial assumptions. Older educational material does not establish present-day tariff rules, public incentives, or source-energy ratios."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative case: A site pays more during afternoon peaks. Compare meter intervals with storage delivery limits before projecting any tariff benefit."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Screen load match and tariff effects before costing storage."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Prices, subsidies, and grid factors vary with place and date."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-generation-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-generation-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-generation",
+ "kind": "doc",
+ "title": "Assess generation and storage"
+}

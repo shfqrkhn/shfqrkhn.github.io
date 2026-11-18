@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Model operating schedules"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can use operating periods and load levels to estimate daily or annual consumption."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "An equipment inventory gives connected power, not necessarily the highest simultaneous load. Diversity reflects which devices actually operate together. Divide a typical day into meaningful operating periods, then add the kWh from each period. Reduced overnight load can save energy without changing equipment efficiency. Treat an assumed shutdown as a hypothesis until schedules, controls, or meter readings confirm it."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: A 100 kW load for ten hours uses 1,000 kWh. At 20 kW for the next fourteen hours it uses 280 kWh. Total daily energy is 1,280 kWh, rather than 2,400 kWh at 100 kW continuously."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Remove avoidable hours before comparing equipment replacements."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Safety, ventilation, emergency systems, and occupant needs may require ongoing operation."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-schedule-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-schedule-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-schedule",
+ "kind": "doc",
+ "title": "Model operating schedules"
+}

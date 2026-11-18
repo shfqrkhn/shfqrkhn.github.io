@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Select instruments and work safely"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can select measurements and recognize when work needs an authorized specialist."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Plan measurements before entering a site. Existing bills, nameplates, logs, schedules, and trend files can answer many questions without intrusive tests. Choose instruments that match the quantity, range, accuracy, environment, and required calibration. Do not enter restricted spaces, open energized panels, or override controls without the site-approved procedure and qualified staff. Stop if conditions are unsafe or unclear."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "List the decision that requires measurement. You should see: You should see a measurable question. If not: Rewrite the question around one unknown."
+    ],
+    [
+     "Check which reliable records already exist. You should see: You should see what can be answered without new fieldwork. If not: Request a safe walkthrough with the site team."
+    ],
+    [
+     "Ask qualified personnel to approve location, instrument, and isolation needs. You should see: You should see a site-approved method. If not: Do not proceed with the measurement."
+    ],
+    [
+     "Record readings, units, conditions, instrument identity, and time. You should see: You should see enough information to repeat the comparison. If not: Mark the value as unconfirmed and arrange a valid measurement."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative case: A motor has an unreadable nameplate. Ask the qualified operations team for existing metering records before considering a new electrical measurement."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Use the least invasive reliable evidence that answers the audit question."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " It fails when records are incomplete, uncalibrated, or inconsistent with observed operation."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Using a nameplate as measured demand Actual load and duty may differ. Fix: Confirm operation using appropriate records or a safe measurement."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-field-safety-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-field-safety-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-field-safety",
+ "kind": "doc",
+ "title": "Select instruments and work safely"
+}

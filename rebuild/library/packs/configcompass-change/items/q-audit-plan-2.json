@@ -1,0 +1,14 @@
+{
+ "answerKey": "The evidence cannot be compared with a single accepted reference.",
+ "explain": [
+  "Section: Design the review before it starts"
+ ],
+ "id": "q-audit-plan-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "An audit agenda says \"inspect product\" but names no revision. What is the problem?"
+ ],
+ "source": "configcompass-change"
+}

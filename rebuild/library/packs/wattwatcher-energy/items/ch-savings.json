@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Calculate a first savings case"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can calculate a first-pass energy saving, cost saving, and payback."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Estimate a measure against a defensible before-condition. Calculate the change in kWh and apply the appropriate energy price; analyze demand charges on their own billing terms. Simple payback equals initial expense divided by expected annual net savings. This quick ratio does not discount future money and may overlook replacements or operating costs. Confirm run hours, load levels, tariffs, and interactions before reporting the result."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: Reducing demand by 4 kW over 2,500 hours avoids 10,000 kWh annually. At $0.12/kWh that is $1,200 per year. If the project costs $3,000, simple payback is 2.5 years under the stated assumptions."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Start with saved use times the correct rate."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Demand penalties, maintenance, life, and interactions can change total savings."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-savings-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-savings-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-savings",
+ "kind": "doc",
+ "title": "Calculate a first savings case"
+}

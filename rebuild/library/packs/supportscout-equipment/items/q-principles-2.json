@@ -1,0 +1,14 @@
+{
+ "answerKey": "It raises a flexibility concern, which should be assessed with the other principles.",
+ "explain": [
+  "Section: Balance the evaluation criteria"
+ ],
+ "id": "q-principles-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: An inexpensive service cannot cope with extra deployments. What concern does that raise?"
+ ],
+ "source": "supportscout-equipment"
+}

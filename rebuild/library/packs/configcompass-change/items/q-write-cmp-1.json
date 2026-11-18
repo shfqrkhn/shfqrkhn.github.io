@@ -1,0 +1,14 @@
+{
+ "answerKey": "Responsibilities, decision authority and how records are maintained.",
+ "explain": [
+  "Section: Write rules the team can follow"
+ ],
+ "id": "q-write-cmp-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What must a configuration plan establish besides technical rules?"
+ ],
+ "source": "configcompass-change"
+}

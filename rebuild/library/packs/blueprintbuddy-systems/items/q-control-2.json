@@ -1,0 +1,14 @@
+{
+ "answerKey": "The same intended outcome, with clear shared decisions and responsibilities.",
+ "explain": [
+  "Section: Keep configurations and plans aligned"
+ ],
+ "id": "q-control-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What must project and systems managers agree on?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

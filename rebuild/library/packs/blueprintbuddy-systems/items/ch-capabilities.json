@@ -1,0 +1,99 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Read the platform totals"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Calculate what the purchased cards provide."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Purchases modify eight named measures. The attributes cover passenger capacity, speed and communications distance. Other fields cover performance, protection, awareness, recovery and hazard-clearance methods. Each measure begins at zero. Apply each card effect with its sign, even when it reduces a value. This arithmetic describes the workshop exercise, not physical interaction between actual components."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Record each won card and actual auction price. You should see: Each purchase has an entry. If not: Do not use the printed starting price as paid cost."
+    ],
+    [
+     "Add all eight capability columns. You should see: One total per measure. If not: Keep negative intermediate and final values."
+    ],
+    [
+     "Sum all actual payments. You should see: One cost amount. If not: Check that no purchase was skipped."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Illustration: One purchase contributes five passenger places and another takes away two; the combined workshop capacity is three."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Sum the signed changes from every card bought, including repeated card instances."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Do not treat real radio ranges as additive outside this teaching model."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-capabilities-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-capabilities-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-capabilities",
+ "kind": "doc",
+ "title": "Read the platform totals"
+}

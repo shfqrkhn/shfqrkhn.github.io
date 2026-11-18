@@ -3,6 +3,7 @@
   builder/    this folder: the tools, the registry, the icon list
   sources/    what people write: apps/ (one HTML file per app) and method/ (Prompt Clipboard, Knowledge Distiller, Resource Catalogue)
   docs/       the framework note (FRAMEWORK.md, the source of truth) and PRIVACY.md
+  rebuild/    staged static trees of the rebuilt apps, rebuild/<app>/, tracked in git; the build copies them to site/<app>/ (absent until the first one is staged)
   site/       what is published: authored files (scripts/, content/, robots.txt) plus everything build.py generates (git ignores the generated part)
   converge/   review scripts and their receipts
   history/    optional local safety copies made by archive.py (git ignores it; git history is the real history)
@@ -15,6 +16,7 @@ import base64, hashlib, os
 OM = os.environ.get("OMNEVUM_BUILDER") or os.path.dirname(os.path.abspath(__file__))
 HOME = os.path.dirname(OM)
 OUT = os.path.join(HOME, "site")
+REBUILD = os.environ.get("OMNEVUM_REBUILD") or os.path.join(HOME, "rebuild")  # staged static trees of the rebuilt apps, copied over site/ by overlay.py (the self-test points it at a temporary folder)
 V = os.path.join(HOME, "sources")
 APPS_DIR = os.path.join(V, "apps")
 DOCS = os.path.join(HOME, "docs")

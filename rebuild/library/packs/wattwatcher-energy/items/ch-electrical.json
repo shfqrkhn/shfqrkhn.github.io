@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Examine electrical operating conditions"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can apply balanced three-phase power and understand induction-motor slip."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For balanced three-phase circuits, real electrical input depends on line voltage, line current, and power factor: √3 × V × A × PF gives watts. Divide by 1,000 for kW. In an induction motor, the rotor typically runs below the synchronous field speed set by frequency and pole count. This difference is slip. Also inspect imbalance and harmonic distortion where relevant to electrical operation."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: At 400 V, 10 A and power factor 0.9, three-phase real input is √3 × 400 × 10 × 0.9 / 1,000 ≈ 6.24 kW."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Use measured voltage, current, and power factor for electrical estimates."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " This balanced formula cannot substitute for an unbalanced system measurement."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-electrical-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-electrical-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-electrical",
+ "kind": "doc",
+ "title": "Examine electrical operating conditions"
+}

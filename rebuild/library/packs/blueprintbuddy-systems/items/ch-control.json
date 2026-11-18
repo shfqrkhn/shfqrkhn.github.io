@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Keep configurations and plans aligned"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Keep technical decisions tied to approved versions."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A baseline identifies the technical configuration that has been accepted at a particular point. A typical life-cycle diagram distinguishes functional, allocated and product-level definitions as detail increases. Project managers coordinate resources, schedule and commitments. Engineering managers coordinate requirements, designs, technical proof and support. The two activities must exchange decisions and risk information."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Illustration: A test on configuration A cannot automatically demonstrate that a different installed configuration B meets the same requirement."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Record which configuration, evidence, responsibility and approval a technical conclusion relies on."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A plan without version control cannot establish which design was checked."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-control-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-control-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-control",
+ "kind": "doc",
+ "title": "Keep configurations and plans aligned"
+}

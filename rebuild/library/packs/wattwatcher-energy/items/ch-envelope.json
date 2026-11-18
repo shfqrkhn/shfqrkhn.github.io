@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Inspect the building enclosure"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can calculate simple insulation values and distinguish conduction from air leakage."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Walls, roofs, openings, and glazing influence the heat transferred through a building boundary. Thermal resistance R opposes heat flow; matching thermal transmittance U equals 1/R. Series-layer resistances add when the assumptions and units are appropriate. Heat flow also depends on area and temperature difference. Infiltration is air entering through unintended gaps, a different mechanism from conduction. Simple R-value arithmetic does not fully represent glazing or thermal mass."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: Series thermal resistances of 2 and 3 m²·K/W add to R = 5 m²·K/W, corresponding to U = 0.2 W/m²·K."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Add series R values; invert only after combining them."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Thermal bridges and air leakage need separate treatment."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-envelope-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-envelope-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-envelope",
+ "kind": "doc",
+ "title": "Inspect the building enclosure"
+}

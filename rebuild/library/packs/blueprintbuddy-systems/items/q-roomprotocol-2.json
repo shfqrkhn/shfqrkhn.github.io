@@ -1,0 +1,14 @@
+{
+ "answerKey": "A retry should not create a duplicate purchase or double charge.",
+ "explain": [
+  "Section: Control a shared auction safely"
+ ],
+ "id": "q-roomprotocol-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why must repeated messages be detected?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

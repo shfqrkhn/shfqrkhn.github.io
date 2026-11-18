@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Select a pricing approach"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can explain why pricing depends on the certainty and risk of the work."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For education only; this is not legal, purchasing, financial or safety advice. A pricing structure should reflect how well the work, volume and costs can be estimated. Fixed totals, unit rates and reimbursable structures place uncertainty and incentives in different places. Compare the quality of cost evidence, risk allocation, controls and likely behaviour. Specialist review and local rules still govern any real agreement."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A predictable, well-specified service offers different pricing choices than troubleshooting equipment with faults that cannot be described in advance."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Choose a pricing method suited to the information and risks available."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Specialist purchasing and agreement-related requirements can rule out an otherwise attractive approach."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-pricing-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-pricing-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-pricing",
+ "kind": "doc",
+ "title": "Select a pricing approach"
+}

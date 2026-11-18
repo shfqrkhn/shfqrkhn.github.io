@@ -1,0 +1,293 @@
+{
+ "contentType": "course",
+ "dependencies": [],
+ "hash": "d79d1fbeddf91807da50cd2ed4da91ef764dc06add7d138534924e0d864846f2",
+ "id": "supportscout-equipment",
+ "items": [
+  {
+   "id": "meta",
+   "sha256": "2d8a6207ee20e0f0d455dc93e076d75b9d5537f0aae445b2074ea67c6615c7cd"
+  },
+  {
+   "id": "overview",
+   "sha256": "27fc1536cff12f450c514d125d6f85bb7cfcdf1e0620936214507425cef6a94e"
+  },
+  {
+   "id": "glossary",
+   "sha256": "40d5e92fe8bd613dc35b88934286c2501acb14b8936c90623346b17088179c38"
+  },
+  {
+   "id": "reference",
+   "sha256": "935cf14b41b0f936fb738b20fcf4f34708e6d1424ed6164b9279d23ff9cdc72a"
+  },
+  {
+   "id": "ch-purpose",
+   "sha256": "14671b3bb9dbab5d6533253085e7d3850c9ffe6fa0e790639a248bdc4c308c24"
+  },
+  {
+   "id": "q-purpose-1",
+   "sha256": "9fe939a63dbb5f7aa63fed4a78e3ef8edeb0a1f6fb965879013cc44de0c458fc"
+  },
+  {
+   "id": "q-purpose-2",
+   "sha256": "38f8707f1c32cea75667fbf26485949b184e71bb3c579ca0859f379e56a2501a"
+  },
+  {
+   "id": "ch-principles",
+   "sha256": "c82936edc7a55d97efe03ca0d05a2be3b9a54a9af0b3b9860e171326f2045360"
+  },
+  {
+   "id": "q-principles-1",
+   "sha256": "14ed9a45c2376d710e3483f547a3516818231298ceb401a58dc19ca8c73eecf1"
+  },
+  {
+   "id": "q-principles-2",
+   "sha256": "d5e9fadb5608a1c0323a64c48f3b7fed829bad7bab29f2cc3c2eb53f5e2edfc5"
+  },
+  {
+   "id": "ch-scope",
+   "sha256": "725ab7f392b3fac139362bb8ce128d6133a88168c3dabdb2bf43c54c801bee88"
+  },
+  {
+   "id": "q-scope-1",
+   "sha256": "daaec2019f68d192b88f1ab9708c2d367518a88e7651708ce874c1441c356edf"
+  },
+  {
+   "id": "q-scope-2",
+   "sha256": "b1ecb220e660329e350855b6d2d99224595447195d38fc6f93fba2136a3aa3bf"
+  },
+  {
+   "id": "ch-initiation",
+   "sha256": "0f6f0ef2f5546190ad16255889ce87c9b3bada63806db67f5bb3d75f2b1e6235"
+  },
+  {
+   "id": "q-initiation-1",
+   "sha256": "6e74cb35286874cf6e40aaa0adb99a9cde15511dbf5a0514a0804b6b69453524"
+  },
+  {
+   "id": "q-initiation-2",
+   "sha256": "9b8dfff360ebfaac1067f6d3952ce9c2932bf3c20898fa859512c556bdd1e50b"
+  },
+  {
+   "id": "ch-usage",
+   "sha256": "b87e19d91d3bf8f793e27005bb02c4c2e56769c7542bbaeef92e9b491b800038"
+  },
+  {
+   "id": "q-usage-1",
+   "sha256": "f1f590226704741c800ac73a34121fdd10b7d3e8a4b786277f46aa654cb17c25"
+  },
+  {
+   "id": "q-usage-2",
+   "sha256": "0a07684f82625a44826ebb3c009a1ca50df3dde17a80be905242a6401b7941b2"
+  },
+  {
+   "id": "ch-requirements",
+   "sha256": "2e3060fe1f91d21ca92bbb96b6321167a1a3d46e53b294b84175f176bfd6b360"
+  },
+  {
+   "id": "q-requirements-1",
+   "sha256": "26f26615062ec5782d8de8675d14bbe79707503c19f4bdccbb1a56c2b7e3d002"
+  },
+  {
+   "id": "q-requirements-2",
+   "sha256": "ee524723210a95caa1d3fc604e57fc875bf8dd79f20e27a1dc10acf4974f6d69"
+  },
+  {
+   "id": "ch-gaps",
+   "sha256": "e2131e8e78dc9b531acdfbb7fe91d8b5b7f10ed344a0421c737690fd931a58ff"
+  },
+  {
+   "id": "q-gaps-1",
+   "sha256": "c6d90906a4ca7ed4c5bc01b33bdceb6bd69d93dfd96184deac9e9c0f0baa5eb7"
+  },
+  {
+   "id": "q-gaps-2",
+   "sha256": "569f8b70a178fd10d778edc93e135bbdc6751a445cdbdc79bdde38ce5540d128"
+  },
+  {
+   "id": "ch-outcomes",
+   "sha256": "c833a5b62e515bb3df3c6de38bd314e20c92fae0a49ceae38de8a0a8a0fd7305"
+  },
+  {
+   "id": "q-outcomes-1",
+   "sha256": "97c860530e3b4c704b83505a44f8f5e728d9071af049b5f8508b491811c9e2f3"
+  },
+  {
+   "id": "q-outcomes-2",
+   "sha256": "bb07959a85b5c9b90fc5cdbc3bc12d3097fea6de82f9994728bc6691bc985cf6"
+  },
+  {
+   "id": "ch-phasegate",
+   "sha256": "5fbf9be198ce25783f47ee009c2304c1b6ae9b860382e15ef26fe3d02d569ef8"
+  },
+  {
+   "id": "q-phasegate-1",
+   "sha256": "34746339de433f5abba0b3903b1b4e831ac0dc67fca8947ec6290dfc276615a7"
+  },
+  {
+   "id": "q-phasegate-2",
+   "sha256": "5dd71baa44d94a6b5f60464916ad11b0260d5a59fb456ab3938c63f18f5d15a7"
+  },
+  {
+   "id": "ch-division",
+   "sha256": "c6b47806cb127cc7be287ebd27384037820df332a680a645ddab9ccc7b282055"
+  },
+  {
+   "id": "q-division-1",
+   "sha256": "67de9e18b3672954f30a3fd3490fa97fcdc09a87a690cc836865b5d19c0de41c"
+  },
+  {
+   "id": "q-division-2",
+   "sha256": "27b30a517051015096d7cb4939b2639f0c8d623db76d8ba4a4b5ae2351c948ee"
+  },
+  {
+   "id": "ch-sixsteps",
+   "sha256": "f7f27aa5d47a1d9e5f682fb0334de408bfd966c6689c232469602126f42cf649"
+  },
+  {
+   "id": "q-sixsteps-1",
+   "sha256": "16eb165613384a285ff6e1644cd6f2c5c02f1c73c6c52b47bf8d65a50543c7ae"
+  },
+  {
+   "id": "q-sixsteps-2",
+   "sha256": "9fb85147a3da3a22f0c88c00ee75b0289521be09b5631539c79b119b989448fc"
+  },
+  {
+   "id": "ch-strategy",
+   "sha256": "63768651f1ab4677c8007ebb176ffc5e3df3a3198a6241eeba0f40e85eaccdaf"
+  },
+  {
+   "id": "q-strategy-1",
+   "sha256": "8c8f5ae73fc97502fd3ef7cf0b432f9569fa00f3678567892840c26595b53cec"
+  },
+  {
+   "id": "q-strategy-2",
+   "sha256": "d2ce81f938ff5af62080625dfdcf575da554f17d6c978b74e1b43de918af8a74"
+  },
+  {
+   "id": "ch-engagement",
+   "sha256": "c50c7fdb8d82c3ed606ab14249b4a98e39f6104e234d044c74df476cf5d0b4ed"
+  },
+  {
+   "id": "q-engagement-1",
+   "sha256": "70c0a23612f798bdb419fc625afac0132938658a18313933b2167e2d25ea2237"
+  },
+  {
+   "id": "q-engagement-2",
+   "sha256": "24b99acc105b617394ef0f1b9c8c362ed12482c847453fc02e1fd7f3fdb7713d"
+  },
+  {
+   "id": "ch-framework",
+   "sha256": "ac56ae7888dec86fab044ca4473117f9e950b2d7b8f64c329b85e418d2d5656a"
+  },
+  {
+   "id": "q-framework-1",
+   "sha256": "6c79830aafedb96d4896aadc10999e8bc422c6f45de0a8418545701926bec708"
+  },
+  {
+   "id": "q-framework-2",
+   "sha256": "e5de2a6b7d348aee6954bd32f3cbcd4cc2881aa1aa51ad717b708d3093aed0e5"
+  },
+  {
+   "id": "ch-pricing",
+   "sha256": "94fcd326cdc281f0dc4851c69388a86e63b3db40c811fce1e8f78726f0eb3a34"
+  },
+  {
+   "id": "q-pricing-1",
+   "sha256": "e2e3a9dd2bb54a841b2c0065779353c95b99f6e6c4f469648afa8ebf4c2444b0"
+  },
+  {
+   "id": "q-pricing-2",
+   "sha256": "3a35491769fe8a8fc7a92fbe4ce95398ea39d2799fc0631530d832fb9e3f0980"
+  },
+  {
+   "id": "ch-riskbenefits",
+   "sha256": "5c5de20d1beb9b41fef01cd69a4dc7407108c766b736ef5b378edf2958254f7c"
+  },
+  {
+   "id": "q-riskbenefits-1",
+   "sha256": "fd9035d0b8f99b44c3dd5856d6601cb1208813604b5b2300cbb6e53b60b4faf7"
+  },
+  {
+   "id": "q-riskbenefits-2",
+   "sha256": "03c73b09b8bd812791eacad8283be9e5b78c059df65ed568816395828139aef2"
+  },
+  {
+   "id": "ch-details",
+   "sha256": "d66ffeab7c81ebc6e1e35e234f5184df0e2e283c57d482ed1dd516b4ca541230"
+  },
+  {
+   "id": "q-details-1",
+   "sha256": "171f27181f568e80e58ce551e9cfa70fa303777cd3b96a57fc370c984c15cee9"
+  },
+  {
+   "id": "q-details-2",
+   "sha256": "d4df31f1b6d089c482533d39ec934cbdfc4201930d2d6628c8e288fba9ce79b1"
+  },
+  {
+   "id": "ch-governance",
+   "sha256": "d6a39383fa0d2e9400e983ea07fa86347bf1c7eef980ad9a2c54027f8c41770b"
+  },
+  {
+   "id": "q-governance-1",
+   "sha256": "31f1165783699101680f49af9f37cfe6402c98eb21c5a3d1d5146dedca61ae46"
+  },
+  {
+   "id": "q-governance-2",
+   "sha256": "8469c3fcd86d5a21c06095f91685add7cf5119b92615f36bcd18de4f885db1a6"
+  },
+  {
+   "id": "ch-monitor",
+   "sha256": "7805b94a4085e55e1dfbe3369a214090a7eef0a2fb0862b70e3179a08b9bd1a7"
+  },
+  {
+   "id": "q-monitor-1",
+   "sha256": "8d02a0460b60f36f517484d2f85d02360070c9201c9a3e4e9ad8edfb905f9d28"
+  },
+  {
+   "id": "q-monitor-2",
+   "sha256": "1a63976e3e1e55b71af7e784de26de3738ef82d2f08834fa2662c4d034d326c6"
+  },
+  {
+   "id": "act-four-principles",
+   "sha256": "65e925a308aade08a158435d2a70f9ce80ca42af47de5f1342d1c3b3671b1770"
+  },
+  {
+   "id": "act-phase-match",
+   "sha256": "ddab7c7257052ccf4aa6bd43e2964296b51deb0af35b91903d570dc7001476fa"
+  },
+  {
+   "id": "act-oa-order",
+   "sha256": "80dade83681ae8ec20839528c5df4a391943136b955506969606bf158fbbd3f1"
+  },
+  {
+   "id": "act-gap-story",
+   "sha256": "465fe782d9cfe805a4cbad58811f2baa55031810d5ef04b42267c05838a8c2e4"
+  },
+  {
+   "id": "act-stream-story",
+   "sha256": "f9a78923f586b907c27f935ff84220cbacad05c1da55e82c65f8a936a4a6ca8e"
+  },
+  {
+   "id": "act-capacity-sim",
+   "sha256": "b9398d28304ebad62518c25595901dcb4474e54468e883785f489d9914ee07d9"
+  },
+  {
+   "id": "act-gap-estimate",
+   "sha256": "cd9e93c71df9a6b7680e6e0a7e28e9f6aeebe25f9b3682e9fa260d19ae844dc9"
+  }
+ ],
+ "language": "en",
+ "reviewDate": "2026-11-15T00:00:00Z",
+ "rights": "supportscout-equipment-owner",
+ "route": "#/p/supportscout-equipment",
+ "sourceRefs": [
+  {
+   "asOf": "2026-11-14T00:00:00Z",
+   "kind": "OBS",
+   "note": "legacy commit ef9f05a5c738db343e8da71258bae25a8e90aead. html→blocks v1; KD pack equipment-support-d8a4.",
+   "url": "sources/apps/APPS-EDUC-StudyStack-v1.6.0.html"
+  }
+ ],
+ "version": "1.5.5"
+}

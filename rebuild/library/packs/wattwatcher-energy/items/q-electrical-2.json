@@ -1,0 +1,14 @@
+{
+ "answerKey": "Motor slip, often written as a percentage of synchronous speed.",
+ "explain": [
+  "Section: Examine electrical operating conditions"
+ ],
+ "id": "q-electrical-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What term describes the difference between synchronous and actual rotor speed?"
+ ],
+ "source": "wattwatcher-energy"
+}

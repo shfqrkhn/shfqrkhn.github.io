@@ -1,0 +1,14 @@
+{
+ "answerKey": "40 kW is power, the rate at which energy is being used.",
+ "explain": [
+  "Section: Work with energy units"
+ ],
+ "id": "q-units-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Between 40 kW and 40 kWh, which expresses a rate of energy use?"
+ ],
+ "source": "wattwatcher-energy"
+}

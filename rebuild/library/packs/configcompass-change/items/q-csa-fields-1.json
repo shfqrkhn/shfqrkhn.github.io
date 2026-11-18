@@ -1,0 +1,14 @@
+{
+ "answerKey": "It makes records consistent and supports meaningful filtering.",
+ "explain": [
+  "Section: Build a register people can trust"
+ ],
+ "id": "q-csa-fields-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why is a controlled list of status values useful?"
+ ],
+ "source": "configcompass-change"
+}

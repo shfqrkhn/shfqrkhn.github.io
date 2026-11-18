@@ -1,0 +1,85 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Count items still unverified"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can calculate a remaining verification count without treating it as an approval."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " Subtract verified items from those needing verification."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Inferred: A register lists 18 affected items and 11 verified items. How many items are not verified?"
+   ]
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Answer: 7 items (tolerance 0)."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      "Subtract 11 verified items from 18 affected items. Seven items remain unverified; their status still requires investigation."
+     ]
+    }
+   ],
+   "kind": "spoiler",
+   "t": "callout"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " A count is not a substitute for inspecting the remaining items."
+   ]
+  }
+ ],
+ "data": {
+  "answer": 7,
+  "ask": "Inferred: A register lists 18 affected items and 11 verified items. How many items are not verified?",
+  "claims": [
+   "status-record",
+   "csa-reports"
+  ],
+  "done": "A count is not a substitute for inspecting the remaining items.",
+  "goal": "After this you can calculate a remaining verification count without treating it as an approval.",
+  "high": "Your estimate counts more items than the register contains.",
+  "hint": "Subtract verified items from those needing verification.",
+  "id": "estimate-pending",
+  "low": "Your estimate leaves out some unverified items.",
+  "reasoning": "Subtract 11 verified items from 18 affected items. Seven items remain unverified; their status still requires investigation.",
+  "title": "Count items still unverified",
+  "tol": 0,
+  "type": "estimate",
+  "unit": "items"
+ },
+ "id": "act-estimate-pending",
+ "kind": "activity",
+ "title": "Count items still unverified"
+}

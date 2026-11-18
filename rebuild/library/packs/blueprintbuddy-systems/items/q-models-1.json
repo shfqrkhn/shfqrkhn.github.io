@@ -1,0 +1,14 @@
+{
+ "answerKey": "Functional and physical architecture.",
+ "explain": [
+  "Section: Use architecture and models wisely"
+ ],
+ "id": "q-models-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: A design team maps functions to equipment. What two views are being linked?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

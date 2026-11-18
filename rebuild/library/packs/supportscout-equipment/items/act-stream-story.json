@@ -1,0 +1,134 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Define who is accountable"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can identify the accountable owner and interface for shared work."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " A shared task still requires clear responsibility and interfaces."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Inferred: An internal shop and an outside provider both repair one machine. What must the review establish?"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Who is accountable and how the work is handed over This defines the delivery responsibility and interface."
+    ],
+    [
+     "That neither participant needs one accountable lead This leaves unclear who must deliver the defined result."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "t": "para",
+   "text": [
+    "The support task now has a clear accountability question."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Assign the work according to the agreed delivery model and document the handoff."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The two participants still need clear responsibilities."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Lesson:"
+     ]
+    },
+    " Document the accountable stream and any supporting handoffs."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Choose and document an accountable delivery stream."
+   ]
+  }
+ ],
+ "data": {
+  "claims": [
+   "division"
+  ],
+  "done": "Choose and document an accountable delivery stream.",
+  "goal": "After this you can identify the accountable owner and interface for shared work.",
+  "hint": "A shared task still requires clear responsibility and interfaces.",
+  "id": "stream_story",
+  "nodes": [
+   {
+    "choices": [
+     {
+      "label": "Who is accountable and how the work is handed over",
+      "next": "good",
+      "say": "This defines the delivery responsibility and interface."
+     },
+     {
+      "label": "That neither participant needs one accountable lead",
+      "next": "bad",
+      "say": "This leaves unclear who must deliver the defined result."
+     }
+    ],
+    "id": "first",
+    "text": "Inferred: An internal shop and an outside provider both repair one machine. What must the review establish?"
+   },
+   {
+    "id": "good",
+    "lesson": "Assign the work according to the agreed delivery model and document the handoff.",
+    "text": "The support task now has a clear accountability question."
+   },
+   {
+    "id": "bad",
+    "lesson": "Document the accountable stream and any supporting handoffs.",
+    "text": "The two participants still need clear responsibilities."
+   }
+  ],
+  "start": "first",
+  "title": "Define who is accountable",
+  "type": "scenario"
+ },
+ "id": "act-stream-story",
+ "kind": "activity",
+ "title": "Define who is accountable"
+}

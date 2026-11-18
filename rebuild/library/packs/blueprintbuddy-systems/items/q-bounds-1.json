@@ -1,0 +1,14 @@
+{
+ "answerKey": "How those parts connect and which outside systems they depend on.",
+ "explain": [
+  "Section: Draw boundaries and risks"
+ ],
+ "id": "q-bounds-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Example: A diagram lists only engine, radio, and hull. What question is still unanswered?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

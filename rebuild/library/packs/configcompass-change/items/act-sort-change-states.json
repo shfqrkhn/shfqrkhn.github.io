@@ -1,0 +1,182 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "How far has the change progressed?"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "After this you can distinguish review, authorization and verified execution."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Hint:"
+     ]
+    },
+    " A signed decision and a completed unit are separate things."
+   ]
+  },
+  {
+   "head": [
+    [
+     "Item"
+    ],
+    [
+     "Group"
+    ],
+    [
+     "Why"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Reviewers are discussing a new connector"
+     ],
+     [
+      "Under review"
+     ],
+     [
+      "Inferred: No acceptance has been recorded."
+     ]
+    ],
+    [
+     [
+      "The change package is awaiting a decision"
+     ],
+     [
+      "Under review"
+     ],
+     [
+      "The request has not been authorized."
+     ]
+    ],
+    [
+     [
+      "The owner accepted the new design; parts are still on order"
+     ],
+     [
+      "Accepted; not completed"
+     ],
+     [
+      "A decision exists, but work is pending."
+     ]
+    ],
+    [
+     [
+      "Instructions are released, but one unit is waiting"
+     ],
+     [
+      "Accepted; not completed"
+     ],
+     [
+      "The relevant unit has not been completed."
+     ]
+    ],
+    [
+     [
+      "The modified unit was inspected and its record updated"
+     ],
+     [
+      "Completed with evidence"
+     ],
+     [
+      "Verification supports the completed state."
+     ]
+    ],
+    [
+     [
+      "The applied software version was confirmed and logged"
+     ],
+     [
+      "Completed with evidence"
+     ],
+     [
+      "The observed release matches the status evidence."
+     ]
+    ]
+   ],
+   "t": "table"
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Done:"
+     ]
+    },
+    " Use separate states for the request and the actual unit."
+   ]
+  }
+ ],
+ "data": {
+  "buckets": [
+   {
+    "id": "proposed",
+    "label": "Under review"
+   },
+   {
+    "id": "approved",
+    "label": "Accepted; not completed"
+   },
+   {
+    "id": "installed",
+    "label": "Completed with evidence"
+   }
+  ],
+  "claims": [
+   "status-record",
+   "ccb-followup"
+  ],
+  "done": "Use separate states for the request and the actual unit.",
+  "goal": "After this you can distinguish review, authorization and verified execution.",
+  "hint": "A signed decision and a completed unit are separate things.",
+  "id": "sort-change-states",
+  "items": [
+   {
+    "bucket": "proposed",
+    "label": "Reviewers are discussing a new connector",
+    "why": "Inferred: No acceptance has been recorded."
+   },
+   {
+    "bucket": "proposed",
+    "label": "The change package is awaiting a decision",
+    "why": "The request has not been authorized."
+   },
+   {
+    "bucket": "approved",
+    "label": "The owner accepted the new design; parts are still on order",
+    "why": "A decision exists, but work is pending."
+   },
+   {
+    "bucket": "approved",
+    "label": "Instructions are released, but one unit is waiting",
+    "why": "The relevant unit has not been completed."
+   },
+   {
+    "bucket": "installed",
+    "label": "The modified unit was inspected and its record updated",
+    "why": "Verification supports the completed state."
+   },
+   {
+    "bucket": "installed",
+    "label": "The applied software version was confirmed and logged",
+    "why": "The observed release matches the status evidence."
+   }
+  ],
+  "title": "How far has the change progressed?",
+  "type": "sort"
+ },
+ "id": "act-sort-change-states",
+ "kind": "activity",
+ "title": "How far has the change progressed?"
+}

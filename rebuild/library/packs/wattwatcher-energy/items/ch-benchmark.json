@@ -1,0 +1,112 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Benchmark comparable buildings"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can work out an intensity figure and judge whether buildings are comparable."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "To find energy use intensity (EUI), divide annual consumption by the floor area that belongs in the comparison. If energy is in GJ and area in m², express the answer as GJ/m²-year. Delivered or site energy differs from source energy, which accounts for upstream processes. Choose buildings with comparable functions, climate, and operating patterns. Historic source conversion ratios should never be passed off as present-day values."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: Annual consumption of 2,400 GJ over 3,000 m² yields 0.8 GJ/m²-year. Only compare this with sites measured on equivalent terms."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Fair benchmark comparison"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Choose a building category and one energy basis before interpreting intensity."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Pick building use: Choose peers"
+    ],
+    [
+     "Select energy basis: Site or source"
+    ],
+    [
+     "Convert units: Use same unit"
+    ],
+    [
+     "Divide by area: Compute EUI"
+    ],
+    [
+     "Check differences: Review causes"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Match energy basis, area, use, and year."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Raw EUI alone does not prove a feasible savings opportunity."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-benchmark-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-benchmark-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-benchmark",
+ "kind": "doc",
+ "title": "Benchmark comparable buildings"
+}

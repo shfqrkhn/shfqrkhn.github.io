@@ -1,0 +1,14 @@
+{
+ "answerKey": "Evidence of an approved design change or authorized exception for that unit.",
+ "explain": [
+  "Section: Verify the build that actually exists"
+ ],
+ "id": "q-pca-check-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "A unit contains an alternate cable. What determines whether it is acceptable?"
+ ],
+ "source": "configcompass-change"
+}

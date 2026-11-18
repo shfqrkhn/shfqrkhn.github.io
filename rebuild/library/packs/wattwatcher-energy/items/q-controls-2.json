@@ -1,0 +1,14 @@
+{
+ "answerKey": "A biased sensor can make a good operating system appear abnormal.",
+ "explain": [
+  "Section: Read automation trends"
+ ],
+ "id": "q-controls-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What problem arises when a sensor is inaccurate?"
+ ],
+ "source": "wattwatcher-energy"
+}

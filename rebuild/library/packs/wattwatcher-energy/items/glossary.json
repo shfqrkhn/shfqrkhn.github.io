@@ -1,0 +1,624 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Glossary"
+   ]
+  },
+  {
+   "head": [
+    [
+     "Term"
+    ],
+    [
+     "Meaning"
+    ],
+    [
+     "Example"
+    ]
+   ],
+   "rows": [
+    [
+     [
+      "Audit"
+     ],
+     [
+      "A structured check of where energy enters, is used, and might be reduced."
+     ],
+     [
+      "An auditor compares a site schedule with its meter data."
+     ]
+    ],
+    [
+     [
+      "Scope"
+     ],
+     [
+      "The buildings, systems, period, and decisions included in an audit."
+     ],
+     [
+      "A scope can exclude fleet fuel from a building-only review."
+     ]
+    ],
+    [
+     [
+      "Audit level"
+     ],
+     [
+      "How deeply the audit measures and analyses a site."
+     ],
+     [
+      "An initial review uses fewer measurements than a detailed study."
+     ]
+    ],
+    [
+     [
+      "Baseline"
+     ],
+     [
+      "Reference use expected under stated conditions."
+     ],
+     [
+      "Compare later loads with a typical operating schedule."
+     ]
+    ],
+    [
+     [
+      "Energy"
+     ],
+     [
+      "Total amount used or delivered."
+     ],
+     [
+      "A motor consumes 40 kWh during an operating period."
+     ]
+    ],
+    [
+     [
+      "Power"
+     ],
+     [
+      "Energy flow rate at one time or interval."
+     ],
+     [
+      "A pump draws 6 kW while running."
+     ]
+    ],
+    [
+     [
+      "kW"
+     ],
+     [
+      "Kilowatt, a unit of power."
+     ],
+     [
+      "A load rated 2 kW uses energy while switched on."
+     ]
+    ],
+    [
+     [
+      "kWh"
+     ],
+     [
+      "Kilowatt-hour, a unit of energy."
+     ],
+     [
+      "A 2 kW load over 3 hours uses 6 kWh."
+     ]
+    ],
+    [
+     [
+      "GJ"
+     ],
+     [
+      "Gigajoule, a unit of energy."
+     ],
+     [
+      "1,000 kWh corresponds to 3.6 GJ."
+     ]
+    ],
+    [
+     [
+      "Demand"
+     ],
+     [
+      "Maximum averaged use rate within a defined billing interval."
+     ],
+     [
+      "A utility can bill the highest 15-minute average."
+     ]
+    ],
+    [
+     [
+      "Load factor"
+     ],
+     [
+      "Average power divided by peak power in the same period."
+     ],
+     [
+      "A steady load has a higher factor than a short spike."
+     ]
+    ],
+    [
+     [
+      "Power factor"
+     ],
+     [
+      "Real electrical power divided by apparent electrical power."
+     ],
+     [
+      "An inductive motor can have a factor below 1."
+     ]
+    ],
+    [
+     [
+      "Energy use intensity"
+     ],
+     [
+      "Annual energy divided by building area; often called EUI."
+     ],
+     [
+      "2,000 GJ across 4,000 m2 is 0.5 GJ/m2-year."
+     ]
+    ],
+    [
+     [
+      "EUI"
+     ],
+     [
+      "Short name for energy use intensity."
+     ],
+     [
+      "Use one EUI basis when comparing two offices."
+     ]
+    ],
+    [
+     [
+      "Site energy"
+     ],
+     [
+      "Energy shown as delivered use at the property."
+     ],
+     [
+      "An electricity meter measures supplied kWh."
+     ]
+    ],
+    [
+     [
+      "Source energy"
+     ],
+     [
+      "Energy basis accounting for upstream production and delivery."
+     ],
+     [
+      "Electricity may use a source multiplier above 1."
+     ]
+    ],
+    [
+     [
+      "Source multiplier"
+     ],
+     [
+      "Factor converting site energy to a specified source basis."
+     ],
+     [
+      "The exercise uses 1.98 for purchased electricity."
+     ]
+    ],
+    [
+     [
+      "Diversity factor"
+     ],
+     [
+      "Allowance for equipment not running at full load together."
+     ],
+     [
+      "Several compressors can have a lower joint peak."
+     ]
+    ],
+    [
+     [
+      "Time-of-use"
+     ],
+     [
+      "A price that depends on when energy is used."
+     ],
+     [
+      "A unit can cost more in a peak period."
+     ]
+    ],
+    [
+     [
+      "Simple payback"
+     ],
+     [
+      "Initial cost divided by annual net savings."
+     ],
+     [
+      "A $500 project saving $250 per year pays back in 2 years."
+     ]
+    ],
+    [
+     [
+      "Net present value"
+     ],
+     [
+      "Discounted future net benefits less initial cost, or NPV."
+     ],
+     [
+      "A project may have positive NPV at one chosen rate."
+     ]
+    ],
+    [
+     [
+      "IRR"
+     ],
+     [
+      "Internal rate of return; a rate producing zero NPV."
+     ],
+     [
+      "Compare IRR with the appropriate investment requirement."
+     ]
+    ],
+    [
+     [
+      "Life-cycle cost"
+     ],
+     [
+      "Cost across the chosen ownership period."
+     ],
+     [
+      "Include upkeep as well as the purchase."
+     ]
+    ],
+    [
+     [
+      "EnPI"
+     ],
+     [
+      "Energy performance indicator tied to activity or output."
+     ],
+     [
+      "A plant tracks kWh per product unit."
+     ]
+    ],
+    [
+     [
+      "Regression"
+     ],
+     [
+      "A method for estimating energy dependence on drivers."
+     ],
+     [
+      "Energy can vary with outdoor temperature."
+     ]
+    ],
+    [
+     [
+      "CUSUM"
+     ],
+     [
+      "Cumulative sum of differences from expected use."
+     ],
+     [
+      "A trend upward signals a persistent difference."
+     ]
+    ],
+    [
+     [
+      "EEM"
+     ],
+     [
+      "Energy efficiency measure, a proposed change to reduce energy."
+     ],
+     [
+      "Repairing a fan schedule can be an EEM."
+     ]
+    ],
+    [
+     [
+      "Lighting efficacy"
+     ],
+     [
+      "Light output per unit of electrical power."
+     ],
+     [
+      "Compare lumens per watt among lamps."
+     ]
+    ],
+    [
+     [
+      "Lumens"
+     ],
+     [
+      "A unit describing visible light output."
+     ],
+     [
+      "Two lamps can emit different lumens at equal watts."
+     ]
+    ],
+    [
+     [
+      "Lighting power density"
+     ],
+     [
+      "Installed lighting power per floor area."
+     ],
+     [
+      "Divide fixture watts by illuminated square metres."
+     ]
+    ],
+    [
+     [
+      "HVAC"
+     ],
+     [
+      "Heating, ventilation, and air conditioning."
+     ],
+     [
+      "A rooftop HVAC system heats, cools, or ventilates."
+     ]
+    ],
+    [
+     [
+      "COP"
+     ],
+     [
+      "Coefficient of performance; useful heat transfer divided by input power."
+     ],
+     [
+      "Cooling COP 4 means 4 kW cooling per kW input."
+     ]
+    ],
+    [
+     [
+      "EER"
+     ],
+     [
+      "Energy efficiency ratio in the stated unit convention."
+     ],
+     [
+      "Check the units before comparing EER with COP."
+     ]
+    ],
+    [
+     [
+      "Boiler efficiency"
+     ],
+     [
+      "Useful thermal output divided by fuel input."
+     ],
+     [
+      "70 GJ useful heat from 100 GJ fuel is 70%."
+     ]
+    ],
+    [
+     [
+      "R value"
+     ],
+     [
+      "Thermal resistance to heat flow."
+     ],
+     [
+      "A higher R means greater resistance."
+     ]
+    ],
+    [
+     [
+      "U value"
+     ],
+     [
+      "Thermal transmittance, the inverse of matching total R."
+     ],
+     [
+      "R of 5 gives U of 0.2 in matching SI units."
+     ]
+    ],
+    [
+     [
+      "Infiltration"
+     ],
+     [
+      "Unplanned airflow through a building enclosure."
+     ],
+     [
+      "A gap around a door can create heat loss."
+     ]
+    ],
+    [
+     [
+      "Shaft power"
+     ],
+     [
+      "Useful mechanical output of a motor."
+     ],
+     [
+      "A pump receives shaft power from its motor."
+     ]
+    ],
+    [
+     [
+      "Variable frequency drive"
+     ],
+     [
+      "A device controlling compatible motor speed."
+     ],
+     [
+      "A fan can vary speed with needed airflow."
+     ]
+    ],
+    [
+     [
+      "Motor slip"
+     ],
+     [
+      "Difference between synchronous and actual induction-motor speed."
+     ],
+     [
+      "A rotor may turn slightly slower than the field."
+     ]
+    ],
+    [
+     [
+      "Compressed air"
+     ],
+     [
+      "Air stored or delivered above atmospheric pressure."
+     ],
+     [
+      "A compressor runs to supply pneumatic tools."
+     ]
+    ],
+    [
+     [
+      "Control point"
+     ],
+     [
+      "One measured or commanded variable in a control system."
+     ],
+     [
+      "A control point can record fan status."
+     ]
+    ],
+    [
+     [
+      "Trend log"
+     ],
+     [
+      "Time-ordered readings from a control or meter."
+     ],
+     [
+      "A log shows whether a fan ran overnight."
+     ]
+    ],
+    [
+     [
+      "M&V"
+     ],
+     [
+      "Measurement and verification of the impact of a change."
+     ],
+     [
+      "Compare a retrofit with an adjusted baseline."
+     ]
+    ],
+    [
+     [
+      "IPMVP"
+     ],
+     [
+      "An energy savings measurement and verification protocol."
+     ],
+     [
+      "An auditor may choose an IPMVP method."
+     ]
+    ],
+    [
+     [
+      "Cogeneration"
+     ],
+     [
+      "One process supplying electricity and useful heat."
+     ],
+     [
+      "Recovered heat can serve a facility load."
+     ]
+    ],
+    [
+     [
+      "Storage"
+     ],
+     [
+      "Equipment holding energy for later use."
+     ],
+     [
+      "A battery can shift electricity demand."
+     ]
+    ],
+    [
+     [
+      "Fleet indicator"
+     ],
+     [
+      "Energy used per meaningful transport output."
+     ],
+     [
+      "A vehicle fleet tracks litres per 100 km."
+     ]
+    ],
+    [
+     [
+      "Degree-days"
+     ],
+     [
+      "A weather measure combining temperature difference and time."
+     ],
+     [
+      "Heating use can change with degree-days."
+     ]
+    ],
+    [
+     [
+      "Psychrometrics"
+     ],
+     [
+      "Analysis of the thermal and moisture state of air."
+     ],
+     [
+      "An air chart helps estimate cooling and drying."
+     ]
+    ],
+    [
+     [
+      "Sensitivity analysis"
+     ],
+     [
+      "Changing assumptions to see how a result shifts."
+     ],
+     [
+      "Recalculate payback at several operating-hour values."
+     ]
+    ],
+    [
+     [
+      "Affinity laws"
+     ],
+     [
+      "Approximate relations between pump or fan speed, flow, head, and power under similar operating conditions."
+     ],
+     [
+      "Ideal power ratio is the speed ratio cubed, if similarity assumptions hold."
+     ]
+    ],
+    [
+     [
+      "Calibration"
+     ],
+     [
+      "A documented check that relates an instrument reading to a known reference."
+     ],
+     [
+      "Verify meter calibration before using a small observed difference as evidence."
+     ]
+    ],
+    [
+     [
+      "Latent load"
+     ],
+     [
+      "Heating or cooling associated with a moisture change rather than temperature alone."
+     ],
+     [
+      "A cooling coil that removes humidity has a latent load."
+     ]
+    ]
+   ],
+   "t": "table"
+  }
+ ],
+ "id": "glossary",
+ "kind": "doc",
+ "title": "Glossary"
+}

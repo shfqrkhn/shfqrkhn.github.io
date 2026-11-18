@@ -1,0 +1,14 @@
+{
+ "answerKey": "Demand intervals, dispatch limits, storage output, efficiency, and the relevant tariff.",
+ "explain": [
+  "Section: Assess generation and storage"
+ ],
+ "id": "q-generation-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Which records are most important when testing storage for peak-demand savings?"
+ ],
+ "source": "wattwatcher-energy"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "Greater uncertainty in the work and the resulting allocation of cost risk.",
+ "explain": [
+  "Section: Select a pricing approach"
+ ],
+ "id": "q-pricing-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Inferred: Faults cannot be known until equipment is opened. What issue becomes important?"
+ ],
+ "source": "supportscout-equipment"
+}

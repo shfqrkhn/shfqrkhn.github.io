@@ -1,0 +1,118 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Apply systems thinking in practice"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can use the same scenario to test several engineering ideas."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "A repeated scenario helps compare different engineering tools without changing the underlying problem. Begin with a system boundary and outside links. Then examine cooperating systems, form requirements and map major life-cycle work. Group discussion exposes differences in stakeholder assumptions rather than proving one answer by popularity."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Choose one fictional operational problem and define its purpose. You should see: A short statement of intended use. If not: Name the people affected and the operating conditions."
+    ],
+    [
+     "Sketch its components and outside connections. You should see: A boundary with each critical exchange named. If not: Look for an omitted support or information connection."
+    ],
+    [
+     "Write one measurable requirement and its test. You should see: A link from need to evidence. If not: Separate multiple outcomes into separate requirements."
+    ],
+    [
+     "Trace one change into service and retirement. You should see: An identified support consequence. If not: Ask who maintains the changed element."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A community transport service relies on vehicles, scheduling, operators and maintenance. Its boundary depends on the decision."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Reuse one scenario to expose how engineering views connect."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A workshop sketch is not final design evidence."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Common mistakes"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Treating group agreement as proof. An untested assumption can survive discussion. Fix: Assign a test or information owner."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "ref": "q-exerciseuse-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-exerciseuse-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-exerciseuse",
+ "kind": "doc",
+ "title": "Apply systems thinking in practice"
+}

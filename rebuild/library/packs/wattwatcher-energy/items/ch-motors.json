@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Assess motors and drives"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can estimate motor input and assess when speed control may be suitable."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For a motor, electrical input exceeds shaft output whenever efficiency is below 100%. Power factor concerns real versus apparent electrical power, not the motor efficiency ratio. A variable frequency drive can regulate speed, but energy outcomes depend on the driven fan or pump and its control duties. Consider loading, flow needs, system resistance, voltage balance, harmonics, and operating hours before recommending a drive."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: Illustrative calculation: With 9 kW of shaft output and 90% efficiency, a motor requires 10 kW electrical input."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Measure actual load before replacing or slowing motors."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " High static head or constant demand can limit speed-reduction savings."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-motors-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-motors-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-motors",
+ "kind": "doc",
+ "title": "Assess motors and drives"
+}

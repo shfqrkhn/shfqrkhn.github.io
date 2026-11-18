@@ -1,0 +1,14 @@
+{
+ "answerKey": "A result on one revision may not apply to another.",
+ "explain": [
+  "Section: Select a proof method"
+ ],
+ "id": "q-evidencemethods-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why must evidence name its configuration?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "No. Geographic distribution is typical, not universal.",
+ "explain": [
+  "Section: Recognize systems of systems"
+ ],
+ "id": "q-sos-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Are all systems of systems required to span a large area?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

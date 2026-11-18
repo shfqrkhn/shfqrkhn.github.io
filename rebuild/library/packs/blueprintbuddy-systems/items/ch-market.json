@@ -1,0 +1,78 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Plan within the auction market"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Use planning figures as estimates."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "The workshop planning information provides indicative prices and performance for likely auction purchases. These figures support budgets and trade-offs. They neither define the full deck nor fix final purchase prices. A protective component may reduce speed, and one purchase may change several attributes. Recalculate totals from what was actually won."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Illustrative planning figures can help reserve funds, but opening offers and tentative specifications are not actual purchase results."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Budget from estimates, then replace them with actual paid amounts and card effects."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " These ranges are workshop guidance, not fixed real-world facts or complete card descriptions."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-market-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-market-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-market",
+ "kind": "doc",
+ "title": "Plan within the auction market"
+}

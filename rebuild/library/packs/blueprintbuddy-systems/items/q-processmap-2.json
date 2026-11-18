@@ -1,0 +1,14 @@
+{
+ "answerKey": "Design choices can determine later parts, training and service burden.",
+ "explain": [
+  "Section: Connect life-cycle processes"
+ ],
+ "id": "q-processmap-2",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why consider future maintenance during design?"
+ ],
+ "source": "blueprintbuddy-systems"
+}

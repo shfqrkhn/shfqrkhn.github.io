@@ -1,0 +1,109 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Balance the evaluation criteria"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " After this you can explain the four lenses used to assess support decisions."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "For education only; this is not legal, purchasing, financial or safety advice. Evaluate a service model from four directions. Service performance covers capability and availability. Flexibility covers changing workload or conditions. Cost-effectiveness compares benefit, total cost and risk. Wider stakeholder effects cover relevant inclusion, environmental or community consequences. An option may improve one area and worsen another; document the trade-offs rather than hiding them."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Inferred: A low-cost service may fail during demand peaks. Compare its usual performance, ability to adapt, full costs and relevant wider effects before choosing."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Four evaluation lenses"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "Every recommendation considers all four areas before selection."
+   ]
+  },
+  {
+   "items": [
+    [
+     "Performance: Operational support"
+    ],
+    [
+     "Cost-effectiveness: Costs and results"
+    ],
+    [
+     "Flexibility: Changing needs"
+    ],
+    [
+     "Wider effects: Relevant stakeholder outcomes"
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Show the reasoning behind trade-offs among the four areas."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " Where a criterion truly does not apply, explain that decision instead of fabricating a number."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-principles-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-principles-2",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-principles",
+ "kind": "doc",
+ "title": "Balance the evaluation criteria"
+}

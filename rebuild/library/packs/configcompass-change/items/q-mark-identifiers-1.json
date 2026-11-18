@@ -1,0 +1,14 @@
+{
+ "answerKey": "They answer which design and which physical unit.",
+ "explain": [
+  "Section: Keep identities unambiguous"
+ ],
+ "id": "q-mark-identifiers-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "Why separate part number and serial number?"
+ ],
+ "source": "configcompass-change"
+}

@@ -1,0 +1,14 @@
+{
+ "answerKey": "They answer the same decision question and are assessed against suitable shared requirements.",
+ "explain": [
+  "Section: Compare options in six steps"
+ ],
+ "id": "q-sixsteps-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What makes two options comparable?"
+ ],
+ "source": "supportscout-equipment"
+}

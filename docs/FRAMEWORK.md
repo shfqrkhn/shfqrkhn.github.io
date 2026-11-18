@@ -70,10 +70,12 @@ Repository (github.com/shfqrkhn/shfqrkhn.github.io): everything needed to rebuil
     kit.css                            the shared design system as the apps copy it (generated from site/scripts/ui.css, git-ignored)
     sw.template.js                     the offline worker (the build fills in the page table)
     make_icons.py  pwa-icons/          render the install icons once from one drawing; the build copies them to /icons/
+    overlay.py                         copies the staged rebuild apps over site/ (see "Publish a staged rebuild app")
     selftest.py                        proves the framework works and its guards bite
     publish.py                         build, test, commit, push, wait until the live hub matches (dry run by default)
     backup.py                          zip the tracked files plus the local-only files; --verify checks a zip
     fetch_icons.py                     restore the full icon pack from the pinned npm package
+  rebuild/                             staged static trees of the rebuilt apps, one folder each (git-tracked; absent until the first is staged)
   site/                                the published tree: authored scripts/, content/, robots.txt; build.py generates the rest (git-ignored)
   converge/                            review scripts, RADAR.md (file list); receipts/ and private-skip.txt stay local
   .github/workflows/                   deploy (build, test, Pages on main), health (weekly live), radar (weekly)
@@ -144,6 +146,8 @@ Every path ends the same way: run the build; it validates, gates and checks ever
 3. Run the build. The page, its tile, its group page and its offline cache appear.
 
 **Make a bundle or WebAssembly page:** put the folder under `sources/apps/<slug>/` (or any absolute path), add a registry entry with `form: "bundle"`, a `version`, and `pwa: true` as needed (`wasm` unused). Make `index.html` link home with `href="../../"`. Run the build.
+
+**Publish a staged rebuild app:** the rebuilt apps are built elsewhere. Commit each one as a static tree in `rebuild/<app>/` (`index.html`, hashed assets, `sw.js`, manifest, icons, `build-receipt.json`). The names allowed are the `apps` list in `site/scripts/overlay.json`; `skip` lists `stubs` and `root`, which are never published, and top-level files in `rebuild/` are ignored. The build copies each folder to `site/<app>/` last, after the old folders are pruned, so it is served at `/<app>/`. It stops the build on a name that clashes with a site folder, a name not on the list, a symlink or a missing `index.html`; with no `rebuild/` it does nothing. These pages are not hub pages: they are not in the catalog, the hub worker or the page-quality gate, they bring their own policy meta, their own worker (`/<app>/sw.js`, scope `/<app>/`) and caches named `omnevum-<app>-`, and the hub worker passes every `/<app>/` request to the network untouched. Gates that still apply: privacy scans every overlay text file (allowlist only a legally required credit, exact and owner approved, with its reason in `privacy-allow.json`), the site gate needs `index.html` with a policy meta and no archive or document files, and the PWA gate needs the worker list to match `overlay.json`. `site/<app>/` is git-ignored like the other generated folders.
 
 **List a full stack app:** add a registry entry with `form: "remote"`, `url`, `host`, `license`, `stack`. Nothing is copied.
 
@@ -264,7 +268,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 23 pages in 7 groups: 23 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `a3ee83a8`, last changed 2026-11-14.
+Hub 1.4.3. 23 pages in 7 groups: 23 single, 0 bundle, 0 remote, 0 generated; 0 archived, 0 private. Inventory fingerprint `a3ee83a8`, last changed 2026-11-18.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -297,6 +301,7 @@ Hub 1.4.3. 23 pages in 7 groups: 23 single, 0 bundle, 0 remote, 0 generated; 0 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-18: Rebuild overlay: `rebuild/<app>/` is copied to `site/<app>/` after the legacy build (`builder/overlay.py`, names in `site/scripts/overlay.json`); the hub worker ignores those paths; self-test cases added.
 - 2026-11-14: Families: BuildBoss is the GadgetGuild pack `pc-workstation` (old address forwards; no saved progress to move); LevelLore 2.1.0 holds guides as data (a new game is one data block, game tools are opt-in modules; saved Hades data unchanged); PromptPantry AI Workbench 1.1.0 imports the chat prompt list once into the Library, one store, old key kept. Engine shelf title shown once (the h1 stays for screen readers). `publish.py` fetches before the ahead guard, decodes UTF-8 and follows the deploy run; `bump.py` refuses engine hosts.
 - 2026-11-13: Families: SupportScout is a StudyStack course; GadgetGuild's two multi-device packs became seven one-device guides (engine `migrate` template carries progress); BoonBuilder grew into LevelLore Game Guides 2.0.0 and Eggspress into Eggspress Recipe Box 2.0.0 (check state keyed by id, fixes #8; backup added, fixes #6); PromptPantry and PromptPlayground merged into PromptPantry AI Workbench 1.0.0. BuildBoss 1.1.0 uses the Omnevum header and looks. Narrow headers fixed in 12 apps; taglines say what each app does. New tools: `bump.py`, `preview.py`, `inline.py`.
 - 2026-11-13: DRY: the kit core (look tokens, preference rules) is build-injected from `ui.css` by two markers in every app's kit block; 11 drifting copies gone, rendering unchanged (screens and computed tokens compared in two looks).

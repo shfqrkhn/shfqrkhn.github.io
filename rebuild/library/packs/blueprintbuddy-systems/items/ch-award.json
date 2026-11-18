@@ -1,0 +1,106 @@
+{
+ "blocks": [
+  {
+   "level": 2,
+   "t": "heading",
+   "text": [
+    "Calculate a qualifying bid"
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    {
+     "strong": [
+      "Goal:"
+     ]
+    },
+    " Separate eligibility, value and price."
+   ]
+  },
+  {
+   "t": "para",
+   "text": [
+    "First compare each finished platform against every mandatory minimum for its assigned mission. Falling below even one threshold makes it ineligible. Only eligible platforms proceed to the mission-specific rating calculation. A team determines its offer by adding its chosen profit to the amounts it actually paid for cards. Among eligible offers with positive rating points, compare price per point and prefer the lowest value."
+   ]
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Steps"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Compare each specified minimum with the total. You should see: Pass or fail for every required measure. If not: Keep failed requirements visible."
+    ],
+    [
+     "If all pass, compute only mission-rated points. You should see: A nonnegative score. If not: Do not award points for unrelated extras."
+    ],
+    [
+     "Add chosen profit to paid costs. You should see: A final contract price. If not: Do not force the spreadsheet example markup."
+    ],
+    [
+     "Divide price by points only when points exceed zero. You should see: A comparable positive-score price per point. If not: Use the digital zero-point rule where declared."
+    ]
+   ],
+   "t": "steps"
+  },
+  {
+   "level": 3,
+   "t": "heading",
+   "text": [
+    "Examples"
+   ]
+  },
+  {
+   "items": [
+    [
+     "Worked clearing example: purchases of $8,900,000 plus $890,000 profit produce a $9,790,000 offer. With 120 rated points, the displayed ratio is $81,583.33 per point."
+    ]
+   ],
+   "ordered": false,
+   "t": "list"
+  },
+  {
+   "blocks": [
+    {
+     "t": "para",
+     "text": [
+      "Eligibility is an independent gate: optional points cannot offset an unmet minimum."
+     ]
+    },
+    {
+     "t": "para",
+     "text": [
+      {
+       "strong": [
+        "Fails when:"
+       ]
+      },
+      " A compliant zero-point case needs a declared digital edge rule."
+     ]
+    }
+   ],
+   "kind": "tip",
+   "t": "callout"
+  },
+  {
+   "ref": "q-award-1",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-award-2",
+   "t": "quiz"
+  },
+  {
+   "ref": "q-award-3",
+   "t": "quiz"
+  }
+ ],
+ "id": "ch-award",
+ "kind": "doc",
+ "title": "Calculate a qualifying bid"
+}

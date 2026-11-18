@@ -1,0 +1,14 @@
+{
+ "answerKey": "The actual product configuration and its applicable approved technical description.",
+ "explain": [
+  "Section: Verify the build that actually exists"
+ ],
+ "id": "q-pca-check-1",
+ "licence": "MIT",
+ "mode": "free",
+ "options": null,
+ "question": [
+  "What two things does physical review compare?"
+ ],
+ "source": "configcompass-change"
+}
