@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-SREJu9rKtLwuH2XEMShQoeoVYTdxlGtSCntc8Nvex/Q='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-yhrhIdLKrIApYCGrGLhIMmal2GdiAOtSG/pTsPseU/g='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.4">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -947,7 +947,7 @@ const DoneDepot = (() => {
       if (strict) throw new Error(label + ' is not a list.');
       return [];
     }
-    if (depth > config.MAX_DEPTH) throw new Error('Tasks are nested more than ' + config.MAX_DEPTH + ' levels deep.');
+    if (list.length && depth > config.MAX_DEPTH) throw new Error('Tasks are nested more than ' + config.MAX_DEPTH + ' levels deep.');
     const strArr = a => Array.isArray(a) ? a.filter(v => typeof v === 'string' || typeof v === 'number').map(v => String(v).trim()).filter(Boolean) : [];
     const out = [];
     list.forEach((x, i) => {
@@ -1475,6 +1475,7 @@ const DoneDepot = (() => {
       if (parentIdForNew) {
         const parentPath = this.findItemPathById(parentIdForNew);
         if (parentPath) {
+          if (parentPath.fullPath.length >= config.MAX_DEPTH) return null;
           if (!parentPath.item.subItems) parentPath.item.subItems = [];
           parentPath.item.subItems.push(newItem);
           parentPath.item.isExpanded = true;
@@ -2569,7 +2570,7 @@ const DoneDepot = (() => {
           UIManager.footbar.show({ message: msg, undo: () => { DataManager.restore(snap); this.refreshChecklistDisplay(); UIManager.announceToSR('Undone. ' + msg); } });
           UIManager.announceToSR(msg);
         } else {
-          UIManager.showAlert('Not saved. List unchanged.', 'danger');
+          UIManager.showAlert(formValues.parentId && !formValues.id ? 'Not saved. Sub-tasks can go only ' + config.MAX_DEPTH + ' levels deep. List unchanged.' : 'Not saved. List unchanged.', 'danger');
         }
       });
       D.searchInput.addEventListener('input', () => {
