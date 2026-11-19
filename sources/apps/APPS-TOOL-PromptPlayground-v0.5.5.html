@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-JKv4ddbr20K3SlNoTMhbuOkI6Cq1vpBjnlUWAwCxjFM=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-t3gEoQpFQOHKkxIaX+TAQzZ1jyJ8uJiux+3qULdulHY=' 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-LJq2kyu/f2ePxnAe6MYYBQMRRWCC9y7KcW9LsZrCw8Q='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-JKv4ddbr20K3SlNoTMhbuOkI6Cq1vpBjnlUWAwCxjFM=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-t3gEoQpFQOHKkxIaX+TAQzZ1jyJ8uJiux+3qULdulHY=' 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-jUIfPMEckdoIf8cRnypKDRMC8nSr0srOHMit/FjHWoA='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -1877,13 +1877,13 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre>
   {
    "id": "local-network-openai",
    "defaultId": "local-network-openai-default",
-   "name": "Local Network OpenAI Compatible",
+   "name": "Local OpenAI Compatible (this computer)",
    "category": "Local",
    "testingTier": "local/free",
    "sourceLabel": "OpenAI API compatibility target",
    "sourceUrl": "https://developers.openai.com/api/reference/overview",
    "setupUrl": "https://developers.openai.com/api/reference/overview",
-   "costNote": "Runs against a user-controlled local/LAN endpoint that implements an OpenAI-compatible API; no cloud prompt leaves the device through PromptPlayground unless the user points it at a cloud URL.",
+   "costNote": "Runs against a user-controlled endpoint on this computer (localhost) that implements an OpenAI-compatible API; no cloud prompt leaves the device through PromptPlayground unless the user points it at a cloud URL.",
    "type": "openai",
    "baseUrl": "http://localhost:8080/v1",
    "model": "local-model",
@@ -3809,7 +3809,7 @@ function renderProviderSelectors() {
   dom.settingsProviderSelect.replaceChildren(...providerOptions);
   const customOption = document.createElement("option");
   customOption.value = "";
-  customOption.textContent = "Custom (type the address yourself)";
+  customOption.textContent = "Custom (a listed provider or this computer)";
   dom.providerPresetSelect.replaceChildren(customOption, ...PROVIDER_PRESETS.map((preset) => {
     const option = document.createElement("option");
     option.value = preset.id;
@@ -6908,9 +6908,9 @@ function localConnectionHelp(provider) {
     return `Could not connect (network or CORS failure). CORS is a browser rule: a server must say it allows this page to talk to it. For Ollama, check that Ollama is running and that it allows requests from web pages.${baseUrl}`;
   }
   if (preset?.category === "Local" || endpointLikelyLocalNoAuth(provider?.baseUrl)) {
-    return `Could not connect (network or CORS failure). CORS is a browser rule: a server must say it allows this page to talk to it. Check that the local server is running, that this browser can reach it, and that it allows this page.${baseUrl}`;
+    return `Could not connect (network or CORS failure). CORS is a browser rule: a server must say it allows this page to talk to it. Check that the local server is running, that this browser can reach it, and that it allows this page. This page can reach only the listed providers and servers on this computer (localhost or 127.0.0.1); its security policy blocks every other address, including other machines on your network.${baseUrl}`;
   }
-  return "Could not connect (network or CORS failure). CORS is a browser rule: a server must say it allows this page to talk to it. Some online providers do not allow web pages to call them directly; choose one that does, or use a server on your own computer.";
+  return "Could not connect (network or CORS failure). CORS is a browser rule: a server must say it allows this page to talk to it. Some online providers do not allow web pages to call them directly; choose one that does, or use a server on your own computer. This page can reach only the listed providers and servers on this computer (localhost or 127.0.0.1); its security policy blocks every other address, including other machines on your network.";
 }
 
 function regenerateFrom(index) {

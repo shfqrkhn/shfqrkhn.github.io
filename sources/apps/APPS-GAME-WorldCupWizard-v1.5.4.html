@@ -365,7 +365,7 @@ dialog .btn{margin-top:var(--s4)}
 <ul>
 <li><b>Numbers, ratings, results, dates, sources:</b> all live in the content block. Search for <code>id=&quot;fifa-content&quot;</code>. The block starts at that line and ends at the next <code>&lt;/script&gt;</code>. Also change <code>dataVersion</code> and <code>date</code> there so the footer shows the new data.</li>
 <li><b>Words on screen (headings, buttons, intro text):</b> ordinary text in the page part of the file, above the program. Search for the words you see, for example <code>Most likely champions</code>, and change only the words, never the <code>&lt;</code> and <code>&gt;</code> tags around them. Messages the app writes while it works come from the program and cannot be edited by hand.</li>
-<li><b>Accent colour:</b> one pair at the top of the style section: <code>--accent-light</code> (Paper) and <code>--accent-dark</code> (Charcoal and True Black). Pick a dark colour for the first and a light one for the second, so the text on accent buttons stays readable.</li>
+<li><b>Accent colour:</b> search for <code>--hue:210</code> on the first lines and change the number (0 to 360); it sets the accent in every look. Check that text on accent buttons stays readable.</li>
 <li><b>Keyboard focus outline:</b> a separate token, <code>--focus</code>, one line in each look (search <code>--focus:</code>). It is not tied to the accent.</li>
 <li><b>Other colours, text sizes, spacing:</b> the lines that start <code>html[data-theme</code> and <code>:root</code> at the top of the style section.</li>
 </ul>

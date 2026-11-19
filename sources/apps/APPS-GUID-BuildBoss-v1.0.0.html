@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-7XcLxbET3jSszn6ijrbWck0sLyIdRMjt9Xq7zj36pv8='; style-src 'sha256-APkIlL5HveD3AelKMMZNidNHzG5sWnrnEwmVHjZ5R+A='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-IT76EtrEw0IyaYSCdHqAfdZCPGj8+YlpcycGHPBHfd8='; style-src 'sha256-APkIlL5HveD3AelKMMZNidNHzG5sWnrnEwmVHjZ5R+A='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -911,8 +911,8 @@
                         mvpTotal += Math.min(qty, 4) * mvpCostPerUnit;
                         // Final: 8 modules (256GB)
                         finalTotal += Math.min(qty, 8) * finalCostPerUnit;
-                    } else if (input.id === 'cpu-qty') {
-                        // MVP: 1 CPU, Final: 2 CPUs
+                    } else if (input.id === 'cpu-qty' || input.id === 'cpu-cooler-qty' || input.id === 'cooler-mount-qty') {
+                        // One per CPU. MVP: 1 CPU, Final: 2 CPUs
                         mvpTotal += Math.min(qty, 1) * mvpCostPerUnit;
                         finalTotal += Math.min(qty, 2) * finalCostPerUnit;
                     } else if (input.id === 'gpu-qty') {
