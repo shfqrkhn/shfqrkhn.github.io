@@ -174,6 +174,35 @@ try:
 finally:
     shutil.rmtree(_t, ignore_errors=True)
 
+# 2d. the staged root (overlay.apply_root, run by CI as builder/overlay.py --root after this self-test): the real rules from
+# overlay.json; the legacy hub is kept under its new name, listed files are replaced, skipped names stay out, and a clash copies nothing
+_t = tempfile.mkdtemp()
+try:
+    _rules = _ov.root_rules(OUT)
+    _rr, _st = os.path.join(_t, "root"), os.path.join(_t, "site")
+    def _w(base, rel, data=b"x"):
+        f = os.path.join(base, *rel.split("/")); os.makedirs(os.path.dirname(f), exist_ok=True); open(f, "wb").write(data)
+    for _f, _d in (("index.html", b"<p>legacy hub</p>"), ("404.html", b"legacy 404"), ("sw.js", b"legacy worker"), ("docs/a.md", b"doc")):
+        _w(_st, _f, _d)
+    for _f, _d in (("index.html", b"<p>omnevum</p>"), ("404.html", b"omnevum 404"), ("sw.js", b"omnevum worker"), ("chunks/a-1.js", b"let a"), ("data-studio/index.html", b"stub"), ("build-receipt.json", b"{}")):
+        _w(_rr, _f, _d)
+    _before = _tree_hash(_st)
+    _w(_rr, "docs/b.md")
+    try:
+        _ov.apply_root(_rr, _st, _rules); _clash = False
+    except ValueError as e:
+        _clash = "docs" in str(e)
+    ok("root overlay: a name the legacy site owns fails and copies nothing", _clash and _tree_hash(_st) == _before)
+    shutil.rmtree(os.path.join(_rr, "docs"))
+    _done = _ov.apply_root(_rr, _st, _rules)
+    _rd = lambda rel: open(os.path.join(_st, *rel.split("/")), "rb").read()
+    ok("root overlay: keeps the legacy hub and 404, replaces the root page and worker, adds new folders, skips stubs and the receipt",
+       _rd(_rules["keep_hub"]) == b"<p>legacy hub</p>" and _rd("index.html") == b"<p>omnevum</p>" and _rd("sw.js") == b"omnevum worker"
+       and _rd("404.html") == b"legacy 404" and _rd("chunks/a-1.js") == b"let a" and not os.path.exists(os.path.join(_st, "data-studio"))
+       and not os.path.exists(os.path.join(_st, "build-receipt.json")) and "404.html" in _rules["skip"], str(_done))
+finally:
+    shutil.rmtree(_t, ignore_errors=True)
+
 # 3. the privacy gate catches planted personal data (and lets the allowed things through)
 tmp = tempfile.mkdtemp()
 try:

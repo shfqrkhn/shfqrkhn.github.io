@@ -1,4 +1,9 @@
 {
   "apps": ["omnevum", "hub", "library", "ai"],
-  "skip": ["stubs", "root"]
+  "skip": ["stubs", "root"],
+  "root": {
+    "replace": ["index.html", "sw.js", "manifest.webmanifest", "icon.svg"],
+    "skip": ["404.html", "build-receipt.json", "data-studio", "games-lab"],
+    "keep_hub": "catalog.html"
+  }
 }

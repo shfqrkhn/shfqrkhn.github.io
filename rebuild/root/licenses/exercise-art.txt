@@ -1,0 +1,21 @@
+Exercise art: Everkinetic and Bryl Lim, CC BY-SA 4.0
+
+Vendored from @bryllim/workout-guide 1.0.0 (official npm registry). Only the frames of the five seeded exercises are included.
+The frames are rasterised adaptations (transparent 512 x 512 canvas, recoloured for monochrome display) of artwork from Everkinetic
+(https://github.com/everkinetic/data), made by Bryl Lim (https://bryllim.com).
+
+Workout Guide visual assets are licensed under the Creative Commons
+Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0).
+
+Copyright (c) 2026 Bryl Lim, except where ATTRIBUTION.md identifies an
+upstream source.
+
+You may share and adapt these assets for any purpose, including commercially,
+provided that you give appropriate credit, link to the license, indicate
+changes, and distribute adaptations under the same license.
+
+License text: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by-sa/4.0/
+
+Human-readable licence: https://creativecommons.org/licenses/by-sa/4.0/
+The files are shared unchanged from the package and are displayed with a CSS filter (colours inverted in dark mode); each stays under CC BY-SA 4.0. This notice is shipped with the app at /licenses/exercise-art.txt.

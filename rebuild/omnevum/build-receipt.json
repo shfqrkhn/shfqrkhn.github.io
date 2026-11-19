@@ -1,7 +1,7 @@
 {
   "app": "omnevum",
   "version": "0.0.0",
-  "sourceDateEpoch": 1795016132,
+  "sourceDateEpoch": 1795045799,
   "release": true,
   "flags": [],
   "files": [
@@ -206,8 +206,8 @@
       "sha256": "11daf513079ab12a2d986f37a23d6029ca1a8786b6c6f5455d11a7d84139a0db"
     },
     {
-      "path": "chunks/catalogue-OO5IL4KZ.js",
-      "sha256": "05d259f4419fd3716ebf18b99beaa811c631da4c7b4466eb919ccc843a80b00d"
+      "path": "chunks/catalogue-HA4SUN54.js",
+      "sha256": "56f1e37ed8b7824f7eee177cd55d1358b88cab9350fe5bb6b17e89633f59993b"
     },
     {
       "path": "chunks/chunk-24V46NWT.js",
@@ -278,12 +278,12 @@
       "sha256": "428b3a0567b789e0d0a594a3f76b08e3f1128ebc44e299d6a4726124680a9046"
     },
     {
-      "path": "chunks/curated-data-JUEJSM7P.js",
-      "sha256": "5c5e1285c75011251f7bf56211e173605267d505f67c302aeb068bc8c2d30574"
+      "path": "chunks/curated-data-7FCNS5KF.js",
+      "sha256": "2b4e3ca98124af0f881a69335280ec39bc1866f45ab8de319eff22c667c2095a"
     },
     {
-      "path": "chunks/directory-Z3SHQYBF.js",
-      "sha256": "4615c6b2c34a003a9e6144ef596c7e5546102afb6f7e8191a3cedc8356cdb752"
+      "path": "chunks/directory-JKXVT4OU.js",
+      "sha256": "216d234cd2c9d6391e22df95911ae8825c273026d2173991e70bf69838faeab6"
     },
     {
       "path": "chunks/health-TOEROENW.js",
@@ -347,7 +347,7 @@
     },
     {
       "path": "index.html",
-      "sha256": "a1c6cc8525c312bfc50843b0e9f04e3ccf5a93ced44067bd069ed866ac56c67a"
+      "sha256": "a77215cae1b5f6088efa0e0dc6d22bc9ca0d2a672a34fdb691723bfc77b09aa8"
     },
     {
       "path": "licenses/exercise-art.txt",
@@ -366,8 +366,8 @@
       "sha256": "b740a1d46122672da62833e97f7e7c8a13fa85cbc7445b584b297cc00dde93db"
     },
     {
-      "path": "main-P7YGQLCB.js",
-      "sha256": "0d5cda46cc2a03e217a94f305f15f7e8463dab03a9b6fcd870117747ea48fcdc"
+      "path": "main-4RR4LVUD.js",
+      "sha256": "cc50820e4df2f0e34e7b4d8c42fa7c42f73b448820184abb6be7a089e9d7a10d"
     },
     {
       "path": "main-RMMTECR6.css",
@@ -391,7 +391,7 @@
     },
     {
       "path": "sw.js",
-      "sha256": "1cec13fcf8e91d9db9f511c5738e0812f33728735c85d6523469d2e2d86074b7"
+      "sha256": "d3c97e664d90d96d8674f2d8f525f5a03b92df9655d47304f296a3985f45c32d"
     },
     {
       "path": "tokens-EELACCMY.css",
