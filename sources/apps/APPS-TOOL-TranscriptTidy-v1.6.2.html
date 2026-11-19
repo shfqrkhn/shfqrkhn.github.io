@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TranscriptTidy AI Exports converts Google AI Studio chat exports (JSON) to Markdown files in this browser tab. Nothing is uploaded.">
 <meta name="theme-color" content="#faf8f4">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5NfEp1Kh4roI7Q01Av4/eL7ugQX5L5BYc3QdQjPWjLA=' 'sha256-wgrW8gLmlMRhEGkagIiyerZPuZxoWtUyPjsp1cVArME=' 'sha256-GJA4UrwAgy69I8pA9QBg0V9QPYSq2qfkEmu3STR6tQg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5NfEp1Kh4roI7Q01Av4/eL7ugQX5L5BYc3QdQjPWjLA=' 'sha256-rByBms6yuBJsqA9cgiia1sUxBZgpj4fAVnmNcrUMVFY=' 'sha256-GJA4UrwAgy69I8pA9QBg0V9QPYSq2qfkEmu3STR6tQg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>TranscriptTidy AI Exports</title>
 <script>(function(){try{var r=document.documentElement,p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null"),l=p&&p.look,o=null;if(["auto","paper","charcoal","black"].indexOf(l)<0){l=null;try{o=localStorage.getItem("aistudiocleaner.look")}catch(e){}if(["auto","paper","charcoal","black"].indexOf(o)>=0)l=o}if(l)r.setAttribute("data-look",l)}catch(e){}})()</script>
 <link rel="icon" href="data:,">
@@ -32,7 +32,7 @@ button,input{font:inherit;color:inherit}
 .ph h1{margin:0 auto 0 var(--s1);font-size:clamp(1.25rem,4.5vw,1.6rem);line-height:1.2;letter-spacing:-.01em;overflow-wrap:anywhere}
 .ib{flex:none;display:inline-grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--card);color:inherit;cursor:pointer;text-decoration:none;box-shadow:var(--shadow)}
 .ib svg{width:24px;height:24px}
-.ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}
+.ib:hover{border-color:var(--acc)}.ib:active{transform:scale(.96)}.ib[hidden]{display:none}[hidden]{display:none!important}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
 @media(prefers-reduced-motion:no-preference){.ib{transition:border-color .15s,transform .12s,box-shadow .15s}}
 /* OMNEVUM KIT:END */
@@ -674,7 +674,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       pushMsg(conv, msg.author.role, bits.join("\n\n"));
       if (!date && conv.length > before && typeof msg.create_time === "number" && isFinite(msg.create_time) && msg.create_time > 0) {
         var dt = new Date(msg.create_time * 1000);
-        if (!isNaN(dt.getTime())) date = dt.toISOString().slice(0, 10);
+        if (!isNaN(dt.getTime())) date = (dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0"));
       }
     }
     return { conversation: conv, date: date };
@@ -711,7 +711,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var date = r.date;
       if (!date && typeof d.create_time === "number" && isFinite(d.create_time) && d.create_time > 0) {
         var dt = new Date(d.create_time * 1000);
-        if (!isNaN(dt.getTime())) date = dt.toISOString().slice(0, 10);
+        if (!isNaN(dt.getTime())) date = (dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0"));
       }
       var sig = r.conversation.map(function (m) { return m.role + "\u0001" + m.content; }).join("\u0002");
       row.fmId = row.convId ? hash53("conv:" + row.convId) : hash53("text:" + sig);
@@ -837,7 +837,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     var lm = entry.lastModified;
     if (typeof lm === "number" && isFinite(lm) && lm > 0) {
       var d = new Date(lm);
-      if (!isNaN(d.getTime())) return { text: d.toISOString().slice(0, 10), source: "file" };
+      if (!isNaN(d.getTime())) return { text: (d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0")), source: "file" };
     }
     return { text: "undated", source: "none" };
   }

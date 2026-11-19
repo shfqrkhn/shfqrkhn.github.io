@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-IT76EtrEw0IyaYSCdHqAfdZCPGj8+YlpcycGHPBHfd8='; style-src 'sha256-APkIlL5HveD3AelKMMZNidNHzG5sWnrnEwmVHjZ5R+A='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-szm1i+i36cUgN2TyKiaSdbANQp2Wt1LW4pZkNhKarkw='; style-src 'sha256-APkIlL5HveD3AelKMMZNidNHzG5sWnrnEwmVHjZ5R+A='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -551,7 +551,7 @@
                         <div class="component-content" id="cpu-details">
                             <div class="component-option">
                                 <label for="cpu-qty">Intel Xeon E5-2680 v4 (Used):</label>
-                                <input type="number" id="cpu-qty" value="1" min="0" max="2" data-mvp-cost="60" data-final-cost="60" aria-label="Quantity of Intel Xeon E5-2680 v4 CPUs">
+                                <input type="number" id="cpu-qty" value="1" min="0" max="2" data-mvp-cost="60" data-final-cost="60" data-final-qty="2" aria-label="Quantity of Intel Xeon E5-2680 v4 CPUs">
                             </div>
                             <div class="component-option">
                                 <label for="motherboard-qty">Supermicro X10DRi (Used):</label>
@@ -559,11 +559,11 @@
                             </div>
                             <div class="component-option">
                                 <label for="cpu-cooler-qty">Noctua NH-U12S redux (New):</label>
-                                <input type="number" id="cpu-cooler-qty" value="1" min="0" max="2" data-mvp-cost="115" data-final-cost="115" aria-label="Quantity of Noctua NH-U12S redux CPU Coolers">
+                                <input type="number" id="cpu-cooler-qty" value="1" min="0" max="2" data-mvp-cost="115" data-final-cost="115" data-final-qty="2" aria-label="Quantity of Noctua NH-U12S redux CPU Coolers">
                             </div>
                             <div class="component-option">
                                 <label for="cooler-mount-qty">Noctua NM-i2011 Kit (New):</label>
-                                <input type="number" id="cooler-mount-qty" value="1" min="0" max="2" data-mvp-cost="15" data-final-cost="15" aria-label="Quantity of Noctua NM-i2011 Mounting Kits">
+                                <input type="number" id="cooler-mount-qty" value="1" min="0" max="2" data-mvp-cost="15" data-final-cost="15" data-final-qty="2" aria-label="Quantity of Noctua NM-i2011 Mounting Kits">
                             </div>
                         </div>
                     </details>
@@ -575,7 +575,7 @@
                         <div class="component-content" id="memory-details">
                             <div class="component-option">
                                 <label for="ram-qty">32GB DDR4 ECC RDIMM (Used):</label>
-                                <input type="number" id="ram-qty" value="4" min="0" max="8" step="4" data-mvp-cost="60" data-final-cost="60" aria-label="Quantity of 32GB DDR4 ECC RDIMM modules">
+                                <input type="number" id="ram-qty" value="4" min="0" max="8" step="4" data-mvp-cost="60" data-final-cost="60" data-final-qty="8" aria-label="Quantity of 32GB DDR4 ECC RDIMM modules">
                                 <span class="secondary-text-color">(4 modules = 128GB, 8 modules = 256GB)</span>
                             </div>
                         </div>
@@ -588,11 +588,11 @@
                         <div class="component-content" id="gpu-details">
                             <div class="component-option">
                                 <label for="gpu-qty">NVIDIA GeForce RTX 3090 Blower (Used):</label>
-                                <input type="number" id="gpu-qty" value="1" min="0" max="2" data-mvp-cost="900" data-final-cost="900" aria-label="Quantity of NVIDIA GeForce RTX 3090 GPUs">
+                                <input type="number" id="gpu-qty" value="1" min="0" max="2" data-mvp-cost="900" data-final-cost="900" data-final-qty="2" aria-label="Quantity of NVIDIA GeForce RTX 3090 GPUs">
                             </div>
                             <div class="component-option">
                                 <label for="nvlink-qty">RTX 3090 NVLink Bridge (Used/New):</label>
-                                <input type="number" id="nvlink-qty" value="0" min="0" max="1" data-mvp-cost="0" data-final-cost="100" aria-label="Quantity of NVLink Bridges">
+                                <input type="number" id="nvlink-qty" value="0" min="0" max="1" data-mvp-cost="0" data-final-cost="100" data-final-qty="1" aria-label="Quantity of NVLink Bridges">
                                 <span class="secondary-text-color">(Required for 2 GPUs)</span>
                             </div>
                         </div>
@@ -633,7 +633,7 @@
                             </div>
                             <div class="component-option">
                                 <label for="case-fan-qty">Fractal Design Dynamic X2 GP-14 PWM (New):</label>
-                                <input type="number" id="case-fan-qty" value="3" min="0" max="9" data-mvp-cost="20" data-final-cost="20" aria-label="Quantity of Fractal Design Dynamic X2 GP-14 PWM Case Fans">
+                                <input type="number" id="case-fan-qty" value="3" min="0" max="9" data-mvp-cost="20" data-final-cost="20" data-final-qty="6" aria-label="Quantity of Fractal Design Dynamic X2 GP-14 PWM Case Fans">
                                 <span class="secondary-text-color">(3 included with case, 3 more recommended for optimal airflow)</span>
                             </div>
                             <div class="component-option">
@@ -904,38 +904,36 @@
                     const qty = parseInt(input.value) || 0;
                     const mvpCostPerUnit = parseFloat(input.dataset.mvpCost) || 0;
                     const finalCostPerUnit = parseFloat(input.dataset.finalCost) || 0;
+                    // Final build quantities are fixed by data-final-qty; other parts use the entered quantity
+                    const finalQty = input.dataset.finalQty !== undefined ? parseInt(input.dataset.finalQty) : qty;
 
                     // Specific logic for RAM to represent modules vs total capacity
                     if (input.id === 'ram-qty') {
                         // MVP: 4 modules (128GB)
                         mvpTotal += Math.min(qty, 4) * mvpCostPerUnit;
                         // Final: 8 modules (256GB)
-                        finalTotal += Math.min(qty, 8) * finalCostPerUnit;
+                        finalTotal += finalQty * finalCostPerUnit;
                     } else if (input.id === 'cpu-qty' || input.id === 'cpu-cooler-qty' || input.id === 'cooler-mount-qty') {
                         // One per CPU. MVP: 1 CPU, Final: 2 CPUs
                         mvpTotal += Math.min(qty, 1) * mvpCostPerUnit;
-                        finalTotal += Math.min(qty, 2) * finalCostPerUnit;
+                        finalTotal += finalQty * finalCostPerUnit;
                     } else if (input.id === 'gpu-qty') {
                         // MVP: 1 GPU, Final: 2 GPUs
                         mvpTotal += Math.min(qty, 1) * mvpCostPerUnit;
-                        finalTotal += Math.min(qty, 2) * finalCostPerUnit;
+                        finalTotal += finalQty * finalCostPerUnit;
                     } else if (input.id === 'nvlink-qty') {
-                        // NVLink only for final build if 2 GPUs are selected
-                        // Cost is added to finalTotal only if gpu-qty is 2
-                        const gpuQty = parseInt(document.getElementById('gpu-qty').value) || 0;
-                        if (gpuQty === 2 && qty >= 1) {
-                            finalTotal += finalCostPerUnit;
-                        }
+                        // NVLink bridge only in the final build (2 GPUs)
+                        finalTotal += finalQty * finalCostPerUnit;
                     } else if (input.id === 'case-fan-qty') {
                         // Case fans: 3 included, 3 more recommended for optimal airflow (total 6 for final)
                         // MVP: 3 included (cost 0), Final: 3 more (cost 3 * 20)
                         // If user inputs 6, MVP still considers 3 (cost 0), final considers 6 (cost 3*20)
                         mvpTotal += 0; // Included with case, no additional cost for MVP
-                        finalTotal += Math.max(0, qty - 3) * finalCostPerUnit; // Only count additional fans
+                        finalTotal += Math.max(0, finalQty - 3) * finalCostPerUnit; // Only count additional fans
                     }
                     else {
                         mvpTotal += qty * mvpCostPerUnit;
-                        finalTotal += qty * finalCostPerUnit;
+                        finalTotal += finalQty * finalCostPerUnit;
                     }
                 });
 
