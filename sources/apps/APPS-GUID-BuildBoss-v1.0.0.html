@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-+0wBRKkjctheOYsjTZmmhxSYs7Odh8lSUmVvM7FiW1Q='; style-src 'sha256-h2bHlhdm7uHFT6ODTvKB+UUvjcMmkTBdrz2rWVoc6ss='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-ozNYhPcrOcJSwfVZGbtQpj58BWCNKq6aGo1mdiJd7Sg='; style-src 'sha256-h2bHlhdm7uHFT6ODTvKB+UUvjcMmkTBdrz2rWVoc6ss='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -972,8 +972,8 @@
                 const gpuTdp = parseInt(gpuTdpInput.value) || 0;
 
                 // Get quantities from the cost estimator
-                const cpuQty = parseInt(document.getElementById('cpu-qty').value) || 0;
-                const gpuQty = parseInt(document.getElementById('gpu-qty').value) || 0;
+                const cpuQty = Math.min(2, Math.max(0, parseInt(document.getElementById('cpu-qty').value) || 0));
+                const gpuQty = Math.min(2, Math.max(0, parseInt(document.getElementById('gpu-qty').value) || 0));
 
                 const totalTDP = (cpuTdp * cpuQty) + (gpuTdp * gpuQty);
                 totalTdpSpan.textContent = `${totalTDP}W`;
@@ -982,6 +982,8 @@
             cpuTdpInput.addEventListener('input', calculateTotalTDP);
             gpuTdpInput.addEventListener('input', calculateTotalTDP);
             calculateTdpBtn.addEventListener('click', calculateTotalTDP);
+            document.getElementById('cpu-qty').addEventListener('input', calculateTotalTDP);
+            document.getElementById('gpu-qty').addEventListener('input', calculateTotalTDP);
 
             // Initial calculation
             calculateTotalTDP();
