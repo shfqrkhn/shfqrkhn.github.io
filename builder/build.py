@@ -3,12 +3,11 @@ Reads this folder (registry.json = every hand-built page, icons.json, topics.jso
 site/content (content/<kind>/<slug>.json), and the single-file apps in sources/apps.
 Writes the hub, group pages, worker, manifest and 404 into site, then runs the privacy gate on sources and output.
 Rules and how to extend it: docs/FRAMEWORK.md."""
-import os, sys, re, json, hashlib, html, glob
+import os, sys, re, json, hashlib, base64, html, glob
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
-from paths import OUT, V, APPS_DIR, SUP, DOCS, REBUILD, csp_hash, tree_files, tree_hash
-import overlay
+from paths import OUT, V, APPS_DIR, SUP, DOCS
 VERSION = "1.4.3"
 REG = json.load(open(os.path.join(OM, "registry.json"), encoding="utf-8"))["pages"]
 TOPICS = json.load(open(os.path.join(OM, "topics.json"), encoding="utf-8"))
@@ -20,9 +19,9 @@ BN = BRAND["name"]
 ARCHIVED = {p["id"] for p in REG if p.get("archived")}
 
 
-def _hide(text, _om=OM):  # OM bound now: __file__ can be gone when the crash hook runs
+def _hide(text):
     """In CI the log is public: replace every private name (case-insensitive) before anything is printed."""
-    names_file = os.path.join(_om, "privacy_names.txt")
+    names_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "privacy_names.txt")
     if not os.environ.get("CI") or not os.path.exists(names_file):
         return text
     for n in sorted({l.strip() for l in open(names_file, encoding="utf-8-sig") if l.strip() and not l.startswith("#")}, key=len, reverse=True):
@@ -106,8 +105,6 @@ def check_registry():
         if p.get("hue") is not None and not (isinstance(p["hue"], int) and 0 <= p["hue"] <= 359): errs.append("%s: hue must be a whole number from 0 to 359" % who)
         for al in p.get("aliases", []):
             if not re.fullmatch(r"[a-z]+/[a-z0-9-]+", al): errs.append("%s: alias '%s' must look like kind/slug" % (who, al))
-        for al, pk in (p.get("alias_packs") or {}).items():
-            if al not in p.get("aliases", []) or not re.fullmatch(r"[a-z0-9-]+", str(pk)): errs.append("%s: alias_packs entry '%s' needs an alias of this page and a pack slug" % (who, al))
         if who in ids: errs.append("%s: id used twice" % who)
         if (p.get("kind"), p.get("slug")) in slugs: errs.append("%s: address %s/%s used twice" % (who, p.get("kind"), p.get("slug")))
         if p.get("source") and p.get("source") in sources: errs.append("%s: source used twice" % who)
@@ -150,7 +147,49 @@ FOSS = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "MPL-2.0", "
         "LGPL-3.0-or-later", "AGPL-3.0-only", "AGPL-3.0-or-later", "Unlicense", "CC0-1.0", "CC-BY-4.0", "CC-BY-SA-4.0", "OFL-1.1", "Zlib"}
 
 
-from inline import inline_engine, inline_kit, read_source  # source markers (engine, kit core)
+def tree_files(d):
+    out = []
+    for dp, dn, fn in os.walk(d):
+        dn[:] = sorted(x for x in dn if x not in (".git", "__pycache__", "node_modules"))
+        for f in sorted(fn):
+            full = os.path.join(dp, f); out.append((os.path.relpath(full, d).replace(os.sep, "/"), full))
+    return sorted(out)
+
+
+def tree_hash(d):
+    """Same algorithm as scripts/check_site.py: sha256 over 'path NUL file-sha256' lines, sorted by path."""
+    h = hashlib.sha256()
+    for rel, full in tree_files(d):
+        h.update((rel + chr(0) + hashlib.sha256(open(full, "rb").read()).hexdigest() + chr(10)).encode())
+    return h.hexdigest()
+
+
+ENGINE_MARK = re.compile(rb"<script>\n@@KD-ENGINE ([A-Za-z0-9.+-]+)@@\n</script>")
+
+
+def inline_engine(raw, what=""):
+    """Study readers keep one shared program in sources/engine/ENGN-KD-<name>.js. A source holds a marker where the program goes;
+    the build puts the program back and recomputes the script pin, so the published page is the same as one with the program written out.
+    A source without a marker passes through unchanged."""
+    m = ENGINE_MARK.search(raw)
+    if not m:
+        assert b"@@KD-ENGINE" not in raw, ("malformed engine marker", what)
+        return raw
+    path = os.path.join(V, "engine", "ENGN-KD-" + m.group(1).decode() + ".js")
+    assert os.path.isfile(path), ("engine file not found", what, path)
+    body = open(path, "rb").read()
+    assert b"</script" not in body.lower(), ("engine text would end the script early", path)
+    out = raw[:m.start()] + b"<script>\n" + body + b"\n</script>" + raw[m.end():]
+    assert out.count(b"<script>") == 1 and b"@@KD-ENGINE" not in out, ("a reader must hold one inline script", what)
+    pin = base64.b64encode(hashlib.sha256((b"\n" + body + b"\n").replace(b"\r\n", b"\n")).digest())
+    sm = re.search(rb"script-src[^;]*?'sha256-[A-Za-z0-9+/=]+'", out)
+    assert sm, ("script-src pin not found", what)
+    head = re.sub(rb"'sha256-[A-Za-z0-9+/=]+'", b"'sha256-" + pin + b"'", sm.group(0))
+    return out[:sm.start()] + head + out[sm.end():]
+
+
+def read_source(path):
+    return inline_engine(open(path, "rb").read(), path)
 
 
 def resolve(src):
@@ -197,7 +236,7 @@ for p in REG:
     form = p.get("form", "single")
     a = dict(id=p["id"], title=p["title"], folder=p["slug"], form=form, lazy=p.get("lazy", True), sensitive=p.get("private", False),
              own_pwa=bool(p.get("pwa")), license=p.get("license", "MIT"), url=p.get("url"), host=p.get("host"), wasm=bool(p.get("wasm")),
-             aliases=list(p.get("aliases", [])), alias_packs=dict(p.get("alias_packs", {})), hue=p.get("hue"), former_names=list(p.get("former_names", [])), tagline=p.get("tagline", ""), big=bool(p.get("big")))
+             aliases=list(p.get("aliases", [])), hue=p.get("hue"), former_names=list(p.get("former_names", [])), tagline=p.get("tagline", ""), big=bool(p.get("big")))
     if form == "single":
         a["path"] = resolve(p["source"]); m = re.search(r"-v(\d+\.\d+\.\d+)\.html$", os.path.basename(a["path"]))
         a["version"] = m.group(1) if m else p.get("version", "")
@@ -456,7 +495,8 @@ if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostnam
 })();'''
 
 GJS = """(function(){try{var s=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null");if(s&&["auto","paper","charcoal","black"].indexOf(s.look)>=0)document.documentElement.setAttribute("data-look",s.look)}catch(e){}})();"""
-csp = "default-src 'none'; script-src 'self' '%s'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'" % csp_hash(JS)
+def sri(s): return "sha256-" + base64.b64encode(hashlib.sha256(s.encode()).digest()).decode()
+csp = "default-src 'none'; script-src 'self' '%s'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'" % sri(JS)
 I = lambda n: svg(n)
 NUDGES = "".join(
     '<article class="nudge" style="--h:%d"><span class="nic">%s</span><div>%s</div></article>' % (h, svg(P(n, "fill")), body) for h, n, body in (
@@ -533,12 +573,6 @@ for a in ship:
             dest = os.path.join(d, *rel.split("/")); os.makedirs(os.path.dirname(dest), exist_ok=True); shutil.copyfile(full, dest)
     else:
         open(os.path.join(d, "index.html"), "wb").write(a["bytes"])
-OVERLAY_APPS, OVERLAY_SKIP = overlay.names(OUT)  # the one list (site/scripts/overlay.json): here, in the worker and in the gates
-try:  # the rebuild overlay runs last on purpose: after the pruning above and the app copy, so a name clash is seen and nothing prunes it; a no-op without rebuild/
-    overlaid = overlay.apply(REBUILD, OUT, OVERLAY_APPS, OVERLAY_SKIP)
-except ValueError as _e:
-    fail(["rebuild overlay: " + x for x in str(_e).split("\n")])
-if overlaid: print("rebuild overlay: " + ", ".join(overlaid))
 for k, t, ic in present:
     items = [a for a in apps if a["kind"] == k and not a["sensitive"]]
     key = lambda x: x["title"].lower()
@@ -554,7 +588,7 @@ for k, t, ic in present:
           '<meta name="color-scheme" content="light dark"><meta name="description" content="%s: small offline pages on ' + BN + '."><title>%s - ' + BN + '</title>'
           '<link rel="icon" href="../icon.svg" type="image/svg+xml"><style>%s</style></head><body>'
           '<main class="wrap"><div class="ph"><a class="ib" href="../" aria-label="' + BN + ' home" title="' + BN + '">%s</a><h1>%s</h1></div>%s</main>'
-          '<script>%s</script></body></html>\n') % (csp_hash(GJS), E(t), E(t), CSS, svg(P("house")), E(t), body, GJS)
+          '<script>%s</script></body></html>\n') % (sri(GJS), E(t), E(t), CSS, svg(P("house")), E(t), body, GJS)
     open(os.path.join(OUT, k, "index.html"), "w", encoding="utf-8", newline="\n").write(re.sub(r' data-k="[^"]*"', "", gp))
 BIG = 5_000_000  # pages over 5 MB download only when the owner taps (mobile data)
 PAGES = {}
@@ -566,7 +600,7 @@ for a in ship:
     if a["size"] > BIG or a.get("big"): ent["big"] = True  # or the registry says so (big: true), for a large page that should wait for a tap
     PAGES[a["dir"]] = ent
 SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg", "./today.json", "./404.html", "./scripts/personalize.js", "./icons/icon-192.png", "./icons/icon-512.png"] + ["./%s/" % k for k, t, ic in present]
-sw = open(os.path.join(OM, "sw.template.js"), encoding="utf-8").read().replace("@@VERSION@@", VERSION).replace("@@SHELL@@", json.dumps(SHELL)).replace("@@PAGES@@", json.dumps(PAGES, indent=1)).replace("@@OVERLAY@@", json.dumps(OVERLAY_APPS))
+sw = open(os.path.join(OM, "sw.template.js"), encoding="utf-8").read().replace("@@VERSION@@", VERSION).replace("@@SHELL@@", json.dumps(SHELL)).replace("@@PAGES@@", json.dumps(PAGES, indent=1))
 open(os.path.join(OUT, "sw.js"), "w", encoding="utf-8", newline="\n").write(sw)
 # install icons: rendered once by make_icons.py, copied here byte for byte
 os.makedirs(os.path.join(OUT, "icons"), exist_ok=True)
@@ -584,14 +618,13 @@ open(os.path.join(OUT, "manifest.webmanifest"), "w", encoding="utf-8", newline="
 NF = ('<!doctype html>\n<html lang="en" data-look="auto"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
       '<meta name="robots" content="noindex"><meta name="color-scheme" content="light dark"><title>@@BN@@</title><link rel="icon" href="/icon.svg" type="image/svg+xml">'
       '<style>@@CSS@@</style></head><body><div class="lost"><h1 class="vh">@@BN@@</h1><a href="/" aria-label="@@BN@@ home">@@HOME@@<b>@@BN@@</b></a></div>'
-      '<script>(function(){var m=@@MAP@@,h=Object.prototype.hasOwnProperty,s=location.pathname.split("/").filter(Boolean),k=s.slice(0,2).join("/"),t=h.call(m,k)?m[k]:h.call(m,s[0])?m[s[0]]:"";if(t){var u=t.split("?");location.replace("/"+u[0]+"/"+(u[1]?"?"+u[1]+(location.search?"&"+location.search.slice(1):""):location.search)+location.hash)}'
+      '<script>(function(){var m=@@MAP@@,h=Object.prototype.hasOwnProperty,s=location.pathname.split("/").filter(Boolean),k=s.slice(0,2).join("/"),t=h.call(m,k)?m[k]:h.call(m,s[0])?m[s[0]]:"";if(t)location.replace("/"+t+"/"+location.search+location.hash);'
       'try{var s=JSON.parse(localStorage.getItem("hub.prefs.v1")||"null");if(s&&s.look)document.documentElement.setAttribute("data-look",s.look)}catch(e){}})();</script></body></html>\n')
 FWD = {a["folder"]: a["dir"] for a in apps if a["dir"]}  # the first flat address, from before pages were grouped
 for a in apps:
     for al in a.get("aliases", []):
         if a["dir"]:
-            tgt = a["dir"] + ("?pack=" + a["alias_packs"][al] if al in a.get("alias_packs", {}) else "")  # a merged page opens on the old page's pack
-            FWD[al] = tgt; FWD.setdefault(al.split("/")[-1], tgt)
+            FWD[al] = a["dir"]; FWD.setdefault(al.split("/")[-1], a["dir"])
 NF = NF.replace("@@BN@@", html.escape(BN)).replace("@@CSS@@", CSS).replace("@@HOME@@", svg(P("house"))).replace("@@MAP@@", json.dumps(FWD, separators=(",", ":")))
 open(os.path.join(OUT, "404.html"), "w", encoding="utf-8", newline="\n").write(NF)
 print("hub bytes", len(page.encode()), "tiles", len(apps), "shipped", len(ship), "archive", len(arch_items))

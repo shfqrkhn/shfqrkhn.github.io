@@ -24,8 +24,7 @@ button,input{font:inherit;color:inherit}
 header.bar{padding:var(--s5) 0 var(--s2)}
 .top,.ph{display:flex;align-items:center;gap:var(--s2)}
 .ph{padding:var(--s4) 0 var(--s2)}
-.ph h1{margin:0 auto 0 var(--s1);font-size:clamp(1.25rem,4.5vw,1.6rem);line-height:1.2;letter-spacing:-.01em;overflow-wrap:break-word}
-@media(max-width:519px){.ph:has(>h1+*){flex-wrap:wrap;row-gap:0}.ph:has(>h1+*)>h1{order:9;flex:1 0 100%;margin:var(--s1) 0 0;font-size:1.35rem}.ph>h1+*{margin-left:auto}} /* narrow header: title on its own row */
+.ph h1{margin:0 auto 0 var(--s1);font-size:clamp(1.25rem,4.5vw,1.6rem);line-height:1.2;letter-spacing:-.01em;overflow-wrap:anywhere}
 .brand{display:flex;flex-direction:column;margin-right:auto;min-width:0}
 .brand b{font-size:clamp(1.7rem,7vw,2.1rem);letter-spacing:-.025em;line-height:1.1}
 .say{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:.95rem;white-space:nowrap}
@@ -101,7 +100,3 @@ body{min-height:100vh;min-height:100dvh;overscroll-behavior-y:contain}
 .nudge p[hidden]{display:none}
 /* the Today card sits near the top; its space is reserved (about the median height per width) so filling it in moves the tiles very little */
 .today{min-height:23rem}@media(max-width:1023px){.today{min-height:24rem}}@media(max-width:767px){.today{min-height:27rem}}@media(max-width:480px){.today{min-height:33rem}}@media(max-width:380px){.today{min-height:34.5rem}}
-/* Comfort settings: motion, transparency and contrast follow the reader's system choice (reduced-motion-first, RepoRadar survey). */
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-@media(prefers-reduced-transparency:reduce){*,*::before,*::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
-@media(prefers-contrast:more){*{text-shadow:none!important}:focus-visible{outline-width:3px!important;outline-offset:2px}}

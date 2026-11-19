@@ -2,7 +2,7 @@
 
 Add --version X to require a specific hub version (used right after a publish).
 Add --hub-sha X to require the exact hub fingerprint (publish.py passes it on every post-publish wait).
-Fetches the published hub (the root page, or the kept copy once a staged root replaced it), reads its catalog, then confirms that every hosted page answers 200 and (for single-file pages)
+Fetches the published hub, reads its catalog, then confirms that every hosted page answers 200 and (for single-file pages)
 matches its recorded hash. Remote pages are only checked for an https address. Exit 1 if anything differs.
 """
 import hashlib, json, re, sys, urllib.request
@@ -23,11 +23,7 @@ def get(path):
 
 
 status, body = get("")
-_m = re.search(r'id="catalogData">(.*?)</script>', body.decode("utf-8"), re.S)
-if not _m:  # a staged root (builder/overlay.py --root) took the root page; the legacy hub lives on under the name in overlay.json
-    status, body = get(json.loads(get("scripts/overlay.json")[1])["root"]["keep_hub"])
-    _m = re.search(r'id="catalogData">(.*?)</script>', body.decode("utf-8"), re.S)
-catalog = json.loads(_m.group(1).replace("<" + chr(92) + "/", "</"))
+catalog = json.loads(re.search(r'id="catalogData">(.*?)</script>', body.decode("utf-8"), re.S).group(1).replace("<" + chr(92) + "/", "</"))
 problems = []
 if HUBSHA and hashlib.sha256(body).hexdigest() != HUBSHA:
     problems.append("the live hub is not the one just published (the new deployment is not live yet)")

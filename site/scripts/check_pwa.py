@@ -155,15 +155,6 @@ for f in shell:
     p = os.path.join(ROOT, _rel(f).replace("/", os.sep)) if f != "./" else ROOT
     if not os.path.exists(p) or not _exact(p):
         fail("worker shell lists a file that does not exist (or has the wrong letter case): " + f)
-try:  # the worker must pass the rebuilt apps' paths through: its OVERLAY list is exactly the names in overlay.json
-    _ov_sw = json.loads(sw[sw.index("const OVERLAY = ") + len("const OVERLAY = "):].split(";" + chr(10), 1)[0])
-    _ov_want = json.load(open(os.path.join(ROOT, "scripts", "overlay.json"), encoding="utf-8"))["apps"]
-except (ValueError, OSError):
-    _ov_sw, _ov_want = None, []
-if _ov_sw != _ov_want:
-    fail("sw.js OVERLAY list differs from scripts/overlay.json, so the worker could answer a rebuilt app's paths")
-if "if (overlaid(url)) return;" not in sw:
-    fail("sw.js does not hand rebuilt-app requests back to the network")
 _cm = re.search(r'id="catalogData">(.*?)</script>', hub, re.S)
 if not _cm:
     print("FAIL the hub has no catalog (id=catalogData)"); sys.exit(1)

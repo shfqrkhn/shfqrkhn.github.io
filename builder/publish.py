@@ -1,19 +1,18 @@
 """Publish: check, commit, push. GitHub builds and deploys the site (see .github/workflows/deploy.yml).
   python builder/publish.py "message"            dry run: build, test, then list what would be committed
-  python builder/publish.py "message" --yes      commit and push to main, then follow the deploy run (gh) and wait until the live hub matches this build
+  python builder/publish.py "message" --yes      commit and push to main, then wait until the live hub matches this build
   --fast                                         skip the self-test (the build and its gates always run; with --yes the push is refused)
 Needs git with push access to the repository. Generated files (site/ pages, worker, manifest) are never committed: the workflow rebuilds them."""
-import hashlib, json, os, re, shutil, subprocess, sys, tempfile, time
+import hashlib, json, os, re, subprocess, sys, time
 
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
 from paths import HOME, OUT
 PY = [sys.executable, "-B"]
-sys.stdout.reconfigure(line_buffering=True)  # progress shows even when output goes to a file
 
 
 def run(cmd, cwd=HOME, check=True):
-    r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, encoding="utf-8", errors="replace")  # git names are UTF-8 on every OS
+    r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
     if check and r.returncode:
         print("FAILED: " + " ".join(cmd) + "\n" + (r.stdout + r.stderr)[-1500:]); sys.exit(1)
     return r
@@ -45,10 +44,10 @@ print("4/4 commit and push")
 _url = run(["git", "remote", "get-url", "origin"], check=False).stdout.strip().lower()
 if "shfqrkhn/shfqrkhn.github.io" not in _url:
     print("FAILED: origin is not the site repository. Fix it first: git remote set-url origin <repository url>"); sys.exit(1)
-run(["git", "fetch", "--quiet", "origin", "main"])  # the ahead guard needs a current origin/main
-_ahead = run(["git", "rev-list", "--count", "origin/main..HEAD"]).stdout.strip()
-if _ahead != "0":
+_ahead = run(["git", "rev-list", "--count", "origin/main..HEAD"], check=False).stdout.strip()
+if _ahead not in ("", "0"):
     print("FAILED: %s local commit(s) are not on origin/main and were never privacy-checked. Review them (git log origin/main..HEAD), then push by hand or reset." % _ahead); sys.exit(1)
+import shutil, tempfile
 _stage = tempfile.mkdtemp()
 try:
     open(os.path.join(_stage, "commit-message.txt"), "w", encoding="utf-8").write(msg)
@@ -69,36 +68,11 @@ run(["git", "commit", "--quiet", "-m", msg])
 run(["git", "push", "origin", "HEAD:main"])
 page = open(os.path.join(OUT, "index.html"), "rb").read()
 version = json.loads(re.search(r'id="catalogData">(.*?)</script>', page.decode("utf-8"), re.S).group(1).replace("<" + chr(92) + "/", "</"))["version"]
-sha = run(["git", "rev-parse", "HEAD"]).stdout.strip()
-live = [PY + [os.path.join(OUT, "scripts", "check_live.py"), "--version", version, "--hub-sha", hashlib.sha256(page).hexdigest()]]
-
-
-def is_live():
-    r = run(live[0], check=False)
+print("waiting for the deploy workflow to publish hub %s (up to 10 minutes)" % version)
+for _ in range(30):
+    r = run(PY + [os.path.join(OUT, "scripts", "check_live.py"), "--version", version, "--hub-sha", hashlib.sha256(page).hexdigest()], check=False)
     if r.returncode == 0:
         print(r.stdout.strip().splitlines()[-1]); sys.exit(0)
-
-
-print("pushed %s; the deploy workflow takes about 20 to 40 minutes to publish hub %s" % (sha[:7], version))
-if shutil.which("gh"):  # follow the run itself when the GitHub CLI is signed in
-    rid = ""
-    for _ in range(12):
-        rid = run(["gh", "run", "list", "--commit", sha, "--workflow", "deploy.yml", "--json", "databaseId", "-q", ".[0].databaseId"], check=False).stdout.strip()
-        if rid:
-            break
-        time.sleep(10)
-    if rid:
-        print("watching deploy run %s" % rid)
-        w = subprocess.run(["gh", "run", "watch", rid, "--exit-status", "--interval", "60"], cwd=HOME, capture_output=True, text=True, encoding="utf-8", errors="replace")
-        if w.returncode:  # a dropped connection also lands here: ask for the run's result before calling it failed
-            c = run(["gh", "run", "view", rid, "--json", "conclusion", "-q", ".conclusion"], check=False).stdout.strip()
-            if c in ("failure", "cancelled", "timed_out", "startup_failure"):
-                print("FAILED: the deploy run ended as %s; the push itself succeeded:\n" % c + (w.stdout + w.stderr)[-1500:]); sys.exit(1)
-            print("lost track of the deploy run (%s); polling the live site instead" % (c or "no result yet"))
-for i in range(150):  # up to 50 minutes; after a finished run this passes within a few tries (CDN cache)
-    is_live()
-    if i and i % 15 == 0:
-        print("still waiting for the live hub (%d minutes)" % (i // 3))
     time.sleep(20)
 print("The push succeeded but the live site does not match yet. See the deploy run at https://github.com/shfqrkhn/shfqrkhn.github.io/actions")
 sys.exit(1)
