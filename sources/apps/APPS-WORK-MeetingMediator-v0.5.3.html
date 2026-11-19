@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-m8WayBVWyQw+MOzT3ZZ3kLXFyFn3EN70NMtsRS1uTN8=' 'sha256-ogDgoToxpX3N1v0QWz9FuAyopE1CIK6bLEVzRAmlmnw=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-k5UIWP7KMf1VJd6DsbvIYaZ2x1r4tEYexfxgvw75kkg=' 'sha256-m8WayBVWyQw+MOzT3ZZ3kLXFyFn3EN70NMtsRS1uTN8=' 'sha256-FMwUEUGGylXIx5SPayA/t4jFPOcOJlMKa0XONcJkU+g=' 'sha256-frA4ciOVhgRx9ZXbzh+gctHEqMo5e6AC/Y4Tpr3aZxk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com https://api.openai.com; worker-src 'none'; manifest-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'" />
     <meta name="description" content="MeetingMediator Sessions: a facilitator-first resolution suite. Resolve clearly." />
     <meta name="referrer" content="no-referrer" />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), fullscreen=(self)" />
@@ -2386,6 +2386,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     el.setAttribute('aria-modal', 'true');
     el.setAttribute('aria-label', 'AI facilitator');
     el.setAttribute('aria-hidden', 'true');
+    el.inert = true;
     el.style.cssText = `
       position:fixed;inset:0 0 0 auto;width:min(400px,100vw);
       background:${C.bg};border-left:1px solid ${C.border};
@@ -2487,9 +2488,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
           placeholder="https://api.openai.com/v1"
           style="${inputCSS}" />
         <p style="margin:5px 0 0;font-size:var(--fs-s);color:${C.muted};">
-          Works with Groq, Mistral, Together AI, local Ollama, and any OpenAI-compatible server.
-        </p>
-        <p style="margin:5px 0 0;font-size:var(--fs-s);color:${C.muted};">This single-file build only allows api.openai.com and Google Gemini (generativelanguage.googleapis.com); other base URLs are blocked by its security policy.</p>
+          This single-file build only allows api.openai.com and Google Gemini (generativelanguage.googleapis.com); other base URLs are blocked by its security policy.</p>
       </div>
 
       <button id="byoai-btn-save"
@@ -2905,6 +2904,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     state.open = false;
     state.panelEl.style.transform = 'translateX(100%)';
     state.panelEl.setAttribute('aria-hidden', 'true');
+    state.panelEl.inert = true;
     if (state.backdropEl) {
       state.backdropEl.style.opacity = '0';
       state.backdropEl.style.pointerEvents = 'none';
@@ -2943,6 +2943,7 @@ function wn(e){switch(e){case`dashboard`:return Dn();case`create-workspace`:retu
     state.open = !state.open;
     state.panelEl.style.transform = state.open ? 'translateX(0)' : 'translateX(100%)';
     state.panelEl.setAttribute('aria-hidden', state.open ? 'false' : 'true');
+    state.panelEl.inert = !state.open;
     if (state.backdropEl) {
       state.backdropEl.style.opacity = state.open ? '1' : '0';
       state.backdropEl.style.pointerEvents = state.open ? 'auto' : 'none';

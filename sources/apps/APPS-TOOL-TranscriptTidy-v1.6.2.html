@@ -278,7 +278,7 @@ details.rules>summary:focus-visible{outline:3px solid var(--focus);outline-offse
     <ul class="policy" aria-label="Filename policy">
      <li><code>YYYY-MM-DD-slug.md</code></li>
      <li><code>YYYY-MM-DD-title-id.md</code> for many chats in one file.</li>
-     <li>Date: first message, else file date (UTC).</li>
+     <li>Date: first message, else file date (local time).</li>
      <li>Unsafe characters are removed. Repeats get -2, -3.</li>
     </ul>
    </details>
@@ -317,7 +317,7 @@ details.rules>summary:focus-visible{outline:3px solid var(--focus);outline-offse
  <p>20 MB per file. 100 MB in review. 1,000 chats per file. Odd JSON is refused and listed under Errors.</p>
  <h3>Formats</h3>
  <p>AI Studio chat, generic chat (messages with role and content), and experimental ChatGPT-style trees. Change a card's format with its menu. Try real exports on a copy first.</p>
- <p>Same input gives the same output. No clock time is written.</p>
+ <p>Same input gives the same output in the same time zone. No clock time is written.</p>
  <button type="button" class="btn primary close ic i-x" data-close>Close</button>
 </dialog>
 

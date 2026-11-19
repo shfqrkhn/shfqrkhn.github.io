@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-szm1i+i36cUgN2TyKiaSdbANQp2Wt1LW4pZkNhKarkw='; style-src 'sha256-APkIlL5HveD3AelKMMZNidNHzG5sWnrnEwmVHjZ5R+A='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-+0wBRKkjctheOYsjTZmmhxSYs7Odh8lSUmVvM7FiW1Q='; style-src 'sha256-h2bHlhdm7uHFT6ODTvKB+UUvjcMmkTBdrz2rWVoc6ss='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.0-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -476,7 +476,7 @@
         .navbar-tool label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--secondary-text-color);
+            color: #ADB5BD;
             font-size: 0.9rem;
         }
 
@@ -521,6 +521,9 @@
             white-space: nowrap;
             border-width: 0;
         }
+        .banner a { color: var(--surface-color); }
+        .secondary-text-color { color: var(--secondary-text-color); font-size: 0.9rem; }
+        .floating-navbar:not(.expanded) .navbar-content { visibility: hidden; }
     </style>
 <script>(function(){try{var p=JSON.parse(localStorage.getItem('hub.prefs.v1')||'{}');var v=p&&p.look;if(v==='paper'||v==='charcoal'||v==='black')document.documentElement.setAttribute('data-look',v)}catch(e){}})()</script>
 </head>
@@ -543,15 +546,15 @@
 
             <div class="card interactive-centerpiece">
                 <h2>Component Selector & Cost Estimator</h2>
-                <p>Dynamically estimate the cost of your Wishlist Machine by adjusting component quantities. Prices are estimates in CAD based on Ottawa sourcing.</p>
+                <p>Set the quantities for your final build; both totals follow them. The MVP total counts at most 1 CPU, cooler, mount and GPU, 4 RAM modules, no NVLink bridge and only the 3 fans included with the case. Prices are estimates in CAD based on Ottawa sourcing.</p>
 
                 <div class="component-category">
                     <details open>
-                        <summary aria-expanded="true" aria-controls="cpu-details">CPUs & Motherboard</summary>
+                        <summary>CPUs & Motherboard</summary>
                         <div class="component-content" id="cpu-details">
                             <div class="component-option">
                                 <label for="cpu-qty">Intel Xeon E5-2680 v4 (Used):</label>
-                                <input type="number" id="cpu-qty" value="1" min="0" max="2" data-mvp-cost="60" data-final-cost="60" data-final-qty="2" aria-label="Quantity of Intel Xeon E5-2680 v4 CPUs">
+                                <input type="number" id="cpu-qty" value="2" min="0" max="2" data-mvp-cost="60" data-final-cost="60" aria-label="Quantity of Intel Xeon E5-2680 v4 CPUs">
                             </div>
                             <div class="component-option">
                                 <label for="motherboard-qty">Supermicro X10DRi (Used):</label>
@@ -559,11 +562,11 @@
                             </div>
                             <div class="component-option">
                                 <label for="cpu-cooler-qty">Noctua NH-U12S redux (New):</label>
-                                <input type="number" id="cpu-cooler-qty" value="1" min="0" max="2" data-mvp-cost="115" data-final-cost="115" data-final-qty="2" aria-label="Quantity of Noctua NH-U12S redux CPU Coolers">
+                                <input type="number" id="cpu-cooler-qty" value="2" min="0" max="2" data-mvp-cost="115" data-final-cost="115" aria-label="Quantity of Noctua NH-U12S redux CPU Coolers">
                             </div>
                             <div class="component-option">
                                 <label for="cooler-mount-qty">Noctua NM-i2011 Kit (New):</label>
-                                <input type="number" id="cooler-mount-qty" value="1" min="0" max="2" data-mvp-cost="15" data-final-cost="15" data-final-qty="2" aria-label="Quantity of Noctua NM-i2011 Mounting Kits">
+                                <input type="number" id="cooler-mount-qty" value="2" min="0" max="2" data-mvp-cost="15" data-final-cost="15" aria-label="Quantity of Noctua NM-i2011 Mounting Kits">
                             </div>
                         </div>
                     </details>
@@ -571,11 +574,11 @@
 
                 <div class="component-category">
                     <details>
-                        <summary aria-expanded="false" aria-controls="memory-details">System Memory</summary>
+                        <summary>System Memory</summary>
                         <div class="component-content" id="memory-details">
                             <div class="component-option">
                                 <label for="ram-qty">32GB DDR4 ECC RDIMM (Used):</label>
-                                <input type="number" id="ram-qty" value="4" min="0" max="8" step="4" data-mvp-cost="60" data-final-cost="60" data-final-qty="8" aria-label="Quantity of 32GB DDR4 ECC RDIMM modules">
+                                <input type="number" id="ram-qty" value="8" min="0" max="8" step="4" data-mvp-cost="60" data-final-cost="60" aria-label="Quantity of 32GB DDR4 ECC RDIMM modules">
                                 <span class="secondary-text-color">(4 modules = 128GB, 8 modules = 256GB)</span>
                             </div>
                         </div>
@@ -584,15 +587,15 @@
 
                 <div class="component-category">
                     <details>
-                        <summary aria-expanded="false" aria-controls="gpu-details">Graphics & Interconnect</summary>
+                        <summary>Graphics & Interconnect</summary>
                         <div class="component-content" id="gpu-details">
                             <div class="component-option">
                                 <label for="gpu-qty">NVIDIA GeForce RTX 3090 Blower (Used):</label>
-                                <input type="number" id="gpu-qty" value="1" min="0" max="2" data-mvp-cost="900" data-final-cost="900" data-final-qty="2" aria-label="Quantity of NVIDIA GeForce RTX 3090 GPUs">
+                                <input type="number" id="gpu-qty" value="2" min="0" max="2" data-mvp-cost="900" data-final-cost="900" aria-label="Quantity of NVIDIA GeForce RTX 3090 GPUs">
                             </div>
                             <div class="component-option">
                                 <label for="nvlink-qty">RTX 3090 NVLink Bridge (Used/New):</label>
-                                <input type="number" id="nvlink-qty" value="0" min="0" max="1" data-mvp-cost="0" data-final-cost="100" data-final-qty="1" aria-label="Quantity of NVLink Bridges">
+                                <input type="number" id="nvlink-qty" value="1" min="0" max="1" data-mvp-cost="0" data-final-cost="100" aria-label="Quantity of NVLink Bridges">
                                 <span class="secondary-text-color">(Required for 2 GPUs)</span>
                             </div>
                         </div>
@@ -601,7 +604,7 @@
 
                 <div class="component-category">
                     <details>
-                        <summary aria-expanded="false" aria-controls="storage-details">Storage Hierarchy</summary>
+                        <summary>Storage Hierarchy</summary>
                         <div class="component-content" id="storage-details">
                             <div class="component-option">
                                 <label for="os-ssd-qty">Samsung 980 Pro 1TB NVMe SSD (New) - OS RAID 1:</label>
@@ -625,7 +628,7 @@
 
                 <div class="component-category">
                     <details>
-                        <summary aria-expanded="false" aria-controls="chassis-details">Chassis & Power</summary>
+                        <summary>Chassis & Power</summary>
                         <div class="component-content" id="chassis-details">
                             <div class="component-option">
                                 <label for="chassis-qty">Fractal Design Define 7 XL (New):</label>
@@ -633,7 +636,7 @@
                             </div>
                             <div class="component-option">
                                 <label for="case-fan-qty">Fractal Design Dynamic X2 GP-14 PWM (New):</label>
-                                <input type="number" id="case-fan-qty" value="3" min="0" max="9" data-mvp-cost="20" data-final-cost="20" data-final-qty="6" aria-label="Quantity of Fractal Design Dynamic X2 GP-14 PWM Case Fans">
+                                <input type="number" id="case-fan-qty" value="6" min="0" max="9" data-mvp-cost="20" data-final-cost="20" aria-label="Quantity of Fractal Design Dynamic X2 GP-14 PWM Case Fans">
                                 <span class="secondary-text-color">(3 included with case, 3 more recommended for optimal airflow)</span>
                             </div>
                             <div class="component-option">
@@ -714,10 +717,10 @@
                     <canvas id="performanceValueChart" role="img" aria-label="Bar chart comparing multi-core performance value of Xeon E5 v4 vs. modern consumer CPUs."></canvas>
                     <div class="sr-only">
                         <h3>Multi-Core Performance Value Comparison</h3>
-                        <p>This bar chart compares the estimated multi-core performance value (performance points per dollar) for a dual Intel Xeon E5-2680 v4 setup versus a modern high-end consumer CPU like the AMD Ryzen 9 7950X.</p>
+                        <p>This bar chart compares illustrative multi-core performance value figures (performance points per dollar) for a dual Intel Xeon E5-2680 v4 setup versus a modern high-end consumer CPU like the AMD Ryzen 9 7950X.</p>
                         <ul>
-                            <li>Dual Xeon E5-2680 v4: Approximately 200 performance points per dollar.</li>
-                            <li>AMD Ryzen 9 7950X: Approximately 50 performance points per dollar.</li>
+                            <li>Dual Xeon E5-2680 v4: 200 performance points per dollar (illustrative).</li>
+                            <li>AMD Ryzen 9 7950X: 50 performance points per dollar (illustrative).</li>
                         </ul>
                         <p>This illustrates the significant cost-effectiveness of the older enterprise platform for multi-threaded workloads.</p>
                     </div>
@@ -744,19 +747,19 @@
 
                 <h3>MythBusting</h3>
                 <details>
-                    <summary aria-expanded="false" aria-controls="myth1-content">Myth: Older enterprise hardware is always slow/outdated.</summary>
+                    <summary>Myth: Older enterprise hardware is always slow/outdated.</summary>
                     <div class="content" id="myth1-content">
                         <p><strong>Debunked:</strong> While individual core clock speeds of older enterprise CPUs like the Xeon E5 v4 might be lower than modern consumer CPUs, their high core and thread counts (e.g., 28 cores/56 threads for dual E5-2680 v4) offer immense aggregate throughput. For workloads like AI/ML training, virtualization, and media serving, which are throughput-bound and benefit from parallel processing, these older platforms provide exceptional performance-per-dollar that is unattainable with new consumer-grade components at a similar price point. The focus is on total system capability rather than single-core speed.</p>
                     </div>
                 </details>
                 <details>
-                    <summary aria-expanded="false" aria-controls="myth2-content">Myth: PCIe 3.0 bottlenecks modern GPUs like the RTX 3090.</summary>
+                    <summary>Myth: PCIe 3.0 bottlenecks modern GPUs like the RTX 3090.</summary>
                     <div class="content" id="myth2-content">
                         <p><strong>Debunked:</strong> While the RTX 3090 is a PCIe 4.0 device, running it in a PCIe 3.0 x16 slot has a negligible real-world performance impact for the vast majority of gaming and compute workloads. Benchmarks consistently show only a few percentage points difference, if any, between PCIe 3.0 x16 and PCIe 4.0 x16 for even high-end GPUs. The Broadwell-EP platform's generous 80 PCIe 3.0 lanes (40 per CPU) ensure that dual GPUs can operate at their full x16 bandwidth without compromise, making it a non-bottleneck for this multi-role system.</p>
                     </div>
                 </details>
                 <details>
-                    <summary aria-expanded="false" aria-controls="myth3-content">Myth: High-end workstations require liquid cooling for thermal management.</summary>
+                    <summary>Myth: High-end workstations require liquid cooling for thermal management.</summary>
                     <div class="content" id="myth3-content">
                         <p><strong>Debunked:</strong> This build demonstrates that a high-performance, quiet system can be achieved with an all-air-cooling strategy. The key is careful component selection: choosing CPUs with a manageable Thermal Design Power (TDP) like the 120W E5-2680 v4, utilizing high-performance, quiet air coolers (Noctua NH-U12S redux), and opting for blower-style GPUs (RTX 3090) that exhaust heat directly out of the case. Furthermore, software optimizations like GPU undervolting significantly reduce heat output, allowing fans to run slower and quieter, enabling acoustic discretion.</p>
                     </div>
@@ -764,19 +767,19 @@
 
                 <h3>Advanced FAQs</h3>
                 <details>
-                    <summary aria-expanded="false" aria-controls="faq1-content">FAQ: Why is ECC RDIMM memory a non-negotiable requirement for this build?</summary>
+                    <summary>FAQ: Why is ECC RDIMM memory a non-negotiable requirement for this build?</summary>
                     <div class="content" id="faq1-content">
                         <p><strong>Answer:</strong> ECC (Error-Correcting Code) memory is crucial for a system with server-level responsibilities such as virtualization, ZFS file serving, and hosting large AI models. It actively detects and corrects single-bit memory errors that could otherwise lead to system crashes, data corruption, or silent data loss. For critical workloads where data integrity is paramount, ECC RDIMM (Registered DIMM) provides the stability and reliability that standard consumer RAM cannot.</p>
                     </div>
                 </details>
                 <details>
-                    <summary aria-expanded="false" aria-controls="faq2-content">FAQ: What is "IT Mode" for a Host Bus Adapter (HBA) and why is it critical for ZFS?</summary>
+                    <summary>FAQ: What is "IT Mode" for a Host Bus Adapter (HBA) and why is it critical for ZFS?</summary>
                     <div class="content" id="faq2-content">
                         <p><strong>Answer:</strong> "IT Mode" (Initiator Target Mode) firmware on a Host Bus Adapter (HBA) transforms the card into a simple pass-through device, presenting the raw physical storage drives directly to the operating system without any onboard RAID logic. This is critical for ZFS (Zettabyte File System) because ZFS manages its own software RAID, data integrity, and error correction at the file system level. If an HBA were in "IR Mode" (Integrated RAID) or had its own RAID controller, it would interfere with ZFS's ability to directly control and monitor the health of individual drives, undermining ZFS's core features like checksumming and self-healing. An IT Mode HBA ensures ZFS has full, unmanaged access to the drives.</p>
                     </div>
                 </details>
                 <details>
-                    <summary aria-expanded="false" aria-controls="faq3-content">FAQ: How does GPU undervolting contribute to the system's goals?</summary>
+                    <summary>FAQ: How does GPU undervolting contribute to the system's goals?</summary>
                     <div class="content" id="faq3-content">
                         <p><strong>Answer:</strong> GPU undervolting is a software-level optimization that involves reducing the voltage supplied to the GPU core while maintaining or slightly adjusting its clock speed. This technique directly addresses the goals of acoustic discretion and power efficiency. By reducing the voltage, the GPU consumes significantly less power, which in turn lowers its heat output. Less heat means the cooling fans can run at slower, quieter speeds, contributing to the "acoustically discrete" mandate. In many cases, performance can even be maintained or slightly improved, as the GPU can sustain its target boost clock more consistently within a lower thermal and power envelope, preventing thermal throttling.</p>
                     </div>
@@ -901,11 +904,12 @@
                 let finalTotal = 0;
 
                 inputs.forEach(input => {
-                    const qty = parseInt(input.value) || 0;
+                    const lo = parseInt(input.min) || 0, hi = input.max === '' ? Infinity : parseInt(input.max);
+                    const qty = Math.min(hi, Math.max(lo, parseInt(input.value) || 0));
                     const mvpCostPerUnit = parseFloat(input.dataset.mvpCost) || 0;
                     const finalCostPerUnit = parseFloat(input.dataset.finalCost) || 0;
-                    // Final build quantities are fixed by data-final-qty; other parts use the entered quantity
-                    const finalQty = input.dataset.finalQty !== undefined ? parseInt(input.dataset.finalQty) : qty;
+                    // The entered quantity is the final build; the MVP caps some parts below
+                    const finalQty = qty;
 
                     // Specific logic for RAM to represent modules vs total capacity
                     if (input.id === 'ram-qty') {
