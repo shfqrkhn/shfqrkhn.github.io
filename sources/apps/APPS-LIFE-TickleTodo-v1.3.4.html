@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-XiftkKM8uGe5ONUheHDobciE9lpkWoQZSalZo5TI6e0='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-mnttNoO1DHO8G5av0cZ13ESlwX9rdVu75gqCeKvBFuQ='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.4">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -1668,7 +1668,7 @@ const DoneDepot = (() => {
       this.el = elm;
       this._isShown = false;
       elm.addEventListener('close', () => { this._isShown = false; elm.dispatchEvent(new Event('dd:hidden')); });
-      elm.addEventListener('click', e => { if (e.target === elm) elm.close(); });
+      let downOnBackdrop = false; elm.addEventListener('pointerdown', e => { downOnBackdrop = e.target === elm; }); elm.addEventListener('click', e => { if (e.target === elm && downOnBackdrop) elm.close(); downOnBackdrop = false; });
       elm.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => elm.close()));
     }
     show() {
