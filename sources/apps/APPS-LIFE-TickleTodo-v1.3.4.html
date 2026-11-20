@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-yhrhIdLKrIApYCGrGLhIMmal2GdiAOtSG/pTsPseU/g='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-XiftkKM8uGe5ONUheHDobciE9lpkWoQZSalZo5TI6e0='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.4">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -2121,7 +2121,12 @@ const DoneDepot = (() => {
       timer: null,
       show(opts) {
         const bar = UIManager.dom.footbar;
-        const type = opts.type || 'info';
+        let type = opts.type || 'info';
+        /* a failed save stays visible: later messages carry the warning */
+        if (DataManager.saveFailed && type !== 'danger') {
+          opts = Object.assign({}, opts, { message: opts.message + ' Not saved: browser storage full or blocked. Export JSON now.', duration: 0 });
+          type = 'danger';
+        }
         clearTimeout(this.timer);
         bar.textContent = '';
         bar.className = 'footbar' + (type === 'danger' ? ' danger' : '');
@@ -2440,7 +2445,7 @@ const DoneDepot = (() => {
           UIManager.announceToSR('Undone. ' + message);
         }
       });
-      UIManager.announceToSR(view.announce || message);
+      UIManager.announceToSR((view.announce || message) + (DataManager.saveFailed ? ' Alert: not saved.' : ''));
       return result;
     },
     confirmReplace(text, fn) {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-TnT+/p8RtJ59IiDTXvTWi/KaiII4WBBwhfO5imqEGUI='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-DTKHTkvqMrhm77FtgjbCBd0O2+6tmN9rt59X3EWIM/M='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>ProjectPopQuiz Exams</title>
     <meta name="app-version" content="1.7.4">
     <script>
@@ -1439,8 +1439,7 @@ class QuizManager {
     _logEvent(ev) {
         if (!this._saving()) return false;
         if (!PMQ_LOG.add(ev)) return false;
-        PMQ_LOG.persist();
-        return true;
+        return PMQ_LOG.persist();
     }
 
     _logAttempt(question, isCorrect) {
@@ -1469,7 +1468,7 @@ class QuizManager {
         const q = this.questions[idx], d = q && this._domMap.get(q);
         if (!d || this._rated.has(idx)) return;
         const saved = this._logEvent({ q: pmqQid(d, q.questionText), d, t: nowMs(), r: grade });
-        this._rated.set(idx, { grade, saved });
+        this._rated.set(idx, { grade, saved, off: !this._saving() });
         this._showQuestion();
     }
 
@@ -1479,7 +1478,7 @@ class QuizManager {
         if (done) {
             const p = document.createElement('p');
             p.className = 'rated';
-            p.textContent = 'Rated ' + names[done.grade - 1] + (done.saved ? '. Saved to the review log.' : '. Not saved: Save progress was off.');
+            p.textContent = 'Rated ' + names[done.grade - 1] + (done.saved ? '. Saved to the review log.' : done.off ? '. Not saved: Save progress was off.' : '. Not saved: the log is full or browser storage is blocked.');
             box.appendChild(p);
             return true;
         }
@@ -1552,8 +1551,7 @@ class QuizManager {
         const bad = data.events.findIndex(e => unsafe(e) || !PMQ_LOG.valid(e));
         if (bad !== -1) { fail(`Entry ${bad + 1} is not valid.`); return; }
         const res = PMQ_LOG.merge(data.events);
-        PMQ_LOG.persist();
-        st.textContent = `Imported ${res.added}; ${res.dup} already present.`;
+        st.textContent = PMQ_LOG.persist() ? `Imported ${res.added}; ${res.dup} already present.` : `Imported ${res.added} for this tab only: browser storage is full or blocked, so nothing was saved.`;
         this._refreshStudyPanel();
     }
 
