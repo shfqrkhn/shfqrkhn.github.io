@@ -2,13 +2,13 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" data-spoilers="hidden" style="--hue:178">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-HVdwuEt6rtwF7edbJMn6JQMapKU5X87x2oTKEO0SSA8='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-w+HvVWm53m2ChWxx1XkWJ/KwIPnlYAAdipeA7TDySU4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F6F1E7">
-<meta name="app-version" content="1.1.4">
-<meta name="description" content="BoonBuilder Hades Guide: field guide to the Adamant Rail build with the Aspect of Eris in Hades: build order, resource priorities, boons table. Unofficial, offline, one file.">
-<title>BoonBuilder Hades Guide | Hades Adamant Rail build guide</title>
-<!-- Single-file build 1.1.4 (offline, no network on load). Interface overhaul of 1.0.0-single; 1.1.3 added content block, schema key and update help; 1.1.4 derives repeated facts from the content block. Fonts embedded: see Licences. -->
+<meta name="app-version" content="1.2.0">
+<meta name="description" content="WalkthroughWizard Game Guides: video game guides and checklists. Includes BoonBuilder Hades Guide: field guide to the Adamant Rail build with the Aspect of Eris in Hades: build order, resource priorities, boons table. Unofficial, offline, one file.">
+<title>WalkthroughWizard Game Guides: Game guides and checklists</title>
+<!-- Single-file build 1.2.0 (offline, no network on load). Interface overhaul of 1.0.0-single; 1.1.3 added content block, schema key and update help; 1.1.4 derives repeated facts from the content block; 1.2.0 adds the guide index and wraps each guide in its own section. Fonts embedded: see Licences. -->
 <script>(function(){var K="hades-eris-protocol.look",r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null,ok={auto:1,paper:1,charcoal:1,black:1};function rd(k,h){try{var v=localStorage.getItem(k);if(h){v=JSON.parse(v);v=v&&v.look}return ok[v]===1?v:null}catch(e){return null}}function get(){return rd("hub.prefs.v1",1)||rd(K)||"auto"}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-look",l);r.setAttribute("data-theme",t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t])}function set(l){if(ok[l]!==1)return;try{localStorage.setItem(K,l)}catch(e){}try{var p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"{}");if(!p||typeof p!=="object"||Array.isArray(p))p={};p.schemaVersion=1;p.look=l;localStorage.setItem("hub.prefs.v1",JSON.stringify(p))}catch(e){}apply(l)}apply(get());try{r.setAttribute("data-spoilers",localStorage.getItem("hades-eris-protocol.spoilers")==="shown"?"shown":"hidden")}catch(e){r.setAttribute("data-spoilers","hidden")}if(mq&&mq.addEventListener)mq.addEventListener("change",function(){get()==="auto"&&apply("auto")});window.omnLook={get:get,set:set}})();function wire(){var s=document.getElementById("look");if(!s)return;s.value=omnLook.get();s.addEventListener("change",function(){omnLook.set(s.value)})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",wire):wire();</script>
 <style>
 /* OMNEVUM KIT:BEGIN */
@@ -88,9 +88,9 @@ input[type="number"]{width:100%}
 .rail{margin-bottom:var(--s6)}
 main{min-width:0}
 .masthead{margin-bottom:var(--s7)}
-h1{font-weight:600;font-size:min(var(--t-display),14vw);line-height:.98;letter-spacing:-.025em;margin:0 0 var(--s5);text-wrap:balance}
-h1 .a{display:block}
-h1 .b{display:block;font-weight:400;font-size:.5em;line-height:1.1;letter-spacing:-.01em;color:var(--muted);margin-top:var(--s3)}
+h1,.mh{font-weight:600;font-size:min(var(--t-display),14vw);line-height:.98;letter-spacing:-.025em;margin:0 0 var(--s5);text-wrap:balance}
+h1 .a,.mh .a{display:block}
+h1 .b,.mh .b{display:block;font-weight:400;font-size:.5em;line-height:1.1;letter-spacing:-.01em;color:var(--muted);margin-top:var(--s3)}
 .deck{font-size:var(--t-deck);line-height:1.5;max-width:var(--measure);margin:0 0 var(--s5);text-wrap:pretty}
 .plate{display:grid;gap:var(--s3) var(--s6);grid-template-columns:repeat(auto-fit,minmax(min(11rem,100%),1fr));margin:0 0 var(--s5);padding:var(--s4) 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
 .plate div{min-width:0}
@@ -265,8 +265,8 @@ html[data-spoilers="hidden"] .sp *{color:transparent}
   .omn-bar,.rail,.tools,#progress,.actions,.skip,.btn,.route-intro,.foot .links a[href^="#"],.sp-note,#help,.look{display:none !important}
   .shell{display:block;padding:0;max-width:none}
   .masthead{margin-bottom:.6rem}
-  h1{font-size:var(--t-h1p);margin:0 0 .3rem}
-  h1 .b{font-size:.55em;margin-top:.2rem}
+  h1,.mh{font-size:var(--t-h1p);margin:0 0 .3rem}
+  h1 .b,.mh .b{font-size:.55em;margin-top:.2rem}
   .deck{font-size:var(--t-deckp);margin:0 0 .4rem;max-width:none}
   .plate{margin:0 0 .4rem;padding:.3rem 0;gap:.2rem 1.2rem}
   .part{margin:0 0 .7rem;break-inside:auto}
@@ -320,20 +320,40 @@ html[data-spoilers="hidden"] .sp *{color:transparent}
 @media (max-width:380px){.omn-bar{padding-inline:8px;gap:4px}.omn-bar .omn-name{font-size:.95rem}}
 @media print{:root[data-look]{--bg:#fff;--fg:#000;--mut:#333;--card:#fff;--line:#999;--acc:#000;--on-acc:#fff}}
 @media(forced-colors:active){.btn,.card{border:1px solid ButtonText}.acquisition-item label::before{border-color:ButtonText;background:Canvas}.acquisition-item input:checked + label::before{background:Highlight;border-color:Highlight}.acquisition-item input:checked + label::after{border-color:HighlightText}}
+.gw-index{max-width:68ch;margin:0 auto;padding:var(--s6) var(--s4) var(--s7)}
+.gw-index h1{margin:0;font-size:clamp(1.6rem,6vw,2.2rem);letter-spacing:-.02em;line-height:1.2}
+.gw-index .gw-tag{color:var(--mut);margin:var(--s3) 0 var(--s5)}
+.gw-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
+.gw-card{display:block;min-height:44px;padding:var(--s4);background:var(--card);border:1px solid var(--line);border-radius:var(--r);color:var(--fg);text-decoration:none;box-shadow:var(--shadow)}
+.gw-card:hover{border-color:var(--acc)}.gw-card:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.gw-card strong{display:block;font-size:1.15rem;line-height:1.3}
+.gw-card span{display:block;color:var(--mut);margin-top:var(--s1)}
+.gw-all{max-width:76rem;margin:0 auto;padding:var(--s3) var(--s4) 0}
+html[data-view=index] #progress,html[data-view=index] .omn-bar a[href="#help"],html[data-view=index] .omn-bar .js-open-tools{display:none}
+@media print{.gw-index,.gw-all{display:none!important}}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-home" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol><symbol id="i-help" viewBox="0 0 256 256"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol><symbol id="i-theme" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,16.37a86.4,86.4,0,0,1,16,3V212.67a86.4,86.4,0,0,1-16,3Zm32,9.26a87.81,87.81,0,0,1,16,10.54V195.83a87.81,87.81,0,0,1-16,10.54ZM40,128a88.11,88.11,0,0,1,80-87.63V215.63A88.11,88.11,0,0,1,40,128Zm160,50.54V77.46a87.82,87.82,0,0,1,0,101.08Z"/></symbol><symbol id="i-tool" viewBox="0 0 256 256"><path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol><symbol id="i-eye" viewBox="0 0 256 256"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></symbol><symbol id="i-eyeoff" viewBox="0 0 256 256"><path d="M53.92,34.62A8,8,0,1,0,42.08,45.38L61.32,66.55C25,88.84,9.38,123.2,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208a127.11,127.11,0,0,0,52.07-10.83l22,24.21a8,8,0,1,0,11.84-10.76Zm47.33,75.84,41.67,45.85a32,32,0,0,1-41.67-45.85ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.16,133.16,0,0,1,25,128c4.69-8.79,19.66-33.39,47.35-49.38l18,19.75a48,48,0,0,0,63.66,70l14.73,16.2A112,112,0,0,1,128,192Zm6-95.43a8,8,0,0,1,3-15.72,48.16,48.16,0,0,1,38.77,42.64,8,8,0,0,1-7.22,8.71,6.39,6.39,0,0,1-.75,0,8,8,0,0,1-8-7.26A32.09,32.09,0,0,0,134,96.57Zm113.28,34.69c-.42.94-10.55,23.37-33.36,43.8a8,8,0,1,1-10.67-11.92A132.77,132.77,0,0,0,231.05,128a133.15,133.15,0,0,0-23.12-30.77C185.67,75.19,158.78,64,128,64a118.37,118.37,0,0,0-19.36,1.57A8,8,0,1,1,106,49.79,134,134,0,0,1,128,48c34.88,0,66.57,13.26,91.66,38.35,18.83,18.83,27.3,37.62,27.65,38.41A8,8,0,0,1,247.31,131.26Z"/></symbol><symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol><symbol id="i-undo" viewBox="0 0 256 256"><path d="M232,144a64.07,64.07,0,0,1-64,64H80a8,8,0,0,1,0-16h88a48,48,0,0,0,0-96H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48A8,8,0,0,1,85.66,45.66L51.31,80H168A64.07,64.07,0,0,1,232,144Z"/></symbol><symbol id="i-search" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></symbol><symbol id="i-book" viewBox="0 0 256 256"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></symbol><symbol id="i-up2" viewBox="0 0 256 256"><path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"/></symbol><symbol id="i-reset" viewBox="0 0 256 256"><path d="M224,128a96,96,0,0,1-94.71,96H128A95.38,95.38,0,0,1,62.1,197.8a8,8,0,0,1,11-11.63A80,80,0,1,0,71.43,71.39a3.07,3.07,0,0,1-.26.25L44.59,96H72a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V56a8,8,0,0,1,16,0V85.8L60.25,60A96,96,0,0,1,224,128Z"/></symbol><symbol id="i-list" viewBox="0 0 256 256"><path d="M80,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H88A8,8,0,0,1,80,64Zm136,56H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm0,64H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM44,52A12,12,0,1,0,56,64,12,12,0,0,0,44,52Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,116Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,180Z"/></symbol></defs></svg>
-<a class="skip" href="#main">Skip</a>
+<a class="skip" id="skip" href="#index-list">Skip</a>
 <div id="progress" aria-hidden="true"><div id="progress-bar"></div></div>
 <header class="omn-bar">
   <a class="ib" id="back-to-hub" href="../" aria-label="Omnevum home"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg></a>
   <svg class="omn-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M92,104a28,28,0,1,0,28,28A28,28,0,0,0,92,104Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,92,144Zm72-40a28,28,0,1,0,28,28A28,28,0,0,0,164,104Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,164,144ZM128,16C70.65,16,24,60.86,24,116c0,34.1,18.27,66,48,84.28V216a16,16,0,0,0,16,16h80a16,16,0,0,0,16-16V200.28C213.73,182,232,150.1,232,116,232,60.86,185.35,16,128,16Zm44.12,172.69a8,8,0,0,0-4.12,7V216H152V192a8,8,0,0,0-16,0v24H120V192a8,8,0,0,0-16,0v24H88V195.69a8,8,0,0,0-4.12-7C56.81,173.69,40,145.84,40,116c0-46.32,39.48-84,88-84s88,37.68,88,84C216,145.83,199.19,173.69,172.12,188.69Z"/></svg>
-  <p class="omn-name">Tartarus<wbr>Tactics</p>
+  <p class="omn-name">Walkthrough<wbr>Wizard</p>
   <a class="ib" href="#help" aria-label="Help"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#i-help"/></svg></a>
   <button class="ib js-open-tools" type="button" aria-label="Tools"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#i-tool"/></svg></button>
   <label class="ib" title="Look"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#i-theme"/></svg><select id="look" aria-label="Look"><option value="auto">Auto</option><option value="paper">Paper</option><option value="charcoal">Charcoal</option><option value="black">Black</option></select></label>
 </header>
+<main class="gw-index" id="index-view" aria-labelledby="index-title" tabindex="-1">
+  <h1 id="index-title">WalkthroughWizard</h1>
+  <p class="gw-tag">Game guides and checklists</p>
+  <ul class="gw-list" id="index-list" aria-label="Guides">
+    <li><a class="gw-card" href="#boonbuilder-hades"><strong>BoonBuilder Hades Guide</strong><span>Hades: Adamant Rail build with the Aspect of Eris, with a build checklist and field tools.</span></a></li>
+  </ul>
+</main>
+<section data-guide="boonbuilder-hades" data-title="BoonBuilder Hades Guide" hidden>
+<p class="gw-all"><a href="#index">All guides</a></p>
 <div class="shell">
   <div class="rail">
     <div class="rail-actions">
@@ -347,7 +367,7 @@ html[data-spoilers="hidden"] .sp *{color:transparent}
   </div>
   <main id="main" tabindex="-1">
     <header class="masthead">
-      <h1><span class="a">Aspect of Eris:</span> <span class="b">Beat the Underworld</span></h1>
+      <h2 class="mh"><span class="a">Aspect of Eris:</span> <span class="b">Beat the Underworld</span></h2>
       <p class="deck">Hades build: Adamant Rail, Aspect of Eris. Low luck, high Heat. Build boons, beat the boss.</p>
       <dl class="plate"><div><dt>Weapon</dt><dd>Adamant Rail</dd></div><div><dt>Aspect</dt><dd>Aspect of Eris</dd></div><div><dt>Core gods</dt><dd>Zeus, Poseidon, Aphrodite</dd></div></dl>
       <div class="actions">
@@ -902,7 +922,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
   </main>
 </div>
 <footer class="foot">
-  <p>v<span class="js-av">1.1.4</span> / <span class="js-cv">1</span>, <span class="js-cd">2026-10-31</span></p>
+  <p>v<span class="js-av">1.2.0</span> / <span class="js-cv">1</span>, <span class="js-cd">2026-10-31</span></p>
   <p>Data stays on this device.</p>
   <div class="links"><a href="#help">Help</a><a href="#licences">Licences</a><a href="#main" aria-label="Top"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-up2"/></svg>Top</a><a href="https://shfqrkhn.github.io/">Source</a></div>
 </footer>
@@ -949,6 +969,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
     <div id="resource-tip-output" class="tool-output" role="status" aria-live="polite"></div>
   </div>
 </aside>
+</section>
 
 <script type="application/json" id="hades-content">
 {
@@ -1022,7 +1043,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
     var SPOILER_RE = /(Theseus and Asterius|Bone Hydra|Theseus|Asterius|Megaera|Persephone)/;
     var KV = 'hades-eris-protocol.schema';
     var SCHEMA = 1;
-    var APP_VERSION = '1.1.4';
+    var APP_VERSION = '1.2.0';
     var CONTENT = JSON.parse(document.getElementById('hades-content').textContent);
     var schemaLocked = false;
 
@@ -1480,6 +1501,29 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             opened.forEach(function (d) { d.open = false; });
             opened = [];
         });
+
+        // --- Guide index: each guide is a section[data-guide]; the hash picks one (#boonbuilder-hades) ---
+        var guides = Array.prototype.slice.call(document.querySelectorAll('[data-guide]'));
+        var activeGuide = null;
+        var APP_TITLE = 'WalkthroughWizard Game Guides: Game guides and checklists';
+        function hashId() { var h = window.location.hash.replace(/^#/, ''); try { h = decodeURIComponent(h); } catch (e) { /* keep raw */ } return h; }
+        function showView(first) {
+            var id = hashId(), g = null, el = id ? document.getElementById(id) : null;
+            guides.forEach(function (x) { if (x.getAttribute('data-guide') === id) { g = x; } });
+            if (!g && el && el.closest) { g = el.closest('[data-guide]'); }
+            if (!g && !first && id !== '' && id !== 'index') { g = activeGuide; }
+            activeGuide = g;
+            guides.forEach(function (x) { x.hidden = (x !== g); });
+            document.getElementById('index-view').hidden = !!g;
+            root.setAttribute('data-view', g ? 'guide' : 'index');
+            document.getElementById('skip').setAttribute('href', g ? '#main' : '#index-list');
+            document.title = g ? 'WalkthroughWizard: ' + g.getAttribute('data-title') : APP_TITLE;
+            if (g && el && g !== el && g.contains(el)) { try { el.scrollIntoView(); } catch (e) { /* ignore */ } }
+            else if (!first || !el) { window.scrollTo(0, 0); }
+            onScroll();
+        }
+        window.addEventListener('hashchange', function () { showView(false); });
+        showView(true);
 
         // --- In-page links move focus to their target (skip link, contents, back to top) ---
         function focusTarget(hash) {

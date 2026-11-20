@@ -2,20 +2,22 @@
 <html lang="en" data-app data-look="auto" data-theme="auto" style="--hue:40">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-X7apsIodKrAk0VmUNsao4D1b4QIkaHzH7/NDEl8PpMc='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- Single-file build 1.3.3-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-+kn6r5MwaQuZ0famAkkk09g1yWiQWVLC368WlX93IXA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- Single-file build 1.4.0-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="An Instant Pot egg salad recipe with ingredients, a method and a timer.">
-<meta name="application-version" content="1.3.3">
-<title>Eggspress Egg Salad: Instant Pot recipe</title>
+<meta name="description" content="Recipes with timers and scaling: pick a recipe, scale the batch, tick ingredients and run step timers.">
+<meta name="application-version" content="1.4.0">
+<title>RecipeRolodex Recipes: Recipes with timers and scaling</title>
 <script>
 (function(){var K="eggsalad.look",r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null,ok={auto:1,paper:1,charcoal:1,black:1};function rd(k,h){try{var v=localStorage.getItem(k);if(h){v=JSON.parse(v);v=v&&v.look}return ok[v]===1?v:null}catch(e){return null}}function get(){return rd("hub.prefs.v1",1)||rd(K)||"auto"}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-look",l);r.setAttribute("data-theme",l);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t])}function set(l){if(ok[l]!==1)return;try{localStorage.setItem(K,l)}catch(e){}try{var p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"{}");if(!p||typeof p!=="object"||Array.isArray(p))p={};p.schemaVersion=1;p.look=l;localStorage.setItem("hub.prefs.v1",JSON.stringify(p))}catch(e){}apply(l)}apply(get());if(mq&&mq.addEventListener)mq.addEventListener("change",function(){get()==="auto"&&apply("auto")});window.omnLook={get:get,set:set}})();
 </script>
 <script type="application/json" id="recipe-content">
-{
+[{
+"id":"eggspress-egg-salad",
+"name":"Eggspress Egg Salad",
 "dataVersion":"1.1.0",
 "date":"2026-10-31",
-"source":"Recipe text as shipped in app version 1.3.3 (content as shipped in this version). The four Sources links open web searches; sources are search links, not citations.",
+"source":"Recipe text as shipped in app version 1.4.0 (content as shipped in this version). The four Sources links open web searches; sources are search links, not citations.",
 "covers":"Title, tagline, ingredients, method steps with timers, background, myths and FAQ, action plan. The search links stay in the page.",
 "title":"Instant Pot Egg Salad",
 "tagline":"Crack on: lunch at express speed.",
@@ -48,7 +50,7 @@
 "deep":{"heading":"Deep Dive Modules","items":[{"h":"The Instant Pot Advantage","p":"While traditional steaming methods yield good results, the Instant Pot gives the most consistent results and ease for cooking eggs. The controlled pressure environment ensures uniform cooking, leading to perfectly set whites and creamy yolks every time. Crucially, the rapid pressure change often makes the eggs incredibly easy to peel, saving significant time and frustration compared to stovetop methods. The \"5-5-5\" rule (5 minutes high pressure, 5 minutes natural release, 5 minutes ice bath) is a widely acclaimed technique for achieving ideal hard-cooked eggs for egg salad."},{"h":"Binder Brilliance: Why Full-Fat Reigns","p":"The binder is the soul of your egg salad. Full-fat mayonnaise is non-negotiable because it forms a stable emulsion, creating the desired thick, creamy mouthfeel. Low-fat alternatives, laden with water and starches, lead to watery, unstable salads prone to breaking down. Augmenting with a touch of {{ing:creme}} adds a sophisticated, cultured tang that lifts the flavor, cutting through richness with nuance."},{"h":"Flavor Foundations: Acidity, Alliums, and Crunch","p":"Beyond richness, balance is key. {{ing:mustard}} provides a sharp, complex acidity, while an additional splash of {{ing:lemon}} \"lifts\" the entire dish, preventing cloying heaviness. Scallions offer a mild, fresh onion bite without the harshness of raw bulb onions, and finely minced celery provides essential textural contrast. Remember to squeeze excess moisture from celery to maintain the salad's creamy integrity."}]},
 "faq":{"heading":"Myths and Advanced FAQ","groups":[{"h":"MythBusting","items":[{"q":"Myth: Egg Salad is Always Watery","a":"**Debunked:** Watery egg salad is a symptom of using low-fat binders or not properly preparing ingredients like celery. By using full-fat mayonnaise and squeezing excess moisture from vegetables, you ensure a stable, creamy emulsion that holds its texture."},{"q":"Myth: Boiling is Best for Eggs","a":"**Debunked:** While common, direct boiling can lead to rubbery whites and green-tinged, chalky yolks. Steaming (or using an Instant Pot) provides more consistent, gentle heat, resulting in tender eggs that are significantly easier to peel due to the rapid setting of the albumen."},{"q":"Myth: Low-Fat Mayo is Healthier and Fine","a":"**Debunked:** From a culinary science perspective, low-fat mayonnaise replaces essential fats with water, starches, and gums, creating a weak emulsion. This leads to a runny, unstable salad with an inferior texture and often an unpleasant aftertaste, compromising the overall quality of the dish."}]},{"h":"Advanced FAQ","items":[{"q":"Can I make this egg salad ahead of time?","a":"Yes, egg salad benefits from chilling for at least 30 minutes for flavors to meld. It can be made ahead and stored in an airtight container in the refrigerator. Check a food-safety authority for storage times. Note that the crunch from the celery may soften slightly over time."},{"q":"How should I store leftovers, and for how long?","a":"Store leftover egg salad in an airtight container in the refrigerator. Check a food-safety authority for storage times. It is not recommended to freeze egg salad, as the texture of the eggs and mayonnaise will change upon thawing, becoming watery and unappetizing."},{"q":"What are good substitutions if I don't like dill?","a":"If dill isn't to your taste, fresh parsley is an excellent neutral alternative that still provides freshness. Chives offer a delicate oniony-herbaceous note. You could also try a mix of parsley and chives for a balanced flavor."}]}]},
 "plan":{"heading":"Graduated Action Plan","groups":[{"h":"First batches","items":["Master the Instant Pot egg cooking technique for consistently perfect eggs.","Follow this recipe exactly to understand the foundational flavor balance.","Focus on the \"yolk-naise\" method for the creamiest texture."]},{"h":"Deepening Your Understanding","items":["Experiment with variations (e.g., adding capers or {{ing:paprika}}).","Pay attention to the textural contributions of each ingredient.","Refine your seasoning by tasting and adjusting before serving."]},{"h":"Mastering the Craft","items":["Try different bread types and moisture barrier techniques for sandwiches.","Consider making your own mayonnaise for an even richer flavor.","Develop your own unique variations while maintaining the core principles of balance and texture."]}]}
-}
+}]
 </script>
 <style>
 /* OMNEVUM KIT:BEGIN */
@@ -132,7 +134,7 @@ label{cursor:pointer}
 /* page: one centred column */
 .page{max-width:68ch;margin:0 auto;padding:0 var(--s4)}
 .head{padding:var(--s6) 0 var(--s4)}
-.head h1{font-size:var(--t-xl);letter-spacing:-.02em}
+.head h1,.head #app-title{font-size:var(--t-xl);letter-spacing:-.02em}
 .head .tag{font-family:var(--sans);font-size:var(--t-md);color:var(--muted);margin:var(--s4) 0 0}
 .lead{padding-bottom:var(--s4)}
 .lead h2{font-size:var(--t-md);margin-bottom:var(--s3)}
@@ -263,7 +265,7 @@ dialog::backdrop{background:var(--scrim)}
   .omn-bar,.skip,.toc,.card-tools,.timers,.done,.dock,.foot .acts,dialog,#wake,.confirm,.btn,#timer-free,#notes,#live{display:none!important}
   .page{max-width:none;padding:0}
   .head{padding:0 0 6pt}
-  .head h1{font-size:var(--pt-h1)}
+  .head h1,.head #app-title{font-size:var(--pt-h1)}
   .head .tag{font-size:var(--pt-tag);margin-top:4pt}
   .lead{padding-bottom:6pt}
   .lead h2{font-size:var(--pt-lead)}
@@ -306,18 +308,26 @@ dialog::backdrop{background:var(--scrim)}
 @media print{.omn-bar{display:none!important}}
 @media screen{input[type=checkbox]::before{border-color:var(--bd)}input[type=number],select,textarea{border-color:var(--bd)}.btn{border-color:var(--bd)}.btn.go{border-color:var(--accent)}.btn[aria-pressed="true"]{border-color:var(--accent)}}
 .btn{border-radius:22px}
+.rr-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
+.rr-card{display:block;min-height:44px;padding:var(--s4);background:var(--card);border:1px solid var(--line);border-radius:var(--r);color:var(--fg);text-decoration:none;box-shadow:var(--shadow)}
+.rr-card:hover{border-color:var(--acc)}.rr-card:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.rr-card strong{display:block;font-size:1.15rem;line-height:1.3}
+.rr-card .rr-tag,.rr-card .rr-meta{display:block;color:var(--mut);margin-top:var(--s1)}
+.rr-card .rr-meta{font-size:.9rem}
+.rr-back{margin:var(--s4) 0 0}
+@media print{#index-view,.rr-back{display:none!important}}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-home" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol><symbol id="i-theme" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,16.37a86.4,86.4,0,0,1,16,3V212.67a86.4,86.4,0,0,1-16,3Zm32,9.26a87.81,87.81,0,0,1,16,10.54V195.83a87.81,87.81,0,0,1-16,10.54ZM40,128a88.11,88.11,0,0,1,80-87.63V215.63A88.11,88.11,0,0,1,40,128Zm160,50.54V77.46a87.82,87.82,0,0,1,0,101.08Z"/></symbol><symbol id="i-help" viewBox="0 0 256 256"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol><symbol id="i-reset" viewBox="0 0 256 256"><path d="M224,128a96,96,0,0,1-94.71,96H128A95.38,95.38,0,0,1,62.1,197.8a8,8,0,0,1,11-11.63A80,80,0,1,0,71.43,71.39a3.07,3.07,0,0,1-.26.25L44.59,96H72a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V56a8,8,0,0,1,16,0V85.8L60.25,60A96,96,0,0,1,224,128Z"/></symbol><symbol id="i-screen" viewBox="0 0 256 256"><path d="M208,40H48A24,24,0,0,0,24,64V176a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm-48,48a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,224Z"/></symbol><symbol id="i-down" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></symbol><symbol id="i-up" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0ZM93.66,77.66,120,51.31V144a8,8,0,0,0,16,0V51.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,77.66Z"/></symbol><symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol><symbol id="i-play" viewBox="0 0 256 256"><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></symbol><symbol id="i-pause" viewBox="0 0 256 256"><path d="M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z"/></symbol><symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol><symbol id="i-minus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"/></symbol><symbol id="i-note" viewBox="0 0 256 256"><path d="M88,96a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,96Zm8,40h64a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16Zm32,16H96a8,8,0,0,0,0,16h32a8,8,0,0,0,0-16ZM224,48V156.69A15.86,15.86,0,0,1,219.31,168L168,219.31A15.86,15.86,0,0,1,156.69,224H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H152V160a8,8,0,0,1,8-8h48V48H48Zm120-40v28.7L196.69,168Z"/></symbol><symbol id="i-timer" viewBox="0 0 256 256"><path d="M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm0,176a80,80,0,1,1,80-80A80.09,80.09,0,0,1,128,216ZM173.66,90.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32l40-40A8,8,0,0,1,173.66,90.34ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z"/></symbol><symbol id="i-info" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></symbol><symbol id="i-list" viewBox="0 0 256 256"><path d="M80,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H88A8,8,0,0,1,80,64Zm136,56H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm0,64H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM44,52A12,12,0,1,0,56,64,12,12,0,0,0,44,52Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,116Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,180Z"/></symbol><symbol id="i-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol></defs></svg>
-<a class="skip" href="#recipe">Skip</a>
+<a class="skip" id="skip" href="#index-list">Skip</a>
 
 <div id="live" class="sr" role="status" aria-live="polite"></div>
 
 <header class="omn-bar">
   <a class="ib" id="back-to-hub" href="../" aria-label="Omnevum home"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg></a>
   <svg class="omn-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M186.66,59.56C168.47,32.29,146.54,16,128,16S87.53,32.29,69.34,59.56C50.7,87.54,40,121.23,40,152a88,88,0,0,0,176,0C216,121.23,205.3,87.54,186.66,59.56ZM128,224a72.08,72.08,0,0,1-72-72c0-27.69,9.72-58.15,26.66-83.56C97.19,46.64,115.41,32,128,32s30.81,14.64,45.34,36.44C190.28,93.85,200,124.31,200,152A72.08,72.08,0,0,1,128,224Z"/></svg>
-  <p class="omn-name">Eggspress Egg Salad</p>
+  <p class="omn-name">RecipeRolodex</p>
   <button class="ib" type="button" id="help-open" aria-label="Help"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#i-help"/></svg></button>
   <label class="ib" title="Look"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><use href="#i-theme"/></svg>
     <select id="look" aria-label="Look">
@@ -328,8 +338,17 @@ dialog::backdrop{background:var(--scrim)}
     </select></label>
 </header>
 <main class="page" id="top">
+  <section id="index-view" aria-labelledby="index-title">
+    <div class="head">
+      <h1 id="index-title">RecipeRolodex</h1>
+      <p class="tag">Recipes with timers and scaling</p>
+    </div>
+    <ul class="rr-list" id="index-list" aria-label="Recipes"></ul>
+  </section>
+  <div id="recipe-view" hidden>
+  <p class="rr-back"><a href="#index" id="back-index">All recipes</a></p>
   <header class="head">
-    <h1 id="app-title">Instant Pot Egg Salad</h1>
+    <h2 id="app-title">Instant Pot Egg Salad</h2>
     <p class="tag" id="tagline">Crack on: lunch at express speed.</p>
   </header>
 
@@ -442,11 +461,12 @@ dialog::backdrop{background:var(--scrim)}
           </ul>
         </div>
       </section>
+  </div>
 </main>
 
 <footer class="page foot">
   <dl>
-    <dt>Version</dt><dd>1.3.3</dd>
+    <dt>Version</dt><dd>1.4.0</dd>
     <dt>Content</dt><dd class="cv">-</dd>
     <dt>Data</dt><dd>Stays on this device.</dd>
     <dt>Source</dt><dd><a href="https://shfqrkhn.github.io/">shfqrkhn.github.io</a></dd>
@@ -596,7 +616,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre>
 <script>
 (function(){
 'use strict';
-var APP_VERSION='1.3.3';
+var APP_VERSION='1.4.0';
 var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 
@@ -671,14 +691,20 @@ function rich(parent,text){
     else{parent.appendChild(T(part));}
   });
 }
+/* every recipe lives in one JSON array; the hash picks the one shown (#eggspress-egg-salad) */
+var DATA=[];
+try{DATA=JSON.parse($('#recipe-content').textContent);}catch(e){DATA=[];}
+if(!Array.isArray(DATA)){DATA=[];}
+function hashId(){var h=location.hash.replace(/^#/,'');try{h=decodeURIComponent(h);}catch(e){}return h;}
+function findRec(id){for(var i=0;i<DATA.length;i++){if(DATA[i]&&DATA[i].id===id){return DATA[i];}}return null;}
+var cur=findRec(hashId())||DATA[0]||null;
 function renderRecipe(){
-  var c;
-  try{c=JSON.parse($('#recipe-content').textContent);}catch(e){c=null;}
+  var c=cur;
   if(!c||!Array.isArray(c.ingredients)||!Array.isArray(c.steps)){
     $('#rc-problems').textContent='Recipe unreadable.';
     return false;
   }
-  if(typeof c.title==='string'){$('#app-title').textContent=c.title;document.title='EggspressEats: '+c.title;}
+  if(typeof c.title==='string'){$('#app-title').textContent=c.title;document.title='RecipeRolodex: '+c.title;}
   if(typeof c.tagline==='string'){$('#tagline').textContent=c.tagline;}
   if(typeof c.ingredientsHeading==='string'){$('#h-ing').textContent=c.ingredientsHeading;}
   if(typeof c.methodHeading==='string'){$('#h-method').textContent=c.methodHeading;}
@@ -1020,7 +1046,7 @@ $$('.toc a').forEach(function(a){a.addEventListener('click',function(){$('#toc-d
 /* a link that points inside the closed fold opens it first */
 $$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(){var t=null;try{t=$(a.getAttribute('href'));}catch(e){}var d=t&&t.closest?t.closest('details'):null;if(d&&!d.open){d.open=true;}});});
 /* skip link moves focus to the recipe (tabindex -1 target) */
-$('.skip').addEventListener('click',function(e){e.preventDefault();var t=$('#recipe');t.scrollIntoView();t.focus({preventScroll:true});});
+$('.skip').addEventListener('click',function(e){e.preventDefault();var t=inRecipe?$('#recipe'):$('#index-list');t.scrollIntoView();t.focus({preventScroll:true});});
 
 /* ---------- print: open all details, then restore ---------- */
 var opened=[];
@@ -1031,7 +1057,7 @@ window.addEventListener('afterprint',function(){opened.forEach(function(d){d.ope
 (function(){
   var short='-',long_=short;
   try{
-    var c=JSON.parse($('#recipe-content').textContent);
+    var c=cur;
     if(!c||typeof c.dataVersion!=='string'||typeof c.date!=='string'||typeof c.source!=='string'){throw new Error('shape');}
     short=c.dataVersion+', '+c.date;
     long_='v'+c.dataVersion+', '+c.date;
@@ -1040,7 +1066,39 @@ window.addEventListener('afterprint',function(){opened.forEach(function(d){d.ope
   $$('.cvl').forEach(function(e){e.textContent=long_;});
 })();
 
+/* ---------- index and views ---------- */
+var inRecipe=false,appTitle='RecipeRolodex Recipes: Recipes with timers and scaling';
+(function(){
+  var ul=$('#index-list');
+  DATA.forEach(function(r){
+    if(!r||typeof r.id!=='string'){return;}
+    var li=E('li'),a=E('a','rr-card');a.href='#'+r.id;
+    a.appendChild(E('strong',null,r.name||r.title||r.id));
+    if(r.title&&r.name&&r.title!==r.name){a.appendChild(E('span','rr-tag',r.title));}
+    if(r.tagline){a.appendChild(E('span','rr-tag',r.tagline));}
+    var ni=Array.isArray(r.ingredients)?r.ingredients.length:0,ns=Array.isArray(r.steps)?r.steps.length:0;
+    a.appendChild(E('span','rr-meta',ni+' ingredients, '+ns+' steps'));
+    li.appendChild(a);ul.appendChild(li);
+  });
+  if(!ul.children.length){ul.appendChild(E('li',null,'No recipes.'));}
+})();
+function showView(first){
+  var id=hashId(),r=findRec(id);
+  if(r&&r!==cur){location.reload();return;}
+  var el=id?document.getElementById(id):null;
+  if(r||(cur&&el&&$('#recipe-view').contains(el))){inRecipe=true;}
+  else if(first||id===''||id==='index'||!inRecipe){inRecipe=false;}
+  $('#recipe-view').hidden=!inRecipe;
+  $('#index-view').hidden=inRecipe;
+  $('#skip').setAttribute('href',inRecipe?'#recipe':'#index-list');
+  baseTitle=document.title=inRecipe&&cur?'RecipeRolodex: '+cur.title:appTitle;
+  if(r||id==='index'||id===''){window.scrollTo(0,0);}
+  onScroll();
+}
+window.addEventListener('hashchange',function(){showView(false);});
+
 /* ---------- init ---------- */
+showView(true);
 loadBatch();applyBatch();loadTicks();onScroll();
 if(blocked){notify('Saving blocked. Data lasts until you close the page.');}
 })();

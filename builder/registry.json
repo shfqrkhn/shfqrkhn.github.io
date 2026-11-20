@@ -113,7 +113,7 @@
    "icon": "ledgersuite",
    "lazy": false,
    "private": false,
-   "archived": false,
+   "archived": true,
    "former_names": [
     "LedgerSuite",
     "PonderPad",
@@ -139,7 +139,7 @@
    "icon": "commonground",
    "lazy": false,
    "private": false,
-   "archived": false,
+   "archived": true,
    "former_names": [
     "CommonGround",
     "HuddleHub",
@@ -234,48 +234,32 @@
    "slug": "promptplayground-ai-chat",
    "source": "apps/APPS-TOOL-PromptPlayground-v*.html",
    "topic": "ai",
-   "blurb": "A chat window for AI models that uses your own key and shows the cost and endpoint.",
-   "keywords": "ai chat llm api key prompt assistant conversation model endpoint cost bring your own key",
+   "blurb": "Chat with AI models on your own key, keep a prompt library, and tidy exported AI Studio transcripts.",
+   "keywords": "ai chat llm api key prompt assistant conversation model endpoint cost bring your own key prompt library templates transcript ai studio export markdown cleaner",
    "icon": "modeltab",
    "lazy": true,
    "private": false,
    "archived": false,
    "former_names": [
     "ModelTab",
-    "PromptPlayground"
+    "PromptPlayground",
+    "PromptPantry Library",
+    "AI Studio Cleaner",
+    "ChatterChomp",
+    "TranscriptTidy",
+    "TranscriptTidy AI Exports"
    ],
    "aliases": [
     "tools/modeltab",
-    "tools/promptplayground"
-   ],
-   "hue": 158,
-   "tagline": "Chat with AI, your key"
-  },
-  {
-   "id": "ai-studio-cleaner",
-   "title": "TranscriptTidy AI Exports",
-   "kind": "tools",
-   "slug": "transcripttidy-ai-exports",
-   "source": "apps/APPS-TOOL-TranscriptTidy-v*.html",
-   "topic": "ai",
-   "blurb": "Turns Google AI Studio chat exports into Markdown files, all inside your browser tab.",
-   "keywords": "ai studio google gemini chat export json markdown convert clean history notes files",
-   "icon": "ai-studio-cleaner",
-   "lazy": true,
-   "private": false,
-   "archived": false,
-   "former_names": [
-    "AI Studio Cleaner",
-    "ChatterChomp",
-    "TranscriptTidy"
-   ],
-   "aliases": [
+    "tools/promptplayground",
+    "apps/promptpantry-library",
+    "tools/transcripttidy-ai-exports",
     "tools/aistudiocleaner",
     "tools/chatterchomp",
     "tools/transcripttidy"
    ],
-   "hue": 295,
-   "tagline": "AI chats to Markdown"
+   "hue": 158,
+   "tagline": "AI chat, prompts and transcripts"
   },
   {
    "id": "stepsleuth-steps",
@@ -289,7 +273,7 @@
    "icon": "stepsleuth-steps",
    "lazy": true,
    "private": false,
-   "archived": false,
+   "archived": true,
    "former_names": [
     "StepSleuth"
    ],
@@ -311,7 +295,7 @@
    "icon": "fifa-wc-sim",
    "lazy": false,
    "private": false,
-   "archived": false,
+   "archived": true,
    "former_names": [
     "FIFA World Cup Sim",
     "GoalGuru",
@@ -337,7 +321,7 @@
    "icon": "rog-game-finder",
    "lazy": false,
    "private": false,
-   "archived": false,
+   "archived": true,
    "former_names": [
     "ROG Games Database",
     "HandheldHunter"
@@ -375,12 +359,12 @@
   },
   {
    "id": "apex-egg-salad",
-   "title": "Eggspress Egg Salad",
+   "title": "RecipeRolodex Recipes",
    "kind": "recipes",
-   "slug": "eggspress-egg-salad",
-   "source": "apps/APPS-GUID-EggspressEats-v*.html",
+   "slug": "reciperolodex-recipes",
+   "source": "apps/APPS-GUID-RecipeRolodex-v*.html",
    "topic": "food",
-   "blurb": "A recipe card for egg salad made in an Instant Pot, with a servings stepper and timers.",
+   "blurb": "Recipe cards with servings scaling, timers and steps, starting with Instant Pot egg salad.",
    "keywords": "recipe food cooking egg salad instant pot ingredients servings timer kitchen meal lunch sandwich eggs",
    "icon": "apex-egg-salad",
    "lazy": true,
@@ -388,23 +372,25 @@
    "archived": false,
    "former_names": [
     "Apex Egg Salad",
-    "EggspressEats"
+    "EggspressEats",
+    "Eggspress Egg Salad"
    ],
    "aliases": [
     "recipes/apexeggsalad",
-    "recipes/eggspresseats"
+    "recipes/eggspresseats",
+    "recipes/eggspress-egg-salad"
    ],
    "hue": 40,
-   "tagline": "Instant Pot egg salad"
+   "tagline": "Recipes with timers and scaling"
   },
   {
    "id": "hades-eris-protocol",
-   "title": "BoonBuilder Hades Guide",
+   "title": "WalkthroughWizard Game Guides",
    "kind": "guides",
-   "slug": "boonbuilder-hades-guide",
-   "source": "apps/APPS-GUID-BoonBuilder-v*.html",
+   "slug": "walkthroughwizard-game-guides",
+   "source": "apps/APPS-GUID-WalkthroughWizard-v*.html",
    "topic": "games",
-   "blurb": "A field guide to one build in the game Hades: build order, resources and boons.",
+   "blurb": "Video game guides with build orders, checklists and resources, starting with a Hades build.",
    "keywords": "hades eris video game guide boons build walkthrough roguelike adamant rail underworld",
    "icon": "hades-eris-protocol",
    "lazy": true,
@@ -414,16 +400,18 @@
     "Hades Eris Protocol",
     "TartarusTactics",
     "BoonBuilder",
-    "BoonBuilder Hades II Guide"
+    "BoonBuilder Hades II Guide",
+    "BoonBuilder Hades Guide"
    ],
    "aliases": [
     "guides/hadeserisprotocol",
     "guides/tartarustactics",
     "guides/boonbuilder",
-    "guides/boonbuilder-hades-ii-guide"
+    "guides/boonbuilder-hades-ii-guide",
+    "guides/boonbuilder-hades-guide"
    ],
    "hue": 178,
-   "tagline": "Hades build guide"
+   "tagline": "Game guides and checklists"
   },
   {
    "id": "youtube-subscriptions",
@@ -481,7 +469,7 @@
    "kind": "courses",
    "slug": "cashcrunch-accounting",
    "source": "apps/APPS-EDUC-CashCrunch-v*.html",
-   "topic": "money",
+   "topic": "learning",
    "blurb": "Worked accounting calculators with plain steps, formulas and practice numbers.",
    "keywords": "accounting ratios calculator statements depreciation inventory practice",
    "icon": "cash-crunch",
@@ -499,7 +487,7 @@
    "kind": "courses",
    "slug": "balancebuddy-accounting",
    "source": "apps/APPS-EDUC-BalanceBuddy-v*.html",
-   "topic": "money",
+   "topic": "learning",
    "blurb": "A study reader that explains the accounting basics with examples and quick checks.",
    "keywords": "accounting reader balance sheet income statement study notes quiz",
    "icon": "balance-buddy",
@@ -517,7 +505,7 @@
    "kind": "courses",
    "slug": "debtdial-capital",
    "source": "apps/APPS-EDUC-DebtDial-v*.html",
-   "topic": "money",
+   "topic": "learning",
    "blurb": "Try debt and equity mixes and see the cost of capital move.",
    "keywords": "capital structure debt equity wacc leverage calculator cases",
    "icon": "debt-dial",
@@ -589,7 +577,7 @@
    "kind": "courses",
    "slug": "dealdojo-negotiation",
    "source": "apps/APPS-EDUC-DealDojo-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "Prepare a negotiation: goals, limits, tactics and practice rounds.",
    "keywords": "negotiation preparation batna tactics practice guide",
    "icon": "deal-dojo",
@@ -661,7 +649,7 @@
    "kind": "courses",
    "slug": "scopescribe-requirements",
    "source": "apps/APPS-EDUC-ScopeScribe-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "A guide to writing statements of work and evaluation criteria.",
    "keywords": "statement of work requirements evaluation criteria procurement guide",
    "icon": "scope-scribe",
@@ -674,76 +662,30 @@
    "aliases": []
   },
   {
-   "id": "setup-sherpa",
-   "title": "SetupSherpa Device Guides",
-   "kind": "guides",
-   "slug": "setupsherpa-devices",
-   "source": "apps/APPS-TECH-SetupSherpa-v*.html",
-   "topic": "home",
-   "blurb": "Step-by-step setup guides for common devices.",
-   "keywords": "device setup guide phone computer steps",
-   "icon": "setup-sherpa",
-   "lazy": false,
-   "private": false,
-   "archived": false,
-   "hue": 95,
-   "tagline": "Step-by-step device setup",
-   "former_names": [],
-   "aliases": []
-  },
-  {
    "id": "gear-guardian",
    "title": "GearGuardian Care Guides",
    "kind": "guides",
    "slug": "gearguardian-care",
    "source": "apps/APPS-TECH-GearGuardian-v*.html",
    "topic": "home",
-   "blurb": "Care and maintenance guides for everyday gear.",
-   "keywords": "gear care maintenance guide cleaning repair",
+   "blurb": "Setup and care guides for a car, camera, espresso machine, VR headset, streamer, handheld PC and drum kit.",
+   "keywords": "gear care maintenance guide cleaning repair setup device guide handheld pc rog ally games drum kit td-4 quest chromecast camera espresso music sync",
    "icon": "gear-guardian",
    "lazy": false,
    "private": false,
    "archived": false,
    "hue": 132,
-   "tagline": "Gear and care guides",
-   "former_names": [],
-   "aliases": []
-  },
-  {
-   "id": "ally-ace",
-   "title": "AllyAce Handheld Guide",
-   "kind": "guides",
-   "slug": "allyace-handheld",
-   "source": "apps/APPS-TECH-AllyAce-v*.html",
-   "topic": "games",
-   "blurb": "Setup, tuning and care for a handheld gaming PC.",
-   "keywords": "handheld pc gaming setup tuning guide",
-   "icon": "ally-ace",
-   "lazy": false,
-   "private": false,
-   "archived": false,
-   "hue": 169,
-   "tagline": "Handheld PC guide",
-   "former_names": [],
-   "aliases": []
-  },
-  {
-   "id": "drum-deck",
-   "title": "DrumDeck Kit Reference",
-   "kind": "references",
-   "slug": "drumdeck-kit",
-   "source": "apps/APPS-TECH-DrumDeck-v*.html",
-   "topic": "music",
-   "blurb": "A reference for an electronic drum kit: pads, settings and tips.",
-   "keywords": "drum electronic kit reference settings pads",
-   "icon": "drum-deck",
-   "lazy": false,
-   "private": false,
-   "archived": false,
-   "hue": 206,
-   "tagline": "Electronic drum kit reference",
-   "former_names": [],
-   "aliases": []
+   "tagline": "Device setup, care and handheld games",
+   "former_names": [
+    "SetupSherpa Device Guides",
+    "AllyAce Handheld Guide",
+    "DrumDeck Kit Reference"
+   ],
+   "aliases": [
+    "guides/setupsherpa-devices",
+    "guides/allyace-handheld",
+    "references/drumdeck-kit"
+   ]
   },
   {
    "id": "config-compass",
@@ -751,7 +693,7 @@
    "kind": "courses",
    "slug": "configcompass-change",
    "source": "apps/APPS-EDUC-ConfigCompass-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "A toolkit for configuration management and change control.",
    "keywords": "configuration management change control toolkit baseline",
    "icon": "config-compass",
@@ -769,7 +711,7 @@
    "kind": "courses",
    "slug": "wattwatcher-energy",
    "source": "apps/APPS-EDUC-WattWatcher-v*.html",
-   "topic": "home",
+   "topic": "learning",
    "blurb": "A field guide to auditing energy use, with checklists.",
    "keywords": "energy audit field guide checklist efficiency",
    "icon": "watt-watcher",
@@ -787,7 +729,7 @@
    "kind": "courses",
    "slug": "supportscout-equipment",
    "source": "apps/APPS-EDUC-SupportScout-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "Decision aid for equipment support options.",
    "keywords": "equipment support decisions maintenance lifecycle",
    "icon": "support-scout",
@@ -805,7 +747,7 @@
    "kind": "courses",
    "slug": "blueprintbuddy-systems",
    "source": "apps/APPS-EDUC-BlueprintBuddy-v*.html",
-   "topic": "work",
+   "topic": "learning",
    "blurb": "A systems design lab with worked steps and templates.",
    "keywords": "systems design engineering lab templates requirements",
    "icon": "blueprint-buddy",
@@ -829,7 +771,7 @@
    "icon": "build-boss",
    "lazy": false,
    "private": false,
-   "archived": false,
+   "archived": true,
    "hue": 31,
    "tagline": "Plan a workstation build",
    "former_names": [],
@@ -838,10 +780,10 @@
   {
    "id": "auction-academy",
    "title": "AuctionAcademy Classroom Game",
-   "kind": "games",
+   "kind": "courses",
    "slug": "auctionacademy-game",
    "source": "apps/APPS-GAME-AuctionAcademy-v*.html",
-   "topic": "games",
+   "topic": "learning",
    "blurb": "A classroom auction game for learning bidding strategy.",
    "keywords": "auction game classroom bidding strategy",
    "icon": "auction-academy",
@@ -851,7 +793,9 @@
    "hue": 125,
    "tagline": "Classroom auction game",
    "former_names": [],
-   "aliases": []
+   "aliases": [
+    "games/auctionacademy-game"
+   ]
   },
   {
    "id": "repo-radar",
@@ -873,23 +817,6 @@
    ],
    "aliases": [],
    "big": true
-  },
-  {
-   "id": "promptpantry-library",
-   "title": "PromptPantry Library",
-   "kind": "apps",
-   "slug": "promptpantry-library",
-   "source": "apps/APPS-APPS-PromptPantry-v*.html",
-   "topic": "ai",
-   "blurb": "Keep your own prompts: fill in the blanks, preview, copy, and back up. Stays on this device.",
-   "keywords": "promptpantry library keep your own prompts fill in the blanks preview copy and back up stays on this device",
-   "icon": "promptpantry-library",
-   "hue": 28,
-   "tagline": "Your own prompts, kept on this device",
-   "lazy": true,
-   "private": false,
-   "archived": false,
-   "license": "MIT"
   }
  ]
 }

@@ -1,16 +1,16 @@
 {
- "generated": "2026-11-10",
- "scope": "all 507 RepoRadar repositories plus 16 owner-added, plus 9 added 2026-11-10 from bookmarks and GitHub Trending (532 entries)",
+ "generated": "2026-11-20",
+ "scope": "all 507 RepoRadar repositories plus 16 owner-added, plus 9 added 2026-11-10 from bookmarks and GitHub Trending, plus 2 owner leads, 6 earlier radar-report leads and 75 radar-report leads added 2026-11-20 (615 entries)",
  "method": "live README fetch via GitHub API (first 5,000 characters kept); sonnet review per batch of 39; judgement from the opening of each README, not the full repository",
  "counts": {
-  "reject": 291,
-  "reference": 151,
-  "study": 78,
-  "adapt": 9,
+  "reject": 313,
+  "reference": 190,
+  "study": 98,
+  "adapt": 11,
   "adopt": 1,
   "unavailable": 2
  },
- "depth_caveat": "519 readme-read (excerpt only), 2 metadata-only, 2 unavailable (HTTP 404). No repository was cloned or executed. Adopt/adapt entries are not yet verified against upstream code.",
+ "depth_caveat": "602 readme-read (excerpt only), 2 metadata-only, 2 unavailable (HTTP 404). No repository was cloned or executed. Adopt/adapt entries are not yet verified against upstream code.",
  "matrix": [
   {
    "theme": "Context economy and terse reports",
@@ -51,7 +51,8 @@
     "hardikpandya/stop-slop",
     "pbakaus/impeccable",
     "heydamir/unslop",
-    "nutlope/hallmark"
+    "nutlope/hallmark",
+    "dodaios/ste80-humanizer"
    ],
    "target": "Omnevum builder/brand.json, check_docs.py",
    "status": "tokens live in ui.css (brand.json holds brand strings only); the prose rubric is built (SLOP in check_docs.py)"
@@ -6728,7 +6729,7 @@
     "omnevum"
    ],
    "reason": "Agent skill (MIT, JavaScript, 4765 stars, last push 2026-09-30) for scroll-driven immersive sites. Its engine, video and 3D layers conflict with Omnevum budgets (hub 300 KB, app 3 MB), strict CSP, offline-first and the Lighthouse 100 results on the hub. Study only its phone art direction, contrast and verification habits; do not adopt the engine.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6742,7 +6743,7 @@
     "omnevum"
    ],
    "reason": "Local-first AI travel planner (MIT, TypeScript, 9 stars, last push 2026-11-05): trip, stop and place tree, OpenStreetMap, checklists, flight price monitor, an assistant that edits plans through server tools. Needs a server and external map, search and AI services, which conflicts with Omnevum's no-external-requests and static-hosting rules. Keep as a reference for itinerary data shape and the trip, stop, place tree.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6756,7 +6757,7 @@
     "omni"
    ],
    "reason": "Hierarchical inference engine for large mixture-of-experts models (Apache-2.0, C, 49101 stars, last push 2026-11-08): hot experts on GPU, warm in RAM, cold streamed from NVMe; thirteen engines across language, image and decision models. Study for the Local-AI expert (running very large open models on ordinary hardware, disk streaming, hardware sizing); nothing to adopt in the static site. Claims are the README's own and are unverified.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6770,7 +6771,7 @@
     "omnevum"
    ],
    "reason": "A curated list of example READMEs (no licence file, 21691 stars, last push 2026-10-23). Used as a gallery of what good READMEs contain: logo, one-line pitch, screenshot, install, table of contents.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6785,7 +6786,7 @@
     "quality"
    ],
    "reason": "Agent skill for writing and reviewing READMEs, distilled from 200 projects (MIT, Python, 4 stars, last push 2026-10-23). Its rule that every command, claim and requirement must trace to repository evidence matches Omnevum's check-before-claim rule; applied to the README and the repo map.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "applied"
   },
   {
@@ -6799,7 +6800,7 @@
     "omnevum"
    ],
    "reason": "README design web tool (MIT, TypeScript, 121 stars, last push 2026-11-08). Heavy on badges, emoji and remote images, which conflicts with Omnevum house style; only the idea of a short centred header and compact badge row is kept.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6813,7 +6814,7 @@
     "omnevum"
    ],
    "reason": "README generator web app (MIT, TypeScript, 10 stars, last push 2024-12-25). Relies on remote animated emoji images and stale; nothing to adopt.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6827,7 +6828,7 @@
     "omnevum"
    ],
    "reason": "Widely used README template (Unlicense, 16456 stars, last push 2026-04-18). Section order adapted: about, getting started, usage, roadmap, contributing, licence, plus a back-to-top anchor idea and a table of contents; its badge wall and emoji are not.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "applied"
   },
   {
@@ -6842,7 +6843,7 @@
     "quality"
    ],
    "reason": "Specification for README structure (MIT, JavaScript, 6395 stars, last push 2026-09-29): title, short description, table of contents, install, usage, contributing, licence, in a fixed order. Adapted as the Omnevum README section order.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "applied"
   },
   {
@@ -6856,7 +6857,7 @@
     "omnevum"
    ],
    "reason": "Drag-and-drop README editor (MIT, JavaScript, 4634 stars, last push 2026-03-13). Confirms the common section list (features, tech stack, run locally, contributing, feedback, licence); no code taken.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6870,7 +6871,7 @@
     "omnevum"
    ],
    "reason": "58 dependency-free HTML and Markdown documentation templates (MIT, HTML, 0 stars, last push 2026-07-16). Reference for a no-build documentation style; Omnevum already has its own design system.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6884,7 +6885,7 @@
     "omnevum"
    ],
    "reason": "Copy-paste README template (Unlicense, 959 stars, last push 2026-06-07): installing, developing, features, configuration, contributing, links, licensing. Reference for ordering and brevity.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6898,7 +6899,7 @@
     "omnevum"
    ],
    "reason": "MIT, 362 stars, last push 2026-09-13. Liquid-glass refraction effects for React and vanilla JS (SVG backdrop displacement). Study its contrast and reduced-motion handling for the glass looks only; a runtime SVG filter engine and npm package conflict with the dependency-free, strict-CSP, size-budgeted site.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -6912,7 +6913,7 @@
     "omnevum"
    ],
    "reason": "30k stars, last push 2026-11-04. Mature framework-agnostic animation library. Reference for easing, sequencing and matchMedia reduced-motion patterns. Not adopted: the site ships no third-party runtime, and the licence is GitHub-reported as non-SPDX (custom GSAP terms), so rights would need a separate check.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned). Licence text not read.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0. Licence text not read.",
    "applied": "deferred"
   },
   {
@@ -6926,7 +6927,7 @@
     "omnevum"
    ],
    "reason": "MIT, 74k stars, last push 2026-11-02. Lightweight JS animation engine (v4, repo now also published as animejs). Reference for timeline and stagger design. Not adopted: no third-party runtime in the site; the native Web Animations API and CSS cover current needs.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned). README is mostly sponsor tables.",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0. README is mostly sponsor tables.",
    "applied": "deferred"
   },
   {
@@ -6940,7 +6941,7 @@
     "omnevum"
    ],
    "reason": "MIT, 1,199 stars, last push 2026-09-11. Agent skill for Three.js and Blender 3D scenes (Claude Code and Codex plugin; recipes, knowledge records, kits). Study its skill structure, verify-what-appears-on-screen step and recipe catalogue layout for Omni skills; its demo is labelled historical footage, so its claims are not verified. Three.js output would exceed page budgets.",
-   "limits": "README excerpt only; nothing cloned or run. Catalogue record is queued for the next RepoRadar release (4.3.1 is checksum-pinned).",
+   "limits": "README excerpt only; nothing cloned or run. Catalogue record added in RepoRadar 4.4.0.",
    "applied": "deferred"
   },
   {
@@ -7050,6 +7051,1013 @@
    ],
    "reason": "GPL-3.0, 832 stars (bookmarks). Mobile audiobook client; not a web page and the licence is copyleft.",
    "limits": "README excerpt only."
+  },
+  {
+   "id": "Dodaios/ste80-humanizer",
+   "status": "researched_addition",
+   "category": "Owner lead",
+   "disposition": "adapt",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni",
+    "omnevum",
+    "quality"
+   ],
+   "reason": "MIT, Python, 1,012 stars, pushed 2026-11-18. Two-pass agent skill: remove 26 AI-writing tells, then move prose toward ASD-STE100. Adapt its tell list and STE pass into the plain-words rule and check_docs.py.",
+   "limits": "README excerpt only; nothing cloned or run. Rewrites can shift meaning; check facts after each pass."
+  },
+  {
+   "id": "mankidev/antialgorithm",
+   "status": "researched_addition",
+   "category": "Owner lead",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omnevum",
+    "omni"
+   ],
+   "reason": "MIT, Python, 566 stars, pushed 2026-11-20. Agent skill that names the most average creative pick and steers away from it. Study for page names and art direction.",
+   "limits": "README excerpt only; nothing cloned or run. Writes a history file in the user state folder; image check needs numpy, Pillow and rsvg-convert."
+  },
+  {
+   "id": "TalAter/UpUp",
+   "status": "researched_addition",
+   "category": "Offline and PWA",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "MIT, JavaScript, 4,922 stars, pushed 2026-11-13. Small offline-first library. The site has its own service worker; reference for fallback patterns.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "tejaswigowda/ffmpeg-webCLI",
+   "status": "researched_addition",
+   "category": "Media tools",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "GPL-3.0, JavaScript, 1,473 stars, pushed 2026-10-27. In-browser video editor on ffmpeg.wasm with no uploads. Copyleft and a large WebAssembly download over page budgets; reference only.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "nexu-io/open-design",
+   "status": "researched_addition",
+   "category": "Design review",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omnevum",
+    "omni"
+   ],
+   "reason": "Apache-2.0, TypeScript, 108,673 stars, pushed 2026-11-20. Local-first workspace where people and agents make prototypes, sites and decks. Study its review flow; do not depend on it.",
+   "limits": "README excerpt only; nothing cloned or run. Large app with optional paid cloud credits."
+  },
+  {
+   "id": "siyuan-note/siyuan",
+   "status": "researched_addition",
+   "category": "Notes and knowledge",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, TypeScript, 47,307 stars, pushed 2026-11-20. Full note-taking app with its own store. The vault stays on Obsidian and the site cannot take AGPL code; nothing to take.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "logseq/logseq",
+   "status": "researched_addition",
+   "category": "Notes and knowledge",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, Clojure, 45,680 stars, pushed 2026-11-20. Full note-taking app with its own store. The vault stays on Obsidian and the site cannot take AGPL code; nothing to take.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "TriliumNext/Trilium",
+   "status": "researched_addition",
+   "category": "Notes and knowledge",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, TypeScript, 39,036 stars, pushed 2026-11-20. Full note-taking app with its own store. The vault stays on Obsidian and the site cannot take AGPL code; nothing to take.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "plugin87/ux-ui-agent-skills",
+   "status": "researched_addition",
+   "category": "Web accessibility testing",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality",
+    "omni"
+   ],
+   "reason": "MIT, JavaScript, 3212 stars, pushed 2026-11-18. Agent skills plus 52 gates for WCAG, contrast, keyboard and target size. Worth reading for how the gates are defined, which can sharpen the site accessibility gates and Omni review checks; claims are the README's own.",
+   "limits": "README excerpt only; nothing cloned or run. Gate quality not checked."
+  },
+  {
+   "id": "ng-primitives/ng-primitives",
+   "status": "radar_lead",
+   "category": "Web accessibility testing",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "Apache-2.0, TypeScript, 616 stars, pushed 2026-11-19. Headless accessible components for Angular. The site is single-file HTML with no framework, so nothing fits.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "webpack/webpack",
+   "status": "radar_lead",
+   "category": "Web performance budgets",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, JavaScript, 66017 stars, pushed 2026-11-20. A bundler. The site ships single-file HTML with a Python builder and no npm runtime, so it does not fit.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "GoogleChromeLabs/quicklink",
+   "status": "researched_addition",
+   "category": "Web performance budgets",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "Apache-2.0, JavaScript, 11304 stars, pushed 2026-11-01. Prefetches in-view links at idle time. The hub is offline-first with a service worker that already caches pages, so it adds a runtime script and network fetches for no gain; useful only to know.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "webpack/webpack.js.org",
+   "status": "radar_lead",
+   "category": "Web performance budgets",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "CC-BY-4.0, MDX, 2273 stars, pushed 2026-11-20. Docs site for webpack. The site does not use webpack, so nothing to take.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "TypeError/secure",
+   "status": "researched_addition",
+   "category": "Content Security Policy tooling",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality"
+   ],
+   "reason": "MIT, Python, 1074 stars, pushed 2026-11-19. Python library for HTTP security header presets with web middleware. The site is static with meta CSP and a Python builder, so the library is not used; its header presets are a check list to compare with.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "edoardottt/csprecon",
+   "status": "radar_lead",
+   "category": "Content Security Policy tooling",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, Go, 569 stars, pushed 2026-11-16. Finds target domains from CSP headers for recon. It is an attack-side tool and gives nothing for pinning inline script hashes.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "open-spaced-repetition/fsrs4anki",
+   "status": "researched_addition",
+   "category": "Spaced repetition and learning science",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "MIT, Jupyter Notebook, 4143 stars, pushed 2026-08-14. Anki scheduler script based on the FSRS algorithm. Read the algorithm notes for an offline review scheduler in the study readers; the code itself is Anki specific.",
+   "limits": "README excerpt only; nothing cloned or run. Algorithm detail lives in other repos."
+  },
+  {
+   "id": "nagisanzenin/engram",
+   "status": "researched_addition",
+   "category": "Spaced repetition and learning science",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omnevum",
+    "omni"
+   ],
+   "reason": "MIT, Python, 1487 stars, pushed 2026-08-27. Learning engine with free-recall checks, FSRS scheduling and explorable artifacts, run through agent tools. Read the free-recall verification idea for the study readers and for Omni prompt practice; claims are the README's own.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "ghostfolio/ghostfolio",
+   "status": "researched_addition",
+   "category": "Personal finance and budgeting",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, TypeScript, 9745 stars, pushed 2026-11-20. Wealth tracking server on Angular, NestJS and Prisma. Copyleft and a heavy server stack, so no code can be taken; it shows what a portfolio tool lists.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "ananthakumaran/paisa",
+   "status": "researched_addition",
+   "category": "Personal finance and budgeting",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, Go, 3237 stars, pushed 2026-11-17. Personal finance manager on the ledger plain-text format, with a web UI. Copyleft and a Go server; the plain-text ledger idea is worth knowing for money tools.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "wger-project/wger",
+   "status": "researched_addition",
+   "category": "Quantified self and fitness",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, Python, 7296 stars, pushed 2026-11-19. Self-hosted workout, nutrition and weight tracker. Server app under copyleft; use only to see what fitness trackers cover.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "wger-project/flutter",
+   "status": "radar_lead",
+   "category": "Quantified self and fitness",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, Dart, 999 stars, pushed 2026-11-18. Flutter client that talks to the wger server by REST. Needs the server, is copyleft and is not HTML, so nothing to take.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "fairy-stockfish/Fairy-Stockfish",
+   "status": "researched_addition",
+   "category": "Game rules and tabletop references",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "GPL-3.0, C++, 929 stars, pushed 2026-11-20. Chess variant engine for Xiangqi, Shogi and more. GPL code cannot enter the MIT site; it is a rules reference for board-game guides.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "leeoniya/uPlot",
+   "status": "researched_addition",
+   "category": "Charts and data visualization",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality"
+   ],
+   "reason": "MIT, JavaScript, 10663 stars, pushed 2026-11-17. Small canvas chart library, about 50 KB minified, for time series, lines, areas, OHLC and bars. Read how it keeps size and speed for the charts tool; vendoring one inline file is possible under the app budget but needs a CSP and a11y check.",
+   "limits": "README excerpt only; nothing cloned or run. Size claim is the README's own."
+  },
+  {
+   "id": "antvis/F2",
+   "status": "researched_addition",
+   "category": "Charts and data visualization",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, JavaScript, 7996 stars, pushed 2026-05-19. Mobile charting library. Heavier and less active than uPlot for the charts tool; only useful to know.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "QwenAudio/SenseVoice",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, C, 9795 stars, pushed 2026-09-30. Speech model for recognition, language ID, emotion and sound events. A model, not a site tool; note it for the Local-AI expert role.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "SciSharp/LLamaSharp",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, C#, 3826 stars, pushed 2026-11-20. .NET library to run LLaMA models on a local device. The owner stack is not .NET; note it for Local-AI coverage only.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "ChatGPTNextWeb/NextChat",
+   "status": "radar_lead",
+   "category": "Local LLM runtimes",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, TypeScript, 88980 stars, pushed 2026-10-20. Chat client whose README pushes a hosted pay-as-you-go service. Not local-first and not a small page, so no fit.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "1Panel-dev/1Panel",
+   "status": "radar_lead",
+   "category": "Local LLM runtimes",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "GPL-3.0, Go, 37478 stars, pushed 2026-11-20. Linux server panel with AI management. Heavy server tool under GPL; nothing for the site, Omni or vault.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "LearningCircuit/local-deep-research",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, Python, 9616 stars, pushed 2026-11-20. Local research agent that works with Ollama or llama.cpp and many search sources. A server app; note it as a local research pattern for Omni.",
+   "limits": "README excerpt only; nothing cloned or run. Benchmark claim not checked."
+  },
+  {
+   "id": "maziyarpanahi/openmed",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Python, 5830 stars, pushed 2026-11-20. Local healthcare text models for entity finding and PII removal, with Python, Android and browser runtimes. Domain is medical; note the local-first PII idea only.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "PrefectHQ/fastmcp",
+   "status": "researched_addition",
+   "category": "Agent frameworks and MCP",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Python, 28694 stars, pushed 2026-11-20. Python framework for MCP servers and clients. Omni uses MCP tools but the site builds none; note it for any future owner MCP server.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "microsoft/mcp-for-beginners",
+   "status": "researched_addition",
+   "category": "Agent frameworks and MCP",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, Jupyter Notebook, 17689 stars, pushed 2026-11-20. Curriculum on the Model Context Protocol with examples in six languages. Good learning text for Omni notes; no code is needed.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "comet-ml/opik",
+   "status": "researched_addition",
+   "category": "LLM evaluation",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Java, 23474 stars, pushed 2026-11-20. LLM tracing, evaluation and dashboard platform. A heavy server; note its evaluation metric list for Omni review method.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "brunopulis/awesome-a11y",
+   "status": "researched_addition",
+   "category": "Web accessibility testing",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality"
+   ],
+   "reason": "CC0 link list, no language, 2006 stars, last push 2026-08-03. It points to accessibility tools and guides, so it is a good place to look up checks for the WCAG gates. Nothing is taken.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "incluud/accessible-astro-components",
+   "status": "researched_addition",
+   "category": "Web accessibility testing",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality"
+   ],
+   "reason": "MIT, Astro, 581 stars, last push 2026-11-16. It is a set of accessible UI components. The Astro build chain does not fit single-file pages, but the keyboard and ARIA patterns are worth reading for the app widgets.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "apache/skywalking",
+   "status": "radar_lead",
+   "category": "Web performance budgets",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "Apache-2.0, Java, 25016 stars, last push 2026-11-20. It is a server APM system for microservices. It has no use for static offline pages.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "guess-js/guess",
+   "status": "radar_lead",
+   "category": "Web performance budgets",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, TypeScript, 7118 stars, last push 2026-11-20. It is a webpack plugin that predicts page loads from analytics data. Our site has no bundler, no analytics and no runtime requests.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "shmilylty/OneForAll",
+   "status": "radar_lead",
+   "category": "Content Security Policy tooling",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "GPL-3.0, Python, 10156 stars, last push 2026-11-02. It finds subdomains of a target. It does not help with CSP pins or the security gate.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "bepsvpt/secure-headers",
+   "status": "researched_addition",
+   "category": "Content Security Policy tooling",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality"
+   ],
+   "reason": "MIT, PHP, 550 stars, last push 2026-07-21. It builds security headers such as CSP from config in PHP apps. The code does not fit a static site, but its header list can be used to check our own policy.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "mengxi-ream/read-frog",
+   "status": "researched_addition",
+   "category": "Spaced repetition and learning science",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "GPL-3.0, TypeScript, 10498 stars, last push 2026-11-20. It is a browser extension for language study with AI and flashcards. Copyleft and online AI calls rule out any copy. It is only a pointer for study-reader ideas.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "st3v3nmw/obsidian-spaced-repetition",
+   "status": "researched_addition",
+   "category": "Spaced repetition and learning science",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "vault",
+    "omnevum"
+   ],
+   "reason": "MIT, TypeScript, 2621 stars, last push 2026-11-16. It makes flashcards from markdown notes and sets review times. The card syntax and the schedule idea fit the study readers and the vault. The plugin itself cannot run on the site.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "actualbudget/actual",
+   "status": "researched_addition",
+   "category": "Personal finance and budgeting",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omnevum"
+   ],
+   "reason": "MIT, TypeScript, 30372 stars, last push 2026-11-20. It is a local-first budgeting app with optional sync. The budget model and local data design are worth reading for the money tools. The server and build chain do not fit.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "mayswind/ezbookkeeping",
+   "status": "researched_addition",
+   "category": "Personal finance and budgeting",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, Go, 6103 stars, last push 2026-11-20. It is a self-hosted finance app. It needs a server, so it is a feature comparison only.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "moneymanagerex/moneymanagerex",
+   "status": "researched_addition",
+   "category": "Personal finance and budgeting",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "GPL-2.0, C++, 2295 stars, last push 2026-11-19. It is a desktop money app. Copyleft and the wxWidgets stack rule out reuse. It is a reference for report types only.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "InlitX/GymMane",
+   "status": "researched_addition",
+   "category": "Quantified self and fitness",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "GPL-3.0, Dart, 1915 stars, last push 2026-11-19. It is an offline gym log for Android with no account and no internet, the same goal as our fitness tools. GPL blocks any copy, so it is a design reference.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "SabakiHQ/Sabaki",
+   "status": "researched_addition",
+   "category": "Game rules and tabletop references",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, JavaScript, 2798 stars, last push 2026-10-31. It is an Electron Go board and SGF editor. The licence is open, so board logic could be read later. No Go app is planned now, so it is a pointer only.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "pokerth/pokerth",
+   "status": "radar_lead",
+   "category": "Game rules and tabletop references",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, C++, 705 stars, last push 2026-11-20. It is a Qt poker game with network play. AGPL code cannot enter the MIT site and the stack does not fit.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "c3js/c3",
+   "status": "researched_addition",
+   "category": "Charts and data visualization",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, JavaScript, 9351 stars, last push 2026-11-13. It is a chart library on top of D3. A runtime dependency on D3 breaks our no-npm-runtime rule, so it is a reference for the API shape only.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "microsoft/generative-ai-for-beginners",
+   "status": "researched_addition",
+   "category": "Prompt engineering and LLM tooling",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni",
+    "omnevum"
+   ],
+   "reason": "MIT, Jupyter Notebook, 123919 stars, last push 2026-11-19. It is a 21 lesson course on building with generative AI, with prompt lessons. The lesson plan can inform a study reader and Omni prompt practice. The notebooks cannot run offline.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "xorbitsai/inference",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes (1)",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Python, 9666 stars, last push 2026-11-20. It is a platform to serve language, vision and audio models with OpenAI-compatible APIs. It is a server, so it is only a pointer for the Local-AI expert.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "nicedreamzapp/claude-code-local",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes (1)",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, Python, 3524 stars, last push 2026-11-20. It says it runs Claude Code on a local model with no API key, using MLX on Mac and llama.cpp on Windows and Linux. The setup steps are worth reading for the Local-AI expert. Nothing here is run.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "CherryHQ/cherry-studio",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes (2)",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "AGPL-3.0, TypeScript, 53699 stars, last push 2026-11-20. It is a desktop client for many models and agents. AGPL blocks any copy, so it only shows what a model workspace offers.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "HKUDS/nanobot",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes (3)",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, Python, 50231 stars, last push 2026-11-20. It is a light open-source personal agent. Its size makes it a good example of a small agent loop, but nothing is taken for the site.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "open-multi-agent/open-multi-agent",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes (3)",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, TypeScript, 7067 stars, last push 2026-11-17. It claims durable approvals and verifiable run records for agents. The record design matches Omni needs for evidence and review, so it is worth a close read. Claims are the README's own.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "AienTech/dossier",
+   "status": "radar_lead",
+   "category": "Local LLM runtimes (3)",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, TypeScript, 5334 stars, last push 2026-11-19. It is a self-hosted resume and job app. It is off topic and AGPL.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "Evil0ctal/Douyin_TikTok_Download_API",
+   "status": "radar_lead",
+   "category": "Agent frameworks and MCP",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "Apache-2.0, Python, 21500 stars, last push 2026-11-20. It is a social video scraper and downloader with Docker and a database. It has no use for the site or Omni.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "mlflow/mlflow",
+   "status": "researched_addition",
+   "category": "LLM evaluation",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Python, 28912 stars, last push 2026-11-20. It is a large platform to debug, evaluate and monitor AI apps. It needs servers, so it is a pointer for what evaluation tracking covers.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "confident-ai/deepeval",
+   "status": "researched_addition",
+   "category": "LLM evaluation",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Python, 19578 stars, last push 2026-11-19. It is an evaluation framework that treats LLM checks like unit tests. The metric names and test style may help Omni evaluation rules. No code is taken.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "incluud/accessible-astro-starter",
+   "status": "researched_addition",
+   "category": "Web accessibility testing",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality"
+   ],
+   "reason": "MIT, Astro, 1196 stars, pushed 2026-11-16. A starter theme with skip links, landmarks, focus outlines and accessible components, aimed at WCAG 2.2 AA. Worth reading for markup and focus patterns; the Astro build is not usable here.",
+   "limits": "README excerpt only; nothing cloned or run. Claims are the README's own."
+  },
+  {
+   "id": "angular/angular",
+   "status": "radar_lead",
+   "category": "Web performance budgets",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, TypeScript, 101471 stars, pushed 2026-11-20. A large app framework with a build chain and runtime. It breaks the single-file, no-runtime rule and has no part for the site, Omni or the vault.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "web-infra-dev/rspack",
+   "status": "radar_lead",
+   "category": "Web performance budgets",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, Rust, 12987 stars, pushed 2026-11-20. A bundler. The site ships single HTML files built by a Python builder, so a JS bundler adds nothing.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "addyosmani/web-quality-skills",
+   "status": "researched_addition",
+   "category": "Web performance budgets",
+   "disposition": "adapt",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality",
+    "omni"
+   ],
+   "reason": "MIT, Shell, 3114 stars, pushed 2026-08-24. Agent Skills for Lighthouse, Core Web Vitals and WCAG work, stack-agnostic with plain HTML named. Take its measure-first steps and check lists into our quality gate notes and Omni review steps, cut to our size budgets.",
+   "limits": "README excerpt only; nothing cloned or run. Claims are the README's own."
+  },
+  {
+   "id": "github/secure_headers",
+   "status": "researched_addition",
+   "category": "Content Security Policy tooling",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality"
+   ],
+   "reason": "MIT, Ruby, 3233 stars, pushed 2026-11-18. A Rails-side gem that sets security headers with safe defaults. We ship static files with pinned hashes, so the code is not usable; its default header list is a fair cross-check.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "paragonie/csp-builder",
+   "status": "researched_addition",
+   "category": "Content Security Policy tooling",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "quality"
+   ],
+   "reason": "MIT, PHP, 540 stars, pushed 2026-11-18. Builds CSP headers from a JSON file. The idea of one JSON policy source that a script turns into the header is worth reading for our Python builder; the PHP code is not reused.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "echo-loop/Echo-Loop",
+   "status": "researched_addition",
+   "category": "Spaced repetition and learning science",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, Dart, 4857 stars, pushed 2026-11-20. A Flutter English listening app with a fixed loop: listen, shadow, blind listen, retell, review. Its step order is worth reading for study readers; AGPL code cannot be copied into the MIT site.",
+   "limits": "README excerpt only; nothing cloned or run. Excerpt is in Chinese; claims are the README's own."
+  },
+  {
+   "id": "oldwinter/knowledge-garden",
+   "status": "researched_addition",
+   "category": "Spaced repetition and learning science",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "vault"
+   ],
+   "reason": "MIT, TypeScript, 2468 stars, pushed 2026-11-14. A public Obsidian digital garden in Chinese. It shows one way to publish a vault; it holds mostly personal notes and little for the site.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "firefly-iii/firefly-iii",
+   "status": "researched_addition",
+   "category": "Personal finance and budgeting",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "AGPL-3.0, PHP, 25307 stars, pushed 2026-11-20. A self-hosted finance manager with a server and database. AGPL and server design rule out copying; useful only as a feature list for money tools.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "Volmarg/personal-management-system",
+   "status": "radar_lead",
+   "category": "Personal finance and budgeting",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, PHP, 4194 stars, pushed 2026-11-18. A backend for a personal data web app, split from its frontend. It needs a server and has nothing the site can take.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "Snouzy/workout-cool",
+   "status": "researched_addition",
+   "category": "Quantified self and fitness",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, TypeScript, 8703 stars, pushed 2026-11-02. A fitness coaching web platform with plans, progress and an exercise database. It needs a full server stack; use it only to see what fitness features exist.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "bryllim/workout-guide",
+   "status": "researched_addition",
+   "category": "Quantified self and fitness",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, Astro, 1449 stars, pushed 2026-08-26. 302 exercise illustrations with three frames each, plus a static gallery. Base art is from Everkinetic under CC BY-SA 4.0, so use needs credit and share-alike checks, and the size of the frames must fit our app budget.",
+   "limits": "README excerpt only; nothing cloned or run. Check licence of the added frames before any use."
+  },
+  {
+   "id": "opendilab/LightZero",
+   "status": "radar_lead",
+   "category": "Game rules and tabletop references",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "Apache-2.0, Python, 1663 stars, pushed 2026-11-19. A research benchmark for Monte Carlo tree search. It is heavy training code with no use for game guides or reference pages.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "plotly/plotly.js",
+   "status": "researched_addition",
+   "category": "Charts and data visualization",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "MIT, JavaScript, 18386 stars, pushed 2026-11-20. A full charting library. Its bundle is large and would be a runtime dependency, which the site rules out; keep as a name to compare against.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "rawgraphs/rawgraphs-app",
+   "status": "researched_addition",
+   "category": "Charts and data visualization",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "Apache-2.0, JavaScript, 9058 stars, pushed 2026-10-08. A web tool that maps data columns to many vector chart types on d3. Its data-to-chart mapping flow and SVG export are worth reading for the charts tool; the app and d3 are not shipped.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "AgriciDaniel/claude-obsidian",
+   "status": "researched_addition",
+   "category": "Obsidian and knowledge management",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "vault",
+    "omni"
+   ],
+   "reason": "MIT, Python, 16649 stars, pushed 2026-10-25. Skills and agents that file sources into an Obsidian vault as linked Markdown, based on the LLM Wiki pattern. Read its ingest and link rules against our vault rules; claims are the README's own.",
+   "limits": "README excerpt only; nothing cloned or run. Claims are the README's own."
+  },
+  {
+   "id": "Osmantic/ODS",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Python, 7860 stars, pushed 2026-11-19. A pre-release kit to turn a PC into a private AI server. Pre-release and server-heavy; note it for the Local-AI role.",
+   "limits": "README excerpt only; nothing cloned or run. Pre-release status is the README's own."
+  },
+  {
+   "id": "ollama/ollama",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, Go, 187760 stars, pushed 2026-11-20. The common tool to run open models on a local machine. A standard name for the Omni Local-AI expert to point to; the site does not use it.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "chatboxai/chatbox",
+   "status": "radar_lead",
+   "category": "Local LLM runtimes",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "GPL-3.0, TypeScript, 42446 stars, pushed 2026-11-18. A desktop chat client for LLMs. GPL code cannot go into the MIT site and a chat client adds nothing to the site, Omni or the vault.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "MakazhanAlpamys/Soup",
+   "status": "researched_addition",
+   "category": "Local LLM runtimes",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Python, 10681 stars, pushed 2026-11-20. Fine-tunes LLMs from one YAML file and claims low GPU memory use. Useful for the Local-AI role as a pointer; we do not train models.",
+   "limits": "README excerpt only; nothing cloned or run. Memory claims are the README's own."
+  },
+  {
+   "id": "dograh-hq/dograh",
+   "status": "radar_lead",
+   "category": "Local LLM runtimes",
+   "disposition": "reject",
+   "evidence": "readme-read",
+   "applies_to": [
+    "none"
+   ],
+   "reason": "BSD-2-Clause, Python, 6236 stars, pushed 2026-11-16. A self-hosted voice agent platform with telephony. It is a heavy server product with no use for the site, Omni or the vault.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "ahujasid/mcp-for-blender",
+   "status": "researched_addition",
+   "category": "Agent frameworks and MCP",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "MIT, Python, 35149 stars, pushed 2026-11-18. A plugin that lets an LLM drive Blender through MCP. Good to know for the creative tools Omni may meet; nothing for the site.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "xerj-org/xerj",
+   "status": "researched_addition",
+   "category": "Agent frameworks and MCP",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Rust, 19081 stars, pushed 2026-11-20. One binary for full-text, vector and hybrid search with an MCP server for agents. Claims are the README's own; it is a server tool and nothing is copied.",
+   "limits": "README excerpt only; nothing cloned or run. Claims are the README's own."
+  },
+  {
+   "id": "promptfoo/promptfoo",
+   "status": "researched_addition",
+   "category": "LLM evaluation",
+   "disposition": "study",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni",
+    "quality"
+   ],
+   "reason": "MIT, TypeScript, 27498 stars, pushed 2026-11-20. A CLI for tests of prompts and agents with declarative configs and red-team checks. Read its config shape and assertion types to improve Omni evaluation and review steps; the tool itself is not shipped.",
+   "limits": "README excerpt only; nothing cloned or run."
+  },
+  {
+   "id": "NVIDIA/garak",
+   "status": "researched_addition",
+   "category": "LLM evaluation",
+   "disposition": "reference",
+   "evidence": "readme-read",
+   "applies_to": [
+    "omni"
+   ],
+   "reason": "Apache-2.0, Python, 10117 stars, pushed 2026-11-18. A scanner that probes an LLM app for prompt injection, leakage and similar faults. Useful as a list of failure types when Omni reviews prompts; not run here.",
+   "limits": "README excerpt only; nothing cloned or run."
   }
  ]
 }

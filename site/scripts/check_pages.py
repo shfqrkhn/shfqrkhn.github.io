@@ -294,7 +294,8 @@ def main():
             if re.search(r"user-scalable\s*=\s*(no|false|0)|maximum-scale\s*=\s*(?:0|1)(?:\.\d+)?(?!\d)", s.viewport_content, re.I): errors.append(where + ": the viewport blocks zoom")
             if s.bad_tabindex: errors.append("%s: %d element(s) with tabindex above 0 (breaks keyboard order)" % (where, s.bad_tabindex))
             if s.bad_blank: errors.append("%s: %d link(s) open a new tab without rel=noopener" % (where, s.bad_blank))
-            if s.headings.count(1) != 1: flag.append("%s: %d <h1> (want exactly one)" % (where, s.headings.count(1)))
+            runtime_h1 = not s.headings.count(1) and re.search(r"""\b(?:h|createElement)\(\s*['"]h1['"]""", text)  # study readers build their single h1 per view in script
+            if s.headings.count(1) != 1 and not runtime_h1: flag.append("%s: %d <h1> (want exactly one)" % (where, s.headings.count(1)))
             if any(b - a > 1 for a, b in zip(s.headings, s.headings[1:])): flag.append(where + ": a heading level is skipped")
             if len(s.title.strip()) >= 60: warnings.append("%s: title is %d characters (keep it under 60)" % (where, len(s.title.strip())))
             if re.search(r"\banimation\s*:|\btransition\s*:", text) and "prefers-reduced-motion" not in text: flag.append(where + ": motion without a prefers-reduced-motion rule")
