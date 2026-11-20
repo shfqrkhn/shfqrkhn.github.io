@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-DTKHTkvqMrhm77FtgjbCBd0O2+6tmN9rt59X3EWIM/M='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-rrxay5ghxCvmAixghCJnJuEai8x2Msi3e2dpCJDHHnM='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>ProjectPopQuiz Exams</title>
     <meta name="app-version" content="1.7.4">
     <script>
@@ -1438,8 +1438,9 @@ class QuizManager {
     /** Writes one log entry, only when Save progress is ticked. */
     _logEvent(ev) {
         if (!this._saving()) return false;
-        if (!PMQ_LOG.add(ev)) return false;
-        return PMQ_LOG.persist();
+        if (!PMQ_LOG.add(ev)) { this._logLost = true; return false; }
+        if (!PMQ_LOG.persist()) { this._logLost = true; return false; }
+        return true;
     }
 
     _logAttempt(question, isCorrect) {
@@ -2393,6 +2394,7 @@ class QuizManager {
      */
     startQuiz() {
         this.isQuizActive = true;
+        this._logLost = false;
         this.currentQuestionIndex = 0;
         this.score = 0;
         this.userAnswers = [];
@@ -2730,7 +2732,7 @@ class QuizManager {
         this._renderDomainBars();
         if (this.dom.resultsLog) {
             this.dom.resultsLog.textContent = this._saving()
-                ? `Saved. Log holds ${PMQ_LOG.size()}.`
+                ? (this._logLost ? `Not all answers were saved: browser storage is full or blocked, or the log is full. Log holds ${PMQ_LOG.size()}.` : `Saved. Log holds ${PMQ_LOG.size()}.`)
                 : 'Not saved. Tick Save progress before a quiz.';
         }
         this._refreshStudyPanel();
