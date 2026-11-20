@@ -66,7 +66,7 @@ apps = [p for p in pages if p["kind"] == "apps"]
 arch = [p for p in pages if p.get("archived")]
 missing = [p["slug"] for p in pages if not os.path.isfile(os.path.join(ROOT, "site", p["kind"], p["slug"], "index.html"))]
 ids = [p["id"] for p in pages]
-rec("CR-2 registry", not missing and len(ids) == len(set(ids)) and len(pages) == 41 and len(arch) == 8, "%d pages (%d by kind apps), %d archived, %d missing output, ids unique=%s" % (len(pages), len(apps), len(arch), len(missing), len(ids) == len(set(ids))))
+rec("CR-2 registry", not missing and len(ids) == len(set(ids)) and len(pages) == 42 and len(arch) == 0, "%d pages (%d by kind apps), %d archived, %d missing output, ids unique=%s" % (len(pages), len(apps), len(arch), len(missing), len(ids) == len(set(ids))))
 
 # CR-3 ledger
 led = json.load(open(led_p, encoding="utf-8"))

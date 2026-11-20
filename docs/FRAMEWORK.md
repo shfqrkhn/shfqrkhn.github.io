@@ -256,6 +256,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 - Put the control the user needs next, directly under the primary action (FlexxFiles had its reps-in-reserve buttons below the fold until they were moved under Complete set).
 - Stop any local test server you start (`python -m http.server`, node dev servers) when the test ends; stray ones lock folders and block moves into the archive.
 - Run a history rewrite only with branch protection off, and check the old pull request refs first; they survive a force-push.
+- Data apps (PennyPlanner): block deletes of items other rows reference; compute a value one way on every screen; a converted total names what it omits; compare dates by calendar day; validate cross-field inputs in the form; Dexie `where()` needs an index; keyword rules match whole words; saved import templates win over auto-mapping.
 
 ## 12. Generated blocks (do not edit)
 

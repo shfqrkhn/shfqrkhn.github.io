@@ -608,6 +608,21 @@
    ],
    "basis": "inferred from registry tagline and blurb: GitHub projects for AI builders",
    "status": "inferred, owner to confirm"
+  },
+  {
+   "id": "promptpantry-library",
+   "title": "PromptPantry Library",
+   "kind": "apps",
+   "archived": false,
+   "goal": "Help a person keep, fill in and reuse their own prompts, privately.",
+   "success": "Target to test: a saved prompt's blanks fill in and preview before copy; prompts never leave the device and can be backed up and restored.",
+   "stable_edge_checks": [
+    "Local-first storage durability (persistent storage)",
+    "backup and restore",
+    "template blanks filled safely"
+   ],
+   "basis": "inferred from registry tagline and blurb: Your own prompts, kept on this device",
+   "status": "inferred, owner to confirm"
   }
  ]
 }
