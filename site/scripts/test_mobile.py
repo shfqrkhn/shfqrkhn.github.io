@@ -71,8 +71,7 @@ with sync_playwright() as p:
         ok("%s: no console errors %s" % (label, errs[:2]), not errs)
         ctx.close(); b.close()
     # pages changed by the 2026-11-20 consolidation: fit, tap targets and console at 320 and 390 px
-    # a control inside a label is measured with its label (WCAG 2.5.8); visually hidden (1 px) and parked off-screen controls (skip links) are not tap targets until focused
-    TAPS = """()=>[...document.querySelectorAll("a,button,input,summary")].filter(e=>{const t=(e.tagName=="INPUT"&&e.closest("label"))||e,r=t.getBoundingClientRect();return r.width>1&&r.height>1&&r.right>0&&r.left<innerWidth&&(r.width<36||r.height<36)}).map(e=>e.id||e.className||e.tagName)"""
+    TAPS = """()=>[...document.querySelectorAll("a,button,input,summary")].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&(r.width<36||r.height<36)}).map(e=>e.id||e.className||e.tagName)"""
     FITS = "document.documentElement.scrollWidth <= innerWidth"
     by_id = {a["id"]: a["address"][2:] for a in cat["apps"]}
     for w in (320, 390):
@@ -84,7 +83,7 @@ with sync_playwright() as p:
             pg.goto(B + by_id[pid]); pg.wait_for_load_state("networkidle"); pg.wait_for_timeout(800)
             ok("%d px %s: no sideways scroll" % (w, pid), pg.evaluate(FITS))
             small = pg.evaluate(TAPS)
-            ok("%d px %s: tap targets are at least 36 px (%s)" % (w, pid, ", ".join(sorted(set(small))[:4]) or "all good"), not small)
+            ok("%d px %s: tap targets are at least 36 px (%s)" % (w, pid, ", ".join(sorted(set(small))) or "all good"), not small)
             if pid == "frugal-ferret":  # the Retirement planner view
                 pg.tap("#ff-retire-open"); pg.wait_for_selector("#ff-retire-frame:not([hidden])", timeout=15000)
                 fr = pg.frame_locator("#ff-retire-frame"); fr.locator("body").wait_for(); pg.wait_for_timeout(1500)
