@@ -84,13 +84,21 @@ with sync_playwright() as p:
             ok("%d px %s: no sideways scroll" % (w, pid), pg.evaluate(FITS))
             small = pg.evaluate(TAPS)
             ok("%d px %s: tap targets are at least 36 px (%s)" % (w, pid, ", ".join(sorted(set(small))) or "all good"), not small)
-            if pid == "frugal-ferret":  # the Retirement planner view
-                pg.tap("#ff-retire-open"); pg.wait_for_selector("#ff-retire-frame:not([hidden])", timeout=15000)
+            if pid == "frugal-ferret":  # the Retirement planner view, reached the way a first-time user goes: Planning, Retirement, then the labelled button
+                pg.locator("nav").get_by_text("Planning").last.tap(); pg.get_by_role("tab", name="Retirement").tap()
+                go = pg.get_by_role("button", name="Open the full retirement planner")
+                ok("%d px %s: Planning, Retirement shows a labelled way into the full planner" % (w, pid), go.count() == 1 and go.is_visible())
+                go.tap(); pg.wait_for_selector("#ff-retire-frame:not([hidden])", timeout=15000)
                 fr = pg.frame_locator("#ff-retire-frame"); fr.locator("body").wait_for(); pg.wait_for_timeout(1500)
                 f = [x for x in pg.frames if x.url.startswith("blob:")][0]
                 ok("%d px %s retirement view: no sideways scroll" % (w, pid), f.evaluate(FITS) and pg.evaluate(FITS))
                 small = f.evaluate(TAPS) + pg.evaluate("""()=>[...document.querySelectorAll("#ff-retire button")].filter(e=>{const r=e.getBoundingClientRect();return r.width<36||r.height<36}).map(e=>e.id)""")
                 ok("%d px %s retirement view: tap targets are at least 36 px (%s)" % (w, pid, ", ".join(sorted(set(small))[:4]) or "all good"), not small)
+            if pid == "deal-dojo":  # the plan worksheet: Start Here links to it, it fits, and a written plan survives a reload
+                go = pg.get_by_role("link", name="Write my negotiation plan")
+                ok("%d px %s: Start Here links to the plan worksheet" % (w, pid), go.count() == 1)
+                go.tap(); pg.get_by_label("My walk-away limit").fill("9400"); pg.reload(); pg.wait_for_load_state("networkidle"); pg.wait_for_timeout(500)
+                ok("%d px %s plan: kept after a reload, fits, tap targets at least 36 px" % (w, pid), pg.get_by_label("My walk-away limit").input_value() == "9400" and pg.evaluate(FITS) and not pg.evaluate(TAPS))
             ok("%d px %s: no console errors %s" % (w, pid, errs[:2]), not errs)
             ctx.close(); b.close()
     # offline on a phone: save everything, then open every page with the network off

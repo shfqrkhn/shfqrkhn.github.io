@@ -11,7 +11,7 @@ You are one fresh, read-only reviewer pass over a frozen candidate: the live 42-
 
 - Every line of each item's source in `sources/apps/`, not a sample. For files with very long lines, read `<views>/<name>.view.html` (your dispatch gives the folder): each line over 2000 characters is replaced by its line number, length, hash and its start and end. You still cover those lines: classify each as data or vendored code. For data, parse and check all of it by script (structure, missing or duplicate keys, answer keys in range, broken references, impossible values). For vendored code, name the library, version and licence from its header and say whether it is loaded from the page itself (no external request).
 - The built page in `site/` (the registry, `builder/registry.json`, maps each source to its slug and kind) where behaviour depends on the build: CSP, inlined engine, service worker, shared `site/scripts/ui.css`.
-- Study readers (a marker line `@@KD-ENGINE`) use `sources/engine/ENGN-KD-App-1.5.5.js`; if your dispatch gives you the engine, read all of it.
+- Study readers (a marker line `@@KD-ENGINE`) use `sources/engine/ENGN-KD-App-1.5.5.js` (DealDojo uses `ENGN-KD-App-1.5.6.js`, which adds the plan worksheet); if your dispatch gives you the engine, read all of it.
 
 ## What blocks (critical, material, moderate)
 

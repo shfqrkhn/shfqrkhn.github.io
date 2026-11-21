@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 36 pages in 7 groups: 36 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `f6471536`, last changed 2026-11-20.
+Hub 1.4.3. 36 pages in 7 groups: 36 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `10731e95`, last changed 2026-11-21.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -271,14 +271,14 @@ Hub 1.4.3. 36 pages in 7 groups: 36 single, 0 bundle, 0 remote, 0 generated; 6 a
 | FlexxFiles Workout Log | apps | single | health | 2.5.5 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NoodleNudge Journal | apps | single | health | 1.7.6 | live | MIT | /apps/noodlenudge-journal/ |
-| PennyPlanner Budget | apps | single | money | 1.4.0 | live | MIT | /apps/pennyplanner-budget/ |
+| PennyPlanner Budget | apps | single | money | 1.4.1 | live | MIT | /apps/pennyplanner-budget/ |
 | TickleTodo Tasks | apps | single | health | 1.3.5 | live | MIT | /apps/tickletodo-tasks/ |
 | AuctionAcademy Classroom Game | courses | single | learning | 5.1.2 | live | MIT | /courses/auctionacademy-game/ |
 | BalanceBuddy Accounting Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/balancebuddy-accounting/ |
 | BlueprintBuddy Systems Design | courses | single | learning | 1.5.5 | live | MIT | /courses/blueprintbuddy-systems/ |
 | CashCrunch Accounting Calculators | courses | single | learning | 1.5.5 | live | MIT | /courses/cashcrunch-accounting/ |
 | ConfigCompass Change Control | courses | single | learning | 1.5.5 | live | MIT | /courses/configcompass-change/ |
-| DealDojo Negotiation Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/dealdojo-negotiation/ |
+| DealDojo Negotiation Guide | courses | single | learning | 1.5.6 | live | MIT | /courses/dealdojo-negotiation/ |
 | DebtDial Capital Structure | courses | single | learning | 1.5.5 | live | MIT | /courses/debtdial-capital/ |
 | GlobalGambit Strategy Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/globalgambit-strategy/ |
 | LeadLantern Leadership Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/leadlantern-leadership/ |
