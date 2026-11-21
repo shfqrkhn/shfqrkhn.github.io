@@ -70,6 +70,30 @@ with sync_playwright() as p:
         ok("%s: header buttons stay on screen" % label, pg.evaluate("(function(){var r=document.getElementById('look').getBoundingClientRect();return r.right<=innerWidth&&r.left>=0})()"))
         ok("%s: no console errors %s" % (label, errs[:2]), not errs)
         ctx.close(); b.close()
+    # pages changed by the 2026-11-20 consolidation: fit, tap targets and console at 320 and 390 px
+    # a control inside a label is measured with its label (WCAG 2.5.8); visually hidden (1 px) and parked off-screen controls (skip links) are not tap targets until focused
+    TAPS = """()=>[...document.querySelectorAll("a,button,input,summary")].filter(e=>{const t=(e.tagName=="INPUT"&&e.closest("label"))||e,r=t.getBoundingClientRect();return r.width>1&&r.height>1&&r.right>0&&r.left<innerWidth&&(r.width<36||r.height<36)}).map(e=>e.id||e.className||e.tagName)"""
+    FITS = "document.documentElement.scrollWidth <= innerWidth"
+    by_id = {a["id"]: a["address"][2:] for a in cat["apps"]}
+    for w in (320, 390):
+        for pid in ("gear-guardian", "modeltab", "frugal-ferret", "apex-egg-salad", "hades-eris-protocol", "deal-dojo", "auction-academy"):
+            if pid not in by_id:
+                ok("%d px %s: page is in the catalog" % (w, pid), False); continue
+            b = p.chromium.launch(); ctx = b.new_context(viewport={"width": w, "height": 740}, device_scale_factor=2, is_mobile=True, has_touch=True); pg = ctx.new_page(); errs = []
+            pg.on("console", lambda m, e=errs: e.append(m.text[:80]) if m.type == "error" else None); pg.on("pageerror", lambda x, e=errs: e.append(str(x)[:80]))
+            pg.goto(B + by_id[pid]); pg.wait_for_load_state("networkidle"); pg.wait_for_timeout(800)
+            ok("%d px %s: no sideways scroll" % (w, pid), pg.evaluate(FITS))
+            small = pg.evaluate(TAPS)
+            ok("%d px %s: tap targets are at least 36 px (%s)" % (w, pid, ", ".join(sorted(set(small))[:4]) or "all good"), not small)
+            if pid == "frugal-ferret":  # the Retirement planner view
+                pg.tap("#ff-retire-open"); pg.wait_for_selector("#ff-retire-frame:not([hidden])", timeout=15000)
+                fr = pg.frame_locator("#ff-retire-frame"); fr.locator("body").wait_for(); pg.wait_for_timeout(1500)
+                f = [x for x in pg.frames if x.url.startswith("blob:")][0]
+                ok("%d px %s retirement view: no sideways scroll" % (w, pid), f.evaluate(FITS) and pg.evaluate(FITS))
+                small = f.evaluate(TAPS) + pg.evaluate("""()=>[...document.querySelectorAll("#ff-retire button")].filter(e=>{const r=e.getBoundingClientRect();return r.width<36||r.height<36}).map(e=>e.id)""")
+                ok("%d px %s retirement view: tap targets are at least 36 px (%s)" % (w, pid, ", ".join(sorted(set(small))[:4]) or "all good"), not small)
+            ok("%d px %s: no console errors %s" % (w, pid, errs[:2]), not errs)
+            ctx.close(); b.close()
     # offline on a phone: save everything, then open every page with the network off
     b = p.chromium.launch(); ctx = b.new_context(**p.devices["Pixel 7"]); pg = ctx.new_page()
     pg.goto(B); pg.evaluate("navigator.serviceWorker.ready"); pg.reload(); pg.wait_for_timeout(1500)

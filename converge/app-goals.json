@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10",
+ "generated": "2026-11-21",
  "method": "Goals are inferred from each page's registry tagline, blurb and kind. They are working statements for review; success measures are targets to test, not measured results. stable_edge_checks list what to evaluate against primary sources (browser Baseline data, MDN, research) before adopting; nothing is adopted until measured, tested and reversible. Every success measure begins with 'Target to test' because none has been measured.",
  "apps": [
   {
@@ -99,7 +99,7 @@
    "id": "done-depot",
    "title": "TickleTodo Tasks",
    "kind": "apps",
-   "archived": true,
+   "archived": false,
    "goal": "Keep tasks and focus time in one simple place.",
    "success": "Target to test: capture in one tap; an Overdue view and count exist; the focus timer survives a reload (survival with the screen off is a target to test).",
    "stable_edge_checks": [
@@ -114,60 +114,39 @@
    "id": "frugal-ferret",
    "title": "PennyPlanner Budget",
    "kind": "apps",
-   "archived": true,
-   "goal": "Show where money goes and keep spending within budgets, on the device.",
-   "success": "Target to test: balances reconcile exactly (integer cents); a budget shows Over budget once exceeded (an early warning before overspend is a target to add); backup and restore exist.",
+   "archived": false,
+   "goal": "Show where money goes, keep spending within budgets, and explore when a person can stop working, all on the device.",
+   "success": "Target to test: balances reconcile exactly (integer cents); a budget shows Over budget once exceeded (an early warning before overspend is a target to add); backup and restore exist; every retirement result states its assumptions and its math is checked against known cases; side-by-side scenario comparison is a candidate.",
    "stable_edge_checks": [
     "Integer money math",
     "import of bank CSVs",
-    "local encryption options"
-   ],
-   "basis": "inferred from registry tagline and blurb: Accounts and budgets",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "nfire",
-   "title": "NestEggNinja Retirement",
-   "kind": "apps",
-   "archived": true,
-   "goal": "Let a person explore whether and when they can stop working, with assumptions in view.",
-   "success": "Target to test: every result states its assumptions; side-by-side scenario comparison is not present yet and is a candidate; math is checked against known cases.",
-   "stable_edge_checks": [
+    "local encryption options",
     "Monte Carlo and historical sequence methods",
     "inflation and tax assumptions with dated sources"
    ],
-   "basis": "inferred from registry tagline and blurb: Retirement scenario planner",
+   "basis": "inferred from registry tagline and blurb: Budgets and retirement plans; merged nfire goal rows on 2026-11-21",
    "status": "inferred, owner to confirm"
   },
   {
    "id": "modeltab",
    "title": "PromptPlayground AI Chat",
    "kind": "tools",
-   "archived": true,
-   "goal": "Chat with an AI model using the user's own key while showing cost and endpoint.",
-   "success": "Target to test: the key never leaves the device except to the chosen endpoint; cost is shown for models the user prices in Settings, computed exactly and labelled as from the user's figures.",
+   "archived": false,
+   "goal": "Chat with an AI model on the user's own key, keep and reuse prompts, and turn AI chat exports into clean Markdown, privately.",
+   "success": "Target to test: the key never leaves the device except to the chosen endpoint; cost is shown for models the user prices in Settings, computed exactly and labelled as from the user's figures; a saved prompt's blanks fill in and preview before copy, and prompts can be backed up and restored; AI Studio JSON exports convert to Markdown with no loss of text, oversized files are refused with a message, and nothing is uploaded.",
    "stable_edge_checks": [
     "Streaming responses",
     "current model price data",
     "key storage safety",
-    "CSP connect rules"
-   ],
-   "basis": "inferred from registry tagline and blurb: Chat with AI, your key",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "ai-studio-cleaner",
-   "title": "TranscriptTidy AI Exports",
-   "kind": "tools",
-   "archived": false,
-   "goal": "Convert AI chat exports to clean Markdown in the browser.",
-   "success": "Target to test: converts AI Studio JSON exports to Markdown with no loss of text (one way); files over the stated size limit are refused with a message; nothing is uploaded.",
-   "stable_edge_checks": [
+    "CSP connect rules",
+    "Local-first storage durability (persistent storage)",
+    "backup and restore",
+    "template blanks filled safely",
     "Streaming file reads",
     "File and drag-drop APIs",
     "Markdown standards"
    ],
-   "basis": "inferred from registry tagline and blurb: AI chats to Markdown",
+   "basis": "inferred from registry tagline and blurb: AI chat, prompts and transcripts; merged promptpantry-library, ai-studio-cleaner goal rows on 2026-11-21",
    "status": "inferred, owner to confirm"
   },
   {
@@ -204,7 +183,7 @@
    "id": "rog-game-finder",
    "title": "HandheldHunter PC Games",
    "kind": "references",
-   "archived": false,
+   "archived": true,
    "goal": "Help a handheld owner choose games that run well and compare them.",
    "success": "Target to test: each pick is an estimate from trial profiles, labelled as not benchmarked; the app shows dates and sources for its data; measured handheld results are a watch-list item.",
    "stable_edge_checks": [
@@ -232,7 +211,7 @@
   },
   {
    "id": "apex-egg-salad",
-   "title": "Eggspress Egg Salad",
+   "title": "RecipeRolodex Recipes",
    "kind": "recipes",
    "archived": false,
    "goal": "Make egg salad in an Instant Pot with correct servings and timing.",
@@ -247,7 +226,7 @@
   },
   {
    "id": "hades-eris-protocol",
-   "title": "BoonBuilder Hades Guide",
+   "title": "WalkthroughWizard Game Guides",
    "kind": "guides",
    "archived": false,
    "goal": "Guide a player through one Hades build in order.",
@@ -450,61 +429,25 @@
    "status": "inferred, owner to confirm"
   },
   {
-   "id": "setup-sherpa",
-   "title": "SetupSherpa Device Guides",
-   "kind": "guides",
-   "archived": false,
-   "goal": "Get a person through setting up a common device step by step.",
-   "success": "Target to test: A first-time user completes setup without outside help.",
-   "stable_edge_checks": [
-    "Step state saved offline",
-    "device-specific variants",
-    "tested screenshots-free steps"
-   ],
-   "basis": "inferred from registry tagline and blurb: Step-by-step device setup",
-   "status": "inferred, owner to confirm"
-  },
-  {
    "id": "gear-guardian",
    "title": "GearGuardian Care Guides",
    "kind": "guides",
    "archived": false,
-   "goal": "Keep everyday gear in good condition with clear care steps.",
-   "success": "Target to test: instructions match manufacturer guidance and are dated.",
+   "goal": "Get a person through setting up and caring for everyday gear (car, camera, espresso machine, VR headset, streamer, handheld PC, drum kit) with clear steps.",
+   "success": "Target to test: a first-time user completes a setup without outside help; instructions and settings match current manufacturer guidance and firmware and are dated; any setting is found in a few taps.",
    "stable_edge_checks": [
     "Maintenance reminders without a server",
-    "source citations"
-   ],
-   "basis": "inferred from registry tagline and blurb: Gear and care guides",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "ally-ace",
-   "title": "AllyAce Handheld Guide",
-   "kind": "guides",
-   "archived": false,
-   "goal": "Set up, tune and care for a handheld gaming PC.",
-   "success": "Target to test: settings advice matches current firmware and drivers and is dated.",
-   "stable_edge_checks": [
+    "source citations",
+    "Step state saved offline",
+    "device-specific variants",
+    "tested screenshots-free steps",
     "Version tagging",
-    "tested settings tables"
-   ],
-   "basis": "inferred from registry tagline and blurb: Handheld PC guide",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "drum-deck",
-   "title": "DrumDeck Kit Reference",
-   "kind": "references",
-   "archived": false,
-   "goal": "Give a drummer quick answers about an electronic kit.",
-   "success": "Target to test: any setting is found in a few taps and is correct for the model.",
-   "stable_edge_checks": [
+    "tested settings tables",
     "Quick search",
     "offline use",
     "verified against the maker's documentation"
    ],
-   "basis": "inferred from registry tagline and blurb: Electronic drum kit reference",
+   "basis": "inferred from registry tagline and blurb: Device setup, care and handheld games; merged setup-sherpa, ally-ace, drum-deck goal rows on 2026-11-21",
    "status": "inferred, owner to confirm"
   },
   {
@@ -568,7 +511,7 @@
    "id": "build-boss",
    "title": "BuildBoss PC Workstation Guide",
    "kind": "guides",
-   "archived": false,
+   "archived": true,
    "goal": "Help plan a high-throughput PC workstation build.",
    "success": "Target to test: the plan's parts are compatible and fit the goal, with dated prices and sources.",
    "stable_edge_checks": [
@@ -582,7 +525,7 @@
   {
    "id": "auction-academy",
    "title": "AuctionAcademy Classroom Game",
-   "kind": "games",
+   "kind": "courses",
    "archived": false,
    "goal": "Let a class learn bidding strategy by playing an auction.",
    "success": "Target to test: players understand the strategy after a round; a teacher can run it with little setup.",
@@ -607,21 +550,6 @@
     "search relevance tests"
    ],
    "basis": "inferred from registry tagline and blurb: GitHub projects for AI builders",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "promptpantry-library",
-   "title": "PromptPantry Library",
-   "kind": "apps",
-   "archived": false,
-   "goal": "Help a person keep, fill in and reuse their own prompts, privately.",
-   "success": "Target to test: a saved prompt's blanks fill in and preview before copy; prompts never leave the device and can be backed up and restored.",
-   "stable_edge_checks": [
-    "Local-first storage durability (persistent storage)",
-    "backup and restore",
-    "template blanks filled safely"
-   ],
-   "basis": "inferred from registry tagline and blurb: Your own prompts, kept on this device",
    "status": "inferred, owner to confirm"
   }
  ]

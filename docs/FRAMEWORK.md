@@ -307,6 +307,7 @@ Hub 1.4.3. 36 pages in 7 groups: 36 single, 0 bundle, 0 remote, 0 generated; 6 a
 
 ## 13. Change log (newest first)
 
+- 2026-11-21: goal rows of merged pages folded into their hosts; AuctionAcademy keeps one h1 on load; `test_mobile.py` checks the consolidated pages and the PennyPlanner Retirement view at 320 and 390 px.
 - 2026-11-20: RepoRadar 4.4.0 adds 82 README-reviewed repositories (ledger now 615). Consolidation: 5 apps archived; SetupSherpa, AllyAce and DrumDeck merged into GearGuardian, MeetingMediator into DealDojo, NestEggNinja into PennyPlanner (a Retirement view), PromptPantry and TranscriptTidy into PromptPlayground; new RecipeRolodex and WalkthroughWizard; 17 courses under Learning.
 
 - 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; `llms.txt` is generated; the brand lives in `builder/brand.json`.
