@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 37 pages in 7 groups: 37 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `0d391d6b`, last changed 2026-11-20.
+Hub 1.4.3. 36 pages in 7 groups: 36 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `f6471536`, last changed 2026-11-20.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -270,9 +270,8 @@ Hub 1.4.3. 37 pages in 7 groups: 37 single, 0 bundle, 0 remote, 0 generated; 6 a
 | DecisionDesk Briefs | apps | single | money | 0.5.3 | archived | MIT | /apps/decisiondesk-briefs/ |
 | FlexxFiles Workout Log | apps | single | health | 2.5.5 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
-| NestEggNinja Retirement | apps | single | money | 10.4.5 | live | MIT | /apps/nesteggninja-retirement/ |
 | NoodleNudge Journal | apps | single | health | 1.7.6 | live | MIT | /apps/noodlenudge-journal/ |
-| PennyPlanner Budget | apps | single | money | 1.3.7 | live | MIT | /apps/pennyplanner-budget/ |
+| PennyPlanner Budget | apps | single | money | 1.4.0 | live | MIT | /apps/pennyplanner-budget/ |
 | TickleTodo Tasks | apps | single | health | 1.3.5 | live | MIT | /apps/tickletodo-tasks/ |
 | AuctionAcademy Classroom Game | courses | single | learning | 5.1.2 | live | MIT | /courses/auctionacademy-game/ |
 | BalanceBuddy Accounting Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/balancebuddy-accounting/ |
@@ -308,7 +307,7 @@ Hub 1.4.3. 37 pages in 7 groups: 37 single, 0 bundle, 0 remote, 0 generated; 6 a
 
 ## 13. Change log (newest first)
 
-- 2026-11-20: RepoRadar 4.4.0 adds 82 README-reviewed repositories (ledger now 615). Consolidation: 5 apps archived; SetupSherpa, AllyAce and DrumDeck merged into GearGuardian, MeetingMediator into DealDojo, PromptPantry and TranscriptTidy into PromptPlayground; new RecipeRolodex and WalkthroughWizard; 17 courses under Learning.
+- 2026-11-20: RepoRadar 4.4.0 adds 82 README-reviewed repositories (ledger now 615). Consolidation: 5 apps archived; SetupSherpa, AllyAce and DrumDeck merged into GearGuardian, MeetingMediator into DealDojo, NestEggNinja into PennyPlanner (a Retirement view), PromptPantry and TranscriptTidy into PromptPlayground; new RecipeRolodex and WalkthroughWizard; 17 courses under Learning.
 
 - 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; `llms.txt` is generated; the brand lives in `builder/brand.json`.
 

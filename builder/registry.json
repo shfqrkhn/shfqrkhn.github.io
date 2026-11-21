@@ -184,8 +184,8 @@
    "slug": "pennyplanner-budget",
    "source": "apps/APPS-FINA-PennyPlanner-v*.html",
    "topic": "money",
-   "blurb": "Tracks your accounts, spending and budgets on this device.",
-   "keywords": "money budget spending expenses accounts bank transactions track money finance save savings bills csv import reports net worth cash",
+   "blurb": "Tracks accounts, spending and budgets on this device, with a retirement planner for year-by-year scenarios.",
+   "keywords": "money budget spending expenses accounts bank transactions track money finance save savings bills csv import reports net worth cash retire retirement fire withdrawal pension independence early nest egg portfolio planner",
    "icon": "frugal-ferret",
    "lazy": true,
    "private": false,
@@ -193,39 +193,21 @@
    "former_names": [
     "Frugal Ferret",
     "PennyPounce",
-    "PennyPlanner"
-   ],
-   "aliases": [
-    "apps/frugalferret",
-    "apps/pennypounce",
-    "apps/pennyplanner"
-   ],
-   "hue": 243,
-   "tagline": "Accounts and budgets"
-  },
-  {
-   "id": "nfire",
-   "title": "NestEggNinja Retirement",
-   "kind": "apps",
-   "slug": "nesteggninja-retirement",
-   "source": "apps/APPS-FINA-NestEggNinja-v*.html",
-   "topic": "money",
-   "blurb": "Plans financial independence scenarios with stated assumptions and year-by-year results.",
-   "keywords": "retire retirement fire savings withdrawal tax pension independence early nest egg portfolio planner money",
-   "icon": "nfire",
-   "lazy": true,
-   "private": false,
-   "archived": false,
-   "former_names": [
+    "PennyPlanner",
+    "NestEggNinja Retirement",
     "nFIRE",
     "NestEggNinja"
    ],
    "aliases": [
+    "apps/frugalferret",
+    "apps/pennypounce",
+    "apps/pennyplanner",
+    "apps/nesteggninja-retirement",
     "apps/nfire",
     "apps/nesteggninja"
    ],
-   "hue": 20,
-   "tagline": "Retirement scenario planner"
+   "hue": 243,
+   "tagline": "Budgets and retirement plans"
   },
   {
    "id": "modeltab",
