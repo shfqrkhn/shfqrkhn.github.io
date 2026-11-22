@@ -46,7 +46,7 @@ https://shfqrkhn.github.io
 | Path | What it holds |
 |---|---|
 | `sources/apps/` | The apps, one file each, versioned in the file name |
-| `sources/engine/` | The shared study program that 18 readers inline at build |
+| `sources/engine/` | The shared study program that 15 readers inline at build |
 | `sources/nesteggninja/` | The NestEggNinja planner's recovered source; the build assembles it and embeds it in PennyPlanner |
 | `sources/method/` | The AI method documents: the Prompt Clipboard, the Knowledge Distiller, the Resource Catalogue (also a page in the hub, RepoRadar) |
 | `builder/` | The builder and every tool: build, rename, archive, new app, publish, backup, self-test, icon restore; the registry, icon list, install icons |

@@ -1219,7 +1219,7 @@ function AssumptionsForm() {
                 n < e.annual_savings
                   ? sVm((q) => ({
                       ...q,
-                      incomeNote: "Annual savings is capped at your income, so it was lowered to " + U(n) + ".",
+                      incomeNote: "Annual savings is above this income, so the plan counts " + U(n) + " a year of savings. Your savings figure is kept.",
                     }))
                   : sVm((q) =>
                       q.incomeNote

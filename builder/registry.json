@@ -317,12 +317,12 @@
   },
   {
    "id": "codex-ludus",
-   "title": "MeepleMentor Board Game Rules",
+   "title": "MeepleMentor Board Game Guides",
    "kind": "games",
-   "slug": "meeplementor-board-game-rules",
+   "slug": "meeplementor-board-game-guides",
    "source": "apps/APPS-GUID-MeepleMentor-v*.html",
    "topic": "games",
-   "blurb": "Rules and strategy for board games, with the strategy hidden until you ask for it.",
+   "blurb": "Short guides and strategy for board games, with the strategy chapter hidden until you ask for it. Not a rulebook.",
    "keywords": "board games rules strategy shelf tabletop game night how to play rulebook cards dice",
    "icon": "codex-ludus",
    "lazy": true,
@@ -330,14 +330,16 @@
    "archived": false,
    "former_names": [
     "Codex Ludus",
-    "MeepleMentor"
+    "MeepleMentor",
+    "MeepleMentor Board Game Rules"
    ],
    "aliases": [
     "games/codexludus",
-    "games/meeplementor"
+    "games/meeplementor",
+    "games/meeplementor-board-game-rules"
    ],
    "hue": 263,
-   "tagline": "Board game rules"
+   "tagline": "Board game guides"
   },
   {
    "id": "apex-egg-salad",

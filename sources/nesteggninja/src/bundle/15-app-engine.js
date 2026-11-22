@@ -289,7 +289,7 @@
             rrsp = rrsp.lt(gross) ? D(0) : rrsp.minus(gross);
           }
         } else {
-          let savings = D(profile.annual_savings);
+          let savings = Decimal.min(D(profile.annual_savings), D(profile.annual_income));
           const tfsaRoom = D(POLICY.constants.tfsa_limit);
           const rrspRoom = Decimal.min(
             D(profile.annual_income).times(POLICY.constants.rrsp_limit_pct),

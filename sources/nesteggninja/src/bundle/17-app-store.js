@@ -126,8 +126,7 @@ const defaultProfile = {
             ...(n.assumptions || {}),
           },
         };
-        i.annual_savings > i.annual_income && (i.annual_savings = i.annual_income),
-          i.age > 90 && (i.age = 90),
+        i.age > 90 && (i.age = 90),
           i.assumptions.lifespan <= i.age && (i.assumptions.lifespan = i.age + 1);
         const o = z0(i);
         return (

@@ -43,7 +43,7 @@
     var age = Math.floor(Number(p.age) || 18);
     return {
       age: age, retireAge: Math.floor(Number(p.target_retirement_age) || 55), endAge: Math.max(Math.floor(Number(a.lifespan) || 95), age + 1),
-      province: p.province, incomeCents: c(p.annual_income), spendCents: c(p.annual_spend), savingsCents: c(p.annual_savings),
+      province: p.province, incomeCents: c(p.annual_income), spendCents: c(p.annual_spend), savingsCents: Math.min(c(p.annual_savings), c(p.annual_income)),
       rrspCents: c(p.assets.rrsp), tfsaCents: c(p.assets.tfsa), nonRegCents: c(p.assets.non_reg),
       growthPpm: Math.round((Number(a.growthRate) || 0) * 1e6), taxDragPpm: Math.round((Number(a.taxDrag) || 0) * 1e6),
       inflPpm: Math.round((Number(a.inflationRate) || 0.02) * 1e6),

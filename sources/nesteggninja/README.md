@@ -60,7 +60,7 @@ The parts are cuts of one ES module at top-level statement boundaries. They only
 
 ## Proof
 
-`tests/behave.py` drives the planner in Chromium (Playwright) and records the visible text, the year-table CSV, the saved plan file and a seeded stress test (seed 12345, 500 paths) for five scenarios: default inputs, early retirement (age 45), high spending (90,000), zero savings, and a saved plan reloaded. It ran twice on the old embed (identical results, now `tests/baseline.json`), then on the rebuilt page alone and inside PennyPlanner with its policy on. Every output matched, with no console errors or policy violations. A plan saved by the old live PennyPlanner was restored by the new one.
+`tests/behave.py` drives the planner in Chromium (Playwright) and records the visible text, the year-table CSV, the saved plan file and a seeded stress test (seed 12345, 500 paths) for five scenarios: default inputs, early retirement (age 45), high spending (90,000), zero savings, and a saved plan reloaded. It ran twice on the old embed (identical results, now `tests/baseline.json`), then on the rebuilt page alone and inside PennyPlanner with its policy on. Every output matched, with no console errors or policy violations. A plan saved by the old live PennyPlanner was restored by the new one. In PennyPlanner 1.4.3 the saved-plan scenario was re-recorded: the old page cut Annual savings to the first digit typed into Annual income (the plan file held savings 1); the fixed page keeps 20,000 and only counts savings up to income in the projection.
 
 Run it: `python tests/behave.py <served folder> <page> <out.json> [--host] [--saved-by=<page>]`. With `--host` the page is PennyPlanner and the planner is opened in its frame.
 
