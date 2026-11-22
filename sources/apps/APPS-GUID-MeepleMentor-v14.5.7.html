@@ -2,12 +2,12 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-uTJj8yKV596uO1lASVR6wEy6C83MG9y2qRwq5qmtN5o='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- MeepleMentor 14.5.6 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-uQGnuChDamMzX4MhpTgL8ZcKL24e/MuLMXc0cTwaPV0='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- MeepleMentor 14.5.7 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="MeepleMentor Board Game Guides 14.5.6: short guides to 17 board games, with the strategy chapter sealed.">
+<meta name="description" content="MeepleMentor Board Game Guides 14.5.7: short guides to 17 board games, with the strategy chapter sealed.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="MeepleMentor Board Game Guides">
 <title>MeepleMentor Board Game Guides | Guides to 17 games</title>
@@ -36,7 +36,7 @@ button,input{font:inherit;color:inherit}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
 @media(prefers-reduced-motion:no-preference){.ib{transition:border-color .15s,transform .12s,box-shadow .15s}}
 /* OMNEVUM KIT:END */
-/* MeepleMentor 14.5.6. Tokens by role; colours come from the Omnevum kit above. */
+/* MeepleMentor 14.5.7. Tokens by role; colours come from the Omnevum kit above. */
 html{--surface:var(--card);--ink:var(--fg);--muted:var(--mut);--accent:var(--acc);--accent-ink:var(--on-acc);--focus:var(--acc);--bd:color-mix(in srgb,var(--fg) 45%,var(--bg));--danger:#9B2C2C;--success:#2F6B3A;--warning:#7A4F00}
 html[data-theme="charcoal"],html[data-theme="black"]{--danger:#F0A3A3;--success:#94D19E;--warning:#E3B15E}
 :root{--s1:4px;--s2:8px;--s3:16px;--s4:24px;--s5:40px;--s6:72px;--r0:3px;--t0:1rem;--t1:1.125rem;--t2:1.375rem;--t3:2.25rem;--t4:clamp(2.75rem,8vw,4.5rem);--serif:"Subset Serif",Georgia,"Times New Roman",serif;--cond:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--rule:var(--line);--print-paper:#fff;--print-ink:#000;--print-grey:#333;--print-line:#555;--print-rule:#999;--p-fine:9pt;--p-small:10pt;--p-body:11pt;--p-lead:12pt;--p-h3:13pt;--p-h2:14pt;--p-h1:22pt}
@@ -226,7 +226,7 @@ Array.prototype.forEach.call(document.querySelectorAll("[data-go]"),function(b){
 </script>
 <main id="root" tabindex="-1"></main>
 <footer class="foot"><div>
-<span>Version 14.5.6</span>
+<span>Version 14.5.7</span>
 <span id="content-ver">-</span>
 <span>Data stays on this device</span>
 <button type="button" class="link" data-go="help">Help</button>
@@ -539,7 +539,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
 {
  "dataVersion": 1,
  "date": "2026-10-31",
- "source": "Written for MeepleMentor; content as shipped in version 14.5.3. No publisher text is copied. Time and weight are rough guides written for this app, not publisher figures: weight runs from 1 (light) to 5 (heavy); Var means the time varies. Ten games have short chapters (listed in thinGames); check the publisher's rulebook for full rules.",
+ "source": "Written for MeepleMentor; content as shipped in version 14.5.3. No publisher text is copied. Time and weight are rough guides written for this app, not publisher figures: weight runs from 1 (light) to 5 (heavy); Var means the time varies. The four rules chapters are plain summaries written for this app, not full rules; ten games have shorter summaries (listed in thinGames). Check the publisher's rulebook before play.",
  "thinGames": [
   "sw",
   "sg",
@@ -557,7 +557,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "id": "7w",
    "name": "7 Wonders",
    "weight": 2.3,
-   "time": "\u003c30m",
+   "time": "<30m",
    "type": "Technical",
    "cat": "Drafting",
    "orientation": {
@@ -579,6 +579,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "3-4P: **Hate Drafting.** Block aggressively. // 5-7P: **Solitaire.** Focus on self-sufficiency.",
     "meta": "**Chain Memory:** Memorize the links. Altar, then Temple, then Pantheon. Save your resources."
+   },
+   "rules": {
+    "aim": "Score the most victory points after three Ages (rounds of cards). Points come from your Wonder, buildings, coins, science sets and wins in war with your two neighbours.",
+    "setup": "3 to 7 players. Each player takes a Wonder board and 3 coins. Sort the cards by Age and remove those marked for more players than you have. Add Guild cards to Age III (two more than the number of players, chosen at random).",
+    "turn": "At the start of each Age, deal 7 cards to everyone. All players pick one card at the same time and pass the rest (left in Ages I and III, right in Age II). With the card you pick, either build it (pay its cost from your own resources, or buy a missing resource from a neighbour for 2 coins), tuck it under your board to build the next Wonder stage, or discard it for 3 coins. After six picks, discard the last card and compare shields with each neighbour: the stronger side takes a win token, the weaker a -1 token.",
+    "end": "The game ends after Age III. Add up war tokens, 1 point per 3 coins, Wonder stages, blue, yellow and guild cards, and science (each symbol type scores its count squared, plus 7 for each set of three different symbols). Most points wins."
    }
   },
   {
@@ -607,6 +613,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "Strictly 2P. Economy is closed.",
     "meta": "**Law Token:** The Scientific symbol for 'Law' is the key to victory."
+   },
+   "rules": {
+    "aim": "Win at once by military supremacy (push the conflict pawn into your rival's capital) or scientific supremacy (collect 6 of the 7 different science symbols). Otherwise, score the most points after Age III.",
+    "setup": "2 players. Draft Wonders so each player has 4. Each player takes 7 coins. Place 5 random progress tokens on the board and the conflict pawn in the centre. Lay out the Age I cards in the pattern shown in the rulebook, some face down.",
+    "turn": "Take one card that no other card covers. Then either build it (pay coins and resources; a missing resource costs 2 coins plus 1 for each of that resource your rival makes from brown and grey cards), discard it for 2 coins plus 1 per yellow card you own, or use it to build one of your Wonders. Shields move the conflict pawn. Two matching science symbols let you take a progress token.",
+    "end": "If no one wins at once, the game ends after Age III. Score buildings, Wonders, progress tokens, coins (1 point per 3) and the conflict track. Most points wins; on a tie, most blue-card points wins."
    }
   },
   {
@@ -635,6 +647,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "2P: **Zero-Sum.** Hate-drafting is mandatory. // 3-4P: **Chaos.** Defend yourself.",
     "meta": "**Color Lock:** Finishing a row locks that color out. Predict the draft."
+   },
+   "rules": {
+    "aim": "Score the most points by filling your wall with tiles.",
+    "setup": "2 to 4 players. Each player takes a board and puts a score marker on 0. Set out factory displays: 5 for 2 players, 7 for 3, 9 for 4. Fill each with 4 random tiles from the bag. Put the first-player marker in the centre of the table.",
+    "turn": "Take every tile of one colour from one factory and push the rest into the centre, or take every tile of one colour from the centre (the first player to do this also takes the first-player marker, which counts against them). Place all the tiles you took on one pattern line on your board. A line holds one colour only and cannot be a colour already on that row of your wall. Tiles that do not fit drop to your floor line, which costs points.",
+    "end": "When all tiles are taken, each full pattern line moves one tile to the wall and scores for each joined tile in its row and column; floor tiles take points away. The game ends after the round in which anyone completes a horizontal row on the wall. Bonuses: 2 per full row, 7 per full column, 10 per colour placed five times. Most points wins."
    }
   },
   {
@@ -663,6 +681,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "2P: **Hostile.** Steal everything. // 3-5P: **Diplomatic.** Share points.",
     "meta": "**Stranding:** Trap opponent meeples in impossible features."
+   },
+   "rules": {
+    "aim": "Score the most points by building roads, cities, monasteries and fields with land tiles and claiming them with your followers.",
+    "setup": "2 to 5 players. Place the start tile face up. Shuffle the other tiles face down. Each player takes the followers of one colour and puts one on the score track.",
+    "turn": "Draw a tile and place it so that every edge matches the tiles it touches. You may then place one follower on a feature of that tile, as long as no follower already stands on the connected feature. When a feature is finished, score it: a road 1 point per tile, a city 2 per tile plus 2 per pennant, a monastery 9 once surrounded. Followers on finished features come back to you. The player with the most followers on a feature scores it; ties all score.",
+    "end": "The game ends when the last tile is placed. Unfinished roads and monasteries score 1 per tile, unfinished cities 1 per tile and pennant, and each field scores 3 per finished city it touches. Most points wins."
    }
   },
   {
@@ -691,6 +715,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "2 players",
     "meta": "**Space:** A cramped position is death. Trade pieces to breathe."
+   },
+   "rules": {
+    "aim": "Checkmate your opponent's king: attack it so that it has no legal escape.",
+    "setup": "2 players. Turn the board so each player has a light square in the right-hand corner. Back row from the left: rook, knight, bishop, queen, king, bishop, knight, rook, with each queen on her own colour. Pawns fill the second row. White moves first.",
+    "turn": "Move one piece. A piece captures by moving onto an enemy piece. You may never make a move that leaves your own king in check. Special moves: castling, en passant capture, and promotion of a pawn that reaches the far row.",
+    "end": "The game ends by checkmate or resignation, or as a draw by stalemate, agreement, threefold repetition, the fifty-move rule, or too little material to mate."
    }
   },
   {
@@ -710,15 +740,21 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     "opener": "**Turn 1-4:** Buy +2/+3 Skill cards. You must reach **7 Skill** (Tomes/Master Key) quickly. Ignore cheap cards that don't cycle.",
     "mistakes": [
      "**The Crown Trap:** Buying high-cost, 0-utility items early. It clogs the deck.",
-     "**Deep Dive Suicide:** Entering \u003c30 VP zones with \u003c3 Health.",
+     "**Deep Dive Suicide:** Entering <30 VP zones with <3 Health.",
      "**Hoarding Swords:** You only need 2 swords per shuffle. Don't overbuy."
     ],
     "synergy": "**Teleport vs Crystal Caves:** Teleport cards bypass 'Stop' rooms.\n\n**The Hate Draft:** Buy a cheap Boot card just to strand an opponent in the deep.",
     "setup": "**Market Positioning:** Buy items (Keys/Backpack) on your *descent*, never your ascent."
    },
    "intel": {
-    "scaling": "Base: Speed is king. // Legacy: Extraction \u0026 Franchise Board \u003e Game Win.",
+    "scaling": "Base: Speed is king. // Legacy: Extraction & Franchise Board > Game Win.",
     "meta": "**Cycle Tax:** Spend extra skill to flush the market row if it stagnates."
+   },
+   "rules": {
+    "aim": "Get into the dungeon, grab an artifact and get out alive with the most points from cards, gold, artifacts and tokens.",
+    "setup": "2 to 4 players. Each player starts with the same 10-card deck, shuffles it and draws 5. Set out the market, artifacts, the dragon marker and a row of 6 dungeon cards, following the rulebook's setup for your player count.",
+    "turn": "Play all 5 cards in your hand. Skill buys cards from the dungeon row or the market; swords defeat monsters; boots move you along tunnels. Some cards add your cubes to the clank area. When a new card with a dragon symbol fills the row, the dragon attacks: clank cubes go into the bag and cubes are drawn; each of your cubes drawn is one damage. Discard and draw 5 at the end of your turn.",
+    "end": "You need an artifact to leave. Once the first player leaves or is knocked out, everyone else keeps playing while the dragon attacks harder each turn. Players knocked out in the depths score nothing. Everyone else scores, and those who escaped earn a mastery bonus. Most points wins."
    }
   },
   {
@@ -747,6 +783,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "3-4P: **Tactical.** // 5-6P: **Faction War.**",
     "meta": "**Inquisitor:** Known cards cannot be bluffed."
+   },
+   "rules": {
+    "aim": "Be the last player with influence (a face-down character card) left.",
+    "setup": "2 to 6 players. The deck holds 3 each of Duke, Assassin, Captain, Ambassador and Contessa. Each player gets 2 face-down cards and 2 coins.",
+    "turn": "Take one action. Income: take 1 coin. Foreign aid: take 2 (a Duke can block). Coup: pay 7 and a player of your choice loses one influence; with 10 or more coins you must coup. Or claim a character: Duke takes 3 coins; Assassin pays 3 to make a player lose one influence (a Contessa blocks); Captain takes 2 coins from a player (a Captain or Ambassador blocks); Ambassador swaps cards with the deck. You may claim any character, true or not. Anyone may challenge a claim; whoever is wrong loses one influence, and a proven card is shuffled back and replaced.",
+    "end": "A player who loses both cards is out. The last player with a card wins."
    }
   },
   {
@@ -775,6 +817,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "2P: **Strategic.** // 4P: **Rush.**",
     "meta": "**3-Pile End:** Watch the low piles."
+   },
+   "rules": {
+    "aim": "Have the most victory points in your deck when the game ends.",
+    "setup": "2 to 4 players. Each player starts with 7 Copper and 3 Estates, shuffles them and draws 5. Set out the treasure, victory and curse piles and 10 kingdom card piles (the rulebook gives pile sizes for each player count).",
+    "turn": "Action phase: play one Action card (cards that give +Actions let you play more). Buy phase: play treasures and buy one card (more with +Buy) into your discard pile. Clean-up: discard everything played and in hand, then draw 5. Shuffle your discards when your deck runs out.",
+    "end": "The game ends when the Province pile is empty or any three supply piles are empty. Count victory points in your whole deck; most wins."
    }
   },
   {
@@ -791,7 +839,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     "finisher": "**The Red Zone.** Last 10 cards. Dump attacks to force opponents to draw."
    },
    "tactics": {
-    "opener": "**Turn 1:** Play nothing. Draw. Build a hand \u003e 5.",
+    "opener": "**Turn 1:** Play nothing. Draw. Build a hand > 5.",
     "mistakes": [
      "**Wasting Defuses:** Never play a Defuse unless forced.",
      "**Blind Placement:** Put kitten 2-3 cards down, not top.",
@@ -803,6 +851,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "5P: **Chaos.**",
     "meta": "**Nope War:** Save a Nope for a Nope."
+   },
+   "rules": {
+    "aim": "Be the last player who has not exploded.",
+    "setup": "2 to 5 players. Take out the Exploding Kittens and Defuse cards. Deal each player a hand and one Defuse (the rulebook gives the hand size). Shuffle in one fewer Exploding Kitten than there are players, plus the spare Defuses.",
+    "turn": "Play as many cards from your hand as you like, or none. Then draw one card from the deck to end your turn. If you draw an Exploding Kitten, play a Defuse and secretly put the kitten back anywhere in the deck; without a Defuse you are out. A Nope cancels any action but a kitten or a Defuse.",
+    "end": "The last player in the game wins."
    }
   },
   {
@@ -814,7 +868,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "cat": "Area Control",
    "orientation": {
     "hook": "Graph theory warfare. Bridges cause collapses.",
-    "victory": "\u003e50% islands. Weighted scoring.",
+    "victory": ">50% islands. Weighted scoring.",
     "directive": "**The Cascade.** Removing a bridge can make an opponent lose control of an island, removing *their* bridges. Chain reaction.",
     "finisher": "**Round 3 Swing.** Round 1 is worthless. Hoard cards for the final round."
    },
@@ -831,6 +885,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "Strictly 2P.",
     "meta": "**Magma Move:** Snipe structural bridges."
+   },
+   "rules": {
+    "aim": "Control more islands than your rival at each of the three scorings, and score the most points overall.",
+    "setup": "2 players. Lay out the island board. Shuffle the island cards; each player takes cards from the deck and a few are set face up beside it, as the rulebook describes.",
+    "turn": "Play island cards to place your bridges on lines that touch the named island; play two cards to remove a rival bridge. When your bridges hold more than half the lines around an island, you take it with a marker, and your rival's bridges on that island are removed, which can cost them other islands. At the end of your turn you may draw a card.",
+    "end": "Each time the deck runs out there is a scoring, worth more each time; the third scoring ends the game. Most points wins. The rulebook gives the exact values."
    }
   },
   {
@@ -859,6 +919,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "2P: Chess-like.",
     "meta": "**Shaken State:** Target wounded."
+   },
+   "rules": {
+    "aim": "Two sides fight a short skirmish. In most scenarios a side wins by defeating the rival leader; the scenario sets the exact goal.",
+    "setup": "2 players. Lay out the map and terrain for the chosen scenario. Each player takes their side's figures and dice and places them where the scenario shows.",
+    "turn": "Spend your dice to move, attack and defend. Terrain blocks line of sight. Dice you spend on attacks are not there to defend with.",
+    "end": "The game ends when a side meets the scenario goal. This summary is short; read the rulebook and scenario sheet before playing."
    }
   },
   {
@@ -887,6 +953,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "4P: **Hard.**",
     "meta": "**Quiet Night:** Skip infection phase."
+   },
+   "rules": {
+    "aim": "Work together to find cures for all four diseases before the world is lost.",
+    "setup": "2 to 4 players. Put a research station and every pawn in Atlanta. Infect 9 cities: 3 with 3 cubes, 3 with 2 and 3 with 1. Give each player a role and player cards (4 each for 2 players, 3 for 3, 2 for 4). Shuffle 4, 5 or 6 Epidemic cards into the player deck, one per equal pile, by difficulty.",
+    "turn": "Take 4 actions: drive, fly, build a research station, treat disease, share a city card, or discover a cure (5 cards of one colour at a research station). Then draw 2 player cards (hand limit 7; an Epidemic raises the rate, infects a new city and reshuffles). Then infect as many cities as the infection rate shows. A city that would get a 4th cube of a colour has an outbreak instead and spreads cubes to its neighbours.",
+    "end": "You all win when the four cures are found. You all lose at 8 outbreaks, when a colour runs out of cubes, or when the player deck runs out."
    }
   },
   {
@@ -915,6 +987,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "2P Only.",
     "meta": "**ROI:** (Income x Time) - Cost."
+   },
+   "rules": {
+    "aim": "Have the most buttons at the end, minus 2 for each empty square on your 9 by 9 quilt.",
+    "setup": "2 players. Each player takes a quilt board and 5 buttons. Lay the patches in a ring and put the neutral token just after the smallest patch. Both time tokens start at the start of the time track.",
+    "turn": "The player further behind on the time track takes the turn (if tied, the one who arrived last). Either move your time token just past your rival and take 1 button per space moved, or buy one of the three patches after the neutral token: pay its buttons, place it on your quilt, move the neutral token to its spot and advance your time token by its time. Crossing a button mark pays you the buttons shown on your quilt; crossing a leather patch gives you a single-square patch. The first player to fill a 7 by 7 square takes the 7-point bonus tile.",
+    "end": "The game ends when both time tokens reach the centre. Score buttons minus 2 per empty square, plus the bonus tile. Most points wins."
    }
   },
   {
@@ -943,6 +1021,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "7P+: Chaos.",
     "meta": "**Vote Down:** Default NO."
+   },
+   "rules": {
+    "aim": "Resistance players win if three missions succeed. Spies win if three missions fail, or if five team votes in a row are rejected.",
+    "setup": "5 to 10 players. Deal secret roles: 2 spies for 5 or 6 players, 3 for 7 to 9, 4 for 10. Everyone closes their eyes; the spies open theirs to see each other, then close them.",
+    "turn": "The leader proposes a team of the size the mission needs. Everyone votes openly; a majority approves it, otherwise leadership passes on. The team secretly plays mission cards: Resistance players must play Success; spies may play Success or Fail. One Fail fails the mission, except that the fourth mission with 7 or more players needs two.",
+    "end": "The first side to three wins takes the game."
    }
   },
   {
@@ -971,6 +1055,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "Tight.",
     "meta": "**Turn 1 Blitz:** Maximize income."
+   },
+   "rules": {
+    "aim": "Have the most victory coins after the last turn.",
+    "setup": "2 to 5 players. Use the board for your player count. Lay six race and power pairs in a column. Each player starts with 5 coins. The number of turns depends on the player count (8 to 10).",
+    "turn": "On your first turn, pick a race and power pair (put 1 coin on each pair you skip; take any coins on the pair you choose) and take race tokens equal to the two numbers shown. Conquer a region with 2 tokens plus 1 for each token, mountain or other marker in it; your last attack may use the reinforcement die. Score 1 coin per region you hold, plus bonuses. On a later turn you may instead put your race in decline and pick a new one next turn.",
+    "end": "After the final turn, most coins wins."
    }
   },
   {
@@ -999,6 +1089,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "6P+: Chaos.",
     "meta": "**Spoon:** Steal exactly what you need."
+   },
+   "rules": {
+    "aim": "Score the most points over three rounds by drafting dishes.",
+    "setup": "2 to 8 players. Build a menu from the party tiles: nigiri, one roll, three appetizers, two specials and one dessert, and shuffle those cards into the deck. Deal each player the hand size the rulebook gives for your player count.",
+    "turn": "Everyone picks one card at the same time, puts it face down, then all reveal and pass the rest of their hand. Repeat until the hands are gone, then score the round. Keep dessert cards; discard the rest.",
+    "end": "After three rounds, score desserts and add up. Most points wins."
    }
   },
   {
@@ -1027,6 +1123,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "intel": {
     "scaling": "2P: **Blocking.**",
     "meta": "**Route Denial:** Claim grey routes to break them."
+   },
+   "rules": {
+    "aim": "Score the most points by claiming train routes and completing destination tickets.",
+    "setup": "2 to 5 players. Each player takes 45 trains, 4 train cards and 3 destination tickets, keeping at least 2. Turn 5 train cards face up.",
+    "turn": "Do one thing: draw 2 train cards (a face-up locomotive counts as both), claim a route by playing cards of its colour equal to its length and placing trains on it, or draw 3 tickets and keep at least 1. Routes score 1, 2, 4, 7, 10 or 15 points for lengths 1 to 6.",
+    "end": "When anyone ends a turn with 2 or fewer trains, every player, that one included, gets one last turn. Completed tickets add their value, unfinished ones subtract it, and the longest continuous route scores 10. Most points wins."
    }
   }
  ]
@@ -1038,7 +1140,8 @@ const CONTENT = (() => { try { return JSON.parse(document.getElementById("codex-
 const validGame = (g) => !!(g && typeof g.id === "string" && typeof g.name === "string" && typeof g.cat === "string" && typeof g.time === "string" && typeof g.type === "string" && typeof g.weight === "number"
   && g.orientation && ["hook", "victory", "directive", "finisher"].every((k) => typeof g.orientation[k] === "string")
   && g.tactics && ["opener", "synergy", "setup"].every((k) => typeof g.tactics[k] === "string") && Array.isArray(g.tactics.mistakes) && g.tactics.mistakes.every((m) => typeof m === "string")
-  && g.intel && typeof g.intel.scaling === "string" && typeof g.intel.meta === "string");
+  && g.intel && typeof g.intel.scaling === "string" && typeof g.intel.meta === "string"
+  && g.rules && ["aim", "setup", "turn", "end"].every((k) => typeof g.rules[k] === "string" && g.rules[k].length > 0));
 // The games live in the JSON block id="codex-content" (dataVersion, date, source, thinGames, games). A block that cannot be read gives an empty list and a visible message.
 const CONTENT_OK = !!(CONTENT && Array.isArray(CONTENT.games) && CONTENT.games.length > 0 && CONTENT.games.every(validGame) && new Set(CONTENT.games.map((g) => g.id)).size === CONTENT.games.length);
 const DATABASE = CONTENT_OK ? CONTENT.games : [];
@@ -1087,8 +1190,8 @@ const useSafeStorage = (key, initial) => {
   return [data, setData];
 };
 
-// ---- Interface layer v14.5.6 (rulebook). Data, storage key, RichText and useSafeStorage above are unchanged. ----
-const APP_VERSION = "14.5.6";
+// ---- Interface layer v14.5.7 (rulebook). Data, storage key, RichText and useSafeStorage above are unchanged. ----
+const APP_VERSION = "14.5.7";
 const h = React.createElement;
 const ICONS = {
   search: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z",
@@ -1115,14 +1218,16 @@ const parseScale = (s) => {
 const CHAPTERS = [
   { id: "aim", n: 1, title: "Aim of the game" },
   { id: "setup", n: 2, title: "Table setup" },
-  { id: "players", n: 3, title: "Player counts" },
-  { id: "strategy", n: 4, title: "Strategy" }
+  { id: "turn", n: 3, title: "A turn" },
+  { id: "end", n: 4, title: "Game end and scoring" },
+  { id: "strategy", n: 5, title: "Strategy" }
 ];
 const Chapter = ({ id, n, title, children, tabRef }) => h("section", { id: "ch-" + id, className: "chapter", "aria-labelledby": "h-" + id },
   h("h2", { id: "h-" + id, className: "chapter-head", tabIndex: -1, ref: tabRef }, h("span", { className: "chapter-n", "aria-hidden": "true" }, n), h("span", null, title)),
   children);
 const THIN_GAMES = CONTENT_OK && Array.isArray(CONTENT.thinGames) ? CONTENT.thinGames.filter((x) => typeof x === "string") : [];
-const ThinNote = () => h("p", { className: "notice thin" }, h("strong", null, "Short chapters. "), "See the publisher's rulebook for full rules.");
+const ThinNote = () => h("p", { className: "notice thin" }, h("strong", null, "Short summary. "), "See the publisher's rulebook for full rules.");
+const RulesNote = () => h("p", { className: "notice" }, "Chapters 1 to 4 are a plain summary of the rules, written for this app. Check the publisher's rulebook for the full rules.");
 const Sub = ({ title, children }) => h("div", { className: "sub" }, h("h3", null, title), children);
 
 const GameView = ({ game, isSaved, toggleSave, onBack, sealOpen, setSealOpen }) => {
@@ -1147,18 +1252,21 @@ const GameView = ({ game, isSaved, toggleSave, onBack, sealOpen, setSealOpen }) 
         h("div", null, h("dt", null, "Style"), h("dd", null, game.type))),
       h("div", { className: "actions" },
         h("button", { className: "btn " + (isSaved ? "on" : ""), "aria-pressed": isSaved, onClick: () => toggleSave(game.id) }, h(Icon, { name: "mark", filled: isSaved }), isSaved ? "Saved" : "Save")),
-      thin && h(ThinNote, null),
-      h(Chapter, { id: "aim", n: 1, title: "Aim of the game" }, h("p", { className: "prose" }, h(RichText, { content: game.orientation.victory }))),
-      h(Chapter, { id: "setup", n: 2, title: "Table setup" }, h("p", { className: "prose" }, h(RichText, { content: game.tactics.setup }))),
-      h(Chapter, { id: "players", n: 3, title: "Player counts" },
-        h("dl", { className: "scale" }, scale.map((s, i) => h("div", { key: i }, s[0] && h("dt", null, s[0]), h("dd", null, h(RichText, { content: s[1] })))))),
-      h(Chapter, { id: "strategy", n: 4, title: "Strategy", tabRef: strategyRef },
+      thin ? h(ThinNote, null) : h(RulesNote, null),
+      h(Chapter, { id: "aim", n: 1, title: "Aim of the game" }, h("p", { className: "prose" }, game.rules.aim)),
+      h(Chapter, { id: "setup", n: 2, title: "Table setup" }, h("p", { className: "prose" }, game.rules.setup)),
+      h(Chapter, { id: "turn", n: 3, title: "A turn" }, h("p", { className: "prose" }, game.rules.turn)),
+      h(Chapter, { id: "end", n: 4, title: "Game end and scoring" }, h("p", { className: "prose" }, game.rules.end)),
+      h(Chapter, { id: "strategy", n: 5, title: "Strategy", tabRef: strategyRef },
         !sealOpen ? h("div", { className: "seal" },
           h("p", { className: "seal-title" }, "Spoilers ahead."),
           h("p", { className: "prose" }, "Learn the rules, play once, then open."),
           h("button", { className: "btn primary", "aria-expanded": "false", "aria-controls": "strategy-body", onClick: open }, h(Icon, { name: "eye" }), "Open strategy"))
         : h("div", { id: "strategy-body", className: "fade" },
+          h(Sub, { title: "Where the points are" }, h("p", { className: "prose" }, h(RichText, { content: game.orientation.victory }))),
           h(Sub, { title: "Prime directive" }, h("p", { className: "prose" }, h(RichText, { content: game.orientation.directive }))),
+          h(Sub, { title: "Seating and setup tips" }, h("p", { className: "prose" }, h(RichText, { content: game.tactics.setup }))),
+          h(Sub, { title: "By player count" }, h("dl", { className: "scale" }, scale.map((s, i) => h("div", { key: i }, s[0] && h("dt", null, s[0]), h("dd", null, h(RichText, { content: s[1] })))))),
           h(Sub, { title: "Opening move" }, h("p", { className: "prose" }, h(RichText, { content: game.tactics.opener }))),
           h(Sub, { title: "Common mistakes" }, h("ul", { className: "mistakes" }, game.tactics.mistakes.map((m, i) => h("li", { key: i }, h(RichText, { content: m }))))),
           h(Sub, { title: "Strong pairings" }, h("p", { className: "prose pre" }, h(RichText, { content: game.tactics.synergy }))),
@@ -1316,7 +1424,7 @@ const HelpView = ({ saved, onBack, exportShelf, clearShelf, applyImport, onLicen
     h("button", { className: "btn quiet", onClick: onBack }, h(Icon, { name: "back" }), "Back"),
     h("h1", { id: "view-title", tabIndex: -1 }, "Help"),
     h("section", null, h("h2", null, "About"),
-      h("p", { className: "prose" }, "Four chapters per game. The Strategy chapter stays sealed until you open it; the earlier chapters may still carry short tips."),
+      h("p", { className: "prose" }, "Five chapters per game. Chapters 1 to 4 summarise the rules; the Strategy chapter stays sealed until you open it."),
       h("p", { className: "muted" }, "v" + APP_VERSION + ", " + CONTENT_LABEL)),
     h("section", null, h("h2", null, "Saved data"),
       h("p", { className: "prose" }, "Your shelf stays on this device."),
