@@ -44,11 +44,14 @@ const defaultProfile = {
     },
     getFireNumber: () => {
       const n = t(),
-        r = n.profile.pension.enabled
-          ? n.profile.pension.mode === "fixed"
-            ? n.profile.pension.annualAmount
-            : n.profile.pension.bestAverageEarnings * 0.4
-          : 0,
+        pp = n.profile.pension,
+        ra = n.profile.target_retirement_age,
+        r =
+          pp.enabled && pp.startAge <= ra
+            ? pp.mode === "fixed"
+              ? pp.annualAmount
+              : Math.min(35, Math.max(0, ra - pp.careerStartAge)) * pp.accrualRate * pp.bestAverageEarnings
+            : 0,
         i = Math.max(0, n.profile.annual_spend - r),
         o = n.profile.assumptions.withdrawalRate || 0.04,
         a = o > 0 ? 1 / o : 0;

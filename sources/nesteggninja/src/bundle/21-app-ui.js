@@ -785,7 +785,7 @@ function ResultPanel() {
             className: "nf-note",
             children: [
               Math.round(o * 100),
-              "% of the number. The number is retirement spending, less any pension, divided by the ",
+              "% of the number. The number is retirement spending, less a pension that starts by your retirement age, divided by the ",
               pct(W),
               " withdrawal rate.",
               !a && e.coastYear && e.coastYear !== "N/A" && e.coastYear !== "NEVER"
