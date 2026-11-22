@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PBMRCcBKv/BcrVqwCzEAK+BihmjAv67o/tbZKC0faZ8=' 'sha256-LAIhrV7RO+/VOknpaC9SAJVGNmt9I87h3hCFW6UA4R8=' 'sha256-mm9C/sUh1dq65PJawtn39xKUFRq78ndOSgSiv0qlWCU=' 'sha256-GEfHhelq//BUWIiUCaTRp7j8UqS3h4LJxh8vOAC1AbY='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com; frame-src blob:; worker-src blob:; object-src 'none'; base-uri 'none'; form-action 'none'" />
-    <meta name="version" content="1.4.5-single" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PBMRCcBKv/BcrVqwCzEAK+BihmjAv67o/tbZKC0faZ8=' 'sha256-b6Yqn3cF3pkE2sSr7loXudFT9EXuIxqR/1Gmw4EEkSg=' 'sha256-mm9C/sUh1dq65PJawtn39xKUFRq78ndOSgSiv0qlWCU=' 'sha256-GEfHhelq//BUWIiUCaTRp7j8UqS3h4LJxh8vOAC1AbY='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://generativelanguage.googleapis.com; frame-src blob:; worker-src blob:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="version" content="1.4.6-single" />
     <meta name="theme-color" content="#faf8f4" />
-    <!-- PennyPlanner 1.4.5-single (Erase all data also clears the retirement plan; on 1.4.4-single (net worth column, savings cap note, calculator age label, on 1.4.3-single (Retirement planner built from sources/nesteggninja; before that 1.4.1-single (Retirement planner: NestEggNinja 10.4.5 carried in a separate frame; before that 1.3.7-single (Add Transaction saves again, two identical rows in one CSV are both imported, a category made in the nested window is selected, Map Columns fills itself, clear dates; before that 1.3.5-single (a second identical entry is kept, plain words for storage errors, a tag made inside Add Transaction is attached, Enter on a closed list adds, toasts clear of dialogs, Scheduled in the bottom menu; before that 1.3.4-single (Enter on any quick-entry field, ask before discarding typed entries, toasts at the top on phones, Reports in the bottom menu, CA$ chart labels, glossary near the top; before that 1.3.3-single (plain-words fixes: default categories for new data, budget tag flow, Reports link, one accent pair, Help rewritten; before that 1.3.1-single (repairs: CSV thousands separators, reports without transfers and opening balances, 5 MB import limit, names, focus, contrast, reflow, print; on 1.3.0-single: quick entry row and a quieter exchange-rate note, on 1.2.0-single: exact money, envelope export and CSV, on 1.1.1-single; repair of 1.1.0-single, interface rebuild of 1.0.1-single))): single-file offline build of the PennyPlanner docs/ (Vite build).)
+    <!-- PennyPlanner 1.4.6-single (backups record their time zone and restore calendar dates by day in any zone; on 1.4.5-single (Erase all data also clears the retirement plan); on 1.4.4-single (net worth column, savings cap note, calculator age label, on 1.4.3-single (Retirement planner built from sources/nesteggninja; before that 1.4.1-single (Retirement planner: NestEggNinja 10.4.5 carried in a separate frame; before that 1.3.7-single (Add Transaction saves again, two identical rows in one CSV are both imported, a category made in the nested window is selected, Map Columns fills itself, clear dates; before that 1.3.5-single (a second identical entry is kept, plain words for storage errors, a tag made inside Add Transaction is attached, Enter on a closed list adds, toasts clear of dialogs, Scheduled in the bottom menu; before that 1.3.4-single (Enter on any quick-entry field, ask before discarding typed entries, toasts at the top on phones, Reports in the bottom menu, CA$ chart labels, glossary near the top; before that 1.3.3-single (plain-words fixes: default categories for new data, budget tag flow, Reports link, one accent pair, Help rewritten; before that 1.3.1-single (repairs: CSV thousands separators, reports without transfers and opening balances, 5 MB import limit, names, focus, contrast, reflow, print; on 1.3.0-single: quick entry row and a quieter exchange-rate note, on 1.2.0-single: exact money, envelope export and CSV, on 1.1.1-single; repair of 1.1.0-single, interface rebuild of 1.0.1-single))): single-file offline build of the PennyPlanner docs/ (Vite build).)
          Bundled libraries are those of the original build: React 18.3.1 (MIT), React Router 6.30.0 / @remix-run/router 1.23.0 (MIT),
          Dexie 4.0.11 (Apache-2.0), Recharts (MIT), Radix UI (MIT), lucide-react 0.525.0 (ISC), zod (MIT), date-fns (MIT),
          PapaParse 5.x (MIT), @faker-js/faker (MIT), @google/generative-ai 0.24.1 (Apache-2.0).
@@ -980,6 +980,7 @@ M.prep=x=>{
         if(typeof o[f]==="string"){
           if(!ISO.test(o[f])||isNaN(Date.parse(o[f])))throw new Error(where+": "+f+" is not a valid date.");
           o[f]=new Date(o[f]);
+          if(CALF.indexOf(f)>=0)o[f]=M.calday(o[f],x.timeZone);
         }
       }
       if(SPEC[t])for(const f in SPEC[t]){
@@ -996,7 +997,20 @@ M.prep=x=>{
   }
   return {data:out};
 };
-M.envelope=data=>({app:"Frugal Ferret",appVersion:APPV,schemaVersion:SCHEMA,exportedAt:new Date().toISOString(),data});
+const CALF=["date","targetDate","startDate","nextDueDate","endDate"];
+// Calendar dates are kept as local midnight, so a backup restored in another time zone must be moved by calendar day,
+// not by instant: use the time zone the backup recorded; for older backups keep same-zone dates and round others to the nearest day.
+M.tzName=()=>{try{const z=Intl.DateTimeFormat().resolvedOptions().timeZone;return typeof z==="string"&&z.length<=64?z:undefined}catch(e){return undefined}};
+M.calday=(d,tz)=>{
+  let y;let mo;let dd;
+  if(typeof tz==="string"&&tz.length<=64){try{const p=new Intl.DateTimeFormat("en-CA",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(d),g=t=>+p.find(q=>q.type===t).value;y=g("year");mo=g("month");dd=g("day")}catch(e){y=undefined}}
+  if(!(y>0)){
+    if(d.getHours()===0&&d.getMinutes()===0&&d.getSeconds()===0&&d.getMilliseconds()===0)return d;
+    const r=new Date(Math.round(d.getTime()/864e5)*864e5);y=r.getUTCFullYear();mo=r.getUTCMonth()+1;dd=r.getUTCDate();
+  }
+  return new Date(y,mo-1,dd);
+};
+M.envelope=data=>({app:"Frugal Ferret",appVersion:APPV,schemaVersion:SCHEMA,exportedAt:new Date().toISOString(),timeZone:M.tzName(),data});
 M.csvCell=(s,text)=>{
   s=String(s==null?"":s);
   if(text&&/^[=+\-@\t\r\n]/.test(s))s="'"+s;
@@ -1157,7 +1171,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/alert-
 <script type="application/json" id="content-meta">{"dataVersion": "1.4.0", "date": "2026-11-20", "source": "Content as shipped in this version: the starting categories for a new install (the block named ff-defaults: Groceries, Rent, Utilities, Transport, Eating out, Health, Fun, Income, Other) and the synthetic sample data (Settings, Backup and tools, Data), which has its own larger category set. The sample data lives in the app code; this block records the content version, date and source."}</script>
 <footer class="ff-foot" id="ff-footer">
   <div class="ff-foot-in">
-    <p><strong>PennyPlanner Budget 1.4.5.</strong> Prototype. Your data stays in this browser. Content <span id="ff-content-ver">1.4.0</span>, <span id="ff-content-date">2026-10-31</span>.</p>
+    <p><strong>PennyPlanner Budget 1.4.6.</strong> Prototype. Your data stays in this browser. Content <span id="ff-content-ver">1.4.0</span>, <span id="ff-content-date">2026-10-31</span>.</p>
     <button type="button" id="ff-help-open2" aria-haspopup="dialog">Help</button>
     <button type="button" id="ff-lic-open" aria-haspopup="dialog">Licences</button>
     <a href="https://shfqrkhn.github.io/" rel="noopener noreferrer" target="_blank" aria-label="Source (external site)">Source</a>
