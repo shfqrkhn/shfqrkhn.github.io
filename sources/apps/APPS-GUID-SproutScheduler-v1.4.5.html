@@ -2,8 +2,8 @@
 <html lang="en-CA" data-app data-look="auto" data-theme="paper" style="--hue:93">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-ndiNGUKQ2Biqk9NwyluLEUlV/hQFasXuTQtKX6WLYQ4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- SproutScheduler 1.4.4 (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-IfTVz+c+6H2g0r9fPeLzrek7QpOMUsBWEqKm8qutOPA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- SproutScheduler 1.4.5 (Plant now checks the fall frost against a crop sown today, not on its earliest day); (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#F6F1E7">
@@ -534,7 +534,7 @@ main details{overflow-x:auto;max-width:calc(100vw - 32px)}
 
 <footer>
   <div class="in">
-    <p>Version 1.4.4</p>
+    <p>Version 1.4.5</p>
     <p id="content-ver">Content 1.0.0, 2026-10-31</p>
     <p>Data stays on this device</p>
     <button type="button" class="linkbtn" id="help-open-2"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-help"/></svg>Help</button>
@@ -735,7 +735,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre>
 "placeRow":["name","province","latitude","longitude","last spring frost day of year (1 = 1 January)","first fall frost day of year or null","zone band id: zones7_8, zones6_7, zones4_5 or zones2_3 (the guide author's general guidance, an estimate; the menus and the plan follow it)"],
 "cropRow":["id","label shown in the bed square","name","sowing offset in days from the guide's 1 May last frost (Pennsylvania)","days to maturity"],
 "sowWindowDays":30,
-"sowWindowRule":"A crop is listed under Plant now for this many days from its earliest sowing date, and only if its first harvest comes before the average first fall frost (when the place has one). This is the app's own simple rule, an estimate.",
+"sowWindowRule":"A crop is listed under Plant now for this many days from its earliest sowing date, and only if a crop sown today would reach its first harvest before the average first fall frost (when the place has one). This is the app's own simple rule, an estimate.",
 "provinces":{"AB":"Alberta","BC":"British Columbia","MB":"Manitoba","NB":"New Brunswick","NL":"Newfoundland and Labrador","NT":"Northwest Territories","NS":"Nova Scotia","NU":"Nunavut","ON":"Ontario","PE":"Prince Edward Island","QC":"Quebec","SK":"Saskatchewan","YT":"Yukon"},
 "zones":{
 "zones7_8":{"label":"Zones 7-8 (Pacific Coast)","foundation":{"name":"Drought-Tolerant Fescue & Micro-Clover Mix","why":"This mix combines deep-rooted fescues that stay green with less water and nitrogen-fixing micro-clover that feeds the soil.","care":"Overseed in early spring or fall. Water deeply to establish, then only during extended drought. Mow high (3-4 inches) to shade out weeds."},"border":{"name":"Kinnikinnick (Arctostaphylos uva-ursi)","why":"An evergreen native groundcover that forms a dense, woody mat. It is very drought-tolerant once established, and deer often leave its tough leaves alone.","care":"Plant in a sunny, well-drained spot. Very low water needs after the first year. No pruning required."},"structure":{"name":"Red Osier Dogwood (Cornus sericea)","why":"Interest in all four seasons. It has white spring flowers for pollinators, berries for birds, good fall colour and bright red stems in winter.","care":"Prefers moist soil but is adaptable. Prune out the oldest third of the stems in early spring to encourage new, colourful growth."},"hub":{"name":"Yarrow, Sea Thrift & Douglas Aster","why":"This trio blooms from spring through fall. Yarrow and Sea Thrift handle summer sun, while Douglas Aster gives late-season nectar to migrating butterflies.","care":"All prefer full sun and well-drained soil. Deadhead yarrow for repeat blooms. Low maintenance."}},
@@ -1014,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     calTab.hidden = false;
     if (nowLine) {
-      var t = todayDoy(), now = rows.filter(function (r) { return t >= r.sow && t <= r.sow + SOW_DAYS && (F == null || r.harv <= F); });
+      var t = todayDoy(), now = rows.filter(function (r) { return t >= r.sow && t <= r.sow + SOW_DAYS && (F == null || t + r.c[4] <= F); });
       if (now.length) {
         nowLine.textContent = 'Plant now (' + dayLabel(t) + '): ' + now.map(function (r) { return r.c[2]; }).join(', ') + '.';
       } else {
@@ -1268,7 +1268,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
 
   // --- EXPORT, RESTORE, DELETE (only the four garden.* keys) ---
-  var APP_ID = 'canadian-eco-garden-planner', APP_NAME = 'SproutScheduler', APP_VER = '1.4.4', SCHEMA = 1, MAX_BYTES = 1048576;
+  var APP_ID = 'canadian-eco-garden-planner', APP_NAME = 'SproutScheduler', APP_VER = '1.4.5', SCHEMA = 1, MAX_BYTES = 1048576;
   var LOOKS = ['auto', 'paper', 'charcoal', 'black'], LOOK_KEY = 'garden.look';
   var helpStatus = document.getElementById('help-status');
   function hmsg(t) { if (helpStatus) helpStatus.textContent = t; }

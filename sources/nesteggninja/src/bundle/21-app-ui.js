@@ -785,9 +785,9 @@ function ResultPanel() {
             className: "nf-note",
             children: [
               Math.round(o * 100),
-              "% of the number. The number is retirement spending, less a pension that starts by your retirement age, divided by the ",
+              "% of the number. The number is retirement spending, less your pension, divided by the ",
               pct(W),
-              " withdrawal rate.",
+              " withdrawal rate, plus one year of pension for each year between retirement and the pension start.",
               !a && e.coastYear && e.coastYear !== "N/A" && e.coastYear !== "NEVER"
                 ? " First year your savings pass the independence test: " + e.coastYear + "."
                 : "",

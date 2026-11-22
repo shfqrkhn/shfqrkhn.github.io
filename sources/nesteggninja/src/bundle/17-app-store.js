@@ -47,7 +47,7 @@ const defaultProfile = {
         pp = n.profile.pension,
         ra = n.profile.target_retirement_age,
         r =
-          pp.enabled && pp.startAge <= ra
+          pp.enabled
             ? pp.mode === "fixed"
               ? pp.annualAmount
               : Math.min(35, Math.max(0, ra - pp.careerStartAge)) * pp.accrualRate * pp.bestAverageEarnings
@@ -55,7 +55,8 @@ const defaultProfile = {
         i = Math.max(0, n.profile.annual_spend - r),
         o = n.profile.assumptions.withdrawalRate || 0.04,
         a = o > 0 ? 1 / o : 0;
-      return i * a;
+      // a pension that starts after retirement still counts, plus its amount for each bridge year before it starts
+      return i * a + r * Math.max(0, (pp.startAge || ra) - ra);
     },
     dismissWelcome: () => {
       try {
