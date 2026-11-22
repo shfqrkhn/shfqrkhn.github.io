@@ -94,6 +94,10 @@ with sync_playwright() as p:
         pg.goto(B + k + "/"); pg.wait_for_url(B + v + "/", timeout=5000)
     ok("%d renamed addresses forward to the new ones" % len(olds), True)
     pg.goto(B + "no-such-page-xyz/"); ok("unknown address shows the 404 page", pg.locator('a[href="/"]').count() == 1)
+    for k, rel, slug in pages:  # a page with its own integrity button must pass it as shipped
+        if rel.endswith("reporadar-github"):
+            pg.goto(B + rel + "/"); pg.evaluate("document.getElementById('verify').click()"); pg.wait_for_function("document.getElementById('verifyStatus').textContent.length > 0", timeout=10000)
+            v = pg.inner_text("#verifyStatus"); ok("RepoRadar Verify passes on the built page (%s)" % v[:60], v.startswith("PASS"))
     errs[n404:] = [e for e in errs[n404:] if not e.startswith("404 ") and "Failed to load resource" not in e]  # the forwards and the unknown address are deliberate 404s; every other 404 counts
     pg.goto(B); pg.evaluate("navigator.serviceWorker.ready"); pg.reload(); pg.wait_for_timeout(1500)
     ok("offline worker controls the page", pg.evaluate("!!navigator.serviceWorker.controller"))
