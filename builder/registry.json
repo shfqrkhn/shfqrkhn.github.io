@@ -730,16 +730,22 @@
    "slug": "blueprintbuddy-systems",
    "source": "apps/APPS-EDUC-BlueprintBuddy-v*.html",
    "topic": "learning",
-   "blurb": "A systems design lab with worked steps and templates.",
-   "keywords": "systems design engineering lab templates requirements",
+   "blurb": "A systems design lab with worked steps, templates and a classroom auction game.",
+   "keywords": "systems design engineering lab templates requirements auction game classroom bidding strategy teams french",
    "icon": "blueprint-buddy",
    "lazy": false,
    "private": false,
    "archived": false,
    "hue": 354,
-   "tagline": "Systems design lab",
-   "former_names": [],
-   "aliases": []
+   "tagline": "Systems design lab and class game",
+   "former_names": [
+    "AuctionAcademy Classroom Game",
+    "AuctionAcademy"
+   ],
+   "aliases": [
+    "courses/auctionacademy-game",
+    "games/auctionacademy-game"
+   ]
   },
   {
    "id": "build-boss",
@@ -758,26 +764,6 @@
    "tagline": "Plan a workstation build",
    "former_names": [],
    "aliases": []
-  },
-  {
-   "id": "auction-academy",
-   "title": "AuctionAcademy Classroom Game",
-   "kind": "courses",
-   "slug": "auctionacademy-game",
-   "source": "apps/APPS-GAME-AuctionAcademy-v*.html",
-   "topic": "learning",
-   "blurb": "A classroom auction game for learning bidding strategy.",
-   "keywords": "auction game classroom bidding strategy",
-   "icon": "auction-academy",
-   "lazy": false,
-   "private": false,
-   "archived": false,
-   "hue": 125,
-   "tagline": "Classroom auction game",
-   "former_names": [],
-   "aliases": [
-    "games/auctionacademy-game"
-   ]
   },
   {
    "id": "repo-radar",

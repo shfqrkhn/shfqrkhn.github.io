@@ -497,14 +497,16 @@
    "title": "BlueprintBuddy Systems Design",
    "kind": "courses",
    "archived": false,
-   "goal": "Teach systems design through a lab with templates.",
-   "success": "Target to test: the learner produces a sound design for a described problem.",
+   "goal": "Teach systems design through a lab with templates, and let a class practise the ideas in an auction game.",
+   "success": "Target to test: the learner produces a sound design for a described problem; a teacher can run the auction game with little setup and players can explain the ideas after a round.",
    "stable_edge_checks": [
     "Worked examples",
     "templates",
-    "critique checklists"
+    "critique checklists",
+    "accessible game controls",
+    "debrief prompts"
    ],
-   "basis": "inferred from registry tagline and blurb: Systems design lab",
+   "basis": "inferred from registry tagline and blurb: Systems design lab and class game; merged auction-academy goal rows on 2026-11-21",
    "status": "inferred, owner to confirm"
   },
   {
@@ -520,21 +522,6 @@
     "power and thermal checks"
    ],
    "basis": "inferred from registry tagline and blurb: Plan a workstation build",
-   "status": "inferred, owner to confirm"
-  },
-  {
-   "id": "auction-academy",
-   "title": "AuctionAcademy Classroom Game",
-   "kind": "courses",
-   "archived": false,
-   "goal": "Let a class learn bidding strategy by playing an auction.",
-   "success": "Target to test: players understand the strategy after a round; a teacher can run it with little setup.",
-   "stable_edge_checks": [
-    "Peer-to-peer offline play options",
-    "accessible controls",
-    "debrief prompts"
-   ],
-   "basis": "inferred from registry tagline and blurb: Classroom auction game",
    "status": "inferred, owner to confirm"
   },
   {

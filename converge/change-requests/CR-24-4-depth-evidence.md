@@ -8,7 +8,7 @@
 1. Shared engine once (after CR-24-1): chapter and question counts, answer keys present, scoring, hostile text escaped, storage denied, export and import.
 2. Money and secrets: PennyPlanner, NestEggNinja, PromptPlayground, WorldCupWizard (numbers, keys, network).
 3. Parsers: TranscriptTidy, StepSleuth.
-4. Dates and rules: SproutScheduler, AuctionAcademy.
+4. Dates and rules: SproutScheduler, BlueprintBuddy (its AuctionAcademy game).
 5. Remaining guides and games: rights, model or patch specificity, accessibility.
 
 **Not in scope:** checking that lesson content is true against primary sources (needs a domain reviewer; listed as an owner item).

@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 36 pages in 7 groups: 36 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `10731e95`, last changed 2026-11-21.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `f2f6604a`, last changed 2026-11-21.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -273,9 +273,8 @@ Hub 1.4.3. 36 pages in 7 groups: 36 single, 0 bundle, 0 remote, 0 generated; 6 a
 | NoodleNudge Journal | apps | single | health | 1.7.6 | live | MIT | /apps/noodlenudge-journal/ |
 | PennyPlanner Budget | apps | single | money | 1.4.1 | live | MIT | /apps/pennyplanner-budget/ |
 | TickleTodo Tasks | apps | single | health | 1.3.5 | live | MIT | /apps/tickletodo-tasks/ |
-| AuctionAcademy Classroom Game | courses | single | learning | 5.1.2 | live | MIT | /courses/auctionacademy-game/ |
 | BalanceBuddy Accounting Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/balancebuddy-accounting/ |
-| BlueprintBuddy Systems Design | courses | single | learning | 1.5.5 | live | MIT | /courses/blueprintbuddy-systems/ |
+| BlueprintBuddy Systems Design | courses | single | learning | 1.5.7 | live | MIT | /courses/blueprintbuddy-systems/ |
 | CashCrunch Accounting Calculators | courses | single | learning | 1.5.5 | live | MIT | /courses/cashcrunch-accounting/ |
 | ConfigCompass Change Control | courses | single | learning | 1.5.5 | live | MIT | /courses/configcompass-change/ |
 | DealDojo Negotiation Guide | courses | single | learning | 1.5.6 | live | MIT | /courses/dealdojo-negotiation/ |
@@ -307,7 +306,7 @@ Hub 1.4.3. 36 pages in 7 groups: 36 single, 0 bundle, 0 remote, 0 generated; 6 a
 
 ## 13. Change log (newest first)
 
-- 2026-11-21: goal rows of merged pages folded into their hosts; AuctionAcademy has one h1 (the bar name; view titles are h2); 36 px checkboxes and skip links in PromptPlayground, GearGuardian and DealDojo; `test_mobile.py` checks the consolidated pages and the PennyPlanner Retirement view at 320 and 390 px.
+- 2026-11-21: goal rows of merged pages folded into their hosts; 36 px checkboxes and skip links in PromptPlayground, GearGuardian and DealDojo; `test_mobile.py` checks the consolidated pages and the PennyPlanner Retirement view at 320 and 390 px. AuctionAcademy folded into BlueprintBuddy (build-time embed, `data-kd="embed"`); old addresses forward.
 - 2026-11-20: RepoRadar 4.4.0 adds 82 README-reviewed repositories (ledger now 615). Consolidation: 5 apps archived; three device guides merged into GearGuardian, MeetingMediator into DealDojo, the retirement planner into PennyPlanner (a Retirement view), the prompt library and transcript cleaner into PromptPlayground; new RecipeRolodex and WalkthroughWizard; courses grouped under Learning.
 
 - 2026-11-08, hub 1.4.3 and later: the Resource Catalogue is part of Omnevum (RepoRadar, `sources/method`, marked `big`); every page has an icon-only home link; apps are grouped by topic (study readers under Learning, Home and gear); tiles take the topic colour; `llms.txt` is generated; the brand lives in `builder/brand.json`.

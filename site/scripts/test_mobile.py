@@ -75,7 +75,7 @@ with sync_playwright() as p:
     FITS = "document.documentElement.scrollWidth <= innerWidth"
     by_id = {a["id"]: a["address"][2:] for a in cat["apps"]}
     for w in (320, 390):
-        for pid in ("gear-guardian", "modeltab", "frugal-ferret", "apex-egg-salad", "hades-eris-protocol", "deal-dojo", "auction-academy"):
+        for pid in ("gear-guardian", "modeltab", "frugal-ferret", "apex-egg-salad", "hades-eris-protocol", "deal-dojo", "blueprint-buddy"):
             if pid not in by_id:
                 ok("%d px %s: page is in the catalog" % (w, pid), False); continue
             b = p.chromium.launch(); ctx = b.new_context(viewport={"width": w, "height": 740}, device_scale_factor=2, is_mobile=True, has_touch=True); pg = ctx.new_page(); errs = []
@@ -99,6 +99,13 @@ with sync_playwright() as p:
                 ok("%d px %s: Start Here links to the plan worksheet" % (w, pid), go.count() == 1)
                 go.tap(); pg.get_by_label("My walk-away limit").fill("9400"); pg.reload(); pg.wait_for_load_state("networkidle"); pg.wait_for_timeout(500)
                 ok("%d px %s plan: kept after a reload, fits, tap targets at least 36 px" % (w, pid), pg.get_by_label("My walk-away limit").input_value() == "9400" and pg.evaluate(FITS) and not pg.evaluate(TAPS))
+            if pid == "blueprint-buddy":  # the folded AuctionAcademy game: Start Here opens it full screen, it fits, and Close returns
+                go = pg.get_by_role("button", name="Play the classroom auction game")
+                ok("%d px %s: Start Here has a way into the auction game" % (w, pid), go.count() == 1 and go.is_visible())
+                go.tap(); pg.wait_for_selector("dialog[data-embed] iframe:not([hidden])", timeout=20000); pg.wait_for_timeout(2500)
+                f = [x for x in pg.frames if x.url.startswith("blob:")][0]
+                ok("%d px %s game: it runs, fits, tap targets at least 36 px (%s)" % (w, pid, ", ".join(sorted(set(f.evaluate(TAPS)))[:4]) or "all good"), f.evaluate("document.querySelector('#app') && document.querySelector('#app').children.length > 0") and f.evaluate(FITS) and not f.evaluate(TAPS))
+                pg.locator("dialog[data-embed]").get_by_role("button", name="Close").tap(); pg.wait_for_selector("dialog[data-embed]", state="detached", timeout=5000); ok("%d px %s game: Close returns to the guide" % (w, pid), pg.locator("dialog[data-embed]").count() == 0 and go.is_visible())
             ok("%d px %s: no console errors %s" % (w, pid, errs[:2]), not errs)
             ctx.close(); b.close()
     # offline on a phone: save everything, then open every page with the network off

@@ -3,7 +3,7 @@ Reads this folder (registry.json = every hand-built page, icons.json, topics.jso
 site/content (content/<kind>/<slug>.json), and the single-file apps in sources/apps.
 Writes the hub, group pages, worker, manifest and 404 into site, then runs the privacy gate on sources and output.
 Rules and how to extend it: docs/FRAMEWORK.md."""
-import os, sys, re, json, hashlib, base64, html, glob
+import os, sys, re, json, hashlib, base64, html, glob, gzip
 sys.dont_write_bytecode = True
 OM = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, OM)
@@ -184,12 +184,49 @@ def inline_engine(raw, what=""):
     pin = base64.b64encode(hashlib.sha256((b"\n" + body + b"\n").replace(b"\r\n", b"\n")).digest())
     sm = re.search(rb"script-src[^;]*?'sha256-[A-Za-z0-9+/=]+'", out)
     assert sm, ("script-src pin not found", what)
-    head = re.sub(rb"'sha256-[A-Za-z0-9+/=]+'", b"'sha256-" + pin + b"'", sm.group(0))
+    head = re.sub(rb"'sha256-[A-Za-z0-9+/=]+'", b"'sha256-" + pin + b"'", sm.group(0), count=1)  # the first pin is the program's; later pins belong to embedded pages
     return out[:sm.start()] + head + out[sm.end():]
 
 
+EMBED_MARK = re.compile(rb'<template data-kd="embed"([^>]*?) data-src="([^"<>]+)"([^>]*)></template>')
+HUB_LINK = re.compile(rb'<a class="ib" href="\.\./" id="back-to-hub"[^>]*>.*?</a>', re.S)
+
+
+def embed_pages(raw, what=""):
+    """A reader can carry another page whole (a page merged into it). The source holds an empty template with data-src naming that page's source;
+    the build fills it with the page, gzip and base64, drops the page's hub link (the reader's Close replaces it), and adds the page's script and
+    style pins and frame-src blob: to the reader's policy, because the page opens in a blob: frame that inherits it. The merged page stays an editable source."""
+    found = list(EMBED_MARK.finditer(raw))
+    if not found:
+        return raw
+    out, pins = raw, {b"script-src": [], b"style-src": []}
+    for m in reversed(found):
+        g = open(resolve(m.group(2).decode()), "rb").read()
+        assert len(HUB_LINK.findall(g)) <= 1, ("an embedded page has more than one hub link", what)
+        g = HUB_LINK.sub(b"", g)
+        csp = re.search(rb'http-equiv="Content-Security-Policy" content="([^"]*)"', g)
+        assert csp, ("an embedded page needs its own policy", what, m.group(2))
+        for d in pins:
+            dm = re.search(rb"(?<![\w-])" + d + rb"\s+([^;]*)", csp.group(1))
+            pins[d] += [t for t in (dm.group(1).split() if dm else []) if t.startswith(b"'sha256-") and t not in pins[d]]
+        body = base64.b64encode(gzip.compress(g.replace(b"\r\n", b"\n"), 9, mtime=0))
+        out = out[:m.start()] + b'<template data-kd="embed"' + m.group(1) + m.group(3) + b">" + body + b"</template>" + out[m.end():]
+    pm = re.search(rb'(http-equiv="Content-Security-Policy" content=")([^"]*)"', out)
+    assert pm, ("a reader with an embedded page needs a policy", what)
+    pol = pm.group(2)
+    for d, ts in pins.items():
+        dm = re.search(rb"(?<![\w-])" + d + rb"\s+[^;]*", pol)
+        assert dm, ("the reader policy needs " + d.decode(), what)
+        add = b"".join(b" " + t for t in ts if t not in dm.group(0).split())
+        pol = pol[:dm.end()] + add + pol[dm.end():]
+    if not re.search(rb"(?<![\w-])frame-src\s", pol):
+        pol = pol.rstrip(b"; ") + b"; frame-src blob:"
+    assert re.search(rb"(?<![\w-])frame-src\s+blob:\s*(;|$)", pol), ("the reader policy must allow frame-src blob: and nothing else", what)
+    return out[:pm.start(2)] + pol + out[pm.end(2):]
+
+
 def read_source(path):
-    return inline_engine(open(path, "rb").read(), path)
+    return embed_pages(inline_engine(open(path, "rb").read(), path), path)
 
 
 def resolve(src):
