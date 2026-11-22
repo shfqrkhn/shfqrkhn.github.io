@@ -2,11 +2,11 @@
 <html lang="en" data-app data-look="auto" data-theme="auto" style="--hue:40">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-+kn6r5MwaQuZ0famAkkk09g1yWiQWVLC368WlX93IXA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- Single-file build 1.4.0-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-1GNlgHPMi8z3opyrpLHBEbStg9l/UTUxLVrFXLbmFdA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- Single-file build 1.4.1-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Recipes with timers and scaling: pick a recipe, scale the batch, tick ingredients and run step timers.">
-<meta name="application-version" content="1.4.0">
+<meta name="application-version" content="1.4.1">
 <title>RecipeRolodex Recipes: Recipes with timers and scaling</title>
 <script>
 (function(){var K="eggsalad.look",r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null,ok={auto:1,paper:1,charcoal:1,black:1};function rd(k,h){try{var v=localStorage.getItem(k);if(h){v=JSON.parse(v);v=v&&v.look}return ok[v]===1?v:null}catch(e){return null}}function get(){return rd("hub.prefs.v1",1)||rd(K)||"auto"}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-look",l);r.setAttribute("data-theme",l);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t])}function set(l){if(ok[l]!==1)return;try{localStorage.setItem(K,l)}catch(e){}try{var p=JSON.parse(localStorage.getItem("hub.prefs.v1")||"{}");if(!p||typeof p!=="object"||Array.isArray(p))p={};p.schemaVersion=1;p.look=l;localStorage.setItem("hub.prefs.v1",JSON.stringify(p))}catch(e){}apply(l)}apply(get());if(mq&&mq.addEventListener)mq.addEventListener("change",function(){get()==="auto"&&apply("auto")});window.omnLook={get:get,set:set}})();
@@ -17,7 +17,7 @@
 "name":"Eggspress Egg Salad",
 "dataVersion":"1.1.0",
 "date":"2026-10-31",
-"source":"Recipe text as shipped in app version 1.4.0 (content as shipped in this version). The four Sources links open web searches; sources are search links, not citations.",
+"source":"Recipe text as shipped in app version 1.4.1 (content as shipped in this version). The four Further reading links open web searches; sources are search links, not citations.",
 "covers":"Title, tagline, ingredients, method steps with timers, background, myths and FAQ, action plan. The search links stay in the page.",
 "title":"Instant Pot Egg Salad",
 "tagline":"Crack on: lunch at express speed.",
@@ -361,7 +361,7 @@ dialog::backdrop{background:var(--scrim)}
         <li><a href="#timer-free">Timer</a></li>
         <li><a href="#notes">Notes</a></li>
         <li><a href="#more">More</a></li>
-        <li><a href="#sources">Sources</a></li>
+        <li><a href="#sources">Further reading</a></li>
       </ol>
     </details>
   </nav>
@@ -451,13 +451,14 @@ dialog::backdrop{background:var(--scrim)}
       </details>
 
       <section class="sec" id="sources" aria-labelledby="h-src">
-        <h2 id="h-src">Sources</h2>
+        <h2 id="h-src">Further reading</h2>
         <div class="reading">
+          <p>These are web searches, not citations. The times in this recipe come from the author's own cooking; check them against your cooker's manual.</p>
           <ul class="links">
-            <li><a href="https://www.google.com/search?q=Serious+Eats+egg+salad" target="_blank" rel="noopener noreferrer">Serious Eats: The Best Egg Salad Sandwich</a></li>
-            <li><a href="https://www.google.com/search?q=Food+Network+egg+salad" target="_blank" rel="noopener noreferrer">Food Network: The Best Egg Salad</a></li>
-            <li><a href="https://www.google.com/search?q=Bon+Appetit+egg+salad" target="_blank" rel="noopener noreferrer">Bon Appétit: The Perfect Egg Salad</a></li>
-            <li><a href="https://www.google.com/search?q=Instant+Pot+egg+5-5-5+rule" target="_blank" rel="noopener noreferrer">Instant Pot community</a></li>
+            <li><a href="https://www.google.com/search?q=Serious+Eats+egg+salad" target="_blank" rel="noopener noreferrer">Search: Serious Eats egg salad</a></li>
+            <li><a href="https://www.google.com/search?q=Food+Network+egg+salad" target="_blank" rel="noopener noreferrer">Search: Food Network egg salad</a></li>
+            <li><a href="https://www.google.com/search?q=Bon+Appetit+egg+salad" target="_blank" rel="noopener noreferrer">Search: Bon Appétit egg salad</a></li>
+            <li><a href="https://www.google.com/search?q=Instant+Pot+egg+5-5-5+rule" target="_blank" rel="noopener noreferrer">Search: Instant Pot 5-5-5 egg method</a></li>
           </ul>
         </div>
       </section>
@@ -466,7 +467,7 @@ dialog::backdrop{background:var(--scrim)}
 
 <footer class="page foot">
   <dl>
-    <dt>Version</dt><dd>1.4.0</dd>
+    <dt>Version</dt><dd>1.4.1</dd>
     <dt>Content</dt><dd class="cv">-</dd>
     <dt>Data</dt><dd>Stays on this device.</dd>
     <dt>Source</dt><dd><a href="https://shfqrkhn.github.io/">shfqrkhn.github.io</a></dd>
@@ -616,7 +617,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre>
 <script>
 (function(){
 'use strict';
-var APP_VERSION='1.4.0';
+var APP_VERSION='1.4.1';
 var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 
