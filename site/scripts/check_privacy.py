@@ -22,6 +22,7 @@ SKIP_DIRS = {".git"}  # a committed node_modules or __pycache__ is scanned like 
 SKIP_EXT = {".pyc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".woff", ".woff2", ".ico"}
 B64_RUN = re.compile(r"[A-Za-z0-9+/=]{200,}")  # a long run holding "+" or "/" is base64 file bytes: random letters, not prose
 DATA_URI = re.compile(r"(?<=;base64,)[A-Za-z0-9+/=]+")  # embedded file bytes: random letters, not prose; removed before the name scan
+EMBED = re.compile(r'(<template data-kd="embed"[^>]*>)[A-Za-z0-9+/=]+(?=</template>)')  # a merged page as gzip then base64: its bytes are random, so a key shape can occur by chance (it did, with one zlib build); the page itself is gated as a source before it is packed
 BLOB = re.compile(r"[A-Za-z0-9+/=_-]{120,}")  # base64 or hash runs: not prose, removed before scanning
 COLOR = re.compile(r"(?:rgba?|hsla?)\([^)]*\)")  # CSS colour values look like numbers, they are not
 ROLE = re.compile(r"\b(?:Owners?|Managers?|Teams?|Users?|Leads?|Engineers?|Studios?|Games|Software|Inc|Ltd|Corporation|Contributors|Authors|Developers)\b")
@@ -159,7 +160,7 @@ def main():
             if binary and kind not in ("email", "key", "local-path", "owner-name"):
                 continue  # binary files hold random digits and letters: only the shapes that cannot occur by chance are checked
             if kind in ("key", "owner-name"):  # a key or a name can hide inside a long run of letters and dashes: scan the raw text
-                text, body = (B64_RUN.sub(lambda m: "" if (("+" in m.group(0) or "/" in m.group(0)) and len(set(m.group(0))) >= 40) else m.group(0), DATA_URI.sub("", raw)) if kind == "owner-name" else raw), text  # a key can be longer than the blob limit: scan the raw text for it
+                text, body = (B64_RUN.sub(lambda m: "" if (("+" in m.group(0) or "/" in m.group(0)) and len(set(m.group(0))) >= 40) else m.group(0), DATA_URI.sub("", raw)) if kind == "owner-name" else EMBED.sub(r"\1", raw)), text  # a key can be longer than the blob limit: scan the raw text for it
             for m in rx.finditer(text):
                 hit = m.group(0)
                 if binary and kind == "owner-name" and len(hit) < 5:
