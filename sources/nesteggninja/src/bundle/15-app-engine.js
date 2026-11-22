@@ -242,7 +242,6 @@
       }
       for (let age = profile.age; age <= assumptions.deathAge; age += 1) {
         const retired = age >= profile.target_retirement_age;
-        const openingNetWorth = rrsp.plus(tfsa).plus(nonReg).toNumber();
         if (!freedomYear && testSolvency(rrsp, tfsa, nonReg, age, profile, assumptions, age)) {
           freedomYear = currentYear() + (age - profile.age);
         }
@@ -310,7 +309,7 @@
         nonReg = nonReg.times(assumptions.nonRegNetGrowth);
         projection.push({
           age,
-          netWorth: Math.max(0, openingNetWorth),
+          netWorth: Math.max(0, rrsp.toNumber()) + Math.max(0, tfsa.toNumber()) + Math.max(0, nonReg.toNumber()),
           rrsp: Math.max(0, rrsp.toNumber()),
           tfsa: Math.max(0, tfsa.toNumber()),
           nonReg: Math.max(0, nonReg.toNumber()),

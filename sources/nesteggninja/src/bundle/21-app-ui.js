@@ -581,7 +581,7 @@ function ResultPanel() {
       ["Retirement age (savings stop, withdrawals start)", t.target_retirement_age],
       ["Province", t.province],
       ["Annual income, before tax", f(t.annual_income)],
-      ["Annual savings", f(t.annual_savings)],
+      ["Annual savings", f(t.annual_savings) + (t.annual_savings > t.annual_income ? " (counted as " + f(t.annual_income) + ": savings cannot exceed income)" : "")],
       ["Retirement spending, after tax", f(t.annual_spend)],
       ["RRSP", f(t.assets.rrsp)],
       ["TFSA", f(t.assets.tfsa)],

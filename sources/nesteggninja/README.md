@@ -71,4 +71,4 @@ Run it: `python tests/behave.py <served folder> <page> <out.json> [--host] [--sa
 - Licences are each project's published ones; no licence text survived minification. See `THIRD-PARTY-NOTICES.md`.
 - Third-party parts are minified library code, readable but not the libraries' own source. Replacing them with npm packages would need the exact versions and a bundler, and was not done.
 - The original build tool chain (Vite config, TypeScript or JSX sources, Tailwind config) is not recovered.
-- Known defect kept on purpose: typing an income digit by digit clamps annual savings to the income of the moment (1 after the first digit), and savings is not restored. The baseline records it, so the rebuild keeps it.
+- The baseline is the old embed. Since PennyPlanner 1.4.3 savings above income are kept and counted only up to income; since 1.4.4 the NetWorth column is the sum of the account columns in the same row (the old page showed the opening balance), so those outputs differ from the baseline on purpose.
