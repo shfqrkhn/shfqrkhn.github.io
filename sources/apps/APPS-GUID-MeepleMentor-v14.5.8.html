@@ -2,12 +2,12 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-uQGnuChDamMzX4MhpTgL8ZcKL24e/MuLMXc0cTwaPV0='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- MeepleMentor 14.5.7 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-AMbcPaXnqPYaVyLf7zzp+W7n/AulZ4VUEtO3OmjbVN4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- MeepleMentor 14.5.8 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="MeepleMentor Board Game Guides 14.5.7: short guides to 17 board games, with the strategy chapter sealed.">
+<meta name="description" content="MeepleMentor Board Game Guides 14.5.8: short guides to 17 board games, with the strategy chapter sealed.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="MeepleMentor Board Game Guides">
 <title>MeepleMentor Board Game Guides | Guides to 17 games</title>
@@ -36,7 +36,7 @@ button,input{font:inherit;color:inherit}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3) var(--s4);box-shadow:var(--shadow)}
 @media(prefers-reduced-motion:no-preference){.ib{transition:border-color .15s,transform .12s,box-shadow .15s}}
 /* OMNEVUM KIT:END */
-/* MeepleMentor 14.5.7. Tokens by role; colours come from the Omnevum kit above. */
+/* MeepleMentor 14.5.8. Tokens by role; colours come from the Omnevum kit above. */
 html{--surface:var(--card);--ink:var(--fg);--muted:var(--mut);--accent:var(--acc);--accent-ink:var(--on-acc);--focus:var(--acc);--bd:color-mix(in srgb,var(--fg) 45%,var(--bg));--danger:#9B2C2C;--success:#2F6B3A;--warning:#7A4F00}
 html[data-theme="charcoal"],html[data-theme="black"]{--danger:#F0A3A3;--success:#94D19E;--warning:#E3B15E}
 :root{--s1:4px;--s2:8px;--s3:16px;--s4:24px;--s5:40px;--s6:72px;--r0:3px;--t0:1rem;--t1:1.125rem;--t2:1.375rem;--t3:2.25rem;--t4:clamp(2.75rem,8vw,4.5rem);--serif:"Subset Serif",Georgia,"Times New Roman",serif;--cond:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--rule:var(--line);--print-paper:#fff;--print-ink:#000;--print-grey:#333;--print-line:#555;--print-rule:#999;--p-fine:9pt;--p-small:10pt;--p-body:11pt;--p-lead:12pt;--p-h3:13pt;--p-h2:14pt;--p-h1:22pt}
@@ -226,7 +226,7 @@ Array.prototype.forEach.call(document.querySelectorAll("[data-go]"),function(b){
 </script>
 <main id="root" tabindex="-1"></main>
 <footer class="foot"><div>
-<span>Version 14.5.7</span>
+<span>Version 14.5.8</span>
 <span id="content-ver">-</span>
 <span>Data stays on this device</span>
 <button type="button" class="link" data-go="help">Help</button>
@@ -1037,7 +1037,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
    "type": "Technical",
    "cat": "Area Control",
    "orientation": {
-    "hook": "Genocide for profit.",
+    "hook": "Races rise, conquer and fall; profit from each one before it fades.",
     "victory": "Coins.",
     "directive": "**Decline Timing.** Once expansion stalls, Decline. Cycle races. Churn is money.",
     "finisher": "**Kamikaze.** Last turn, attack for points, don't defend."
@@ -1190,8 +1190,8 @@ const useSafeStorage = (key, initial) => {
   return [data, setData];
 };
 
-// ---- Interface layer v14.5.7 (rulebook). Data, storage key, RichText and useSafeStorage above are unchanged. ----
-const APP_VERSION = "14.5.7";
+// ---- Interface layer v14.5.8 (rulebook). Data, storage key, RichText and useSafeStorage above are unchanged. ----
+const APP_VERSION = "14.5.8";
 const h = React.createElement;
 const ICONS = {
   search: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z",
@@ -1245,7 +1245,6 @@ const GameView = ({ game, isSaved, toggleSave, onBack, sealOpen, setSealOpen }) 
     h("article", { className: "text" },
       h("p", { className: "part" }, game.cat),
       h("h1", { id: "view-title", tabIndex: -1 }, game.name),
-      h("p", { className: "lead" }, h(RichText, { content: game.orientation.hook })),
       h("dl", { className: "facts" },
         h("div", null, h("dt", null, "Time (rough guide)"), h("dd", null, game.time === "Var" ? "Varies" : game.time)),
         h("div", null, h("dt", null, "Weight (1 light to 5 heavy, rough guide)"), h("dd", null, game.weight + " of 5")),
@@ -1263,6 +1262,7 @@ const GameView = ({ game, isSaved, toggleSave, onBack, sealOpen, setSealOpen }) 
           h("p", { className: "prose" }, "Learn the rules, play once, then open."),
           h("button", { className: "btn primary", "aria-expanded": "false", "aria-controls": "strategy-body", onClick: open }, h(Icon, { name: "eye" }), "Open strategy"))
         : h("div", { id: "strategy-body", className: "fade" },
+          h(Sub, { title: "In one line" }, h("p", { className: "prose" }, h(RichText, { content: game.orientation.hook }))),
           h(Sub, { title: "Where the points are" }, h("p", { className: "prose" }, h(RichText, { content: game.orientation.victory }))),
           h(Sub, { title: "Prime directive" }, h("p", { className: "prose" }, h(RichText, { content: game.orientation.directive }))),
           h(Sub, { title: "Seating and setup tips" }, h("p", { className: "prose" }, h(RichText, { content: game.tactics.setup }))),

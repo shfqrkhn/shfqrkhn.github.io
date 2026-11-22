@@ -90,7 +90,7 @@ Published site (the site/ folder, served at the site root)
 ## 5. Hard rules
 
 1. **Privacy gate.** No page, doc or registry text may carry personal information in any form: names of real people (owner, household, authors, designers, developers, players, creators), emails, phone numbers, addresses, government or account numbers, usernames or handles (the owner's GitHub handle in site and repository addresses is the one allowed handle), IP addresses, keys, tokens, local paths, credit lines naming a person (pattern-checked; names need the private list). Allowed: attributed historical quotes; copyright lines in third-party licences that the licence requires; the public site address; names of organisations, products, places and fictional characters. Sample data uses neutral labels ("Person A"). Nothing published may reveal who the owner is or where they work: no detail of the owner's employment or workplace, and no handle beyond the owner's GitHub handle in the site and repository addresses. These terms go in the private list (`builder/privacy_names.txt`), so the public repository never spells them out. Content must come from public sources, never from work material, internal training or client data. The public credit an open-data licence requires is allowed. If something identifying ever reaches the repository, deleting it in a later commit is not enough because history keeps it: scrub the sources, then replace the history with one clean commit (needs branch protection off for the push) and, to clear old pull request refs, recreate the repository. Suspicion alone is enough: when in doubt about a historical trail, delete the repository, recreate it, scrub the sources, and upload them again as one commit (the clean re-upload). Never wait for proof.
-2. **No network.** A page makes no request unless the user starts it. Four apps that use an AI or data service (PromptPlayground, PennyPlanner, MeetingMediator, WorldCupWizard) list that service's hosts (PromptPlayground also local addresses, for a model on the user's own machine) in their Content-Security-Policy `connect-src` and FlexxFiles allows its own origin only; no other host is allowed, and `check_pages.py` inspects resource attributes (`src`, `srcset`, `imagesrcset`, `background`, `href`, `xlink:href`, `action`, `formaction`, `poster`, `data`, `ping`, the `to`, `from` and `values` of svg `set` and `animate`, an iframe's `srcdoc`, a meta refresh) and stylesheet `url()`, `image-set()` and `@import`, not `connect-src`. No analytics, no external fonts, scripts or styles. The hub and generated pages ship a strict Content-Security-Policy.
+2. **No network.** A page makes no request unless the user starts it. Four apps that use an AI or data service (PromptPlayground, PennyPlanner, and the archived but still served MeetingMediator and WorldCupWizard) list that service's hosts (PromptPlayground also local addresses, for a model on the user's own machine) in their Content-Security-Policy `connect-src` and FlexxFiles allows its own origin only; no other host is allowed, and `check_pages.py` inspects resource attributes (`src`, `srcset`, `imagesrcset`, `background`, `href`, `xlink:href`, `action`, `formaction`, `poster`, `data`, `ping`, the `to`, `from` and `values` of svg `set` and `animate`, an iframe's `srcdoc`, a meta refresh) and stylesheet `url()`, `image-set()` and `@import`, not `connect-src`. No analytics, no external fonts, scripts or styles. The hub and generated pages ship a strict Content-Security-Policy.
 3. **Local-first.** Everything the user enters stays on the device (localStorage or IndexedDB). Every page that stores data offers export and restore. Storage keys are never renamed. Schemas carry a version and are validated on read.
 4. **Offline.** Every page works with the network off. The hub saves all pages in the background after the first visit (large ones on a tap), tries the network first, falls back to the saved copy after 3.5 seconds, refreshes saved pages when the network answers in time, and installs a new worker only when the person taps update. A page with its own PWA (bundle with `pwa: true`) brings its own worker and scope.
 5. **Home link.** Every single-file page has one link `href="../"` (the source file), which the build rewrites to `../../` on the site. Bundles write `../../` themselves. Remote pages link out and are labelled.
@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `9aa0f34b`, last changed 2026-11-22.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `a224ecb0`, last changed 2026-11-22.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -283,13 +283,13 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | LeadLantern Leadership Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/leadlantern-leadership/ |
 | MoralMap Ethics Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/moralmap-ethics/ |
 | ProcessPilot Operations Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/processpilot-operations/ |
-| ProjectPopQuiz Exams | courses | single | learning | 1.7.5 | live | MIT | /courses/projectpopquiz-exams/ |
+| ProjectPopQuiz Exams | courses | single | learning | 1.7.6 | live | MIT | /courses/projectpopquiz-exams/ |
 | ScopeScribe Requirements Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/scopescribe-requirements/ |
 | StatSafari Data Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/statsafari-data/ |
 | SupportScout Equipment Decisions | courses | single | learning | 1.5.5 | live | MIT | /courses/supportscout-equipment/ |
 | SystemSage Information Systems | courses | single | learning | 1.5.5 | live | MIT | /courses/systemsage-info-systems/ |
 | WattWatcher Energy Audit | courses | single | learning | 1.5.5 | live | MIT | /courses/wattwatcher-energy/ |
-| MeepleMentor Board Game Guides | games | single | games | 14.5.7 | live | MIT | /games/meeplementor-board-game-guides/ |
+| MeepleMentor Board Game Guides | games | single | games | 14.5.8 | live | MIT | /games/meeplementor-board-game-guides/ |
 | WorldCupWizard Predictions | games | single | games | 1.5.4 | archived | MIT | /games/worldcupwizard-predictions/ |
 | BuildBoss PC Workstation Guide | guides | single | home | 1.0.1 | archived | MIT | /guides/buildboss-workstation/ |
 | GearGuardian Care Guides | guides | single | home | 1.5.5 | live | MIT | /guides/gearguardian-care/ |
@@ -299,9 +299,9 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | HandheldHunter PC Games | references | single | games | 16.10.3 | archived | MIT | /references/handheldhunter-pc-games/ |
 | RepoRadar GitHub Catalogue | references | single | ai | 4.4.3 | live | MIT | /references/reporadar-github/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.6 | live | MIT | /references/streamscholar-youtube-channels/ |
-| PromptPlayground AI Chat | tools | single | ai | 0.6.3 | live | MIT | /tools/promptplayground-ai-chat/ |
+| PromptPlayground AI Chat | tools | single | ai | 0.6.4 | live | MIT | /tools/promptplayground-ai-chat/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
-| TrendTracker Charts | tools | single | ai | 1.5.6 | live | MIT | /tools/trendtracker-charts/ |
+| TrendTracker Charts | tools | single | ai | 1.5.7 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
 
 ## 13. Change log (newest first)
