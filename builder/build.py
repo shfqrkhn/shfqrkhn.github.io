@@ -188,6 +188,39 @@ def inline_engine(raw, what=""):
     return out[:sm.start()] + head + out[sm.end():]
 
 
+PART_MARK = re.compile(rb"@@NEN ([A-Za-z0-9/._-]+)@@")
+INLINE_SCRIPT = re.compile(rb"<script\b([^>]*)>(.*?)</script>", re.S | re.I)
+
+
+def assemble_page(path):
+    """A page kept as parts (sources/nesteggninja: a shell page plus readable files) is put back together here. Each @@NEN <path>@@ marker in the
+    shell is replaced by that file, or by every .js file in that folder in name order; the shell's script-src pins are then recomputed from its
+    inline scripts, so the parts are the only thing anyone edits. A page without markers passes through unchanged."""
+    raw = open(path, "rb").read()
+    if not PART_MARK.search(raw):
+        return raw
+    base = os.path.dirname(path)
+    def part(m):
+        p = os.path.join(base, *m.group(1).decode().split("/"))
+        files = [os.path.join(p, f) for f in sorted(os.listdir(p)) if f.endswith(".js")] if os.path.isdir(p) else [p]
+        assert files and all(os.path.isfile(f) for f in files), ("part not found", path, m.group(1))
+        body = b"".join(open(f, "rb").read() for f in files)
+        assert b"</script" not in body.lower() and b"</style" not in body.lower() and b"@@NEN" not in body, ("a part would end its block early", files)
+        return body
+    out = PART_MARK.sub(part, raw)
+    pins = []
+    for m in INLINE_SCRIPT.finditer(out):
+        t = re.search(rb"""(?<![\w-])type\s*=\s*["']?([^"'\s>]+)""", m.group(1))
+        if t and t.group(1).lower() not in (b"module", b"text/javascript"):
+            continue  # data blocks never run
+        pins.append(b"'sha256-" + base64.b64encode(hashlib.sha256(m.group(2).replace(b"\r\n", b"\n")).digest()) + b"'")
+    sm = re.search(rb"(?<![\w-])script-src((?:\s+[^;\"]+?)?)(?=\s*;|\")", out)
+    assert sm, ("the assembled page needs a script-src", path)
+    keep = [t for t in sm.group(1).split() if not t.startswith(b"'sha256-")]
+    return out[:sm.start()] + b" ".join([b"script-src"] + keep + pins) + out[sm.end():]
+
+
+
 EMBED_MARK = re.compile(rb'<template data-kd="embed"([^>]*?) data-src="([^"<>]+)"([^>]*)></template>')
 HUB_LINK = re.compile(rb'<a class="ib" href="\.\./" id="back-to-hub"[^>]*>.*?</a>', re.S)
 
@@ -201,7 +234,7 @@ def embed_pages(raw, what=""):
         return raw
     out, pins = raw, {b"script-src": [], b"style-src": []}
     for m in reversed(found):
-        g = open(resolve(m.group(2).decode()), "rb").read()
+        g = assemble_page(resolve(m.group(2).decode()))
         assert len(HUB_LINK.findall(g)) <= 1, ("an embedded page has more than one hub link", what)
         g = HUB_LINK.sub(b"", g)
         csp = re.search(rb'http-equiv="Content-Security-Policy" content="([^"]*)"', g)
@@ -245,6 +278,7 @@ check_registry()
 gate(APPS_DIR, "sources")
 gate(DOCS, "docs")
 gate(os.path.join(V, "method"), "method documents")
+gate(os.path.join(V, "nesteggninja"), "recovered planner source")
 # the registry, icon list and the root documents carry names and text too: gate a copy of them
 import tempfile, shutil
 _stage = tempfile.mkdtemp()

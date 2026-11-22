@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{new MutationObserver(()=>document.querySelectorAll('svg:not([aria-hidden]):not([aria-label]):not([role])').forEach(s=>{s.setAttribute('aria-hidden','true');s.setAttribute('focusable','false')})).observe(document.body,{childList:true,subtree:true})});

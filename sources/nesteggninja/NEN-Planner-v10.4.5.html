@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" data-app data-look="auto" style="--hue:20">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-1iBjCSGSV4im8yp9nCdvI+z5MknPmYcXT2H7/T1BdpY=' 'sha256-khTrgooiGb0MaW02+Lf3c+3nf21x5DhWoKYfPIjwMGE=' 'sha256-+KSWxFiAflWRyyNgv+68fRHhkkFC/i8lOmfvcxBpmPM=' 'sha256-x+ngHdJ4gakzCB1KQt4sLExmrvA+GJw4vTPWe1rSpeI=' 'sha256-lUJ4bPO8cO+B312++diOQIVgZnjiV9peIaMt1dk7reE=' 'sha256-te72nCdQZcQNdKiok7rhEkNIMak1nM/vBg9mjPk2v6w=' 'sha256-QSnmmYBNvGfK+Q98449VAxrOZ9P+l/0s5yblsqPfulk='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; worker-src blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" href="data:image/x-icon;base64,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" sizes="any" /><link rel="apple-touch-icon" href="data:image/png;base64,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" sizes="180x180" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#faf8f4" />
+    <script>@@NEN src/look.js@@</script>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="NestEggNinja Retirement" />
+    <meta name="description" content="NestEggNinja Retirement is a local-first planning aid for Canadian-style financial independence scenarios with explicit assumptions and year-by-year solvency illustrations." />
+    <title>NestEggNinja Retirement</title>
+    <script>@@NEN src/reset.js@@</script>
+    <!-- NestEggNinja 10.4.5 single-file build: Vite bundle index-F7z_Yzm8.js and index-BoPtPGWY.css inlined; interface layer added in 10.3.0; 10.4.2 updates the tax and benefit figures to tax year 2026 with sources, adds the export envelope, a seeded stress test and withdrawal rules; 10.4.4 moves the tax figures into the editable nf-data block, adds field messages, a saved status and the update steps; 10.4.5 reads 100k and 1.5m in money boxes, names the cause at the result, and puts the accent in one pair of lines -->
+    <style>@@NEN src/kit.css@@</style>
+    <script type="application/json" id="content-meta">@@NEN src/content-meta.json@@</script>
+    <script type="application/json" id="nf-data">@@NEN src/nf-data.json@@</script>
+    <script>@@NEN src/loader.js@@</script>
+    <script type="module">
+@@NEN src/bundle@@
+
+    </script>
+
+    <style>@@NEN src/app.css@@</style>
+  <script>@@NEN src/console-quiet.js@@</script>  <script>@@NEN src/svg-aria.js@@</script></head>
+  <body>
+    <a class="skip" href="#main">Skip to the planner</a>
+    <header class="nf-bar"><div class="top"><a class="ib" href="../" id="back-to-hub" aria-label="Omnevum home"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg></a><svg class="appic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M173.79,51.48a221.25,221.25,0,0,0-41.67-34.34,8,8,0,0,0-8.24,0A221.25,221.25,0,0,0,82.21,51.48C54.59,80.48,40,112.47,40,144a88,88,0,0,0,176,0C216,112.47,201.41,80.48,173.79,51.48ZM96,184c0-27.67,22.53-47.28,32-54.3,9.48,7,32,26.63,32,54.3a32,32,0,0,1-64,0Zm77.27,15.93A47.8,47.8,0,0,0,176,184c0-44-42.09-69.79-43.88-70.86a8,8,0,0,0-8.24,0C122.09,114.21,80,140,80,184a47.8,47.8,0,0,0,2.73,15.93A71.88,71.88,0,0,1,56,144c0-34.41,20.4-63.15,37.52-81.19A216.21,216.21,0,0,1,128,33.54a215.77,215.77,0,0,1,34.48,29.27C193.49,95.5,200,125,200,144A71.88,71.88,0,0,1,173.27,199.93Z"/></svg><h1 class="ttl">NestEggNinja Retirement</h1><button type="button" class="ib" id="nf-help" aria-haspopup="dialog" aria-label="Help"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></button><label class="ib lk" title="Look"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,16.37a86.4,86.4,0,0,1,16,3V212.67a86.4,86.4,0,0,1-16,3Zm32,9.26a87.81,87.81,0,0,1,16,10.54V195.83a87.81,87.81,0,0,1-16,10.54ZM40,128a88.11,88.11,0,0,1,80-87.63V215.63A88.11,88.11,0,0,1,40,128Zm160,50.54V77.46a87.82,87.82,0,0,1,0,101.08Z"/></svg><select id="look" aria-label="Look"><option value="auto">Auto</option><option value="paper">Paper</option><option value="charcoal">Charcoal</option><option value="black">Black</option></select></label><button type="button" class="ib" id="nf-save" aria-label="Save plan file"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg></button></div></header>
+    <div id="root"><p class="nf-loading" role="status">Loading...</p></div>
+    <noscript><p class="nf-loading">Turn on JavaScript, then reload.</p></noscript>
+    <div class="nx-wrap">
+    <section class="nx-sec" id="nf-lab" aria-labelledby="nx-h">
+      <h2 id="nx-h">Stress test and withdrawal rules</h2>
+      <p class="nx-p">Illustration, not advice. Runs your plan through many random markets. Same seed, same numbers.</p>
+      <div id="nf-lab-body"><p class="nx-h">The stress test needs JavaScript.</p></div>
+      <h3 class="nx-h3">What it models</h3>
+      <ul class="nx-ul">
+        <li>Yearly real return = real growth plus a bell-shaped random amount scaled by volatility. No fat tails, so real markets can be worse. Volatility and seed are your own assumptions.</li>
+        <li>No historical return series is included.</li>
+        <li>Tax uses the <span data-nf="{year}">2026</span> tables in the ledger. Not modelled: capital gains tax, provincial credits and surtaxes, OAS recovery from RRSP withdrawals, brackets that rise with inflation.</li>
+        <li>Rules: Bengen 1994 (inflation-adjusted percent); Guyton and Klinger 2006 (guardrails). Fixed percent is this app's own.</li>
+      </ul>
+    </section>
+    <section class="nx-sec" id="nf-ledger" aria-labelledby="nx-lh">
+      <h2 id="nx-lh" data-nf="Assumptions ledger, tax year {year}">Assumptions ledger, tax year 2026</h2>
+      <p class="nx-p">Every figure used, with year and source. Read from canada.ca on 2026-10-30. Verify before relying on it.</p>
+      <table class="nx-lt">
+        <caption class="nx-cap" data-nf="Tax and benefit figures, tax year {year}">Tax and benefit figures, tax year 2026</caption>
+        <thead><tr><th scope="col">Figure</th><th scope="col">Value</th><th scope="col">Year</th><th scope="col">Source (external site)</th><th scope="col">Note</th></tr></thead>
+        <tbody>
+<tr><th scope="row">Federal brackets and rates</th><td data-l="Value" data-nf="{brk:fed}">up to $58,523 at 14%; up to $117,045 at 20.5%; up to $181,440 at 26%; up to $258,482 at 29%; over $258,482 at 33%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note" data-nf="Lowest rate {pct:fed.brackets.0.1}. Used as the federal credit rate on the basic personal amount.">Lowest rate 14%. Used as the federal credit rate on the basic personal amount.</td></tr>
+<tr><th scope="row">Federal basic personal amount</th><td data-l="Value" data-nf="{usd:fed.bpaCents} (maximum)">$16,452 (maximum)</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/adjustment-personal-income-tax-benefit-amounts.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/adjustment-personal-income-tax-benefit-amounts.html</a></td><td data-l="Note">The maximum is used for every income. The CRA minimum of $14,829 for high incomes is not modelled.</td></tr>
+<tr><th scope="row">Ontario brackets and rates</th><td data-l="Value" data-nf="{brk:prov.ON}">up to $53,891 at 5.05%; up to $107,785 at 9.15%; up to $150,000 at 11.16%; up to $220,000 at 12.16%; over $220,000 at 13.16%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Alberta brackets and rates</th><td data-l="Value" data-nf="{brk:prov.AB}">up to $61,200 at 8%; up to $154,259 at 10%; up to $185,111 at 12%; up to $246,813 at 13%; up to $370,220 at 14%; over $370,220 at 15%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">British Columbia brackets and rates</th><td data-l="Value" data-nf="{brk:prov.BC}">up to $50,363 at 5.6%; up to $100,728 at 7.7%; up to $115,648 at 10.5%; up to $140,430 at 12.29%; up to $190,405 at 14.7%; up to $265,545 at 16.8%; over $265,545 at 20.5%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Nova Scotia brackets and rates</th><td data-l="Value" data-nf="{brk:prov.NS}">up to $30,995 at 8.79%; up to $61,991 at 14.95%; up to $97,417 at 16.67%; up to $157,124 at 17.5%; over $157,124 at 21%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Saskatchewan brackets and rates</th><td data-l="Value" data-nf="{brk:prov.SK}">up to $54,532 at 10.5%; up to $155,805 at 12.5%; over $155,805 at 14.5%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Manitoba brackets and rates</th><td data-l="Value" data-nf="{brk:prov.MB}">up to $47,564 at 10.8%; up to $101,200 at 12.75%; over $101,200 at 17.4%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">New Brunswick brackets and rates</th><td data-l="Value" data-nf="{brk:prov.NB}">up to $52,333 at 9.4%; up to $104,666 at 14%; up to $193,861 at 16%; over $193,861 at 19.5%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Newfoundland and Labrador brackets and rates</th><td data-l="Value" data-nf="{brk:prov.NL}">up to $44,678 at 8.7%; up to $89,354 at 14.5%; up to $159,528 at 15.8%; up to $223,340 at 17.8%; up to $285,319 at 19.8%; up to $570,638 at 20.8%; up to $1,141,275 at 21.3%; over $1,141,275 at 21.8%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Prince Edward Island brackets and rates</th><td data-l="Value" data-nf="{brk:prov.PE}">up to $33,928 at 9.5%; up to $65,820 at 13.47%; up to $106,890 at 16.6%; up to $142,520 at 17.62%; up to $200,000 at 19%; over $200,000 at 20%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Yukon brackets and rates</th><td data-l="Value" data-nf="{brk:prov.YT}">up to $58,523 at 6.4%; up to $117,045 at 9%; up to $181,440 at 10.9%; up to $500,000 at 12.8%; over $500,000 at 15%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Northwest Territories brackets and rates</th><td data-l="Value" data-nf="{brk:prov.NT}">up to $53,003 at 5.9%; up to $106,009 at 8.6%; up to $172,346 at 12.2%; over $172,346 at 14.05%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">Nunavut brackets and rates</th><td data-l="Value" data-nf="{brk:prov.NU}">up to $55,801 at 4%; up to $111,602 at 7%; up to $181,439 at 9%; over $181,439 at 11.5%</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">Provincial credits, surtaxes and health premiums are not modelled.</td></tr>
+<tr><th scope="row">RRSP dollar limit</th><td data-l="Value" data-nf="{usd:c.rrspMaxCents}">$33,810</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html</a></td><td data-l="Note" data-nf="Compared with {num:c.rrspPct}% of income; the lesser is the yearly room used.">Compared with 18% of income; the lesser is the yearly room used.</td></tr>
+<tr><th scope="row">RRSP earned-income rate</th><td data-l="Value" data-nf="{num:c.rrspPct}% of earned income">18% of earned income</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/contributions-affect-your-rrsp-prpp-deduction-limit.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/contributions-affect-your-rrsp-prpp-deduction-limit.html</a></td><td data-l="Note" data-nf="The CRA page states {num:c.rrspPct}% of earned income in the previous year; the planner uses the income you enter.">The CRA page states 18% of earned income in the previous year; the planner uses the income you enter.</td></tr>
+<tr><th scope="row">TFSA annual dollar limit</th><td data-l="Value" data-nf="{usd:c.tfsaCents}">$7,000</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html</a></td><td data-l="Note">Also stated on the CRA indexation page.</td></tr>
+<tr><th scope="row">YMPE (service-formula bridge)</th><td data-l="Value" data-nf="{usd:c.ympeCents}">$74,600</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html</a></td><td data-l="Note">Used by the bridge benefit line only.</td></tr>
+<tr><th scope="row">OAS recovery tax threshold</th><td data-l="Value" data-nf="{usd:c.oasThresholdCents}">$95,323</td><td data-l="Year" data-nf="{year}">2026</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/adjustment-personal-income-tax-benefit-amounts.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/adjustment-personal-income-tax-benefit-amounts.html</a></td><td data-l="Note" data-nf="Net income over this amount; the rate is {pct:c.oasRecoveryE4} (next row).">Net income over this amount; the rate is 15% (next row).</td></tr>
+<tr><th scope="row">OAS recovery tax rate</th><td data-l="Value" data-nf="{pct:c.oasRecoveryE4}">15%</td><td data-l="Year">page dated 2026-09-29</td><td data-l="Source"><a href="https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security/recovery-tax.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security/recovery-tax.html</a></td><td data-l="Note">The same page gives $93,454 as the 2025 threshold.</td></tr>
+<tr><th scope="row">CPP maximum retirement pension at 65</th><td data-l="Value">$1,507.65 a month ($18,091.80 a year)</td><td data-l="Year">January 2026</td><td data-l="Source"><a href="https://www.canada.ca/en/services/benefits/publicpensions/cpp/cpp-benefit/amount.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/services/benefits/publicpensions/cpp/cpp-benefit/amount.html</a></td><td data-l="Note">Reference only. The planner uses the CPP amount you enter (assumed to be the amount at 65).</td></tr>
+<tr><th scope="row">OAS maximum monthly pension</th><td data-l="Value">$762.50 (ages 65 to 74); $838.75 (75 and over)</td><td data-l="Year">October to December 2026</td><td data-l="Source"><a href="https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security/payments.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security/payments.html</a></td><td data-l="Note">Reference only. The planner uses the OAS amount you enter (assumed to be the amount at 65).</td></tr>
+<tr><th scope="row">CPP start age factors</th><td data-l="Value" data-nf="minus {pct:cpp.earlyPerMonthE4} a month before 65 (to minus {pct:cpp.earlyPerMonthE4*60} at 60); plus {pct:cpp.latePerMonthE4} a month after 65 (to plus {pct:cpp.latePerMonthE4*60} at 70)">minus 0.6% a month before 65 (to minus 36% at 60); plus 0.7% a month after 65 (to plus 42% at 70)</td><td data-l="Year">page dated 2026-10-02</td><td data-l="Source"><a href="https://www.canada.ca/en/services/benefits/publicpensions/cpp/when-start.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/services/benefits/publicpensions/cpp/when-start.html</a></td><td data-l="Note">Applied in the stress test only.</td></tr>
+<tr><th scope="row">OAS deferral factor</th><td data-l="Value" data-nf="plus {pct:oas.latePerMonthE4} a month after 65 (to plus {pct:oas.latePerMonthE4*60} at 70)">plus 0.6% a month after 65 (to plus 36% at 70)</td><td data-l="Year">page dated 2026-10-02</td><td data-l="Source"><a href="https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/when-start.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/when-start.html</a></td><td data-l="Note">Applied in the stress test only.</td></tr>
+<tr><th scope="row">OAS increase at 75</th><td data-l="Value" data-nf="plus {pct:oas.at75E4} the month after the 75th birthday">plus 10% the month after the 75th birthday</td><td data-l="Year">page dated 2026-10-13</td><td data-l="Source"><a href="https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/benefit-amount.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/services/benefits/publicpensions/old-age-security/benefit-amount.html</a></td><td data-l="Note">Applied in the stress test only.</td></tr>
+<tr><th scope="row">FHSA limits</th><td data-l="Value">$8,000 a year; $40,000 lifetime; unused room carried forward up to $8,000</td><td data-l="Year">page dated 2026-02-05</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account/definitions.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account/definitions.html</a></td><td data-l="Note">Reference only. The projection does not model an FHSA.</td></tr>
+<tr><th scope="row">FHSA first-year room</th><td data-l="Value">$8,000</td><td data-l="Year">page dated 2026-02-02</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html</a></td><td data-l="Note">Reference only.</td></tr>
+<tr><th scope="row">RRIF minimum withdrawal factors</th><td data-l="Value" data-nf="age 71 {pct2:rrif.71}; 72 {pct2:rrif.72}; 75 {pct2:rrif.75}; 80 {pct2:rrif.80}; 85 {pct2:rrif.85}; 90 {pct2:rrif.90}; 95 and over {pct2:rrif.95}; under 71: 1/(90 minus age)">age 71 5.28%; 72 5.40%; 75 5.82%; 80 6.82%; 85 8.51%; 90 11.92%; 95 and over 20.00%; under 71: 1/(90 minus age)</td><td data-l="Year">page dated 2025-10-01</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/completing-slips-summaries/t4rsp-t4rif-information-returns/payments/chart-prescribed-factors.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/completing-slips-summaries/t4rsp-t4rif-information-returns/payments/chart-prescribed-factors.html</a></td><td data-l="Note">Table by age at the start of the year, &#x27;All other RRIFs&#x27; column. Full table in the stress test.</td></tr>
+<tr><th scope="row">RRIF choice year</th><td data-l="Value">choose an option for your RRSPs in the year you turn 71</td><td data-l="Year">page dated 2025-01-03</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/rrsp-options-when-you-turn-71/options-your-rrsps.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/rrsp-options-when-you-turn-71/options-your-rrsps.html</a></td><td data-l="Note">The stress test start age is your input.</td></tr>
+<tr><th scope="row">Quebec</th><td data-l="Value">not included</td><td data-l="Year">-</td><td data-l="Source"><a href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" target="_blank" rel="noopener noreferrer">https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html</a></td><td data-l="Note">The CRA page refers to Revenu Quebec. Quebec is not offered.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    </div>
+    <footer class="nf-foot" aria-label="About this build">
+      <dl>
+        <div><dt>Version</dt><dd>NestEggNinja Retirement 10.4.5</dd></div>
+        <div><dt>Content</dt><dd><span data-cm="line">Content version 2026.1, date 2026-10-31, tax year 2026</span></dd></div>
+        <div><dt>Status</dt><dd>Showcase build.</dd></div>
+        <div><dt>Data rule</dt><dd>Stays in this browser. Files only when you ask.</dd></div>
+        <div><dt>Not advice</dt><dd>Illustration, not advice. Figures: canada.ca, tax year <span data-nf="{year}">2026</span> (see ledger).</dd></div>
+      </dl>
+      <p><button type="button" id="nf-help2" class="nf-linkbtn" aria-label="Help: your data, export, delete"><svg class="nf-ic" viewBox="0 0 256 256" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>&nbsp;Help</button></p>
+      <p><a href="https://github.com/sponsors/shfqrkhn?o=esb" target="_blank" rel="noopener noreferrer">Sponsor the author (external site)</a></p>
+      <p>Source and more apps: <a href="https://shfqrkhn.github.io/" target="_blank" rel="noopener noreferrer">shfqrkhn.github.io (external site)</a></p>
+      <details>
+        <summary>Licences</summary>
+        <div>
+          <p>Fonts: Latin subsets, SIL Open Font License 1.1 (text below).</p>
+          <table>
+            <thead><tr><th scope="col">Component</th><th scope="col">Version</th><th scope="col">SPDX</th><th scope="col">Holder</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Newsreader, weights 400 and 600</th><td>1.003</td><td>OFL-1.1</td><td>The Newsreader Project Authors</td></tr>
+              <tr><th scope="row">Work Sans, weights 400 and 600</th><td>2.012</td><td>OFL-1.1</td><td>The Work Sans Project Authors</td></tr>
+              <tr><th scope="row">React and React DOM</th><td>18.3.1</td><td>MIT</td><td>Meta Platforms, Inc. and affiliates</td></tr>
+              <tr><th scope="row">Mantine</th><td>not recorded in the bundle</td><td>MIT</td><td>Mantine contributors</td></tr>
+              <tr><th scope="row">Recharts</th><td>not recorded in the bundle</td><td>MIT</td><td>Recharts Group</td></tr>
+              <tr><th scope="row">Motion (framer-motion)</th><td>not recorded in the bundle</td><td>MIT</td><td>Framer B.V.</td></tr>
+              <tr><th scope="row">Dexie</th><td>not recorded in the bundle</td><td>Apache-2.0</td><td>Dexie.js contributors</td></tr>
+              <tr><th scope="row">zustand</th><td>not recorded in the bundle</td><td>MIT</td><td>zustand contributors</td></tr>
+              <tr><th scope="row">decimal.js</th><td>not recorded in the bundle</td><td>MIT</td><td>decimal.js contributors</td></tr>
+              <tr><th scope="row">FileSaver.js</th><td>not recorded in the bundle</td><td>MIT</td><td>FileSaver.js contributors</td></tr>
+              <tr><th scope="row">Lucide icons</th><td>not recorded in the bundle</td><td>ISC and MIT</td><td>Lucide Contributors</td></tr>
+              <tr><th scope="row">Tailwind CSS utilities</th><td>not recorded in the bundle</td><td>MIT</td><td>Tailwind Labs, Inc.</td></tr>
+            </tbody>
+          </table>
+          <p>Licence types are each project's published ones, not re-checked. Versions other than React are not recorded.</p>
+          <p>Newsreader licence text:</p>
+          <pre>Copyright 2020 The Newsreader Project Authors (http://github.com/productiontype/Newsreader)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+&quot;Font Software&quot; refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+&quot;Reserved Font Name&quot; refers to any names specified as such after the
+copyright statement(s).
+
+&quot;Original Version&quot; refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+&quot;Modified Version&quot; refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+&quot;Author&quot; refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</pre>
+          <p>Work Sans licence text:</p>
+          <pre>Copyright 2019 The Work Sans Project Authors (https://github.com/weiweihuanghuang/Work-Sans)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+&quot;Font Software&quot; refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+&quot;Reserved Font Name&quot; refers to any names specified as such after the
+copyright statement(s).
+
+&quot;Original Version&quot; refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+&quot;Modified Version&quot; refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+&quot;Author&quot; refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+</pre>
+        </div>
+      </details>
+    </footer>
+<script>@@NEN src/lab.js@@</script>
+</body>
+
+</html>

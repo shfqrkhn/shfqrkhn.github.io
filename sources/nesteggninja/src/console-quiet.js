@@ -1,0 +1,1 @@
+if(location.hostname!=='localhost'){const n=()=>{};console.log=n;console.warn=n;console.error=n;}
