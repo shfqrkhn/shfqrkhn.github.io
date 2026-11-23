@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-cIoWCnURKhrqAo3kNaNT1UVgLaN592QO/taWXDZv0ZI=' 'sha256-crDR2xDf41zNCut1+uto2bA1mPmERZH8PBaZO8Rhok4=' 'sha256-urTecNqG88I9rl5j5+KDOExjDFuEIt4BE6JwBzc1n8E=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-0i+pByQ4m2qKTLFcXVjoSaf02CruNFrNoaoMZTzkip0='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-eWcy6M/dS2B9Lb2mBnrGdUFq2rjk/HM9iVV3+Et6rvI=' 'sha256-xwHTa+lnPS6+QtbVaS23oewOml2Z5zOQwjwPyje3RI4=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-5OwId1AahIoOtcL0gpIMZEV/yAenH39L5tC/3ZMdlHM='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
     />
     <meta name="application-name" content="PromptPlayground AI Chat" />
-    <meta name="version" content="0.6.5-single" />
+    <meta name="version" content="0.6.6-single" />
     <meta name="apple-mobile-web-app-title" content="PromptPlayground AI Chat" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -967,7 +967,7 @@ body[data-pg-view]:not([data-pg-view=chat]) #newChatTop{display:none}
       <div class="vtabs" role="tablist" aria-label="Views"><button type="button" role="tab" id="tab-chat" aria-selected="true" aria-controls="panel-chat" tabindex="0">Chat</button><button type="button" role="tab" id="tab-prompts" aria-selected="false" aria-controls="panel-prompts" tabindex="-1">Prompts</button><button type="button" role="tab" id="tab-transcripts" aria-selected="false" aria-controls="panel-transcripts" tabindex="-1">Transcripts</button></div>
       <button id="newChatTop" class="ib" type="button" aria-label="New chat" title="New chat"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg></button>
       <button id="helpBtn" class="ib" type="button" aria-label="Help" title="Help"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg></button>
-      <label class="ib lookib" title="Look"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg><select id="look" aria-label="Look"><option value="auto">Auto</option><option value="paper">Paper</option><option value="charcoal">Charcoal</option><option value="black">True Black</option></select></label>
+      <label class="ib lookib" title="Look" aria-label="Look"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg><select id="look" aria-label="Look"><option value="auto">Auto</option><option value="paper">Paper</option><option value="charcoal">Charcoal</option><option value="black">True Black</option></select></label>
     </header>
     <div class="app-shell" id="panel-chat" data-view="chat" role="tabpanel" aria-labelledby="tab-chat">
       <aside class="sidebar" aria-label="Conversations">
@@ -982,8 +982,8 @@ body[data-pg-view]:not([data-pg-view=chat]) #newChatTop{display:none}
         <div class="sidebar-actions">
           <button id="newChatBtn" class="primary-btn ic i-plus" type="button">New chat</button>
           <button id="newFolderBtn" class="small-btn ic i-plus" type="button">Folder</button>
-          <button id="exportBtn" class="small-btn ic i-down" type="button" title="Export (no keys)">Export</button>
-          <button id="importBtn" class="small-btn ic i-up" type="button" title="Import">Import</button>
+          <button id="exportBtn" class="small-btn ic i-down" type="button" title="Export (no keys)" aria-label="Export (no keys)">Export</button>
+          <button id="importBtn" class="small-btn ic i-up" type="button" title="Import" aria-label="Import">Import</button>
           <input id="importInput" class="visually-hidden" type="file" tabindex="-1" accept="application/json" aria-label="Import PromptPlayground AI Chat data file" />
         </div>
 
@@ -1051,8 +1051,8 @@ body[data-pg-view]:not([data-pg-view=chat]) #newChatTop{display:none}
           <div class="composer">
             <textarea id="promptInput" rows="3" aria-label="Message" placeholder="Message (Enter sends)"></textarea>
             <div class="composer-actions">
-              <button id="promptLibraryBtn" class="small-btn" type="button" title="Prompts">Prompts</button>
-              <button id="saveDraftPromptBtn" class="small-btn" type="button" title="Save draft as prompt"><span class="wide">Save prompt</span><span class="narrow">Save</span></button>
+              <button id="promptLibraryBtn" class="small-btn" type="button" title="Prompts" aria-label="Prompts">Prompts</button>
+              <button id="saveDraftPromptBtn" class="small-btn" type="button" title="Save draft as prompt" aria-label="Save draft as prompt"><span class="wide">Save prompt</span><span class="narrow">Save</span></button>
               <button id="attachBtn" class="small-btn" type="button" title="PNG, JPEG, WebP, GIF" aria-label="Attach images"><span class="wide">Images</span><span class="narrow">Images</span></button>
               <input id="imageInput" class="visually-hidden" type="file" tabindex="-1" accept="image/png,image/jpeg,image/webp,image/gif" multiple aria-label="Attach image files" />
               <button id="stopBtn" class="danger-btn ic i-x" type="button" hidden>Stop</button>
@@ -1572,7 +1572,7 @@ body[data-pg-view]:not([data-pg-view=chat]) #newChatTop{display:none}
     <ul class="policy" aria-label="Filename policy">
      <li><code>YYYY-MM-DD-slug.md</code></li>
      <li><code>YYYY-MM-DD-title-id.md</code> for many chats in one file.</li>
-     <li>Date: first message, else file date (local time).</li>
+     <li>Date: first message, else file date. Both use your local time zone.</li>
      <li>Unsafe characters are removed. Repeats get -2, -3.</li>
     </ul>
    </details>
@@ -1782,7 +1782,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="false"></div>
 
     <footer class="kit-footer">
-      <span><span class="wide">PromptPlayground AI Chat </span>0.6.5</span>
+      <span><span class="wide">PromptPlayground AI Chat </span>0.6.6</span>
       <span class="wide">Keys stay on this device.</span>
       <span id="contentStamp" class="wide">Provider list version 8, checked 2026-07-04</span>
       <span class="push"><button id="helpFootBtn" class="link-btn" type="button">Help</button><button id="licenceBtn" class="link-btn" type="button">Licences</button><a class="link-btn" href="https://shfqrkhn.github.io/" rel="noopener noreferrer">Source</a></span>
@@ -1831,7 +1831,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <p><strong>Provider:</strong> the service that writes answers. <strong>API key:</strong> your secret code for it. <strong>URL:</strong> its web address. <strong>Vault:</strong> locked storage for keys. <strong>CORS:</strong> a local server must allow web pages.</p>
         <details id="helpMoreDetails" class="help-more">
           <summary>More</summary>
-        <p>Export: JSON without keys, every branch. Chat as Markdown: the open branch. Full backup: includes keys, encrypted. Import asks before replacing.</p>
+        <p>Saved file names use today's date in your local time zone. Export: JSON without keys, every branch. Chat as Markdown: the open branch. Full backup: includes keys, encrypted. Import asks before replacing.</p>
         <p>Markdown import: first line # title, then ## You and ## messages. Max 5 MB, 1000 messages. Added as a new chat.</p>
         <p>Branches: Regenerate and Edit keep old versions. Switch with Prev and Next.</p>
         <p>Cost shows only for models you price in Settings.</p>
@@ -2516,7 +2516,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre>
 }
     </script>
 
-    <!-- PromptPlayground 0.6.5-single single-file build, with PromptPantry 0.1.0 and TranscriptTidy 1.6.3 as extra views. Source modules inlined in original order. -->
+    <!-- PromptPlayground 0.6.6-single single-file build, with PromptPantry 0.1.0 and TranscriptTidy 1.6.3 as extra views. Source modules inlined in original order. -->
     <script id="workspace-worker-src" type="text/plain">
 const WASM_EMPTY_MODULE = new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]);
 
@@ -3123,7 +3123,7 @@ function ascii(bytes) {
     return {
       id: options.safeId(message.id),
       role: message.role === "user" ? "user" : "assistant",
-      content: String(message.content || ""),
+      content: contentText(message.content),
       attachments: Array.isArray(message.attachments) ? message.attachments.filter(options.isSafeAttachment) : [],
       provider: message.provider ? String(message.provider) : undefined,
       model: message.model ? String(message.model) : undefined,
@@ -3133,6 +3133,16 @@ function ascii(bytes) {
       seq: cleanSeq(message.seq),
       usage: normalizeUsage(message.usage),
     };
+  }
+
+  // Imported content that is not a string (an object or a list) is kept as JSON text, never "[object Object]".
+  function contentText(value) {
+    if (!value) return "";
+    if (typeof value === "string") return value;
+    if (typeof value === "object") {
+      try { return JSON.stringify(value) || ""; } catch (e) { return ""; }
+    }
+    return String(value);
   }
 
   function cleanSeq(value) {
@@ -3245,7 +3255,7 @@ const MAX_JSON_DEPTH = 64;
 const MAX_JSON_NODES = 200000;
 const MAX_JSON_KEY_LENGTH = 256;
 const MAX_ID_LENGTH = 128;
-const APP_VERSION = "0.6.5";
+const APP_VERSION = "0.6.6";
 const SCHEMA_VERSION = 2;
 const PREMIGRATION_KEY = "modeltab-state-premigration-v1";
 const ROOT_PICK = "~root";
@@ -5760,7 +5770,9 @@ function syncOverlayState() {
   dom.settingsBtn.setAttribute("aria-expanded", String(settingsVisible));
   dom.closeSettingsBtn.setAttribute("aria-expanded", String(settingsVisible));
   dom.sidebarToggle.title = sidebarVisible ? "Collapse conversations" : "Expand conversations";
+  dom.sidebarToggle.setAttribute("aria-label", dom.sidebarToggle.title);
   dom.settingsBtn.title = settingsVisible ? "Collapse settings" : "Expand settings";
+  dom.settingsBtn.setAttribute("aria-label", dom.settingsBtn.title);
   syncPanelVisibility(dom.sidebar, (SIDEBAR_OVERLAY_MEDIA.matches && !sidebarOpen) || sidebarCollapsed);
   syncPanelVisibility(dom.settingsPanel, (SETTINGS_OVERLAY_MEDIA.matches && !settingsOpen) || settingsCollapsed);
   document.body.classList.toggle("overlay-open", sidebarOpen || settingsOpen);
@@ -6504,7 +6516,11 @@ async function sendPrompt() {
   if (!saveControls({ silent: true })) return;
   saveInstructions({ silent: true });
   const text = dom.promptInput.value.trim();
-  if (!text && !draftAttachments.length) return;
+  if (!text && !draftAttachments.length) {
+    setStatus("Type a message first.", true);
+    dom.promptInput.focus();
+    return;
+  }
   const chat = activeConversation() || createConversation(false);
   autoscrollPinned = true;
   ensureChain(chat);
@@ -7189,7 +7205,7 @@ function exportMarkdown() {
   const lines = [
     `# ${String(chat.title || "Untitled chat").replace(/[\r\n]+/g, " ")}`,
     "",
-    `Exported from PromptPlayground ${APP_VERSION} on ${new Date().toISOString().slice(0, 10)} (format 1). Active branch only: ${chat.messages.length} of ${total} messages. API keys are never included.`,
+    `Exported from PromptPlayground ${APP_VERSION} on ${localDay()} (format 1). Active branch only: ${chat.messages.length} of ${total} messages. API keys are never included.`,
     ""
   ];
   for (const message of chat.messages) {
@@ -7202,7 +7218,7 @@ function exportMarkdown() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `promptplayground-chat-${new Date().toISOString().slice(0, 10)}.md`;
+  link.download = `promptplayground-chat-${localDay()}.md`;
   link.click();
   URL.revokeObjectURL(url);
   setStatus("Markdown saved.");
@@ -7506,9 +7522,25 @@ function requireSecondClick(key, message, action, button = null) {
   setStatus(message, true);
 }
 
+// Ports that browsers refuse for web requests (Fetch standard, bad ports). A request to one fails like a network error.
+const BROWSER_BLOCKED_PORTS = new Set([1, 7, 9, 11, 13, 15, 17, 19, 20, 21, 22, 23, 25, 37, 42, 43, 53, 69, 77, 79, 87, 95, 101, 102, 103, 104, 109, 110, 111, 113, 115, 117, 119, 123, 135, 137, 139, 143, 161, 179, 389, 427, 465, 512, 513, 514, 515, 526, 530, 531, 532, 540, 548, 554, 556, 563, 587, 601, 636, 989, 990, 993, 995, 1719, 1720, 1723, 2049, 3659, 4045, 4190, 5060, 5061, 6000, 6566, 6665, 6666, 6667, 6668, 6669, 6679, 6697, 10080]);
+
+function browserBlockedPort(baseUrl) {
+  const url = parseUrl(baseUrl);
+  if (!url || !url.port) return 0;
+  const port = Number(url.port);
+  return BROWSER_BLOCKED_PORTS.has(port) ? port : 0;
+}
+
+function blockedPortMessage(port) {
+  return `Port ${port} is blocked by web browsers for web requests, whatever this page allows. Use a different port for this server.`;
+}
+
 function explainFetchError(error, provider = activeProvider()) {
   const raw = redactSensitiveText(error?.message || error || "Unknown error");
   if (error?.name === "TypeError" || raw.includes("Failed to fetch")) {
+    const badPort = browserBlockedPort(provider?.baseUrl);
+    if (badPort) return `${blockedPortMessage(badPort)} Base URL: ${provider.baseUrl}.`;
     if (provider?.baseUrl && !connectAllowedByPage(provider.baseUrl)) return `${PAGE_REACH_MESSAGE} Base URL: ${provider.baseUrl}.`;
     return localConnectionHelp(provider);
   }
@@ -7545,9 +7577,10 @@ function connectAllowedByPage(baseUrl) {
 
 function syncReachHint() {
   const value = dom.providerBaseInput.value.trim();
-  const blocked = Boolean(value) && !connectAllowedByPage(value);
+  const badPort = value ? browserBlockedPort(value) : 0;
+  const blocked = Boolean(value) && (badPort > 0 || !connectAllowedByPage(value));
   dom.providerReachHint.hidden = !blocked;
-  dom.providerReachHint.textContent = blocked ? `Not reachable from this page. ${PAGE_REACH_MESSAGE}` : "";
+  dom.providerReachHint.textContent = !blocked ? "" : (badPort ? blockedPortMessage(badPort) : `Not reachable from this page. ${PAGE_REACH_MESSAGE}`);
 }
 
 function localConnectionHelp(provider) {
@@ -7792,7 +7825,7 @@ function downloadJson(payload, basename) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `${basename}-${new Date().toISOString().slice(0, 10)}.json`;
+  link.download = `${basename}-${localDay()}.json`;
   link.click();
   URL.revokeObjectURL(url);
 }
@@ -7803,6 +7836,7 @@ async function importData() {
   try {
     if (file.size > MAX_IMPORT_BYTES) throw new Error("Import file is too large.");
     const payload = JSON.parse(await file.text());
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) throw new Error("Invalid export.");
     assertSafeObjectKeys(payload);
     if (payload && typeof payload === "object" && !Array.isArray(payload) && Object.hasOwn(payload, "app") && payload.app !== null && payload.app !== undefined && payload.app !== "") {
       const other = typeof payload.app === "string" ? payload.app.replace(/[^\x20-\x7E]/g, "").slice(0, 40) : "an unknown app";
@@ -7814,7 +7848,7 @@ async function importData() {
       throw new Error(`This file was exported by a newer PromptPlayground (data version ${Number(payload.schemaVersion) || "unknown"}). Replace this file with the newer one, then import again. Nothing was changed.`);
     }
     const imported = payload.state || payload.data || payload;
-    if (!Array.isArray(imported.providers) || !Array.isArray(imported.conversations)) {
+    if (!imported || typeof imported !== "object" || !Array.isArray(imported.providers) || !Array.isArray(imported.conversations)) {
       throw new Error("Invalid export.");
     }
     const keyVault = payload.keyVault ? sanitizeVault(payload.keyVault) : null;
@@ -8250,6 +8284,10 @@ function renderAttrs(attrs) {
     .join(" ");
 }
 
+function localDay(when = new Date()) {
+  return `${when.getFullYear()}-${String(when.getMonth() + 1).padStart(2, "0")}-${String(when.getDate()).padStart(2, "0")}`;
+}
+
 function uid() {
   return crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
@@ -8406,7 +8444,11 @@ function isHttpLikePage() {
     for (var i = 0; i < chunks.length; i++) {
       var c = chunks[i];
       if (c && typeof c.createTime === "string") {
-        var m = /^(\d{4}-\d{2}-\d{2})/.exec(c.createTime);
+        var ct = c.createTime, m = /^(\d{4}-\d{2}-\d{2})/.exec(ct);
+        if (/^\d{4}-\d{2}-\d{2}[T ]/.test(ct)) {
+          var dd = new Date(ct);
+          if (!isNaN(dd.getTime())) return dd.getFullYear() + "-" + String(dd.getMonth() + 1).padStart(2, "0") + "-" + String(dd.getDate()).padStart(2, "0");
+        }
         if (m) return m[1];
       }
     }
@@ -9860,7 +9902,7 @@ function isHttpLikePage() {
   // ---- backup and restore (schema 1)
   function exportNow() {
     var obj = { app: "promptpantry", schemaVersion: 1, exported: new Date().toISOString(), prompts: data.prompts };
-    var a = document.createElement("a"); a.download = "promptpantry-backup-" + new Date().toISOString().slice(0, 10) + ".json";
+    var a = document.createElement("a"); a.download = "promptpantry-backup-" + (function (t) { return t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0"); })(new Date()) + ".json";
     a.href = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" })); document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000); say("Copy saved to your downloads.");
   }

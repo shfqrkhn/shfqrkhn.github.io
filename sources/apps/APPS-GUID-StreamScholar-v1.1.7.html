@@ -2,12 +2,12 @@
 <html lang="en" data-app data-look="auto" style="--hue:315">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-jva3389rY/NJJbGTn6eVtUQd9t8k4Vg7T5QJodC6aAM=' 'sha256-dXgGq5L4GOJE6oQssoVibXBHWv/ZKY5QObk3UIpDwa4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- Single-file build 1.1.6 (offline, no network on load). Font embedded as subset woff2 (Newsreader; SIL OFL 1.1, see Licences). No other external dependencies. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-jva3389rY/NJJbGTn6eVtUQd9t8k4Vg7T5QJodC6aAM=' 'sha256-2l/bgFBI68FoN8JvAxOfKyQUEY61QWPT6i7ayQ1YE98='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- Single-file build 1.1.7 (offline, no network on load). Font embedded as subset woff2 (Newsreader; SIL OFL 1.1, see Licences). No other external dependencies. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#faf8f4">
 <meta name="description" content="StreamScholar YouTube Channels: a short list of channels by topic. Search it, sort it, group it. Works offline.">
-<meta name="application-version" content="1.1.6">
+<meta name="application-version" content="1.1.7">
 <title>StreamScholar YouTube Channels</title>
 <script>(function(){var K="ytsubs.look",H="hub.prefs.v1",L=["auto","paper","charcoal","black"],r=document.documentElement,mq=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null;function ok(v){return L.indexOf(v)>=0}function get(){try{var p=JSON.parse(localStorage.getItem(H)||"null");if(p&&ok(p.look))return p.look}catch(e){}try{var v=localStorage.getItem(K);if(ok(v))return v}catch(e){}return"auto"}function save(l){try{localStorage.setItem(K,l)}catch(e){}try{var p=JSON.parse(localStorage.getItem(H)||"null");if(!p||typeof p!=="object")p={};p.schemaVersion=1;p.look=l;localStorage.setItem(H,JSON.stringify(p))}catch(e){}}function apply(l){var t=l==="auto"?(mq&&mq.matches?"charcoal":"paper"):l;r.setAttribute("data-look",l);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",({paper:"#faf8f4",charcoal:"#26241f",black:"#000000"})[t]);var b=document.getElementById("look");if(b){b.setAttribute("aria-label","Look: "+l);b.title="Look: "+l}}apply(get());if(mq&&mq.addEventListener)mq.addEventListener("change",function(){if(get()==="auto")apply("auto")});function wire(){var b=document.getElementById("look");if(!b)return;apply(get());b.addEventListener("click",function(){var l=L[(L.indexOf(get())+1)%L.length];save(l);apply(l)})}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wire);else wire()})();</script>
 <style>
@@ -298,7 +298,7 @@ details.lic pre:focus-visible{outline:3px solid var(--focus)}
   <nav class="jump" aria-label="Groups" id="jump"></nav>
   <dl>
    <dt>App</dt><dd>StreamScholar YouTube Channels</dd>
-   <dt>Version</dt><dd>1.1.6</dd>
+   <dt>Version</dt><dd>1.1.7</dd>
    <dt>Data</dt><dd id="content-version">...</dd>
       <dt>Source</dt><dd><a href="https://shfqrkhn.github.io/" rel="noopener">shfqrkhn.github.io</a></dd>
   </dl>
@@ -1009,6 +1009,7 @@ function mainInit() {
     clearBtn.addEventListener('click', () => {
         searchInput.value = '';
         filterSelect.value = 'all';
+        sortSelect.value = 'none';
         draw();
         reveal();
         searchInput.focus({ preventScroll: true });

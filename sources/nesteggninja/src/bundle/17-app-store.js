@@ -185,7 +185,7 @@ const defaultProfile = {
             type: "application/json;charset=utf-8",
           },
         );
-      zj.saveAs(r, `nesteggninja_save_${new Date().toISOString().split("T")[0]}.json`),
+      zj.saveAs(r, `nesteggninja_save_${(()=>{const t=new Date();return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0")})()}.json`),
         window.__nfireStatus && window.__nfireStatus("Plan file saved to your downloads. Keep it as your backup.");
     },
     exportCSV: () => {
@@ -207,7 +207,7 @@ const defaultProfile = {
         a = new Blob([o], {
           type: "text/csv;charset=utf-8;",
         });
-      zj.saveAs(a, `nesteggninja_projection_${new Date().toISOString().split("T")[0]}.csv`),
+      zj.saveAs(a, `nesteggninja_projection_${(()=>{const t=new Date();return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0")})()}.csv`),
         window.__nfireStatus && window.__nfireStatus("Year table saved to your downloads as CSV.");
     },
     importData: (n) => {

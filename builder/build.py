@@ -524,7 +524,7 @@ if("speechSynthesis" in window&&window.SpeechSynthesisUtterance){say.hidden=fals
 var T=null,shown=sod(new Date());
 fetch("./today.json").then(function(r){return r.ok?r.json():Promise.reject()}).then(function(d){T=d;$("today").hidden=false;paint()}).catch(function(){});
 function sod(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
-function doy(d){return Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(d.getFullYear(),0,0))/864e5)}
+function doy(d){return Math.floor((Date.UTC(2000,d.getMonth(),d.getDate())-Date.UTC(2000,0,0))/864e5)}/* fixed leap year: the same month and day always pick the same entry */
 var fmt;try{fmt=new Intl.DateTimeFormat(undefined,{day:"numeric",month:"short"})}catch(e){}
 function put(id,t){var el=$(id);el.textContent=t||"";el.hidden=!t}
 function paint(){if(!T)return;var now=sod(new Date());if(shown>now)shown=now;var n=doy(shown)-1;

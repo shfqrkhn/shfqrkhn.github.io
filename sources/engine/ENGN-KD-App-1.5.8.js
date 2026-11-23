@@ -1,5 +1,5 @@
 (function(){'use strict';
-var APPV='1.5.6';
+var APPV='1.5.8';
 function $(s){return document.querySelector(s)}
 function h(t,a,k){var e=document.createElement(t),x;if(a)for(x in a){if(x==='text')e.textContent=a[x];else e.setAttribute(x,a[x])}(k||[]).forEach(function(c){if(c!=null&&c!=='')e.append(c)});return e}
 function arr(x){return Array.isArray(x)?x:[]}
@@ -17,6 +17,20 @@ if(k==='levels'){if(!Array.isArray(v))return;objs(v).forEach(function(L){var t=o
 else if(Array.isArray(v))d[k]=arr(d[k]).concat(v);
 else if(v&&typeof v==='object'){if(!d[k]||typeof d[k]!=='object'||Array.isArray(d[k]))d[k]={};merge(d[k],v,n+1)}else if(v!=null&&typeof v!=='object'&&kd(d[k])==='u')d[k]=v})}
 var D=readTpl($('template[data-kd=base]'))||{};
+var EMB=[];document.querySelectorAll('template[data-kd=embed]').forEach(function(t){var id=t.getAttribute('data-id')||'',lab=(t.getAttribute('data-label')||'').trim();if(/^[\w-]{1,30}$/.test(id)&&lab&&lab.length<=80)EMB.push({id:id,label:lab,note:(t.getAttribute('data-note')||'').trim().slice(0,300),t:t,u:null})});
+function embOpen(e,from){var dg=h('dialog',{'aria-label':e.label,'data-embed':e.id}),cl=h('button',{type:'button','class':'btn',text:'Close'}),msg=h('p',{role:'status','class':'mu'}),fr=h('iframe',{title:e.label});
+var S1=function(el,o){for(var k in o)el.style[k]=o[k]};S1(dg,{position:'fixed',top:'0',left:'0',width:'100%',height:'100%',maxWidth:'100%',maxHeight:'100%',margin:'0',padding:'0',border:'0',display:'flex',flexDirection:'column',background:'Canvas',color:'CanvasText'});
+var hint=h('span',{'class':'mu',text:'Use Close to return.'}),bar=h('div',null,[h('strong',{text:e.label}),hint,cl]);S1(bar,{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'.5rem',padding:'.4rem .75rem',flex:'0 0 auto'});S1(msg,{margin:'0',padding:'0 .75rem'});S1(fr,{display:'block',width:'100%',border:'0',flex:'1 1 auto',minHeight:'0'});fr.hidden=true;
+dg.append(bar,msg,fr);document.body.append(dg);function say(x){msg.textContent=x;msg.hidden=!x}
+cl.addEventListener('click',function(){dg.close()});dg.addEventListener('close',function(){dg.remove();if(from&&document.body.contains(from))from.focus()});
+if(dg.showModal)dg.showModal();else dg.setAttribute('open','');cl.focus();
+fr.addEventListener('load',function(){try{var w=fr.contentWindow;if(w&&w.document){w.addEventListener('keydown',function(ev){if(ev.key==='Escape')dg.close()});hint.textContent='Press Escape or Close to return.'}}catch(x){hint.textContent='Use Close to return.'}});
+function show(){fr.src=e.u;fr.hidden=false;say('')}
+if(e.u){show();return}
+if(!window.DecompressionStream||!window.Response||!window.Blob||!window.URL){say('This browser cannot open it. Update the browser and try again.');return}
+say('Loading...');try{var b=atob(e.t.content.textContent.replace(/\s+/g,'')),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);
+new Response(new Blob([a]).stream().pipeThrough(new DecompressionStream('gzip'))).text().then(function(x){e.u=URL.createObjectURL(new Blob([x],{type:'text/html'}));show()}).catch(function(){say('It could not be opened. Reload the page and try again.')})}catch(x){say('It could not be opened. Reload the page and try again.')}}
+
 var mores=[];document.querySelectorAll('template[data-kd=more]').forEach(function(t){var m=readTpl(t);if(m)mores.push(m)});
 var dupN=0,lastC=Object.create(null);mores.forEach(function(m){var n=Number(m.chunk)||0;if(n>0)lastC[n]=m});mores.sort(function(a,b){return(Number(a.chunk)||0)-(Number(b.chunk)||0)}).forEach(function(m){var n=Number(m.chunk)||0;if(n<1||lastC[n]!==m){dupN++;return}try{merge(D,m.more&&typeof m.more==='object'?m.more:m)}catch(e){dupN++}});
 var M=D.meta&&typeof D.meta==='object'?D.meta:{};var LB=M.labels&&typeof M.labels==='object'?M.labels:{};function lb(k,d){if(/^(start|unsure|me|help|about)$/.test(k))return d;var v=Object.prototype.hasOwnProperty.call(LB,k)&&typeof LB[k]==='string'?LB[k].trim():'';return v&&v.length<=60?v:d}var missN=[],tot=Math.min((typeof M.chunks==='number'||typeof M.chunks==='string'?Number(M.chunks):0)||0,200);for(var q0=2;q0<=tot;q0++)if(!lastC[q0])missN.push(q0);
@@ -350,7 +364,7 @@ if(e.app!==ID){msg.textContent='This progress file was created by another guide.
 if(e.schemaVersion!==1&&e.schemaVersion!==2){msg.textContent='That file is from a different version of this app. Nothing was changed. Choose a file made by Save progress file in this guide.';return}
 s=clean(e.data);if(!s){msg.textContent='That progress file is damaged. Nothing was changed. Choose another file made by Save progress file.';return}
 var k=counts(s),ap=h('button',{type:'button',text:'Replace my progress'}),ca=h('button',{type:'button',text:'Keep my progress'});
-msg.replaceChildren(h('p',{text:'This file first opened the guide on '+s.first+'. Chapters done: '+k.dn+'. Marked questions: '+(k.g+k.r)+'.'+(ACT.length?' Activities done: '+k.ad+'.':'')+(e.plans&&typeof e.plans==='object'&&Object.keys(e.plans).length?' Saved plans: '+Object.keys(e.plans).length+'.':'')+' Replacing erases the progress you have here now. To keep it, select Keep my progress, then Save progress file first.'}),h('div',{'class':'row'},[ap,ca]));
+msg.replaceChildren(h('p',{text:'This file first opened the guide on '+s.first+'. Chapters done: '+k.dn+'. Marked questions: '+(k.g+k.r)+'.'+(ACT.length?' Activities done: '+k.ad+'.':'')+(e.plans&&typeof e.plans==='object'&&Object.keys(e.plans).length?' Saved plans: '+Object.keys(e.plans).length+'.':'')+' Replacing swaps the chapter and question progress here for those in the file. Saved plans in the file replace plans of the same name; other plans stay. To keep what you have now, select Keep my progress, then Save progress file first.'}),h('div',{'class':'row'},[ap,ca]));
 ap.addEventListener('click',function(){sset(PK+'.last',JSON.stringify(S));S=s;save();plansIn(e.plans);loadNote='Your progress was replaced by the saved file.';render(true)});ca.addEventListener('click',function(){msg.replaceChildren();fi.focus()})};rd.readAsText(f)});
 rs.addEventListener('click',function(){var er=h('button',{type:'button',text:'Erase progress'}),ke=h('button',{type:'button',text:'Keep progress'});
 box.replaceChildren(h('p',{text:'Erase all progress for this guide in this browser, including saved plans? Your Look choice and any saved files stay.'}),h('div',{'class':'row'},[er,ke]));er.focus();
@@ -372,6 +386,7 @@ if(st.what)m.append(h('p',{text:str(st.what)}));
 var dn0=CH.filter(function(c){return S.done[c._id]}).length,tg=CH.filter(function(c){return!S.done[c._id]})[0];
 if(CH[0])m.append(h('p',null,[h('a',{'class':'btn primary',href:tg?'#c-'+tg._id:(QS.length?'#test':'#start'),text:dn0===0?'Start Level 1':(tg?'Continue: '+str(tg.title):(QS.length?'All chapters done. Take the Self-Test':'All chapters done'))})]),h('p',{'class':'mu'},['Your progress: '+dn0+' of '+CH.length+' chapters done. ',h('a',{href:'#me',text:lb('me','My Progress')})]));else m.append(h('p',{text:'This guide has no chapters yet. Ask the AI that made this file to rebuild it.'}));
 ACT.filter(function(a){return a.type==='plan'}).forEach(function(a){m.append(h('p',null,[h('a',{'class':'btn',href:'#a-'+a.id,text:'Write '+a.title.charAt(0).toLowerCase()+a.title.slice(1)})]))});
+EMB.forEach(function(e){var b=h('button',{type:'button','class':'btn',text:e.label});b.addEventListener('click',function(){embOpen(e,b)});m.append(h('p',null,[b]));if(e.note)m.append(h('p',{'class':'mu',text:e.note}))});
 if(st.one)m.append(lead('If you only read one thing',st.one,'rule'));
 if(M.notVerifiedFor)m.append(h('div',{'class':'note'},[h('strong',{text:'Not verified for: '}),str(M.notVerifiedFor)]));
 var fx=[['Who it is for',st.who],['What you need first',st.need],['What you will be able to do',st.gain],['How long it takes',st.time],['How to use it',st.use]].filter(function(x){return x[1]});if(fx.length)m.append(facts(fx));

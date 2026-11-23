@@ -261,47 +261,47 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `521d054f`, last changed 2026-11-22.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `8740d9c7`, last changed 2026-11-22.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
 | Page | Kind | Form | Topic | Version | Status | Licence | Address |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | DecisionDesk Briefs | apps | single | money | 0.5.3 | archived | MIT | /apps/decisiondesk-briefs/ |
-| FlexxFiles Workout Log | apps | single | health | 2.5.9 | live | MIT | /apps/flexxfiles-workout-log/ |
+| FlexxFiles Workout Log | apps | single | health | 2.5.10 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NoodleNudge Journal | apps | single | health | 1.7.8 | live | MIT | /apps/noodlenudge-journal/ |
-| PennyPlanner Budget | apps | single | money | 1.4.10 | live | MIT | /apps/pennyplanner-budget/ |
-| TickleTodo Tasks | apps | single | health | 1.3.7 | live | MIT | /apps/tickletodo-tasks/ |
+| PennyPlanner Budget | apps | single | money | 1.4.11 | live | MIT | /apps/pennyplanner-budget/ |
+| TickleTodo Tasks | apps | single | health | 1.3.8 | live | MIT | /apps/tickletodo-tasks/ |
 | BalanceBuddy Accounting Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/balancebuddy-accounting/ |
-| BlueprintBuddy Systems Design | courses | single | learning | 1.5.7 | live | MIT | /courses/blueprintbuddy-systems/ |
+| BlueprintBuddy Systems Design | courses | single | learning | 1.5.8 | live | MIT | /courses/blueprintbuddy-systems/ |
 | CashCrunch Accounting Calculators | courses | single | learning | 1.5.5 | live | MIT | /courses/cashcrunch-accounting/ |
 | ConfigCompass Change Control | courses | single | learning | 1.5.5 | live | MIT | /courses/configcompass-change/ |
-| DealDojo Negotiation Guide | courses | single | learning | 1.5.6 | live | MIT | /courses/dealdojo-negotiation/ |
+| DealDojo Negotiation Guide | courses | single | learning | 1.5.9 | live | MIT | /courses/dealdojo-negotiation/ |
 | DebtDial Capital Structure | courses | single | learning | 1.5.5 | live | MIT | /courses/debtdial-capital/ |
 | GlobalGambit Strategy Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/globalgambit-strategy/ |
 | LeadLantern Leadership Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/leadlantern-leadership/ |
 | MoralMap Ethics Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/moralmap-ethics/ |
 | ProcessPilot Operations Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/processpilot-operations/ |
-| ProjectPopQuiz Exams | courses | single | learning | 1.7.6 | live | MIT | /courses/projectpopquiz-exams/ |
+| ProjectPopQuiz Exams | courses | single | learning | 1.7.7 | live | MIT | /courses/projectpopquiz-exams/ |
 | ScopeScribe Requirements Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/scopescribe-requirements/ |
 | StatSafari Data Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/statsafari-data/ |
 | SupportScout Equipment Decisions | courses | single | learning | 1.5.5 | live | MIT | /courses/supportscout-equipment/ |
 | SystemSage Information Systems | courses | single | learning | 1.5.5 | live | MIT | /courses/systemsage-info-systems/ |
 | WattWatcher Energy Audit | courses | single | learning | 1.5.5 | live | MIT | /courses/wattwatcher-energy/ |
-| MeepleMentor Board Game Guides | games | single | games | 14.5.8 | live | MIT | /games/meeplementor-board-game-guides/ |
+| MeepleMentor Board Game Guides | games | single | games | 14.5.9 | live | MIT | /games/meeplementor-board-game-guides/ |
 | WorldCupWizard Predictions | games | single | games | 1.5.4 | archived | MIT | /games/worldcupwizard-predictions/ |
 | BuildBoss PC Workstation Guide | guides | single | home | 1.0.1 | archived | MIT | /guides/buildboss-workstation/ |
 | GearGuardian Care Guides | guides | single | home | 1.5.5 | live | MIT | /guides/gearguardian-care/ |
-| SproutScheduler Planting Calendar | guides | single | home | 1.4.6 | live | MIT | /guides/sproutscheduler-planting-calendar/ |
-| WalkthroughWizard Game Guides | guides | single | games | 1.2.1 | live | MIT | /guides/walkthroughwizard-game-guides/ |
+| SproutScheduler Planting Calendar | guides | single | home | 1.4.7 | live | MIT | /guides/sproutscheduler-planting-calendar/ |
+| WalkthroughWizard Game Guides | guides | single | games | 1.2.2 | live | MIT | /guides/walkthroughwizard-game-guides/ |
 | RecipeRolodex Recipes | recipes | single | food | 1.4.1 | live | MIT | /recipes/reciperolodex-recipes/ |
 | HandheldHunter PC Games | references | single | games | 16.10.3 | archived | MIT | /references/handheldhunter-pc-games/ |
-| RepoRadar GitHub Catalogue | references | single | ai | 4.4.5 | live | MIT | /references/reporadar-github/ |
-| StreamScholar YouTube Channels | references | single | learning | 1.1.6 | live | MIT | /references/streamscholar-youtube-channels/ |
-| PromptPlayground AI Chat | tools | single | ai | 0.6.5 | live | MIT | /tools/promptplayground-ai-chat/ |
+| RepoRadar GitHub Catalogue | references | single | ai | 4.4.6 | live | MIT | /references/reporadar-github/ |
+| StreamScholar YouTube Channels | references | single | learning | 1.1.7 | live | MIT | /references/streamscholar-youtube-channels/ |
+| PromptPlayground AI Chat | tools | single | ai | 0.6.6 | live | MIT | /tools/promptplayground-ai-chat/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
-| TrendTracker Charts | tools | single | ai | 1.5.11 | live | MIT | /tools/trendtracker-charts/ |
+| TrendTracker Charts | tools | single | ai | 1.5.12 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
 
 ## 13. Change log (newest first)
