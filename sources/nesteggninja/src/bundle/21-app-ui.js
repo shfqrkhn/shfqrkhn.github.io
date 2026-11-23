@@ -172,7 +172,7 @@ function GuideModal({ opened: e, onClose: t }) {
   3. If Income > Threshold: Apply OAS Clawback
   4. If Demand > 0:
      - Withdraw from TFSA (Tax Free)
-     - Withdraw from Non-Reg (Capital Gains Tax)
+     - Withdraw from Non-Reg (only a flat tax drag on growth; capital gains tax is not modelled)
      - Withdraw from RRSP (Income Tax)
   5. Grow Remaining Assets (Asset * GrowthRate)
     
@@ -312,7 +312,7 @@ IF Assets > 0 at Age 95 THEN "Solvent"`,
                         jsxRuntime.jsx("strong", {
                           children: "today's dollars",
                         }),
-                        ". Growth is a real rate. Pensions that are not indexed lose 2% a year in value.",
+                        ". Growth is a real rate. Pensions that are not indexed lose value at the inflation rate you enter.",
                       ],
                     }),
                   ],
