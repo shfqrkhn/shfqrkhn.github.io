@@ -261,18 +261,18 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `4b993990`, last changed 2026-11-23.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `fd921962`, last changed 2026-11-23.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
 | Page | Kind | Form | Topic | Version | Status | Licence | Address |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | DecisionDesk Briefs | apps | single | money | 0.5.3 | archived | MIT | /apps/decisiondesk-briefs/ |
-| FlexxFiles Workout Log | apps | single | health | 2.5.10 | live | MIT | /apps/flexxfiles-workout-log/ |
+| FlexxFiles Workout Log | apps | single | health | 2.5.11 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NoodleNudge Journal | apps | single | health | 1.7.8 | live | MIT | /apps/noodlenudge-journal/ |
 | PennyPlanner Budget | apps | single | money | 1.4.12 | live | MIT | /apps/pennyplanner-budget/ |
-| TickleTodo Tasks | apps | single | health | 1.3.10 | live | MIT | /apps/tickletodo-tasks/ |
+| TickleTodo Tasks | apps | single | health | 1.3.11 | live | MIT | /apps/tickletodo-tasks/ |
 | BalanceBuddy Accounting Reader | courses | single | learning | 1.5.6 | live | MIT | /courses/balancebuddy-accounting/ |
 | BlueprintBuddy Systems Design | courses | single | learning | 1.5.8 | live | MIT | /courses/blueprintbuddy-systems/ |
 | CashCrunch Accounting Calculators | courses | single | learning | 1.5.5 | live | MIT | /courses/cashcrunch-accounting/ |
@@ -301,7 +301,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | StreamScholar YouTube Channels | references | single | learning | 1.1.7 | live | MIT | /references/streamscholar-youtube-channels/ |
 | PromptPlayground AI Chat | tools | single | ai | 0.6.6 | live | MIT | /tools/promptplayground-ai-chat/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
-| TrendTracker Charts | tools | single | ai | 1.5.12 | live | MIT | /tools/trendtracker-charts/ |
+| TrendTracker Charts | tools | single | ai | 1.5.13 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
 
 ## 13. Change log (newest first)
