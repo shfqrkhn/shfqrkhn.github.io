@@ -596,7 +596,8 @@ function ResultPanel() {
           ? (L.mode === "fixed" ? f(L.annualAmount) + " a year" : "Service formula") +
             " from age " +
             L.startAge +
-            (L.isIndexed ? ", indexed" : ", not indexed")
+            (L.isIndexed ? ", indexed" : ", not indexed") +
+            (L.mode === "fixed" && Number(L.bridgeAmount) > 0 ? ", plus " + f(L.bridgeAmount) + " a year bridge benefit until age 65" : "")
           : "Not included",
       ],
       ["Withdrawal rate for the target number", pct(W)],
