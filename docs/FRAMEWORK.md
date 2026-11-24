@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `6850934a`, last changed 2026-11-23.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `0aed0884`, last changed 2026-11-24.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -301,7 +301,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | StreamScholar YouTube Channels | references | single | learning | 1.1.7 | live | MIT | /references/streamscholar-youtube-channels/ |
 | PromptPlayground AI Chat | tools | single | ai | 0.6.6 | live | MIT | /tools/promptplayground-ai-chat/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
-| TrendTracker Charts | tools | single | ai | 1.5.15 | live | MIT | /tools/trendtracker-charts/ |
+| TrendTracker Charts | tools | single | ai | 1.5.16 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
 
 ## 13. Change log (newest first)
