@@ -261,14 +261,14 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `6f0120c7`, last changed 2026-11-24.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `98731618`, last changed 2026-11-24.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
 | Page | Kind | Form | Topic | Version | Status | Licence | Address |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | DecisionDesk Briefs | apps | single | money | 0.5.3 | archived | MIT | /apps/decisiondesk-briefs/ |
-| FlexxFiles Workout Log | apps | single | health | 2.5.14 | live | MIT | /apps/flexxfiles-workout-log/ |
+| FlexxFiles Workout Log | apps | single | health | 2.5.15 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NoodleNudge Journal | apps | single | health | 1.7.10 | live | MIT | /apps/noodlenudge-journal/ |
 | PennyPlanner Budget | apps | single | money | 1.4.15 | live | MIT | /apps/pennyplanner-budget/ |
