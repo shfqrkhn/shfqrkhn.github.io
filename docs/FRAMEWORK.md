@@ -261,14 +261,14 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `d4b872da`, last changed 2026-11-23.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `c44010a9`, last changed 2026-11-23.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
 | Page | Kind | Form | Topic | Version | Status | Licence | Address |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | DecisionDesk Briefs | apps | single | money | 0.5.3 | archived | MIT | /apps/decisiondesk-briefs/ |
-| FlexxFiles Workout Log | apps | single | health | 2.5.12 | live | MIT | /apps/flexxfiles-workout-log/ |
+| FlexxFiles Workout Log | apps | single | health | 2.5.13 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NoodleNudge Journal | apps | single | health | 1.7.9 | live | MIT | /apps/noodlenudge-journal/ |
 | PennyPlanner Budget | apps | single | money | 1.4.13 | live | MIT | /apps/pennyplanner-budget/ |
@@ -286,7 +286,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | ProjectPopQuiz Exams | courses | single | learning | 1.7.7 | live | MIT | /courses/projectpopquiz-exams/ |
 | ScopeScribe Requirements Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/scopescribe-requirements/ |
 | StatSafari Data Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/statsafari-data/ |
-| SupportScout Equipment Decisions | courses | single | learning | 1.5.5 | live | MIT | /courses/supportscout-equipment/ |
+| SupportScout Equipment Decisions | courses | single | learning | 1.5.6 | live | MIT | /courses/supportscout-equipment/ |
 | SystemSage Information Systems | courses | single | learning | 1.5.5 | live | MIT | /courses/systemsage-info-systems/ |
 | WattWatcher Energy Audit | courses | single | learning | 1.5.5 | live | MIT | /courses/wattwatcher-energy/ |
 | MeepleMentor Board Game Guides | games | single | games | 14.5.10 | live | MIT | /games/meeplementor-board-game-guides/ |
@@ -301,7 +301,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | StreamScholar YouTube Channels | references | single | learning | 1.1.7 | live | MIT | /references/streamscholar-youtube-channels/ |
 | PromptPlayground AI Chat | tools | single | ai | 0.6.6 | live | MIT | /tools/promptplayground-ai-chat/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
-| TrendTracker Charts | tools | single | ai | 1.5.13 | live | MIT | /tools/trendtracker-charts/ |
+| TrendTracker Charts | tools | single | ai | 1.5.14 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
 
 ## 13. Change log (newest first)

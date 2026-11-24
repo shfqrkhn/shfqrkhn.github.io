@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- standalone study app 1.5.5 | SPDX-License-Identifier: MIT
+<!-- standalone study app 1.5.6 | SPDX-License-Identifier: MIT
 MIT License
 Copyright (c) 2026 Contributors to this study app
 
@@ -30,9 +30,9 @@ must be established before making an unqualified MIT compliance claim.
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta name="kd-app" content="kd-app/1.5.5">
+<meta name="kd-app" content="kd-app/1.5.6">
 <link rel="icon" href="data:,">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-855FEFB2gkXaT4B8/hVnG6nuoIvGoqmNbsIQfZ35nQk='; style-src 'sha256-rKFOI0iZlf2oc3cRIK6V+XZQIArZNHHy3FC2nY2MlPs='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-1oc4K7udBAQT2aQ4t4yTRAYBTmaHeEyhQu2g7R5gZTk='; style-src 'sha256-rKFOI0iZlf2oc3cRIK6V+XZQIArZNHHy3FC2nY2MlPs='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
 <title>SupportScout Equipment Support Decisions</title>
 <style>/* OMNEVUM KIT:BEGIN */
 :root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
@@ -168,7 +168,7 @@ p,li,dd{text-wrap:pretty}
 </header>
 <div class="wrap"><aside id="side"><div class="srch"><label class="sr" for="q">Search this guide</label><input id="q" type="search" placeholder="Search"><button id="go" type="button">Search</button></div><nav id="nav" aria-label="Guide sections"></nav></aside><main id="main" tabindex="-1"><p>This guide did not start. Its knowledge is still in the data block inside this file. Ask the AI that made it to copy the app template again without changes.</p></main></div>
 <footer>
-<p>Study app 1.5.5. A generated guide: see <span id="ftU">What We Are Not Sure About</span> for its limits. Your progress stays in this browser; the app does not send it anywhere.</p>
+<p>Study app 1.5.6. A generated guide: see <span id="ftU">What We Are Not Sure About</span> for its limits. Your progress stays in this browser; the app does not send it anywhere.</p>
 <p class="links"><a href="#help">Help</a><a href="#licences" id="ftL">Licence and reuse</a></p>
 </footer>
 <noscript><p>This guide needs JavaScript. All its knowledge is also written in the data block inside this file.</p></noscript>
@@ -194,7 +194,7 @@ p,li,dd{text-wrap:pretty}
   "This edition intentionally omits the displayed external source catalogue. Re-establish documentary provenance and reuse permissions before republishing or making official claims.",
   "The MIT label grants only the rights actually controlled by its grantor. Rights to inherited software and earlier reference materials still require confirmation. Before redistribution, review ownership and preserve all required copyright and licence notices.",
   "This edition uses plain text labels rather than bundled icon artwork. Do not introduce external icon libraries, fonts, or brand assets in later builds.",
-  "This 1.5.5 revision preserves topic and chapter IDs. The source generator template does not contain this app’s historical progress migration; the app keeps it for supported prior files.",
+  "This 1.5.6 revision preserves topic and chapter IDs. The source generator template does not contain this app’s historical progress migration; the app keeps it for supported prior files.",
   "A local-file browser may not persist progress; advise readers to export backups, and validate restoration without relying on localStorage."
  ],
  "rules": [
@@ -1750,7 +1750,7 @@ p,li,dd{text-wrap:pretty}
 <!--ADD-CHUNKS-HERE: paste each extra chunk on the next line-->
 <script>
 (function(){'use strict';
-var APPV='1.5.5';
+var APPV='1.5.6';
 function $(s){return document.querySelector(s)}
 function h(t,a,k){var e=document.createElement(t),x;if(a)for(x in a){if(x==='text')e.textContent=a[x];else e.setAttribute(x,a[x])}(k||[]).forEach(function(c){if(c!=null&&c!=='')e.append(c)});return e}
 function arr(x){return Array.isArray(x)?x:[]}
@@ -2044,8 +2044,8 @@ if(fk){var e=box.querySelector('[data-k="'+fk+'"]');if(e)e.focus();fk=''}}
 draw()}
 function bEst(box,a,X){var m=a.m,inp=h('input',{type:'number',step:'any',id:'est-in','aria-describedby':'est-u'}),out=h('div'),ck=ib('check-circle','Check my estimate'),dn=false;
 function go2(){var v=inp.value.trim()===''?NaN:Number(inp.value);if(!isFinite(v)){X.say('Type a number first, for example 12.5.');return}
-var cl=Math.abs(v-m.ans)<=m.tol,u=m.unit?' '+m.unit:'';out.replaceChildren(h('p',null,[h('strong',{text:'Your estimate: '}),v+u]),h('p',null,[h('strong',{text:'Answer: '}),m.ans+u]),h('p',{text:cl?'Close enough: within '+m.tol+u+' of the answer.':(v<m.ans?m.low:m.high)}),lead('How to get there',m.why,'rule'));
-var nw=X.fin();X.say((cl?'Close enough. ':(v<m.ans?'Lower than the answer. ':'Higher than the answer. '))+a.dn+(nw?' This activity is now marked done.':''))}
+var cl=Math.abs(v-m.ans)<=m.tol+1e-9,u=m.unit?' '+m.unit:'';out.replaceChildren(h('p',null,[h('strong',{text:'Your estimate: '}),v+u]),h('p',null,[h('strong',{text:'Answer: '}),m.ans+u]),h('p',{text:cl?'Close enough: within '+m.tol+u+' of the answer.':(v<m.ans?m.low:m.high)}),lead('How to get there',m.why,'rule'));
+var nw=cl?X.fin():false;X.say((cl?'Close enough. ':(v<m.ans?'Lower than the answer. ':'Higher than the answer. '))+a.dn+(nw?' This activity is now marked done.':''))}
 ck.addEventListener('click',go2);inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go2()}});
 box.append(h('p',{text:m.ask}),h('div',{'class':'row'},[h('label',{'for':'est-in',text:'Your estimate'}),inp,h('span',{id:'est-u',text:m.unit})]),h('div',{'class':'row'},[ck]),out)}
 var BUILD={sim:bSim,match:bPlace,sort:bPlace,order:bOrder,scenario:bScen,estimate:bEst};
