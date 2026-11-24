@@ -832,7 +832,12 @@ function nfMoney(s) {
   s = String(s)
     .trim()
     .toLowerCase()
-    .replace(/[\s,_]/g, "");
+    .replace(/[\s_]/g, "");
+  if (s.indexOf(",") >= 0) {
+    var cm = /^(-?\$?-?)(\d{1,3}(?:,\d{3})+)((?:\.\d*)?[km]?)$/.exec(s);
+    if (!cm) return NaN;
+    s = cm[1] + cm[2].replace(/,/g, "") + cm[3];
+  }
   if (s === "") return "";
   var g = 1;
   if (s.charAt(0) === "-") {
