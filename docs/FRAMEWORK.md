@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `e60f4316`, last changed 2026-11-24.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `a5cc9584`, last changed 2026-11-24.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -299,7 +299,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | HandheldHunter PC Games | references | single | games | 16.10.3 | archived | MIT | /references/handheldhunter-pc-games/ |
 | RepoRadar GitHub Catalogue | references | single | ai | 4.4.6 | live | MIT | /references/reporadar-github/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.7 | live | MIT | /references/streamscholar-youtube-channels/ |
-| PromptPlayground AI Chat | tools | single | ai | 0.6.6 | live | MIT | /tools/promptplayground-ai-chat/ |
+| PromptPlayground AI Chat | tools | single | ai | 0.6.7 | live | MIT | /tools/promptplayground-ai-chat/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
 | TrendTracker Charts | tools | single | ai | 1.5.16 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
