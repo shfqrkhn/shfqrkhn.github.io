@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `56e992fa`, last changed 2026-11-25.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `94f66493`, last changed 2026-11-25.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -271,7 +271,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | FlexxFiles Workout Log | apps | single | health | 2.5.16 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NoodleNudge Journal | apps | single | health | 1.7.10 | live | MIT | /apps/noodlenudge-journal/ |
-| PennyPlanner Budget | apps | single | money | 1.4.21 | live | MIT | /apps/pennyplanner-budget/ |
+| PennyPlanner Budget | apps | single | money | 1.4.22 | live | MIT | /apps/pennyplanner-budget/ |
 | TickleTodo Tasks | apps | single | health | 1.3.12 | live | MIT | /apps/tickletodo-tasks/ |
 | BalanceBuddy Accounting Reader | courses | single | learning | 1.5.7 | live | MIT | /courses/balancebuddy-accounting/ |
 | BlueprintBuddy Systems Design | courses | single | learning | 1.5.8 | live | MIT | /courses/blueprintbuddy-systems/ |
