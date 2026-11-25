@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `87132fba`, last changed 2026-11-24.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `24631d98`, last changed 2026-11-25.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -285,9 +285,9 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | ProcessPilot Operations Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/processpilot-operations/ |
 | ProjectPopQuiz Exams | courses | single | learning | 1.7.11 | live | MIT | /courses/projectpopquiz-exams/ |
 | ScopeScribe Requirements Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/scopescribe-requirements/ |
-| StatSafari Data Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/statsafari-data/ |
+| StatSafari Data Reader | courses | single | learning | 1.5.6 | live | MIT | /courses/statsafari-data/ |
 | SupportScout Equipment Decisions | courses | single | learning | 1.5.6 | live | MIT | /courses/supportscout-equipment/ |
-| SystemSage Information Systems | courses | single | learning | 1.5.5 | live | MIT | /courses/systemsage-info-systems/ |
+| SystemSage Information Systems | courses | single | learning | 1.5.6 | live | MIT | /courses/systemsage-info-systems/ |
 | WattWatcher Energy Audit | courses | single | learning | 1.5.5 | live | MIT | /courses/wattwatcher-energy/ |
 | MeepleMentor Board Game Guides | games | single | games | 14.5.12 | live | MIT | /games/meeplementor-board-game-guides/ |
 | WorldCupWizard Predictions | games | single | games | 1.5.4 | archived | MIT | /games/worldcupwizard-predictions/ |
