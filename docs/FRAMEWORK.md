@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `04c82ddb`, last changed 2026-11-25.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `9e83824e`, last changed 2026-11-25.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -283,7 +283,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | LeadLantern Leadership Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/leadlantern-leadership/ |
 | MoralMap Ethics Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/moralmap-ethics/ |
 | ProcessPilot Operations Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/processpilot-operations/ |
-| ProjectPopQuiz Exams | courses | single | learning | 1.7.12 | live | MIT | /courses/projectpopquiz-exams/ |
+| ProjectPopQuiz Exams | courses | single | learning | 1.7.13 | live | MIT | /courses/projectpopquiz-exams/ |
 | ScopeScribe Requirements Guide | courses | single | learning | 1.5.5 | live | MIT | /courses/scopescribe-requirements/ |
 | StatSafari Data Reader | courses | single | learning | 1.5.6 | live | MIT | /courses/statsafari-data/ |
 | SupportScout Equipment Decisions | courses | single | learning | 1.5.6 | live | MIT | /courses/supportscout-equipment/ |
