@@ -32,7 +32,7 @@ must be established before making an unqualified MIT compliance claim.
 <meta name="referrer" content="no-referrer">
 <meta name="kd-app" content="kd-app/1.5.7">
 <link rel="icon" href="data:,">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Ct3+THpR+xteh5SJOQAl6+uTgGGXJP9ewE5Q0lfNlTY='; style-src 'sha256-rKFOI0iZlf2oc3cRIK6V+XZQIArZNHHy3FC2nY2MlPs='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-y0NyPQ/XfP1Er7HE7SSREXXUO48RiYIwxDj6iH7lxjM='; style-src 'sha256-rKFOI0iZlf2oc3cRIK6V+XZQIArZNHHy3FC2nY2MlPs='; img-src data:; font-src data:; base-uri 'none'; form-action 'none'">
 <title>SupportScout Equipment Support Decisions</title>
 <style>/* OMNEVUM KIT:BEGIN */
 :root{--bg:#faf8f4;--fg:#1f1c19;--mut:#5f5951;--card:#fff;--line:#d9d3c8;--acc:#2a5584;--on-acc:#fff;
@@ -2042,7 +2042,7 @@ box.append(h('p',{'class':'mu',text:'Endings seen in this visit: '+Object.keys(s
 else{box.append(h('p',{text:nd.t}),h('h2',{text:'What do you do?'}));var rw=h('div',{'class':'row stack'});nd.ch.forEach(function(c,k){var b=h('button',{type:'button','data-k':'c'+k,text:c.l});b.addEventListener('click',function(){hist.push({t:nd.t,l:c.l,s:c.s});cur=c.n;fk='c0';X.say(c.s);draw()});rw.append(b)});box.append(rw)}
 if(fk){var e=box.querySelector('[data-k="'+fk+'"]');if(e)e.focus();fk=''}}
 draw()}
-function estNum(t){var s=String(t).replace(/\s/g,'');if(s==='')return NaN;if(/^[+-]?\d{1,3}(,\d{3})+(\.\d+)?$/.test(s))s=s.replace(/,/g,'');else if(/^[+-]?\d*,\d+$/.test(s))s=s.replace(',','.');return /^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)?Number(s):NaN}
+function estNum(t){var s=String(t).replace(/\s/g,'');if(s==='')return NaN;if(/^[+-]?[1-9]\d{0,2}(,\d{3})+(\.\d+)?$/.test(s))s=s.replace(/,/g,'');else if(/^[+-]?\d*,\d+$/.test(s))s=s.replace(',','.');return /^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)?Number(s):NaN}
 function bEst(box,a,X){var m=a.m,inp=h('input',{type:'text',inputmode:'decimal',autocomplete:'off',id:'est-in','aria-describedby':'est-u'}),out=h('div'),ck=ib('check-circle','Check my estimate'),dn=false;
 function go2(){var v=estNum(inp.value);if(!isFinite(v)){X.say('Type a number first, for example 12.5.');return}
 var cl=Math.abs(v-m.ans)<=m.tol+1e-9,u=m.unit?' '+m.unit:'';out.replaceChildren(h('p',null,[h('strong',{text:'Your estimate: '}),v+u]),h('p',null,[h('strong',{text:'Answer: '}),m.ans+u]),h('p',{text:cl?'Close enough: within '+m.tol+u+' of the answer.':(v<m.ans?m.low:m.high)}),lead('How to get there',m.why,'rule'));
