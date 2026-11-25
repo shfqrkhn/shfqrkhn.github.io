@@ -261,14 +261,14 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `aabba594`, last changed 2026-11-24.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `bfcbb012`, last changed 2026-11-24.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
 | Page | Kind | Form | Topic | Version | Status | Licence | Address |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | DecisionDesk Briefs | apps | single | money | 0.5.3 | archived | MIT | /apps/decisiondesk-briefs/ |
-| FlexxFiles Workout Log | apps | single | health | 2.5.15 | live | MIT | /apps/flexxfiles-workout-log/ |
+| FlexxFiles Workout Log | apps | single | health | 2.5.16 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NoodleNudge Journal | apps | single | health | 1.7.10 | live | MIT | /apps/noodlenudge-journal/ |
 | PennyPlanner Budget | apps | single | money | 1.4.19 | live | MIT | /apps/pennyplanner-budget/ |
@@ -299,7 +299,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | HandheldHunter PC Games | references | single | games | 16.10.3 | archived | MIT | /references/handheldhunter-pc-games/ |
 | RepoRadar GitHub Catalogue | references | single | ai | 4.4.6 | live | MIT | /references/reporadar-github/ |
 | StreamScholar YouTube Channels | references | single | learning | 1.1.7 | live | MIT | /references/streamscholar-youtube-channels/ |
-| PromptPlayground AI Chat | tools | single | ai | 0.6.9 | live | MIT | /tools/promptplayground-ai-chat/ |
+| PromptPlayground AI Chat | tools | single | ai | 0.6.10 | live | MIT | /tools/promptplayground-ai-chat/ |
 | StepSleuth Step Counter | tools | single | health | 1.2.4 | archived | MIT | /tools/stepsleuth-step-counter/ |
 | TrendTracker Charts | tools | single | ai | 1.5.16 | live | MIT | /tools/trendtracker-charts/ |
 <!-- INV:END -->
