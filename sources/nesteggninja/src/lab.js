@@ -75,7 +75,14 @@
   function field(id, label, input, hint) {
     return '<div class="nx-f"><label for="' + id + '" class="nx-l">' + label + "</label>" + input + (hint ? '<p class="nx-h" id="' + id + '-h">' + hint + "</p>" : "") + "</div>";
   }
-  function num(id, v, min, max, step, hid) { return '<input class="nx-i" id="' + id + '" type="number" inputmode="decimal" min="' + min + '" max="' + max + '" step="' + step + '" value="' + v + '"' + (hid ? ' aria-describedby="' + id + '-h"' : "") + ">"; }
+  function numText(t) {
+    var x = String(t).replace(/\s/g, "");
+    if (/^[+-]?[1-9]\d{0,2}(,\d{3})+(\.\d+)?$/.test(x)) x = x.replace(/,/g, "");
+    else if (/^[+-]?\d*,\d+$/.test(x)) x = x.replace(",", ".");
+    return x;
+  }
+
+  function num(id, v, min, max, step, hid) { return '<input class="nx-i" id="' + id + '" type="text" inputmode="decimal" autocomplete="off" min="' + min + '" max="' + max + '" step="' + step + '" value="' + v + '"' + (hid ? ' aria-describedby="' + id + '-h"' : "") + ">"; }
 
   function build() {
     var opts = Object.keys(RULES).map(function (k) { return '<option value="' + k + '"' + (lab.rule === k ? " selected" : "") + ">" + RULES[k][0] + "</option>"; }).join("");
@@ -98,7 +105,7 @@
     f.addEventListener("submit", function (ev) { ev.preventDefault(); run(); });
     function bind(id, key, conv) {
       var el = document.getElementById(id);
-      el.addEventListener("change", function () { lab[key] = conv ? conv(el) : el.value; lab = sanitize(lab); save(); sync(); stale("Settings changed since the last run."); });
+      el.addEventListener("change", function () { lab[key] = conv ? conv(el) : numText(el.value); lab = sanitize(lab); save(); sync(); stale("Settings changed since the last run."); });
     }
     bind("nx-seed", "seed"); bind("nx-paths", "paths"); bind("nx-sd", "sd"); bind("nx-rate", "rate"); bind("nx-cpp", "cpp"); bind("nx-oas", "oas"); bind("nx-rrifage", "rrifAge");
     bind("nx-rrif", "rrif", function (e) { return e.checked; });
