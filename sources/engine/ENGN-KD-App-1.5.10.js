@@ -1,5 +1,5 @@
 (function(){'use strict';
-var APPV='1.5.9';
+var APPV='1.5.10';
 function $(s){return document.querySelector(s)}
 function h(t,a,k){var e=document.createElement(t),x;if(a)for(x in a){if(x==='text')e.textContent=a[x];else e.setAttribute(x,a[x])}(k||[]).forEach(function(c){if(c!=null&&c!=='')e.append(c)});return e}
 function arr(x){return Array.isArray(x)?x:[]}
@@ -441,7 +441,7 @@ if(rt==='me'&&document.querySelector('main [role=status] button')){try{drawNav(r
 var cur=document.activeElement;if(cur&&cur!==document.body&&document.body.contains(cur))return;var nf=null;
 if(d.id)nf=document.getElementById(d.id);else if(d.side)nf=d.href?document.querySelector('#nav a[href="'+d.href.replace(/["\\]/g,'')+'"]'):(d.sum?document.querySelector('#nav summary'):null);else if(d.main)nf=[].slice.call(document.querySelectorAll('main '+d.tag)).filter(function(x){return x.textContent.trim()===d.text})[0]||document.querySelector('main .btn.primary')||$('#main');
 if(nf&&nf.focus)nf.focus()});
-window.addEventListener('beforeprint',function(){document.querySelectorAll('details,.ans').forEach(function(x){if(x.tagName==='DETAILS'){x.dataset.was=String(x.open);x.open=true}else{x.dataset.was=String(x.hidden);x.hidden=false}})});
-window.addEventListener('afterprint',function(){document.querySelectorAll('details,.ans').forEach(function(x){if(x.dataset.was===undefined)return;if(x.tagName==='DETAILS')x.open=x.dataset.was==='true';else x.hidden=x.dataset.was==='true';delete x.dataset.was})});
+window.addEventListener('beforeprint',function(){document.querySelectorAll('textarea').forEach(function(t){if(t.nextSibling&&t.nextSibling.className==='ppx')return;var d=document.createElement('div');d.className='ppx';d.textContent=t.value;d.style.whiteSpace='pre-wrap';d.style.overflowWrap='anywhere';d.style.font='inherit';d.style.padding='.5rem';d.style.border='1px solid currentColor';d.style.borderRadius='6px';t.parentNode.insertBefore(d,t.nextSibling);t.style.display='none'});document.querySelectorAll('details,.ans').forEach(function(x){if(x.tagName==='DETAILS'){x.dataset.was=String(x.open);x.open=true}else{x.dataset.was=String(x.hidden);x.hidden=false}})});
+window.addEventListener('afterprint',function(){document.querySelectorAll('.ppx').forEach(function(x){x.remove()});document.querySelectorAll('textarea').forEach(function(t){t.style.display=''});document.querySelectorAll('details,.ans').forEach(function(x){if(x.dataset.was===undefined)return;if(x.tagName==='DETAILS')x.open=x.dataset.was==='true';else x.hidden=x.dataset.was==='true';delete x.dataset.was})});
 render(false);
 })();

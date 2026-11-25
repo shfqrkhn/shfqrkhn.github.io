@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `94f66493`, last changed 2026-11-25.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `3045975c`, last changed 2026-11-25.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -277,7 +277,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | BlueprintBuddy Systems Design | courses | single | learning | 1.5.8 | live | MIT | /courses/blueprintbuddy-systems/ |
 | CashCrunch Accounting Calculators | courses | single | learning | 1.5.5 | live | MIT | /courses/cashcrunch-accounting/ |
 | ConfigCompass Change Control | courses | single | learning | 1.5.5 | live | MIT | /courses/configcompass-change/ |
-| DealDojo Negotiation Guide | courses | single | learning | 1.5.9 | live | MIT | /courses/dealdojo-negotiation/ |
+| DealDojo Negotiation Guide | courses | single | learning | 1.5.10 | live | MIT | /courses/dealdojo-negotiation/ |
 | DebtDial Capital Structure | courses | single | learning | 1.5.5 | live | MIT | /courses/debtdial-capital/ |
 | GlobalGambit Strategy Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/globalgambit-strategy/ |
 | LeadLantern Leadership Reader | courses | single | learning | 1.5.5 | live | MIT | /courses/leadlantern-leadership/ |
