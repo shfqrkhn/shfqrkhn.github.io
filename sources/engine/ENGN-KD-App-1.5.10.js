@@ -291,8 +291,9 @@ box.append(h('p',{'class':'mu',text:'Endings seen in this visit: '+Object.keys(s
 else{box.append(h('p',{text:nd.t}),h('h2',{text:'What do you do?'}));var rw=h('div',{'class':'row stack'});nd.ch.forEach(function(c,k){var b=h('button',{type:'button','data-k':'c'+k,text:c.l});b.addEventListener('click',function(){hist.push({t:nd.t,l:c.l,s:c.s});cur=c.n;fk='c0';X.say(c.s);draw()});rw.append(b)});box.append(rw)}
 if(fk){var e=box.querySelector('[data-k="'+fk+'"]');if(e)e.focus();fk=''}}
 draw()}
-function bEst(box,a,X){var m=a.m,inp=h('input',{type:'number',step:'any',id:'est-in','aria-describedby':'est-u'}),out=h('div'),ck=ib('check-circle','Check my estimate'),dn=false;
-function go2(){var v=inp.value.trim()===''?NaN:Number(inp.value);if(!isFinite(v)){X.say('Type a number first, for example 12.5.');return}
+function estNum(t){var s=String(t).replace(/\s/g,'');if(s==='')return NaN;if(/^[+-]?\d{1,3}(,\d{3})+(\.\d+)?$/.test(s))s=s.replace(/,/g,'');else if(/^[+-]?\d*,\d+$/.test(s))s=s.replace(',','.');return /^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)?Number(s):NaN}
+function bEst(box,a,X){var m=a.m,inp=h('input',{type:'text',inputmode:'decimal',autocomplete:'off',id:'est-in','aria-describedby':'est-u'}),out=h('div'),ck=ib('check-circle','Check my estimate'),dn=false;
+function go2(){var v=estNum(inp.value);if(!isFinite(v)){X.say('Type a number first, for example 12.5.');return}
 var cl=Math.abs(v-m.ans)<=m.tol+1e-9,u=m.unit?' '+m.unit:'';out.replaceChildren(h('p',null,[h('strong',{text:'Your estimate: '}),v+u]),h('p',null,[h('strong',{text:'Answer: '}),m.ans+u]),h('p',{text:cl?'Close enough: within '+m.tol+u+' of the answer.':(v<m.ans?m.low:m.high)}),lead('How to get there',m.why,'rule'));
 var nw=cl?X.fin():false;X.say((cl?'Close enough. ':(v<m.ans?'Lower than the answer. ':'Higher than the answer. '))+a.dn+(nw?' This activity is now marked done.':''))}
 ck.addEventListener('click',go2);inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go2()}});
