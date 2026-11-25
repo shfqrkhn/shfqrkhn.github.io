@@ -312,7 +312,7 @@ IF Assets > 0 at Age 95 THEN "Solvent"`,
                         jsxRuntime.jsx("strong", {
                           children: "today's dollars",
                         }),
-                        ". Growth is a real rate. Pensions that are not indexed lose value at the inflation rate you enter.",
+                        ". Growth is a real rate. Pensions that are not indexed lose value each year at the fixed 2% inflation rate shown in the assumptions list.",
                       ],
                     }),
                   ],

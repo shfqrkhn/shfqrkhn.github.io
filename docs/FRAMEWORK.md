@@ -261,7 +261,7 @@ Each line is a mistake that happened once. A new page should never repeat it.
 ## 12. Generated blocks (do not edit)
 
 <!-- BUILD:BEGIN -->
-Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `c93fa46a`, last changed 2026-11-25.
+Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 archived, 0 private. Inventory fingerprint `4cd005c6`, last changed 2026-11-25.
 <!-- BUILD:END -->
 
 <!-- INV:BEGIN -->
@@ -271,7 +271,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | FlexxFiles Workout Log | apps | single | health | 2.5.16 | live | MIT | /apps/flexxfiles-workout-log/ |
 | MeetingMediator Sessions | apps | single | work | 0.5.3 | archived | MIT | /apps/meetingmediator-sessions/ |
 | NoodleNudge Journal | apps | single | health | 1.7.10 | live | MIT | /apps/noodlenudge-journal/ |
-| PennyPlanner Budget | apps | single | money | 1.4.24 | live | MIT | /apps/pennyplanner-budget/ |
+| PennyPlanner Budget | apps | single | money | 1.4.25 | live | MIT | /apps/pennyplanner-budget/ |
 | TickleTodo Tasks | apps | single | health | 1.3.12 | live | MIT | /apps/tickletodo-tasks/ |
 | BalanceBuddy Accounting Reader | courses | single | learning | 1.5.7 | live | MIT | /courses/balancebuddy-accounting/ |
 | BlueprintBuddy Systems Design | courses | single | learning | 1.5.8 | live | MIT | /courses/blueprintbuddy-systems/ |
@@ -293,7 +293,7 @@ Hub 1.4.3. 35 pages in 7 groups: 35 single, 0 bundle, 0 remote, 0 generated; 6 a
 | WorldCupWizard Predictions | games | single | games | 1.5.4 | archived | MIT | /games/worldcupwizard-predictions/ |
 | BuildBoss PC Workstation Guide | guides | single | home | 1.0.1 | archived | MIT | /guides/buildboss-workstation/ |
 | GearGuardian Care Guides | guides | single | home | 1.5.5 | live | MIT | /guides/gearguardian-care/ |
-| SproutScheduler Planting Calendar | guides | single | home | 1.4.7 | live | MIT | /guides/sproutscheduler-planting-calendar/ |
+| SproutScheduler Planting Calendar | guides | single | home | 1.4.8 | live | MIT | /guides/sproutscheduler-planting-calendar/ |
 | WalkthroughWizard Game Guides | guides | single | games | 1.2.2 | live | MIT | /guides/walkthroughwizard-game-guides/ |
 | RecipeRolodex Recipes | recipes | single | food | 1.4.2 | live | MIT | /recipes/reciperolodex-recipes/ |
 | HandheldHunter PC Games | references | single | games | 16.10.3 | archived | MIT | /references/handheldhunter-pc-games/ |

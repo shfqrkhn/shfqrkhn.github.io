@@ -2,8 +2,8 @@
 <html lang="en-CA" data-app data-look="auto" data-theme="paper" style="--hue:93">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-wGz0BxwJ3QGb1urEEA/5BtiVPBSrG0eZO+Is7m72g5o='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<!-- SproutScheduler 1.4.7 (the four zone bands no longer overlap: 3 and colder, 4-5, 6-7, 8 and warmer; 1.4.6: a count typed in the bed planner no longer swallows the next tap on another square; 1.4.5: Plant now checks the fall frost against a crop sown today, not on its earliest day); (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-WJjTxHX7EGs0MFAvCjc7DB/qn9oF9HDy3PSOjhmGxsI='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<!-- SproutScheduler 1.4.8 (restoring a saved file now clears a place that no longer fits and rewrites the zone text; 1.4.7: the four zone bands no longer overlap: 3 and colder, 4-5, 6-7, 8 and warmer; 1.4.6: a count typed in the bed planner no longer swallows the next tap on another square; 1.4.5: Plant now checks the fall frost against a crop sown today, not on its earliest day); (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#F6F1E7">
@@ -534,7 +534,7 @@ main details{overflow-x:auto;max-width:calc(100vw - 32px)}
 
 <footer>
   <div class="in">
-    <p>Version 1.4.7</p>
+    <p>Version 1.4.8</p>
     <p id="content-ver">Content 1.0.0, 2026-10-31</p>
     <p>Data stays on this device</p>
     <button type="button" class="linkbtn" id="help-open-2"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-help"/></svg>Help</button>
@@ -1276,7 +1276,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
 
   // --- EXPORT, RESTORE, DELETE (only the four garden.* keys) ---
-  var APP_ID = 'canadian-eco-garden-planner', APP_NAME = 'SproutScheduler', APP_VER = '1.4.7', SCHEMA = 1, MAX_BYTES = 1048576;
+  var APP_ID = 'canadian-eco-garden-planner', APP_NAME = 'SproutScheduler', APP_VER = '1.4.8', SCHEMA = 1, MAX_BYTES = 1048576;
   var LOOKS = ['auto', 'paper', 'charcoal', 'black'], LOOK_KEY = 'garden.look';
   var helpStatus = document.getElementById('help-status');
   function hmsg(t) { if (helpStatus) helpStatus.textContent = t; }
@@ -1390,8 +1390,14 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('restore-confirm').addEventListener('click', function () {
       if (!pending) return;
       var r = pending; closeRestore(); restoreFile.value = '';
-      if (r.zone) { try { localStorage.setItem(ZONE_KEY, r.zone); } catch (e) {} showZone(r.zone, false); }
-      if ('city' in r) setPlace(r.city, false);
+      var cityGiven = 'city' in r;
+      if (cityGiven) setPlace(r.city, false);
+      if (r.zone) {
+        try { localStorage.setItem(ZONE_KEY, r.zone); } catch (e) {}
+        var pl = citySel.value ? findPlace(citySel.value) : null;
+        if (!pl || !zoneOfPlace(pl)) showZone(r.zone, false);
+        else if (!cityGiven && zoneOfPlace(pl) !== r.zone) { setPlace('', false); showZone(r.zone, false); }
+      }
       if (r.bed) { bed = r.bed; sel = { r: 0, c: 0 }; saveBed(); fillSelect(bedW, 2, 6, bed.w); fillSelect(bedH, 2, 8, bed.h); renderBed(false); }
       if (r.look) {
         var ls = document.getElementById('look');
