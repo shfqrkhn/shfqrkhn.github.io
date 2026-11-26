@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-bkPZ+bt1PetA9zgIwlzJxYaILLft27jrR+Q1reF8amI=' 'sha256-g/0MegbQY5qBAiOS5yaLrM3kRC+xfDAE38RjxuT4u7o=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-z/2KTEAk+JqnMPcIT3k+ElH3cerJ+UnZahDWqbv60xU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-bkPZ+bt1PetA9zgIwlzJxYaILLft27jrR+Q1reF8amI=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-z/2KTEAk+JqnMPcIT3k+ElH3cerJ+UnZahDWqbv60xU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -8398,14 +8398,14 @@ function isHttpLikePage() {
       }
     }
     /* When parts gave no text and no thoughts, fall back to the message's own text so nothing is dropped silently. */
-    if (!hasParts || (!partText && thoughts.length === 0)) {
+    if (!hasParts || !partText) {
       if (typeof item.text !== "string" && typeof item.text !== "number" && toolText(item)) {
         contentParts.push(toolText(item));
       } else if (typeof item.text === "string" || typeof item.text === "number") {
         if (item.isThought === true) {
           var tt = String(item.text).trim();
           if (tt) thoughts.push(tt);
-        } else {
+        } else if (thoughts.indexOf(String(item.text).trim()) < 0) {
           contentParts.push(String(item.text));
         }
       }
