@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-/+LpewPWSj8loca6hxxlRv+oduiWDZXLvSA5Yf0FrgU='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-3KDx/vBIHNMjH4iIsTkSNkV82l2KR5CVY3SBZPAem70='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- MeepleMentor 14.5.12 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
@@ -1181,13 +1181,16 @@ const useSafeStorage = (key, initial) => {
       return initial;
     }
   });
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
     try {
       localStorage.setItem(key, JSON.stringify(data));
+      setFailed(false);
     } catch (e) {
+      setFailed(true);
     }
   }, [data, key]);
-  return [data, setData];
+  return [data, setData, failed];
 };
 
 // ---- Interface layer v14.5.12 (rulebook). Data, storage key, RichText and useSafeStorage above are unchanged. ----
@@ -1484,7 +1487,7 @@ const LicencesView = ({ onBack }) => h("div", { className: "doc fade" },
 const App = () => {
   const [activeId, setActiveId] = useState(null);
   const [view, setView] = useState("index");
-  const [saved, setSaved] = useSafeStorage("codex_save_v7", []);
+  const [saved, setSaved, saveFailed] = useSafeStorage("codex_save_v7", []);
   const [recov, setRecov] = useState(SHELF_RECOVERY);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("ALL");
@@ -1543,7 +1546,8 @@ const App = () => {
   const dismissNote = () => { setNote(""); setUndo(null); setTimeout(() => { const el = document.getElementById("view-title") || document.getElementById("root"); if (el) el.focus({ preventScroll: true }); }, 0); };
   const dismissRecov = () => { setRecov(""); setTimeout(() => { const el = document.getElementById("root"); if (el) el.focus({ preventScroll: true }); }, 0); };
   const game = activeId && DATABASE.find((g) => g.id === activeId);
-  const status = h("p", { className: "sr", role: "status", "aria-live": "polite" }, note);
+  const shownNote = saveFailed && /^(Saved|Games added|Shelf replaced|Shelf cleared)\./.test(note) ? "Not saved on this device." : note;
+  const status = h("p", { className: "sr", role: "status", "aria-live": "polite" }, shownNote);
   let body;
   if (view === "game" && game) body = h(GameView, { game, isSaved: saved.includes(game.id), toggleSave, onBack: toIndex, sealOpen, setSealOpen });
   else if (view === "help") body = h(HelpView, { saved, onBack: toIndex, exportShelf, clearShelf, applyImport, onLicences: () => goto("licences"), onRecoveryGone: () => setRecov("") });
@@ -1582,10 +1586,11 @@ const App = () => {
       h("button", { className: "btn", onClick: dismissRecov }, h(Icon, { name: "x" }), "Close")));
   const bad = !CONTENT_OK && h("div", { className: "notice", role: "alert" }, "Games could not load. Your shelf is safe. Get a fresh copy.");
   const bar = note && h("div", { className: "statusbar" },
-    h("span", { "aria-hidden": "true" }, note),
+    h("span", { "aria-hidden": "true" }, shownNote),
     undo && h("button", { className: "btn", onClick: undoNow }, h(Icon, { name: "undo" }), "Undo"),
     h("button", { className: "btn quiet", ref: dismissRef, onClick: dismissNote }, h(Icon, { name: "x" }), "Close"));
-  return h(React.Fragment, null, status, bad, recNote, body, bar);
+  const warn = saveFailed && h("div", { className: "notice", role: "alert" }, "Your shelf could not be saved on this device (storage may be full or blocked). Export your shelf now, or it will be lost when you close this page.");
+  return h(React.Fragment, null, status, bad, warn, recNote, body, bar);
 };
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(h(App, null));

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-bkPZ+bt1PetA9zgIwlzJxYaILLft27jrR+Q1reF8amI=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-z/2KTEAk+JqnMPcIT3k+ElH3cerJ+UnZahDWqbv60xU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-bkPZ+bt1PetA9zgIwlzJxYaILLft27jrR+Q1reF8amI=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-2A1EMUAlXAzfoIwVcnKfef0NIwac+CrD70rEokRExWc='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -9970,14 +9970,14 @@ function isHttpLikePage() {
   $("u-dup").addEventListener("click", function () {
     var p = byId(ui.cur); if (!p) return; var c = clean(JSON.parse(JSON.stringify(p)));
     c.id = uid(); c.title = (c.title + " copy").slice(0, 120); c.favorite = false; c.archived = false; c.origin = "user"; c.created = c.updated = Date.now();
-    data.prompts.push(c); save(); say("Duplicated."); openEdit(c.id);
+    data.prompts.push(c); var dok = save(); openEdit(c.id); if (dok) say("Duplicated.");
   });
   $("u-fav").addEventListener("click", function () { var p = byId(ui.cur); if (!p) return; p.favorite = !p.favorite; p.updated = Date.now(); save(); openUse(p.id); });
-  $("u-arch").addEventListener("click", function () { var p = byId(ui.cur); if (!p) return; p.archived = !p.archived; p.updated = Date.now(); save(); say(p.archived ? "Archived." : "Restored."); openUse(p.id); });
+  $("u-arch").addEventListener("click", function () { var p = byId(ui.cur); if (!p) return; p.archived = !p.archived; p.updated = Date.now(); var aok = save(); openUse(p.id); if (aok) say(p.archived ? "Archived." : "Restored."); });
   $("u-del").addEventListener("click", function () {
     var p = byId(ui.cur); if (!p || !p.archived) return;
     if (ui.armed !== p.id) { ui.armed = p.id; $("u-del").textContent = "Delete forever? Press again"; return; }
-    data.prompts.splice(data.prompts.indexOf(p), 1); save(); say("Deleted."); show("list"); paintList();
+    data.prompts.splice(data.prompts.indexOf(p), 1); var dlok = save(); show("list"); paintList(); if (dlok) say("Deleted.");
   });
   $("e-kind").addEventListener("change", function () { retarget($("e-kind").value); ui.dirty = true; ui.undo = null; buildFields(); });
   ["e-title", "e-desc", "e-cat", "e-col", "e-tags", "e-note", "e-lab"].forEach(function (i) { $(i).addEventListener("input", function () { ui.dirty = true; }); });
@@ -9994,8 +9994,8 @@ function isHttpLikePage() {
   $("h-seed").addEventListener("click", function () {
     var add = starters().filter(function (s) { return !byId(s.id); });
     add.forEach(function (s) { data.prompts.push(s); });
-    if (add.length) { save(); say("Added " + add.length + " starter prompts."); } else say("All starter prompts are already here.");
-    paintList();
+    var sok = add.length ? save() : true; paintList();
+    if (add.length) { if (sok) say("Added " + add.length + " starter prompts."); } else say("All starter prompts are already here.");
   });
   window.addEventListener("beforeunload", function (e) { if (!$("v-edit").hidden && ui.dirty) { e.preventDefault(); e.returnValue = ""; } });
 
