@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-bkPZ+bt1PetA9zgIwlzJxYaILLft27jrR+Q1reF8amI=' 'sha256-JqkzftTD6j8D7z9u/6LCl+5GNkSLIQPhrXmF0yEjWpU=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-z/2KTEAk+JqnMPcIT3k+ElH3cerJ+UnZahDWqbv60xU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-bkPZ+bt1PetA9zgIwlzJxYaILLft27jrR+Q1reF8amI=' 'sha256-g/0MegbQY5qBAiOS5yaLrM3kRC+xfDAE38RjxuT4u7o=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-z/2KTEAk+JqnMPcIT3k+ElH3cerJ+UnZahDWqbv60xU='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -8377,7 +8377,9 @@ function isHttpLikePage() {
   function extractContent(item) {
     var thoughts = [];
     var contentParts = [];
-    if (item.parts && Array.isArray(item.parts) && item.parts.length > 0) {
+    var partText = false;
+    var hasParts = !!(item.parts && Array.isArray(item.parts) && item.parts.length > 0);
+    if (hasParts) {
       for (var i = 0; i < item.parts.length; i++) {
         var part = item.parts[i];
         if (!part || typeof part !== "object") continue;
@@ -8388,19 +8390,24 @@ function isHttpLikePage() {
           if (trimmed) thoughts.push(trimmed);
         } else if (typeof part.text === "string" || typeof part.text === "number") {
           contentParts.push(String(part.text));
+          if (String(part.text).trim() !== "") partText = true;
         } else {
           var tp = toolText(part);
           if (tp) contentParts.push("\n\n" + tp + "\n\n");
         }
       }
-    } else if (typeof item.text !== "string" && typeof item.text !== "number" && toolText(item)) {
-      contentParts.push(toolText(item));
-    } else if (typeof item.text === "string" || typeof item.text === "number") {
-      if (item.isThought === true) {
-        var tt = String(item.text).trim();
-        if (tt) thoughts.push(tt);
-      } else {
-        contentParts.push(String(item.text));
+    }
+    /* When parts gave no text and no thoughts, fall back to the message's own text so nothing is dropped silently. */
+    if (!hasParts || (!partText && thoughts.length === 0)) {
+      if (typeof item.text !== "string" && typeof item.text !== "number" && toolText(item)) {
+        contentParts.push(toolText(item));
+      } else if (typeof item.text === "string" || typeof item.text === "number") {
+        if (item.isThought === true) {
+          var tt = String(item.text).trim();
+          if (tt) thoughts.push(tt);
+        } else {
+          contentParts.push(String(item.text));
+        }
       }
     }
     var content = contentParts.join("").trim();
@@ -8580,6 +8587,8 @@ function isHttpLikePage() {
     if (p.type === "tool_use" || p.type === "server_tool_use") return "Tool call" + (p.name ? " " + p.name : "") + ":\n" + jsonText(p.input === void 0 ? {} : p.input);
     if (p.type === "tool_result" || p.type === "web_search_tool_result") return "Tool result" + (p.is_error ? " (error)" : "") + ":\n" + blockText(p.content);
     if (isObj(p.functionCall)) return "Tool call" + (p.functionCall.name ? " " + p.functionCall.name : "") + ":\n" + jsonText(p.functionCall.args === void 0 ? {} : p.functionCall.args);
+    if (isObj(p.executableCode)) return "Code" + (typeof p.executableCode.language === "string" && p.executableCode.language ? " (" + p.executableCode.language.slice(0, 30) + ")" : "") + ":\n" + (typeof p.executableCode.code === "string" ? p.executableCode.code : jsonText(p.executableCode));
+    if (isObj(p.codeExecutionResult)) return "Code result" + (typeof p.codeExecutionResult.outcome === "string" && p.codeExecutionResult.outcome ? " (" + p.codeExecutionResult.outcome.slice(0, 40) + ")" : "") + ":\n" + (typeof p.codeExecutionResult.output === "string" ? p.codeExecutionResult.output : jsonText(p.codeExecutionResult));
     if (isObj(p.functionResponse)) return "Tool result" + (p.functionResponse.name ? " " + p.functionResponse.name : "") + ":\n" + jsonText(p.functionResponse.response === void 0 ? {} : p.functionResponse.response);
     if (isObj(p.driveImage) || isObj(p.driveDocument) || isObj(p.driveVideo) || isObj(p.youtubeVideo)) return "[Attachment left out: " + (isObj(p.driveImage) ? "drive image" : isObj(p.driveDocument) ? "drive document" : isObj(p.driveVideo) ? "drive video" : "video") + "]";
     if (isObj(p.inlineData) || isObj(p.fileData) || p.type === "image" || p.type === "document" || p.type === "image_url" || p.content_type === "image_asset_pointer") {
