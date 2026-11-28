@@ -30,7 +30,26 @@
     if (l.view !== "table") l.view = "chart";
     return l;
   }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(lab)); } catch (e) { } }
+  function saveMsg(t) { var m = document.getElementById("nx-savemsg"); if (m) m.textContent = t; }
+  // Read the stored settings fresh. A corrupt value is kept under a backup key before anything overwrites it.
+  function readStored() {
+    var raw = null;
+    try { raw = localStorage.getItem(KEY); } catch (e) { return null; }
+    if (raw === null) return null;
+    try { var v = JSON.parse(raw); if (v && typeof v === "object" && !Array.isArray(v)) return v; } catch (e) { }
+    try { localStorage.setItem(KEY + "_backup_" + Date.now(), raw); } catch (e2) { }
+    return null;
+  }
+  // Merge field by field: stored values from other tabs are kept, only the keys this tab changed (keys) win.
+  function save(keys) {
+    try {
+      var m = Object.assign({}, DEF, readStored() || {});
+      (keys || []).forEach(function (k) { if (k in lab) m[k] = lab[k]; });
+      lab = sanitize(m);
+      localStorage.setItem(KEY, JSON.stringify(lab));
+      saveMsg("");
+    } catch (e) { saveMsg("Not saved: this browser refused to store the stress settings. They apply to this tab only until the page closes."); }
+  }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function grp(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
   function usd(c) { var d = Math.round(c / 100); return (d < 0 ? "-$" : "$") + grp(Math.abs(d)); }
@@ -100,12 +119,12 @@
       field("nx-rrifage", "RRIF minimums start at age", num("nx-rrifage", lab.rrifAge, 65, 95, 1, 1), "Your input. Minimums use the CRA factor for your age at the start of each year.") +
       '<div class="nx-f nx-wide"><button type="submit" class="nx-btn nx-primary" id="nx-run"><svg class="nf-ic" viewBox="0 0 256 256" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></svg>&nbsp;Run stress test</button></div>' +
       "</form>" +
-      '<div id="nx-out" class="nx-out" aria-live="polite" tabindex="-1"><p class="nx-h">No run yet. Choose Run stress test.</p></div>';
+      '<p class="nx-h" id="nx-savemsg" role="status"></p><div id="nx-out" class="nx-out" aria-live="polite" tabindex="-1"><p class="nx-h">No run yet. Choose Run stress test.</p></div>';
     var f = document.getElementById("nx-form");
     f.addEventListener("submit", function (ev) { ev.preventDefault(); run(); });
     function bind(id, key, conv) {
       var el = document.getElementById(id);
-      el.addEventListener("change", function () { lab[key] = conv ? conv(el) : numText(el.value); lab = sanitize(lab); save(); sync(); stale("Settings changed since the last run."); });
+      el.addEventListener("change", function () { lab[key] = conv ? conv(el) : numText(el.value); lab = sanitize(lab); save([key]); sync(); stale("Settings changed since the last run."); });
     }
     bind("nx-seed", "seed"); bind("nx-paths", "paths"); bind("nx-sd", "sd"); bind("nx-rate", "rate"); bind("nx-cpp", "cpp"); bind("nx-oas", "oas"); bind("nx-rrifage", "rrifAge");
     bind("nx-rrif", "rrif", function (e) { return e.checked; });
@@ -114,7 +133,7 @@
   }
   function sync() {
     var m = { "nx-seed": lab.seed, "nx-paths": lab.paths, "nx-sd": lab.sd, "nx-rate": lab.rate, "nx-cpp": lab.cpp, "nx-oas": lab.oas, "nx-rrifage": lab.rrifAge, "nx-rule": lab.rule };
-    for (var k in m) { var el = document.getElementById(k); if (el && String(el.value) !== String(m[k])) el.value = m[k]; }
+    for (var k in m) { var el = document.getElementById(k); if (el && el !== document.activeElement && String(el.value) !== String(m[k])) el.value = m[k]; }
     var c = document.getElementById("nx-rrif"); if (c) c.checked = lab.rrif;
     var h = document.getElementById("nx-rule-h"); if (h) h.textContent = RULES[lab.rule][1];
   }
@@ -127,7 +146,7 @@
   function run() {
     var p = profile(), out = document.getElementById("nx-out");
     if (!p) { out.innerHTML = '<p class="nx-h">The planner has not finished loading. Try again in a moment.</p>'; return; }
-    lab = sanitize(lab); save();
+    lab = sanitize(lab); save([]); sync();
     var P = paramsFrom(p);
     out.innerHTML = '<p class="nx-h" role="status">Running ' + grp(P.paths) + " lifetimes.</p>";
     document.getElementById("nx-run").disabled = true;
@@ -198,14 +217,23 @@
       "<li>Median draw from savings, after tax: first retirement year " + usd(conv(r.drawFirstP50, Math.max(0, P.retireAge - P.age))) + ", last year " + usd(conv(r.drawLastP50, k)) + ".</li></ul>" +
       '<p class="nx-h">' + (lab.dollars === "nominal" ? "Future dollars use the plan's inflation rate of " + (P.inflPpm / 1e4) + "% a year; tax tables are held fixed in today's dollars." : "Today's dollars. Growth is a real rate.") + "</p>";
     out.querySelectorAll(".nx-tog button").forEach(function (b) {
-      b.addEventListener("click", function () { lab[b.getAttribute("data-k")] = b.getAttribute("data-v"); save(); render(); var q = document.querySelector('.nx-tog [data-k="' + b.getAttribute("data-k") + '"][data-v="' + b.getAttribute("data-v") + '"]'); if (q) q.focus(); });
+      b.addEventListener("click", function () { lab[b.getAttribute("data-k")] = b.getAttribute("data-v"); save([b.getAttribute("data-k")]); render(); var q = document.querySelector('.nx-tog [data-k="' + b.getAttribute("data-k") + '"][data-v="' + b.getAttribute("data-v") + '"]'); if (q) q.focus(); });
     });
   }
 
   build();
+  // Another tab changed the stored settings: adopt them without touching the field being typed in.
+  window.addEventListener("storage", function (e) {
+    if (e.key !== null && e.key !== KEY) return;
+    var sv = null;
+    try { sv = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (x) { return; }
+    lab = sanitize(Object.assign({}, DEF, sv && typeof sv === "object" && !Array.isArray(sv) ? sv : {}));
+    sync();
+    if (last) { try { render(); } catch (x) { } stale("Settings changed in another tab."); }
+  });
   window.__nfLab = {
-    get: function () { return Object.assign({}, lab); },
-    set: function (o) { lab = sanitize(Object.assign({}, lab, o || {})); save(); sync(); },
+    get: function () { var st = readStored(); if (st) lab = sanitize(Object.assign({}, DEF, st)); return Object.assign({}, lab); },
+    set: function (o) { lab = sanitize(Object.assign({}, lab, o || {})); save(Object.keys(o || {})); sync(); },
     run: run, last: function () { return last; }, mode: function () { return lastMode; }, params: function () { var p = profile(); return p ? paramsFrom(p) : null; }
   };
   var tries = 0, t = setInterval(function () {

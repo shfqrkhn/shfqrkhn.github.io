@@ -6,7 +6,7 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F1E7" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E1E1E" />
     <meta name="description" content="DecisionDesk Briefs: a decision briefing kept on this device. Question, ranked options, evidence, review and export." />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LZNcXVpvfuA+Nv77iot7TCcW7k3g4K0fe0A1EO2xR2w=' 'sha256-Ip9w9dt/18VK6h/ZB25T+1pU7DAe3nkeEm3wrCfvnsg='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LZNcXVpvfuA+Nv77iot7TCcW7k3g4K0fe0A1EO2xR2w=' 'sha256-qRB7n77r7hU6YvGkIOI1ZkSlLXFjTW02l73n+py2dUE='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
     <!-- Weight exception: this file is about 237 KB against a 100 KB tier. 41 KB is three embedded font subsets (headings and text, needed for the memo look), 7 KB is two icons, and the rest is the app and the two full licence texts. Recorded as an accepted exception; nothing was trimmed that would remove a licence text or a feature. -->
     <title>DecisionDesk Briefs</title>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAACHElEQVRYCWNgGOmAEVsATC+N7/zPwFAGk3OTPcigzPeAgQrgHmMCgzKyOUzIHBgbaLkijE1lWgndPCZ0AXrzMRxw9epVNnVnH2dhLSOGtx++0tw9GA74/+/rdx4+QQFBaQWGDyycVHeAfrvdUZdFLnIwg1lgDBj948cPxrPrF68B8kOVeTDcBxSmDP39x2D17y+LOdCUR0DMwAQikPGXL5+/yJq7uCOL0ZKN4QBRMQURLh6OP7RKAzXKXxis+L8LwDyF4QBapwEtrt8Mperf4amb7mng67d/DAw//wEJSBhghMCXz7RNAz+6mRg+bPuvBrGeATMRiorTNg0wAP3+ZS/TC5gDMKIAmgYY/jKxAcuBMwzCMJVUpJl+/v0FMw7DAbQuB/4z/P/H95/5Fk4HwNLA45N7YGqoSjudv8KMbCBGIqR5GkC2HcjGiAJ6pAGgvXCE4QBapwG4zVAGRhTA0gBUnuYUhgNG08BoGnBw8uYDFkI7aZ76oBZgZEOQ+IPn75wE+RDtwfefWRn+szEcB8mRjf8zsP37jVm1YHXAvefvTpVm13vCLPvPyPj3HBOjCYxPDv3//z8mnjvbgMXwBBTtWB3w+++/ryIiKPUgUCMDCKNoJpXzQ90DqIUIB4jwcz7ev3v3W6BqMFLg+sgmwvX7I5gDJIA9JwYGEAGs24FcCBvEAImBMJQNY4LUMv77zSnycN9vkNQoRg4BAGKX15ME57AJAAAAAElFTkSuQmCC" />
@@ -2409,13 +2409,13 @@ async function saveMatrix(event) {
   try {
     const fd = new FormData(elements.matrixForm);
     const rows = await getByIndex("reviewMatrices", "caseId", appState.selectedCaseId);
-    await putRecord("reviewMatrices", {
+    await putIfCaseExists(appState.selectedCaseId, [["reviewMatrices", {
       id: rows[0]?.id || uid("matrix"),
       caseId: appState.selectedCaseId,
       dimensions: sanitizeText(fd.get("dimensions"), 300),
       notes: sanitizeText(fd.get("notes"), 600),
       updatedAt: nowIso()
-    });
+    }]]);
     announce("Saved.");
   } catch (error) {
     saveFailed(error, "saving matrix");
@@ -2431,13 +2431,13 @@ async function saveOutcome(event) {
   try {
     const fd = new FormData(elements.outcomeForm);
     const rows = await getByIndex("outcomeReviews", "caseId", appState.selectedCaseId);
-    await putRecord("outcomeReviews", {
+    await putIfCaseExists(appState.selectedCaseId, [["outcomeReviews", {
       id: rows[0]?.id || uid("outcome"),
       caseId: appState.selectedCaseId,
       expectedVsActual: sanitizeText(fd.get("expectedVsActual"), 700),
       lessons: sanitizeText(fd.get("lessons"), 700),
       updatedAt: nowIso()
-    });
+    }]]);
     announce("Saved.");
   } catch (error) {
     saveFailed(error, "saving outcome");
@@ -2453,14 +2453,14 @@ async function saveGovernance(event) {
   try {
     const fd = new FormData(elements.governanceForm);
     const rows = await getByIndex("governanceReviews", "caseId", appState.selectedCaseId);
-    await putRecord("governanceReviews", {
+    await putIfCaseExists(appState.selectedCaseId, [["governanceReviews", {
       id: rows[0]?.id || uid("governance"),
       caseId: appState.selectedCaseId,
       accountability: sanitizeText(fd.get("accountability"), 700),
       compliance: sanitizeText(fd.get("compliance"), 700),
       riskNote: sanitizeText(fd.get("riskNote"), 700),
       updatedAt: nowIso()
-    });
+    }]]);
     announce("Saved.");
   } catch (error) {
     saveFailed(error, "saving governance");
@@ -2477,14 +2477,14 @@ async function savePackHook(event) {
     const fd = new FormData(elements.packHookForm);
     const hookType = sanitizeText(fd.get("hookType"), 80);
     const existing = await getPackHooksByCaseAndType(appState.selectedCaseId, hookType);
-    await putRecord("packHooks", {
+    await putIfCaseExists(appState.selectedCaseId, [["packHooks", {
       id: existing[0]?.id || uid("hook"),
       caseId: appState.selectedCaseId,
       hookType,
       contractNote: sanitizeText(fd.get("contractNote"), 600),
       status: sanitizeText(fd.get("status"), 60) || "ready",
       updatedAt: nowIso()
-    });
+    }]]);
     for (let i = 1; i < existing.length; i += 1) {
       await deleteRecord("packHooks", existing[i].id);
     }
@@ -3163,18 +3163,53 @@ function flushSaves() {
   const sent = new Map(pendingWrites);
   flushChain = flushChain
     .then(async () => {
-      const names = [...new Set(batch.map((b) => b.store))];
+      const names = [...new Set(["cases", ...batch.map((b) => b.store)])];
+      const caseIds = [...new Set(batch.filter((b) => !b.del && b.row && b.row.caseId).map((b) => b.row.caseId))];
       const tx = appState.db.transaction(names, "readwrite");
-      for (const b of batch) {
-        const store = tx.objectStore(b.store);
-        if (b.del) store.delete(b.id);
-        else store.put(b.row);
+      const done = txDone(tx);
+      const missing = [];
+      let putError = null;
+      const checks = caseIds.map((cid) => new Promise((resolve) => {
+        const rq = tx.objectStore("cases").get(cid);
+        rq.onsuccess = () => { if (!rq.result) missing.push(cid); resolve(); };
+        rq.onerror = () => resolve();
+      }));
+      Promise.all(checks).then(() => {
+        if (missing.length) {
+          try { tx.abort(); } catch { /* already finished */ }
+          return;
+        }
+        try {
+          for (const b of batch) {
+            const store = tx.objectStore(b.store);
+            if (b.del) store.delete(b.id);
+            else store.put(b.row);
+          }
+        } catch (error) {
+          putError = error;
+          try { tx.abort(); } catch { /* already finished */ }
+        }
+      });
+      try {
+        await done;
+      } catch (error) {
+        if (putError) throw putError;
+        if (missing.length) {
+          for (const [key, val] of sent) if (pendingWrites.get(key) === val) pendingWrites.delete(key);
+          const e = new Error(CASE_GONE_MSG);
+          e.caseGone = true;
+          throw e;
+        }
+        throw error;
       }
-      await txDone(tx);
       for (const [key, val] of sent) if (pendingWrites.get(key) === val) pendingWrites.delete(key);
       return true;
     })
     .catch((error) => {
+      if (error && error.caseGone) {
+        announce(`Not saved: a rating or weight. ${CASE_GONE_MSG}`);
+        return false;
+      }
       if (!captureQuotaError(error, "saving ratings")) {
         announce(`Not saved: a rating or weight. Earlier data is unchanged. ${RELOAD_ADVICE}`);
       }
@@ -3641,20 +3676,22 @@ async function addCriterion(event) {
     await flushSaves();
     const fd = new FormData(form);
     const order = appState.cur.criteria.reduce((m, c) => Math.max(m, Number(c.order) || 0), 0) + 1;
-    await putRecord("criteria", {
+    await putIfCaseExists(appState.selectedCaseId, [["criteria", {
       id: uid("crit"),
       caseId: appState.selectedCaseId,
       name: sanitizeText(fd.get("name"), 60),
       weight: Math.round(clampNumber(fd.get("weight"), 0, 100) * 10) / 10,
       order,
       createdAt: nowIso()
-    });
+    }]]);
     form.reset();
     $("criterion-weight").value = "10";
     await loadCurrentCase();
     announce("Criterion added. Rate each option on it in the matrix; until then options are not ranked.");
   } catch (error) {
-    if (!captureQuotaError(error, "adding a criterion")) {
+    if (error && error.caseGone) {
+      announce(`The criterion was not added. ${CASE_GONE_MSG}`);
+    } else if (!captureQuotaError(error, "adding a criterion")) {
       announce("The criterion was not added. Earlier data is unchanged. Check the fields and try again.");
     }
   }
@@ -3704,7 +3741,7 @@ const addDoNothing = guard("adding Do nothing", async function addDoNothing() {
     return;
   }
   if (isWeightedCase()) {
-    await putRecord("optionSets", {
+    await putIfCaseExists(cur.caseFile.id, [["optionSets", {
       id: uid("opt"),
       caseId: cur.caseFile.id,
       name: "Do nothing",
@@ -3712,7 +3749,7 @@ const addDoNothing = guard("adding Do nothing", async function addDoNothing() {
       score: 0,
       tradeoff: "Keep things as they are.",
       createdAt: nowIso()
-    });
+    }]]);
     await loadCurrentCase();
     announce("Added. Rate it.");
   } else {
@@ -3892,7 +3929,7 @@ async function saveJournal(event) {
       reviewDate: date,
       updatedAt: nowIso()
     };
-    await putRecord("journals", row);
+    await putIfCaseExists(row.caseId, [["journals", row]]);
     if (appState.cur) appState.cur.journal = row;
     const keepResult = $("journal-result").value;
     const keepActual = $("journal-actual").value;
@@ -3920,7 +3957,7 @@ async function saveJournalOutcome(event) {
   try {
     const existing = (await getByIndex("journals", "caseId", appState.selectedCaseId))[0] || newJournalRow(appState.selectedCaseId);
     const row = { ...existing, result, actual, outcomeDate: localToday(), updatedAt: nowIso() };
-    await putRecord("journals", row);
+    await putIfCaseExists(row.caseId, [["journals", row]]);
     if (appState.cur) appState.cur.journal = row;
     const keep = ["journal-rev", "journal-premortem", "journal-expected", "journal-confidence", "journal-date"].map((id) => [id, $(id).value]);
     fillJournalForm(row);

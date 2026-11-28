@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-WbFl++F32OlNb8bm+t/+wNQVIf1InK+TBku8m12rXhE=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-aloAz5lDSUnfjrgfXiLiUZmv6+ziF0l/AWu8dlQBaJ4='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-H+ggmsUotDvGQxF+EWxQmGOQl6zqA8YQ8F+AfD4HSso=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-aloAz5lDSUnfjrgfXiLiUZmv6+ziF0l/AWu8dlQBaJ4='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -4330,7 +4330,7 @@ function saveState() {
     const written = readStoredText();
     if (written !== null) {
       syncedStored = written;
-      syncedBase = written;
+      syncedBase = baseText();
     }
   }
   if (mergeNote) {
@@ -4358,13 +4358,19 @@ function readStoredText() {
   }
 }
 
+// The baseline is built from this tab's own in-memory records (already normalised), so a record only counts
+// as changed here when this tab changed it, never because stored text and memory differ in form.
+function baseText() {
+  try {
+    return JSON.stringify(PersistenceModule.cleanStateForStorage(state));
+  } catch {
+    return "";
+  }
+}
+
 function initSync() {
   syncedStored = readStoredText() || "";
-  try {
-    syncedBase = JSON.stringify(PersistenceModule.cleanStateForStorage(state));
-  } catch {
-    syncedBase = "";
-  }
+  syncedBase = baseText();
 }
 
 function recordSigs(list) {
@@ -4375,10 +4381,62 @@ function recordSigs(list) {
   return sigs;
 }
 
+// Both tabs changed the same chat. Keep this tab's changes, and also keep what the other tab added or changed
+// that this tab did not touch: fields it renamed, and messages it added or removed (messages merge by id).
+function combineChat(mine, theirs, base, ctx) {
+  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  for (const key of Object.keys(theirs)) {
+    if (key === "messages" || key === "off" || key === "picks" || key === "seq" || key === "parentId") continue;
+    if (same(mine[key], base[key]) && !same(mine[key], theirs[key])) {
+      mine[key] = structuredClone(theirs[key]);
+      ctx.changed = true;
+    }
+  }
+  const mineMessages = Array.isArray(mine.messages) ? mine.messages : [];
+  const theirMessages = Array.isArray(theirs.messages) ? theirs.messages : [];
+  const baseMessages = new Map((Array.isArray(base.messages) ? base.messages : []).map((m) => [m && m.id, JSON.stringify(m)]));
+  const theirById = new Map(theirMessages.map((m) => [m.id, m]));
+  const mineIds = new Set(mineMessages.map((m) => m.id));
+  const mineOffIds = new Set((Array.isArray(mine.off) ? mine.off : []).map((m) => m.id));
+  const kept = [];
+  let added = false;
+  for (const message of mineMessages) {
+    const theirMessage = theirById.get(message.id);
+    const was = baseMessages.get(message.id);
+    if (!theirMessage && was !== undefined && was === JSON.stringify(message)) { ctx.changed = true; continue; }
+    if (theirMessage && was !== undefined && was === JSON.stringify(message) && JSON.stringify(theirMessage) !== was) {
+      kept.push(structuredClone(theirMessage));
+      ctx.changed = true;
+      continue;
+    }
+    kept.push(message);
+  }
+  for (const message of theirMessages) {
+    if (mineIds.has(message.id) || mineOffIds.has(message.id) || baseMessages.has(message.id)) continue;
+    kept.push(structuredClone(message));
+    added = true;
+  }
+  if (added) {
+    ctx.changed = true;
+    kept.sort((a, b) => (String(a.createdAt) < String(b.createdAt) ? -1 : String(a.createdAt) > String(b.createdAt) ? 1 : 0));
+  }
+  mine.messages = kept;
+  const off = Array.isArray(mine.off) ? mine.off : [];
+  const keptIds = new Set(kept.map((m) => m.id));
+  for (const message of Array.isArray(theirs.off) ? theirs.off : []) {
+    if (!keptIds.has(message.id) && !mineOffIds.has(message.id) && !baseMessages.has(message.id)) {
+      off.push(structuredClone(message));
+      ctx.changed = true;
+    }
+  }
+  mine.off = off;
+  mine.seq = Math.max(Number(mine.seq) || 0, Number(theirs.seq) || 0);
+}
+
 // Merge one list of records by id. A record this tab changed (or created) wins. A record this tab did not change
 // takes the stored version. A record another tab created is added. A record another tab deleted is dropped here
 // unless this tab changed it. A record this tab deleted stays deleted.
-function mergeRecords(mem, stored, baseSigs, front, ctx) {
+function mergeRecords(mem, stored, baseSigs, front, ctx, combine) {
   const storedById = new Map(stored.map((record) => [record.id, record]));
   const seen = new Set();
   const out = [];
@@ -4396,6 +4454,11 @@ function mergeRecords(mem, stored, baseSigs, front, ctx) {
       }
       out.push(record);
     } else if (theirs) {
+      if (combine && was !== undefined) {
+        let baseRecord = null;
+        try { baseRecord = JSON.parse(was); } catch { baseRecord = null; }
+        if (baseRecord) combine(record, theirs, baseRecord, ctx);
+      }
       out.push(record);
     } else if (was !== undefined && !edited) {
       ctx.dropped += 1;
@@ -4463,7 +4526,7 @@ function mergeStoredState(current, forWrite) {
     try { base = JSON.parse(syncedBase) || {}; } catch { base = {}; }
   }
   const ctx = { changed: false, dropped: 0, revived: 0 };
-  replaceList(state.conversations, mergeRecords(state.conversations, stored ? stored.conversations : [], recordSigs(base.conversations), true, ctx));
+  replaceList(state.conversations, mergeRecords(state.conversations, stored ? stored.conversations : [], recordSigs(base.conversations), true, ctx, combineChat));
   replaceList(state.folders, mergeRecords(state.folders, stored ? stored.folders : [], recordSigs(base.folders), false, ctx));
   replaceList(state.promptLibrary, mergeRecords(state.promptLibrary, stored ? stored.promptLibrary : [], recordSigs(base.promptLibrary), true, ctx));
   replaceList(state.providers, mergeRecords(state.providers, stored ? stored.providers : [], recordSigs(base.providers), false, ctx));
@@ -4541,8 +4604,8 @@ function onStorageEvent(event) {
   }
   if (result === "unreadable") return;
   syncedStored = current;
-  syncedBase = current;
   for (const chat of state.conversations) ensureChain(chat);
+  syncedBase = baseText();
   mergeChanged = false;
   refreshAfterMerge();
   if (mergeNote) {

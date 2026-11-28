@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" data-spoilers="hidden" style="--hue:178">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-a2BptO0vCmw5qn9PAgG/Y5HgrHtz07kB+G+1ttcTfPQ='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-xsPK/lLaVe5ZstEniU5s/H3u5XOwMVe59wayqiTcCZk='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F6F1E7">
 <meta name="app-version" content="1.2.2">
@@ -1241,11 +1241,46 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             });
         }
 
-        function saveTicks() {
-            var o = {};
-            document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { if (c.checked) { o[c.id] = 1; } });
-            return lsSet(KT, JSON.stringify(o));
+        // Read the stored ticks. A damaged value is copied to a backup key before anything overwrites it.
+        function storedTicks(backup) {
+            var raw = lsGet(KT), o = {};
+            if (raw === null) { return o; }
+            try { o = JSON.parse(raw); } catch (e) { o = null; }
+            if (!o || typeof o !== 'object' || Array.isArray(o)) {
+                if (backup) { lsSet(KT + '_backup_' + Date.now(), raw); }
+                o = {};
+            }
+            return o;
         }
+        // Merge at write time: start from what is stored now, add the ids this tab ticked, remove only the ids it unticked.
+        // With replaceAll the page state is written as it is (reset and delete are whole-set actions).
+        function saveTicks(setIds, unsetIds, replaceAll) {
+            if (schemaLocked) { return false; }
+            var o = {};
+            if (replaceAll) {
+                document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { if (c.checked) { o[c.id] = 1; } });
+            } else {
+                o = storedTicks(true);
+                (setIds || []).forEach(function (id) { o[id] = 1; });
+                (unsetIds || []).forEach(function (id) { delete o[id]; });
+            }
+            var ok = lsSet(KT, JSON.stringify(o));
+            if (ok && !replaceAll) { showTicks(o); }
+            return ok;
+        }
+        // Show a tick set in the page. Ticks hold no typed text, so nothing is lost by refreshing them.
+        function showTicks(o) {
+            document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { c.checked = !!o[c.id]; });
+            updateBuildSummary();
+        }
+        // Another tab changed the ticks: follow it.
+        window.addEventListener('storage', function (e) {
+            if (schemaLocked) { return; }
+            if (e.key !== null && e.key !== KT) { return; }
+            showTicks(e.key === null ? {} : storedTicks(false));
+            var st = document.getElementById('checklist-status');
+            if (st) { st.textContent = 'Updated from another tab.'; }
+        });
 
         function partnerOf(c) {
             var id = c.id.indexOf('tool-') === 0 ? c.id.slice(5) : 'tool-' + c.id;
@@ -1259,27 +1294,27 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             var p = partnerOf(c);
             if (p) { p.checked = c.checked; }
             updateBuildSummary();
-            var okSave = saveTicks();
+            var ids = [c.id]; if (p) { ids.push(p.id); }
+            var okSave = c.checked ? saveTicks(ids, null) : saveTicks(null, ids);
             document.getElementById('checklist-status').textContent = schemaLocked ? 'Not saved: newer version.' : (okSave ? 'Saved.' : 'Not saved: this browser blocked storage.');
         });
 
         function clearTicks() {
             document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { c.checked = false; });
             updateBuildSummary();
-            return saveTicks();
+            return saveTicks(null, null, true);
         }
 
         var undoClear = document.getElementById('undo-clear');
         var clearSnap = null;
         function snapTicks() {
-            var o = {};
+            var o = schemaLocked ? {} : storedTicks(false);
             document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { if (c.checked) { o[c.id] = 1; } });
             return o;
         }
+        // Restore a snapshot: its ticks are added to whatever is stored now, nothing else is removed.
         function applyTicks(o) {
-            document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { c.checked = !!o[c.id]; });
-            updateBuildSummary();
-            return saveTicks();
+            return saveTicks(Object.keys(o), null);
         }
         var NOSAVE = ' Not saved: this browser blocked storage.';
         resetChecklistButton.addEventListener('click', function () {

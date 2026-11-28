@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="auto" style="--hue:40">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-suf0jn6TeqaaMRVIxTc4ysGm/8uIMjUkOjZtAnW9fPo='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-WCiTsrHKGBHaEkzMUtfPe+JPCN5athVPKdCMz0wdkq4='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- Single-file build 1.4.2-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Recipes with timers and scaling: pick a recipe, scale the batch, tick ingredients and run step timers.">
@@ -624,7 +624,7 @@ var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelect
 /* ---------- storage (never throws) ---------- */
 var mem={},blocked=false,failN=0,NOSAVE=' Not saved: this browser blocked storage.';
 function sget(k){try{var v=localStorage.getItem(k);return v;}catch(e){blocked=true;return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null;}}
-function sset(k,v){try{localStorage.setItem(k,String(v));}catch(e){blocked=true;failN++;mem[k]=String(v);notify('Saving blocked. Data lasts until you close the page.');}}
+function sset(k,v){try{localStorage.setItem(k,String(v));return true;}catch(e){blocked=true;failN++;mem[k]=String(v);notify('Saving blocked. Data lasts until you close the page.');return false;}}
 function sdel(k){try{localStorage.removeItem(k);}catch(e){blocked=true;failN++;}delete mem[k];}
 var live=$('#live');
 function notify(m){live.textContent='';setTimeout(function(){live.textContent=m;},30);var n=$('#notes-state');if(n&&/blocked/.test(m)){n.textContent=m;}}
@@ -777,7 +777,27 @@ $('#b-up').addEventListener('click',function(){if(halves<8){halves++;applyBatch(
 /* ---------- checklist state ---------- */
 var ingBoxes=$$('#ing input[type=checkbox]');
 var stepBoxes=$$('.step .done input');
-function saveSteps(){var a=[];stepBoxes.forEach(function(b,i){if(b.checked)a.push(i);});sset('egg-salad-steps-done',JSON.stringify(a));}
+var SK='egg-salad-steps-done',NK='egg-salad-user-notes';
+function storedSteps(backup){
+  var raw=sget(SK),a=[];
+  if(raw===null){return a;}
+  try{a=JSON.parse(raw);}catch(e){a=null;}
+  if(!Array.isArray(a)){if(backup){sset(SK+'_backup_'+Date.now(),raw);}a=[];}
+  return a.filter(function(n){return typeof n==='number'&&n>=0&&n<stepBoxes.length;});
+}
+/* No argument: write the page state as it is (reset, restore). With i and on: merge only that step into what is stored now. */
+function saveSteps(i,on){
+  var a=[];
+  if(typeof i==='number'){
+    a=storedSteps(true);
+    var at=a.indexOf(i);
+    if(on&&at<0){a.push(i);}else if(!on&&at>-1){a.splice(at,1);}
+    a.sort(function(x,y){return x-y;});
+    if(sset(SK,JSON.stringify(a))){stepBoxes.forEach(function(b,j){b.checked=a.indexOf(j)>-1;});}
+    return;
+  }
+  stepBoxes.forEach(function(b,j){if(b.checked)a.push(j);});sset(SK,JSON.stringify(a));
+}
 function paintSteps(){stepBoxes.forEach(function(b){b.closest('.step').classList.toggle('is-done',b.checked);});}
 function loadTicks(){
   ingBoxes.forEach(function(b,i){b.checked=sget('ingredient-'+i+'-checked')==='true';});
@@ -786,7 +806,7 @@ function loadTicks(){
   paintSteps();
 }
 ingBoxes.forEach(function(b,i){b.addEventListener('change',function(){sset('ingredient-'+i+'-checked',b.checked);});});
-stepBoxes.forEach(function(b){b.addEventListener('change',function(){saveSteps();paintSteps();});});
+stepBoxes.forEach(function(b,i){b.addEventListener('change',function(){saveSteps(i,b.checked);paintSteps();});});
 var rc=$('#reset-confirm');
 $('#reset-open').addEventListener('click',function(){
   var n=ingBoxes.filter(function(b){return b.checked;}).length+stepBoxes.filter(function(b){return b.checked;}).length;
@@ -805,8 +825,33 @@ $('#reset-yes').addEventListener('click',function(){
 
 /* ---------- notes ---------- */
 var notes=$('#user-notes');
-var sv=sget('egg-salad-user-notes');if(sv){notes.value=sv;}
-notes.addEventListener('input',function(){sset('egg-salad-user-notes',notes.value);});
+var sv=sget(NK);if(sv){notes.value=sv;}
+var notesBase=sv||'';
+/* Notes are one text, so this tab wins while it has typing. If another tab changed the notes since this tab last
+   synced, that older text is kept under a backup key before it is replaced. */
+function noteConflict(theirs){
+  if(theirs&&theirs!==notesBase&&theirs!==notes.value){
+    sset(NK+'_backup',theirs);
+    var n=$('#notes-state');if(n){n.textContent='Notes were also changed in another tab. This tab kept its text; the other copy is saved as a backup.';}
+  }
+}
+notes.addEventListener('input',function(){
+  noteConflict(sget(NK));
+  if(sset(NK,notes.value)){notesBase=notes.value;}
+});
+/* Another tab changed storage: follow it without discarding anything typed here. */
+window.addEventListener('storage',function(e){
+  if(e.storageArea&&e.storageArea!==window.localStorage){return;}
+  var k=e.key;
+  if(k===null||k===SK){var a=storedSteps(false);stepBoxes.forEach(function(b,j){b.checked=a.indexOf(j)>-1;});paintSteps();}
+  if(k===null||/^ingredient-\d+-checked$/.test(k)){ingBoxes.forEach(function(b,j){b.checked=sget('ingredient-'+j+'-checked')==='true';});}
+  if(k===null||k===NK){
+    var t=k===null?'':(e.newValue||'');
+    if(notes.value===notesBase){notes.value=t;notesBase=t;}
+    else{noteConflict(t);notesBase=t;}
+  }
+  if(k===null||k==='egg-salad-batch'){var v=parseInt(sget('egg-salad-batch'),10);if(v>=1&&v<=8&&v!==halves){halves=v;applyBatchNoSave();}}
+});
 
 /* ---------- look ---------- */
 var lookSel=$('#look');
@@ -962,7 +1007,7 @@ var dc=$('#del-confirm');
 $('#del-open').addEventListener('click',function(){ic.hidden=true;impData=null;dc.hidden=false;$('#del-no').focus();});
 $('#del-no').addEventListener('click',function(){dc.hidden=true;$('#del-open').focus();});
 $('#del-yes').addEventListener('click',function(){
-  var f0=failN;allKeys().forEach(sdel);
+  var f0=failN;allKeys().forEach(sdel);sdel(NK+'_backup');notesBase='';
   ingBoxes.forEach(function(b){b.checked=false;});stepBoxes.forEach(function(b){b.checked=false;});paintSteps();
   notes.value='';halves=2;lookSel.value=omnLook.get();applyBatchNoSave();
   dc.hidden=true;$('#help-status').textContent='Deleted.'+(failN===f0?'':NOSAVE);
@@ -1025,7 +1070,7 @@ $('#imp-yes').addEventListener('click',function(){
   var f1=failN;
   ingBoxes.forEach(function(b,i){b.checked=d.ingredientsChecked[i];sset('ingredient-'+i+'-checked',b.checked);});
   stepBoxes.forEach(function(b,i){b.checked=d.stepsDone[i];});saveSteps();paintSteps();
-  notes.value=d.notes;sset('egg-salad-user-notes',d.notes);
+  notes.value=d.notes;if(sset(NK,d.notes)){notesBase=d.notes;}
   halves=d.batchHalves;applyBatch();
   impData=null;ic.hidden=true;
   hst.textContent='Restored.'+(failN===f1?'':NOSAVE);
