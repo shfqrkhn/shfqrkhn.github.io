@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-MHY8UtjrruqIq9w3dnvlDvf1E0NKzwfEVOiptmsLk6k=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-vzeEcCogUHUcFCQwY8kOmqrk3ndJZ56F0oUw+UO2zSA='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-WbFl++F32OlNb8bm+t/+wNQVIf1InK+TBku8m12rXhE=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-aloAz5lDSUnfjrgfXiLiUZmv6+ziF0l/AWu8dlQBaJ4='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -3688,6 +3688,14 @@ let lastCreateSave = "ok";
 let editTarget = null;
 let searchQuery = "";
 let state = loadState();
+// Two-tab safety: what this tab last saw in storage (text), and what this tab's data looked like then.
+let syncedStored = "";
+let syncedBase = "";
+let forceReplace = false;
+let mergeNote = "";
+let lastMergeNote = "";
+let mergeChanged = false;
+initSync();
 let sessionKeys = {};
 let draftAttachments = [];
 let activeRequest = null;
@@ -3718,6 +3726,7 @@ function init() {
   dom.cleanerNote.hidden = true;
   registerEvents();
   registerRecoveryHandlers();
+  window.addEventListener("storage", onStorageEvent);
   renderAll();
   showContentStamp();
   if (loadStateRecoveryMessage) setStatus(loadStateRecoveryMessage, true);
@@ -3926,24 +3935,28 @@ function loadState() {
       return normalizeState(structuredClone(DEFAULT_STATE));
     }
     const needsMigration = Number(parsed.schemaVersion || 1) < SCHEMA_VERSION;
-    const nextState = normalizeState({
-      ...structuredClone(DEFAULT_STATE),
-      ...parsed,
-      providerPresetVersion: presetVersionOf(parsed.providerPresetVersion),
-      promptLibraryVersion: presetVersionOf(parsed.promptLibraryVersion),
-      settings: { ...DEFAULT_STATE.settings, ...(parsed.settings || {}) },
-      promptLibrary: Array.isArray(parsed.promptLibrary) && parsed.promptLibrary.length ? parsed.promptLibrary : structuredClone(DEFAULT_STATE.promptLibrary),
-      folders: Array.isArray(parsed.folders) ? parsed.folders : [],
-      workspace: { ...DEFAULT_STATE.workspace, ...(parsed.workspace || {}) },
-      providers: Array.isArray(parsed.providers) && parsed.providers.length ? parsed.providers : structuredClone(DEFAULT_STATE.providers),
-      conversations: Array.isArray(parsed.conversations) ? parsed.conversations : []
-    });
+    const nextState = stateFromParsed(parsed);
     if (needsMigration) commitMigration(loaded.raw, parsed, nextState);
     return nextState;
   } catch (error) {
     quarantineCorruptState(raw, error);
     return normalizeState(structuredClone(DEFAULT_STATE));
   }
+}
+
+function stateFromParsed(parsed) {
+  return normalizeState({
+    ...structuredClone(DEFAULT_STATE),
+    ...parsed,
+    providerPresetVersion: presetVersionOf(parsed.providerPresetVersion),
+    promptLibraryVersion: presetVersionOf(parsed.promptLibraryVersion),
+    settings: { ...DEFAULT_STATE.settings, ...(parsed.settings || {}) },
+    promptLibrary: Array.isArray(parsed.promptLibrary) && parsed.promptLibrary.length ? parsed.promptLibrary : structuredClone(DEFAULT_STATE.promptLibrary),
+    folders: Array.isArray(parsed.folders) ? parsed.folders : [],
+    workspace: { ...DEFAULT_STATE.workspace, ...(parsed.workspace || {}) },
+    providers: Array.isArray(parsed.providers) && parsed.providers.length ? parsed.providers : structuredClone(DEFAULT_STATE.providers),
+    conversations: Array.isArray(parsed.conversations) ? parsed.conversations : []
+  });
 }
 
 function commitMigration(raw, original, next) {
@@ -4296,7 +4309,39 @@ function saveState() {
   if (persistBlocked) return "blocked";
   for (const chat of state.conversations) ensureChain(chat);
   state.schemaVersion = SCHEMA_VERSION;
+  lastMergeNote = "";
+  const replace = forceReplace;
+  forceReplace = false;
+  const current = readStoredText();
+  if (!replace && current !== null && current !== syncedStored) {
+    const merged = mergeStoredState(current, true);
+    if (merged === "blocked") {
+      persistBlocked = true;
+      return "blocked";
+    }
+    if (merged === "failed") {
+      setStatus("Save failed. Export before closing.", true);
+      return "failed";
+    }
+    for (const chat of state.conversations) ensureChain(chat);
+  }
   const result = PersistenceModule.saveState(localStorage, STORAGE_KEY, state, stripAttachmentPayloads);
+  if (result === "ok" || result === "stripped") {
+    const written = readStoredText();
+    if (written !== null) {
+      syncedStored = written;
+      syncedBase = written;
+    }
+  }
+  if (mergeNote) {
+    lastMergeNote = mergeNote;
+    mergeNote = "";
+    if (result === "ok") setStatus(lastMergeNote);
+  }
+  if (mergeChanged) {
+    mergeChanged = false;
+    setTimeout(refreshAfterMerge, 0);
+  }
   if (result === "stripped") {
     setStatus("Storage full. Images skipped.", true);
   } else if (result === "failed") {
@@ -4304,6 +4349,210 @@ function saveState() {
   }
   return result;
 }
+
+function readStoredText() {
+  try {
+    return localStorage.getItem(STORAGE_KEY) || "";
+  } catch {
+    return null;
+  }
+}
+
+function initSync() {
+  syncedStored = readStoredText() || "";
+  try {
+    syncedBase = JSON.stringify(PersistenceModule.cleanStateForStorage(state));
+  } catch {
+    syncedBase = "";
+  }
+}
+
+function recordSigs(list) {
+  const sigs = new Map();
+  for (const record of Array.isArray(list) ? list : []) {
+    if (record && typeof record === "object") sigs.set(record.id, JSON.stringify(record));
+  }
+  return sigs;
+}
+
+// Merge one list of records by id. A record this tab changed (or created) wins. A record this tab did not change
+// takes the stored version. A record another tab created is added. A record another tab deleted is dropped here
+// unless this tab changed it. A record this tab deleted stays deleted.
+function mergeRecords(mem, stored, baseSigs, front, ctx) {
+  const storedById = new Map(stored.map((record) => [record.id, record]));
+  const seen = new Set();
+  const out = [];
+  for (const record of mem) {
+    seen.add(record.id);
+    const theirs = storedById.get(record.id);
+    const was = baseSigs.get(record.id);
+    const mine = JSON.stringify(record);
+    const edited = was === undefined || was !== mine;
+    if (theirs && !edited) {
+      if (JSON.stringify(theirs) !== mine) {
+        for (const key of Object.keys(record)) delete record[key];
+        Object.assign(record, theirs);
+        ctx.changed = true;
+      }
+      out.push(record);
+    } else if (theirs) {
+      out.push(record);
+    } else if (was !== undefined && !edited) {
+      ctx.dropped += 1;
+      ctx.changed = true;
+    } else {
+      if (was !== undefined) ctx.revived += 1;
+      out.push(record);
+    }
+  }
+  const fresh = stored.filter((record) => !seen.has(record.id) && !baseSigs.has(record.id));
+  if (fresh.length) ctx.changed = true;
+  return front ? fresh.concat(out) : out.concat(fresh);
+}
+
+function mergeFields(memObj, storedObj, baseObj, ctx, keys) {
+  for (const key of keys || Object.keys(storedObj)) {
+    if (!(key in storedObj) || !(key in baseObj)) continue;
+    const mine = JSON.stringify(memObj[key]);
+    if (mine !== JSON.stringify(baseObj[key])) continue;
+    if (mine !== JSON.stringify(storedObj[key])) {
+      memObj[key] = structuredClone(storedObj[key]);
+      ctx.changed = true;
+    }
+  }
+}
+
+function replaceList(target, next) {
+  target.splice(0, target.length, ...next);
+}
+
+function noteMerge(text) {
+  if (!mergeNote.includes(text)) mergeNote = mergeNote ? `${mergeNote} ${text}` : text;
+}
+
+// Bring what another tab stored into this tab's data. forWrite: a write follows, so an unreadable copy is kept first.
+// Returns "ok", "blocked" (stored data is newer), "failed" (the safety copy could not be kept) or "unreadable".
+function mergeStoredState(current, forWrite) {
+  let parsed = null;
+  if (current) {
+    try {
+      parsed = JSON.parse(current);
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("shape");
+      assertSafeObjectKeys(parsed);
+    } catch {
+      if (!forWrite) return "unreadable";
+      const copyKey = `${STORAGE_KEY}_backup_${Date.now()}`;
+      try {
+        localStorage.setItem(copyKey, current);
+        if (localStorage.getItem(copyKey) !== current) throw new Error("copy did not read back");
+      } catch {
+        return "failed";
+      }
+      noteMerge(`Stored chats could not be read, so they were replaced. A copy was kept in this browser as ${copyKey}.`);
+      return "unreadable";
+    }
+    if (Number(parsed.schemaVersion || 1) > SCHEMA_VERSION) return "blocked";
+  }
+  let stored = null;
+  if (parsed) {
+    stored = stateFromParsed(parsed);
+    if (!(Array.isArray(parsed.conversations) && parsed.conversations.length)) stored.conversations = [];
+  }
+  let base = {};
+  if (syncedBase) {
+    try { base = JSON.parse(syncedBase) || {}; } catch { base = {}; }
+  }
+  const ctx = { changed: false, dropped: 0, revived: 0 };
+  replaceList(state.conversations, mergeRecords(state.conversations, stored ? stored.conversations : [], recordSigs(base.conversations), true, ctx));
+  replaceList(state.folders, mergeRecords(state.folders, stored ? stored.folders : [], recordSigs(base.folders), false, ctx));
+  replaceList(state.promptLibrary, mergeRecords(state.promptLibrary, stored ? stored.promptLibrary : [], recordSigs(base.promptLibrary), true, ctx));
+  replaceList(state.providers, mergeRecords(state.providers, stored ? stored.providers : [], recordSigs(base.providers), false, ctx));
+  if (stored) {
+    mergeFields(state.settings, stored.settings, base.settings || {}, ctx);
+    mergeFields(state, stored, base, ctx, ["activeProviderId", "workspace", "providerPresetVersion", "promptLibraryVersion"]);
+    const theirDrafts = stored.drafts || {};
+    const baseDrafts = base.drafts || {};
+    for (const [id, text] of Object.entries(theirDrafts)) {
+      if (!(id in state.drafts) && !(id in baseDrafts)) {
+        state.drafts[id] = text;
+        ctx.changed = true;
+      } else if (id in state.drafts && id in baseDrafts && state.drafts[id] === baseDrafts[id] && state.drafts[id] !== text) {
+        state.drafts[id] = text;
+        ctx.changed = true;
+      }
+    }
+  }
+  if (!state.providers.length) state.providers = structuredClone(DEFAULT_STATE.providers);
+  if (!state.providers.some((provider) => provider.id === state.activeProviderId)) state.activeProviderId = state.providers[0].id;
+  for (const folder of state.folders) {
+    if (folder.parentId && !folderExists(state.folders, folder.parentId)) folder.parentId = "";
+  }
+  if (!folderExists(state.folders, state.activeFolderId)) state.activeFolderId = "";
+  if (!state.conversations.length) {
+    const now = new Date().toISOString();
+    state.conversations.push({ id: uid(), title: "New chat", context: "", folderId: "", archivedAt: "", createdAt: now, updatedAt: now, messages: [], off: [], picks: {}, seq: 0, overrides: {} });
+    ctx.changed = true;
+  }
+  for (const chat of state.conversations) {
+    if (chat.folderId && !folderExists(state.folders, chat.folderId)) chat.folderId = "";
+  }
+  const ids = new Set(state.conversations.map((chat) => chat.id));
+  for (const id of Object.keys(state.drafts)) if (!ids.has(id)) delete state.drafts[id];
+  if (!ids.has(state.activeConversationId)) {
+    const typed = dom.promptInput ? dom.promptInput.value : "";
+    selectFallbackConversation();
+    if (typed.trim()) {
+      const keep = state.drafts[state.activeConversationId];
+      state.drafts[state.activeConversationId] = keep && keep !== typed ? `${keep}\n${typed}` : typed;
+      noteMerge("The chat you were writing in was deleted in another tab. Your text is kept in the draft box.");
+    } else {
+      noteMerge("The chat you had open was deleted in another tab.");
+    }
+    ctx.changed = true;
+  }
+  if (ctx.dropped) noteMerge("Some items were removed because another tab deleted them.");
+  if (ctx.revived) noteMerge("Some items deleted in another tab were kept because you changed them here.");
+  if (ctx.changed) mergeChanged = true;
+  return "ok";
+}
+
+function refreshAfterMerge() {
+  try {
+    updateDraftForActiveChat();
+    if (activeRequest) renderConversationList();
+    else renderAll();
+  } catch (error) {
+    setStatus(`Could not refresh after another tab changed the data: ${compact(String(error && error.message || error), 120)}`, true);
+  }
+}
+
+function onStorageEvent(event) {
+  if (event.storageArea && event.storageArea !== localStorage) return;
+  if (event.key !== null && event.key !== STORAGE_KEY) return;
+  if (persistBlocked) return;
+  const current = readStoredText();
+  if (current === null || current === syncedStored) return;
+  updateDraftForActiveChat();
+  const result = mergeStoredState(current, false);
+  if (result === "blocked") {
+    persistBlocked = true;
+    setStatus(saveFailText("blocked"), true);
+    return;
+  }
+  if (result === "unreadable") return;
+  syncedStored = current;
+  syncedBase = current;
+  for (const chat of state.conversations) ensureChain(chat);
+  mergeChanged = false;
+  refreshAfterMerge();
+  if (mergeNote) {
+    setStatus(mergeNote);
+    mergeNote = "";
+  } else {
+    setStatus("Updated from another tab.");
+  }
+}
+
 
 function saveFailText(result) {
   if (result === "blocked") return "Not saved: stored data is from a newer version of this page.";
@@ -4313,7 +4562,8 @@ function saveFailText(result) {
 
 function saveReport(result, okText, note = "") {
   if (result === "ok") {
-    setStatus(okText);
+    setStatus(lastMergeNote ? `${okText} ${lastMergeNote}`.trim() : okText);
+    lastMergeNote = "";
     return true;
   }
   setStatus(saveFailText(result) + note, true);
@@ -7925,6 +8175,7 @@ function wipeLocalData() {
     localStorage.removeItem(LEGACY_VAULT_KEY);
     localStorage.removeItem("omn.apps.promptpantry-library.v1");
     persistBlocked = false;
+    forceReplace = true;
     editTarget = null;
     state = normalizeState(structuredClone(DEFAULT_STATE));
     sessionKeys = {};
@@ -8087,6 +8338,7 @@ function applyDataImport() {
     });
     state = nextState;
     persistBlocked = false;
+    forceReplace = true;
     editTarget = null;
     sessionKeys = {};
     disconnectWorkspaceHandle();
@@ -8420,6 +8672,7 @@ function formatBytes(value) {
 }
 
 function numberOrDefault(value, fallback) {
+  if (value === null || value === undefined || (typeof value === "string" && value.trim() === "")) return fallback;
   const number = Number(value);
   return Number.isFinite(number) ? number : fallback;
 }
@@ -9868,14 +10121,81 @@ function isHttpLikePage() {
   }
   function byId(id) { for (var i = 0; i < data.prompts.length; i++) if (data.prompts[i].id === id) return data.prompts[i]; return null; }
 
-  function say(t, bad) { $("msg").textContent = t || ""; $("msg").className = bad ? "bad" : ""; }
+  var pendingNote = "";
+  function say(t, bad) {
+    if (t && !bad && pendingNote) { t += " " + pendingNote; pendingNote = ""; }
+    $("msg").textContent = t || ""; $("msg").className = bad ? "bad" : "";
+  }
   function setSave(s, t) { var b = $("save"); b.textContent = t; b.className = s === "ok" ? "" : "bad"; }
+
+  // ---- two tabs: merge by prompt id at write time, and follow the storage event
+  // syncText is the stored text this tab last saw; baseSig holds each prompt as this tab last saw it (id to text).
+  var syncText = raw, baseSig = new Map();
+  function sigsNow() { var m = new Map(); data.prompts.forEach(function (p) { m.set(p.id, JSON.stringify(p)); }); return m; }
+  if (!locked) baseSig = sigsNow();
+  function readStored(text) {
+    var o; try { o = JSON.parse(text); } catch (e) { return { bad: true }; }
+    if (!plainObj(o) || !Array.isArray(o.prompts)) return { bad: true };
+    if (typeof o.schema === "number" && o.schema > 1) return { newer: true };
+    if (o.schema !== 1) return { bad: true };
+    var list = [], skipped = 0;
+    o.prompts.forEach(function (p) { try { if (!plainObj(p) || typeof p.id !== "string" || !p.id) throw new Error("id"); list.push(clean(p)); } catch (e) { skipped++; } });
+    return { list: list, skipped: skipped };
+  }
+  // Fold what another tab stored into data.prompts. A prompt this tab changed or made wins. One it did not change takes the
+  // stored copy. One made elsewhere is added. One deleted elsewhere is dropped unless this tab changed it. One deleted here stays deleted.
+  // forWrite: a write follows, so an unreadable copy is kept under a backup key first. Returns "ok", "newer", "nocopy" or "bad".
+  function mergeStored(text, forWrite) {
+    var stored = [], r = null;
+    if (text) {
+      r = readStored(text);
+      if (r.newer) return { code: "newer" };
+      if (r.bad || r.skipped) {
+        if (!forWrite) return { code: "bad" };
+        var ck = KEY + "_backup_" + Date.now();
+        try { localStorage.setItem(ck, text); if (localStorage.getItem(ck) !== text) throw new Error("copy"); } catch (e) { return { code: "nocopy" }; }
+        pendingNote = "The stored library had entries that could not be read. A copy was kept in this browser as " + ck + ".";
+        if (r.bad) return { code: "ok", changed: false };
+      }
+      stored = r.list;
+    }
+    var byStored = new Map(), seen = new Set(), out = [], changed = false, dropped = 0, revived = 0;
+    stored.forEach(function (x) { byStored.set(x.id, x); });
+    data.prompts.forEach(function (p) {
+      seen.add(p.id);
+      var theirs = byStored.get(p.id), was = baseSig.get(p.id), mine = JSON.stringify(p), edited = was === undefined || was !== mine;
+      if (theirs && !edited) {
+        if (JSON.stringify(theirs) !== mine) { Object.keys(p).forEach(function (k) { delete p[k]; }); Object.assign(p, theirs); changed = true; }
+        out.push(p);
+      } else if (theirs) out.push(p);
+      else if (was !== undefined && !edited) { dropped++; changed = true; }
+      else { if (was !== undefined) revived++; out.push(p); }
+    });
+    stored.forEach(function (x) { if (!seen.has(x.id) && !baseSig.has(x.id)) { out.push(x); changed = true; } });
+    data.prompts = out;
+    var n = "";
+    if (dropped) n += "Some prompts were removed because another tab deleted them. ";
+    if (revived) n += "Some prompts deleted in another tab were kept because you changed them here. ";
+    if (n) pendingNote = ((pendingNote ? pendingNote + " " : "") + n).trim();
+    return { code: "ok", changed: changed };
+  }
+  function readNow() { try { return localStorage.getItem(KEY); } catch (e) { return syncText; } }
+  var replaceNext = false;
   function save() {
     if (locked) { setSave("bad", "Not saved"); say("The stored library could not be read, so nothing was written. Restore a copy to continue.", true); return false; }
-    var s = JSON.stringify(data), ok = false;
     if (!storageOk) { setSave("bad", "Storage unavailable"); say("Your changes stay on this screen only. Use Save a copy to keep them.", true); return false; }
+    var replace = replaceNext; replaceNext = false;
+    var cur = readNow();
+    if (!replace && cur !== syncText) {
+      var m = mergeStored(cur, true);
+      if (m.code === "newer") { setSave("bad", "Not saved"); say("The stored library was saved by a newer version of this page, so nothing was written. Use Save a copy to keep your prompts.", true); return false; }
+      if (m.code === "nocopy") { setSave("bad", "Not saved"); say("The stored library changed and a safety copy could not be kept, so nothing was written. Use Save a copy to keep your prompts.", true); return false; }
+      if (m.changed) setTimeout(function () { paintList(); }, 0);
+    }
+    var s = JSON.stringify(data), ok = false;
     try { localStorage.setItem(KEY, s); ok = localStorage.getItem(KEY) === s; } catch (e) { ok = false; }
     if (!ok) { setSave("bad", "Not saved"); say("The browser refused to store this. Use Save a copy to keep your prompts.", true); return false; }
+    syncText = s; baseSig = sigsNow();
     setSave("ok", "Saved");
     try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () {}); } catch (e) {}
     return true;
@@ -10141,8 +10461,8 @@ function isHttpLikePage() {
   }
   function restoreGo() {
     var prev = data.prompts; if (!ui.pending) return;
-    data.prompts = ui.pending; var wasLocked = locked; locked = false;
-    if (!save()) { data.prompts = prev; locked = wasLocked; ui.pending = null; say("Not restored. Your library is unchanged.", true); show("list"); paintList(); return; }
+    data.prompts = ui.pending; var wasLocked = locked; locked = false; replaceNext = true;
+    if (!save()) { replaceNext = false; data.prompts = prev; locked = wasLocked; ui.pending = null; say("Not restored. Your library is unchanged.", true); show("list"); paintList(); return; }
     ui.pending = null; say("Restored " + data.prompts.length + " prompts."); clearFilters(); show("list");
   }
 
@@ -10189,6 +10509,22 @@ function isHttpLikePage() {
     add.forEach(function (s) { data.prompts.push(s); });
     var sok = add.length ? save() : true; paintList();
     if (add.length) { if (sok) say("Added " + add.length + " starter prompts."); } else say("All starter prompts are already here.");
+  });
+  window.addEventListener("storage", function (e) {
+    if (e.storageArea && e.storageArea !== localStorage) return;
+    if (e.key !== null && e.key !== KEY) return;
+    if (locked || !storageOk) return;
+    var cur = readNow();
+    if (cur === syncText) return;
+    var m = mergeStored(cur, false);
+    if (m.code === "newer") { setSave("bad", "Not saved"); say("The stored library was saved by a newer version of this page. Nothing here will overwrite it.", true); locked = true; return; }
+    if (m.code !== "ok") return;
+    syncText = cur; baseSig = new Map(); data.prompts.forEach(function (p) { baseSig.set(p.id, JSON.stringify(p)); });
+    var gone = ui.cur && !byId(ui.cur) && !$("v-use").hidden;
+    paintList();
+    if (gone) show("list");
+    var n = pendingNote; pendingNote = "";
+    say(gone ? "This prompt was deleted in another tab. " + n : (n || "Updated from another tab."));
   });
   window.addEventListener("beforeunload", function (e) { if (!$("v-edit").hidden && ui.dirty) { e.preventDefault(); e.returnValue = ""; } });
 

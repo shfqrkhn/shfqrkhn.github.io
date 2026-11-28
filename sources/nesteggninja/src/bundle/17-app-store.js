@@ -13,76 +13,124 @@ function nfMergePatch(b, n) {
   const i = {
     ...b,
     ...p,
-    assets: { ...b.assets, ...(p.assets || {}) },
-    pension: { ...b.pension, ...(p.pension || {}) },
-    assumptions: { ...b.assumptions, ...(p.assumptions || {}) },
+    assets: { ...b.assets, ...(nfIsObj(p.assets) ? p.assets : {}) },
+    pension: { ...b.pension, ...(nfIsObj(p.pension) ? p.pension : {}) },
+    assumptions: { ...b.assumptions, ...(nfIsObj(p.assumptions) ? p.assumptions : {}) },
   };
   i.age > 90 && (i.age = 90);
   i.assumptions.lifespan <= i.age && (i.assumptions.lifespan = i.age + 1);
   return i;
 }
-function nfNormStored(n) {
+// a stored value is usable when it has the same kind as the default: a finite number, a boolean or a string
+function nfOkKind(v, d) {
+  return typeof d === "number" ? typeof v === "number" && isFinite(v) : typeof v === typeof d;
+}
+// mine = this tab's plan: wrong-type or missing stored values fall back to it, then to the defaults; bad lists what was replaced
+function nfNormStored(n, mine, bad) {
   if (!nfIsObj(n)) throw new Error("nf-unmergeable");
-  const i = nfMergePatch(
-    {
-      ...defaultProfile,
-      ...n,
-      assets: { ...defaultProfile.assets, ...(nfIsObj(n.assets) ? n.assets : {}) },
-      pension: { ...defaultProfile.pension, ...(nfIsObj(n.pension) ? n.pension : {}) },
-      assumptions: { ...defaultProfile.assumptions, ...(nfIsObj(n.assumptions) ? n.assumptions : {}) },
-    },
-    {},
-  );
-  nfIsObj(n.assumptions) &&
-    n.assumptions.govBenefits &&
-    ((i.assumptions.cppAmount = n.assumptions.govBenefits * 0.6),
-    (i.assumptions.oasAmount = n.assumptions.govBenefits * 0.4));
+  const m = nfIsObj(mine) ? mine : defaultProfile,
+    note = (k) => bad && bad.push(k),
+    o = { ...n };
+  for (const k of Object.keys(defaultProfile)) {
+    const d = defaultProfile[k];
+    if (nfIsObj(d)) {
+      const base = { ...d, ...(nfIsObj(m[k]) ? m[k] : {}) };
+      let sec = n[k];
+      if (!nfIsObj(sec)) {
+        k in n && note(k);
+        sec = {};
+      }
+      o[k] = { ...base, ...sec };
+      for (const q of Object.keys(d)) {
+        if (q in sec && !nfOkKind(sec[q], d[q])) {
+          o[k][q] = nfOkKind(base[q], d[q]) ? base[q] : d[q];
+          note(k + "." + q);
+        }
+      }
+    } else if (!nfOkKind(n[k], d)) {
+      o[k] = nfOkKind(m[k], d) ? m[k] : d;
+      k in n && note(k);
+    }
+  }
+  const i = nfMergePatch(o, {}),
+    g = nfIsObj(n.assumptions) ? n.assumptions.govBenefits : 0;
+  typeof g === "number" && isFinite(g) && g && ((i.assumptions.cppAmount = g * 0.6), (i.assumptions.oasAmount = g * 0.4));
   i.id = n.id;
   i.rev = n.rev;
   i.updated_at = n.updated_at;
   return i;
 }
+// keep an untouched copy of a stored plan that had to be repaired, so nothing is lost silently
+function nfBackupStored(stored, bad) {
+  if (!bad.length) return;
+  try {
+    localStorage.setItem("nfire_plan_backup_" + Date.now(), JSON.stringify({ replaced: bad, plan: stored }));
+  } catch (x) {}
+}
 function nfSyncWrite(get, set) {
-  nfSync.chain = nfSync.chain.then(() =>
-    nfireDb
-      .transaction("rw", nfireDb.profiles, async () => {
-        const patch = nfSync.q[0] || {},
-          stored = (await nfireDb.profiles.orderBy("updated_at").last()) || null,
-          at = new Date();
-        if (!stored) {
-          const rec = { ...get().profile, rev: 1, updated_at: at };
-          return { rec, key: await nfireDb.profiles.put(rec), merged: null };
-        }
-        if (!nfIsObj(stored)) throw new Error("nf-unmergeable");
-        if (stored.id === nfSync.id && stored.rev === nfSync.rev) {
-          const rec = { ...get().profile, id: stored.id, rev: (stored.rev || 0) + 1, updated_at: at };
-          return { rec, key: await nfireDb.profiles.put(rec), merged: null };
-        }
-        const merged = nfMergePatch(nfNormStored(stored), patch),
-          rec = { ...merged, id: stored.id, rev: (stored.rev || 0) + 1, updated_at: at };
-        return { rec, key: await nfireDb.profiles.put(rec), merged };
-      })
-      .then(
-        (res) => {
-          nfSync.q.shift();
-          nfSync.id = res.key;
-          nfSync.rev = res.rec.rev;
-          if (res.merged) {
-            const adopted = nfSync.q.reduce(nfMergePatch, res.merged);
-            set({ profile: adopted, simulationResult: z0(adopted) });
+  nfSync.chain = nfSync.chain
+    .then(() =>
+      nfireDb
+        .transaction("rw", nfireDb.profiles, async () => {
+          const patch = nfSync.q[0] || {},
+            stored = (await nfireDb.profiles.orderBy("updated_at").last()) || null,
+            at = new Date();
+          if (!stored) {
+            const rec = { ...get().profile, rev: 1, updated_at: at };
+            return { rec, key: await nfireDb.profiles.put(rec), merged: null };
           }
-          window.__nfSvSet("saved");
-          try {
-            nfSync.ch && nfSync.ch.postMessage({ rev: res.rec.rev });
-          } catch (x) {}
-        },
-        (x) => {
-          nfSync.q.shift();
-          console.error("Save failed:", x);
-          window.__nfSvSet(x && x.message === "nf-unmergeable" ? "conflict" : "fail");
-        },
-      ),
-  );
+          if (!nfIsObj(stored)) throw new Error("nf-unmergeable");
+          if (stored.id === nfSync.id && stored.rev === nfSync.rev) {
+            const rec = { ...get().profile, id: stored.id, rev: (stored.rev || 0) + 1, updated_at: at };
+            return { rec, key: await nfireDb.profiles.put(rec), merged: null };
+          }
+          const bad = [],
+            merged = nfMergePatch(nfNormStored(stored, get().profile, bad), patch),
+            rec = { ...merged, id: stored.id, rev: (stored.rev || 0) + 1, updated_at: at };
+          nfBackupStored(stored, bad);
+          return { rec, key: await nfireDb.profiles.put(rec), merged };
+        })
+        .then(
+          (res) => {
+            nfSync.q.shift();
+            nfSync.id = res.key;
+            nfSync.rev = res.rec.rev;
+            try {
+              if (res.merged) {
+                // adopt the merged plan plus edits still waiting; if that is not usable, adopt what was stored
+                let adopted = nfSync.q.reduce(nfMergePatch, res.merged),
+                  sim;
+                try {
+                  sim = z0(adopted);
+                } catch (y) {
+                  adopted = res.merged;
+                  sim = z0(adopted);
+                }
+                set({ profile: adopted, simulationResult: sim });
+              }
+              window.__nfSvSet("saved");
+              try {
+                nfSync.ch && nfSync.ch.postMessage({ rev: res.rec.rev });
+              } catch (x) {}
+            } catch (x) {
+              console.error("Adopting the saved plan failed:", x);
+              window.__nfSvSet("fail");
+            }
+          },
+          (x) => {
+            nfSync.q.shift();
+            console.error("Save failed:", x);
+            window.__nfSvSet(x && x.message === "nf-unmergeable" ? "conflict" : "fail");
+          },
+        ),
+    )
+    .catch((x) => {
+      // one failure never breaks later writes
+      console.error("Save chain failed:", x);
+      try {
+        window.__nfSvSet("fail");
+      } catch (y) {}
+    });
 }
 // pull a newer plan written by another tab, only when this tab has nothing waiting to be written
 async function nfSyncRefresh(get, set) {
@@ -90,10 +138,14 @@ async function nfSyncRefresh(get, set) {
   try {
     const stored = (await nfireDb.profiles.orderBy("updated_at").last()) || null;
     if (!stored || nfSync.q.length || (stored.id === nfSync.id && stored.rev === nfSync.rev)) return;
-    const p = nfNormStored(stored);
+    const bad = [],
+      p = nfNormStored(stored, get().profile, bad),
+      sim = z0(p);
+    if (nfSync.q.length) return;
+    nfBackupStored(stored, bad);
     nfSync.id = stored.id;
     nfSync.rev = stored.rev;
-    set({ profile: p, simulationResult: z0(p) });
+    set({ profile: p, simulationResult: sim });
     window.__nfSvSet("saved");
   } catch (x) {}
 }

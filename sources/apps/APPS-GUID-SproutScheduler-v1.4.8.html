@@ -2,7 +2,7 @@
 <html lang="en-CA" data-app data-look="auto" data-theme="paper" style="--hue:93">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-OMO8+6JXFDscK9KLG2Vdx+tQI8f57Kh6+72ZdXKmPGI='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-mm6H4n6qvNcwPriH94fnVRUl5JAPSQhwYHS9Eq485+U='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- SproutScheduler 1.4.8 (restoring a saved file now clears a place that no longer fits and rewrites the zone text; 1.4.7: the four zone bands no longer overlap: 3 and colder, 4-5, 6-7, 8 and warmer; 1.4.6: a count typed in the bed planner no longer swallows the next tap on another square; 1.4.5: Plant now checks the fall frost against a crop sown today, not on its earliest day); (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -1080,14 +1080,43 @@ document.addEventListener('DOMContentLoaded', function () {
   function cropName(id) { for (var i = 0; i < CROPS.length; i++) if (CROPS[i][0] === id) return CROPS[i]; return null; }
   var bedSaved = true;
   function say(t) { if (bedStatus) bedStatus.textContent = t + (bedSaved || t.indexOf('Not saved') >= 0 ? '' : NOSAVE); }
-  function saveBed() { var ok = put(BED_KEY, JSON.stringify(bed)); bedSaved = ok; if (!ok) say(NOSAVE.slice(1)); return ok; }
-  function loadBed() {
-    var raw = null;
-    try { raw = localStorage.getItem(BED_KEY); } catch (e) { return; }
-    if (!raw) return;
+  // Write the bed without losing another tab's change: re-read the stored bed, apply only this tab's change (ch), write, adopt.
+  // ch.keys = squares this tab changed (taken from memory, so an emptied square is removed); ch.size = this tab's grid size; ch.all = replace everything (clear, restore).
+  function sameBed(a, b) {
+    if (a.w !== b.w || a.h !== b.h) return false;
+    var ka = Object.keys(a.cells), kb = Object.keys(b.cells);
+    if (ka.length !== kb.length) return false;
+    return ka.every(function (k) { var x = a.cells[k], y = b.cells[k]; return !!y && x.c === y.c && x.n === y.n; });
+  }
+  function saveBed(ch) {
+    ch = ch || {};
+    var raw = null, base = null;
+    try { raw = localStorage.getItem(BED_KEY); } catch (e) {}
+    if (raw) {
+      base = parseBed(raw);
+      // A stored bed this page cannot read is kept under a backup key before it is replaced.
+      if (!base && !put(BED_KEY + '_backup_' + Date.now(), raw)) { bedSaved = false; say(NOSAVE.slice(1)); return false; }
+    }
+    var m;
+    if (ch.all || (!base && !bedSaved)) {
+      // Replace everything, or keep this tab's squares when an earlier write never reached storage.
+      m = { w: bed.w, h: bed.h, cells: {} };
+      Object.keys(bed.cells).forEach(function (k) { m.cells[k] = { c: bed.cells[k].c, n: bed.cells[k].n }; });
+    } else m = base ? { w: base.w, h: base.h, cells: base.cells } : { w: bed.w, h: bed.h, cells: {} };
+    if (!ch.all && ch.size) { m.w = bed.w; m.h = bed.h; }
+    if (!ch.all) (ch.keys || []).forEach(function (k) { var v = bed.cells[k]; if (v) m.cells[k] = { c: v.c, n: v.n }; else delete m.cells[k]; });
+    var ok = put(BED_KEY, JSON.stringify(m));
+    bedSaved = ok;
+    if (!ok) { say(NOSAVE.slice(1)); return false; }
+    var differs = !sameBed(bed, m);
+    bed = m;
+    if (differs && bedEl) { fillSelect(bedW, 2, 6, bed.w); fillSelect(bedH, 2, 8, bed.h); renderBed(false); }
+    return true;
+  }
+  function parseBed(raw) {
     try {
       var o = JSON.parse(raw), nb = { w: 4, h: 4, cells: {} };
-      if (!o || typeof o !== 'object' || o.w !== Math.floor(o.w) || o.h !== Math.floor(o.h) || o.w < 2 || o.w > 6 || o.h < 2 || o.h > 8) return;
+      if (!o || typeof o !== 'object' || o.w !== Math.floor(o.w) || o.h !== Math.floor(o.h) || o.w < 2 || o.w > 6 || o.h < 2 || o.h > 8) return null;
       nb.w = o.w; nb.h = o.h;
       var cs = o.cells && typeof o.cells === 'object' ? o.cells : {};
       Object.keys(cs).forEach(function (k) {
@@ -1095,8 +1124,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!m || !v || !cropName(v.c) || typeof v.n !== 'number' || v.n !== Math.floor(v.n) || v.n < 0 || v.n > 99) return;
         if (+m[1] < 8 && +m[2] < 6) nb.cells[k] = { c: v.c, n: v.n };
       });
-      bed = nb;
-    } catch (e) {}
+      return nb;
+    } catch (e) { return null; }
+  }
+  function loadBed() {
+    var raw = null;
+    try { raw = localStorage.getItem(BED_KEY); } catch (e) { return; }
+    if (!raw) return;
+    var nb = parseBed(raw);
+    if (nb) bed = nb;
   }
   function fillSelect(sel2, from, to, cur) {
     while (sel2.firstChild) sel2.removeChild(sel2.firstChild);
@@ -1160,7 +1196,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function setCell(r, c, cropId, n) {
     var k = cellKey(r, c);
     if (!cropId) delete bed.cells[k]; else bed.cells[k] = { c: cropId, n: n };
-    saveBed();
+    saveBed({ keys: [k] });
   }
   function selectCell(r, c, focus) { sel.r = r; sel.c = c; renderBed(focus); }
   if (bedEl) {
@@ -1223,7 +1259,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     function resize() {
       var before = hiddenKeys().length;
-      bed.w = +bedW.value; bed.h = +bedH.value; saveBed(); renderBed(false);
+      bed.w = +bedW.value; bed.h = +bedH.value; saveBed({ size: true }); renderBed(false);
       var n = hiddenKeys().length, t = 'Grid ' + bed.w + ' x ' + bed.h + '.';
       if (n > before) t += ' ' + sqWord(n - before) + ' now outside the grid, kept and not deleted. Make the grid bigger to see ' + (n - before === 1 ? 'it' : 'them') + ' again.';
       else if (n < before) t += ' ' + sqWord(before - n) + ' back in the grid.';
@@ -1231,7 +1267,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     bedW.addEventListener('change', resize); bedH.addEventListener('change', resize);
     document.getElementById('bed-clear').addEventListener('click', function () {
-      var prev = bed.cells, nh = hiddenKeys().length; bed.cells = {}; saveBed(); renderBed(false);
+      var prev = bed.cells, nh = hiddenKeys().length; bed.cells = {}; saveBed({ all: true }); renderBed(false);
       say('Cleared. Undo for 10 seconds.');
       var u = document.getElementById('bed-undo');
       if (!u) return;
@@ -1248,7 +1284,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (undoBtn) undoBtn.addEventListener('click', function () {
       if (!undoCells) return;
       bed.cells = undoCells; undoCells = null; clearTimeout(undoTimer);
-      undoBtn.hidden = true; saveBed(); renderBed(false); say('Restored.');
+      undoBtn.hidden = true; saveBed({ keys: Object.keys(bed.cells) }); renderBed(false); say('Restored.');
       var cb = document.getElementById('bed-clear'); if (cb) cb.focus();
     });
     var calReset = document.getElementById('cal-reset');
@@ -1269,6 +1305,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Another tab changed place, zone or bed: show what is stored now. Nothing is written here.
+  window.addEventListener('storage', function (e) {
+    if (e.storageArea !== localStorage) return;
+    var k = e.key;
+    if (k !== null && k !== BED_KEY && k !== CITY_KEY && k !== ZONE_KEY) return;
+    var sc = null, sz = null, sb = null;
+    try { sc = localStorage.getItem(CITY_KEY); sz = localStorage.getItem(ZONE_KEY); sb = localStorage.getItem(BED_KEY); } catch (er) { return; }
+    if (k === null || k === CITY_KEY || k === ZONE_KEY) {
+      var pl = sc ? findPlace(sc) : null;
+      citySel.value = pl ? sc : '';
+      renderCalendar(pl ? sc : '');
+      var zz = pl && zoneOfPlace(pl) ? zoneOfPlace(pl) : (sz && hasOwn(gardenData, sz) ? sz : null);
+      showZone(zz, false);
+    }
+    if ((k === null || k === BED_KEY) && bedEl) {
+      var nb = sb ? parseBed(sb) : { w: 4, h: 4, cells: {} };
+      if (nb && !sameBed(nb, bed)) {
+        bed = nb; bedSaved = true; fillSelect(bedW, 2, 6, bed.w); fillSelect(bedH, 2, 8, bed.h); renderBed(false);
+        say('Updated from another tab.');
+      }
+    }
+  });
   var zoneReset = document.getElementById('zone-reset');
   if (zoneReset) zoneReset.addEventListener('click', function () {
     try { localStorage.removeItem(ZONE_KEY); } catch (e) {}
@@ -1393,20 +1451,21 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('restore-confirm').addEventListener('click', function () {
       if (!pending) return;
       var r = pending; closeRestore(); restoreFile.value = '';
-      var cityGiven = 'city' in r, okAll = true;
-      if (cityGiven) { setPlace(r.city, false); if (r.city && !stored(CITY_KEY, r.city)) okAll = false; }
+      var cityGiven = 'city' in r, okAll = true, okList = [], badList = [], bedOk = true;
+      function tally(name, ok) { if (!ok) okAll = false; (ok ? okList : badList).push(name); }
+      if (cityGiven) { setPlace(r.city, false); if (r.city) tally('place', stored(CITY_KEY, r.city)); }
       if (r.zone) {
-        if (!put(ZONE_KEY, r.zone)) okAll = false;
+        tally('zone', put(ZONE_KEY, r.zone));
         var pl = citySel.value ? findPlace(citySel.value) : null;
         if (!pl || !zoneOfPlace(pl)) showZone(r.zone, false);
         else if (!cityGiven && zoneOfPlace(pl) !== r.zone) { setPlace('', false); showZone(r.zone, false); }
       }
-      if (r.bed) { bed = r.bed; sel = { r: 0, c: 0 }; if (!saveBed()) okAll = false; fillSelect(bedW, 2, 6, bed.w); fillSelect(bedH, 2, 8, bed.h); renderBed(false); }
+      if (r.bed) { bed = r.bed; sel = { r: 0, c: 0 }; bedOk = saveBed({ all: true }); tally('bed', bedOk); fillSelect(bedW, 2, 6, bed.w); fillSelect(bedH, 2, 8, bed.h); renderBed(false); }
       if (r.look) {
         var ls = document.getElementById('look');
-        if (ls) { ls.value = r.look; ls.dispatchEvent(new Event('change')); if (!stored(LOOK_KEY, r.look)) okAll = false; }
+        if (ls) { ls.value = r.look; ls.dispatchEvent(new Event('change')); tally('look', stored(LOOK_KEY, r.look)); }
       }
-      hmsg(okAll ? 'Restored.' : 'Restored on screen only.' + NOSAVE);
+      hmsg(okAll ? 'Restored.' : 'Restored on screen.' + (okList.length ? ' Saved: ' + okList.join(', ') + '.' : '') + ' Could not save: ' + badList.join(', ') + '.' + NOSAVE);
     });
   }
   var delBtn = document.getElementById('del-btn'), delBox = document.getElementById('del-confirm');

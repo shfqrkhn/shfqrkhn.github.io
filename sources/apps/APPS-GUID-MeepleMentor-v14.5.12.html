@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-b9KDqwOqh4tUQFw9OCRBPFf9xLOMYzskTFbG2/DfyCg='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-c8GBefX1zlNTJ2kW18rOLHHvjz31jBaqxfBAWJl51TE='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- MeepleMentor 14.5.12 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
@@ -1171,6 +1171,25 @@ const readShelf = () => {
   try { localStorage.setItem(RECOVERY_KEY, String(raw).slice(0, 65536)); SHELF_RECOVERY = "kept"; } catch (e) { }
   return [];
 };
+// Read the stored shelf without side effects: none, ok (list of strings) or bad (unreadable or not a list of strings).
+const peekShelf = () => {
+  let raw = null;
+  try { raw = localStorage.getItem(SHELF_KEY); } catch (e) { return { kind: "bad", raw: null }; }
+  if (raw === null) return { kind: "none", ids: [] };
+  let v;
+  try { v = JSON.parse(raw); } catch (e) { v = undefined; }
+  if (Array.isArray(v) && v.every((x) => typeof x === "string")) return { kind: "ok", ids: v };
+  return { kind: "bad", raw };
+};
+// Three-way merge by game id: stored list, minus what this tab removed since its last sync, plus what this tab added.
+const mergeShelf = (base, mine, stored) => {
+  const b = new Set(base), m = new Set(mine);
+  const out = stored.filter((x) => !(b.has(x) && !m.has(x)));
+  const have = new Set(out);
+  mine.forEach((x) => { if (!b.has(x) && !have.has(x)) { out.push(x); have.add(x); } });
+  return out;
+};
+const sameList = (a, b) => a.length === b.length && a.every((x, i) => x === b[i]);
 const useSafeStorage = (key, initial) => {
   const [data, setData] = useState(() => {
     if (key === SHELF_KEY) return readShelf();
@@ -1182,14 +1201,43 @@ const useSafeStorage = (key, initial) => {
     }
   });
   const [failed, setFailed] = useState(false);
+  const base = useRef(null);
+  const firstRun = useRef(true);
+  if (base.current === null) base.current = key === SHELF_KEY && Array.isArray(data) ? data.slice() : [];
   useEffect(() => {
+    const first = firstRun.current; firstRun.current = false;
     try {
-      localStorage.setItem(key, JSON.stringify(data));
+      if (key !== SHELF_KEY) { localStorage.setItem(key, JSON.stringify(data)); setFailed(false); return; }
+      // Shelf: merge with what is stored now so a stale tab never wipes another tab's saves.
+      const cur = peekShelf();
+      let merged;
+      if (cur.kind === "ok") merged = mergeShelf(base.current, data, cur.ids);
+      else {
+        if (cur.kind === "bad" && cur.raw !== null && !(first && SHELF_RECOVERY)) localStorage.setItem(SHELF_KEY + "_backup_" + Date.now(), String(cur.raw).slice(0, 65536));
+        merged = data.slice();
+      }
+      const text = JSON.stringify(merged);
+      if (localStorage.getItem(key) !== text) localStorage.setItem(key, text);
+      base.current = merged.slice();
       setFailed(false);
+      if (!sameList(merged, data)) setData(merged);
     } catch (e) {
       setFailed(true);
     }
   }, [data, key]);
+  useEffect(() => {
+    if (key !== SHELF_KEY) return undefined;
+    const on = (e) => {
+      if (e.key !== null && e.key !== SHELF_KEY) return;
+      const cur = peekShelf();
+      if (cur.kind === "bad") return;
+      const old = base.current;
+      base.current = cur.ids.slice();
+      setData((prev) => { const next = mergeShelf(old, prev, cur.ids); return sameList(next, prev) ? prev : next; });
+    };
+    window.addEventListener("storage", on);
+    return () => window.removeEventListener("storage", on);
+  }, [key]);
   return [data, setData, failed];
 };
 
@@ -1496,11 +1544,12 @@ const App = () => {
   const [undo, setUndo] = useState(null);
   const dismissRef = useRef(null);
   const scrollRef = useRef(0);
-  const tell = (msg, prev) => { setNote(msg); setUndo(prev ? { prev: prev.slice() } : null); };
+  // Undo keeps only the change itself: ids to put back and ids to take out.
+  const tell = (msg, delta) => { setNote(msg); setUndo(delta ? { restore: delta.restore.slice(), drop: delta.drop.slice() } : null); };
   const toggleSave = (id) => {
     const had = saved.includes(id);
     setSaved((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
-    tell(had ? "Removed." : "Saved.", saved);
+    tell(had ? "Removed." : "Saved.", had ? { restore: [id], drop: [] } : { restore: [], drop: [id] });
   };
   const filtered = useMemo(() => {
     let data = filter === "SAVED" ? DATABASE.filter((g) => saved.includes(g.id)) : DATABASE;
@@ -1539,14 +1588,14 @@ const App = () => {
   };
   const applyImport = (ids, mode) => {
     setSaved((prev) => mode === "replace" ? ids.slice() : prev.concat(ids.filter((x) => prev.indexOf(x) < 0)));
-    tell(mode === "replace" ? "Shelf replaced." : "Games added.", saved);
+    tell(mode === "replace" ? "Shelf replaced." : "Games added.", { restore: mode === "replace" ? saved.filter((x) => ids.indexOf(x) < 0) : [], drop: ids.filter((x) => saved.indexOf(x) < 0) });
   };
-  const clearShelf = () => { tell("Shelf cleared.", saved); setSaved([]); };
-  const undoNow = () => { if (!undo) return; setSaved(undo.prev); setNote("Undone."); setUndo(null); setTimeout(() => dismissRef.current && dismissRef.current.focus(), 0); };
+  const clearShelf = () => { tell("Shelf cleared.", { restore: saved, drop: [] }); setSaved([]); };
+  const undoNow = () => { if (!undo) return; const u = undo; setSaved((prev) => { const out = prev.filter((x) => u.drop.indexOf(x) < 0); u.restore.forEach((x) => { if (out.indexOf(x) < 0) out.push(x); }); return out; }); setNote("Undone."); setUndo(null); setTimeout(() => dismissRef.current && dismissRef.current.focus(), 0); };
   const dismissNote = () => { setNote(""); setUndo(null); setTimeout(() => { const el = document.getElementById("view-title") || document.getElementById("root"); if (el) el.focus({ preventScroll: true }); }, 0); };
   const dismissRecov = () => { setRecov(""); setTimeout(() => { const el = document.getElementById("root"); if (el) el.focus({ preventScroll: true }); }, 0); };
   const game = activeId && DATABASE.find((g) => g.id === activeId);
-  const shownNote = saveFailed && /^(Saved|Games added|Shelf replaced|Shelf cleared)\./.test(note) ? "Not saved on this device." : saveFailed && note === "Undone." ? "Undone on this page only; not saved." : note;
+  const shownNote = saveFailed && /^(Saved|Removed|Games added|Shelf replaced|Shelf cleared)\./.test(note) ? "Not saved on this device." : saveFailed && note === "Undone." ? "Undone on this page only; not saved." : note;
   const status = h("p", { className: "sr", role: "status", "aria-live": "polite" }, shownNote);
   let body;
   if (view === "game" && game) body = h(GameView, { game, isSaved: saved.includes(game.id), toggleSave, onBack: toIndex, sealOpen, setSealOpen });

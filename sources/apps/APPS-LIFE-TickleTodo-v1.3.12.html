@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-QKd4NqRmqZiZCvhT7V4Y14AiA5LQ7/+edLpb3qqbxEU='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-JYboaZAnlsmYSuCTpN+WZ8jporTsmzT/+GHxWX1f5Ts='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.12">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -404,6 +404,7 @@ dialog form,.dlg-box{display:flex;flex-direction:column;min-height:0;max-height:
             <button class="btn small" type="button" id="exportBtn"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg><span>JSON</span></button>
             <button class="btn small" type="button" id="exportCsvBtn"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg><span>CSV</span></button>
             <button class="btn small" type="button" id="restoreSafetyBtn" hidden title="Bring back the list kept before the last import, template load, CSV add or clear"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0ZM93.66,77.66,120,51.31V144a8,8,0,0,0,16,0V51.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,77.66Z"/></svg><span>Restore copy</span></button>
+            <button class="btn small" type="button" id="oldDataBtn" hidden title="Download the stored data that could not be read, kept before this tab saved over it"><span>Old data</span></button>
             <button class="btn small" type="button" id="clearCompletedBtn"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg><span>Remove done</span></button>
             <button class="btn small danger" type="button" id="clearChecklistBtn"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg><span>Clear all</span></button>
           </div>
@@ -1208,6 +1209,12 @@ const DoneDepot = (() => {
     orderMode: 'derived',
     _oldFormatMigrated: false,
     saveFailed: false,
+    _known: null,
+    _base: null,
+    _foreign: new Set(),
+    _guardRaw: null,
+    _backedUpRaw: null,
+    _note: '',
     currentSortOrder: 'default',
     currentView: 'all',
     lastSpawn: null,
@@ -1249,8 +1256,12 @@ const DoneDepot = (() => {
       this._sampleDataLoadedDueToError = false;
       this._oldFormatMigrated = false;
       this.orderMode = 'derived';
+      this._known = new Set();
+      this._base = new Map();
+      this._guardRaw = null;
+      let storedData = null;
       try {
-        const storedData = store.get(config.STORAGE_KEY);
+        storedData = store.get(config.STORAGE_KEY);
         if (storedData) {
           const parsedData = JSON.parse(storedData);
           if (findUnsafeKey(parsedData)) throw new Error('Unsafe key in stored data.');
@@ -1261,11 +1272,12 @@ const DoneDepot = (() => {
             this.orderMode = parsedData.orderMode === 'manual' ? 'manual' : 'derived';
             this.checklistItems = normalizeItems(parsedData.items || [], false, ctx, 1, 'Task');
             this.checklistName = parsedData.checklistName || config.DEFAULT_CHECKLIST_NAME;
+            this.markKnown();
           } else if (Array.isArray(parsedData)) {
             this.checklistItems = normalizeItems(parsedData, false, ctx, 1, 'Task');
             this.checklistName = config.DEFAULT_CHECKLIST_NAME;
             this._oldFormatMigrated = true;
-            this.saveData();
+            this.saveData(true);
           } else {
             throw new Error('Invalid data format in localStorage.');
           }
@@ -1279,14 +1291,123 @@ const DoneDepot = (() => {
         this.checklistName = config.DEFAULT_CHECKLIST_NAME;
         this.checklistItems = [];
         this._sampleDataLoadedDueToError = true;
+        if (storedData) this._guardRaw = storedData;
       }
     },
-    saveData() {
+    /* read a stored string into { items, name, orderMode }, or null when unreadable or from a newer version */
+    parseStored(raw) {
       try {
+        const p = JSON.parse(raw);
+        if (findUnsafeKey(p)) return null;
+        const ctx = { seen: new Set(), count: 0 };
+        if (p && typeof p === 'object' && !Array.isArray(p) && Object.prototype.hasOwnProperty.call(p, 'items') && Object.prototype.hasOwnProperty.call(p, 'checklistName')) {
+          if (p.schemaVersion !== undefined && !(typeof p.schemaVersion === 'number' && p.schemaVersion <= SCHEMA_VERSION)) return null;
+          if (p.orderMode !== undefined && p.orderMode !== 'manual' && p.orderMode !== 'derived') return null;
+          return { items: normalizeItems(p.items || [], false, ctx, 1, 'Task'), name: p.checklistName || config.DEFAULT_CHECKLIST_NAME, orderMode: p.orderMode === 'manual' ? 'manual' : 'derived' };
+        }
+        if (Array.isArray(p)) return { items: normalizeItems(p, false, ctx, 1, 'Task'), name: config.DEFAULT_CHECKLIST_NAME, orderMode: 'derived' };
+      } catch (e) { /* unreadable */ }
+      return null;
+    },
+    /* Unreadable or newer-version data is copied to a backup key before this tab writes over it (once per distinct stored value). */
+    backupStored(raw) {
+      if (raw === this._backedUpRaw) return true;
+      try {
+        const key = config.STORAGE_KEY + '_backup_' + Date.now();
+        localStorage.setItem(key, raw);
+        if (localStorage.getItem(key) !== raw) throw new Error('backup not verified');
+        this._backedUpRaw = raw;
+        let readable = false;
+        try { const q = JSON.parse(raw); readable = !!(q && typeof q === 'object' && (Array.isArray(q) || Array.isArray(q.items))); } catch (e) { /* download only */ }
+        if (readable && !localStorage.getItem(config.SAFETY_KEY)) {
+          try { localStorage.setItem(config.SAFETY_KEY, raw); if (UIManager.dom && UIManager.dom.restoreSafetyBtn) UIManager.dom.restoreSafetyBtn.hidden = false; } catch (e) { /* download still works */ }
+        }
+        if (UIManager.dom && UIManager.dom.oldDataBtn) UIManager.dom.oldDataBtn.hidden = false;
+        this._note = (this._note ? this._note + ' ' : '') + 'The old stored data was kept as a copy in this browser. Tools, Old data downloads it.';
+        return true;
+      } catch (e) { return false; }
+    },
+    latestBackupKey() {
+      try {
+        const pre = config.STORAGE_KEY + '_backup_';
+        let best = null, bt = -1;
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.indexOf(pre) === 0) { const t = parseInt(k.slice(pre.length), 10) || 0; if (t >= bt) { bt = t; best = k; } }
+        }
+        return best;
+      } catch (e) { return null; }
+    },
+    /* remember which tasks the stored copy held and how each looked, so a later merge can tell what this tab changed */
+    markKnown() {
+      this._known = new Set(); this._base = new Map();
+      this.checklistItems.forEach(i => { this._known.add(i.id); try { this._base.set(i.id, JSON.stringify(i)); } catch (e) { /* skip */ } });
+    },
+    takeNote() { const n = this._note; this._note = ''; return n; },
+    /* Fold what another tab stored into this tab's list, in place. Another tab's new tasks are kept, a task this tab
+       deleted stays deleted, a task another tab deleted is not brought back, and this tab's version wins for a task both have. */
+    mergeFrom(cur) {
+      const mem = this.checklistItems, known = this._known || new Set();
+      const stored = new Set(cur.items.map(i => i.id));
+      let dropped = 0, added = 0;
+      for (let i = mem.length - 1; i >= 0; i--) {
+        if (known.has(mem[i].id) && !stored.has(mem[i].id)) { mem.splice(i, 1); dropped++; }
+      }
+      const base = this._base || new Map();
+      const byId = new Map(cur.items.map(i => [i.id, i]));
+      /* a task this tab did not change takes the other tab's newer version */
+      for (let i = 0; i < mem.length; i++) {
+        const o = byId.get(mem[i].id);
+        if (o && base.has(mem[i].id) && JSON.stringify(mem[i]) === base.get(mem[i].id) && JSON.stringify(o) !== base.get(mem[i].id)) mem[i] = o;
+      }
+      const have = new Set(mem.map(i => i.id));
+      cur.items.forEach(it => {
+        if (!have.has(it.id) && !known.has(it.id)) { mem.push(it); have.add(it.id); added++; this._foreign.add(it.id); }
+      });
+      const bits = [];
+      if (added) bits.push(added + (added === 1 ? ' task' : ' tasks') + ' added in another tab ' + (added === 1 ? 'was' : 'were') + ' kept.');
+      if (dropped) bits.push(dropped + (dropped === 1 ? ' task' : ' tasks') + ' deleted in another tab ' + (dropped === 1 ? 'was' : 'were') + ' not brought back.');
+      if (bits.length) this._note = (this._note ? this._note + ' ' : '') + bits.join(' ');
+    },
+    /* Take the stored list as this tab's list (another tab changed it). Returns the task count, or -1 when storage is
+       absent, unreadable, newer, or this tab holds a change that failed to save. */
+    adoptStorage(force) {
+      if (this.saveFailed && !force) return -1;
+      let raw = null;
+      try { raw = localStorage.getItem(config.STORAGE_KEY); } catch (e) { return -1; }
+      if (!raw) return -1;
+      const cur = this.parseStored(raw);
+      if (!cur) return -1;
+      const prev = this._known || new Set();
+      cur.items.forEach(i => { if (!prev.has(i.id)) this._foreign.add(i.id); });
+      this.checklistItems = cur.items;
+      this.checklistName = cur.name;
+      this.orderMode = cur.orderMode;
+      this.markKnown();
+      if (cur.items.length) this.firstRun = false;
+      return cur.items.length;
+    },
+    /* replace = true for a whole-list replacement the user asked for (import, template, examples, restore): no merge, but the other tab's data was already copied by keepSafetyCopy */
+    saveData(replace) {
+      let msg = 'Not saved: browser storage full or blocked. Export JSON now.';
+      try {
+        this._note = '';
+        let raw = null;
+        try { raw = localStorage.getItem(config.STORAGE_KEY); } catch (e) { raw = null; }
+        if (raw) {
+          const cur = this.parseStored(raw);
+          if (!cur) {
+            if (!this.backupStored(raw)) { msg = 'Not saved: the old stored data could not be copied first, so it was left as it is. Export JSON now.'; throw new Error('backup failed'); }
+          } else if (!replace) {
+            this.mergeFrom(cur);
+          }
+        }
         const dataToSave = { checklistName: this.checklistName, items: this.checklistItems };
         if (this.orderMode === 'manual') { dataToSave.schemaVersion = SCHEMA_VERSION; dataToSave.orderMode = 'manual'; }
         localStorage.setItem(config.STORAGE_KEY, JSON.stringify(dataToSave));
         localStorage.setItem(config.STORAGE_KEY + config.LAST_SAVED_TS_KEY_SUFFIX, Date.now().toString());
+        this.markKnown();
+        this._guardRaw = null;
         this.saveFailed = false;
         this.firstRun = false;
         if (UIManager.dom && UIManager.dom.lastSavedTimestamp) UIManager.updateLastSavedTimestamp();
@@ -1294,15 +1415,19 @@ const DoneDepot = (() => {
       } catch (error) {
         this.saveFailed = true;
         try { if (UIManager.dom && UIManager.dom.lastSavedTimestamp) UIManager.updateLastSavedTimestamp(); } catch (e) { /* ignore */ }
-        UIManager.showAlert('Not saved: browser storage full or blocked. Export JSON now.', 'danger');
+        UIManager.showAlert(msg, 'danger');
         return false;
       }
     },
     snapshot() { return JSON.stringify({ n: this.checklistName, i: this.checklistItems, o: this.orderMode }); },
     loadSnap(snap) {
       const s = JSON.parse(snap);
+      /* undo puts this tab's change back; tasks that arrived from another tab stay */
+      const keep = this.checklistItems.filter(i => this._foreign.has(i.id));
       this.checklistName = s.n;
       this.checklistItems = s.i;
+      const have = new Set(s.i.map(i => i.id));
+      keep.forEach(i => { if (!have.has(i.id)) this.checklistItems.push(i); });
       this.orderMode = s.o === 'manual' ? 'manual' : 'derived';
     },
     restore(snap) {
@@ -1698,7 +1823,7 @@ const DoneDepot = (() => {
       this.checklistItems = items;
       this.checklistName = (!Array.isArray(p) && typeof p.checklistName === 'string' && p.checklistName) ? p.checklistName : config.DEFAULT_CHECKLIST_NAME;
       this.orderMode = (!Array.isArray(p) && p.orderMode === 'manual') ? 'manual' : 'derived';
-      this.saveData();
+      this.saveData(true);
       return true;
     },
     commitImport(candidate) {
@@ -1706,7 +1831,7 @@ const DoneDepot = (() => {
       this.checklistItems = candidate.items;
       this.checklistName = candidate.name || config.DEFAULT_CHECKLIST_NAME;
       this.orderMode = candidate.orderMode === 'manual' ? 'manual' : 'derived';
-      this.saveData();
+      this.saveData(true);
     },
     importData(jsonData) { this.commitImport(parseImport(jsonData)); },
     getDataForExport() { return { checklistName: this.checklistName, items: this.checklistItems, orderMode: this.orderMode }; },
@@ -1760,7 +1885,7 @@ const DoneDepot = (() => {
         'itemSection', 'itemPurpose', 'itemDueDate', 'itemRepeat', 'itemAssignee', 'itemTags', 'itemReferences', 'itemNotes', 'itemIsCritical', 'itemModalLabel', 'notesModal',
         'notesItemId', 'notesTextarea', 'notesItemText', 'saveNotesBtn', 'clearChecklistModal', 'confirmClearBtn', 'clearChecklistText', 'replaceModal', 'replaceText', 'confirmReplaceBtn',
         'pausePointModal', 'pausePointItemId', 'pausePointItemText', 'pausePointItemNotes', 'confirmPausePointBtn', 'importFile', 'importBtnTrigger', 'exportBtn', 'exportCsvBtn',
-        'clearCompletedBtn', 'restoreSafetyBtn', 'clearChecklistBtn', 'srAnnouncer', 'footbar', 'quickForm', 'quickInput', 'quickPreview', 'dayNum', 'dayName', 'dayMonth', 'dayCounts', 'emptyTitle',
+        'clearCompletedBtn', 'restoreSafetyBtn', 'oldDataBtn', 'clearChecklistBtn', 'srAnnouncer', 'footbar', 'quickForm', 'quickInput', 'quickPreview', 'dayNum', 'dayName', 'dayMonth', 'dayCounts', 'emptyTitle',
         'emptyText', 'emptyActionBtn', 'emptyExamplesBtn', 'importCsvBtn', 'csvFile', 'csvModal', 'csvInfo', 'csvHasHeader', 'csvMapTitle', 'csvMapDue',
         'csvMapPrio', 'csvMapTags', 'csvMapDone', 'csvMapDrawer', 'csvMapFocus', 'csvMapRepeat', 'csvReport', 'csvPreview', 'csvConfirmBtn', 'orderNote', 'focusPanel', 'focusHeading', 'focusTask', 'focusTime', 'focusNote',
         'focusPauseBtn', 'focusExtendBtn', 'focusStopBtn', 'focusDismissBtn', 'focusMinutes', 'focusTone', 'tools', 'helpModal', 'licencesModal', 'helpBtn', 'helpBtn2', 'licencesBtn', 'checklist'];
@@ -2465,7 +2590,7 @@ const DoneDepot = (() => {
       Focus.init();
       if (UIManager._pendingAlert) { const a = UIManager._pendingAlert; UIManager._pendingAlert = null; UIManager.showAlert(a.message, a.type, a.duration); }
       else if (DataManager._sampleDataLoadedDueToError) {
-        UIManager.showAlert('Saved data unreadable. Showing an empty list. The old copy stays until you change something.', 'warning', 0);
+        UIManager.showAlert('Saved data unreadable or from a newer version. Showing an empty list. The old data is untouched until your first change. Then a copy is kept in this browser and Tools, Old data downloads it.', 'warning', 0);
       }
       if (!UIManager._pendingAlert && DataManager._oldFormatMigrated) {
         UIManager.showAlert('Data format updated. Nothing lost.', 'info');
@@ -2496,6 +2621,8 @@ const DoneDepot = (() => {
     commit(message, mutate, view) {
       const snap = DataManager.snapshot();
       const result = mutate();
+      const note = DataManager.takeNote();
+      if (note) message = message + ' ' + note;
       view = view || {};
       if (view.abortIfFalse && result === false) return result;
       this.refreshChecklistDisplay(view.newId || null, view.focusId || null, view.focusPart || null, view.justDoneId || null);
@@ -2601,10 +2728,15 @@ const DoneDepot = (() => {
       });
       D.viewButtons.forEach(b => b.addEventListener('click', () => this.setView(b.dataset.view)));
       D.emptyExamplesBtn.addEventListener('click', () => {
+        if (DataManager.adoptStorage(true) > 0) {
+          this.refreshChecklistDisplay();
+          UIManager.showAlert('Tasks were added in another tab. Showing them. Examples not loaded.', 'info');
+          return;
+        }
         this.commit('Example tasks added. Delete them any time.', () => {
           DataManager.checklistName = DataManager.sampleData.checklistName;
           DataManager.checklistItems = JSON.parse(JSON.stringify(DataManager.sampleData.items));
-          DataManager.saveData();
+          DataManager.saveData(true);
         });
         const firstRow = UIManager.dom.checklistContainer.querySelector('.task');
         if (firstRow) firstRow.focus();
@@ -2712,6 +2844,21 @@ const DoneDepot = (() => {
       D.confirmClearBtn.addEventListener('click', () => {
         UIManager.closeClearChecklistModal();
         this.commit('Cleared all tasks.', () => DataManager.clearAllItems());
+      });
+      D.oldDataBtn.hidden = !DataManager.latestBackupKey();
+      D.oldDataBtn.addEventListener('click', () => {
+        const k = DataManager.latestBackupKey();
+        let raw = null;
+        try { raw = k ? localStorage.getItem(k) : null; } catch (e) { raw = null; }
+        if (raw === null) { D.oldDataBtn.hidden = true; UIManager.showAlert('No old data copy found.', 'info'); return; }
+        UIManager.downloadBlob(raw, 'application/json', 'TickleTodo-old-data.json');
+        UIManager.showAlert('Old data downloaded.', 'success');
+      });
+      window.addEventListener('storage', e => {
+        if (e.key !== null && e.key !== config.STORAGE_KEY) return;
+        if (this._grab || DataManager.adoptStorage() < 0) return;
+        this.refreshChecklistDisplay();
+        UIManager.showAlert('Updated from another tab.', 'info', 3000);
       });
       D.restoreSafetyBtn.hidden = !DataManager.hasSafetyCopy();
       D.restoreSafetyBtn.addEventListener('click', () => {
@@ -3156,9 +3303,10 @@ const DoneDepot = (() => {
       const snap = DataManager.snapshot();
       DataManager.updateItemStatus(itemId, newStatus);
       spawned = DataManager.lastSpawn;
-      const msg = newStatus === 'completed'
+      const note = DataManager.takeNote();
+      const msg = (newStatus === 'completed'
         ? 'Done: ' + text + '.' + (spawned ? ' Next copy due ' + fmtDate(spawned.dueDate) + '.' : '')
-        : 'Reopened: ' + text + '.';
+        : 'Reopened: ' + text + '.') + (note ? ' ' + note : '');
       this.refreshChecklistDisplay(null, itemId, '.item-checkbox', newStatus === 'completed' ? itemId : null);
       UIManager.footbar.show({
         message: msg,

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-RFQfwFIvz61USI3UU+S4LOO+/Bp73Yn8I71QQNco70c='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-NEsH6uwagrnBtBUbBRb+QYPkVcKyD6cUJUQqmtuzdAg='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>ProjectPopQuiz Exams</title>
     <meta name="app-version" content="1.7.14">
     <script>
@@ -2294,6 +2294,7 @@ class QuizManager {
     _clearPending() {
         if (this.pendingActionTimer) { clearTimeout(this.pendingActionTimer); this.pendingActionTimer = null; }
         this.pendingActionKey = '';
+        if (this.pendingAway) { const w = this.pendingAway; this.pendingAway = null; w(); }
         if (this.pendingRestore) { const r = this.pendingRestore; this.pendingRestore = null; r(); }
     }
 
@@ -2308,11 +2309,16 @@ class QuizManager {
             const originalLabel = button ? button.getAttribute('aria-label') : null;
             if (button) { button.textContent = 'Tap again'; if (originalLabel !== null) button.setAttribute('aria-label', 'Tap again'); }
             this.pendingRestore = () => {
-                if (statusTarget) statusTarget.textContent = originalStatus;
+                if (statusTarget && statusTarget.textContent === message) statusTarget.textContent = originalStatus;
                 if (button && originalText) button.innerHTML = originalText;
                 if (button && originalLabel !== null) button.setAttribute('aria-label', originalLabel);
             };
             this.pendingActionTimer = setTimeout(() => this._clearPending(), 8000);
+            // Any other click or change cancels the pending prompt before that action runs (capture phase).
+            const away = (ev) => { if (button && ev.target && ev.target.closest && ev.target.closest('button') === button) return; this._clearPending(); };
+            document.addEventListener('click', away, true);
+            document.addEventListener('change', away, true);
+            this.pendingAway = () => { document.removeEventListener('click', away, true); document.removeEventListener('change', away, true); };
             return;
         }
         this._clearPending();

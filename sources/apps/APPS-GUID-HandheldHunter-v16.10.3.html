@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-app data-look="auto" style="--hue:348"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZRR0PidV+faZqA4C8tbmKZQQVD/IPiya9mwa7E2td6A=' 'sha256-MldRJatkN9jFMBF2JywxAiLIuxBv2UvGnmpY1+FagsQ=' 'sha256-MNVYsIZjcqoeuchBycZxdanFqg8fSMVrS9Yo2JwK+p4='; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"><title>HandheldHunter PC Games: Handheld Game Finder</title>
+<html lang="en" data-app data-look="auto" style="--hue:348"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZRR0PidV+faZqA4C8tbmKZQQVD/IPiya9mwa7E2td6A=' 'sha256-cPqvVZmtRemQla/bvyRsV0keepfGXbADioBZbu2+4Dg=' 'sha256-MNVYsIZjcqoeuchBycZxdanFqg8fSMVrS9Yo2JwK+p4='; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"><title>HandheldHunter PC Games: Handheld Game Finder</title>
 <meta name="description" content="HandheldHunter PC Games is an offline finder for games that suit a docked handheld PC on a TV with controllers. Unofficial.">
 <!-- Standalone maintenance: export data in the footer before editing. Catalog JSON is inert, not executable code.
      Module roles and schema are documented in the footer. Coordinate schema changes with validation and saving. -->
@@ -1226,6 +1226,13 @@ function read(){
 function write(views){
  try{if(!views.length)localStorage.removeItem(KEY);else localStorage.setItem(KEY,JSON.stringify({schema:SCHEMA,views}));return true;}catch{return false;}
 }
+function merge(base,mine,stored){
+ const k=v=>v.name.toLowerCase(),sig=v=>JSON.stringify(v.filters);
+ const bm=new Map(base.map(v=>[k(v),v])),mm=new Map(mine.map(v=>[k(v),v])),sm=new Set(stored.map(k)),out=[];
+ for(const v of stored){const key=k(v);if(!mm.has(key)){if(!bm.has(key))out.push(v);continue;}const m=mm.get(key),b=bm.get(key);out.push(b&&sig(b)===sig(m)?v:m);}
+ for(const m of mine){const key=k(m);if(sm.has(key))continue;const b=bm.get(key);if(!b||sig(b)!==sig(m))out.push(m);}
+ return out;
+}
 function upsert(views,name,filters){
  const n=cleanName(name),f=cleanFilters(filters),key=n.toLowerCase(),at=views.findIndex(v=>v.name.toLowerCase()===key);
  if(at<0&&views.length>=MAX)throw Error('Up to '+MAX+' views fit. Delete one first.');
@@ -1258,7 +1265,7 @@ function fromHash(hash){
  const f={};for(const def of Directory.FILTERS){const v=p.get(def.id);if(v!==null&&v.length<=300)f[def.id]=v;}
  return f;
 }
-return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHash};})();
+return {KEY,MAX,read,write,merge,upsert,cleanName,packageText,importText,toHash,fromHash};})();
 /* Interface module: all catalog mutations are validated before installation. */
 (async function startGameFinder(){
  'use strict';
@@ -1279,8 +1286,19 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
  const message=text=>{$('action-status').textContent=TextProfile.text(text);$('feedback').hidden=!text;};
  const notice=text=>{$('recovery-notice').textContent=TextProfile.text(text);$('recovery-notice').hidden=!text;};
  const SL_KEY='rog.shortlist.v1';
- let shortlistOk=true;const SL_FAIL='Not saved: this browser refused the write. Use Save HTML to keep a file copy.';const persistShortlist=()=>{try{if(state&&Array.isArray(state.saved))localStorage.setItem(SL_KEY,JSON.stringify(state.saved));shortlistOk=true;return true;}catch(e){shortlistOk=false;return false;}};
- const readShortlist=()=>{try{const raw=localStorage.getItem(SL_KEY);if(raw===null)return null;const v=JSON.parse(raw);if(!Array.isArray(v))return null;const known=new Set(games.map(g=>g.steam)),seen=new Set(),out=[];for(const id of v){if(known.has(id)&&!seen.has(id)){seen.add(id);out.push(id);}}return out;}catch(e){return null;}};
+ let shortlistOk=true,slBase=[];const SL_FAIL='Not saved: this browser refused the write. Use Save HTML to keep a file copy.';
+ const slRead=()=>{try{const raw=localStorage.getItem(SL_KEY);if(raw===null)return {kind:'none'};const v=JSON.parse(raw);if(!Array.isArray(v))return {kind:'bad',raw};return {kind:'ok',ids:[...new Set(v.filter(x=>typeof x!=='object'))]};}catch(e){let raw=null;try{raw=localStorage.getItem(SL_KEY);}catch(e2){}return {kind:'bad',raw};}};
+ const slKnown=ids=>{const known=new Set(games.map(g=>g.steam));return ids.filter(id=>known.has(id));};
+ // Merge at write time: the stored list is the base, this tab's adds and removes since its last sync are applied on top.
+ const persistShortlist=()=>{try{
+  if(state&&Array.isArray(state.saved)){
+   const mine=state.saved,base=new Set(slBase),mineSet=new Set(mine),cur=slRead();let out;
+   if(cur.kind==='ok'){const gone=new Set([...base].filter(x=>!mineSet.has(x)));out=cur.ids.filter(x=>!gone.has(x));const have=new Set(out);for(const x of mine){if(!base.has(x)&&!have.has(x)){out.push(x);have.add(x);}}}
+   else{if(cur.kind==='bad'&&cur.raw!==null){const bk=SL_KEY+'_backup_'+Date.now();localStorage.setItem(bk,cur.raw);notice('The saved games stored in this browser could not be read. A copy was kept under '+bk+'.');}out=[...new Set(mine)];}
+   localStorage.setItem(SL_KEY,JSON.stringify(out));state.saved=slKnown(out);slBase=state.saved.slice();
+  }
+  shortlistOk=true;return true;}catch(e){shortlistOk=false;return false;}};
+ const readShortlist=()=>{const c=slRead();return c.kind==='ok'?slKnown(c.ids):null;};
  const markChanged=()=>{persistShortlist();editRevision++;$('save-status').textContent='Unsaved. Press Save HTML to keep.';};
  const copyState=()=>JSON.parse(JSON.stringify(state));
  const money=value=>value===null?'Price not recorded':'US$'+value.toFixed(2);
@@ -1586,7 +1604,7 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
  for(const [id,delta] of [['previous',-1],['next',1]])$(id).addEventListener('click',()=>{if(ready()){page=Math.max(0,page+delta);render();$('results-heading').focus();}});
 
  /* Facet counts, compare tray, saved views and hash state (added in 16.9.0). */
- let compareIds=[],views=[],yearPick=null,compareOpen=false,compareReturn=null;
+ let compareIds=[],views=[],viewsBase=[],yearPick=null,compareOpen=false,compareReturn=null;
  const COMPARE_MAX=4,NOT_RECORDED='Not recorded';
  function updateCounts(){
   const hiddenIds=new Set(state.hidden),savedIds=new Set(state.saved);
@@ -1700,8 +1718,16 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
  }
  const viewsStatus=text=>{$('views-status').textContent=TextProfile.text(text);};
  function persistViews(next,okText){
-  if(Views.write(next)){views=next;renderViews();viewsStatus(okText);return true;}
-  viewsStatus('This browser did not allow saving. Your views were not stored.');return false;
+  const fail=()=>{viewsStatus('This browser did not allow saving. Your views were not stored.');return false;};
+  let merged=next,note='';
+  try{
+   const cur=Views.read();
+   if(cur.ok)merged=Views.merge(viewsBase,next,cur.views);
+   else{const raw=localStorage.getItem(Views.KEY);if(raw!==null){const bk=Views.KEY+'_backup_'+Date.now();localStorage.setItem(bk,raw);note=' The unreadable stored views were kept under '+bk+'.';}}
+  }catch(e){return fail();}
+  if(merged.length>Views.MAX){viewsStatus('Up to '+Views.MAX+' views fit, counting views saved in another tab. Delete one first.');return false;}
+  if(Views.write(merged)){const other=JSON.stringify(merged)!==JSON.stringify(next);views=merged;viewsBase=merged.slice();renderViews();viewsStatus(okText+(other?' Merged with views saved in another tab.':'')+note);return true;}
+  return fail();
  }
  $('view-save').addEventListener('click',()=>{
   if(!ready())return;
@@ -1727,7 +1753,11 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
   }catch(e){viewsStatus('Import rejected: '+TextProfile.text(e.message)+' Your saved views are unchanged.');}
   finally{$('views-import').value='';}
  });
- function loadViews(){const r=Views.read();views=r.views;renderViews();if(!r.ok)viewsStatus('Saved views could not be read in this browser.');}
+ window.addEventListener('storage',e=>{
+  if(e.key===SL_KEY||e.key===null){if(ready()){const c=slRead();if(c.kind==='ok'||c.kind==='none'){state.saved=slKnown(c.kind==='ok'?c.ids:[]);slBase=state.saved.slice();render();}}}
+  if(e.key===Views.KEY||e.key===null){const r=Views.read();if(r.ok){views=r.views;viewsBase=r.views.slice();renderViews();}}
+ });
+ function loadViews(){const r=Views.read();views=r.views;viewsBase=r.views.slice();renderViews();if(!r.ok)viewsStatus('Saved views could not be read in this browser.');}
  function applyHashInitial(raw){
   const n=normalizedFilters(raw);state.filters=n.filters;state.savedOnly=false;syncControls();page=0;render();
   if(n.reset)notice('A link choice was not available in this catalog and was reset.');
@@ -1746,7 +1776,7 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
   try{recoveredBackup=await readBlock('directory-backup');}catch{recoveredBackup=initial;notes.push('The recovery snapshot was damaged. A valid recovery copy will be included when you save.');}
   if(ready())return;backup=recoveredBackup;
   const parsed=Portable.parseState($('user-state').textContent,Directory.validateRows(initial));
-  const hashed=Views.fromHash(location.hash);installingInitial=true;install(initial,parsed.state,[...notes,...parsed.notes]);installingInitial=false;{const kept=readShortlist();if(kept){state.saved=kept;render();}}loadViews();if(hashed)applyHashInitial(hashed);
+  const hashed=Views.fromHash(location.hash);installingInitial=true;install(initial,parsed.state,[...notes,...parsed.notes]);installingInitial=false;slBase=state.saved.slice();{const kept=readShortlist();if(kept){state.saved=kept;slBase=kept.slice();render();}}loadViews();if(hashed)applyHashInitial(hashed);
   if(notes.length||parsed.notes.length)markChanged();
  }catch(e){if(ready()&&!installingInitial)return;showLoadFailure(e);}
 })();
