@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-app data-look="auto" style="--hue:348"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZRR0PidV+faZqA4C8tbmKZQQVD/IPiya9mwa7E2td6A=' 'sha256-aV9YcU0kD6nf2hyabsAxBs8gsUNrLjAshp4h1mkxoi0=' 'sha256-MNVYsIZjcqoeuchBycZxdanFqg8fSMVrS9Yo2JwK+p4='; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"><title>HandheldHunter PC Games: Handheld Game Finder</title>
+<html lang="en" data-app data-look="auto" style="--hue:348"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZRR0PidV+faZqA4C8tbmKZQQVD/IPiya9mwa7E2td6A=' 'sha256-ETcdKLFuRjoov0PNAtckAe5q0RM4NQ4mEJjQqTVjXiM=' 'sha256-MNVYsIZjcqoeuchBycZxdanFqg8fSMVrS9Yo2JwK+p4='; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"><title>HandheldHunter PC Games: Handheld Game Finder</title>
 <meta name="description" content="HandheldHunter PC Games is an offline finder for games that suit a docked handheld PC on a TV with controllers. Unofficial.">
 <!-- Standalone maintenance: export data in the footer before editing. Catalog JSON is inert, not executable code.
      Module roles and schema are documented in the footer. Coordinate schema changes with validation and saving. -->
@@ -1451,7 +1451,7 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
   for(const [id,node] of controls){node.setAttribute('aria-invalid',String(invalid.has(id)));node.setAttribute('aria-describedby',[controlHelp.get(id),invalid.has(id)?'filter-errors':''].filter(Boolean).join(' '));if(invalid.has(id)&&controlGroups.has(id))controlGroups.get(id).open=true;}
   if(errors.length)$('filters').open=true;
   const pages=Math.max(1,Math.ceil(chosen.length/Directory.PAGE_SIZE));page=Math.min(page,pages-1);
-  $('count').textContent=chosen.length+' matching games; '+state.hidden.length+' hidden; '+chosen.filter(x=>Directory.isLocal(x.row)).length+' with local multiplayer';
+  $('count').textContent=chosen.length+(chosen.length===1?' matching game; ':' matching games; ')+state.hidden.length+' hidden; '+chosen.filter(x=>Directory.isLocal(x.row)).length+' with local multiplayer';
   $('filter-count').textContent=chosen.length+' / '+games.length;$('catalog-size').textContent=games.length;
   $('results-heading').textContent=state.savedOnly?'Your saved games':state.filters.play==='solo'?'Solo matches':state.filters.play==='coop'?'Local co-op matches':state.filters.play==='pvp'?'Local versus matches':'Your matches';
   for(const mode of ['all','solo','coop','pvp'])$('mode-'+mode).setAttribute('aria-pressed',String(state.filters.play===mode));

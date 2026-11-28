@@ -36,6 +36,7 @@ const defaultProfile = {
   useFireStore = createStore((e, t) => ({
     isHydrated: !1,
     welcomeDismissed: !1,
+    loadFailed: !1,
     profile: defaultProfile,
     simulationResult: {
       projection: [],
@@ -67,11 +68,37 @@ const defaultProfile = {
       });
     },
     hydrate: async () => {
+      // the welcome flag never blocks the plan read
+      let r = !1;
       try {
-        const n = await nfireDb.profiles.orderBy("updated_at").last(),
-          r = localStorage.getItem("nfire_welcome_seen") === "true";
-        if (n) {
-          window.__nfSvSet("loaded");
+        r = localStorage.getItem("nfire_welcome_seen") === "true";
+      } catch (w) {}
+      // absent (null) and a failed read (throw) are different: a failed read locks saving so the default plan never overwrites the real one
+      let n = null,
+        failed = !1;
+      for (let k = 0; k < 2; k++) {
+        try {
+          n = (await nfireDb.profiles.orderBy("updated_at").last()) || null;
+          failed = !1;
+          break;
+        } catch (x) {
+          failed = !0;
+          console.error("Hydration read failed:", x);
+        }
+      }
+      if (failed) {
+        window.__nfSvSet("readfail");
+        e({
+          simulationResult: z0(defaultProfile),
+          isHydrated: !0,
+          welcomeDismissed: r,
+          loadFailed: !0,
+        });
+        return;
+      }
+      if (n) {
+        try {
+          if (typeof n !== "object" || Array.isArray(n)) throw new Error("not a plan record");
           const i = {
             ...defaultProfile,
             ...n,
@@ -93,24 +120,33 @@ const defaultProfile = {
             ((i.assumptions.cppAmount = n.assumptions.govBenefits * 0.6),
             (i.assumptions.oasAmount = n.assumptions.govBenefits * 0.4));
           const o = z0(i);
+          window.__nfSvSet("loaded");
           e({
             profile: i,
             simulationResult: o,
             isHydrated: !0,
             welcomeDismissed: r,
           });
-        } else
+        } catch (x) {
+          // unreadable saved plan: keep a copy, never overwrite it silently
+          console.error("Saved plan is unreadable:", x);
+          try {
+            localStorage.setItem("nfire_unreadable_plan_copy", JSON.stringify(n));
+          } catch (w) {}
+          window.__nfSvSet("readfail");
           e({
             simulationResult: z0(defaultProfile),
             isHydrated: !0,
             welcomeDismissed: r,
+            loadFailed: !0,
           });
-      } catch (n) {
-        console.error("Hydration failed:", n),
-          e({
-            isHydrated: !0,
-          });
-      }
+        }
+      } else
+        e({
+          simulationResult: z0(defaultProfile),
+          isHydrated: !0,
+          welcomeDismissed: r,
+        });
     },
     updateProfile: (n) => {
       e((r) => {
@@ -134,15 +170,16 @@ const defaultProfile = {
           i.assumptions.lifespan <= i.age && (i.assumptions.lifespan = i.age + 1);
         const o = z0(i);
         return (
-          nfireDb.profiles
-            .put({
-              ...i,
-              updated_at: new Date(),
-            })
-            .then(
-              () => window.__nfSvSet("saved"),
-              () => window.__nfSvSet("fail"),
-            ),
+          r.loadFailed ||
+            nfireDb.profiles
+              .put({
+                ...i,
+                updated_at: new Date(),
+              })
+              .then(
+                () => window.__nfSvSet("saved"),
+                () => window.__nfSvSet("fail"),
+              ),
           navigator.vibrate && o.freedomYear !== r.simulationResult.freedomYear && navigator.vibrate(50),
           {
             profile: i,
@@ -324,7 +361,13 @@ const defaultProfile = {
               };
             t().updateProfile(c),
               nfLab && window.__nfLab && window.__nfLab.set(nfLab),
-              window.__nfireStatus && window.__nfireStatus("Plan file loaded. Your inputs now match the file.");
+              window.__nfireStatus &&
+                window.__nfireStatus(
+                  "Plan file loaded. Your inputs now match the file." +
+                    (t().loadFailed
+                      ? " It is not saved on this device, because your saved plan could not be read. Reload to retry."
+                      : ""),
+                );
           } else
             window.__nfireStatus &&
               window.__nfireStatus(

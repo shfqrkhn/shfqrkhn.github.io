@@ -2,7 +2,7 @@
 <html lang="en-CA" data-app data-look="auto" data-theme="paper" style="--hue:93">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-ln60NCc2ZOhNB9pvj/gOt+Uuwv2TIkxfIJr5+NTgCLA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-OMO8+6JXFDscK9KLG2Vdx+tQI8f57Kh6+72ZdXKmPGI='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- SproutScheduler 1.4.8 (restoring a saved file now clears a place that no longer fits and rewrites the zone text; 1.4.7: the four zone bands no longer overlap: 3 and colder, 4-5, 6-7, 8 and warmer; 1.4.6: a count typed in the bed planner no longer swallows the next tap on another square; 1.4.5: Plant now checks the fall frost against a crop sown today, not on its earliest day); (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -1296,7 +1296,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (exportBtn) exportBtn.addEventListener('click', function () {
     var env = buildEnvelope(), blob = new Blob([JSON.stringify(env, null, 2)], { type: 'application/json' });
     var url = URL.createObjectURL(blob), a = document.createElement('a');
-    a.href = url; a.download = 'sproutscheduler-export-' + env.exportedAt.slice(0, 10) + '.json';
+    a.href = url; a.download = 'sproutscheduler-export-' + (function(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})(new Date()) + '.json';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
     hmsg('Saved: ' + a.download);

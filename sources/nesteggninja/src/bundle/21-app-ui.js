@@ -1140,7 +1140,9 @@ function AssumptionsForm() {
                 "). Changes save here as you type."
             : s === "loaded"
               ? "Saved on this device. Your last plan was restored."
-              : s === "fail"
+              : s === "readfail"
+                ? "Could not read your saved plan; nothing will be overwritten. Reload to retry."
+                : s === "fail"
                 ? "Could not save on this device (browser storage is blocked or full). Use Save plan file to keep a copy."
                 : "Not saved yet. Changes save on this device as you type.";
         })(),

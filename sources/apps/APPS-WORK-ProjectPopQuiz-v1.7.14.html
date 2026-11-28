@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-PkkZoYHYSlBo7ZOkPQF1oYBS4MLugCwzjlwuY55YGTs='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-JoiwjELQ1oPLqe6Ror8iLfHkND4V8B6u2EqvzkiddCE='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>ProjectPopQuiz Exams</title>
     <meta name="app-version" content="1.7.14">
     <script>
@@ -1467,7 +1467,7 @@ class QuizManager {
     _logEvent(ev) {
         if (!this._saving()) return false;
         if (!PMQ_LOG.add(ev)) { this._logLost = true; return false; }
-        if (!PMQ_LOG.persist()) { this._logLost = true; return false; }
+        if (!PMQ_LOG.persist()) return false;
         return true;
     }
 
@@ -1850,7 +1850,7 @@ class QuizManager {
         if (this.dom.saveProgress) {
             try { if (localStorage.getItem('pmquiz.save') === '1') this.dom.saveProgress.checked = true; } catch (e) { /* storage blocked */ }
             this.dom.saveProgress.addEventListener('change', () => {
-                try { localStorage.setItem('pmquiz.save', this.dom.saveProgress.checked ? '1' : '0'); } catch (e) { if (this.dom.logStatus) this.dom.logStatus.textContent = 'This choice is for this page only: browser storage refused it.'; }
+                try { localStorage.setItem('pmquiz.save', this.dom.saveProgress.checked ? '1' : '0'); if (this.dom.logStatus) this.dom.logStatus.textContent = ''; } catch (e) { if (this.dom.logStatus) this.dom.logStatus.textContent = 'This choice is for this page only: browser storage refused it.'; }
             });
         }
         if (this.dom.startMixedBtn) this.dom.startMixedBtn.addEventListener('click', () => { this.kind = 'paper'; this._startMixed(); });
@@ -2784,7 +2784,7 @@ class QuizManager {
             this.dom.resultsLog.textContent = (this._saving() && !this.questions.some(q => this._domMap.get(q)))
                 ? 'Not saved. Uploaded files are not added to the log.'
                 : this._saving()
-                ? (this._logLost ? `Not all answers were saved: browser storage is full or blocked, or the log is full. Log holds ${PMQ_LOG.size()}.` : `Saved. Log holds ${PMQ_LOG.size()}.`)
+                ? (!PMQ_LOG.unsaved() && !this._logLost ? `Saved. Log holds ${PMQ_LOG.size()}.` : `Not all answers were saved: browser storage is full or blocked, or the log is full. Log holds ${PMQ_LOG.size()}.`)
                 : 'Not saved. Tick Save progress before a quiz.';
         }
         this._refreshStudyPanel();
@@ -3136,8 +3136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sel.setAttribute('aria-label', 'Look: ' + look);
         sel.title = 'Look: ' + look;
     }
-    function save(look) {
-        try { localStorage.setItem('pmquiz.look', look); } catch (e) {}
+    function save(look, keepKeyOff) {
+        if (!keepKeyOff) { try { localStorage.setItem('pmquiz.look', look); } catch (e) {} }
         try {
             let p = JSON.parse(localStorage.getItem('hub.prefs.v1') || 'null');
             if (!p || typeof p !== 'object') p = {};
@@ -3150,7 +3150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (forget) forget.addEventListener('click', function () {
         let ok = true;
         try { localStorage.removeItem('pmquiz.look'); localStorage.removeItem('pm-cert-quiz-theme'); if (localStorage.getItem('pmquiz.look') !== null) ok = false; } catch (e) { ok = false; }
-        save('auto');
+        save('auto', ok);
         apply('auto');
         const st = document.getElementById('forgetLookStatus');
         if (st) st.textContent = ok ? 'Look cleared. Following device.' : 'Look reset for this page only: this browser refused the change.';

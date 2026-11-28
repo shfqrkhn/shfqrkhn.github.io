@@ -2,7 +2,7 @@
 <html lang="en" data-look="paper" data-app>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-53d6NAX1n6gswkZtkepvJgsaLeqWEZix18BhvnmUyKY='; style-src 'sha256-rpHLbaB7mKEZYfRDxKfpasXuAQkh0OkofwmWfr7aklA='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/i2s8+ZH0IUSw7GfwlauzaCWXipsd9Njh4vhdbsLK+A=' 'sha256-IuI051Gf6WlRM8jUuykacbmA7Gg+cf/pNVq3zgAVxIY=' 'sha256-o1C3CCZ9B+O+UpjSer6DNyLWWKTTjWYz2uFke+jT+jo='; style-src 'sha256-rpHLbaB7mKEZYfRDxKfpasXuAQkh0OkofwmWfr7aklA='; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <!-- Single-file build 1.0.1-single (offline, no network on load). Embedded Chart.js 3.7.0; Google Fonts removed. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuildBoss PC Workstation Guide</title>
@@ -549,7 +549,7 @@
 
             <div class="card interactive-centerpiece">
                 <h2>Component Selector & Cost Estimator</h2>
-                <p>Set the quantities for your final build; both totals follow them. The MVP total counts at most 1 CPU, cooler, mount and GPU, 4 RAM modules, no NVLink bridge and only the 3 fans included with the case. Prices are estimates in CAD based on Ottawa sourcing.</p>
+                <p>Set the quantities for your final build; both totals follow them. The MVP total counts at most 1 CPU, cooler, mount and GPU, 4 RAM modules, no NVLink bridge and only the 3 fans included with the case. Prices are approximate planning figures in CAD entered by the author, not live quotes, and no price date is guaranteed. Check current prices at your retailer before buying.</p>
 
                 <div class="component-category">
                     <details open>
@@ -909,6 +909,7 @@
                 inputs.forEach(input => {
                     const lo = parseInt(input.min) || 0, hi = input.max === '' ? Infinity : parseInt(input.max);
                     const qty = Math.min(hi, Math.max(lo, parseInt(input.value) || 0));
+                    if (input.value !== '' && String(qty) !== input.value) input.value = qty;
                     const mvpCostPerUnit = parseFloat(input.dataset.mvpCost) || 0;
                     const finalCostPerUnit = parseFloat(input.dataset.finalCost) || 0;
                     // The entered quantity is the final build; the MVP caps some parts below
@@ -963,8 +964,10 @@
             const calculateTdpBtn = document.getElementById('calculate-tdp');
 
             function calculateTotalTDP() {
-                const cpuTdp = parseInt(cpuTdpInput.value) || 0;
-                const gpuTdp = parseInt(gpuTdpInput.value) || 0;
+                const cpuTdp = Math.max(0, parseInt(cpuTdpInput.value) || 0);
+                const gpuTdp = Math.max(0, parseInt(gpuTdpInput.value) || 0);
+                if (cpuTdpInput.value !== '' && String(cpuTdp) !== cpuTdpInput.value) cpuTdpInput.value = cpuTdp;
+                if (gpuTdpInput.value !== '' && String(gpuTdp) !== gpuTdpInput.value) gpuTdpInput.value = gpuTdp;
 
                 // Get quantities from the cost estimator
                 const cpuQty = Math.min(2, Math.max(0, parseInt(document.getElementById('cpu-qty').value) || 0));

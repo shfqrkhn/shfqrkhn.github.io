@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-UWX5YjDZgJY4Pwxc9nCByyjA11I+i98ZP3ilLZiXG+w='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-b9KDqwOqh4tUQFw9OCRBPFf9xLOMYzskTFbG2/DfyCg='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- MeepleMentor 14.5.12 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
@@ -1542,11 +1542,11 @@ const App = () => {
     tell(mode === "replace" ? "Shelf replaced." : "Games added.", saved);
   };
   const clearShelf = () => { tell("Shelf cleared.", saved); setSaved([]); };
-  const undoNow = () => { if (!undo) return; setSaved(undo.prev); setNote(saveFailed ? "Undone on this page only; not saved." : "Undone."); setUndo(null); setTimeout(() => dismissRef.current && dismissRef.current.focus(), 0); };
+  const undoNow = () => { if (!undo) return; setSaved(undo.prev); setNote("Undone."); setUndo(null); setTimeout(() => dismissRef.current && dismissRef.current.focus(), 0); };
   const dismissNote = () => { setNote(""); setUndo(null); setTimeout(() => { const el = document.getElementById("view-title") || document.getElementById("root"); if (el) el.focus({ preventScroll: true }); }, 0); };
   const dismissRecov = () => { setRecov(""); setTimeout(() => { const el = document.getElementById("root"); if (el) el.focus({ preventScroll: true }); }, 0); };
   const game = activeId && DATABASE.find((g) => g.id === activeId);
-  const shownNote = saveFailed && /^(Saved|Games added|Shelf replaced|Shelf cleared)\./.test(note) ? "Not saved on this device." : note;
+  const shownNote = saveFailed && /^(Saved|Games added|Shelf replaced|Shelf cleared)\./.test(note) ? "Not saved on this device." : saveFailed && note === "Undone." ? "Undone on this page only; not saved." : note;
   const status = h("p", { className: "sr", role: "status", "aria-live": "polite" }, shownNote);
   let body;
   if (view === "game" && game) body = h(GameView, { game, isSaved: saved.includes(game.id), toggleSave, onBack: toIndex, sealOpen, setSealOpen });

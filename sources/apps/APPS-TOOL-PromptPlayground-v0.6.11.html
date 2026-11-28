@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-YbSX5rcHcd4DVd0cw8xLXVm8k/HmSXq1D4sVnx9CkpA=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-2A1EMUAlXAzfoIwVcnKfef0NIwac+CrD70rEokRExWc='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-Z0IvnxVhTd4ya1FjxNdsK2CXi8o6omKyi91ZyPwZyn0=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-2A1EMUAlXAzfoIwVcnKfef0NIwac+CrD70rEokRExWc='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -3683,6 +3683,8 @@ const dom = {
 let loadStateRecoveryMessage = "";
 let persistBlocked = false;
 let syncDiscarded = [];
+let statusCapture = null;
+let lastCreateSave = "ok";
 let editTarget = null;
 let searchQuery = "";
 let state = loadState();
@@ -3726,10 +3728,24 @@ function init() {
 
 function registerEvents() {
   dom.newChatBtn.addEventListener("click", () => {
-    saveDraftForActiveChat();
-    createConversation();
+    const captured = [];
+    statusCapture = captured;
+    try {
+      saveDraftForActiveChat();
+      createConversation();
+    } finally {
+      statusCapture = null;
+    }
     closeMobileSidebar();
-    setStatus("New chat.");
+    const texts = [];
+    for (const item of captured) if (item.message && !texts.includes(item.message)) texts.push(item.message);
+    let failed = captured.some((item) => item.error);
+    if (lastCreateSave !== "ok" && !failed) {
+      texts.push(saveFailText(lastCreateSave));
+      failed = true;
+    }
+    const shown = texts.some((text) => text.startsWith("Not saved:")) ? texts.filter((text) => text !== "Save failed. Export before closing.") : texts;
+    setStatus(shown.length ? `New chat. ${shown.join(" ")}` : "New chat.", failed);
   });
   dom.newFolderBtn.addEventListener("click", addFolder);
   dom.archiveToggleBtn.addEventListener("click", toggleArchiveView);
@@ -3745,7 +3761,7 @@ function registerEvents() {
     syncSettingsForm();
     renderMeta();
     renderSelfCheck();
-    if (saved !== "ok") saveReport(saved, "");
+    if (saved !== "ok") saveReport(saved, "", discardNote());
     else if (provider) setStatus(providerSelectionStatus(provider) + discardNote());
   });
   dom.modelInput.addEventListener("change", () => saveModelFromInput(dom.modelInput));
@@ -3794,7 +3810,7 @@ function registerEvents() {
     syncSettingsForm();
     renderMeta();
     const provider = activeProvider();
-    if (saved !== "ok") saveReport(saved, "");
+    if (saved !== "ok") saveReport(saved, "", discardNote());
     else if (provider) setStatus(providerSelectionStatus(provider) + discardNote());
   });
   dom.providerTypeInput.addEventListener("change", syncNoAuthAvailability);
@@ -4289,14 +4305,18 @@ function saveState() {
   return result;
 }
 
-function saveReport(result, okText) {
+function saveFailText(result) {
+  if (result === "blocked") return "Not saved: stored data is from a newer version of this page.";
+  if (result === "stripped") return "Saved without images: storage is full. Export before closing.";
+  return "Not saved: this browser refused the write. Export before closing.";
+}
+
+function saveReport(result, okText, note = "") {
   if (result === "ok") {
     setStatus(okText);
     return true;
   }
-  if (result === "blocked") setStatus("Not saved: stored data is from a newer version of this page.", true);
-  else if (result === "stripped") setStatus("Saved without images: storage is full. Export before closing.", true);
-  else setStatus("Not saved: this browser refused the write. Export before closing.", true);
+  setStatus(saveFailText(result) + note, true);
   return false;
 }
 
@@ -4337,19 +4357,45 @@ function discardNote() {
 }
 
 function carryTypedContext(nextChatId) {
+  const touched = [];
   const el = dom.contextInput;
-  if (!el) return;
-  const last = el.dataset.synced;
-  const key = el.dataset.syncedKey;
-  if (last === undefined || key === undefined || key === nextChatId || el.value === last) return;
-  const old = state.conversations.find((chat) => chat.id === key);
-  if (!old) return;
-  old.context = el.value.trim();
-  old.updatedAt = new Date().toISOString();
-  el.dataset.synced = el.value;
+  if (el) {
+    const last = el.dataset.synced;
+    const key = el.dataset.syncedKey;
+    if (last !== undefined && key !== undefined && key !== nextChatId && el.value !== last) {
+      const old = state.conversations.find((chat) => chat.id === key);
+      if (old) {
+        old.context = el.value.trim();
+        old.updatedAt = new Date().toISOString();
+        el.dataset.synced = el.value;
+        touched.push({ old, what: "context" });
+      }
+    }
+  }
+  const fields = [dom.chatSystemInput, dom.chatModelInput, dom.chatTempInput, dom.chatTopPInput, dom.chatMaxTokensInput];
+  if (fields.every(Boolean)) {
+    const key = fields[0].dataset.syncedKey;
+    const typed = fields.some((field) => field.dataset.synced !== undefined && field.value !== field.dataset.synced);
+    if (typed && key !== undefined && key !== nextChatId) {
+      const old = state.conversations.find((chat) => chat.id === key);
+      if (old) {
+        old.overrides = normalizeOverrides({
+          systemPrompt: fields[0].value,
+          model: fields[1].value,
+          temperature: fields[2].value,
+          topP: fields[3].value,
+          maxTokens: fields[4].value
+        });
+        old.updatedAt = new Date().toISOString();
+        for (const field of fields) field.dataset.synced = field.value;
+        touched.push({ old, what: "chat settings" });
+      }
+    }
+  }
+  if (!touched.length) return;
   const result = saveState();
   if (result !== "ok") saveReport(result, "");
-  else setStatus(`Typed context was saved to "${old.title}".`);
+  else setStatus(`Typed ${[...new Set(touched.map((item) => item.what))].join(" and ")} ${touched.length > 1 ? "were" : "was"} saved to "${touched[0].old.title}".`);
 }
 
 function stripAttachmentPayloads(cleanState) {
@@ -4375,7 +4421,7 @@ function createConversation(render = true) {
   };
   state.conversations.unshift(chat);
   state.activeConversationId = chat.id;
-  saveState();
+  lastCreateSave = saveState();
   if (render) renderAll();
   return chat;
 }
@@ -4386,6 +4432,20 @@ function activeConversation() {
 
 function activeProvider() {
   return state.providers.find((provider) => provider.id === state.activeProviderId) || state.providers[0];
+}
+
+function renderAllNoted() {
+  const prev = statusCapture;
+  const captured = [];
+  statusCapture = captured;
+  try {
+    renderAll();
+  } finally {
+    statusCapture = prev;
+  }
+  const texts = [];
+  for (const item of captured) if (item.message && !texts.includes(item.message)) texts.push(item.message);
+  return texts.length ? ` ${texts.join(" ")}` : "";
 }
 
 function renderAll() {
@@ -4926,8 +4986,8 @@ function deleteFolder(folderId) {
     state.folders = state.folders.filter((item) => item.id !== folder.id);
     if (state.activeFolderId === folder.id) state.activeFolderId = parentId;
     const saved = saveState();
-    renderAll();
-    saveReport(saved, `Folder removed: ${folder.name}`);
+    const notes = renderAllNoted();
+    saveReport(saved, (`Folder removed: ${folder.name}`) + notes, notes);
   });
 }
 
@@ -4974,8 +5034,8 @@ function duplicateChat(chatId) {
   state.activeConversationId = copy.id;
   state.activeFolderId = copy.folderId || "";
   const saved = saveState();
-  renderAll();
-  saveReport(saved, `Duplicated "${chat.title}".`);
+  const notes = renderAllNoted();
+  saveReport(saved, (`Duplicated "${chat.title}".`) + notes, notes);
 }
 
 function toggleChatArchive(chatId) {
@@ -4988,8 +5048,8 @@ function toggleChatArchive(chatId) {
   state.activeConversationId = chat.id;
   state.activeFolderId = chat.folderId || "";
   const saved = saveState();
-  renderAll();
-  saveReport(saved, restoring ? `Restored "${chat.title}".` : `Archived "${chat.title}".`);
+  const notes = renderAllNoted();
+  saveReport(saved, (restoring ? `Restored "${chat.title}".` : `Archived "${chat.title}".`) + notes, notes);
 }
 
 function deleteChatById(chatId) {
@@ -5000,8 +5060,8 @@ function deleteChatById(chatId) {
     delete state.drafts?.[chat.id];
     selectFallbackConversation();
     const saved = saveState();
-    renderAll();
-    saveReport(saved, `Deleted "${chat.title}".`);
+    const notes = renderAllNoted();
+    saveReport(saved, (`Deleted "${chat.title}".`) + notes, notes);
   });
 }
 
@@ -5026,8 +5086,8 @@ function toggleArchiveView() {
     state.activeFolderId = first.folderId || "";
   }
   const saved = saveState();
-  renderAll();
-  saveReport(saved, state.showArchived ? "Showing archived chats." : "Showing active chats.");
+  const notes = renderAllNoted();
+  saveReport(saved, (state.showArchived ? "Showing archived chats." : "Showing active chats.") + notes, notes);
 }
 
 function setupIncomplete() {
@@ -5155,8 +5215,8 @@ function saveSetupCard() {
   state.activeProviderId = provider.id;
   if (key) sessionKeys[provider.id] = key;
   const saved = saveState();
-  renderAll();
-  saveReport(saved, `${provider.name} saved.`);
+  const notes = renderAllNoted();
+  saveReport(saved, (`${provider.name} saved.`) + notes, notes);
   focusPromptInput();
   if (preset.noAuth) fetchModels();
   return true;
@@ -5381,8 +5441,8 @@ async function selectWorkspaceFolder() {
     resetWorkspaceSession(handle.name || "selected folder");
     addWorkspaceTrace("workspace.select", state.workspace.folderName, "Folder selected. Read-only tools are available for this session.");
     const saved = saveState();
-    renderAll();
-    saveReport(saved, `Workspace connected: ${state.workspace.folderName}`);
+    const notes = renderAllNoted();
+    saveReport(saved, (`Workspace connected: ${state.workspace.folderName}`) + notes, notes);
   } catch (error) {
     if (error?.name !== "AbortError") setStatus(`Workspace selection failed: ${error.message || error}`, true);
   }
@@ -5395,8 +5455,8 @@ function forgetWorkspaceFolder() {
   state.workspace.folderName = "";
   addWorkspaceTrace("workspace.forget", name, "Folder handle forgotten. Re-select a folder to run tools again.");
   const saved = saveState();
-  renderAll();
-  saveReport(saved, "Workspace folder forgotten.");
+  const notes = renderAllNoted();
+  saveReport(saved, ("Workspace folder forgotten.") + notes, notes);
 }
 
 function resetWorkspaceSession(folderName) {
@@ -6064,8 +6124,8 @@ function selectProviderPreset(presetId) {
   if (!existing) state.providers.push(provider);
   state.activeProviderId = provider.id;
   const saved = saveState();
-  renderAll();
-  saveReport(saved, `${preset.name} preset ${existing ? "selected" : "added"}. ${provider.noAuth ? "No API key is required." : "Add your API key to use it."} ${presetSafetyNote(preset)}${discardNote()}`.trim());
+  const notes = renderAllNoted();
+  saveReport(saved, (`${preset.name} preset ${existing ? "selected" : "added"}. ${provider.noAuth ? "No API key is required." : "Add your API key to use it."} ${presetSafetyNote(preset)}`.trim()) + notes, notes);
 }
 
 function useLocalProvider() {
@@ -6147,8 +6207,8 @@ function deleteProvider() {
     delete sessionKeys[provider.id];
     state.activeProviderId = state.providers[0].id;
     const saved = saveState();
-    renderAll();
-    saveReport(saved, `Provider deleted: ${provider.name}`);
+    const notes = renderAllNoted();
+    saveReport(saved, (`Provider deleted: ${provider.name}`) + notes, notes);
   }, dom.deleteProviderBtn);
 }
 
@@ -6461,6 +6521,11 @@ function saveControls({ silent = false } = {}) {
   state.settings.usageInStream = dom.usageInStreamInput.checked;
   state.settings.extraBody = dom.extraBodyInput.value.trim();
   const result = saveState();
+  dom.temperatureInput.value = String(state.settings.temperature);
+  dom.topPInput.value = String(state.settings.topP);
+  dom.maxTokensInput.value = String(state.settings.maxTokens);
+  dom.maxInputTokensInput.value = String(state.settings.maxInputTokens);
+  dom.recentTurnsInput.value = String(state.settings.recentTurns);
   markFieldsSynced("", dom.temperatureInput, dom.topPInput, dom.maxTokensInput, dom.maxInputTokensInput, dom.recentTurnsInput, dom.autoTrimInput, dom.historyImagesInput, dom.streamInput, dom.jsonModeInput, dom.groundingInput, dom.usageInStreamInput, dom.extraBodyInput);
   renderSelfCheck();
   if (!silent) saveReport(result, "Generation controls saved.");
@@ -7584,6 +7649,7 @@ function showContentStamp() {
 
 function setStatus(message, error = false) {
   const safeMessage = redactSensitiveText(message);
+  if (statusCapture) statusCapture.push({ message: safeMessage, error });
   dom.providerStatus.textContent = safeMessage;
   dom.providerStatus.classList.toggle("error", error);
   showToast(error ? "Needs attention" : "", safeMessage, error ? "error" : "success");
@@ -8024,6 +8090,15 @@ function applyDataImport() {
     editTarget = null;
     sessionKeys = {};
     disconnectWorkspaceHandle();
+    let typedCount = 0;
+    document.querySelectorAll("[data-synced]").forEach((field) => {
+      const mark = field.dataset.synced;
+      if ((field.type === "checkbox" ? String(field.checked) : field.value) !== mark) typedCount += 1;
+      delete field.dataset.synced;
+      delete field.dataset.syncedKey;
+    });
+    const typedNote = typedCount ? " Unsaved typing in the form was replaced by the imported values." : "";
+    syncDiscarded = [];
     if (keyVault) {
       try {
         localStorage.setItem(VAULT_KEY, JSON.stringify(keyVault));
@@ -8032,8 +8107,8 @@ function applyDataImport() {
         const saveResult = saveState();
         renderAll();
         setStatus(saveResult === "failed"
-          ? "Import loaded in this tab, but local storage and encrypted key vault could not be saved. Export before closing."
-          : "Data imported, but encrypted key vault could not be saved in this browser.", true);
+          ? "Import loaded in this tab, but local storage and encrypted key vault could not be saved. Export before closing." + typedNote
+          : "Data imported, but encrypted key vault could not be saved in this browser." + typedNote, true);
         return;
       }
     } else {
@@ -8042,11 +8117,11 @@ function applyDataImport() {
     const saveResult = saveState();
     renderAll();
     if (saveResult === "failed") {
-      setStatus("Import loaded in this tab, but local storage failed. Export before closing.", true);
+      setStatus("Import loaded in this tab, but local storage failed. Export before closing." + typedNote, true);
     } else if (saveResult === "stripped") {
-      setStatus("Import loaded, but image payloads were skipped because local storage was full.", true);
+      setStatus("Import loaded, but image payloads were skipped because local storage was full." + typedNote, true);
     } else {
-      setStatus(keyVault ? "Full backup imported. Open the encrypted key vault with its passphrase." : "Data imported without API keys. Existing local key vault and session keys were cleared.");
+      setStatus((keyVault ? "Full backup imported. Open the encrypted key vault with its passphrase." : "Data imported without API keys. Existing local key vault and session keys were cleared.") + typedNote);
     }
   } catch (error) {
     setStatus(`Import failed: ${error.message}`, true);
