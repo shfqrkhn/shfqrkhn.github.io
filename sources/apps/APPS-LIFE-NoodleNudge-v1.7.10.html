@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="NoodleNudge Journal: A private space for reflection, a clear path for growth.">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-gQEavRcuXkqgwXIfdhQ1JH8efJHuern9he3SWXH0EMY=' 'sha256-tEmKjq5FpSsFRfzLqx/wvWxHWz7uRqULgLX0nZ1/c6Y=' 'sha256-lVjEb701VeF8B44TW1bsZHRxBEldhEkfuUSzF85UNyI=' 'sha256-aPa1wfKB+yzCd8NapsjKyfs06lukBFHBa6PzdBFIsyA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-gQEavRcuXkqgwXIfdhQ1JH8efJHuern9he3SWXH0EMY=' 'sha256-tEmKjq5FpSsFRfzLqx/wvWxHWz7uRqULgLX0nZ1/c6Y=' 'sha256-lVjEb701VeF8B44TW1bsZHRxBEldhEkfuUSzF85UNyI=' 'sha256-tMJWDwPmVsdCKxWBGI/j32w2Fcb7LuUAhBmEm4KLYWo='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <meta name="theme-color" content="#faf8f4">
     <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMic+PHJlY3QgeD0nNScgeT0nMycgd2lkdGg9JzIyJyBoZWlnaHQ9JzI2JyByeD0nMicgZmlsbD0nI0ZGRkNGNScgc3Ryb2tlPScjOEI0MTYwJyBzdHJva2Utd2lkdGg9JzInLz48cGF0aCBkPSdNMTIgM3YyNicgc3Ryb2tlPScjOEI0MTYwJyBzdHJva2Utd2lkdGg9JzInLz48L3N2Zz4=">
     <title>NoodleNudge Journal</title>
@@ -598,7 +598,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
                 const e = { id: old ? old.id : newId(), date, text, tags: normTags(tags), created: old ? old.created : now, updated: now };
                 return track(async () => { await db().batch([[P + e.id, await recordFor(e)]], old ? [D + old.id] : [D + 'new', D + e.id], metaGuard(old ? { must: [P + old.id] } : null)); put(e); rebuild(); return clean(e); });
             };
-            const remove = async (id) => { if (status() !== 'open') throw new Error('locked'); await db().batch([], [P + id, D + id]); byId.delete(id); rebuild(); };
+            const remove = async (id) => { if (status() !== 'open') throw new Error('locked'); await db().batch([], [P + id, D + id]); byId.delete(id); rebuild(); try { NoodleNudge.State.announceJournal(); } catch (e) {} };
             const removeAll = async () => { if (status() !== 'open') throw new Error('locked'); const rows = await db().getAll(P); const rd = await db().getAll(D); await db().batch([], rows.map(r => r[0]).concat(rd.map(r => r[0]))); byId.clear(); entries = []; try { NoodleNudge.State.announceJournal(); } catch (e) {} };
 
             const saveDraft = async (target, d) => {
@@ -641,6 +641,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
                 if (!meta) throw new Error('Encryption is off.');
                 const key = await unwrap(pass, meta);
                 if (!key) throw new Error('That passphrase does not open this journal.');
+                if (!sameMeta(await db().get(META), meta)) throw new Error('Encryption settings changed in another tab. Reload and unlock.');
                 const puts = [], dels = [META];
                 const rowsP = await db().getAll(P), rowsD = await db().getAll(D);
                 for (const [k, r] of rowsP) { const id = k.slice(P.length); const o = checkEntry(await unseal(key, r, entryAad(id)).catch(() => null)); if (!o || o.id !== id) throw new Error('One entry cannot be read, so encryption stays on. Export what you can first.'); puts.push([k, Object.assign({ v: 1 }, o)]); }
@@ -759,6 +760,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
                 const oldKey = await unwrap(oldPass, meta);
                 if (!oldKey) throw new Error('That passphrase does not open this journal.');
                 if (String(newPass).normalize('NFKC') === String(oldPass).normalize('NFKC')) throw new Error('Choose a passphrase that is different from the current one.');
+                if (!sameMeta(await db().get(META), meta)) throw new Error('Encryption settings changed in another tab. Reload and unlock.');
                 if (unreadable > 0) throw new Error('Some entries cannot be read, so the passphrase was not changed. Export what you can first.');
                 return track(async () => {
                     const oldMeta = meta, oldRows = await db().getAll(P), oldDrafts = await db().getAll(D);
@@ -851,7 +853,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
             const setAutoLock = (c) => { const v = { min: AL.indexOf(c && c.min) >= 0 ? c.min : 0, hide: !!(c && c.hide) }; try { if (!v.min && !v.hide) localStorage.removeItem(LK); else localStorage.setItem(LK, JSON.stringify(v)); } catch (e) {} alCfg = v; lastAct = Date.now(); return v; };
             let onResync = null;
             /* storage was deleted or replaced from another tab: take in what is stored now (the key stays only if the encryption record is unchanged) */
-            const resync = async () => { try { if (!ready || locking || busy) return; const m = await db().get(META); if (sameMeta(m, meta)) { if (!meta || hk) await loadEntries(); } else { hk = null; byId.clear(); entries = []; if (m) { meta = m; if (!validMeta(m)) unreadable = -1; } else { meta = null; await loadEntries(); } } if (onResync) onResync(); } catch (e) {} };
+            const resync = async () => { try { if (!ready || locking || busy) return; const m = await db().get(META); let removed = false; if (sameMeta(m, meta)) { if (!meta || hk) { const before = Array.from(byId.keys()); await loadEntries(); removed = before.some(id => !byId.has(id)); } } else { hk = null; byId.clear(); entries = []; if (m) { meta = m; if (!validMeta(m)) unreadable = -1; } else { meta = null; await loadEntries(); } } if (onResync) onResync({ removed }); } catch (e) {} };
             const setResyncHook = (f) => { onResync = f; };
             const setLockHooks = (before, after) => { beforeLock = before; onLocked = after; };
             // saves the open draft (encrypted) first; if that fails the journal stays open so no text is lost
@@ -1165,7 +1167,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
             };
 
             // ---------- Journal view (private entries; text never leaves this device)
-            let jTab = 'write', jEditId = null, jPending = null, jPromptIdx = null, jQ = '', jTags = [], jLimit = 40, jCal = null, jSel = null, jFlush = null, jActive = false, jTok = 0, jFocusEntry = false, jSavedMsg = '', jCalAll = false;
+            let jTab = 'write', jEditId = null, jPending = null, jPromptIdx = null, jQ = '', jTags = [], jLimit = 40, jCal = null, jSel = null, jFlush = null, jKeep = null, jAbort = null, jActive = false, jTok = 0, jFocusEntry = false, jSavedMsg = '', jCalAll = false;
             const jPromptHidden = () => { try { return localStorage.getItem('nn.jprompt') === 'off'; } catch (e) { return false; } };
             const jSetPromptHidden = (v) => { try { if (v) localStorage.setItem('nn.jprompt', 'off'); else localStorage.removeItem('nn.jprompt'); } catch (e) {} };
             const jDateLabel = (s, long) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s); if (!m) return s; return new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString(undefined, { weekday: long ? 'long' : 'short', day: 'numeric', month: 'long', year: 'numeric' }); };
@@ -1177,7 +1179,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
             const jTwoPress = (btn, armedText, run) => { let armed = false, t = null, note = null; const base = btn.textContent; const drop = () => { armed = false; btn.textContent = base; btn.classList.remove('armed'); if (note) { note.remove(); note = null; } }; btn.addEventListener('click', () => { if (!armed) { armed = true; btn.textContent = armedText; btn.classList.add('armed'); note = createEl('p', { className: 'nn-armnote nn-small', role: 'status', textContent: 'Press again within 8 s to delete. Otherwise nothing is deleted.' }); (btn.closest('.nn-acts') || btn).after(note); t = setTimeout(drop, 8000); return; } clearTimeout(t); if (note) { note.remove(); note = null; } armed = false; run(); }); };
             const jItem = (e, onEdit) => { const li = createEl('li', { className: 'nn-jitem' }); const h = createEl('h3', { textContent: jDateLabel(e.date, true) }); const p = createEl('p', { className: 'nn-jsnip', textContent: e.text }); li.append(h, p); if (e.tags.length) li.appendChild(createEl('p', { className: 'nn-jtags', textContent: 'Tags: ' + e.tags.join(', ') })); const b = createEl('button', { className: 'nn-btn', type: 'button', textContent: 'Edit', 'aria-label': 'Edit the entry for ' + jDateLabel(e.date, true) }); b.addEventListener('click', () => onEdit(e)); li.appendChild(createEl('div', { className: 'nn-acts', children: [b] })); return li; };
             window.addEventListener('pagehide', () => { if (jFlush) jFlush(); });
-            NoodleNudge.Journal.setResyncHook(() => { syncLock(); if (jActive) JournalView(); });
+            NoodleNudge.Journal.setResyncHook((info) => { syncLock(); if (jActive) { try { const t = document.getElementById('jt'); if (t && jTab === 'write' && NoodleNudge.Journal.status() === 'open') { const d = document.getElementById('jd'), g = document.getElementById('jg'); if (t.value.trim() || (g && g.value.trim())) { jKeep = { date: d ? d.value : '', text: t.value, tags: g ? g.value : '', editId: jEditId, removed: !!(info && info.removed) }; if (jAbort) jAbort(); jFlush = null; } } } catch (e) {} JournalView(); } });
             NoodleNudge.Journal.setLockHooks(
                 async () => { if (!jFlush) return true; const r = await jFlush(); if (r === false) NoodleNudge.UI.showToast('Draft not saved, so the journal stayed open. Copy your text.', 'warning'); return r !== false; },
                 (why) => { NoodleNudge.UI.showToast(why === 'hide' ? 'Locked: tab hidden.' : (why === 'manual' ? 'Journal locked.' : 'Locked: idle.'), 'success'); syncLock(); if (jActive) { JournalView(); const jpe = document.getElementById('jpass'); if (jpe) jpe.focus(); } });
@@ -1261,8 +1263,21 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
                 if (jEditId && !J.get(jEditId)) jEditId = null;
                 const editing = jEditId ? J.get(jEditId) : null;
                 let target = jEditId || 'new';
-                const draft = await J.loadDraft(target);
+                const kept = jKeep; jKeep = null;
+                let draft;
+                if (kept) {
+                    draft = { date: kept.date, text: kept.text, tags: kept.tags, at: '' };
+                    /* an open edit whose entry is gone becomes the new draft; never overwrite an older new draft: keep both */
+                    if (kept.editId && !J.get(kept.editId)) {
+                        const old = await J.loadDraft('new');
+                        if (old && old.text.trim() && old.text.trim() !== kept.text.trim()) {
+                            const tg = []; (old.tags + ',' + kept.tags).split(',').forEach(x => { x = x.trim(); if (x && !tg.some(y => y.toLowerCase() === x.toLowerCase())) tg.push(x); });
+                            draft = { date: old.date || kept.date, text: old.text + '\n\n' + kept.text, tags: tg.join(', '), at: '' };
+                        }
+                    }
+                } else draft = await J.loadDraft(target);
                 if (!jActive || myTok !== jTok) return;
+                const gone = !!(kept && (kept.removed || (kept.editId && !J.get(kept.editId))));
                 const today = NoodleNudge.Utils.localDate();
                 const date = jPending || (draft && draft.date) || (editing ? editing.date : today);
                 jPending = null;
@@ -1297,15 +1312,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</script>
                 wrap.appendChild(form); slot.appendChild(wrap);
                 const dEl = form.querySelector('#jd'), tEl = form.querySelector('#jt'), gEl = form.querySelector('#jg'), sEl = form.querySelector('#jst'), eEl = form.querySelector('#jerr');
                 tEl.value = text;
-                if (draft) sEl.textContent = (editing ? 'Unsaved changes from ' : 'Draft recovered from ') + (draft.at ? new Date(draft.at).toLocaleString(undefined, { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' }) : 'earlier') + '.';
+                if (kept) sEl.textContent = gone ? 'Entries were deleted in another tab. Your typed text is kept; save it as a new entry.' : 'Your typed text is kept.';
+                else if (draft) sEl.textContent = (editing ? 'Unsaved changes from ' : 'Draft recovered from ') + (draft.at ? new Date(draft.at).toLocaleString(undefined, { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' }) : 'earlier') + '.';
                 if (jSavedMsg) { sEl.textContent = jSavedMsg; jSavedMsg = ''; jFocusEntry = false; sEl.tabIndex = -1; sEl.focus({ preventScroll: true }); form.scrollIntoView({ block: 'start' }); if (sEl.getBoundingClientRect().bottom > innerHeight) sEl.scrollIntoView({ block: 'end' }); }
                 else if (jFocusEntry) { jFocusEntry = false; tEl.focus(); try { tEl.setSelectionRange(tEl.value.length, tEl.value.length); } catch (e) {} }
-                let timer = null, dirty = false, closed = false, saving = false, hold = false;
-                const doSaveRun = async () => { clearTimeout(timer); timer = null; if (!dirty || closed || saving) return true; dirty = false; try { await J.saveDraft(target, { date: dEl.value, text: tEl.value, tags: gEl.value }); if (!hold && !closed) sEl.textContent = 'Draft saved at ' + jNow() + '.'; return true; } catch (e) { dirty = true; sEl.textContent = 'The draft could not be saved. Copy your text somewhere safe.'; return false; } };
+                let timer = null, dirty = false, closed = false, saving = false, hold = false, touched = false;
+                const doSaveRun = async () => { clearTimeout(timer); timer = null; if (!dirty || closed || saving) return true; dirty = false; try { await J.saveDraft(target, { date: dEl.value, text: tEl.value, tags: gEl.value }); if (!hold && !closed && !(kept && !touched)) sEl.textContent = 'Draft saved at ' + jNow() + '.'; return true; } catch (e) { dirty = true; sEl.textContent = (e && e.guard ? e.message + ' ' : 'The draft could not be saved. ') + 'Copy your text somewhere safe.'; return false; } };
                 let chain = Promise.resolve(true); const doSave = () => { chain = chain.then(doSaveRun, doSaveRun); return chain; };
-                const onInput = () => { dirty = true; hold = false; eEl.textContent = ''; clearTimeout(timer); timer = setTimeout(doSave, 400); };
+                const onInput = () => { dirty = true; hold = false; touched = true; eEl.textContent = ''; clearTimeout(timer); timer = setTimeout(doSave, 400); };
                 [dEl, tEl, gEl].forEach(el => el.addEventListener('input', onInput));
-                jFlush = doSave;
+                jFlush = doSave; jAbort = () => { closed = true; clearTimeout(timer); };
+                if (kept) { dirty = true; if (gone) NoodleNudge.UI.showToast('Entries were deleted in another tab. Your typed text is kept; save it as a new entry.', 'warning'); doSave(); }
                 form.addEventListener('submit', async (ev) => {
                     ev.preventDefault();
                     if (saving) return;
