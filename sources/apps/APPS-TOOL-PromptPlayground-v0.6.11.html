@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-Z0IvnxVhTd4ya1FjxNdsK2CXi8o6omKyi91ZyPwZyn0=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-2A1EMUAlXAzfoIwVcnKfef0NIwac+CrD70rEokRExWc='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-MHY8UtjrruqIq9w3dnvlDvf1E0NKzwfEVOiptmsLk6k=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-vzeEcCogUHUcFCQwY8kOmqrk3ndJZ56F0oUw+UO2zSA='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -6508,8 +6508,8 @@ function saveControls({ silent = false } = {}) {
     setStatus(error.message, true);
     return "invalid";
   }
-  state.settings.temperature = numberOrDefault(dom.temperatureInput.value, DEFAULT_STATE.settings.temperature);
-  state.settings.topP = numberOrDefault(dom.topPInput.value, DEFAULT_STATE.settings.topP);
+  state.settings.temperature = clampNumber(dom.temperatureInput.value, 0, 2, DEFAULT_STATE.settings.temperature);
+  state.settings.topP = clampNumber(dom.topPInput.value, 0, 1, DEFAULT_STATE.settings.topP);
   state.settings.maxTokens = Math.max(1, Math.floor(numberOrDefault(dom.maxTokensInput.value, DEFAULT_STATE.settings.maxTokens)));
   state.settings.maxInputTokens = Math.max(512, Math.floor(numberOrDefault(dom.maxInputTokensInput.value, DEFAULT_STATE.settings.maxInputTokens)));
   state.settings.recentTurns = Math.max(1, Math.floor(numberOrDefault(dom.recentTurnsInput.value, DEFAULT_STATE.settings.recentTurns)));
@@ -10126,7 +10126,7 @@ function isHttpLikePage() {
         list = o.prompts.map(function (p) { return clean(p, info); });
         var seen = {}; list.forEach(function (p) { if (has(seen, p.id)) throw new Error("Two prompts share one id"); seen[p.id] = 1; });
       } catch (e) { say("Not restored: " + (e && e.message ? e.message : "the file could not be read") + ". Your library is unchanged.", true); return; }
-      ui.pending = list;
+      ui.pending = list; say("");
       var ul = $("r-list"); ul.textContent = "";
       var arch = list.filter(function (p) { return p.archived; }).length, fr = list.filter(function (p) { return p.kind === "fragment"; }).length;
       $("r-info").textContent = "This copy is valid. Restoring replaces your " + data.prompts.length + " current prompts with the " + list.length + " below. Save a copy first if you want to keep the current ones.";

@@ -1,3 +1,117 @@
+// Cross-tab safety: every stored plan carries a counter (rev). A write re-reads the stored plan inside the same
+// readwrite transaction; if another tab changed it since this tab last loaded or wrote it, only the fields this
+// edit touched are merged onto the stored plan, so one tab never overwrites another tab's edits with stale data.
+const nfSync = { id: void 0, rev: void 0, q: [], chain: Promise.resolve(), ch: null, bound: !1 };
+function nfIsObj(x) {
+  return x !== null && typeof x === "object" && !Array.isArray(x);
+}
+function nfMergePatch(b, n) {
+  const p = { ...n };
+  delete p.id;
+  delete p.updated_at;
+  delete p.rev;
+  const i = {
+    ...b,
+    ...p,
+    assets: { ...b.assets, ...(p.assets || {}) },
+    pension: { ...b.pension, ...(p.pension || {}) },
+    assumptions: { ...b.assumptions, ...(p.assumptions || {}) },
+  };
+  i.age > 90 && (i.age = 90);
+  i.assumptions.lifespan <= i.age && (i.assumptions.lifespan = i.age + 1);
+  return i;
+}
+function nfNormStored(n) {
+  if (!nfIsObj(n)) throw new Error("nf-unmergeable");
+  const i = nfMergePatch(
+    {
+      ...defaultProfile,
+      ...n,
+      assets: { ...defaultProfile.assets, ...(nfIsObj(n.assets) ? n.assets : {}) },
+      pension: { ...defaultProfile.pension, ...(nfIsObj(n.pension) ? n.pension : {}) },
+      assumptions: { ...defaultProfile.assumptions, ...(nfIsObj(n.assumptions) ? n.assumptions : {}) },
+    },
+    {},
+  );
+  nfIsObj(n.assumptions) &&
+    n.assumptions.govBenefits &&
+    ((i.assumptions.cppAmount = n.assumptions.govBenefits * 0.6),
+    (i.assumptions.oasAmount = n.assumptions.govBenefits * 0.4));
+  i.id = n.id;
+  i.rev = n.rev;
+  i.updated_at = n.updated_at;
+  return i;
+}
+function nfSyncWrite(get, set) {
+  nfSync.chain = nfSync.chain.then(() =>
+    nfireDb
+      .transaction("rw", nfireDb.profiles, async () => {
+        const patch = nfSync.q[0] || {},
+          stored = (await nfireDb.profiles.orderBy("updated_at").last()) || null,
+          at = new Date();
+        if (!stored) {
+          const rec = { ...get().profile, rev: 1, updated_at: at };
+          return { rec, key: await nfireDb.profiles.put(rec), merged: null };
+        }
+        if (!nfIsObj(stored)) throw new Error("nf-unmergeable");
+        if (stored.id === nfSync.id && stored.rev === nfSync.rev) {
+          const rec = { ...get().profile, id: stored.id, rev: (stored.rev || 0) + 1, updated_at: at };
+          return { rec, key: await nfireDb.profiles.put(rec), merged: null };
+        }
+        const merged = nfMergePatch(nfNormStored(stored), patch),
+          rec = { ...merged, id: stored.id, rev: (stored.rev || 0) + 1, updated_at: at };
+        return { rec, key: await nfireDb.profiles.put(rec), merged };
+      })
+      .then(
+        (res) => {
+          nfSync.q.shift();
+          nfSync.id = res.key;
+          nfSync.rev = res.rec.rev;
+          if (res.merged) {
+            const adopted = nfSync.q.reduce(nfMergePatch, res.merged);
+            set({ profile: adopted, simulationResult: z0(adopted) });
+          }
+          window.__nfSvSet("saved");
+          try {
+            nfSync.ch && nfSync.ch.postMessage({ rev: res.rec.rev });
+          } catch (x) {}
+        },
+        (x) => {
+          nfSync.q.shift();
+          console.error("Save failed:", x);
+          window.__nfSvSet(x && x.message === "nf-unmergeable" ? "conflict" : "fail");
+        },
+      ),
+  );
+}
+// pull a newer plan written by another tab, only when this tab has nothing waiting to be written
+async function nfSyncRefresh(get, set) {
+  if (nfSync.q.length || get().loadFailed) return;
+  try {
+    const stored = (await nfireDb.profiles.orderBy("updated_at").last()) || null;
+    if (!stored || nfSync.q.length || (stored.id === nfSync.id && stored.rev === nfSync.rev)) return;
+    const p = nfNormStored(stored);
+    nfSync.id = stored.id;
+    nfSync.rev = stored.rev;
+    set({ profile: p, simulationResult: z0(p) });
+    window.__nfSvSet("saved");
+  } catch (x) {}
+}
+function nfSyncBind(get, set) {
+  if (nfSync.bound) return;
+  nfSync.bound = !0;
+  const go = () => nfSyncRefresh(get, set);
+  try {
+    if (typeof BroadcastChannel === "function") {
+      nfSync.ch = new BroadcastChannel("nfire-plan");
+      nfSync.ch.onmessage = go;
+    }
+  } catch (x) {}
+  try {
+    window.addEventListener("focus", go);
+    document.addEventListener("visibilitychange", () => document.visibilityState === "visible" && go());
+  } catch (x) {}
+}
 const defaultProfile = {
     age: 32,
     target_retirement_age: 55,
@@ -121,6 +235,9 @@ const defaultProfile = {
             (i.assumptions.oasAmount = n.assumptions.govBenefits * 0.4));
           const o = z0(i);
           window.__nfSvSet("loaded");
+          nfSync.id = n.id;
+          nfSync.rev = n.rev;
+          nfSyncBind(t, e);
           e({
             profile: i,
             simulationResult: o,
@@ -141,12 +258,14 @@ const defaultProfile = {
             loadFailed: !0,
           });
         }
-      } else
+      } else {
+        nfSyncBind(t, e);
         e({
           simulationResult: z0(defaultProfile),
           isHydrated: !0,
           welcomeDismissed: r,
         });
+      }
     },
     updateProfile: (n) => {
       e((r) => {
@@ -170,16 +289,7 @@ const defaultProfile = {
           i.assumptions.lifespan <= i.age && (i.assumptions.lifespan = i.age + 1);
         const o = z0(i);
         return (
-          r.loadFailed ||
-            nfireDb.profiles
-              .put({
-                ...i,
-                updated_at: new Date(),
-              })
-              .then(
-                () => window.__nfSvSet("saved"),
-                () => window.__nfSvSet("fail"),
-              ),
+          r.loadFailed || (nfSync.q.push(n), nfSyncWrite(t, e)),
           navigator.vibrate && o.freedomYear !== r.simulationResult.freedomYear && navigator.vibrate(50),
           {
             profile: i,

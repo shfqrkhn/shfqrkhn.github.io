@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-JoiwjELQ1oPLqe6Ror8iLfHkND4V8B6u2EqvzkiddCE='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-RFQfwFIvz61USI3UU+S4LOO+/Bp73Yn8I71QQNco70c='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>ProjectPopQuiz Exams</title>
     <meta name="app-version" content="1.7.14">
     <script>
@@ -1589,7 +1589,8 @@ class QuizManager {
             'clear-log',
             'Tap again within 8 s to delete the log.',
             event.currentTarget,
-            () => { this.dom.logStatus.textContent = PMQ_LOG.clear() ? 'Log deleted.' : 'The log could not be deleted: this browser refused the change.'; this._refreshStudyPanel(); }
+            () => { this.dom.logStatus.textContent = PMQ_LOG.clear() ? 'Log deleted.' : 'The log could not be deleted: this browser refused the change.'; this._refreshStudyPanel(); },
+            this.dom.logStatus
         );
     }
 
@@ -2296,18 +2297,20 @@ class QuizManager {
         if (this.pendingRestore) { const r = this.pendingRestore; this.pendingRestore = null; r(); }
     }
 
-    _requireSecondClick(key, message, button, action) {
+    _requireSecondClick(key, message, button, action, statusEl) {
         if (this.pendingActionKey !== key) {
             this._clearPending();
             this.pendingActionKey = key;
-            const statusTarget = this._getActionStatusTarget();
+            const statusTarget = statusEl || this._getActionStatusTarget();
             const originalStatus = statusTarget ? statusTarget.textContent : '';
             if (statusTarget) statusTarget.textContent = message;
             const originalText = button ? button.innerHTML : '';
-            if (button) button.textContent = 'Tap again';
+            const originalLabel = button ? button.getAttribute('aria-label') : null;
+            if (button) { button.textContent = 'Tap again'; if (originalLabel !== null) button.setAttribute('aria-label', 'Tap again'); }
             this.pendingRestore = () => {
                 if (statusTarget) statusTarget.textContent = originalStatus;
                 if (button && originalText) button.innerHTML = originalText;
+                if (button && originalLabel !== null) button.setAttribute('aria-label', originalLabel);
             };
             this.pendingActionTimer = setTimeout(() => this._clearPending(), 8000);
             return;

@@ -1142,6 +1142,8 @@ function AssumptionsForm() {
               ? "Saved on this device. Your last plan was restored."
               : s === "readfail"
                 ? "Could not read your saved plan; nothing will be overwritten. Reload to retry."
+                : s === "conflict"
+                ? "Another tab changed this plan. Reload to see it; your last edit was not saved."
                 : s === "fail"
                 ? "Could not save on this device (browser storage is blocked or full). Use Save plan file to keep a copy."
                 : "Not saved yet. Changes save on this device as you type.";
