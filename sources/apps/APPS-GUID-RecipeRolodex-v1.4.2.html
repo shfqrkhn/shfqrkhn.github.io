@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="auto" style="--hue:40">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-6rlBhbJWXLWvI9m6mM0NApNRvdwPFzJokoXYPWK3Orc='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tGZDRe2H5e99QqeSZ7EcKa9TMg8Qkzqj1MjUZ7dMKIA=' 'sha256-suf0jn6TeqaaMRVIxTc4ysGm/8uIMjUkOjZtAnW9fPo='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- Single-file build 1.4.2-single (offline, no network on load). Fonts embedded as subset woff2 (OFL-1.1); no external dependencies. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Recipes with timers and scaling: pick a recipe, scale the batch, tick ingredients and run step timers.">
@@ -622,10 +622,10 @@ var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 
 /* ---------- storage (never throws) ---------- */
-var mem={},blocked=false;
+var mem={},blocked=false,failN=0,NOSAVE=' Not saved: this browser blocked storage.';
 function sget(k){try{var v=localStorage.getItem(k);return v;}catch(e){blocked=true;return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null;}}
-function sset(k,v){try{localStorage.setItem(k,String(v));}catch(e){blocked=true;mem[k]=String(v);notify('Saving blocked. Data lasts until you close the page.');}}
-function sdel(k){try{localStorage.removeItem(k);}catch(e){blocked=true;}delete mem[k];}
+function sset(k,v){try{localStorage.setItem(k,String(v));}catch(e){blocked=true;failN++;mem[k]=String(v);notify('Saving blocked. Data lasts until you close the page.');}}
+function sdel(k){try{localStorage.removeItem(k);}catch(e){blocked=true;failN++;}delete mem[k];}
 var live=$('#live');
 function notify(m){live.textContent='';setTimeout(function(){live.textContent=m;},30);var n=$('#notes-state');if(n&&/blocked/.test(m)){n.textContent=m;}}
 
@@ -962,10 +962,10 @@ var dc=$('#del-confirm');
 $('#del-open').addEventListener('click',function(){ic.hidden=true;impData=null;dc.hidden=false;$('#del-no').focus();});
 $('#del-no').addEventListener('click',function(){dc.hidden=true;$('#del-open').focus();});
 $('#del-yes').addEventListener('click',function(){
-  allKeys().forEach(sdel);
+  var f0=failN;allKeys().forEach(sdel);
   ingBoxes.forEach(function(b){b.checked=false;});stepBoxes.forEach(function(b){b.checked=false;});paintSteps();
   notes.value='';halves=2;lookSel.value=omnLook.get();applyBatchNoSave();
-  dc.hidden=true;$('#help-status').textContent='Deleted.';
+  dc.hidden=true;$('#help-status').textContent='Deleted.'+(failN===f0?'':NOSAVE);
 });
 /* ---------- restore from backup: validate, preview, confirm, then commit ---------- */
 var impData=null,ic=$('#imp-confirm'),ifile=$('#imp-file'),hst=$('#help-status');
@@ -1022,12 +1022,13 @@ ifile.addEventListener('change',function(){
 $('#imp-no').addEventListener('click',function(){impData=null;ic.hidden=true;hst.textContent='Cancelled.';$('#imp-open').focus();});
 $('#imp-yes').addEventListener('click',function(){
   var d=impData;if(!d){ic.hidden=true;return;}
+  var f1=failN;
   ingBoxes.forEach(function(b,i){b.checked=d.ingredientsChecked[i];sset('ingredient-'+i+'-checked',b.checked);});
   stepBoxes.forEach(function(b,i){b.checked=d.stepsDone[i];});saveSteps();paintSteps();
   notes.value=d.notes;sset('egg-salad-user-notes',d.notes);
   halves=d.batchHalves;applyBatch();
   impData=null;ic.hidden=true;
-  hst.textContent='Restored.';
+  hst.textContent='Restored.'+(failN===f1?'':NOSAVE);
   $('#imp-open').focus();
 });
 function applyBatchNoSave(){var save=sset;sset=function(){};applyBatch();sset=save;}

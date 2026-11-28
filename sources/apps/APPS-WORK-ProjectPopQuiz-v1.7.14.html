@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-8LY65wgHVjNwxcTBF20ockAr/hDTpI/K2M0bnxdgjkQ='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-PkkZoYHYSlBo7ZOkPQF1oYBS4MLugCwzjlwuY55YGTs='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>ProjectPopQuiz Exams</title>
     <meta name="app-version" content="1.7.14">
     <script>
@@ -1147,7 +1147,7 @@ const PMQ_LOG = (() => {
             }
         } catch (err) { events = []; }
     }
-    let asked = false;
+    let asked = false, unsaved = false;
     function persist() {
         try {
             const raw = localStorage.getItem(KEY);
@@ -1159,7 +1159,8 @@ const PMQ_LOG = (() => {
                 }
             }
         } catch (err) { /* keep what this tab holds */ }
-        try { localStorage.setItem(KEY, JSON.stringify({ v: PMQ_SCHEMA, events })); } catch (err) { return false; }
+        try { localStorage.setItem(KEY, JSON.stringify({ v: PMQ_SCHEMA, events })); } catch (err) { unsaved = true; return false; }
+        unsaved = false;
         if (!asked) { asked = true; try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (err) { /* best effort */ } }
         return true;
     }
@@ -1175,11 +1176,12 @@ const PMQ_LOG = (() => {
         return { added, dup };
     }
     function clear() {
-        events = [];
-        try { localStorage.removeItem(KEY); } catch (err) { /* nothing to remove */ }
+        try { localStorage.removeItem(KEY); if (localStorage.getItem(KEY) !== null) return false; } catch (err) { return false; }
+        events = []; unsaved = false;
+        return true;
     }
     try { window.addEventListener('storage', e => { if (e.storageArea === localStorage && (e.key === null || (e.key === KEY && e.newValue === null))) events = []; }); } catch (err) { /* no storage events */ }
-    return Object.freeze({ KEY, MAX, valid, load, persist, add, merge, clear, all: () => events.slice(), size: () => events.length });
+    return Object.freeze({ KEY, MAX, valid, load, persist, add, merge, clear, unsaved: () => unsaved, all: () => events.slice(), size: () => events.length });
 })();
 
 window.PMQ_API = Object.freeze({ fsrs: PMQ_FSRS, qid: pmqQid, domains: PMQ_DOMAINS, version: PMQ_APP_VERSION });
@@ -1446,6 +1448,7 @@ class QuizManager {
         let text = `${due.length} due now, ${cards.size} scheduled, ${PMQ_LOG.size()} log entries.`;
         if (later.length) text += ` Next due ${Number.isFinite(new Date(later[0].due).getTime()) ? new Date(later[0].due).toISOString().slice(0, 10) : 'later'} (UTC date).`;
         if (!PMQ_LOG.size()) text = 'Nothing saved. Tick Save progress.';
+        else if (PMQ_LOG.unsaved()) text += ' Kept for this page only: browser storage failed.';
         this.dom.reviewStatus.textContent = text;
         if (this.dom.startReviewBtn) this.dom.startReviewBtn.disabled = due.length === 0;
         this._renderStudyStats();
@@ -1586,7 +1589,7 @@ class QuizManager {
             'clear-log',
             'Tap again within 8 s to delete the log.',
             event.currentTarget,
-            () => { PMQ_LOG.clear(); this.dom.logStatus.textContent = 'Log deleted.'; this._refreshStudyPanel(); }
+            () => { this.dom.logStatus.textContent = PMQ_LOG.clear() ? 'Log deleted.' : 'The log could not be deleted: this browser refused the change.'; this._refreshStudyPanel(); }
         );
     }
 
@@ -1847,7 +1850,7 @@ class QuizManager {
         if (this.dom.saveProgress) {
             try { if (localStorage.getItem('pmquiz.save') === '1') this.dom.saveProgress.checked = true; } catch (e) { /* storage blocked */ }
             this.dom.saveProgress.addEventListener('change', () => {
-                try { localStorage.setItem('pmquiz.save', this.dom.saveProgress.checked ? '1' : '0'); } catch (e) { /* storage blocked */ }
+                try { localStorage.setItem('pmquiz.save', this.dom.saveProgress.checked ? '1' : '0'); } catch (e) { if (this.dom.logStatus) this.dom.logStatus.textContent = 'This choice is for this page only: browser storage refused it.'; }
             });
         }
         if (this.dom.startMixedBtn) this.dom.startMixedBtn.addEventListener('click', () => { this.kind = 'paper'; this._startMixed(); });
@@ -3145,11 +3148,12 @@ document.addEventListener('DOMContentLoaded', () => {
     apply(LOOKS.indexOf(root.getAttribute('data-look')) >= 0 ? root.getAttribute('data-look') : 'auto');
     const forget = document.getElementById('forgetLook');
     if (forget) forget.addEventListener('click', function () {
-        try { localStorage.removeItem('pmquiz.look'); localStorage.removeItem('pm-cert-quiz-theme'); } catch (e) {}
+        let ok = true;
+        try { localStorage.removeItem('pmquiz.look'); localStorage.removeItem('pm-cert-quiz-theme'); if (localStorage.getItem('pmquiz.look') !== null) ok = false; } catch (e) { ok = false; }
         save('auto');
         apply('auto');
         const st = document.getElementById('forgetLookStatus');
-        if (st) st.textContent = 'Look cleared. Following device.';
+        if (st) st.textContent = ok ? 'Look cleared. Following device.' : 'Look reset for this page only: this browser refused the change.';
     });
     sel.addEventListener('click', function () {
         const next = LOOKS[(LOOKS.indexOf(root.getAttribute('data-look')) + 1) % LOOKS.length];

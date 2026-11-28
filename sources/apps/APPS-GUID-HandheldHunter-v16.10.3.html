@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-app data-look="auto" style="--hue:348"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZRR0PidV+faZqA4C8tbmKZQQVD/IPiya9mwa7E2td6A=' 'sha256-WocZ8AXtamBg14/tB50i+a/ckn2l/5mv9yKaRBQ3LKo=' 'sha256-MNVYsIZjcqoeuchBycZxdanFqg8fSMVrS9Yo2JwK+p4='; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"><title>HandheldHunter PC Games: Handheld Game Finder</title>
+<html lang="en" data-app data-look="auto" style="--hue:348"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZRR0PidV+faZqA4C8tbmKZQQVD/IPiya9mwa7E2td6A=' 'sha256-aV9YcU0kD6nf2hyabsAxBs8gsUNrLjAshp4h1mkxoi0=' 'sha256-MNVYsIZjcqoeuchBycZxdanFqg8fSMVrS9Yo2JwK+p4='; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"><title>HandheldHunter PC Games: Handheld Game Finder</title>
 <meta name="description" content="HandheldHunter PC Games is an offline finder for games that suit a docked handheld PC on a TV with controllers. Unofficial.">
 <!-- Standalone maintenance: export data in the footer before editing. Catalog JSON is inert, not executable code.
      Module roles and schema are documented in the footer. Coordinate schema changes with validation and saving. -->
@@ -1279,7 +1279,7 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
  const message=text=>{$('action-status').textContent=TextProfile.text(text);$('feedback').hidden=!text;};
  const notice=text=>{$('recovery-notice').textContent=TextProfile.text(text);$('recovery-notice').hidden=!text;};
  const SL_KEY='rog.shortlist.v1';
- const persistShortlist=()=>{try{if(state&&Array.isArray(state.saved))localStorage.setItem(SL_KEY,JSON.stringify(state.saved));}catch(e){}};
+ let shortlistOk=true;const SL_FAIL='Not saved: this browser refused the write. Use Save HTML to keep a file copy.';const persistShortlist=()=>{try{if(state&&Array.isArray(state.saved))localStorage.setItem(SL_KEY,JSON.stringify(state.saved));shortlistOk=true;return true;}catch(e){shortlistOk=false;return false;}};
  const readShortlist=()=>{try{const raw=localStorage.getItem(SL_KEY);if(raw===null)return null;const v=JSON.parse(raw);if(!Array.isArray(v))return null;const known=new Set(games.map(g=>g.steam)),seen=new Set(),out=[];for(const id of v){if(known.has(id)&&!seen.has(id)){seen.add(id);out.push(id);}}return out;}catch(e){return null;}};
  const markChanged=()=>{persistShortlist();editRevision++;$('save-status').textContent='Unsaved. Press Save HTML to keep.';};
  const copyState=()=>JSON.parse(JSON.stringify(state));
@@ -1459,7 +1459,7 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
   $('evidence-overview').textContent=chosen.length?gaps+' matches have unknown setup checks. Ratings summarize sentiment; setup evidence is shown separately.':'No preferences were relaxed. Choose an explicit adjustment below.';
   $('sort-description').textContent=Directory.FILTERS.find(f=>f.id==='sort').options.find(([k])=>k===state.filters.sort)?.[1]||'';
   $('page-count').textContent='Page '+(page+1)+' of '+pages;$('previous').disabled=page===0;$('next').disabled=page+1>=pages;$('restore').disabled=!state.hidden.length;
-  $('saved-only').textContent='Saved games: '+state.saved.length;$('shortlist-note').hidden=!state.saved.length;$('saved-only').setAttribute('aria-pressed',String(state.savedOnly));
+  $('saved-only').textContent='Saved games: '+state.saved.length;$('shortlist-note').hidden=!state.saved.length;$('shortlist-note').textContent=shortlistOk?'Kept on this device. Save HTML makes a file copy.':SL_FAIL;$('saved-only').setAttribute('aria-pressed',String(state.savedOnly));
   $('reset').setAttribute('aria-pressed',String(sameView({...Directory.defaults(),play:state.filters.play})));
   $('clear').setAttribute('aria-pressed',String(sameView(Directory.cleared())));
   const fragment=document.createDocumentFragment();for(const {row,index} of chosen.slice(page*Directory.PAGE_SIZE,(page+1)*Directory.PAGE_SIZE))fragment.append(cardFor(row,index));$('results').replaceChildren(fragment);$('empty').hidden=chosen.length!==0;
@@ -1579,7 +1579,7 @@ return {KEY,MAX,read,write,upsert,cleanName,packageText,importText,toHash,fromHa
  $('results').addEventListener('click',event=>{
   const b=event.target.closest('button[data-index]');if(!b||!$('results').contains(b)||!/^(0|[1-9]\d*)$/.test(b.dataset.index))return;
   const index=Number(b.dataset.index),action=b.dataset.action;if(!Number.isSafeInteger(index)||index>=games.length||!['save','hide'].includes(action))return;
-  rememberUndo();const id=games[index].steam,key=action==='save'?'saved':'hidden',position=visibleActions.findIndex(x=>x.steam===id);state[key]=state[key].includes(id)?state[key].filter(x=>x!==id):[...state[key],id];markChanged();render();message(games[index].title+(action==='save'?(state.saved.includes(id)?' added to saved games.':' removed from saved games.'):(state.hidden.includes(id)?' hidden.':' restored.')));
+  rememberUndo();const id=games[index].steam,key=action==='save'?'saved':'hidden',position=visibleActions.findIndex(x=>x.steam===id);state[key]=state[key].includes(id)?state[key].filter(x=>x!==id):[...state[key],id];markChanged();render();message(games[index].title+(action==='save'?(!shortlistOk?' changed, but '+SL_FAIL.charAt(0).toLowerCase()+SL_FAIL.slice(1):state.saved.includes(id)?' added to saved games.':' removed from saved games.'):(state.hidden.includes(id)?' hidden.':' restored.')));
   const target=visibleActions.find(x=>x.steam===id)||visibleActions[Math.max(0,Math.min(position,visibleActions.length-1))];
   (target?.[action]||$('results-heading')).focus();
  });

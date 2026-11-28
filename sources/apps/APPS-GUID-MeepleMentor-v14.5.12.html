@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-3KDx/vBIHNMjH4iIsTkSNkV82l2KR5CVY3SBZPAem70='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-UWX5YjDZgJY4Pwxc9nCByyjA11I+i98ZP3ilLZiXG+w='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- MeepleMentor 14.5.12 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
@@ -1328,7 +1328,7 @@ const checkShelfFile = (text) => {
 const nameOf = (id) => { const g = DATABASE.find((x) => x.id === id); return g ? g.name : String(id); };
 const nameList = (ids) => ids.length ? ids.map(nameOf).join(", ") : "none";
 
-const ShelfTools = ({ saved, exportShelf, clearShelf, applyImport, exportLabel }) => {
+const ShelfTools = ({ saved, exportShelf, clearShelf, applyImport, exportLabel, saveFailed }) => {
   const count = saved.length;
   const [confirm, setConfirm] = useState(false);
   const [pending, setPending] = useState(null);
@@ -1381,7 +1381,7 @@ const ShelfTools = ({ saved, exportShelf, clearShelf, applyImport, exportLabel }
           h("button", { className: "btn quiet", ref: keepRef, onClick: () => setConfirm(false) }, h(Icon, { name: "x" }), "Cancel"))),
     count === 0 && h("p", { className: "muted" }, "Shelf empty."),
     problem && h("p", { className: "notice", role: "alert" }, "Not imported. " + problem),
-    done && h("p", { className: "notice", role: "status" }, done),
+    done && h("p", { className: "notice", role: "status" }, saveFailed ? "Not saved on this device." : done),
     pending && h("section", { className: "import-preview", "aria-label": "Import preview" },
       h("h3", { ref: previewRef, tabIndex: -1 }, "Preview"),
       h("p", { className: "prose" }, pending.ids.length + (pending.ids.length === 1 ? " game" : " games") + " in " + pending.name),
@@ -1397,7 +1397,7 @@ const ShelfTools = ({ saved, exportShelf, clearShelf, applyImport, exportLabel }
 };
 
 const readRecovery = () => { try { return localStorage.getItem(RECOVERY_KEY); } catch (e) { return null; } };
-const HelpView = ({ saved, onBack, exportShelf, clearShelf, applyImport, onLicences, onRecoveryGone }) => {
+const HelpView = ({ saved, onBack, exportShelf, clearShelf, applyImport, onLicences, onRecoveryGone, saveFailed }) => {
   const [rec, setRec] = useState(readRecovery);
   const downloadRec = () => {
     const url = URL.createObjectURL(new Blob([rec || ""], { type: "text/plain" }));
@@ -1443,7 +1443,7 @@ const HelpView = ({ saved, onBack, exportShelf, clearShelf, applyImport, onLicen
       delAsk && h("p", { className: "muted" }, "Cannot be undone.")),
     h("section", null, h("h2", null, "Shelf"),
       h("p", { className: "prose" }, saved.length + " on shelf"),
-      h(ShelfTools, { saved, exportShelf, clearShelf, applyImport, exportLabel: "Export" }),),
+      h(ShelfTools, { saved, exportShelf, clearShelf, applyImport, exportLabel: "Export", saveFailed }),),
     h("p", null, h("button", { className: "link", onClick: onLicences }, "Licences")));
 };
 
@@ -1542,7 +1542,7 @@ const App = () => {
     tell(mode === "replace" ? "Shelf replaced." : "Games added.", saved);
   };
   const clearShelf = () => { tell("Shelf cleared.", saved); setSaved([]); };
-  const undoNow = () => { if (!undo) return; setSaved(undo.prev); setNote("Undone."); setUndo(null); setTimeout(() => dismissRef.current && dismissRef.current.focus(), 0); };
+  const undoNow = () => { if (!undo) return; setSaved(undo.prev); setNote(saveFailed ? "Undone on this page only; not saved." : "Undone."); setUndo(null); setTimeout(() => dismissRef.current && dismissRef.current.focus(), 0); };
   const dismissNote = () => { setNote(""); setUndo(null); setTimeout(() => { const el = document.getElementById("view-title") || document.getElementById("root"); if (el) el.focus({ preventScroll: true }); }, 0); };
   const dismissRecov = () => { setRecov(""); setTimeout(() => { const el = document.getElementById("root"); if (el) el.focus({ preventScroll: true }); }, 0); };
   const game = activeId && DATABASE.find((g) => g.id === activeId);
@@ -1550,7 +1550,7 @@ const App = () => {
   const status = h("p", { className: "sr", role: "status", "aria-live": "polite" }, shownNote);
   let body;
   if (view === "game" && game) body = h(GameView, { game, isSaved: saved.includes(game.id), toggleSave, onBack: toIndex, sealOpen, setSealOpen });
-  else if (view === "help") body = h(HelpView, { saved, onBack: toIndex, exportShelf, clearShelf, applyImport, onLicences: () => goto("licences"), onRecoveryGone: () => setRecov("") });
+  else if (view === "help") body = h(HelpView, { saved, onBack: toIndex, exportShelf, clearShelf, applyImport, saveFailed, onLicences: () => goto("licences"), onRecoveryGone: () => setRecov("") });
   else if (view === "licences") body = h(LicencesView, { onBack: toIndex });
   else body = h("div", { className: "index fade" },
     h("header", { className: "margin" },
@@ -1566,7 +1566,7 @@ const App = () => {
       h("h2", { className: "sr" }, "Contents"),
       filter === "SAVED" && h("section", { className: "shelf-tools", "aria-label": "Shelf export, import and clear" },
         h("p", { className: "prose" }, saved.length + " on shelf"),
-        h(ShelfTools, { saved, exportShelf, clearShelf, applyImport, exportLabel: "Export" })),
+        h(ShelfTools, { saved, exportShelf, clearShelf, applyImport, exportLabel: "Export", saveFailed })),
       parts.map(([cat, list]) => h("section", { key: cat, "aria-labelledby": "part-" + cat.replace(/\W/g, "") },
         h("h3", { className: "part-head", id: "part-" + cat.replace(/\W/g, "") }, cat, h("span", { className: "count" }, " (" + list.length + ")")),
         h("ul", { className: "rows" }, list.map((g) => h("li", { key: g.id },

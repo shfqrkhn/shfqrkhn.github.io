@@ -2,7 +2,7 @@
 <html lang="en-CA" data-app data-look="auto" data-theme="paper" style="--hue:93">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-WJjTxHX7EGs0MFAvCjc7DB/qn9oF9HDy3PSOjhmGxsI='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dFE0MXVrSYk8KLyxn8aK+/fqY9YO0fBPoDp6BFnPUUI=' 'sha256-NG2jSwBMIsdIeBkH+ySdSxLwU6xHh3MO095YPA3LBCs=' 'sha256-ln60NCc2ZOhNB9pvj/gOt+Uuwv2TIkxfIJr5+NTgCLA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- SproutScheduler 1.4.8 (restoring a saved file now clears a place that no longer fits and rewrites the zone text; 1.4.7: the four zone bands no longer overlap: 3 and colder, 4-5, 6-7, 8 and warmer; 1.4.6: a count typed in the bed planner no longer swallows the next tap on another square; 1.4.5: Plant now checks the fall frost against a crop sown today, not on its earliest day); (formerly The Resilient Canadian Garden). Single file, offline, no network on load. Embedded: Chart.js 4.4.2 (MIT, includes @kurkle/color 0.3.2), Crimson Pro and Karla subsets (OFL-1.1). See the Licences panel. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -959,6 +959,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Show the plan for a zone band (or the "choose a place" prompt when zone is null).
   var NOSAVE = ' Not saved: this browser blocked storage, so it will reset when you close the page.';
   function put(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } }
+  function stored(k, v) { try { return localStorage.getItem(k) === v; } catch (e) { return false; } }
+  function gone(k) { try { return localStorage.getItem(k) === null; } catch (e) { return false; } }
   function showZone(zone, announce, msg) {
     var place = citySel.value ? findPlace(citySel.value) : null;
     if (!zone || !hasOwn(gardenData, zone)) {
@@ -1076,8 +1078,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var bedTotals = document.getElementById('bed-totals'), bedStatus = document.getElementById('bed-status'), countMsg = document.getElementById('count-msg');
   var bed = { w: 4, h: 4, cells: {} }, sel = { r: 0, c: 0 };
   function cropName(id) { for (var i = 0; i < CROPS.length; i++) if (CROPS[i][0] === id) return CROPS[i]; return null; }
-  function say(t) { if (bedStatus) bedStatus.textContent = t; }
-  function saveBed() { try { localStorage.setItem(BED_KEY, JSON.stringify(bed)); } catch (e) {} }
+  var bedSaved = true;
+  function say(t) { if (bedStatus) bedStatus.textContent = t + (bedSaved || t.indexOf('Not saved') >= 0 ? '' : NOSAVE); }
+  function saveBed() { var ok = put(BED_KEY, JSON.stringify(bed)); bedSaved = ok; if (!ok) say(NOSAVE.slice(1)); return ok; }
   function loadBed() {
     var raw = null;
     try { raw = localStorage.getItem(BED_KEY); } catch (e) { return; }
@@ -1390,20 +1393,20 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('restore-confirm').addEventListener('click', function () {
       if (!pending) return;
       var r = pending; closeRestore(); restoreFile.value = '';
-      var cityGiven = 'city' in r;
-      if (cityGiven) setPlace(r.city, false);
+      var cityGiven = 'city' in r, okAll = true;
+      if (cityGiven) { setPlace(r.city, false); if (r.city && !stored(CITY_KEY, r.city)) okAll = false; }
       if (r.zone) {
-        try { localStorage.setItem(ZONE_KEY, r.zone); } catch (e) {}
+        if (!put(ZONE_KEY, r.zone)) okAll = false;
         var pl = citySel.value ? findPlace(citySel.value) : null;
         if (!pl || !zoneOfPlace(pl)) showZone(r.zone, false);
         else if (!cityGiven && zoneOfPlace(pl) !== r.zone) { setPlace('', false); showZone(r.zone, false); }
       }
-      if (r.bed) { bed = r.bed; sel = { r: 0, c: 0 }; saveBed(); fillSelect(bedW, 2, 6, bed.w); fillSelect(bedH, 2, 8, bed.h); renderBed(false); }
+      if (r.bed) { bed = r.bed; sel = { r: 0, c: 0 }; if (!saveBed()) okAll = false; fillSelect(bedW, 2, 6, bed.w); fillSelect(bedH, 2, 8, bed.h); renderBed(false); }
       if (r.look) {
         var ls = document.getElementById('look');
-        if (ls) { ls.value = r.look; ls.dispatchEvent(new Event('change')); }
+        if (ls) { ls.value = r.look; ls.dispatchEvent(new Event('change')); if (!stored(LOOK_KEY, r.look)) okAll = false; }
       }
-      hmsg('Restored.');
+      hmsg(okAll ? 'Restored.' : 'Restored on screen only.' + NOSAVE);
     });
   }
   var delBtn = document.getElementById('del-btn'), delBox = document.getElementById('del-confirm');
@@ -1415,8 +1418,9 @@ document.addEventListener('DOMContentLoaded', function () {
       setPlace('', false); showZone(null, false);
       bed = { w: 4, h: 4, cells: {} }; sel = { r: 0, c: 0 }; fillSelect(bedW, 2, 6, 4); fillSelect(bedH, 2, 8, 4); renderBed(false);
       var ls = document.getElementById('look'); if (ls) { ls.value = 'auto'; ls.dispatchEvent(new Event('change')); try { localStorage.removeItem(LOOK_KEY); } catch (e) {} }
+      var delOk = [ZONE_KEY, CITY_KEY, BED_KEY, LOOK_KEY].every(gone);
       delBox.hidden = true; delBtn.focus();
-      hmsg('Deleted.');
+      hmsg(delOk ? 'Deleted.' : 'Cleared on screen only.' + NOSAVE);
     });
   }
 

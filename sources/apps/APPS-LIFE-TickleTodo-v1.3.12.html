@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="TickleTodo Tasks: a private, offline to-do list with drawers, due dates and a focus timer.">
 <title>TickleTodo Tasks</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-n9r0sfl14wY1+prVsIHWWlxOiOPNAuHJBcaW94GOOpY='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mlBM3Z1mauA93uxPo8vCMa0nzUE8AZjTWbycGkzCBio=' 'sha256-QKd4NqRmqZiZCvhT7V4Y14AiA5LQ7/+edLpb3qqbxEU='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="application-version" content="1.3.12">
 <meta name="theme-color" content="#faf8f4">
 <meta name="color-scheme" content="light dark">
@@ -1290,9 +1290,12 @@ const DoneDepot = (() => {
         this.saveFailed = false;
         this.firstRun = false;
         if (UIManager.dom && UIManager.dom.lastSavedTimestamp) UIManager.updateLastSavedTimestamp();
+        return true;
       } catch (error) {
         this.saveFailed = true;
+        try { if (UIManager.dom && UIManager.dom.lastSavedTimestamp) UIManager.updateLastSavedTimestamp(); } catch (e) { /* ignore */ }
         UIManager.showAlert('Not saved: browser storage full or blocked. Export JSON now.', 'danger');
+        return false;
       }
     },
     snapshot() { return JSON.stringify({ n: this.checklistName, i: this.checklistItems, o: this.orderMode }); },
@@ -1376,13 +1379,12 @@ const DoneDepot = (() => {
       const p = this.findItemPathById(id);
       if (!p) return false;
       p.item.focusSeconds = Math.min(3600000, (p.item.focusSeconds || 0) + seconds);
-      this.saveData();
-      return true;
+      return this.saveData();
     },
     getChecklistName() { return this.checklistName; },
     setChecklistName(name) {
       this.checklistName = name.trim() || config.DEFAULT_CHECKLIST_NAME;
-      this.saveData();
+      return this.saveData();
     },
     setSortOrder(sortOrder) { this.currentSortOrder = sortOrder; store.set(config.SORT_STORAGE_KEY, sortOrder); },
     getSortOrder() { return this.orderMode === 'manual' ? 'manual' : this.currentSortOrder; },
@@ -2336,9 +2338,11 @@ const DoneDepot = (() => {
     },
     record(ms) {
       const sec = Math.round(ms / 1000);
+      this.recFail = false;
       if (sec < 1) return false;
       const ok = DataManager.addFocusTime(this.st.id, sec);
-      if (ok) AppCore.refreshChecklistDisplay();
+      this.recFail = !ok;
+      AppCore.refreshChecklistDisplay();
       return ok;
     },
     start(id) {
@@ -2361,7 +2365,7 @@ const DoneDepot = (() => {
       this.save();
       this.render();
       const mins = fmtFocus(Math.round(spent / 1000));
-      const msg = 'Time is up: ' + s.text + '.' + (ok ? ' ' + mins + ' saved.' : '');
+      const msg = 'Time is up: ' + s.text + '.' + (ok ? ' ' + mins + ' saved.' : (this.recFail ? ' ' + mins + ' not saved.' : ''));
       UIManager.showAlert(msg, 'info', 8000);
       if (live) {
         this.playTone();
@@ -2407,7 +2411,7 @@ const DoneDepot = (() => {
       const ok = this.record(spent);
       const text = s.text;
       this.st = null; this.save(); this.render();
-      UIManager.showAlert('Stopped: ' + text + '.' + (ok ? ' ' + fmtFocus(Math.round(spent / 1000)) + ' saved.' : ''), 'info');
+      UIManager.showAlert('Stopped: ' + text + '.' + (ok ? ' ' + fmtFocus(Math.round(spent / 1000)) + ' saved.' : (this.recFail ? ' ' + fmtFocus(Math.round(spent / 1000)) + ' not saved.' : '')), 'info');
       UIManager.dom.quickInput.focus();
     },
     dismiss() {
@@ -2437,7 +2441,7 @@ const DoneDepot = (() => {
       D.focusExtendBtn.textContent = s.state === 'done' ? '+5 min' : '+5 min';
       if (s.state === 'running') D.focusNote.textContent = 'Ends at ' + new Date(s.endTs).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '.';
       else if (s.state === 'paused') D.focusNote.textContent = 'Spent: ' + (fmtFocus(Math.round(s.accMs / 1000)) || '0') + '.';
-      else D.focusNote.textContent = (s.recMs >= 1000 ? fmtFocus(Math.round(s.recMs / 1000)) + ' saved.' : 'Nothing saved.');
+      else D.focusNote.textContent = (s.recMs >= 1000 ? fmtFocus(Math.round(s.recMs / 1000)) + (this.recFail ? ' not saved.' : ' saved.') : 'Nothing saved.');
       if (s.state === 'done') document.title = 'Time is up - ' + this.origTitle;
       else if (s.state === 'paused') document.title = 'Paused - ' + this.origTitle;
       this.renderTime();
@@ -2493,6 +2497,7 @@ const DoneDepot = (() => {
       const snap = DataManager.snapshot();
       const result = mutate();
       view = view || {};
+      if (view.abortIfFalse && result === false) return result;
       this.refreshChecklistDisplay(view.newId || null, view.focusId || null, view.focusPart || null, view.justDoneId || null);
       UIManager.footbar.show({
         message,
@@ -2658,10 +2663,10 @@ const DoneDepot = (() => {
       D.exportCsvBtn.addEventListener('click', () => UIManager.downloadCsvExport());
       D.checklistNameInput.addEventListener('input', () => this.setUnsavedChanges(true));
       D.checklistNameInput.addEventListener('change', event => {
-        DataManager.setChecklistName(event.target.value);
-        UIManager.showChecklistNameSavedFeedback();
-        UIManager.announceToSR('Checklist name updated to ' + DataManager.getChecklistName());
-        this.setUnsavedChanges(false);
+        const nameSaved = DataManager.setChecklistName(event.target.value);
+        if (nameSaved) UIManager.showChecklistNameSavedFeedback();
+        UIManager.announceToSR('Checklist name updated to ' + DataManager.getChecklistName() + (nameSaved ? '' : '. Alert: not saved.'));
+        if (nameSaved) this.setUnsavedChanges(false);
       });
       /* import: read, validate, confirm, commit */
       D.importBtnTrigger.addEventListener('click', () => { UIManager.lastFocusedElement = document.activeElement; UIManager.triggerImportFile(); });
@@ -2711,8 +2716,7 @@ const DoneDepot = (() => {
       D.restoreSafetyBtn.hidden = !DataManager.hasSafetyCopy();
       D.restoreSafetyBtn.addEventListener('click', () => {
         if (!DataManager.hasSafetyCopy()) { D.restoreSafetyBtn.hidden = true; return; }
-        let ok = false;
-        this.commit('Restored the saved copy.', () => { ok = DataManager.restoreSafetyCopy(); });
+        const ok = this.commit('Restored the saved copy.', () => DataManager.restoreSafetyCopy(), { abortIfFalse: true });
         if (!ok) UIManager.showAlert('The saved copy could not be read. Nothing changed.', 'danger');
       });
       D.clearCompletedBtn.addEventListener('click', () => {

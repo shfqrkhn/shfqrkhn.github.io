@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" data-spoilers="hidden" style="--hue:178">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-z/xL6UoVkJmljsV8DhTaJFI/TNUpo1nfdBrq5+NmuKw='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-eyrciHsGPbaO/yxMjZo3adW6QOPtpL6e7uNCVVT/Was=' 'sha256-a2BptO0vCmw5qn9PAgG/Y5HgrHtz07kB+G+1ttcTfPQ='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F6F1E7">
 <meta name="app-version" content="1.2.2">
@@ -1141,7 +1141,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         if (isNaN(v) || v < 0) { v = 0; }
         schemaLocked = !migrate(v);
     })();
-    function lsDel(k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } }
+    function lsDel(k) { try { localStorage.removeItem(k); return true; } catch (e) { return false; } }
 
     document.addEventListener('DOMContentLoaded', mainInit);
 
@@ -1266,7 +1266,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         function clearTicks() {
             document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { c.checked = false; });
             updateBuildSummary();
-            saveTicks();
+            return saveTicks();
         }
 
         var undoClear = document.getElementById('undo-clear');
@@ -1279,19 +1279,20 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         function applyTicks(o) {
             document.querySelectorAll('input[type="checkbox"]').forEach(function (c) { c.checked = !!o[c.id]; });
             updateBuildSummary();
-            saveTicks();
+            return saveTicks();
         }
+        var NOSAVE = ' Not saved: this browser blocked storage.';
         resetChecklistButton.addEventListener('click', function () {
             clearSnap = snapTicks();
-            clearTicks();
+            var okClear = clearTicks();
             undoClear.hidden = Object.keys(clearSnap).length === 0;
-            document.getElementById('checklist-status').textContent = 'Cleared.';
+            document.getElementById('checklist-status').textContent = 'Cleared.' + (okClear ? '' : NOSAVE);
         });
         undoClear.addEventListener('click', function () {
-            if (clearSnap) { applyTicks(clearSnap); }
+            var okUndo = clearSnap ? applyTicks(clearSnap) : true;
             clearSnap = null;
             undoClear.hidden = true;
-            document.getElementById('checklist-status').textContent = 'Restored.';
+            document.getElementById('checklist-status').textContent = 'Restored.' + (okUndo ? '' : NOSAVE);
         });
 
         populateBuildChecklist();
@@ -1342,8 +1343,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         spoilerButtons.forEach(function (b) {
             b.addEventListener('click', function () {
                 var next = currentSpoilers() === 'shown' ? 'hidden' : 'shown';
-                lsSet(KS, next);
+                var okSp = lsSet(KS, next);
                 applySpoilers(next);
+                if (!okSp) { spoilerNote.textContent += NOSAVE; }
             });
         });
         applySpoilers(currentSpoilers());
@@ -1555,15 +1557,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
         undoDelete.addEventListener('click', function () {
             if (!delSnap) { return; }
             schemaLocked = false;
-            lsSet(KV, String(SCHEMA));
-            applyTicks(delSnap.ticks);
-            lsSet(KS, delSnap.spoilers);
+            var okUndoDel = lsSet(KV, String(SCHEMA));
+            if (!applyTicks(delSnap.ticks)) { okUndoDel = false; }
+            if (!lsSet(KS, delSnap.spoilers)) { okUndoDel = false; }
             applySpoilers(delSnap.spoilers);
             var lk = document.getElementById('look');
             if (lk) { lk.value = delSnap.look; lk.dispatchEvent(new Event('change')); }
             delSnap = null;
             undoDelete.hidden = true;
-            document.getElementById('help-status').textContent = 'Restored.';
+            document.getElementById('help-status').textContent = 'Restored.' + (okUndoDel ? '' : NOSAVE);
         });
         if (!schemaLocked && priorStamp && priorStamp !== stampNow()) {
             document.getElementById('schema-status').textContent = 'Saved with guide ' + priorStamp.split('/')[0] + '; this is ' + APP_VERSION + '. Your ticks were kept.';
@@ -1573,14 +1575,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
             var lk0 = document.getElementById('look');
             delSnap = { ticks: snapTicks(), spoilers: currentSpoilers(), look: lk0 ? lk0.value : 'auto' };
             clearTicks();
+            var okDel = true;
             var look = document.getElementById('look');
             if (look) { look.value = 'auto'; look.dispatchEvent(new Event('change')); }
-            lsDel(KL); lsDel(KT); lsDel(KS); lsDel(KV); lsDel(KW);
+            okDel = lsDel(KL) && okDel; okDel = lsDel(KT) && okDel; okDel = lsDel(KS) && okDel; lsDel(KV); lsDel(KW);
             schemaLocked = false;
             migrate(0);
             applySpoilers('hidden');
             undoDelete.hidden = false;
-            document.getElementById('help-status').textContent = 'Deleted.';
+            document.getElementById('help-status').textContent = 'Deleted.' + (okDel ? '' : NOSAVE);
         });
     }
 })();
