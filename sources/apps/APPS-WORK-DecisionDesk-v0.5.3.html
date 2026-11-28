@@ -6,7 +6,7 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F1E7" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1E1E1E" />
     <meta name="description" content="DecisionDesk Briefs: a decision briefing kept on this device. Question, ranked options, evidence, review and export." />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LZNcXVpvfuA+Nv77iot7TCcW7k3g4K0fe0A1EO2xR2w=' 'sha256-qRB7n77r7hU6YvGkIOI1ZkSlLXFjTW02l73n+py2dUE='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-LZNcXVpvfuA+Nv77iot7TCcW7k3g4K0fe0A1EO2xR2w=' 'sha256-OmvXK7CbGGA6jwRCPmwJUzfSMxpU3JpheCzkerKbQTQ='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
     <!-- Weight exception: this file is about 237 KB against a 100 KB tier. 41 KB is three embedded font subsets (headings and text, needed for the memo look), 7 KB is two icons, and the rest is the app and the two full licence texts. Recorded as an accepted exception; nothing was trimmed that would remove a licence text or a feature. -->
     <title>DecisionDesk Briefs</title>
     <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAACHElEQVRYCWNgGOmAEVsATC+N7/zPwFAGk3OTPcigzPeAgQrgHmMCgzKyOUzIHBgbaLkijE1lWgndPCZ0AXrzMRxw9epVNnVnH2dhLSOGtx++0tw9GA74/+/rdx4+QQFBaQWGDyycVHeAfrvdUZdFLnIwg1lgDBj948cPxrPrF68B8kOVeTDcBxSmDP39x2D17y+LOdCUR0DMwAQikPGXL5+/yJq7uCOL0ZKN4QBRMQURLh6OP7RKAzXKXxis+L8LwDyF4QBapwEtrt8Mperf4amb7mng67d/DAw//wEJSBhghMCXz7RNAz+6mRg+bPuvBrGeATMRiorTNg0wAP3+ZS/TC5gDMKIAmgYY/jKxAcuBMwzCMJVUpJl+/v0FMw7DAbQuB/4z/P/H95/5Fk4HwNLA45N7YGqoSjudv8KMbCBGIqR5GkC2HcjGiAJ6pAGgvXCE4QBapwG4zVAGRhTA0gBUnuYUhgNG08BoGnBw8uYDFkI7aZ76oBZgZEOQ+IPn75wE+RDtwfefWRn+szEcB8mRjf8zsP37jVm1YHXAvefvTpVm13vCLPvPyPj3HBOjCYxPDv3//z8mnjvbgMXwBBTtWB3w+++/ryIiKPUgUCMDCKNoJpXzQ90DqIUIB4jwcz7ev3v3W6BqMFLg+sgmwvX7I5gDJIA9JwYGEAGs24FcCBvEAImBMJQNY4LUMv77zSnycN9vkNQoRg4BAGKX15ME57AJAAAAAElFTkSuQmCC" />
@@ -2529,6 +2529,14 @@ const newWorkspace = guard("creating a workspace", async function newWorkspace()
   announce("Workspace created.");
 });
 
+const WORKSPACE_GONE_MSG = "This workspace no longer exists. It was reset in another tab. Reload.";
+async function workspaceExists(id) {
+  const tx = appState.db.transaction(["workspaces"], "readonly");
+  const rq = tx.objectStore("workspaces").get(id);
+  const row = await new Promise((resolve, reject) => { rq.onsuccess = () => resolve(rq.result); rq.onerror = () => reject(rq.error); });
+  return Boolean(row);
+}
+
 const newCase = guard("creating a case", async function newCase() {
   if (!appState.selectedWorkspaceId) {
     return;
@@ -2552,6 +2560,10 @@ const newCase = guard("creating a case", async function newCase() {
     updatedAt: nowIso()
   };
 
+  if (!(await workspaceExists(caseFile.workspaceId))) {
+    announce(WORKSPACE_GONE_MSG);
+    return;
+  }
   await putRecord("cases", caseFile);
   appState.selectedCaseId = caseFile.id;
   await refreshSelectorsAndCase();
@@ -3163,19 +3175,39 @@ function flushSaves() {
   const sent = new Map(pendingWrites);
   flushChain = flushChain
     .then(async () => {
-      const names = [...new Set(["cases", ...batch.map((b) => b.store)])];
+      const names = [...new Set(["cases", "criteria", "optionSets", ...batch.map((b) => b.store)])];
       const caseIds = [...new Set(batch.filter((b) => !b.del && b.row && b.row.caseId).map((b) => b.row.caseId))];
       const tx = appState.db.transaction(names, "readwrite");
       const done = txDone(tx);
       const missing = [];
+      const missingChild = [];
       let putError = null;
       const checks = caseIds.map((cid) => new Promise((resolve) => {
         const rq = tx.objectStore("cases").get(cid);
         rq.onsuccess = () => { if (!rq.result) missing.push(cid); resolve(); };
         rq.onerror = () => resolve();
       }));
+      // A rating needs its criterion and option; an edited criterion must still exist (no resurrected rows).
+      const need = new Set();
+      for (const b of batch) {
+        if (b.del || !b.row) continue;
+        if (b.store === "ratings") {
+          if (b.row.criterionId) need.add(`criteria:${b.row.criterionId}`);
+          if (b.row.optionId) need.add(`optionSets:${b.row.optionId}`);
+        } else if (b.store === "criteria") {
+          need.add(`criteria:${b.row.id}`);
+        }
+      }
+      for (const key of need) {
+        const at = key.indexOf(":");
+        checks.push(new Promise((resolve) => {
+          const rq = tx.objectStore(key.slice(0, at)).get(key.slice(at + 1));
+          rq.onsuccess = () => { if (!rq.result) missingChild.push(key); resolve(); };
+          rq.onerror = () => resolve();
+        }));
+      }
       Promise.all(checks).then(() => {
-        if (missing.length) {
+        if (missing.length || missingChild.length) {
           try { tx.abort(); } catch { /* already finished */ }
           return;
         }
@@ -3200,6 +3232,12 @@ function flushSaves() {
           e.caseGone = true;
           throw e;
         }
+        if (missingChild.length) {
+          for (const [key, val] of sent) if (pendingWrites.get(key) === val) pendingWrites.delete(key);
+          const e = new Error("This criterion or option no longer exists. It was removed in another tab. Reload.");
+          e.childGone = true;
+          throw e;
+        }
         throw error;
       }
       for (const [key, val] of sent) if (pendingWrites.get(key) === val) pendingWrites.delete(key);
@@ -3208,6 +3246,10 @@ function flushSaves() {
     .catch((error) => {
       if (error && error.caseGone) {
         announce(`Not saved: a rating or weight. ${CASE_GONE_MSG}`);
+        return false;
+      }
+      if (error && error.childGone) {
+        announce(`Not saved: a rating or weight. ${error.message}`);
         return false;
       }
       if (!captureQuotaError(error, "saving ratings")) {
@@ -3834,6 +3876,10 @@ const createFromTemplate = guard("creating a case from a template", async functi
   if (!(await flushSaves())) return;
   const ts = nowIso();
   const caseId = uid("case");
+  if (!(await workspaceExists(appState.selectedWorkspaceId))) {
+    announce(WORKSPACE_GONE_MSG);
+    return;
+  }
   const tx = appState.db.transaction(["cases", "optionSets", "criteria", "reviewMatrices", "journals"], "readwrite");
   try {
     tx.objectStore("cases").put({

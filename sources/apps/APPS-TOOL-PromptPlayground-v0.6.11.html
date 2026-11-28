@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#faf8f4" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-H+ggmsUotDvGQxF+EWxQmGOQl6zqA8YQ8F+AfD4HSso=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-aloAz5lDSUnfjrgfXiLiUZmv6+ziF0l/AWu8dlQBaJ4='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'sha256-lBM00+q4nTB+8ZCpQ5oa7WDf9cYAj+Fr6ltXJOCiKs4=' 'sha256-erVrGef87sDKKwYU5SC4d4jfgS+MBlDSpVPq0ayh3oE=' 'sha256-zHIajrNk+ZjpjImvQdkIR91d5IhZVqd/7vsEYoGa9ck=' 'sha256-lWz4ateq6GXgIBsMC4W8/tOtoUFJh7uUwAM6Lu3Gj/o=' 'sha256-WlmM9qCwlY5ukff8UGhhWPz3aW72RZuwEbKn6QqE9T0=' 'sha256-DqVT98Rzqy4A4W1jKxdUOaU6FBiUDtPxjZFxmh2wBBU=' 'sha256-n5zyne4Ic7cCeMYmeWCYLjIpD/Kzl3mKCCE8KBgYviI=' 'sha256-jo94yKih6TzbJz6a7y6cYiZgZkeAj3Wc84K8lXroK64=' 'sha256-DufTJaw5kmDfVHH0HNdMoUJnXFpvXW+t2mTO3k//CsE=' 'sha256-Bqp7RNZpfM4Zewxlh3QQrY3EPxSNrdLi0LZi7dWm3QA=' 'sha256-VS5RrFHV4YIZW3mu+RINBAfG+giZqneUumfexgEzLOs=' 'sha256-/gL92DO4qGgiaTMED31/uhFtZjNdwrQs957QoiPSt9I='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; worker-src blob:; frame-src 'none'; connect-src https://ai-gateway.vercel.sh https://api.cerebras.ai https://api.cloudflare.com https://api.deepinfra.com https://api.deepseek.com https://api.fireworks.ai https://api.groq.com https://api.minimax.io https://api.minimaxi.com https://api.mistral.ai https://api.openai.com https://api.perplexity.ai https://api.sambanova.ai https://api.together.ai https://api.x.ai https://dashscope-intl.aliyuncs.com https://dashscope.aliyuncs.com https://generativelanguage.googleapis.com https://integrate.api.nvidia.com https://openrouter.ai https://*.openai.azure.com http://localhost:* http://127.0.0.1:*" />
     <meta
       name="description"
       content="PromptPlayground AI Chat is a no-install BYOK AI studio for OpenAI-compatible endpoints and Gemini API keys."
@@ -4398,12 +4398,17 @@ function combineChat(mine, theirs, base, ctx) {
   const theirById = new Map(theirMessages.map((m) => [m.id, m]));
   const mineIds = new Set(mineMessages.map((m) => m.id));
   const mineOffIds = new Set((Array.isArray(mine.off) ? mine.off : []).map((m) => m.id));
+  const baseOffIds = new Set((Array.isArray(base.off) ? base.off : []).map((m) => m && m.id));
   const kept = [];
   let added = false;
   for (const message of mineMessages) {
     const theirMessage = theirById.get(message.id);
     const was = baseMessages.get(message.id);
-    if (!theirMessage && was !== undefined && was === JSON.stringify(message)) { ctx.changed = true; continue; }
+    if (!theirMessage && was !== undefined && was === JSON.stringify(message)) {
+      ctx.changed = true;
+      // If the other tab moved it to its older-branch list (edit and resend, or regenerate), it comes back from theirs.off below.
+      continue;
+    }
     if (theirMessage && was !== undefined && was === JSON.stringify(message) && JSON.stringify(theirMessage) !== was) {
       kept.push(structuredClone(theirMessage));
       ctx.changed = true;
@@ -4424,7 +4429,7 @@ function combineChat(mine, theirs, base, ctx) {
   const off = Array.isArray(mine.off) ? mine.off : [];
   const keptIds = new Set(kept.map((m) => m.id));
   for (const message of Array.isArray(theirs.off) ? theirs.off : []) {
-    if (!keptIds.has(message.id) && !mineOffIds.has(message.id) && !baseMessages.has(message.id)) {
+    if (!keptIds.has(message.id) && !mineOffIds.has(message.id) && !baseOffIds.has(message.id)) {
       off.push(structuredClone(message));
       ctx.changed = true;
     }
@@ -10508,7 +10513,7 @@ function isHttpLikePage() {
         if (o.prompts.length > 5000) throw new Error("The file holds more than 5000 prompts");
         list = o.prompts.map(function (p) { return clean(p, info); });
         var seen = {}; list.forEach(function (p) { if (has(seen, p.id)) throw new Error("Two prompts share one id"); seen[p.id] = 1; });
-      } catch (e) { say("Not restored: " + (e && e.message ? e.message : "the file could not be read") + ". Your library is unchanged.", true); return; }
+      } catch (e) { say("Not restored: " + (e instanceof SyntaxError ? "this file is not a valid saved library" : (e && e.message ? e.message : "the file could not be read")) + ". Your library is unchanged.", true); return; }
       ui.pending = list; say("");
       var ul = $("r-list"); ul.textContent = "";
       var arch = list.filter(function (p) { return p.archived; }).length, fr = list.filter(function (p) { return p.kind === "fragment"; }).length;

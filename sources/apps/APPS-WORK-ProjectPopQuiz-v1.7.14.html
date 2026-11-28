@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-NEsH6uwagrnBtBUbBRb+QYPkVcKyD6cUJUQqmtuzdAg='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-rwrnKYyI/UufV8VWZY0ILM4elaXIQgFr/9DB6itjfhw=' 'sha256-kFfcnBu5Ar2z4UOhtzQ1cYh1E8qb7Yb5UB93+pHsSAE='; worker-src blob:; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>ProjectPopQuiz Exams</title>
     <meta name="app-version" content="1.7.14">
     <script>
@@ -1148,7 +1148,9 @@ const PMQ_LOG = (() => {
         } catch (err) { events = []; }
     }
     let asked = false, unsaved = false;
-    function persist() {
+    let onExternal = null;
+    // Union the stored log into memory by event key. Returns false when storage cannot be read.
+    function pull() {
         try {
             const raw = localStorage.getItem(KEY);
             if (raw) {
@@ -1158,7 +1160,11 @@ const PMQ_LOG = (() => {
                     o.events.slice(0, MAX).forEach(e => { if (events.length < MAX && valid(e) && !seen.has(keyOf(e))) { seen.add(keyOf(e)); events.push(clean(e)); } });
                 }
             }
-        } catch (err) { /* keep what this tab holds */ }
+            return true;
+        } catch (err) { return false; /* keep what this tab holds */ }
+    }
+    function persist() {
+        pull();
         try { localStorage.setItem(KEY, JSON.stringify({ v: PMQ_SCHEMA, events })); } catch (err) { unsaved = true; return false; }
         unsaved = false;
         if (!asked) { asked = true; try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (err) { /* best effort */ } }
@@ -1180,8 +1186,16 @@ const PMQ_LOG = (() => {
         events = []; unsaved = false;
         return true;
     }
-    try { window.addEventListener('storage', e => { if (e.storageArea === localStorage && (e.key === null || (e.key === KEY && e.newValue === null))) events = []; }); } catch (err) { /* no storage events */ }
-    return Object.freeze({ KEY, MAX, valid, load, persist, add, merge, clear, unsaved: () => unsaved, all: () => events.slice(), size: () => events.length });
+    try {
+        window.addEventListener('storage', e => {
+            if (e.storageArea !== localStorage) return;
+            if (e.key === null || (e.key === KEY && e.newValue === null)) events = [];
+            else if (e.key === KEY) pull();
+            else if (e.key !== 'pmquiz.save') return;
+            if (onExternal) { try { onExternal(); } catch (err) { /* UI refresh is best effort */ } }
+        });
+    } catch (err) { /* no storage events */ }
+    return Object.freeze({ KEY, MAX, valid, load, persist, pull, onExternal: f => { onExternal = f; }, add, merge, clear, unsaved: () => unsaved, all: () => events.slice(), size: () => events.length });
 })();
 
 window.PMQ_API = Object.freeze({ fsrs: PMQ_FSRS, qid: pmqQid, domains: PMQ_DOMAINS, version: PMQ_APP_VERSION });
@@ -1545,7 +1559,9 @@ class QuizManager {
 
     _exportLog() {
         const st = this.dom.logStatus;
+        PMQ_LOG.pull();
         const events = PMQ_LOG.all();
+        this._refreshStudyPanel();
         if (!events.length) { st.textContent = 'Log is empty.'; return; }
         const env = { app: 'pm-certification-quiz', appVersion: PMQ_APP_VERSION, schemaVersion: PMQ_SCHEMA, exportedAt: new Date(nowMs()).toISOString(), data: { events } };
         const blob = new Blob([JSON.stringify(env, null, 1)], { type: 'application/json' });
@@ -1848,6 +1864,10 @@ class QuizManager {
         if (this.dom.reviewFilterFlagged) this.dom.reviewFilterFlagged.addEventListener('click', () => this._filterReview('flagged'));
         if (this.dom.flagBtn) this.dom.flagBtn.addEventListener('click', () => this.toggleFlag());
         if (this.dom.prevBtn) this.dom.prevBtn.addEventListener('click', () => this.prevQuestion());
+        PMQ_LOG.onExternal(() => {
+            try { if (this.dom.saveProgress) this.dom.saveProgress.checked = localStorage.getItem('pmquiz.save') === '1'; } catch (e) { /* storage blocked */ }
+            this._refreshStudyPanel();
+        });
         if (this.dom.saveProgress) {
             try { if (localStorage.getItem('pmquiz.save') === '1') this.dom.saveProgress.checked = true; } catch (e) { /* storage blocked */ }
             this.dom.saveProgress.addEventListener('change', () => {

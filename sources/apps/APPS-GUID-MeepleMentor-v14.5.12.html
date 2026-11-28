@@ -2,7 +2,7 @@
 <html lang="en" data-app data-look="auto" data-theme="paper" style="--hue:263">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-c8GBefX1zlNTJ2kW18rOLHHvjz31jBaqxfBAWJl51TE='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OLNfksGYPjVX5y0W1pFbufKgoryX6DM4I1eTsNoJR24=' 'sha256-+C3Wpw8OJtjjTmaCozVwHets9RQc3GgAWyDrVa7WCdA=' 'sha256-e3UW3JkxC1Ig1u8xL6jG39SVO2UV7PhZ4Iw15qbcrMM=' 'sha256-/S3gTQKvdF2cyISRGzmMcKeeVBf/ia/BF2s6p58xR3U=' 'sha256-6FFnlUUz+0u+Gw+HwGHfIwjcjXtDoa0c6GJwJMXWypk=' 'sha256-aNt6u/caEhuFlsFoSdUWOVzAZirSDFTbSW1Kac7HbpA='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <!-- MeepleMentor 14.5.12 (formerly Codex Ludus). Interface rebuild over the 14.3.0 data and logic. React 18.3.1 UMD (MIT). Source Serif 4 and Barlow Condensed subsets (OFL-1.1), embedded. No network requests. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#F6F1E7">
@@ -1213,7 +1213,16 @@ const useSafeStorage = (key, initial) => {
       let merged;
       if (cur.kind === "ok") merged = mergeShelf(base.current, data, cur.ids);
       else {
-        if (cur.kind === "bad" && cur.raw !== null && !(first && SHELF_RECOVERY)) localStorage.setItem(SHELF_KEY + "_backup_" + Date.now(), String(cur.raw).slice(0, 65536));
+        if (cur.kind === "bad" && cur.raw !== null && !(first && SHELF_RECOVERY)) {
+          localStorage.setItem(SHELF_KEY + "_backup_" + Date.now(), String(cur.raw).slice(0, 65536));
+          // Keep only the newest 3 backup copies.
+          try {
+            const pre = SHELF_KEY + "_backup_", ks = [];
+            for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.indexOf(pre) === 0) ks.push(k); }
+            ks.sort((a, b) => (Number(b.slice(pre.length)) || 0) - (Number(a.slice(pre.length)) || 0));
+            ks.slice(3).forEach(k => localStorage.removeItem(k));
+          } catch (pe) { /* pruning is best effort */ }
+        }
         merged = data.slice();
       }
       const text = JSON.stringify(merged);
